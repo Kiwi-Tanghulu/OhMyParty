@@ -42,12 +42,12 @@ namespace OMG.Network
 
         private void HandleLobbyMemberJoined(Lobby lobby, Friend friend)
         {
-            Debug.Log($"[Steamworks] Member Joined the Lobby");
+            Debug.Log($"[Steamworks] Member Joined the Lobby : {friend.Name}");
         }
 
         private void HandleLobbyMemberLeave(Lobby lobby, Friend friend)
         {
-            Debug.Log($"[Steamworks] Member Left the Lobby");
+            Debug.Log($"[Steamworks] Member Left the Lobby : {friend.Name}");
         }
 
         private void HandleLobbyInvite(Friend friend, Lobby lobby)
