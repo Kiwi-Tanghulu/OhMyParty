@@ -1,4 +1,7 @@
-public enum InputMapType
+namespace OMG.Input
 {
-
+    public enum InputMapType
+    {
+        Play,
+    }
 }

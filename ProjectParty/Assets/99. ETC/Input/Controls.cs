@@ -22,9 +22,85 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""Controls"",
-    ""maps"": [],
+    ""maps"": [
+        {
+            ""name"": ""Play"",
+            ""id"": ""593aa412-cc52-471e-9d90-9916145fd56d"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""5acc8888-625d-4dad-9e31-149436bf8ce1"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""75675e44-14c2-4410-bb87-606fbd96be39"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""c81c6d8f-7c04-4b2c-9e17-2d7e5381dd24"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""7d5b090a-d0e5-4122-a9f3-b89853aa1ad7"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""9f00458c-2540-4875-b6d8-3d5cd8dff197"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4ee20fd0-14fc-4552-be5d-ae7a58223f36"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        }
+    ],
     ""controlSchemes"": []
 }");
+        // Play
+        m_Play = asset.FindActionMap("Play", throwIfNotFound: true);
+        m_Play_Move = m_Play.FindAction("Move", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -81,5 +157,55 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public int FindBinding(InputBinding bindingMask, out InputAction action)
     {
         return asset.FindBinding(bindingMask, out action);
+    }
+
+    // Play
+    private readonly InputActionMap m_Play;
+    private List<IPlayActions> m_PlayActionsCallbackInterfaces = new List<IPlayActions>();
+    private readonly InputAction m_Play_Move;
+    public struct PlayActions
+    {
+        private @Controls m_Wrapper;
+        public PlayActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Play_Move;
+        public InputActionMap Get() { return m_Wrapper.m_Play; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+        }
+
+        private void UnregisterCallbacks(IPlayActions instance)
+        {
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+        }
+
+        public void RemoveCallbacks(IPlayActions instance)
+        {
+            if (m_Wrapper.m_PlayActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PlayActions @Play => new PlayActions(this);
+    public interface IPlayActions
+    {
+        void OnMove(InputAction.CallbackContext context);
     }
 }

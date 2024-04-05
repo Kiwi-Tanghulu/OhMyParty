@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputSO : ScriptableObject
+namespace OMG.Input
 {
-    public InputMapType inputMapType;
-
-    protected virtual void OnEnable()
+    public class InputSO : ScriptableObject
     {
-        Debug.Log($"Set InputSO : {inputMapType}");
+        public InputMapType inputMapType;
+
+        protected virtual void OnEnable()
+        {
+            Debug.Log($"Set InputSO : {inputMapType}");
+        }
     }
 }
