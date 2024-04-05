@@ -8,6 +8,8 @@ namespace OMG.Player
     {
         protected Player player;
 
-        public abstract void Init();
+        public abstract void InitActioningPlayer();
+
+        public abstract void UpdateActioningPlayer();
     }
 }

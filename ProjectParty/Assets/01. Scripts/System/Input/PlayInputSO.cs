@@ -22,7 +22,7 @@ namespace OMG.Input
         public void OnMove(InputAction.CallbackContext context)
         {
             OnMoveAction?.Invoke(context.ReadValue<Vector2>());
+            Debug.Log(context.ReadValue<Vector2>());
         }
     }
-
 }

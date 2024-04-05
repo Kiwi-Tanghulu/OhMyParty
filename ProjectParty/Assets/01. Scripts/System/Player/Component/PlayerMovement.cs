@@ -9,7 +9,7 @@ namespace OMG.Player
         [SerializeField] private float moveSpeed = 3f;
         private Vector3 moveDir;
 
-        public void SetMoveDir(Vector2 moveDir)
+        public void SetMoveDir(Vector3 moveDir)
         {
             this.moveDir = moveDir.normalized;
         }
@@ -17,6 +17,7 @@ namespace OMG.Player
         public void Move()
         {
             transform.position += moveDir * moveSpeed * Time.deltaTime;
+            Debug.Log("move player");
         }
     }
 }
