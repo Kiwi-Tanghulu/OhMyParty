@@ -2,6 +2,7 @@ using Netcode.Transports.Facepunch;
 using UnityEngine;
 using OMG.Network;
 using Unity.Netcode;
+using OMG.Minigames;
 
 namespace OMG
 {
@@ -18,6 +19,7 @@ namespace OMG
             }
 
             Instance = this;
+            InitSingleton();
         }
 
         private void Start()
@@ -29,6 +31,12 @@ namespace OMG
         {
             GuestManager.Instance?.Disconnect();
             HostManager.Instance?.Disconnect();    
+        }
+
+        private void InitSingleton()
+        {
+            SceneManager.Instance = gameObject.AddComponent<SceneManager>();
+            MinigameManager.Instance = gameObject.AddComponent<MinigameManager>();
         }
 
         private void InitNetwork()
