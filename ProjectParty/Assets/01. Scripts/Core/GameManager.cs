@@ -1,6 +1,7 @@
 using Netcode.Transports.Facepunch;
 using UnityEngine;
 using OMG.Network;
+using Unity.Netcode;
 
 namespace OMG
 {
@@ -34,7 +35,7 @@ namespace OMG
         {
             ClientManager.Instance = new ClientManager();
             HostManager.Instance = new HostManager();
-            GuestManager.Instance = new GuestManager(GetComponent<FacepunchTransport>());
+            GuestManager.Instance = new GuestManager(NetworkManager.Singleton.GetComponent<FacepunchTransport>());
         }
     }
 }
