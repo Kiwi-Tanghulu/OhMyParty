@@ -3,7 +3,7 @@ using Steamworks.Data;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace OMG
+namespace OMG.Network
 {
     public class HostManager
     {

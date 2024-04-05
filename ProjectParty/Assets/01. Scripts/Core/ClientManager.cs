@@ -1,25 +1,17 @@
-using Netcode.Transports.Facepunch;
 using Steamworks;
 using Steamworks.Data;
-using Unity.Netcode;
 using UnityEngine;
 
-namespace OMG
+namespace OMG.Network
 {
     public class ClientManager
     {
         public static ClientManager Instance = null;
 
-        private FacepunchTransport transport = null;
         public Lobby? CurrentLobby = null;
 
-        public ClientManager(FacepunchTransport transport)
+        public ClientManager()
         {
-            this.transport = transport;
-
-            // 로비에 참가했을 때 발행되는 이벤트
-            SteamMatchmaking.OnLobbyEntered += HandleLobbyEntered;
-
             // 로비에 멤버가 참가하거나 떠났을 때 발행되는 이벤트
             SteamMatchmaking.OnLobbyMemberJoined += HandleLobbyMemberJoined;
             SteamMatchmaking.OnLobbyMemberLeave += HandleLobbyMemberLeave;
@@ -36,8 +28,6 @@ namespace OMG
 
         ~ClientManager()
         {
-            SteamMatchmaking.OnLobbyEntered -= HandleLobbyEntered;
-
             SteamMatchmaking.OnLobbyMemberJoined -= HandleLobbyMemberJoined;
             SteamMatchmaking.OnLobbyMemberLeave -= HandleLobbyMemberLeave;
 
@@ -46,74 +36,9 @@ namespace OMG
             SteamMatchmaking.OnLobbyGameCreated -= HandleLobbyGameCreated;
 
             SteamFriends.OnGameLobbyJoinRequested -= HandleLobbyJoinRequested;
-
-            if(NetworkManager.Singleton == null)
-                return;
-            
-            NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
-            NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
         }
-
-        /// <summary>
-        /// 게스트로써 클라이언트를 시작
-        /// </summary>
-        public void StartClient(SteamId id)
-        {
-            NetworkManager networkManager = NetworkManager.Singleton;
-            networkManager.OnClientConnectedCallback += HandleClientConnected;
-            networkManager.OnClientDisconnectCallback += HandleClientDisconnect;
-
-            // 넷코드 클라이언트를 시작할 때 Facepunch 트랜스포트에 Steam ID 세팅
-            transport.targetSteamId = id;
-
-            if(networkManager.StartClient())
-            {
-                Debug.Log($"[Netcode] Client Started");
-            }
-        }
-
-        /// <summary>
-        /// 게스트 종료
-        /// </summary>
-        public void Disconnect()
-        {
-            CurrentLobby?.Leave();
-            
-            if(NetworkManager.Singleton == null)
-                return;
-            
-            NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
-            NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
-            NetworkManager.Singleton.Shutdown();
-
-            Debug.Log("[Network] Client Disconnected");
-        }
-
-        #region Netcode Callback
-
-        private void HandleClientConnected(ulong obj)
-        {
-            
-        }
-
-        private void HandleClientDisconnect(ulong obj)
-        {
-            
-        }
-
-        #endregion
 
         #region Steamworks Callback
-
-        private void HandleLobbyEntered(Lobby lobby)
-        {
-            // 로비에 참가했을 때 난 당연히 호스트이면 안 됨
-            if(NetworkManager.Singleton.IsHost)
-                return;
-
-            // 정상적으로 로비에 참가했다면 넷코드 클라이언트 시작
-            StartClient(CurrentLobby.Value.Owner.Id);
-        }
 
         private void HandleLobbyMemberJoined(Lobby lobby, Friend friend)
         {
