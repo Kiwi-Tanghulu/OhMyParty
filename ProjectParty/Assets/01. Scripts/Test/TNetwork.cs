@@ -1,5 +1,6 @@
 using Steamworks;
 using UnityEngine;
+using OMG.Network;
 
 namespace OMG.Test
 {
