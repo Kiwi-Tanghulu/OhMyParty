@@ -266,7 +266,6 @@ GameObject:
   m_Component:
   - component: {fileID: 106513382}
   - component: {fileID: 106513383}
-  - component: {fileID: 106513384}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -301,21 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1434b70fcff4436478a5ec1e17c01512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &106513384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106513381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44dd247a00edbfa44b77868d755af6ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  steamAppId: 480
-  targetSteamId: 0
-  userSteamId: 0
 --- !u!1 &157956977
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &164621618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,13 +711,14 @@ GameObject:
   m_Component:
   - component: {fileID: 330381370}
   - component: {fileID: 330381369}
+  - component: {fileID: 330381371}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: NetworkManager_Facepunch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &330381369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,7 +733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 106513384}
+    NetworkTransport: {fileID: 330381371}
     PlayerPrefab: {fileID: 0}
     Prefabs:
       NetworkPrefabsLists:
@@ -786,6 +771,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &330381371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330381368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44dd247a00edbfa44b77868d755af6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  steamAppId: 480
+  targetSteamId: 0
+  userSteamId: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,12 +1470,12 @@ GameObject:
   - component: {fileID: 1003452176}
   - component: {fileID: 1003452177}
   m_Layer: 0
-  m_Name: NetcodeTest
+  m_Name: LocalhostNetwork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1003452176
 Transform:
   m_ObjectHideFlags: 0
@@ -1619,12 +1619,12 @@ GameObject:
   - component: {fileID: 1792507779}
   - component: {fileID: 1792507781}
   m_Layer: 0
-  m_Name: NetworkManager
+  m_Name: NetworkManager_LocalHost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1792507779
 MonoBehaviour:
   m_ObjectHideFlags: 0
