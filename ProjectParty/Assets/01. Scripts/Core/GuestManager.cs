@@ -44,7 +44,7 @@ namespace OMG.Network
 
             if(networkManager.StartClient())
             {
-                Debug.Log($"[Netcode] Client Started");
+                Debug.Log($"[Netcode] Guest Started");
             }
         }
 
@@ -62,7 +62,7 @@ namespace OMG.Network
             NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
             NetworkManager.Singleton.Shutdown();
 
-            Debug.Log("[Network] Client Disconnected");
+            Debug.Log("[Network] Guest Disconnected");
         }
 
         #region Netcode Callback

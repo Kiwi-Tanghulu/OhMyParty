@@ -10,9 +10,18 @@ namespace OMG
 
         private void Awake()
         {
-            bool init = CreateSingleton();
-            if(init == false)
+            if(Instance != null)
+            {
+                Destroy(gameObject);
                 return;
+            }
+
+            Instance = this;
+        }
+
+        private void Start()
+        {
+            InitNetwork();
         }
 
         private void OnApplicationQuit()
@@ -21,21 +30,11 @@ namespace OMG
             HostManager.Instance?.Disconnect();    
         }
 
-        private bool CreateSingleton()
+        private void InitNetwork()
         {
-            if(Instance != null)
-            {
-                Destroy(gameObject);
-                return false;
-            }
-
-            Instance = this;
-
             ClientManager.Instance = new ClientManager();
             HostManager.Instance = new HostManager();
             GuestManager.Instance = new GuestManager(GetComponent<FacepunchTransport>());
-
-            return true;
         }
     }
 }
