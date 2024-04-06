@@ -9,6 +9,8 @@ namespace OMG.Player
         [SerializeField] private float moveSpeed = 3f;
         private Vector3 moveDir;
 
+        public Vector3 MoveDir => moveDir;
+
         public void SetMoveDir(Vector3 moveDir)
         {
             this.moveDir = moveDir.normalized;

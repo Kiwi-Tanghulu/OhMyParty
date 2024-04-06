@@ -9,8 +9,8 @@ namespace OMG.Player
         protected Player player;
 
         private Dictionary<Type, FSMState> states;
-        private FSMState currentState;
         [SerializeField] private FSMState startState;
+        [SerializeField] private FSMState currentState;
 
         public virtual void InitActioningPlayer(Player player)
         {
