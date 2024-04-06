@@ -35,24 +35,18 @@ namespace OMG.Player
         private IEnumerator TurnCo()
         {
             float t = 0f;
-            float start = transform.localEulerAngles.y;
-            float end = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
-
-            if (start > 180f)
-                start -= 360f;
-            if (end > 180f)
-                end -= 360f;
-            Debug.Log(end);
+            Quaternion start = transform.localRotation;
+            Quaternion end = Quaternion.AngleAxis(Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg, Vector3.up);
 
             while (1f - t > 0.1f)
             {
                 t += Time.deltaTime / turnTime;
-                transform.localEulerAngles = Vector3.up * Mathf.Lerp(start, end, t);
+                transform.localRotation = Quaternion.Lerp(start, end, t);
                 Debug.Log(transform.eulerAngles.y);
 
                 yield return null;
             }
-            transform.localRotation = Quaternion.Euler(0f, end, 0f);
+            transform.localRotation = end;
             Debug.Log(transform.eulerAngles.y);
         }
     }
