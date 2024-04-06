@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OMG.Lobbies
 {
-    public class LobbyReady : LobbyComponent
+    public class LobbyReadyComponent : LobbyComponent
     {
         public event Action OnLobbyReadyEvent = null;
 
@@ -29,7 +29,6 @@ namespace OMG.Lobbies
         {
             bool isLobbyReady = true;
             Lobby.ForEachPlayer(i => {
-                Debug.Log($"[Lobby] Player {i.clientID} Ready : {i.isReady}");
                 isLobbyReady &= i.isReady;
             });
 
@@ -38,6 +37,16 @@ namespace OMG.Lobbies
                 OnLobbyReadyEvent?.Invoke();
                 Debug.Log($"[Lobby] The Lobby is Ready");
             }
+        }
+
+        public void ClearLobbyReady()
+        {
+            Lobby.ForEachPlayer(i => {
+                Lobby.ChangePlayerData(i.clientID, playerData => {
+                    playerData.isReady = false;
+                    return playerData;
+                });
+            });
         }
     }
 }

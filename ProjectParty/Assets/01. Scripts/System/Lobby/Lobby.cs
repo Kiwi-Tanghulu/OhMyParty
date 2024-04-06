@@ -20,8 +20,8 @@ namespace OMG.Lobbies
         private void Awake()
         {
             LobbyComponent[] components = GetComponents<LobbyComponent>();
-            components.ForEach(i => i.Init(this));
             lobbyComponents = components.GetTypeDictionary();
+            components.ForEach(i => i.Init(this));
 
             players = new NetworkList<PlayerData>();
             lobbyState = new NetworkVariable<LobbyState>(LobbyState.Community);
