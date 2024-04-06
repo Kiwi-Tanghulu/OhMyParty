@@ -26,15 +26,17 @@ namespace OMG.Player
             anim.SetTrigger(hash);
         }
 
-        public void SetFloat(int hash, float value, bool lerping = false)
+        public void SetFloat(int hash, float value, bool lerping = false, float time = 1f)
         {
             if(lerping)
             {
-                anim.SetFloat(hash, value);
+                if(paramLerpingCo != null)
+                    StopCoroutine(paramLerpingCo);
+                paramLerpingCo = StartCoroutine(ParamLerpingCo(hash, value, time));
             }
             else
             {
-
+                anim.SetFloat(hash, value);
             }
         }
 
@@ -52,9 +54,19 @@ namespace OMG.Player
         public void InvokePlayingEvent() => OnPlayingEvent?.Invoke();   
         public void InvokeEndEvent() => OnEndEvent?.Invoke();   
 
-        private IEnumerator ParamLerpingCo(float dest)
+        private IEnumerator ParamLerpingCo(int hash, float end, float time)
         {
-            yield return null;
+            float start = anim.GetFloat(hash);
+            float t = 0f;
+
+            while(1f - t > 0.1f)
+            {
+                t += Time.deltaTime / time;
+                anim.SetFloat(hash, Mathf.Lerp(start, end, t));
+
+                yield return null;
+            }
+            anim.SetFloat(hash, end);
         }
     }
 }

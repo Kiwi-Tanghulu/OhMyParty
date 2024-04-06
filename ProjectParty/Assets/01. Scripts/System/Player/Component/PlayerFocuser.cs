@@ -1,70 +1,72 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerFocuser : MonoBehaviour
+namespace OMG.Player
 {
-    [SerializeField] Transform eyeTranform = null;
-    [SerializeField] LayerMask focusingLayer = 0;
-    [SerializeField] float distance = 1.5f;
-    [SerializeField] float radius = 0.5f;
-
-    private IFocusable focusedObject = null;
-    public IFocusable FocusedObject => focusedObject;
-
-    public bool IsEmpty => focusedObject == null;
-
-    public Vector3 FocusedPoint = Vector3.zero;
-
-    private void Awake()
+    public class PlayerFocuser : MonoBehaviour
     {
-        //eyeTranform = Camera.main.transform;
-    }
+        [SerializeField] Transform eyeTranform = null;
+        [SerializeField] LayerMask focusingLayer = 0;
+        [SerializeField] float distance = 1.5f;
+        [SerializeField] float radius = 0.5f;
 
-    private void Update()
-    {
-        IFocusable other = null;
-        Vector3 point = eyeTranform.position + eyeTranform.forward * distance;
+        private IFocusable focusedObject = null;
+        public IFocusable FocusedObject => focusedObject;
 
-        //bool rayResult = Physics.Raycast(eyeTranform.position, eyeTranform.forward, out RaycastHit hit, distance, focusingLayer);
-        Collider[] cols = Physics.OverlapSphere(eyeTranform.position + eyeTranform.forward * distance, radius, focusingLayer);
-        if (cols.Length > 0)
+        public bool IsEmpty => focusedObject == null;
+
+        public Vector3 FocusedPoint = Vector3.zero;
+
+        private void Awake()
         {
-            cols[0].TryGetComponent<IFocusable>(out other);
-            point = cols[0].transform.position;
+            //eyeTranform = Camera.main.transform;
         }
 
-        if (focusedObject != other)
-            FocusObject(other, point);
+        private void Update()
+        {
+            IFocusable other = null;
+            Vector3 point = eyeTranform.position + eyeTranform.forward * distance;
 
-        FocusedPoint = point;
-    }
+            //bool rayResult = Physics.Raycast(eyeTranform.position, eyeTranform.forward, out RaycastHit hit, distance, focusingLayer);
+            Collider[] cols = Physics.OverlapSphere(transform.position, radius, focusingLayer);
+            if (cols.Length > 0)
+            {
+                //hit.collider.TryGetComponent<IFocusable>(out other);
+                //point = hit.point;
 
-    private void FocusObject(IFocusable other, Vector3 point)
-    {
-        focusedObject?.OnFocusEnd();
-        focusedObject = other;
-        focusedObject?.OnFocusBegin(point);
-    }
+                cols[0].TryGetComponent<IFocusable>(out other);
+                point = cols[0].transform.position;
+            }
+
+            if (focusedObject != other)
+                FocusObject(other, point);
+
+            FocusedPoint = point;
+        }
+
+        private void FocusObject(IFocusable other, Vector3 point)
+        {
+            focusedObject?.OnFocusEnd();
+            focusedObject = other;
+            focusedObject?.OnFocusBegin(point);
+        }
 
 #if UNITY_EDITOR
-    [Space(15f)]
-    [SerializeField] bool gizmo = false;
+        [Space(15f)]
+        [SerializeField] bool gizmo = false;
 
-    private void OnDrawGizmos()
-    {
-        if (gizmo == false)
-            return;
+        private void OnDrawGizmos()
+        {
+            if (gizmo == false)
+                return;
 
-        if (eyeTranform == null)
-            return;
+            if (eyeTranform == null)
+                return;
 
-        Vector3 end = eyeTranform.position + eyeTranform.forward * distance;
-        Collider[] cols = Physics.OverlapSphere(eyeTranform.position + eyeTranform.forward * distance, radius, focusingLayer);
-        if (cols.Length > 0)
-            end = cols[0].transform.position;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(end, radius);
-    }
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, radius);
+        }
 #endif
+    }
+
 }
