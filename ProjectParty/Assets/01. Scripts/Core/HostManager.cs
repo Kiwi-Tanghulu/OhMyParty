@@ -1,3 +1,4 @@
+using System;
 using Steamworks;
 using Steamworks.Data;
 using Unity.Netcode;
@@ -23,6 +24,7 @@ namespace OMG.Network
                 return;
 
             NetworkManager.Singleton.OnServerStarted -= HandleServerStarted;
+            NetworkManager.Singleton.ConnectionApprovalCallback -= HandleConnectionApproval;
         }
 
         /// <summary>
@@ -32,6 +34,7 @@ namespace OMG.Network
         {
             NetworkManager networkManager = NetworkManager.Singleton;
             networkManager.OnServerStarted += HandleServerStarted;
+            networkManager.ConnectionApprovalCallback += HandleConnectionApproval;
             networkManager.StartHost();
 
             ClientManager.Instance.CurrentLobby = await SteamMatchmaking.CreateLobbyAsync(maxMember);
@@ -56,6 +59,12 @@ namespace OMG.Network
         private void HandleServerStarted()
         {
             Debug.Log($"[Netcode] Host Started");
+        }
+
+        private void HandleConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+        {
+            response.Approved = true;
+            response.CreatePlayerObject = false;
         }
 
         #endregion

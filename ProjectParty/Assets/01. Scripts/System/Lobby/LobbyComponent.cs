@@ -1,8 +1,8 @@
-using UnityEngine;
+using Unity.Netcode;
 
 namespace OMG.Lobbies
 {
-    public abstract class LobbyComponent : MonoBehaviour
+    public abstract class LobbyComponent : NetworkBehaviour
     {
         public Lobby Lobby { get; private set; } = null;
 

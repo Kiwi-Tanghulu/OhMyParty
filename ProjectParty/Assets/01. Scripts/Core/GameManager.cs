@@ -19,6 +19,8 @@ namespace OMG
             }
 
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+
             InitSingleton();
         }
 

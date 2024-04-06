@@ -10,7 +10,7 @@ namespace OMG.Minigames
 
         public void StartMinigame(Minigame minigame)
         {
-            SceneManager.Instance.LoadSceneAsync(SceneType.MinigameScene, false, () => {
+            SceneManager.Instance.LoadScene(SceneType.MinigameScene, false, () => {
                 CurrentMinigame = Instantiate(minigame);
                 CurrentMinigame.NetworkObject.Spawn(true);
 
@@ -23,7 +23,7 @@ namespace OMG.Minigames
             // Destroy(CurrentMinigame);
             CurrentMinigame = null;
 
-            SceneManager.Instance.LoadSceneAsync(SceneType.LobbyScene, false, () => {
+            SceneManager.Instance.LoadScene(SceneType.LobbyScene, false, () => {
                 // lobby setting
                 // settled result
             });

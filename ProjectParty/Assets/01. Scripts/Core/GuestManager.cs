@@ -79,7 +79,6 @@ namespace OMG.Network
 
         #endregion
 
-
         #region Steamworks Callback
         
         private void HandleLobbyEntered(Lobby lobby)
