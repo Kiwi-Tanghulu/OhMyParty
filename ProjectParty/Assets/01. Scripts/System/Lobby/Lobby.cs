@@ -45,7 +45,25 @@ namespace OMG.Lobbies
         }
 
         public T GetLobbyComponent<T>() where T : LobbyComponent => lobbyComponents[typeof(T)] as T;
-        public bool GetPlayerData(ulong clientID, out PlayerData playerData)
+        
+        public void ChangePlayerData(ulong clientID, Func<PlayerData, PlayerData> process)
+        {
+            int playerIndex = GetPlayerData(clientID, out PlayerData playerData);
+            if(playerIndex == -1)
+                return;
+
+            PlayerData changedData = process.Invoke(playerData);
+            players[playerIndex] = changedData;
+            players.SetDirty(true);
+        }
+
+        public void ForEachPlayer(Action<PlayerData> callback)
+        {
+            for(int i = 0; i < players.Count; ++i)
+                callback.Invoke(players[i]);
+        }
+
+        public int GetPlayerData(ulong clientID, out PlayerData playerData)
         {
             playerData = default;
 
@@ -54,11 +72,11 @@ namespace OMG.Lobbies
                 if(players[i].clientID == clientID)
                 {
                     playerData = players[i];
-                    return true;
+                    return i;
                 }
             }
 
-            return false;
+            return -1;
         }
     }
 }
