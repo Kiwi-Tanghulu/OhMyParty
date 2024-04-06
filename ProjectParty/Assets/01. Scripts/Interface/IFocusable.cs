@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public interface IFocusable
+namespace OMG.Interacting
 {
-    public GameObject CurrentObject { get; }
+    public interface IFocusable
+    {
+        public GameObject CurrentObject { get; }
 
-    public void OnFocusBegin(Vector3 point);
-    public void OnFocusEnd();
+        public void OnFocusBegin(Vector3 point);
+        public void OnFocusEnd();
+    }
 }

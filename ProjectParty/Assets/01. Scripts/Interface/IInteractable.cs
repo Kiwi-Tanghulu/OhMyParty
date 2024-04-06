@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IInteractable
+namespace OMG.Interacting
 {
-    public bool Interact(Component performer, bool actived, Vector3 point = default);
+    public interface IInteractable
+    {
+        public bool Interact(Component performer, bool actived, Vector3 point = default);
+    }
 }

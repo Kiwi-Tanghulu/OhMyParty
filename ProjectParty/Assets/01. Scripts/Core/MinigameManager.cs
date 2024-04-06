@@ -21,7 +21,7 @@ namespace OMG.Minigames
 
         public void FinishMinigame()
         {
-            Destroy(CurrentMinigame.gameObject);
+            CurrentMinigame.NetworkObject.Despawn(true);
             CurrentMinigame = null;
 
             OnMinigameFinishEvent?.Invoke();

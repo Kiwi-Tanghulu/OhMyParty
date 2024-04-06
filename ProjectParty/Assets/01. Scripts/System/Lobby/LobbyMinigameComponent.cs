@@ -18,7 +18,7 @@ namespace OMG.Lobbies
         {
             base.Init(lobby);
             readyComponent = Lobby.GetLobbyComponent<LobbyReadyComponent>();
-            readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
+            // readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
         }
 
         private void Start()

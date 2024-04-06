@@ -1,4 +1,5 @@
 using OMG.Input;
+using OMG.Interacting;
 using UnityEngine;
 
 namespace OMG.Player
