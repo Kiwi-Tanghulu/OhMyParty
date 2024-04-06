@@ -9,12 +9,16 @@ namespace OMG.Player
     {
         [SerializeField] private PlayInputSO input;
 
+        private int moveSpeedAnimHash = Animator.StringToHash("moveSpeed");
+
         public override void EnterState()
         {
             base.EnterState();
 
             input.OnMoveEvent += SetMoveDir;
             movement.SetMoveDir(Vector3.zero);
+
+            anim.SetFloat(moveSpeedAnimHash, 0f, true, 0.1f);
         }
 
         public override void ExitState()

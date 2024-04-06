@@ -23,8 +23,8 @@ namespace OMG.Input
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            OnMoveEvent?.Invoke(context.ReadValue<Vector2>());
-            Debug.Log(context.ReadValue<Vector2>());
+            if(context.performed || context.canceled)
+                OnMoveEvent?.Invoke(context.ReadValue<Vector2>());
         }
 
         public void OnInteract(InputAction.CallbackContext context)
