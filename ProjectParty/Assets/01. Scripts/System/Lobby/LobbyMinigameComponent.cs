@@ -11,6 +11,8 @@ namespace OMG.Lobbies
         [SerializeField] int playCount = 3;
         [SerializeField] Minigame[] minigames = null;
 
+        private Minigame currentMinigame = null;
+
         private LobbyReadyComponent readyComponent = null;
         private int loopedCount = 0;
 
@@ -26,25 +28,25 @@ namespace OMG.Lobbies
             MinigameManager.Instance.OnMinigameFinishEvent += HandleMinigameFinish;
         }
 
-        private void HandleLobbyReady()
-        {
-            switch (Lobby.LobbyState)
-            {
-                case LobbyState.Community: // Start Minigame
-                    loopedCount = 0;
-                    Lobby.ChangeLobbyState(LobbyState.Minigame);
-                    StartMinigame();
-                    break;
-                case LobbyState.Minigame:
-                    loopedCount++;
-                    if(loopedCount >= playCount)
-                        return;
-                    StartMinigame();
-                    break;
-            }
-        }
+        // public void HandleLobbyReady()
+        // {
+        //     switch (Lobby.LobbyState)
+        //     {
+        //         case LobbyState.Community: // Start Minigame
+        //             loopedCount = 0;
+        //             Lobby.ChangeLobbyState(LobbyState.Minigame);
+        //             StartMinigame();
+        //             break;
+        //         case LobbyState.Minigame:
+        //             loopedCount++;
+        //             if(loopedCount >= playCount)
+        //                 return;
+        //             StartMinigame();
+        //             break;
+        //     }
+        // }
 
-        private void StartMinigame()
+        public void StartMinigame()
         {
             readyComponent.ClearLobbyReady();
             MinigameManager.Instance.StartMinigame(minigames.PickRandom());
@@ -55,6 +57,12 @@ namespace OMG.Lobbies
         private void HandleMinigameFinish()
         {
             Lobby.SetActive(true);
+        }
+
+        public Minigame SelectMinigame()
+        {
+            currentMinigame = minigames.PickRandom();
+            return currentMinigame;
         }
     }
 }

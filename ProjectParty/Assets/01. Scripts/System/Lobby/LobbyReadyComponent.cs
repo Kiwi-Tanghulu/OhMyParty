@@ -34,7 +34,7 @@ namespace OMG.Lobbies
 
             if(isLobbyReady)
             {
-                OnLobbyReadyEvent?.Invoke();
+                HandleLobbyReadyClientRpc();
                 Debug.Log($"[Lobby] The Lobby is Ready");
             }
         }
@@ -47,6 +47,12 @@ namespace OMG.Lobbies
                     return playerData;
                 });
             });
+        }
+
+        [ClientRpc]
+        private void HandleLobbyReadyClientRpc()
+        {
+            OnLobbyReadyEvent?.Invoke();
         }
     }
 }
