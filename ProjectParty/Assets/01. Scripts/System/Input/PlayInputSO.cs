@@ -8,7 +8,8 @@ namespace OMG.Input
     [CreateAssetMenu(menuName = "SO/PlayInputSO")]
     public class PlayInputSO : InputSO, IPlayActions
     {
-        public Action<Vector2> OnMoveAction;
+        public Action<Vector2> OnMoveEvent;
+        public Action<bool> OnInteractEvent;
 
         protected override void OnEnable()
         {
@@ -21,8 +22,16 @@ namespace OMG.Input
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            OnMoveAction?.Invoke(context.ReadValue<Vector2>());
+            OnMoveEvent?.Invoke(context.ReadValue<Vector2>());
             Debug.Log(context.ReadValue<Vector2>());
+        }
+
+        public void OnInteract(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                OnInteractEvent?.Invoke(true);
+            else if(context.canceled)
+                OnInteractEvent?.Invoke(false);
         }
     }
 }
