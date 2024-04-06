@@ -1,5 +1,4 @@
 using System;
-using OMG.Player;
 using Unity.Netcode;
 using UnityEngine;
 

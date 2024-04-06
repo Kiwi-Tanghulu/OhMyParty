@@ -6,11 +6,16 @@ using UnityEngine;
 
 namespace OMG.Lobbies
 {
-    public class Lobby : NetworkBehaviour
+    public partial class Lobby : NetworkBehaviour
     {
         private Dictionary<Type, LobbyComponent> lobbyComponents = null;
 
         private NetworkList<PlayerData> players = null;
+
+        private NetworkVariable<LobbyState> lobbyState = null;
+        public LobbyState LobbyState => lobbyState.Value;
+
+        public event Action<LobbyState> OnLobbyStateChangedEvent = null;
 
         private void Awake()
         {
@@ -19,6 +24,8 @@ namespace OMG.Lobbies
             lobbyComponents = components.GetTypeDictionary();
 
             players = new NetworkList<PlayerData>();
+            lobbyState = new NetworkVariable<LobbyState>(LobbyState.Community);
+            lobbyState.OnValueChanged += HandleLobbyStateChanged;
         }
 
         private void Start()
@@ -44,39 +51,19 @@ namespace OMG.Lobbies
             // something
         }
 
-        public T GetLobbyComponent<T>() where T : LobbyComponent => lobbyComponents[typeof(T)] as T;
-        
-        public void ChangePlayerData(ulong clientID, Func<PlayerData, PlayerData> process)
+        public void ChangeLobbyState(LobbyState state)
         {
-            int playerIndex = GetPlayerData(clientID, out PlayerData playerData);
-            if(playerIndex == -1)
+            if(NetworkManager.Singleton.IsHost == false)
                 return;
-
-            PlayerData changedData = process.Invoke(playerData);
-            players[playerIndex] = changedData;
-            players.SetDirty(true);
+            
+            lobbyState.Value = state;
         }
 
-        public void ForEachPlayer(Action<PlayerData> callback)
+        public T GetLobbyComponent<T>() where T : LobbyComponent => lobbyComponents[typeof(T)] as T;
+    
+        private void HandleLobbyStateChanged(LobbyState previousValue, LobbyState newValue)
         {
-            for(int i = 0; i < players.Count; ++i)
-                callback.Invoke(players[i]);
-        }
-
-        public int GetPlayerData(ulong clientID, out PlayerData playerData)
-        {
-            playerData = default;
-
-            for(int i = 0; i < players.Count; ++i)
-            {
-                if(players[i].clientID == clientID)
-                {
-                    playerData = players[i];
-                    return i;
-                }
-            }
-
-            return -1;
+            OnLobbyStateChangedEvent?.Invoke(newValue);
         }
     }
 }
