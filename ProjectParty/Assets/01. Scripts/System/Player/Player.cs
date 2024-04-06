@@ -8,7 +8,7 @@ namespace OMG.Player
     public class Player : MonoBehaviour
     {
         private ActioningPlayer actioningPlayer;
-        public TestActioningPlayer test;//tset
+        public ActioningPlayer test;//tset
 
         private void Start()
         {
@@ -20,12 +20,12 @@ namespace OMG.Player
         public void SetActioningPlayer(ActioningPlayer newActioningPlayer)
         {
             actioningPlayer = Instantiate(newActioningPlayer, transform);
-            actioningPlayer.InitActioningPlayer();
+            actioningPlayer.InitActioningPlayer(this);
         }
 
         private void Update()
         {
-            actioningPlayer.UpdateActioningPlayer();
+            actioningPlayer?.UpdateActioningPlayer();
         }
     }
 }
