@@ -13,24 +13,18 @@ namespace OMG.Minigames
 
         public void StartMinigame(Minigame minigame)
         {
-            // SceneManager.Instance.LoadScene(SceneType.MinigameScene, false, () => {
-            // });
-                CurrentMinigame = Instantiate(minigame);
-                CurrentMinigame.NetworkObject.Spawn(true);
+            CurrentMinigame = Instantiate(minigame);
+            CurrentMinigame.NetworkObject.Spawn(true);
 
-                CurrentMinigame.StartGame();
+            CurrentMinigame.StartGame();
         }
 
         public void FinishMinigame()
         {
-            // Destroy(CurrentMinigame);
-            OnMinigameFinishEvent?.Invoke();
+            Destroy(CurrentMinigame.gameObject);
             CurrentMinigame = null;
 
-            // SceneManager.Instance.LoadScene(SceneType.LobbyScene, false, () => {
-            //     // lobby setting
-            //     // settled result
-            // });
+            OnMinigameFinishEvent?.Invoke();
         }
     }
 }
