@@ -42,7 +42,7 @@ namespace OMG.Lobbies
                 return;
 
             CreatePlayer(playerData);
-            Debug.Log(players.Count);
+            Debug.Log($"[Lobby] Player Created ID : {playerData.clientID}");
         }
 
         private void CreatePlayer(PlayerData playerData)
