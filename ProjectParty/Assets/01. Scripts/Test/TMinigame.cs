@@ -5,11 +5,11 @@ namespace OMG.Test
 {
     public class TMinigame : MonoBehaviour
     {
-        [SerializeField] Minigame minigame;
+        [SerializeField] MinigameSO minigameData;
 
         public void StartMinigame()
         {
-            MinigameManager.Instance.StartMinigame(minigame);
+            MinigameManager.Instance.StartMinigame(minigameData);
         }
     }
 }

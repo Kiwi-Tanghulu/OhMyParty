@@ -9,6 +9,7 @@ namespace OMG.Input
     public class UIInputSO : InputSO, IUIActions
     {
         public event Action OnSpaceEvent = null;
+        public event Action OnInteractEvent = null;
 
         protected override void OnEnable()
         {
@@ -23,6 +24,12 @@ namespace OMG.Input
         {
             if(context.performed)
                 OnSpaceEvent?.Invoke();
+        }
+
+        public void OnInteract(InputAction.CallbackContext context)
+        {
+            if(context.performed)
+                OnInteractEvent?.Invoke();
         }
     }
 }

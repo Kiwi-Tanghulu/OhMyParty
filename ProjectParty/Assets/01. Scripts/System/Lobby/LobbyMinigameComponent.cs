@@ -1,26 +1,21 @@
 using System;
 using OMG.Minigames;
-using Steamworks.Data;
 using Unity.Netcode;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace OMG.Lobbies
 {
     public class LobbyMinigameComponent : LobbyComponent
     {
-        [SerializeField] int playCount = 3;
-        [SerializeField] Minigame[] minigames = null;
+        [SerializeField] MinigameListSO minigameList = null;
 
-        private Minigame currentMinigame = null;
-
-        private LobbyReadyComponent readyComponent = null;
-        private int loopedCount = 0;
+        public event Action<int> OnMinigameSelectedEvent = null;
+        private MinigameSO currentMinigame = null;
 
         public override void Init(Lobby lobby)
         {
             base.Init(lobby);
-            readyComponent = Lobby.GetLobbyComponent<LobbyReadyComponent>();
-            // readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
         }
 
         private void Start()
@@ -28,29 +23,30 @@ namespace OMG.Lobbies
             MinigameManager.Instance.OnMinigameFinishEvent += HandleMinigameFinish;
         }
 
-        // public void HandleLobbyReady()
-        // {
-        //     switch (Lobby.LobbyState)
-        //     {
-        //         case LobbyState.Community: // Start Minigame
-        //             loopedCount = 0;
-        //             Lobby.ChangeLobbyState(LobbyState.Minigame);
-        //             StartMinigame();
-        //             break;
-        //         case LobbyState.Minigame:
-        //             loopedCount++;
-        //             if(loopedCount >= playCount)
-        //                 return;
-        //             StartMinigame();
-        //             break;
-        //     }
-        // }
+        public void StartMinigameSelecting()
+        {
+            if(IsHost == false)
+                return;
+
+            Lobby.ChangeLobbyState(LobbyState.MinigameSelecting);
+        }
+
+        public void SelectMinigame()
+        {
+            if (IsHost == false)
+                return;
+
+            Lobby.ChangeLobbyState(LobbyState.MinigameSelected);
+
+            int index = Random.Range(0, minigameList.Count);
+            currentMinigame = minigameList[index];
+
+            BroadcastMinigameSelectedClientRpc(index);
+        }
 
         public void StartMinigame()
         {
-            readyComponent.ClearLobbyReady();
-            MinigameManager.Instance.StartMinigame(minigames.PickRandom());
-
+            MinigameManager.Instance.StartMinigame(currentMinigame);
             Lobby.SetActive(false);
         }
 
@@ -59,10 +55,10 @@ namespace OMG.Lobbies
             Lobby.SetActive(true);
         }
 
-        public Minigame SelectMinigame()
+        [ClientRpc]
+        private void BroadcastMinigameSelectedClientRpc(int index)
         {
-            currentMinigame = minigames.PickRandom();
-            return currentMinigame;
+            OnMinigameSelectedEvent?.Invoke(index);
         }
     }
 }

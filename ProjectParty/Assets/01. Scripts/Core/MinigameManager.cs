@@ -11,9 +11,9 @@ namespace OMG.Minigames
 
         public event Action OnMinigameFinishEvent = null;
 
-        public void StartMinigame(Minigame minigame)
+        public void StartMinigame(MinigameSO minigameData)
         {
-            CurrentMinigame = Instantiate(minigame);
+            CurrentMinigame = Instantiate(minigameData.MinigamePrefab);
             CurrentMinigame.NetworkObject.Spawn(true);
 
             CurrentMinigame.StartGame();
