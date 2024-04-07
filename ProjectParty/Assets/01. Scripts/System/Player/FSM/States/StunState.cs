@@ -7,6 +7,7 @@ namespace OMG.Player
     public class StunState : FSMState
     {
         private PlayerRagdoll ragdoll;
+        private PlayerHealth health;
 
         private int stunAnimHash = Animator.StringToHash("stun");
 
@@ -14,6 +15,7 @@ namespace OMG.Player
         {
             base.InitState(actioningPlayer);
 
+            health = actioningPlayer.GetComponent<PlayerHealth>();
             ragdoll = actioningPlayer.transform.Find("Visual").GetComponent<PlayerRagdoll>();
         }
 
@@ -22,16 +24,14 @@ namespace OMG.Player
             base.EnterState();
 
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0);
-            anim.SetBool(stunAnimHash, true);
 
             ragdoll.SetActive(true);
+            ragdoll.AddForce(health.Damage * health.HitDir, ForceMode.Impulse);
         }
 
         public override void ExitState()
         {
             base.ExitState();
-
-            anim.SetBool(stunAnimHash, false);
 
             ragdoll.SetActive(false);
         }

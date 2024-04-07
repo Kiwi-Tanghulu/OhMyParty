@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RecoveryState : MonoBehaviour
+namespace OMG.Player
 {
-    // Start is called before the first frame update
-    void Start()
+    public class RecoveryState : FSMState
     {
-        
-    }
+        private PlayerRagdoll ragdoll;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int recoveryAnimHash = Animator.StringToHash("recovery");
+        int recoveryDirAnimHash = Animator.StringToHash("recoveryDir");
+
+        public override void InitState(ActioningPlayer actioningPlayer)
+        {
+            base.InitState(actioningPlayer);
+
+            ragdoll = anim.GetComponent<PlayerRagdoll>();
+        }
+
+        public override void EnterState()
+        {
+            base.EnterState();
+
+            anim.SetTrigger(recoveryAnimHash);
+            anim.SetInt(recoveryDirAnimHash, (int)Mathf.Sign(ragdoll.HipTrm.forward.y));
+        }
     }
 }

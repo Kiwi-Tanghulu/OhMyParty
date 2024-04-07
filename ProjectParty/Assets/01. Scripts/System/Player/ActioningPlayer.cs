@@ -30,7 +30,7 @@ namespace OMG.Player
             if (startState == null)
                 Debug.Log("시작 스테이트 설정 안 됨");
             else
-                ChangeState(startState.GetType());
+                ChangeState(startState);
         }
 
         public virtual void UpdateActioningPlayer()
@@ -38,16 +38,16 @@ namespace OMG.Player
             currentState?.UpdateState();
         }
 
-        public void ChangeState(Type type)
+        public void ChangeState(FSMState state)
         {
-            if(!states.ContainsKey(type))
+            if (!states.ContainsValue(state))
             {
-                Debug.Log($"not exist : {type}");
+                Debug.Log($"not exist : {state}");
                 return;
             }
 
             currentState?.ExitState();
-            currentState = states[type];
+            currentState = state;
             currentState.EnterState();
         }
     }

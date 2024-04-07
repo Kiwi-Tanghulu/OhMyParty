@@ -15,6 +15,14 @@ namespace OMG.Player
 
         public Vector3 MoveDir => moveDir;
 
+        private CharacterController controller;
+        public CharacterController Controller => controller;
+
+        private void Awake()
+        {
+            controller = GetComponent<CharacterController>();
+        }
+
         public void SetMoveDir(Vector3 moveDir)
         {
             this.moveDir = moveDir.normalized;
@@ -29,7 +37,7 @@ namespace OMG.Player
 
         public void Move()
         {
-            transform.position += moveDir * moveSpeed * Time.deltaTime;
+            controller.Move(moveDir * moveSpeed * Time.deltaTime);
         }
 
         private IEnumerator TurnCo()

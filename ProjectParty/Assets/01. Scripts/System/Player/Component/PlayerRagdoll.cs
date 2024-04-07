@@ -7,12 +7,19 @@ namespace OMG.Player
     public class PlayerRagdoll : MonoBehaviour
     {
         [SerializeField] private Transform hipTrm;
-        private Animator anim;
         private List<Rigidbody> rbList;
+        private Rigidbody hipRb;
+        private Animator anim;
+        private PlayerMovement movement;
+
+        public Transform HipTrm => hipTrm;
+        public Rigidbody HipRb => hipRb;
 
         private void Awake()
         {
             anim = GetComponent<Animator>();
+            movement = transform.parent.GetComponent<PlayerMovement>();
+            hipRb = hipTrm.GetComponent<Rigidbody>();
 
             rbList = new List<Rigidbody>();
             GetRigidbody(hipTrm);
@@ -21,6 +28,7 @@ namespace OMG.Player
         public void SetActive(bool value)
         {
             anim.enabled = !value;
+            movement.Controller.enabled = !value;
 
             for(int i = 0; i < rbList.Count; i++)
             {
@@ -28,6 +36,11 @@ namespace OMG.Player
                 if (value)
                     rbList[i].velocity = Vector3.zero;
             }
+        }
+
+        public void AddForce(Vector3 power, ForceMode mode)
+        {
+            hipRb.AddForce(power, mode);
         }
 
         private void GetRigidbody(Transform trm)

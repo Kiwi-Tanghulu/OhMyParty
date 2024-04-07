@@ -23,7 +23,8 @@ namespace OMG.Player
             {
                 if(result[0].TryGetComponent<IDamageable>(out IDamageable damageable))
                 {
-                    damageable.OnDamaged(0f, actioningPlayer.transform);
+                    damageable.OnDamaged(100f, actioningPlayer.transform);
+                    Debug.Log("hit");
                 }
             }
         }
