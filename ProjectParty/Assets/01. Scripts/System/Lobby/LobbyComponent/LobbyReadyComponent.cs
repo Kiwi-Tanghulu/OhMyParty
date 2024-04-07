@@ -16,9 +16,10 @@ namespace OMG.Lobbies
         [ServerRpc(RequireOwnership = false)]
         private void ReadyServerRpc(ServerRpcParams rpcParams = default)
         {
-            Lobby.ChangePlayerData(rpcParams.Receive.SenderClientId, i => {
-                i.isReady = true;
-                return i;
+            ulong id = rpcParams.Receive.SenderClientId;
+            Lobby.PlayerDatas.ChangeData(i => i.clientID == id, data => {
+                data.isReady = true;
+                return data;
             });
 
             Debug.Log($"[Lobby] Player {rpcParams.Receive.SenderClientId} Set Ready");
@@ -28,7 +29,7 @@ namespace OMG.Lobbies
         private void CheckLobbyReady()
         {
             bool isLobbyReady = true;
-            Lobby.ForEachPlayer(i => {
+            Lobby.PlayerDatas.ForEach(i => {
                 isLobbyReady &= i.isReady;
             });
 
@@ -41,8 +42,8 @@ namespace OMG.Lobbies
 
         public void ClearLobbyReady()
         {
-            Lobby.ForEachPlayer(i => {
-                Lobby.ChangePlayerData(i.clientID, playerData => {
+            Lobby.PlayerDatas.ForEach(i => {
+                Lobby.PlayerDatas.ChangeData(j => j.clientID == i.clientID, playerData => {
                     playerData.isReady = false;
                     return playerData;
                 });

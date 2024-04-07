@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using OMG.Input;
-using OMG.Player;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -15,6 +14,7 @@ namespace OMG.Lobbies
 
         private Dictionary<Type, LobbyComponent> lobbyComponents = null;
         private NetworkList<PlayerData> players = null;
+        public NetworkList<PlayerData> PlayerDatas => players;
 
         private NetworkVariable<LobbyState> lobbyState = null;
         public LobbyState LobbyState => lobbyState.Value;
