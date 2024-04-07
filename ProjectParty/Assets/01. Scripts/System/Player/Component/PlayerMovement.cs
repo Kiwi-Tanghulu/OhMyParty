@@ -42,12 +42,10 @@ namespace OMG.Player
             {
                 t += Time.deltaTime / turnTime;
                 transform.localRotation = Quaternion.Lerp(start, end, t);
-                Debug.Log(transform.eulerAngles.y);
 
                 yield return null;
             }
             transform.localRotation = end;
-            Debug.Log(transform.eulerAngles.y);
         }
     }
 }
