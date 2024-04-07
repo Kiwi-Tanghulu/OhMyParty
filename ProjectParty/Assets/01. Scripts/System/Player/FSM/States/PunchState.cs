@@ -21,7 +21,10 @@ namespace OMG.Player
 
             if (result[0] != null)
             {
-                Debug.Log("hit punch");
+                if(result[0].TryGetComponent<IDamageable>(out IDamageable damageable))
+                {
+                    damageable.OnDamaged(0f, actioningPlayer.transform);
+                }
             }
         }
 
