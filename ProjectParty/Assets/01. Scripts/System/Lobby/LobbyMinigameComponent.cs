@@ -53,6 +53,7 @@ namespace OMG.Lobbies
         private void HandleMinigameFinish()
         {
             Lobby.SetActive(true);
+            Debug.Log($"Display Result");
         }
 
         [ClientRpc]

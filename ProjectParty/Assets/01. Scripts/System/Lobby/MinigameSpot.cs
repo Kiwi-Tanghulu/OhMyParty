@@ -59,7 +59,10 @@ namespace OMG.Lobbies
                     break;
                 case LobbyState.MinigameSelected: // 미니게임 선택된 상태일 때 레디가 되면 미니게임 시작
                     if(IsHost)
+                    {
+                        readyComponent.ClearLobbyReady();
                         minigameComponent.StartMinigame();
+                    }
                     break;
             }
         }
