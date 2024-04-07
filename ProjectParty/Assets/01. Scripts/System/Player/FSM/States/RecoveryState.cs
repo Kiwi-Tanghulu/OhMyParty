@@ -8,8 +8,8 @@ namespace OMG.Player
     {
         private PlayerRagdoll ragdoll;
 
-        int recoveryAnimHash = Animator.StringToHash("recovery");
-        int recoveryDirAnimHash = Animator.StringToHash("recoveryDir");
+        private readonly string frontRecoveryAnim = "Recovery(Front)";
+        private readonly string backRecoveryAnim = "Recovery(Back)";
 
         public override void InitState(ActioningPlayer actioningPlayer)
         {
@@ -22,8 +22,8 @@ namespace OMG.Player
         {
             base.EnterState();
 
-            anim.SetTrigger(recoveryAnimHash);
-            anim.SetInt(recoveryDirAnimHash, (int)Mathf.Sign(ragdoll.HipTrm.forward.y));
+            string animName = ragdoll.HipTrm.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
+            anim.PlayAnim(animName, AnimatorLayerType.Default);
         }
     }
 }

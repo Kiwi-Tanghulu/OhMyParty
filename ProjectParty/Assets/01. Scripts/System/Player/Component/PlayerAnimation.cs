@@ -67,6 +67,11 @@ namespace OMG.Player
             }
         }
 
+        public void PlayAnim(string name, AnimatorLayerType layer)
+        {
+            anim.Play(name, (int)layer, 0f);
+        }
+
         public void InvokeStartEvent() => OnStartEvent?.Invoke();   
         public void InvokePlayingEvent() => OnPlayingEvent?.Invoke();   
         public void InvokeEndEvent() => OnEndEvent?.Invoke();
