@@ -15,6 +15,7 @@ namespace OMG.Player
         public event Action OnEndEvent;
 
         private Coroutine paramLerpingCo;
+        private Coroutine layerWeightLerpingCo;
 
         private void Awake()
         {
@@ -50,16 +51,37 @@ namespace OMG.Player
             anim.SetBool(hash, value);
         }
 
+        public void SetLayerWeight(AnimatorLayerType layer, float value, bool lerping = false, float time = 1f)
+        {
+            int layerIndex = (int)layer;
+
+            if (lerping)
+            {
+                if (layerWeightLerpingCo != null)
+                    StopCoroutine(layerWeightLerpingCo);
+                layerWeightLerpingCo = StartCoroutine(LayerWeightLerpingCo(layerIndex, value, time));
+            }
+            else
+            {
+                anim.SetLayerWeight(layerIndex, value);
+            }
+        }
+
+        public void PlayAnim(string name, AnimatorLayerType layer)
+        {
+            anim.Play(name, (int)layer, 0f);
+        }
+
         public void InvokeStartEvent() => OnStartEvent?.Invoke();   
         public void InvokePlayingEvent() => OnPlayingEvent?.Invoke();   
-        public void InvokeEndEvent() => OnEndEvent?.Invoke();   
+        public void InvokeEndEvent() => OnEndEvent?.Invoke();
 
         private IEnumerator ParamLerpingCo(int hash, float end, float time)
         {
             float start = anim.GetFloat(hash);
             float t = 0f;
 
-            while(1f - t > 0.1f)
+            while (1f - t > 0.1f)
             {
                 t += Time.deltaTime / time;
                 anim.SetFloat(hash, Mathf.Lerp(start, end, t));
@@ -67,6 +89,21 @@ namespace OMG.Player
                 yield return null;
             }
             anim.SetFloat(hash, end);
+        }
+
+        private IEnumerator LayerWeightLerpingCo(int layer, float end, float time)
+        {
+            float start = anim.GetLayerWeight(layer);
+            float t = 0f;
+
+            while (1f - t > 0.1f)
+            {
+                t += Time.deltaTime / time;
+                anim.SetLayerWeight(layer, Mathf.Lerp(start, end, t));
+
+                yield return null;
+            }
+            anim.SetLayerWeight(layer, end);
         }
     }
 }
