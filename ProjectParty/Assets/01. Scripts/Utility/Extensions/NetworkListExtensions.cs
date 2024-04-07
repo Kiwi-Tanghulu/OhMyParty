@@ -14,6 +14,11 @@ public static class NetworkListExtensions
         source.SetDirty(true);
     }
 
+    public static void ChangeAllData<T>(this NetworkList<T> source, Func<T, T> process) where T : unmanaged, IEquatable<T>
+    {
+        source.ForEach((i, index) => source[index] = process.Invoke(i));
+    }
+
     public static void ForEach<T>(this NetworkList<T> source, Action<T> callback) where T : unmanaged, IEquatable<T>
     {
         for (int i = 0; i < source.Count; ++i)
