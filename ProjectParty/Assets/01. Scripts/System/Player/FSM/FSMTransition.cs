@@ -41,7 +41,7 @@ namespace OMG.Player
             }
 
             if (result)
-                actioningPlayer.ChangeState(nextState.GetType());
+                actioningPlayer.ChangeState(nextState);
         }
 
         public virtual void ExitState()
