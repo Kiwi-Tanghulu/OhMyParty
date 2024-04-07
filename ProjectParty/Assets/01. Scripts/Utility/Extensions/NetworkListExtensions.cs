@@ -1,6 +1,5 @@
 using System;
 using Unity.Netcode;
-using UnityEngine;
 
 public static class NetworkListExtensions
 {
@@ -19,6 +18,12 @@ public static class NetworkListExtensions
     {
         for (int i = 0; i < source.Count; ++i)
             callback.Invoke(source[i]);
+    }
+
+    public static void ForEach<T>(this NetworkList<T> source, Action<T, int> callback) where T : unmanaged, IEquatable<T>
+    {
+        for (int i = 0; i < source.Count; ++i)
+            callback.Invoke(source[i], i);
     }
 
     public static int Find<T>(this NetworkList<T> source, out T found, Func<T, bool> predicator) where T : unmanaged, IEquatable<T>

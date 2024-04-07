@@ -6,9 +6,9 @@ namespace OMG.Lobbies
     {
         None,
         Community,
-        Ready,
         MinigameSelecting,
         MinigameSelected,
         MinigamePlaying,
+        MinigameFinished
     }
 }

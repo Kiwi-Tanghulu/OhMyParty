@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using OMG.Minigames;
 using Unity.Netcode;
 using UnityEngine;
@@ -10,6 +11,13 @@ namespace OMG.Lobbies
     {
         [SerializeField] MinigameListSO minigameList = null;
 
+        public int MinigameCycleCount = 3;
+        private int currentCycleCount = 0;
+
+        /// <summary>
+        /// ( MinigameData, True if Minigame Cycle Finished. False if Minigame Remaining )
+        /// </summary>
+        public event Action<Minigame, bool> OnMinigameFinishedEvent = null;
         public event Action<int> OnMinigameSelectedEvent = null;
         private MinigameSO currentMinigame = null;
 
@@ -18,9 +26,9 @@ namespace OMG.Lobbies
             base.Init(lobby);
         }
 
-        private void Start()
+        public void ClearMinigameCycle()
         {
-            MinigameManager.Instance.OnMinigameFinishEvent += HandleMinigameFinish;
+            currentCycleCount = 0;
         }
 
         public void StartMinigameSelecting()
@@ -40,26 +48,43 @@ namespace OMG.Lobbies
 
             int index = Random.Range(0, minigameList.Count);
             currentMinigame = minigameList[index];
+            currentMinigame.OnMinigameFinishedEvent += HandleMinigameFinished;
 
             BroadcastMinigameSelectedClientRpc(index);
         }
 
         public void StartMinigame()
         {
-            MinigameManager.Instance.StartMinigame(currentMinigame);
+            ulong[] joinedPlayers = new ulong[Lobby.PlayerDatas.Count];
+            Lobby.PlayerDatas.ForEach((i, index) => joinedPlayers[index] = i.clientID);
+            MinigameManager.Instance.StartMinigame(currentMinigame, joinedPlayers);
+
+            Lobby.ChangeLobbyState(LobbyState.MinigamePlaying);
             Lobby.SetActive(false);
         }
 
-        private void HandleMinigameFinish()
+        private void HandleMinigameFinished(Minigame minigame)
         {
+            currentCycleCount++;
+            BroadcastMinigameFinishedClientRpc(currentCycleCount >= MinigameCycleCount);
+
             Lobby.SetActive(true);
+            Lobby.ChangeLobbyState(LobbyState.MinigameFinished);
             Debug.Log($"Display Result");
+
+            minigame.MinigameData.OnMinigameFinishedEvent -= HandleMinigameFinished;
         }
 
         [ClientRpc]
         private void BroadcastMinigameSelectedClientRpc(int index)
         {
             OnMinigameSelectedEvent?.Invoke(index);
+        }
+
+        [ClientRpc]
+        private void BroadcastMinigameFinishedClientRpc(bool cycleFinished)
+        {
+            OnMinigameFinishedEvent?.Invoke(MinigameManager.Instance.CurrentMinigame, cycleFinished);
         }
     }
 }

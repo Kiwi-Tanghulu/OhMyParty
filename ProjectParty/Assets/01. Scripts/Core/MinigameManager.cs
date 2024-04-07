@@ -1,4 +1,3 @@
-using System;
 using Unity.Netcode;
 
 namespace OMG.Minigames
@@ -9,22 +8,20 @@ namespace OMG.Minigames
 
         public Minigame CurrentMinigame { get; private set; } = null;
 
-        public event Action OnMinigameFinishEvent = null;
-
-        public void StartMinigame(MinigameSO minigameData)
+        public void StartMinigame(MinigameSO minigameData, params ulong[] joinedPlayers)
         {
             CurrentMinigame = Instantiate(minigameData.MinigamePrefab);
             CurrentMinigame.NetworkObject.Spawn(true);
+            CurrentMinigame.Init(joinedPlayers);
 
             CurrentMinigame.StartGame();
         }
 
         public void FinishMinigame()
         {
+            CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
             CurrentMinigame.NetworkObject.Despawn(true);
             CurrentMinigame = null;
-
-            OnMinigameFinishEvent?.Invoke();
         }
     }
 }

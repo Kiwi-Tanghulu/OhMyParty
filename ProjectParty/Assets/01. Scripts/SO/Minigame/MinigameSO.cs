@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace OMG.Minigames
@@ -7,5 +8,7 @@ namespace OMG.Minigames
     public class MinigameSO : ScriptableObject
     {
         public Minigame MinigamePrefab;
+
+        public Action<Minigame> OnMinigameFinishedEvent;
     }
 }
