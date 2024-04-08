@@ -42,11 +42,9 @@ namespace OMG.Lobbies
 
         public void ClearLobbyReady()
         {
-            Lobby.PlayerDatas.ForEach(i => {
-                Lobby.PlayerDatas.ChangeData(j => j.clientID == i.clientID, playerData => {
-                    playerData.isReady = false;
-                    return playerData;
-                });
+            Lobby.PlayerDatas.ChangeAllData(data => {
+                data.isReady = false;
+                return data;
             });
         }
 
