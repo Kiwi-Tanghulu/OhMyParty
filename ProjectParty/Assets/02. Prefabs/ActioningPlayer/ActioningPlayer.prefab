@@ -1070,6 +1070,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4303012758069589605}
   - component: {fileID: 3485927766754375726}
+  - component: {fileID: 5456197953594875333}
   - component: {fileID: 3124599896346509597}
   m_Layer: 0
   m_Name: TransAction
@@ -1106,6 +1107,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextState: {fileID: 2036333711108316913}
+--- !u!114 &5456197953594875333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648406206721018915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ffd03e6f169d8c49a7541a66419a549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invert: 0
+  time: 0.5
 --- !u!114 &3124599896346509597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2483,6 +2498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8070763692403451175}
   - component: {fileID: 8225980482354660893}
+  - component: {fileID: 1654668412503348015}
   - component: {fileID: 4741128435697794304}
   m_Layer: 0
   m_Name: TransAction
@@ -2519,6 +2535,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextState: {fileID: 2036333711108316913}
+--- !u!114 &1654668412503348015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943878879175602194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ffd03e6f169d8c49a7541a66419a549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invert: 0
+  time: 0.5
 --- !u!114 &4741128435697794304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2821,7 +2851,7 @@ GameObject:
   - component: {fileID: 7190145840709019751}
   - component: {fileID: 2036333711108316913}
   m_Layer: 0
-  m_Name: ActionState
+  m_Name: PunchState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2862,7 +2892,7 @@ MonoBehaviour:
   radius: 0.5
   layer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   DrawGizmo: 0
 --- !u!1 &6883426562170087294
 GameObject:

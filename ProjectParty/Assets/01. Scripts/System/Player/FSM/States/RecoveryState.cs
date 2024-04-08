@@ -22,6 +22,9 @@ namespace OMG.Player
         {
             base.EnterState();
 
+            actioningPlayer.transform.position = ragdoll.HipTrm.position;
+            actioningPlayer.transform.position -= actioningPlayer.transform.localPosition.y * Vector3.up;
+
             string animName = ragdoll.HipTrm.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
             anim.PlayAnim(animName, AnimatorLayerType.Default);
         }
