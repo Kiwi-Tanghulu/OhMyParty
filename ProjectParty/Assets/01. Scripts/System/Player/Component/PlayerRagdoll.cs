@@ -43,6 +43,11 @@ namespace OMG.Player
             hipRb.AddForce(power, mode);
         }
 
+        public void AddForceAtPosition(Vector3 power, Vector3 point, ForceMode mode)
+        {
+            hipRb.AddForceAtPosition(power, point, mode);
+        }
+
         private void GetRigidbody(Transform trm)
         {
             if(trm.TryGetComponent<Rigidbody>(out Rigidbody rb))

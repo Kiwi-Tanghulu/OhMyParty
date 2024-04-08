@@ -46,6 +46,9 @@ namespace OMG.Player
                 return;
             }
 
+            if (currentState == state)
+                return;
+
             currentState?.ExitState();
             currentState = state;
             currentState.EnterState();

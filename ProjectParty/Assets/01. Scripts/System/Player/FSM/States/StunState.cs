@@ -26,7 +26,8 @@ namespace OMG.Player
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0);
 
             ragdoll.SetActive(true);
-            ragdoll.AddForce(health.Damage * health.HitDir, ForceMode.Impulse);
+            ragdoll.AddForceAtPosition(health.Damage * health.HitDir, health.HitPoint, ForceMode.Impulse);
+            //ragdoll.AddForce(health.Damage * health.HitDir, ForceMode.Impulse);
         }
 
         public override void ExitState()
