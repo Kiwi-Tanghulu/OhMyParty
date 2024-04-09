@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using UnityEngine;
 
 namespace OMG.Minigames

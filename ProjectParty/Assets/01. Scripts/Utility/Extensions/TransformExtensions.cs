@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace OMG.Extensions
+{
 public static class TransformExtensions
 {
 	public static bool InnerDistance(this Transform left, Transform right, float distance)
@@ -7,4 +9,5 @@ public static class TransformExtensions
         float sqrDistance = (left.position - right.position).sqrMagnitude;
         return sqrDistance < (distance * distance);
     }
+}
 }

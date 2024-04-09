@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using OMG.Extensions;
 using OMG.Input;
 using Unity.Netcode;
 using UnityEngine;

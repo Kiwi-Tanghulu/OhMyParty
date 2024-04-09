@@ -10,6 +10,9 @@ namespace OMG.Input
     {
         public event Action OnSpaceEvent = null;
         public event Action OnInteractEvent = null;
+        public event Action<bool> OnLeftClickEvent = null;
+
+        public Vector3 MousePosition { get; private set; }
 
         protected override void OnEnable()
         {
@@ -30,6 +33,19 @@ namespace OMG.Input
         {
             if(context.performed)
                 OnInteractEvent?.Invoke();
+        }
+
+        public void OnLeftClick(InputAction.CallbackContext context)
+        {
+            if(context.performed)
+                OnLeftClickEvent?.Invoke(true);
+            else if(context.canceled)
+                OnLeftClickEvent?.Invoke(false);
+        }
+
+        public void OnMousePosition(InputAction.CallbackContext context)
+        {
+            MousePosition = context.ReadValue<Vector2>();
         }
     }
 }

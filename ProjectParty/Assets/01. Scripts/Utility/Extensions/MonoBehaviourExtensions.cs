@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+namespace OMG.Extensions {
 public static class MonoBehaviourExtensions
 {
 	public static IEnumerator DelayCoroutine(this MonoBehaviour left, float delay, Action callback)
@@ -15,4 +16,5 @@ public static class MonoBehaviourExtensions
         yield return null;
         callback?.Invoke();
     }
+}
 }

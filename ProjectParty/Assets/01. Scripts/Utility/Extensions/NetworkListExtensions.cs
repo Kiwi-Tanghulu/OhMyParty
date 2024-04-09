@@ -1,6 +1,8 @@
 using System;
 using Unity.Netcode;
 
+namespace OMG.Extensions
+{
 public static class NetworkListExtensions
 {
 	public static void ChangeData<T>(this NetworkList<T> source, Func<T, bool> predicator, Func<T, T> process) where T : unmanaged, IEquatable<T>
@@ -45,4 +47,5 @@ public static class NetworkListExtensions
 
         return -1;
     }
+}
 }

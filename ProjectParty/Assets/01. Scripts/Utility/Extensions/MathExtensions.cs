@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 
+namespace OMG.Extensions
+{
 public static class MathExtensions 
 {
     /// <summary>
@@ -40,4 +42,5 @@ public static class MathExtensions
             cursor /= 10;
         }
     }
+}
 }
