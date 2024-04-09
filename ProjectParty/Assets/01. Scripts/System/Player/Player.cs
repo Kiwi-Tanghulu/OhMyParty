@@ -19,7 +19,7 @@ namespace OMG.Player
 
             InputManager.ChangeInputMap(InputMapType.Play);//test
 
-            InstantiateActioningPlayerServerRpc(ActioningPlayerType.Test);
+            InstantiateActioningPlayerServerRpc(ActioningPlayerType.Lobby);
         }
 
         [ServerRpc]
