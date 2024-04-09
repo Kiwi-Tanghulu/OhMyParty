@@ -9,44 +9,46 @@ namespace OMG.Player
     {
         private Player player;
 
-        private Dictionary<Type, FSMState> states;
+        private List<FSMState> states;
         [SerializeField] private FSMState startState;
         [SerializeField] private FSMState currentState;
 
         public override void OnNetworkSpawn()
         {
-            Debug.Log($"on network spawn actioning player : {OwnerClientId}");
-
             player = PlayerManager.Instance.PlayerDic[OwnerClientId];
             player.SetActioningPlayer(this);
+            transform.SetParent(player.transform);
 
-            states = new Dictionary<Type, FSMState>();
+            states = new List<FSMState>();
             Transform stateContainer = transform.Find("States");
             foreach (Transform stateTrm in stateContainer)
             {
                 if (stateTrm.TryGetComponent<FSMState>(out FSMState state))
                 {
-                    states.Add(state.GetType(), state);
+                    states.Add(state);
                     state.InitState(this);
                 }
             }
 
             if (startState == null)
+            {
                 Debug.Log("시작 스테이트 설정 안 됨");
+            }
             else
-                ChangeState(startState);
+            {
+                if(IsOwner)
+                    ChangeState(startState);
+            }
         }
 
         public virtual void UpdateActioningPlayer()
         {
-            Debug.Log($"update actioning player : {OwnerClientId}");
-
             currentState?.UpdateState();
         }
 
         public void ChangeState(FSMState state)
         {
-            if (!states.ContainsValue(state))
+            if (!states.Find(x => x == state))
             {
                 Debug.Log($"not exist : {state}");
                 return;
@@ -55,8 +57,22 @@ namespace OMG.Player
             if (currentState == state)
                 return;
 
+            int index = states.IndexOf(state);
+
+            ChangeStateServerRpc(index);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void ChangeStateServerRpc(int stateIndex)
+        {
+            ChangeStateClientRpc(stateIndex);
+        }
+
+        [ClientRpc]
+        private void ChangeStateClientRpc(int stateIndex)
+        {
             currentState?.ExitState();
-            currentState = state;
+            currentState = states[stateIndex];
             currentState.EnterState();
         }
     }

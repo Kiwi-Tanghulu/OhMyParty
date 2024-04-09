@@ -17,8 +17,10 @@ namespace OMG.Player
 
         public override void EnterState()
         {
+            result = false;
             anim.OnStartEvent += StartAnim;
             anim.OnEndEvent += EndAnim;
+            Debug.Log($"decision : {actioningPlayer.OwnerClientId}");
         }
 
         public override void ExitState()

@@ -20,14 +20,18 @@ namespace OMG.Player
         {
             base.EnterState();
 
-            if(applyMove)
+            if(!applyMove)
+                movement.SetMoveDir(Vector3.zero);
+        }
+
+        protected override void OwnerEnterState()
+        {
+            base.OwnerEnterState();
+
+            if (applyMove)
             {
                 input.OnMoveEvent += SetMoveDir;
                 input.OnMoveEvent += SetMoveAnim;
-            }
-            else
-            {
-                movement.SetMoveDir(Vector3.zero);
             }
 
             anim.OnPlayingEvent += DoAction;
@@ -35,17 +39,17 @@ namespace OMG.Player
             anim.SetTrigger(actionAnimHash);
         }
 
-        public override void UpdateState()
+        protected override void OwnerUpdateState()
         {
-            base.UpdateState();
+            base.OwnerUpdateState();
 
             if (applyMove)
                 movement.Move();
         }
 
-        public override void ExitState()
+        protected override void OwnerExitState()
         {
-            base.ExitState();
+            base.OwnerExitState();
 
             if (applyMove)
             {
@@ -55,6 +59,8 @@ namespace OMG.Player
 
             anim.OnPlayingEvent -= DoAction;
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
+
+            Debug.Log("exit action state");
         }
 
         protected abstract void DoAction();

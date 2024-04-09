@@ -12,7 +12,6 @@ namespace OMG.Player
 
         public override void OnNetworkSpawn()
         {
-            Debug.Log($"on network spawn player : {OwnerClientId}");
             PlayerManager.Instance.PlayerDic.Add(OwnerClientId, this);
 
             if (!IsOwner)
@@ -27,7 +26,6 @@ namespace OMG.Player
         public void InstantiateActioningPlayerServerRpc(ActioningPlayerType type)
         {
             ActioningPlayer actioningPlayer = Instantiate(PlayerManager.Instance.GetActioningPlayer(type).Prefab, transform);
-            Debug.Log($"instantiating actioning player : {OwnerClientId}");
             actioningPlayer.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
         }
 
@@ -38,10 +36,6 @@ namespace OMG.Player
 
         private void Update()
         {
-            if (!IsOwner)
-                return;
-            Debug.Log($"update player : {OwnerClientId}");
-
             actioningPlayer?.UpdateActioningPlayer();
         }
     }

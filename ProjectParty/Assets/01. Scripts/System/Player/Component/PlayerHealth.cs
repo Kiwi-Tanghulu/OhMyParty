@@ -24,6 +24,7 @@ namespace OMG.Player
             this.attacker = attacker;
             this.damage = damage;
             hitDir = (transform.position - attacker.position).normalized;
+            hitPoint = point;
 
             OnHitEvent?.Invoke();
         }

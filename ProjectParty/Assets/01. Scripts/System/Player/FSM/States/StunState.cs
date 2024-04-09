@@ -23,7 +23,7 @@ namespace OMG.Player
         {
             base.EnterState();
 
-            anim.SetLayerWeight(AnimatorLayerType.Upper, 0);
+            //anim.SetLayerWeight(AnimatorLayerType.Upper, 0);
 
             ragdoll.SetActive(true);
             ragdoll.AddForceAtPosition(health.Damage * health.HitDir, health.HitPoint, ForceMode.Impulse);

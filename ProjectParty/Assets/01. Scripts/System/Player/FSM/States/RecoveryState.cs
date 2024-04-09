@@ -18,9 +18,9 @@ namespace OMG.Player
             ragdoll = anim.GetComponent<PlayerRagdoll>();
         }
 
-        public override void EnterState()
+        protected override void OwnerEnterState()
         {
-            base.EnterState();
+            base.OwnerEnterState();
 
             actioningPlayer.transform.position = ragdoll.HipTrm.position;
             actioningPlayer.transform.position -= actioningPlayer.transform.localPosition.y * Vector3.up;

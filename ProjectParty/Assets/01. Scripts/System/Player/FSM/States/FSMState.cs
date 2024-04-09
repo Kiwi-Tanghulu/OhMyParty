@@ -27,7 +27,15 @@ namespace OMG.Player
                 }
             }
         }
+
+        //all
         public virtual void EnterState()
+        {
+            if (actioningPlayer.IsOwner)
+                OwnerEnterState();
+        }
+        //single
+        protected virtual void OwnerEnterState() 
         {
             for (int i = 0; i < transitions.Count; i++)
             {
@@ -35,7 +43,14 @@ namespace OMG.Player
             }
         }
 
+        //all
         public virtual void UpdateState()
+        {
+            if (actioningPlayer.IsOwner)
+                OwnerUpdateState();
+        }
+        //single
+        protected virtual void OwnerUpdateState() 
         {
             for (int i = 0; i < transitions.Count; i++)
             {
@@ -43,7 +58,14 @@ namespace OMG.Player
             }
         }
 
+        //all
         public virtual void ExitState()
+        {
+            if (actioningPlayer.IsOwner)
+                OwnerExitState();
+        }
+        //single
+        protected virtual void OwnerExitState() 
         {
             for (int i = 0; i < transitions.Count; i++)
             {
