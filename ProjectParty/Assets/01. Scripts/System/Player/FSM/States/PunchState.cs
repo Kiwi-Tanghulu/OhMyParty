@@ -16,17 +16,8 @@ namespace OMG.Player
 
         protected override void DoAction()
         {
-            //Collider[] result = new Collider[1];
-            //Physics.OverlapSphereNonAlloc(eyeTrm.position + actioningPlayer.transform.forward * distance, radius, result, layer);
-            RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position + actioningPlayer.transform.forward * distance, radius, actioningPlayer.transform.forward, 0f, layer);
-
-            //if (result[0] != null)
-            //{
-            //    if(result[0].TryGetComponent<IDamageable>(out IDamageable damageable))
-            //    {
-            //        damageable.OnDamaged(150f, actioningPlayer.transform);
-            //    }
-            //}
+            RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position + actioningPlayer.transform.forward * distance,
+                radius, actioningPlayer.transform.forward, 0f, layer);
 
             if (hits.Length > 0)
             {

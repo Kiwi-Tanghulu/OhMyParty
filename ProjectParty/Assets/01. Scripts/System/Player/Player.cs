@@ -1,26 +1,37 @@
 using OMG.Input;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Player
 {
-    public class Player : MonoBehaviour
+    public class Player : NetworkBehaviour
     {
         private ActioningPlayer actioningPlayer;
-        public ActioningPlayer test;//tset
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
+            PlayerManager.Instance.PlayerDic.Add(OwnerClientId, this);
+
+            if (!IsOwner)
+                return;
+
             InputManager.ChangeInputMap(InputMapType.Play);//test
 
-            SetActioningPlayer(test);
+            InstantiateActioningPlayerServerRpc(ActioningPlayerType.Test);
         }
 
-        public void SetActioningPlayer(ActioningPlayer newActioningPlayer)
+        [ServerRpc]
+        public void InstantiateActioningPlayerServerRpc(ActioningPlayerType type)
         {
-            actioningPlayer = Instantiate(newActioningPlayer, transform);
-            actioningPlayer.InitActioningPlayer(this);
+            ActioningPlayer actioningPlayer = Instantiate(PlayerManager.Instance.GetActioningPlayer(type).Prefab, transform);
+            actioningPlayer.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
+        }
+
+        public void SetActioningPlayer(ActioningPlayer actioningPlayer)
+        {
+            this.actioningPlayer = actioningPlayer;
         }
 
         private void Update()

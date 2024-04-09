@@ -15,15 +15,21 @@ namespace OMG.Player
         {
             base.EnterState();
 
-            input.OnMoveEvent += SetMoveDir;
             movement.SetMoveDir(Vector3.zero);
+        }
+
+        protected override void OwnerEnterState()
+        {
+            base.OwnerEnterState();
+
+            input.OnMoveEvent += SetMoveDir;
 
             anim.SetFloat(moveSpeedAnimHash, 0f, true, 0.1f);
         }
 
-        public override void ExitState()
+        protected override void OwnerExitState()
         {
-            base.ExitState();
+            base.OwnerExitState();
 
             input.OnMoveEvent -= SetMoveDir;
         }

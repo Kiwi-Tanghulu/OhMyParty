@@ -11,25 +11,25 @@ namespace OMG.Player
 
         private int moveSpeedAnimHash = Animator.StringToHash("moveSpeed");
 
-        public override void EnterState()
+        protected override void OwnerEnterState()
         {
-            base.EnterState();
+            base.OwnerEnterState();
 
             input.OnMoveEvent += SetMoveDir;
 
             anim.SetFloat(moveSpeedAnimHash, 1f, true, 0.1f);
         }
 
-        public override void UpdateState()
+        protected override void OwnerUpdateState()
         {
-            base.UpdateState();
+            base.OwnerUpdateState();
 
             movement.Move();
         }
 
-        public override void ExitState()
+        protected override void OwnerExitState()
         {
-            base.ExitState();
+            base.OwnerExitState();
 
             input.OnMoveEvent -= SetMoveDir;
         }
