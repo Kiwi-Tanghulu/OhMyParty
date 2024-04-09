@@ -1,26 +1,30 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Player
 {
-    public class ActioningPlayer : MonoBehaviour
+    public class ActioningPlayer : NetworkBehaviour
     {
-        protected Player player;
+        private Player player;
 
         private Dictionary<Type, FSMState> states;
         [SerializeField] private FSMState startState;
         [SerializeField] private FSMState currentState;
 
-        public virtual void InitActioningPlayer(Player player)
+        public override void OnNetworkSpawn()
         {
-            this.player = player;
+            Debug.Log($"on network spawn actioning player : {OwnerClientId}");
+
+            player = PlayerManager.Instance.PlayerDic[OwnerClientId];
+            player.SetActioningPlayer(this);
 
             states = new Dictionary<Type, FSMState>();
             Transform stateContainer = transform.Find("States");
-            foreach(Transform stateTrm in stateContainer)
+            foreach (Transform stateTrm in stateContainer)
             {
-                if(stateTrm.TryGetComponent<FSMState>(out FSMState state))
+                if (stateTrm.TryGetComponent<FSMState>(out FSMState state))
                 {
                     states.Add(state.GetType(), state);
                     state.InitState(this);
@@ -35,6 +39,8 @@ namespace OMG.Player
 
         public virtual void UpdateActioningPlayer()
         {
+            Debug.Log($"update actioning player : {OwnerClientId}");
+
             currentState?.UpdateState();
         }
 
