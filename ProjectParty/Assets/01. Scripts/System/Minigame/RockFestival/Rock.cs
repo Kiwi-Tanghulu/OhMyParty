@@ -19,6 +19,14 @@ namespace OMG.Minigames.RockFestival
             collision = GetComponent<RockCollision>();
         }
 
+        /// <summary>
+        /// Only Host Could Call this Method
+        /// </summary>
+        public virtual void Init()
+        {
+            collision.Init();
+        }
+
         public bool Hold(IHolder holder, Vector3 point = default)
         {
             if(holder.IsEmpty == false)

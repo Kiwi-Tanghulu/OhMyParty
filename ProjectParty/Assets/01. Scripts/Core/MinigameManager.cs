@@ -14,6 +14,7 @@ namespace OMG.Minigames
             CurrentMinigame.NetworkObject.Spawn(true);
             CurrentMinigame.Init(joinedPlayers);
 
+            // Test
             CurrentMinigame.StartGame();
         }
 

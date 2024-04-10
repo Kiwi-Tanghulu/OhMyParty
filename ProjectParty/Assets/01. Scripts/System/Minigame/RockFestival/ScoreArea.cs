@@ -36,17 +36,18 @@ namespace OMG.Minigames.RockFestival
             }
         }
 
-        private void OnCollisionEnter(Collision other)
+        private void OnTriggerEnter(Collider other)
         {
-            if(other.rigidbody.CompareTag("Rock") == false)
+            if(other.CompareTag("Point") == false)
                 return;
 
             pointBuffer++;
+            Debug.Log($"Player {ownerID} Score : {pointBuffer}");
         }
 
-        private void OnCollisionExit(Collision other)
+        private void OnTriggerExit(Collider other)
         {
-            if (other.rigidbody.CompareTag("Rock") == false)
+            if (other.CompareTag("Point") == false)
                 return;
 
             pointBuffer--;

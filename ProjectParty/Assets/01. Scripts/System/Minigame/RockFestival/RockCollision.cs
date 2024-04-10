@@ -14,7 +14,7 @@ namespace OMG.Minigames.RockFestival
             rigidbody = GetComponent<Rigidbody>();
         }
 
-        public override void OnNetworkSpawn()
+        public void Init()
         {
             SetActiveCollisionOther(false);
             ActiveRigidbody(true);

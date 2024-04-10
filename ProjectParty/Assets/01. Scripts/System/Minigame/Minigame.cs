@@ -16,13 +16,23 @@ namespace OMG.Minigames
             players = new NetworkList<PlayerData>();
         }
 
+        /// <summary>
+        /// Only Host Could Call this Method
+        /// </summary>  
         public virtual void Init(params ulong[] playerIDs)
         {
             for(int i = 0; i < playerIDs.Length; ++i)
                 players.Add(new PlayerData(playerIDs[i]));
         }
 
+        /// <summary>
+        /// Only Host Could Call this Method
+        /// </summary>  
         public abstract void StartGame();
+        
+        /// <summary>
+        /// Only Host Could Call this Method
+        /// </summary>
         public abstract void FinishGame();
     }
 }
