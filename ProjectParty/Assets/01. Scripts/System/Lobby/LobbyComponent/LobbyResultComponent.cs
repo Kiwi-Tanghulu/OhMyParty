@@ -8,7 +8,7 @@ namespace OMG.Lobbies
         public void DisplayResult()
         {
             Lobby.PlayerDatas.ForEach(i => {
-                Debug.Log($"Player {i.clientID} Score : {i.score}");
+                Debug.Log($"[Lobby] Player {i.clientID} Score : {i.score}");
             });
         }
 
@@ -20,7 +20,7 @@ namespace OMG.Lobbies
                     winner = i;
             });
 
-            Debug.Log($"[Result] The Winner is Player {winner.clientID}");
+            Debug.Log($"[Lobby] The Winner is Player {winner.clientID}");
         }
     }
 }
