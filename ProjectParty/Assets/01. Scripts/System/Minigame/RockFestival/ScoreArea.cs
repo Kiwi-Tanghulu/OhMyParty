@@ -1,5 +1,6 @@
 using System.Collections;
 using OMG.Extensions;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace OMG.Minigames.RockFestival
     public class ScoreArea : MonoBehaviour
     {
         [SerializeField] float updateDelay = 1f;
+        private TMP_Text scoreText = null;
 
         private NetworkList<PlayerData> players = null;
 
@@ -18,15 +20,27 @@ namespace OMG.Minigames.RockFestival
 
         private ulong ownerID = 0;
 
-        public void Init(ulong ownerID)
+        private void Awake()
         {
+            scoreText = transform.Find("ScoreText").GetComponent<TMP_Text>();
+            scoreText.text = "-";
+        }
+
+        public void Init(ulong ownerID, bool active)
+        {
+            if(active == false)
+                return;
+
             this.ownerID = ownerID;
             players = MinigameManager.Instance.CurrentMinigame.JoinedPlayers;
         }
 
-        public void SetActive(bool active)
+        public void SetActive(bool active, bool isHost)
         {
             this.active = active;
+            if(isHost == false)
+                return;
+
             if(active)
                 StartCoroutine(UpdateCoroutine());
             else
@@ -38,19 +52,31 @@ namespace OMG.Minigames.RockFestival
 
         private void OnTriggerEnter(Collider other)
         {
+            if(active == false)
+                return;
+
             if(other.CompareTag("Point") == false)
                 return;
 
-            pointBuffer++;
+            UpdatePointBuffer(1);
             Debug.Log($"Player {ownerID} Score : {pointBuffer}");
         }
 
         private void OnTriggerExit(Collider other)
         {
+            if(active == false)
+                return;
+
             if (other.CompareTag("Point") == false)
                 return;
 
-            pointBuffer--;
+            UpdatePointBuffer(-1);
+        }
+
+        private void UpdatePointBuffer(int value)
+        {
+            pointBuffer += value;
+            scoreText.text = pointBuffer.ToString();
         }
 
         private IEnumerator UpdateCoroutine()
@@ -71,9 +97,16 @@ namespace OMG.Minigames.RockFestival
                 prevPoint = pointBuffer;
                 players.ChangeData(i => i.clientID == ownerID, data => {
                     data.score = pointBuffer;
+                    //BroadcastScoreUpdateClientRpc(pointBuffer);
                     return data;
                 });
             }
         }
+
+        // [ClientRpc]
+        // private void BroadcastScoreUpdateClientRpc(int score)
+        // {
+        //     scoreText.text = score.ToString();
+        // }
     }
 }

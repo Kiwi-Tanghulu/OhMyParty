@@ -57,8 +57,9 @@ namespace OMG.Lobbies
         private void CreatePlayer(PlayerData playerData)
         {
             players.Add(playerData);
-            NetworkObject player = Instantiate(playerPrefab);
+            NetworkObject player = Instantiate(playerPrefab, transform);
             player.SpawnWithOwnership(playerData.clientID, true);
+            player.TrySetParent(NetworkObject);
             // something
         }
 

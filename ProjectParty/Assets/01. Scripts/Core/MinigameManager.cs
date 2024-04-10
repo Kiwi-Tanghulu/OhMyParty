@@ -15,11 +15,13 @@ namespace OMG.Minigames
             CurrentMinigame.Init(joinedPlayers);
 
             // Test
-            CurrentMinigame.StartGame();
+            // CurrentMinigame.StartGame();
         }
 
         public void FinishMinigame()
         {
+            CurrentMinigame.Release();
+
             CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
             CurrentMinigame.NetworkObject.Despawn(true);
             CurrentMinigame = null;

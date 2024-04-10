@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using OMG.Minigames.Utility;
 using UnityEngine;
 
@@ -9,6 +11,8 @@ namespace OMG.Minigames.RockFestival
 
         private float timer = 0f;
         private bool active = false;
+
+        private List<Rock> rocks = new List<Rock>();
 
         private void Update()
         {
@@ -32,10 +36,19 @@ namespace OMG.Minigames.RockFestival
         {
             GameObject instance = base.SpawnObject();
             Rock rock = instance.GetComponent<Rock>();
-            rock.NetworkObject.Spawn();
+            rock.NetworkObject.Spawn(true);
+            rock.NetworkObject.TrySetParent(gameObject, false);
             rock.Init();
 
+            rocks.Add(rock);
+
             return instance;
+        }
+
+        public void Release()
+        {
+            foreach(Rock rock in rocks)
+                rock.NetworkObject.Despawn(true);
         }
     }
 }

@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -11,9 +12,12 @@ namespace OMG.Minigames
         protected NetworkList<PlayerData> players = null;
         public NetworkList<PlayerData> JoinedPlayers => players;
 
+        protected MinigameCycle cycle = null;
+
         protected virtual void Awake()
         {
             players = new NetworkList<PlayerData>();
+            cycle = GetComponent<MinigameCycle>();
         }
 
         /// <summary>
@@ -23,16 +27,31 @@ namespace OMG.Minigames
         {
             for(int i = 0; i < playerIDs.Length; ++i)
                 players.Add(new PlayerData(playerIDs[i]));
+
+            StartIntro();
         }
 
         /// <summary>
         /// Only Host Could Call this Method
-        /// </summary>  
-        public abstract void StartGame();
-        
-        /// <summary>
-        /// Only Host Could Call this Method
+
         /// </summary>
-        public abstract void FinishGame();
+        public virtual void Release() {}
+
+        public virtual void StartIntro()
+        {
+            StartCoroutine(this.DelayCoroutine(minigameData.IntroPostponeTime, cycle.PlayIntro));
+        }
+
+        public virtual void StartOutro()
+        {
+            StartCoroutine(this.DelayCoroutine(minigameData.OutroPostponeTime, cycle.PlayOutro));
+        }
+
+        public virtual void StartGame() {}
+
+        public virtual void FinishGame() 
+        {
+            StartOutro();
+        }
     }
 }
