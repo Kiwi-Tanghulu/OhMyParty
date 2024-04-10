@@ -1,4 +1,6 @@
 using OMG.Extensions;
+using OMG.Lobbies;
+using OMG.UI.Minigames;
 using OMG.Utility;
 using Unity.Netcode;
 using UnityEngine;
@@ -32,10 +34,21 @@ namespace OMG.Minigames
 
         public virtual void DisplayResult()
         {
-            // Set Result
-            minigame.JoinedPlayers.ForEach(i => {
-                Debug.Log($"[Minigame] Player {i.clientID} Score : {i.score}");
+            minigame.JoinedPlayers.ForEach((minigameData, index) => {
+                int score = minigame.CalculateScore(minigameData.score);
+                Debug.Log($"[Minigame] Player {minigameData.clientID} Score : {score}");
+                minigame.MinigameUI.ResultPanel[index].SetResult($"Player {minigameData.clientID}", score);
+
+                if(IsHost)
+                {
+                    Lobby.Current.PlayerDatas.ChangeData(j => j.clientID == minigameData.clientID, lobbyData => {
+                        lobbyData.score += score;
+                        return lobbyData;
+                    });
+                }
             });
+
+            minigame.MinigameUI.ResultPanel.Display(true);
 
             if(IsHost)
                 StartCoroutine(this.DelayCoroutine(minigame.MinigameData.ResultPostponeTime, MinigameManager.Instance.FinishMinigame));

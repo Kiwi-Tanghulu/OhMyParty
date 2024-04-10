@@ -1,4 +1,5 @@
 using OMG.Extensions;
+using OMG.UI.Minigames;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,12 +13,16 @@ namespace OMG.Minigames
         protected NetworkList<PlayerData> players = null;
         public NetworkList<PlayerData> JoinedPlayers => players;
 
+        protected MinigameUI minigameUI = null;
+        public MinigameUI MinigameUI => minigameUI;
+
         protected MinigameCycle cycle = null;
 
         protected virtual void Awake()
         {
             players = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
+            minigameUI = transform.Find("MinigameUI").GetComponent<MinigameUI>();
         }
 
         /// <summary>
@@ -25,6 +30,8 @@ namespace OMG.Minigames
         /// </summary>  
         public virtual void Init(params ulong[] playerIDs)
         {
+            minigameUI.Init();
+
             for(int i = 0; i < playerIDs.Length; ++i)
                 players.Add(new PlayerData(playerIDs[i]));
 
@@ -35,7 +42,10 @@ namespace OMG.Minigames
         /// Only Host Could Call this Method
 
         /// </summary>
-        public virtual void Release() {}
+        public virtual void Release() 
+        {
+            minigameUI.Release();
+        }
 
         public virtual void StartIntro()
         {
@@ -53,5 +63,7 @@ namespace OMG.Minigames
         {
             StartOutro();
         }
+
+        public virtual int CalculateScore(int origin) => origin;
     }
 }
