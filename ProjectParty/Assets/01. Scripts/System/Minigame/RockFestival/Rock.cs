@@ -14,7 +14,7 @@ namespace OMG.Minigames.RockFestival
 
         public event Action<bool> OnHoldEvent = null;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             collision = GetComponent<RockCollision>();
         }

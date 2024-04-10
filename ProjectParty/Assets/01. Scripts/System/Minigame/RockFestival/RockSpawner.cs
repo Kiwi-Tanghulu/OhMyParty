@@ -48,7 +48,7 @@ namespace OMG.Minigames.RockFestival
         public void Release()
         {
             foreach(Rock rock in rocks)
-                rock.NetworkObject.Despawn(true);
+                rock?.NetworkObject?.Despawn(true);
         }
     }
 }

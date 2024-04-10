@@ -20,7 +20,7 @@ namespace OMG.UI.Minigames
         {
             if(string.IsNullOrEmpty(name))
             {
-                nameText.Text = "-";
+                nameText.Text = " -";
                 scoreText.Text = "-";
                 return;
             }

@@ -38,7 +38,7 @@ namespace OMG.Minigames.RockFestival
             if(ActiveCollisionOther)
                 return;
 
-            Vector3 normal = point;
+            Vector3 normal = point.normalized;
             rigidbody.AddForce(-normal * damage * 100f);
             Debug.Log("HIT");
             // 누군가가 날 맞췄어

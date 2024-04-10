@@ -10,14 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1692621794146701403}
   - component: {fileID: 7044438202459967477}
-  - component: {fileID: 2874443408624697251}
+  - component: {fileID: 8399510943111962534}
   - component: {fileID: 956316481232755839}
   - component: {fileID: 6575757485762842875}
   - component: {fileID: 5602550582726571761}
   - component: {fileID: 1352007759704261647}
   - component: {fileID: 2675590732850074995}
   m_Layer: 11
-  m_Name: Rock
+  m_Name: Bomb
   m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2962138991
+  GlobalObjectIdHash: 3005627851
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &2874443408624697251
+--- !u!114 &8399510943111962534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,9 +68,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7671886679003051456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35708d1da03df6340a493cc96a5d2a7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 289d408f4801e954bb32d5fa6649e584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionLatency: 5
+  explosionRadius: 1
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 2560
+  explosionDamage: 25
+  explosionOffset: {x: 0, y: -0.4, z: 0}
 --- !u!114 &956316481232755839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +132,7 @@ Rigidbody:
   m_GameObject: {fileID: 7671886679003051456}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
