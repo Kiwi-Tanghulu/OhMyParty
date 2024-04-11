@@ -14,12 +14,12 @@ namespace OMG.Players
             base.OnNetworkSpawn();
 
             pd = transform.Find("StartMinigameTimeline").GetComponent<PlayableDirector>();
-            GameObject.FindObjectOfType<StartMinigameTimeline>().StartPlayerTimelineAction += pd.Play;
+            GameObject.FindObjectOfType<LobbyStartMinigameTimeline>().StartPlayerTimelineAction += pd.Play;
         }
 
         public override void OnNetworkDespawn()
         {
-            GameObject.FindObjectOfType<StartMinigameTimeline>().StartPlayerTimelineAction -= pd.Play;
+            GameObject.FindObjectOfType<LobbyStartMinigameTimeline>().StartPlayerTimelineAction -= pd.Play;
         }
     }
 }
