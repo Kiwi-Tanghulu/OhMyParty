@@ -68,11 +68,11 @@ namespace OMG.Players
 
         private void HandleInteract(bool interact)
         {
+            if (interact == false)
+                return;
+
             if(IsEmpty)
             {
-                if(interact == false)
-                    return;
-
                 if(focuser.IsEmpty)
                     return;
 

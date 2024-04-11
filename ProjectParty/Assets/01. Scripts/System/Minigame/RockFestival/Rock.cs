@@ -1,5 +1,6 @@
 using System;
 using OMG.Interacting;
+using OMG.Utility.Transforms;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace OMG.Minigames.RockFestival
 
         public GameObject CurrentObject => gameObject;
 
+        private SubstituteParent parent = null;
         private RockCollision collision = null;
 
         public event Action<bool> OnHoldEvent = null;
@@ -19,6 +21,7 @@ namespace OMG.Minigames.RockFestival
         protected virtual void Awake()
         {
             collision = GetComponent<RockCollision>();
+            parent = GetComponent<SubstituteParent>();
         }
 
         /// <summary>
@@ -38,9 +41,7 @@ namespace OMG.Minigames.RockFestival
                 return false;
 
             currentHolder = holder;
-            transform.SetParent(currentHolder.HoldingParent);
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
+            parent.SetParent(currentHolder.HoldingParent);
             OnHoldEvent?.Invoke(true);
 
             collision.SetActiveRigidbody(false);
@@ -55,18 +56,21 @@ namespace OMG.Minigames.RockFestival
 
             Vector3 direction = prevHolder.HoldingParent.forward + Vector3.up * 0.5f;
             collision.SetActiveCollisionOther(true);
-            collision.AddForce(direction, 100f);
+            collision.AddForce(direction, 10f);
         }
 
         public IHolder Release()
         {
-            transform.SetParent(null);
-            OnHoldEvent?.Invoke(false);
-
-            collision.SetActiveRigidbody(true);
-
             IHolder prevHolder = currentHolder;
             currentHolder = null;
+            
+            parent.SetParent(null);
+
+            if(collision.ActiveCollisionOther == false)
+                collision.FitToGround();
+            collision.SetActiveRigidbody(true);
+            
+            OnHoldEvent?.Invoke(false);
 
             return prevHolder;
         }

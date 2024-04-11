@@ -48,8 +48,6 @@ namespace OMG.Players
                 FocusObject(other, point);
 
             FocusedPoint = point;
-
-            Debug.Log(focusedObject?.CurrentObject?.name);
         }
 
         private void FocusObject(IFocusable other, Vector3 point)

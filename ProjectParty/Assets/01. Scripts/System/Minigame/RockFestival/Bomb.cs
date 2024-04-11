@@ -36,6 +36,7 @@ namespace OMG.Minigames.RockFestival
                 }
             }
 
+            CurrentHolder?.Release();
             NetworkObject.Despawn(true);
         }
 
