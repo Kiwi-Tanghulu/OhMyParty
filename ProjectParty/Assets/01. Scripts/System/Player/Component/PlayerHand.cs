@@ -23,11 +23,13 @@ namespace OMG.Players
         {
             focuser = GetComponent<PlayerFocuser>();
             input.OnInteractEvent += HandleInteract;
+            input.OnActiveEvent += HandleActive;
         }
 
         private void OnDestroy()
         {
             input.OnInteractEvent -= HandleInteract;
+            input.OnActiveEvent -= HandleActive;
         }
 
         public bool Hold(IHoldable target, Vector3 point = default)
@@ -74,6 +76,11 @@ namespace OMG.Players
             {
                 Release();
             }
+        }
+
+        private void HandleActive()
+        {
+            Active();
         }
     }
 }

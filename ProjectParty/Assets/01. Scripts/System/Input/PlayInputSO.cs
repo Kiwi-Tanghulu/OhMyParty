@@ -11,6 +11,7 @@ namespace OMG.Input
         public Action<Vector2> OnMoveEvent;
         public Action<bool> OnInteractEvent;
         public Action OnActionEvent;
+        public Action OnActiveEvent;
 
         protected override void OnEnable()
         {
@@ -39,6 +40,12 @@ namespace OMG.Input
         {
             if (context.started)
                 OnActionEvent?.Invoke();
+        }
+
+        public void OnActive(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                OnActiveEvent?.Invoke();
         }
     }
 }

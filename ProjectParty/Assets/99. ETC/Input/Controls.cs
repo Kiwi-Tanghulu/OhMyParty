@@ -53,6 +53,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Active"",
+                    ""type"": ""Button"",
+                    ""id"": ""403dfe81-3a04-454d-8b83-09dbc6ad927e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -130,6 +139,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""221203ca-2679-4761-8c46-2bd027ba147e"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Active"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -231,6 +251,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Play_Move = m_Play.FindAction("Move", throwIfNotFound: true);
         m_Play_Interact = m_Play.FindAction("Interact", throwIfNotFound: true);
         m_Play_Action = m_Play.FindAction("Action", throwIfNotFound: true);
+        m_Play_Active = m_Play.FindAction("Active", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Space = m_UI.FindAction("Space", throwIfNotFound: true);
@@ -301,6 +322,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Play_Move;
     private readonly InputAction m_Play_Interact;
     private readonly InputAction m_Play_Action;
+    private readonly InputAction m_Play_Active;
     public struct PlayActions
     {
         private @Controls m_Wrapper;
@@ -308,6 +330,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Play_Move;
         public InputAction @Interact => m_Wrapper.m_Play_Interact;
         public InputAction @Action => m_Wrapper.m_Play_Action;
+        public InputAction @Active => m_Wrapper.m_Play_Active;
         public InputActionMap Get() { return m_Wrapper.m_Play; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -326,6 +349,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Action.started += instance.OnAction;
             @Action.performed += instance.OnAction;
             @Action.canceled += instance.OnAction;
+            @Active.started += instance.OnActive;
+            @Active.performed += instance.OnActive;
+            @Active.canceled += instance.OnActive;
         }
 
         private void UnregisterCallbacks(IPlayActions instance)
@@ -339,6 +365,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Action.started -= instance.OnAction;
             @Action.performed -= instance.OnAction;
             @Action.canceled -= instance.OnAction;
+            @Active.started -= instance.OnActive;
+            @Active.performed -= instance.OnActive;
+            @Active.canceled -= instance.OnActive;
         }
 
         public void RemoveCallbacks(IPlayActions instance)
@@ -431,6 +460,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);
+        void OnActive(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
