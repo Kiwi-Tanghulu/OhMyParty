@@ -11,6 +11,8 @@ namespace OMG.Players
         [SerializeField] private FSMState startState;
         [SerializeField] private FSMState currentState;
 
+        private bool isFirstEnabled = true;
+
         public override void OnNetworkSpawn()
         {
             states = new List<FSMState>();
@@ -38,6 +40,19 @@ namespace OMG.Players
         public void Init(ulong ownerId)
         {
             NetworkObject.ChangeOwnership(ownerId);
+        }
+
+        private void OnEnable()
+        {
+            if (isFirstEnabled)
+                isFirstEnabled = false;
+            else
+                currentState?.EnterState();
+        }
+
+        private void OnDisable()
+        {
+            currentState?.ExitState();
         }
 
         private void Update()

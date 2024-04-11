@@ -25,6 +25,7 @@ namespace OMG.Players
                 {
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
+                        Debug.Log($"hit : {hits[i].transform.name}");
                         damageable.OnDamaged(150f, actioningPlayer.transform, hits[i].point);
                     }
                 }
