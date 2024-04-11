@@ -40,6 +40,7 @@ namespace OMG.Player
                     break;
             }
 
+
             if (result)
                 actioningPlayer.ChangeState(nextState);
         }
