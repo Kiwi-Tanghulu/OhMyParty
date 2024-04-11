@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Input;
-using OMG.Players;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace OMG.Lobbies
 {
     public partial class Lobby : NetworkBehaviour
     {
-        [SerializeField] Player playerPrefab = null;
+        [SerializeField] NetworkObject playerPrefab = null;
 
         public static Lobby Current { get; private set; } = null;
 
@@ -58,10 +57,9 @@ namespace OMG.Lobbies
         private void CreatePlayer(PlayerData playerData)
         {
             players.Add(playerData);
-            Player player = Instantiate(playerPrefab, transform);
-            player.NetworkObject.Spawn();
-            player.NetworkObject.TrySetParent(NetworkObject);
-            player.Init(playerData.clientID);
+            NetworkObject player = Instantiate(playerPrefab, transform);
+            player.SpawnWithOwnership(playerData.clientID, true);
+            player.TrySetParent(NetworkObject);
             // something
         }
 

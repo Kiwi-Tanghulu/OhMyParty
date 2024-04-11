@@ -32,7 +32,7 @@ namespace OMG.Players
 
             if (startState == null)
             {
-                Debug.Log("½ÃÀÛ ½ºÅ×ÀÌÆ® ¼³Á¤ ¾È µÊ");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½");
             }
             else
             {
