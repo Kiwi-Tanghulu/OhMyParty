@@ -17,6 +17,7 @@ namespace OMG.Players
         {
             input.OnInteractEvent += HandleInteract;
             focuser = GetComponent<PlayerFocuser>();
+            Debug.Log(123);
         }
 
         private void OnDestroy()
@@ -31,7 +32,7 @@ namespace OMG.Players
 
             if (lastFocusedTarget != focuser.FocusedObject)
                 currentTarget = focuser.FocusedObject.CurrentObject.GetComponent<IInteractable>();
-
+            Debug.Log(currentTarget);
             currentTarget?.Interact(this, actived, focuser.FocusedPoint);
         }
     }

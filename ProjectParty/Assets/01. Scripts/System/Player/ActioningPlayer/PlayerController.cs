@@ -1,3 +1,4 @@
+using OMG.Input;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -15,6 +16,8 @@ namespace OMG.Players
 
         public override void OnNetworkSpawn()
         {
+            InputManager.ChangeInputMap(InputMapType.Play);//test
+
             states = new List<FSMState>();
             Transform stateContainer = transform.Find("States");
             foreach (Transform stateTrm in stateContainer)
