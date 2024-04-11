@@ -41,9 +41,19 @@ namespace OMG.Minigames.RockFestival
             transform.localRotation = Quaternion.identity;
             OnHoldEvent?.Invoke(true);
 
-            collision.ActiveRigidbody(false);
+            collision.SetActiveRigidbody(false);
 
             return true;
+        }
+
+        public void Active()
+        {
+            IHolder prevHolder = Release();
+            prevHolder.Release();
+
+            Vector3 direction = prevHolder.HoldingParent.forward + Vector3.up * 0.5f;
+            collision.SetActiveCollisionOther(true);
+            collision.AddForce(direction, 100f);
         }
 
         public IHolder Release()
@@ -51,7 +61,7 @@ namespace OMG.Minigames.RockFestival
             transform.SetParent(null);
             OnHoldEvent?.Invoke(false);
 
-            collision.ActiveRigidbody(true);
+            collision.SetActiveRigidbody(true);
 
             IHolder prevHolder = currentHolder;
             currentHolder = null;

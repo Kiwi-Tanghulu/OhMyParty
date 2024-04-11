@@ -7,6 +7,7 @@ namespace OMG.Interacting
         public IHolder CurrentHolder { get; }
 
         public bool Hold(IHolder holder, Vector3 point = default);
+        public void Active();
         public IHolder Release();
     }
 }

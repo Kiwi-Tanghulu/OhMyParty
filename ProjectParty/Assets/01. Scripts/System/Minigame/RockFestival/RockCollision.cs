@@ -17,11 +17,17 @@ namespace OMG.Minigames.RockFestival
         public void Init()
         {
             SetActiveCollisionOther(false);
-            ActiveRigidbody(true);
+            SetActiveRigidbody(true);
         }
 
         private void OnCollisionEnter(Collision other)
         {
+            if(other.rigidbody.CompareTag("Ground")) // 땅에 닿으면 종료
+            {
+                SetActiveCollisionOther(false);
+                return;
+            }
+
             if(ActiveCollisionOther == false)
                 return;
 
@@ -50,13 +56,18 @@ namespace OMG.Minigames.RockFestival
             ActiveCollisionOther = active;
         }
 
-        public void ActiveRigidbody(bool active)
+        public void SetActiveRigidbody(bool active)
         {
             rigidbody.useGravity = active;
             if(active)
                 rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             else
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+        public void AddForce(Vector3 direction, float power)
+        {
+            rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
         }
 
         #if UNITY_EDITOR
