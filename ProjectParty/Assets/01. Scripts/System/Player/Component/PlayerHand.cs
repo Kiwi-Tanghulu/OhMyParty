@@ -35,6 +35,7 @@ namespace OMG.Players
         public bool Hold(IHoldable target, Vector3 point = default)
         {
             bool result = target.Hold(this, point);
+            Debug.Log($"Hold Result : {result}");
             if(result)
                 holdingObject = target;
 

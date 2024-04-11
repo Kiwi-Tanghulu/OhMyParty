@@ -9,21 +9,20 @@ namespace OMG.Lobbies
     {
         public event Action OnLobbyReadyEvent = null;
 
-        public void Ready()
+        public void Ready(ulong clientID)
         {
-            ReadyServerRpc();
+            ReadyServerRpc(clientID);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void ReadyServerRpc(ServerRpcParams rpcParams = default)
+        private void ReadyServerRpc(ulong clientID)
         {
-            ulong id = rpcParams.Receive.SenderClientId;
-            Lobby.PlayerDatas.ChangeData(i => i.clientID == id, data => {
+            Lobby.PlayerDatas.ChangeData(i => i.clientID == clientID, data => {
                 data.isReady = true;
                 return data;
             });
 
-            Debug.Log($"[Lobby] Player {rpcParams.Receive.SenderClientId} Set Ready");
+            Debug.Log($"[Lobby] Player {clientID} Set Ready");
             CheckLobbyReady();
         }
 

@@ -1,3 +1,4 @@
+using OMG.Players;
 using UnityEngine;
 
 namespace OMG.Minigames.RockFestival
@@ -5,10 +6,13 @@ namespace OMG.Minigames.RockFestival
     
     public class RockFestival : Minigame
     {
+        [SerializeField] PlayerController playerPrefab = null;
         [SerializeField] float playTime = 60f;
 
         [Space(15f)]
         [SerializeField] ScoreArea[] scoreAreas = null;
+        [SerializeField] Transform[] spawnPositions = null;
+        private PlayerController[] players = null;
 
         private RockSpawner spawner = null;
         private TimeAttackCycle timeAttackCycle = null;
@@ -17,12 +21,17 @@ namespace OMG.Minigames.RockFestival
         {
             base.Init(playerIDs);
 
+            players = new PlayerController[playerIDs.Length];
+
             for(int i = 0; i < scoreAreas.Length; ++i)
             {
                 if(i >= PlayerDatas.Count)
                     scoreAreas[i].Init(0, false);
                 else
+                {
                     scoreAreas[i].Init(PlayerDatas[i].clientID, true);
+                    CreatePlayer(i);
+                }
             }
 
             spawner = GetComponent<RockSpawner>();
@@ -35,10 +44,15 @@ namespace OMG.Minigames.RockFestival
         {
             base.Release();
             spawner.Release();
+
+            foreach(PlayerController player in players)
+                player.NetworkObject.Despawn(true);
         }
 
         public override void StartGame()
         {
+            base.StartGame();
+
             for(int i = 0; i < PlayerDatas.Count; ++i)
                 scoreAreas[i].SetActive(true, IsHost);
 
@@ -61,6 +75,13 @@ namespace OMG.Minigames.RockFestival
             timeAttackCycle.FinishCycle();
         
             base.FinishGame();
+        }
+
+        private void CreatePlayer(int index)
+        {
+            players[index] = Instantiate(playerPrefab, spawnPositions[index].position, Quaternion.identity);
+            players[index].NetworkObject.SpawnWithOwnership(PlayerDatas[index].clientID, true);
+            players[index].NetworkObject.TrySetParent(spawnPositions[index]);
         }
     }
 }

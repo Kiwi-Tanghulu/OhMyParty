@@ -22,17 +22,18 @@ namespace OMG.Minigames.RockFestival
 
         private void OnCollisionEnter(Collision other)
         {
-            if(other.rigidbody.CompareTag("Ground")) // 땅에 닿으면 종료
-            {
-                SetActiveCollisionOther(false);
-                return;
-            }
 
             if(ActiveCollisionOther == false)
                 return;
 
             if(other.rigidbody == null)
                 return;
+            
+            if(other.rigidbody.CompareTag("Ground")) // 땅에 닿으면 종료
+            {
+                SetActiveCollisionOther(false);
+                return;
+            }
 
             if(other.rigidbody.TryGetComponent<IDamageable>(out IDamageable damageable))
                 damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].normal);
