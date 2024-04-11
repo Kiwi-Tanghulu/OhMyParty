@@ -34,6 +34,10 @@ namespace OMG.Players
                     StopCoroutine(trunCo);
                 trunCo = StartCoroutine(TurnCo());
             }
+            else
+            {
+                StopCoroutine(trunCo);
+            }
         }
 
         public void Move()
