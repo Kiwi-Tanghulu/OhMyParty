@@ -51,12 +51,11 @@ namespace OMG.Minigames.RockFestival
 
         public void Active()
         {
-            IHolder prevHolder = Release();
-            prevHolder.Release();
-
-            Vector3 direction = prevHolder.HoldingParent.forward + Vector3.up * 0.5f;
+            Vector3 direction = currentHolder.HoldingParent.forward + Vector3.up * 0.5f;
             collision.SetActiveCollisionOther(true);
-            collision.AddForce(direction, 10f);
+            collision.AddForce(direction, 12.5f);
+
+            currentHolder.Release();
         }
 
         public IHolder Release()
