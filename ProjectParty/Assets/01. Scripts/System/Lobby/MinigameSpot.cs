@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using Cinemachine;
 using OMG.Input;
 using OMG.Interacting;
 using OMG.Minigames;
+using OMG.Players;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -17,12 +19,19 @@ namespace OMG.Lobbies
         private LobbyMinigameComponent minigameComponent = null;
         private LobbyResultComponent resultComponent = null;
         private LobbyReadyComponent readyComponent = null;
-        
+
+        [SerializeField] private List<Transform> sitPointList;
+        public List<Transform> SitPointList => sitPointList;
+        private NetworkList<ulong> playerIdList;
+
         private ulong currentClientID = 0;
+
+        public GameObject CurrentObject => throw new NotImplementedException();
 
         private void Awake()
         {
             focusVCam = transform.Find("FocusVCam").GetComponent<CinemachineVirtualCamera>();
+            playerIdList = new NetworkList<ulong>(new ulong[4]);
         }
 
         private void Start()
@@ -52,8 +61,13 @@ namespace OMG.Lobbies
             if(player == null)
                 return false;
 
-            currentClientID = player.OwnerClientId;
-            readyComponent.Ready(currentClientID);
+            if (performer.TryGetComponent<PlayerController>(out PlayerController playerController))
+            {
+                currentClientID = player.OwnerClientId;
+                readyComponent.Ready(currentClientID);
+                playerController.ChangeState(typeof(SitState));
+            }
+
             return true;
         }
 

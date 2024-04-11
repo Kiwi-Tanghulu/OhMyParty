@@ -66,6 +66,13 @@ namespace OMG.Players
             currentState?.UpdateState();
         }
 
+        public void ChangeState(Type type)
+        { 
+            FSMState state = states.Find(x => x.GetType() == type);
+            if (state != null)
+                ChangeState(state);
+        }
+
         public void ChangeState(FSMState state)
         {
             if (!states.Find(x => x == state))
