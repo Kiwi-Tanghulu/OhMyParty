@@ -6,12 +6,12 @@ namespace OMG.Players
 {
     public abstract class FSMDecision : MonoBehaviour
     {
-        protected ActioningPlayer actioningPlayer;
+        protected PlayerController actioningPlayer;
 
         [SerializeField] private bool invert;
         protected bool result;
 
-        public virtual void Init(ActioningPlayer actioningPlayer)
+        public virtual void Init(PlayerController actioningPlayer)
         {
             this.actioningPlayer = actioningPlayer;
         }

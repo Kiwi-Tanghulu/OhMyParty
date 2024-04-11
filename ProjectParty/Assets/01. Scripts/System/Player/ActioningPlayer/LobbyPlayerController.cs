@@ -5,7 +5,7 @@ using UnityEngine.Playables;
 
 namespace OMG.Players
 {
-    public class LobbyActioningPlayer : ActioningPlayer
+    public class LobbyPlayerController : PlayerController
     {
         private PlayableDirector pd;
 

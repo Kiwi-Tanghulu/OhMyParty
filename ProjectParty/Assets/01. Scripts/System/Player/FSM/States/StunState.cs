@@ -11,7 +11,7 @@ namespace OMG.Players
 
         private int stunAnimHash = Animator.StringToHash("stun");
 
-        public override void InitState(ActioningPlayer actioningPlayer)
+        public override void InitState(PlayerController actioningPlayer)
         {
             base.InitState(actioningPlayer);
 

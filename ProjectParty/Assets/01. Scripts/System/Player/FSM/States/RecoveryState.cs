@@ -12,7 +12,7 @@ namespace OMG.Players
         private readonly string frontRecoveryAnim = "Recovery(Front)";
         private readonly string backRecoveryAnim = "Recovery(Back)";
 
-        public override void InitState(ActioningPlayer actioningPlayer)
+        public override void InitState(PlayerController actioningPlayer)
         {
             base.InitState(actioningPlayer);
 

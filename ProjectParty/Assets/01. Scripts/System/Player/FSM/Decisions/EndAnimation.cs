@@ -8,7 +8,7 @@ namespace OMG.Players
     {
         private PlayerAnimation anim;
 
-        public override void Init(ActioningPlayer actioningPlayer)
+        public override void Init(PlayerController actioningPlayer)
         {
             base.Init(actioningPlayer);
 

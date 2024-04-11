@@ -10,7 +10,7 @@ public class TSofa : MonoBehaviour, IInteractable
 {
     public bool Interact(Component performer, bool actived, Vector3 point = default)
     {
-        ActioningPlayer actioningPlayer = performer.GetComponent<ActioningPlayer>();
+        PlayerController actioningPlayer = performer.GetComponent<PlayerController>();
 
         return true;
     }
