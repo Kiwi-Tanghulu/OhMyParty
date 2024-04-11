@@ -1,10 +1,12 @@
+using OMG.Extensions;
 using OMG.Interacting;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace OMG.Players
 {
-    public class PlayerFocuser : MonoBehaviour
+    public class PlayerFocuser : NetworkBehaviour
     {
         [SerializeField] Transform eyeTranform = null;
         [SerializeField] LayerMask focusingLayer = 0;
@@ -25,6 +27,9 @@ namespace OMG.Players
 
         private void Update()
         {
+            if(IsOwner == false)
+                return;
+
             IFocusable other = null;
             Vector3 point = eyeTranform.position + eyeTranform.forward * distance;
 
@@ -43,6 +48,8 @@ namespace OMG.Players
                 FocusObject(other, point);
 
             FocusedPoint = point;
+
+            Debug.Log(focusedObject?.CurrentObject?.name);
         }
 
         private void FocusObject(IFocusable other, Vector3 point)

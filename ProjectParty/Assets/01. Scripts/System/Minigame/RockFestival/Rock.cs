@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace OMG.Minigames.RockFestival
 {
-    public class Rock : NetworkBehaviour, IHoldable
+    public class Rock : NetworkBehaviour, IHoldable, IFocusable
     {
         private IHolder currentHolder = null;
         public IHolder CurrentHolder => currentHolder;
+
+        public GameObject CurrentObject => gameObject;
 
         private RockCollision collision = null;
 
@@ -67,6 +69,16 @@ namespace OMG.Minigames.RockFestival
             currentHolder = null;
 
             return prevHolder;
+        }
+
+        public void OnFocusBegin(Vector3 point)
+        {
+            
+        }
+
+        public void OnFocusEnd()
+        {
+            
         }
     }
 }

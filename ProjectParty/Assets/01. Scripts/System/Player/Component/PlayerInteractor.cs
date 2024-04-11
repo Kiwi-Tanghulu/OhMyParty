@@ -1,10 +1,11 @@
 using OMG.Input;
 using OMG.Interacting;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Players
 {
-    public class PlayerInteractor : MonoBehaviour
+    public class PlayerInteractor : NetworkBehaviour
     {
         [SerializeField] PlayInputSO input;
 
@@ -13,21 +14,33 @@ namespace OMG.Players
         private IFocusable lastFocusedTarget = null;
         private IInteractable currentTarget = null;
 
-        private void Awake()
+        public override void OnNetworkSpawn()
         {
+            if(IsOwner == false)
+                return;
+
             input.OnInteractEvent += HandleInteract;
             focuser = GetComponent<PlayerFocuser>();
         }
 
-        private void OnDestroy()
+        public override void OnNetworkDespawn()
         {
+            if(IsOwner == false)
+                return;
+
             input.OnInteractEvent -= HandleInteract;
         }
 
         private void HandleInteract(bool actived)
         {
-            if (focuser.IsEmpty)
+            if(gameObject.activeSelf == false)
                 return;
+
+            if (focuser.IsEmpty)
+            {
+                currentTarget = null;
+                return;
+            }
 
             if (lastFocusedTarget != focuser.FocusedObject)
                 currentTarget = focuser.FocusedObject.CurrentObject.GetComponent<IInteractable>();
