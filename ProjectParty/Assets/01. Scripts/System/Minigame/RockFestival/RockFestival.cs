@@ -2,12 +2,15 @@ using UnityEngine;
 
 namespace OMG.Minigames.RockFestival
 {
+    using OMG.Player;
+    
     public class RockFestival : Minigame
     {
         [SerializeField] float playTime = 60f;
 
         [Space(15f)]
         [SerializeField] ScoreArea[] scoreAreas = null;
+        [SerializeField] Player[] players = null;
 
         private RockSpawner spawner = null;
         private TimeAttackCycle timeAttackCycle = null;
@@ -18,10 +21,10 @@ namespace OMG.Minigames.RockFestival
 
             for(int i = 0; i < scoreAreas.Length; ++i)
             {
-                if(i >= JoinedPlayers.Count)
+                if(i >= PlayerDatas.Count)
                     scoreAreas[i].Init(0, false);
                 else
-                    scoreAreas[i].Init(JoinedPlayers[i].clientID, true);
+                    scoreAreas[i].Init(PlayerDatas[i].clientID, true);
             }
 
             spawner = GetComponent<RockSpawner>();
@@ -38,7 +41,7 @@ namespace OMG.Minigames.RockFestival
 
         public override void StartGame()
         {
-            for(int i = 0; i < JoinedPlayers.Count; ++i)
+            for(int i = 0; i < PlayerDatas.Count; ++i)
                 scoreAreas[i].SetActive(true, IsHost);
 
             if(IsHost == false)
@@ -50,7 +53,7 @@ namespace OMG.Minigames.RockFestival
 
         public override void FinishGame()
         {
-            for (int i = 0; i < JoinedPlayers.Count; ++i)
+            for (int i = 0; i < PlayerDatas.Count; ++i)
                 scoreAreas[i].SetActive(false, IsHost);
 
             if (IsHost == false)

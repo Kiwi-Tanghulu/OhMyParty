@@ -34,7 +34,7 @@ namespace OMG.Minigames
 
         public virtual void DisplayResult()
         {
-            minigame.JoinedPlayers.ForEach((minigameData, index) => {
+            minigame.PlayerDatas.ForEach((minigameData, index) => {
                 int score = minigame.CalculateScore(minigameData.score);
                 Debug.Log($"[Minigame] Player {minigameData.clientID} Score : {score}");
                 minigame.MinigameUI.ResultPanel[index].SetResult($"Player {minigameData.clientID}", score);

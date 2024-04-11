@@ -8,18 +8,18 @@ namespace OMG.Player
 {
     public class Player : NetworkBehaviour
     {
+        [SerializeField] ActioningPlayerType playerType;
         private ActioningPlayer actioningPlayer;
 
         public override void OnNetworkSpawn()
         {
-            PlayerManager.Instance.PlayerDic.Add(OwnerClientId, this);
+            PlayerManager.Instance.PlayerDic[OwnerClientId] = this;
 
             if (!IsOwner)
                 return;
 
             InputManager.ChangeInputMap(InputMapType.Play);//test
-
-            InstantiateActioningPlayerServerRpc(ActioningPlayerType.Lobby);
+            InstantiateActioningPlayerServerRpc(playerType);
         }
 
         [ServerRpc]

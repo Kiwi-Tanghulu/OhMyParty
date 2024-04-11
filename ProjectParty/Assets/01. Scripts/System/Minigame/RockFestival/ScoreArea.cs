@@ -32,7 +32,7 @@ namespace OMG.Minigames.RockFestival
                 return;
 
             this.ownerID = ownerID;
-            players = MinigameManager.Instance.CurrentMinigame.JoinedPlayers;
+            players = MinigameManager.Instance.CurrentMinigame.PlayerDatas;
         }
 
         public void SetActive(bool active, bool isHost)

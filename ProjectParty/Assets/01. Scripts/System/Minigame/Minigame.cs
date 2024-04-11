@@ -10,8 +10,8 @@ namespace OMG.Minigames
         [SerializeField] MinigameSO minigameData = null;
         public MinigameSO MinigameData => minigameData;
 
-        protected NetworkList<PlayerData> players = null;
-        public NetworkList<PlayerData> JoinedPlayers => players;
+        protected NetworkList<PlayerData> playerDatas = null;
+        public NetworkList<PlayerData> PlayerDatas => playerDatas;
 
         protected MinigameUI minigameUI = null;
         public MinigameUI MinigameUI => minigameUI;
@@ -20,7 +20,7 @@ namespace OMG.Minigames
 
         protected virtual void Awake()
         {
-            players = new NetworkList<PlayerData>();
+            playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
             minigameUI = transform.Find("MinigameUI").GetComponent<MinigameUI>();
         }
@@ -33,7 +33,7 @@ namespace OMG.Minigames
             minigameUI.Init();
 
             for(int i = 0; i < playerIDs.Length; ++i)
-                players.Add(new PlayerData(playerIDs[i]));
+                playerDatas.Add(new PlayerData(playerIDs[i]));
 
             StartIntro();
         }
