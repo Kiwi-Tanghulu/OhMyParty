@@ -17,6 +17,8 @@ namespace OMG.Lobbies
         private LobbyMinigameComponent minigameComponent = null;
         private LobbyResultComponent resultComponent = null;
         private LobbyReadyComponent readyComponent = null;
+        
+        private ulong currentClientID = 0;
 
         private void Awake()
         {
@@ -46,7 +48,12 @@ namespace OMG.Lobbies
             if(actived == false)
                 return false;
 
-            readyComponent.Ready();
+            NetworkObject player = performer.GetComponent<NetworkObject>();
+            if(player == null)
+                return false;
+
+            currentClientID = player.OwnerClientId;
+            readyComponent.Ready(currentClientID);
             return true;
         }
 
@@ -95,7 +102,7 @@ namespace OMG.Lobbies
 
         private void HandleInteractInput()
         {
-            readyComponent.Ready();
+            readyComponent.Ready(currentClientID);
             input.OnInteractEvent -= HandleInteractInput;
         }
 

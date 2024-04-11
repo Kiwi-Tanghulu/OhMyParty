@@ -1,11 +1,12 @@
 using System;
 using OMG.Input;
 using OMG.Interacting;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Players
 {
-    public class PlayerHand : MonoBehaviour, IHolder
+    public class PlayerHand : NetworkBehaviour, IHolder
     {
         [SerializeField] PlayInputSO input = null;
 
@@ -19,15 +20,21 @@ namespace OMG.Players
 
         public bool IsEmpty => holdingObject == null;
 
-        private void Awake()
+        public override void OnNetworkSpawn()
         {
+            if(IsOwner == false)
+                return;
+
             focuser = GetComponent<PlayerFocuser>();
             input.OnInteractEvent += HandleInteract;
             input.OnActiveEvent += HandleActive;
         }
 
-        private void OnDestroy()
+        public override void OnNetworkDespawn()
         {
+            if(IsOwner == false)
+                return;
+
             input.OnInteractEvent -= HandleInteract;
             input.OnActiveEvent -= HandleActive;
         }
@@ -61,11 +68,11 @@ namespace OMG.Players
 
         private void HandleInteract(bool interact)
         {
+            if (interact == false)
+                return;
+
             if(IsEmpty)
             {
-                if(interact == false)
-                    return;
-
                 if(focuser.IsEmpty)
                     return;
 

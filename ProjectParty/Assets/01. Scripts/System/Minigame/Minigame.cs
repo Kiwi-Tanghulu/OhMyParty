@@ -1,4 +1,5 @@
 using OMG.Extensions;
+using OMG.Input;
 using OMG.UI.Minigames;
 using Unity.Netcode;
 using UnityEngine;
@@ -57,10 +58,14 @@ namespace OMG.Minigames
             StartCoroutine(this.DelayCoroutine(minigameData.OutroPostponeTime, cycle.PlayOutro));
         }
 
-        public virtual void StartGame() {}
+        public virtual void StartGame()
+        { 
+            InputManager.ChangeInputMap(InputMapType.Play);
+        }
 
         public virtual void FinishGame() 
         {
+            InputManager.ChangeInputMap(InputMapType.UI);
             StartOutro();
         }
 

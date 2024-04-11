@@ -5,9 +5,10 @@ namespace OMG.Minigames.RockFestival
 {
     public class RockCollision : NetworkBehaviour, IDamageable
     {
-        public bool ActiveCollisionOther { get; private set; }
+        [SerializeField] LayerMask groundLayer = 0;
 
         private new Rigidbody rigidbody = null;
+        public bool ActiveCollisionOther { get; private set; } = false;
 
         private void Awake()
         {
@@ -22,17 +23,18 @@ namespace OMG.Minigames.RockFestival
 
         private void OnCollisionEnter(Collision other)
         {
-            if(other.rigidbody.CompareTag("Ground")) // 땅에 닿으면 종료
-            {
-                SetActiveCollisionOther(false);
-                return;
-            }
 
             if(ActiveCollisionOther == false)
                 return;
 
             if(other.rigidbody == null)
                 return;
+            
+            if(other.rigidbody.CompareTag("Ground")) // 땅에 닿으면 종료
+            {
+                SetActiveCollisionOther(false);
+                return;
+            }
 
             if(other.rigidbody.TryGetComponent<IDamageable>(out IDamageable damageable))
                 damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].normal);
@@ -63,6 +65,13 @@ namespace OMG.Minigames.RockFestival
                 rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             else
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+        public void FitToGround()
+        {
+            rigidbody.velocity = Vector3.zero;
+            if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, float.MaxValue, groundLayer))
+                transform.position = hit.point + (transform.forward * 0.5f) + (Vector3.up * 0.5f);
         }
 
         public void AddForce(Vector3 direction, float power)

@@ -1,5 +1,6 @@
 using System;
 using OMG.Extensions;
+using OMG.Input;
 using OMG.Minigames;
 using Unity.Netcode;
 using UnityEngine;
