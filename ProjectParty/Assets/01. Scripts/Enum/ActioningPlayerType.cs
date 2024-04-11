@@ -1,4 +1,4 @@
-namespace OMG.Player
+namespace OMG.Players
 {
     public enum ActioningPlayerType
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Player
+namespace OMG.Players
 {
     public class FSMTransition : MonoBehaviour
     {

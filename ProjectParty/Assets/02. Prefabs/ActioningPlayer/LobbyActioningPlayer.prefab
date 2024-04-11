@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 894226741758513347}
   - component: {fileID: 5760473957647445495}
   m_Layer: 0
-  m_Name: Timeline
+  m_Name: StartMinigameTimeline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3807,7 +3807,12 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'stickman:RightHandIndex2'\n\tTransform 'stickman:Neck'\n\tTransform
+    'stickman:Spine1'\n\tTransform 'stickman:Spine2'\n\tTransform 'stickman:RightUpLeg'\n\tTransform
+    'stickman:Spine'\n\tTransform 'stickman:LeftHand'\n\tTransform 'stickman:LeftHandIndex2'\n\tTransform
+    'stickman:RightHandIndex1'\n\tTransform 'stickman:LeftUpLeg'\n\tand more ..."
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -4136,7 +4141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3604873357
+  GlobalObjectIdHash: 659696893
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0

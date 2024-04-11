@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace OMG.Player
+namespace OMG.Players
 {
     public class RecoveryState : FSMState
     {

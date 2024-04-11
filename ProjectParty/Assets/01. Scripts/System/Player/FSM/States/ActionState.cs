@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 
-namespace OMG.Player
+namespace OMG.Players
 {
     public abstract class ActionState : FSMState
     {

@@ -2,7 +2,7 @@ using OMG.Input;
 using OMG.Interacting;
 using UnityEngine;
 
-namespace OMG.Player
+namespace OMG.Players
 {
     public class PlayerInteractor : MonoBehaviour
     {
