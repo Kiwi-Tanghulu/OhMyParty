@@ -5,13 +5,13 @@ namespace OMG.Players
 {
     public class FSMTransition : MonoBehaviour
     {
-        private ActioningPlayer actioningPlayer;
+        private PlayerController actioningPlayer;
 
         [SerializeField] private FSMState nextState;
         private FSMDecision[] decisions;
         private bool result;
 
-        public void Init(ActioningPlayer actioningPlayer)
+        public void Init(PlayerController actioningPlayer)
         {
             this.actioningPlayer = actioningPlayer;
 

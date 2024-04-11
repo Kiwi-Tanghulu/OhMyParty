@@ -7,17 +7,11 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
 
-    [SerializeField] private ActioningPlayerInfoContainerSO actioningPlayerInfoContainer;
-    private Dictionary<ulong, Player> playerDic = new Dictionary<ulong, Player>();
-    public Dictionary<ulong, Player> PlayerDic => playerDic;
+    private Dictionary<ulong, PlayerController> playerDic = new Dictionary<ulong, PlayerController>();
+    public Dictionary<ulong, PlayerController> PlayerDic => playerDic;
 
     private void Awake()
     {
         Instance = this;
-    }
-
-    public ActioningPlayerInfo GetActioningPlayer(ActioningPlayerType type)
-    {
-        return actioningPlayerInfoContainer.GetActioningPlayer(type);
     }
 }

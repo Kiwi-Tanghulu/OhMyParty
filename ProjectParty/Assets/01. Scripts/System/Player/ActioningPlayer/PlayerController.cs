@@ -5,20 +5,14 @@ using UnityEngine;
 
 namespace OMG.Players
 {
-    public class ActioningPlayer : NetworkBehaviour
+    public class PlayerController : NetworkBehaviour
     {
-        private Player player;
-
         private List<FSMState> states;
         [SerializeField] private FSMState startState;
         [SerializeField] private FSMState currentState;
 
         public override void OnNetworkSpawn()
         {
-            player = PlayerManager.Instance.PlayerDic[OwnerClientId];
-            player.SetActioningPlayer(this);
-            transform.SetParent(player.transform);
-
             states = new List<FSMState>();
             Transform stateContainer = transform.Find("States");
             foreach (Transform stateTrm in stateContainer)
@@ -32,17 +26,25 @@ namespace OMG.Players
 
             if (startState == null)
             {
-                Debug.Log("���� ������Ʈ ���� �� ��");
+                Debug.Log("not set start state");
             }
             else
             {
-                if(IsOwner)
+                if (IsOwner)
                     ChangeState(startState);
             }
         }
 
-        public virtual void UpdateActioningPlayer()
+        public void Init(ulong ownerId)
         {
+            NetworkObject.ChangeOwnership(ownerId);
+        }
+
+        private void Update()
+        {
+            if (!IsSpawned)
+                return;
+
             currentState?.UpdateState();
         }
 

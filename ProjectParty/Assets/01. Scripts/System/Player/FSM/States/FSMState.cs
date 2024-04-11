@@ -5,13 +5,13 @@ namespace OMG.Players
 {
     public abstract class FSMState : MonoBehaviour
     {
-        protected ActioningPlayer actioningPlayer;
+        protected PlayerController actioningPlayer;
         protected PlayerMovement movement;
         protected PlayerAnimation anim;
 
         private List<FSMTransition> transitions;
 
-        public virtual void InitState(ActioningPlayer actioningPlayer)
+        public virtual void InitState(PlayerController actioningPlayer)
         {
             this.actioningPlayer = actioningPlayer;
             movement = actioningPlayer.GetComponent<PlayerMovement>();

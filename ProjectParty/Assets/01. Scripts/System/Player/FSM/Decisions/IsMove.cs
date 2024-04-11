@@ -9,7 +9,7 @@ namespace OMG.Players
     {
         private PlayerMovement movement;
 
-        public override void Init(ActioningPlayer actioningPlayer)
+        public override void Init(PlayerController actioningPlayer)
         {
             base.Init(actioningPlayer);
 

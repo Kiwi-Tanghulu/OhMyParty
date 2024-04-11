@@ -9,7 +9,7 @@ namespace OMG.Players
     public class ActioningPlayerInfo
     {
         public ActioningPlayerType PlayerType;
-        public ActioningPlayer Prefab;
+        public PlayerController Prefab;
     }
 
     [CreateAssetMenu(menuName = "SO/Player/ActioningPlayerSO")]
