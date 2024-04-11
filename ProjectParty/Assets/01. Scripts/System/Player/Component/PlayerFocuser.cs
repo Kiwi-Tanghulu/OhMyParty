@@ -2,7 +2,7 @@ using OMG.Interacting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace OMG.Player
+namespace OMG.Players
 {
     public class PlayerFocuser : MonoBehaviour
     {
