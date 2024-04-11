@@ -13,7 +13,14 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
+        if(Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public ActioningPlayerInfo GetActioningPlayer(ActioningPlayerType type)

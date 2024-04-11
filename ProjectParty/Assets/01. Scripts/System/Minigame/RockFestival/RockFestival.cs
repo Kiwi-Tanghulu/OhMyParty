@@ -1,8 +1,8 @@
 using UnityEngine;
+using OMG.Players;
 
 namespace OMG.Minigames.RockFestival
 {
-    using OMG.Player;
     
     public class RockFestival : Minigame
     {
@@ -22,9 +22,15 @@ namespace OMG.Minigames.RockFestival
             for(int i = 0; i < scoreAreas.Length; ++i)
             {
                 if(i >= PlayerDatas.Count)
+                {
                     scoreAreas[i].Init(0, false);
+                    players[i].NetworkObject.Despawn();
+                }
                 else
+                {
                     scoreAreas[i].Init(PlayerDatas[i].clientID, true);
+                    players[i].Init(PlayerDatas[i].clientID);
+                }
             }
 
             spawner = GetComponent<RockSpawner>();
@@ -37,6 +43,8 @@ namespace OMG.Minigames.RockFestival
         {
             base.Release();
             spawner.Release();
+            foreach(Player player in players)
+                player.NetworkObject.Despawn();
         }
 
         public override void StartGame()

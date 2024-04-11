@@ -22,6 +22,12 @@ namespace OMG.Players
             InstantiateActioningPlayerServerRpc(playerType);
         }
 
+        public void Init(ulong ownerID)
+        {
+            NetworkObject.ChangeOwnership(ownerID);
+            actioningPlayer.NetworkObject.ChangeOwnership(ownerID);
+        }
+
         [ServerRpc]
         public void InstantiateActioningPlayerServerRpc(ActioningPlayerType type)
         {
