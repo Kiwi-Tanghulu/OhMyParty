@@ -7,19 +7,10 @@ namespace OMG.Players
 {
     public class LobbyPlayerController : PlayerController
     {
-        private PlayableDirector pd;
-
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
-            pd = transform.Find("StartMinigameTimeline").GetComponent<PlayableDirector>();
-            GameObject.FindObjectOfType<LobbyStartMinigameTimeline>().StartPlayerTimelineAction += pd.Play;
-        }
-
-        public override void OnNetworkDespawn()
-        {
-            GameObject.FindObjectOfType<LobbyStartMinigameTimeline>().StartPlayerTimelineAction -= pd.Play;
         }
     }
 }
