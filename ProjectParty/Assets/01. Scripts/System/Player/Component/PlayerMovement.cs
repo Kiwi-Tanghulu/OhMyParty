@@ -36,7 +36,8 @@ namespace OMG.Players
             }
             else
             {
-                StopCoroutine(trunCo);
+                if(trunCo != null)
+                    StopCoroutine(trunCo);
             }
         }
 

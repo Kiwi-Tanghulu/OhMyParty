@@ -1,3 +1,4 @@
+using OMG.Lobbies;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,19 +11,28 @@ public class LobbyStartMinigameTimeline : MonoBehaviour
     public event Action StartPlayerTimelineAction;
 
     private PlayableDirector pd;
+    private LobbyReadyComponent ready;
 
-    private void Start()
+    private void Awake()
     {
         pd = GetComponent<PlayableDirector>();
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Debug.Log("Play");
-            pd.Play();
-        }
+        LobbyReadyComponent ready = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
+
+        ready.OnLobbyReadyEvent += Ready_OnLobbyReadyEvent;
+    }
+
+    private void OnDestroy()
+    {
+        ready.OnLobbyReadyEvent -= Ready_OnLobbyReadyEvent;
+    }
+
+    private void Ready_OnLobbyReadyEvent()
+    {
+        pd.Play();
     }
 
     public void InvokePlayerTimeline()

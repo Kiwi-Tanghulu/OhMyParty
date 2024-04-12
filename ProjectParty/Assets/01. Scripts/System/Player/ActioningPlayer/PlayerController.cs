@@ -12,6 +12,9 @@ namespace OMG.Players
         [SerializeField] private FSMState startState;
         [SerializeField] private FSMState currentState;
 
+        private Animator anim;
+        public Animator Anim => anim;
+
         private bool isFirstEnabled = true;
 
         public override void OnNetworkSpawn()
@@ -38,6 +41,8 @@ namespace OMG.Players
                 if (IsOwner)
                     ChangeState(startState);
             }
+
+            anim = GetComponent<Animator>();
         }
 
         public void Init(ulong ownerId)
