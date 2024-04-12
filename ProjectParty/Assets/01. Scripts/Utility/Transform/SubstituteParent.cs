@@ -12,7 +12,7 @@ namespace OMG.Utility.Transforms
         private bool activeRotate = true;
         private bool activeTranslate = true;
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             if (parent == null)
                 return;
