@@ -71,7 +71,7 @@ namespace OMG.Minigames
                 {
                     if(binding.streamName == "Player")
                     {
-                        timelineHolder.SetGenericBinding(binding.sourceObject, players[bindedCount].GetComponent<Animator>());
+                        timelineHolder.SetGenericBinding(binding.sourceObject, players[bindedCount].Anim);
 
                         bindedCount++;
                         if(bindedCount >= minigame.PlayerDatas.Count)
