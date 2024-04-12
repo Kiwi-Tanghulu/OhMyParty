@@ -42,7 +42,7 @@ namespace OMG.Players
                     ChangeState(startState);
             }
 
-            anim = GetComponent<Animator>();
+            anim = transform.Find("Visual").GetComponent<Animator>();
         }
 
         public void Init(ulong ownerId)

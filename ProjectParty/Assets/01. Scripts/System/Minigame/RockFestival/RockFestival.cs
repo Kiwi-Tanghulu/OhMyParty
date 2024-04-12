@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using OMG.Players;
 using UnityEngine;
 
 namespace OMG.Minigames.RockFestival
 {
     
-    public class RockFestival : Minigame
+    public class RockFestival : Minigame, IPlayableMinigame
     {
         [SerializeField] PlayerController playerPrefab = null;
         [SerializeField] float playTime = 60f;
@@ -12,10 +13,13 @@ namespace OMG.Minigames.RockFestival
         [Space(15f)]
         [SerializeField] ScoreArea[] scoreAreas = null;
         [SerializeField] Transform[] spawnPositions = null;
+        
         private PlayerController[] players = null;
+        public PlayerController[] Players => players;
 
         private RockSpawner spawner = null;
         private TimeAttackCycle timeAttackCycle = null;
+
 
         public override void Init(params ulong[] playerIDs)
         {

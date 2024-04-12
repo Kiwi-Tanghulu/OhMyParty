@@ -1,5 +1,6 @@
 using OMG.Extensions;
 using OMG.Lobbies;
+using OMG.Players;
 using OMG.UI.Minigames;
 using OMG.Utility;
 using Unity.Netcode;
@@ -12,8 +13,8 @@ namespace OMG.Minigames
     public class MinigameCycle : NetworkBehaviour
     {
         [SerializeField] OptOption<TimelineAsset> timelineOption = null;
+
         private PlayableDirector timelineHolder = null;
-        
         protected Minigame minigame = null;
 
         protected virtual void Awake()
@@ -24,12 +25,12 @@ namespace OMG.Minigames
 
         public void PlayIntro()
         {
-            PlayCutsceneClientRpc(true);
+            PlayCutsceneClientRpc(true, minigame is IPlayableMinigame);
         }
 
         public void PlayOutro()
         {
-            PlayCutsceneClientRpc(false);
+            PlayCutsceneClientRpc(false, minigame is IPlayableMinigame);
         }
 
         public virtual void DisplayResult()
@@ -55,9 +56,30 @@ namespace OMG.Minigames
         }
 
         [ClientRpc]
-        private void PlayCutsceneClientRpc(bool option)
+        private void PlayCutsceneClientRpc(bool option, bool bindPlayer)
         {
             timelineHolder.playableAsset = timelineOption.GetOption(option);
+
+            if(bindPlayer)
+            {
+                PlayerController[] players = (minigame as IPlayableMinigame)?.Players;
+                if(players == null)
+                    return;
+
+                int bindedCount = 0;
+                foreach(PlayableBinding binding in timelineHolder.playableAsset.outputs)
+                {
+                    if(binding.streamName == "Player")
+                    {
+                        timelineHolder.SetGenericBinding(binding.sourceObject, players[bindedCount].Anim);
+
+                        bindedCount++;
+                        if(bindedCount >= minigame.PlayerDatas.Count)
+                            break;
+                    }
+                }
+            }
+
             timelineHolder.Play();
         }
     }
