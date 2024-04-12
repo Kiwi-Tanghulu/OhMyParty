@@ -7,20 +7,20 @@ namespace OMG.Players
 {
     public class SitState : FSMState
     {
-        private MinigameSpot sofa;
+        private MinigameSpot minigameSpot;
 
         public override void InitState(PlayerController actioningPlayer)
         {
             base.InitState(actioningPlayer);
 
-            sofa = GameObject.FindObjectOfType<MinigameSpot>();
+            minigameSpot = GameObject.FindObjectOfType<MinigameSpot>();
         }
 
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
 
-            Transform sitPoint = sofa.SitPointList[(int)actioningPlayer.OwnerClientId];
+            Transform sitPoint = minigameSpot.SitPointList[(int)actioningPlayer.OwnerClientId];
             actioningPlayer.transform.position = sitPoint.position;
             actioningPlayer.transform.rotation = sitPoint.rotation;
         }
