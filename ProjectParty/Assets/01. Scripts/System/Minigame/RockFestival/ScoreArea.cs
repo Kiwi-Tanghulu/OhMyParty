@@ -59,7 +59,6 @@ namespace OMG.Minigames.RockFestival
                 return;
 
             UpdatePointBuffer(1);
-            Debug.Log($"Player {ownerID} Score : {pointBuffer}");
         }
 
         private void OnTriggerExit(Collider other)
@@ -97,16 +96,9 @@ namespace OMG.Minigames.RockFestival
                 prevPoint = pointBuffer;
                 players.ChangeData(i => i.clientID == ownerID, data => {
                     data.score = pointBuffer;
-                    //BroadcastScoreUpdateClientRpc(pointBuffer);
                     return data;
                 });
             }
         }
-
-        // [ClientRpc]
-        // private void BroadcastScoreUpdateClientRpc(int score)
-        // {
-        //     scoreText.text = score.ToString();
-        // }
     }
 }

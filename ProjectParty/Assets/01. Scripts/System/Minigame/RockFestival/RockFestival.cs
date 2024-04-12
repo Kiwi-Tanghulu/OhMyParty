@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using OMG.Players;
 using UnityEngine;
 
@@ -83,6 +82,7 @@ namespace OMG.Minigames.RockFestival
 
         private void CreatePlayer(int index)
         {
+            Debug.Log("Client Player Setting");
             players[index] = Instantiate(playerPrefab, spawnPositions[index].position, Quaternion.identity);
             players[index].NetworkObject.SpawnWithOwnership(PlayerDatas[index].clientID, true);
             players[index].NetworkObject.TrySetParent(spawnPositions[index]);
