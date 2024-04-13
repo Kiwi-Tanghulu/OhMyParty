@@ -83,8 +83,7 @@ namespace OMG.Minigames.RockFestival
         private void AddForceServerRpc(Vector3 force)
         {
             hostActionQueue.Enqueue(() => {
-                rigidbody.AddForce(force);
-                Debug.Log(force);
+                rigidbody.AddForce(force, ForceMode.Impulse);
             });
         }
 
