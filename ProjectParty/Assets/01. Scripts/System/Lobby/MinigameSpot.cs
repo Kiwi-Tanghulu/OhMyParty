@@ -24,8 +24,6 @@ namespace OMG.Lobbies
 
         private ulong currentClientID = 0;
 
-        public GameObject CurrentObject => throw new NotImplementedException();
-
         private void Awake()
         {
             focusVCam = transform.Find("FocusVCam").GetComponent<CinemachineVirtualCamera>();
@@ -46,8 +44,6 @@ namespace OMG.Lobbies
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            if (IsHost)
-                input.OnSpaceEvent += HandleSpaceInput;
         }
 
         public bool Interact(Component performer, bool actived, Vector3 point = default)
@@ -77,6 +73,8 @@ namespace OMG.Lobbies
                 case LobbyState.MinigameFinished: // 그 전 미니게임이 끝난 상태일 때도 마찬가지
                     if(IsHost)
                         minigameComponent.StartMinigameSelecting();
+
+                    input.OnSpaceEvent += HandleSpaceInput;
                     FocusSpot(true);
                     break;
                 case LobbyState.MinigameSelected: // 미니게임 선택된 상태일 때 레디가 되면 미니게임 시작
@@ -92,10 +90,11 @@ namespace OMG.Lobbies
         // Select Minigame
         private void HandleSpaceInput()
         {
-            if(IsHost == false) // Check Authority
+            if(IsHost == false) // Check Authority Later
                 return;
 
             minigameComponent.SelectMinigame();
+            input.OnSpaceEvent -= HandleSpaceInput;
         }
 
         private void HandleMinigameSelected(int index)
