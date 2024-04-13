@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Lobbies;
 using OMG.Players;
@@ -24,12 +25,12 @@ namespace OMG.Minigames
 
         public void PlayIntro()
         {
-            PlayCutsceneClientRpc(true, minigame is IPlayableMinigame);
+            PlayCutsceneClientRpc(true, minigame is PlayableMinigame);
         }
 
         public void PlayOutro()
         {
-            PlayCutsceneClientRpc(false, minigame is IPlayableMinigame);
+            PlayCutsceneClientRpc(false, minigame is PlayableMinigame);
         }
 
         public virtual void DisplayResult()
@@ -57,24 +58,28 @@ namespace OMG.Minigames
         [ClientRpc]
         private void PlayCutsceneClientRpc(bool option, bool bindPlayer)
         {
+            Debug.Log($"Play Cutscene Option : {option}");
             timelineHolder.playableAsset = timelineOption.GetOption(option);
-
+            
+            bindPlayer &= minigame is PlayableMinigame;
             if(bindPlayer)
             {
-                PlayerController[] players = (minigame as IPlayableMinigame)?.Players;
-                if(players == null)
-                    return;
-
+                NetworkList<NetworkObjectReference> players = (minigame as PlayableMinigame).Players;
                 int bindedCount = 0;
+
                 foreach(PlayableBinding binding in timelineHolder.playableAsset.outputs)
                 {
                     if(binding.streamName == "Player")
                     {
-                        timelineHolder.SetGenericBinding(binding.sourceObject, players[bindedCount].Anim);
+                        if(players[bindedCount].TryGet(out NetworkObject player))
+                        {
+                            MinigamePlayer minigamePlayer = player.GetComponent<MinigamePlayer>();
+                            timelineHolder.SetGenericBinding(binding.sourceObject, minigamePlayer.PlayerController.Anim);
 
-                        bindedCount++;
-                        if(bindedCount >= minigame.PlayerDatas.Count)
-                            break;
+                            bindedCount++;
+                            if(bindedCount >= minigame.PlayerDatas.Count)
+                                break;
+                        }
                     }
                 }
             }

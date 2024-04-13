@@ -35,13 +35,10 @@ namespace OMG.Minigames
 
             for(int i = 0; i < playerIDs.Length; ++i)
                 playerDatas.Add(new PlayerData(playerIDs[i]));
-
-            StartIntro();
         }
 
         /// <summary>
         /// Only Host Could Call this Method
-
         /// </summary>
         public virtual void Release() 
         {
@@ -50,12 +47,16 @@ namespace OMG.Minigames
 
         public virtual void StartIntro()
         {
-            StartCoroutine(this.DelayCoroutine(minigameData.IntroPostponeTime, cycle.PlayIntro));
+            StartCoroutine(this.DelayCoroutine(minigameData.IntroPostponeTime, () => {
+                cycle.PlayIntro();
+            }));
         }
 
         public virtual void StartOutro()
         {
-            StartCoroutine(this.DelayCoroutine(minigameData.OutroPostponeTime, cycle.PlayOutro));
+            StartCoroutine(this.DelayCoroutine(minigameData.OutroPostponeTime, () => {
+                cycle.PlayOutro();
+            }));
         }
 
         public virtual void StartGame()
