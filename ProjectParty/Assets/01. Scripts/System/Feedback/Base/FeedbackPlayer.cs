@@ -8,7 +8,7 @@ namespace OMG.Feedbacks
     {
         private List<Feedback> feedbacks;
 
-        private void Start()
+        private void Awake()
         {
             feedbacks = new List<Feedback>();
 

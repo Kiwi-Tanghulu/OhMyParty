@@ -2,11 +2,15 @@ using System;
 using OMG.Interacting;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Minigames.RockFestival
 {
     public class Rock : NetworkBehaviour, IHoldable, IFocusable
     {
+        [SerializeField] UnityEvent onThrowEvent = null;
+        [SerializeField] UnityEvent onSpawnedEvent = null;
+
         private IHolder currentHolder = null;
         public IHolder CurrentHolder => currentHolder;
 
@@ -21,6 +25,11 @@ namespace OMG.Minigames.RockFestival
         {
             collision = GetComponent<RockCollision>();
             rockTransform = GetComponent<RockTransform>();
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            onSpawnedEvent?.Invoke();
         }
 
         /// <summary>
@@ -55,6 +64,7 @@ namespace OMG.Minigames.RockFestival
             collision.AddForce(direction, 12.5f);
 
             currentHolder.Release();
+            onThrowEvent?.Invoke();
         }
 
         public IHolder Release()
