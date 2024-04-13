@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Minigames.RockFestival
 {
     public class RockCollision : NetworkBehaviour, IDamageable
     {
+        [SerializeField] UnityEvent onCollisionEvent = null;
+        [SerializeField] UnityEvent onDamagedEvent = null;
+
         private new Rigidbody rigidbody = null;
         public bool ActiveCollisionOther { get; private set; } = false;
 
@@ -34,20 +38,24 @@ namespace OMG.Minigames.RockFestival
 
         private void OnCollisionEnter(Collision other)
         {
+            onCollisionEvent?.Invoke();
+
             if(ActiveCollisionOther == false)
                 return;
 
-            if(other.rigidbody == null)
-                return;
-            
-            if(other.rigidbody.CompareTag("Ground")) // 땅에 닿으면 종료
+            if(other.collider.CompareTag("Ground")) // 땅에 닿으면 종료
             {
                 SetActiveCollisionOther(false);
                 return;
             }
 
-            if(other.rigidbody.TryGetComponent<IDamageable>(out IDamageable damageable))
-                damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].normal);
+            if(other.rigidbody == null)
+                return;
+
+            if(other.rigidbody.TryGetComponent<IDamageable>(out IDamageable damageable) == false)
+                return;
+
+            damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].normal);
         }
 
         public void OnDamaged(float damage, Transform attacker, Vector3 point)
@@ -55,6 +63,8 @@ namespace OMG.Minigames.RockFestival
             // Calc Normal Vector
             if(ActiveCollisionOther)
                 return;
+
+            onDamagedEvent?.Invoke();
 
             Vector3 normal = point.normalized;
             rigidbody.AddForce(-normal * damage * 100f);
