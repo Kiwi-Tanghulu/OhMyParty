@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 1757850798224512475}
   - component: {fileID: 6484922525317105252}
   m_Layer: 12
-  m_Name: SmokeFeedback
+  m_Name: CollisionFeedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,6 +236,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ff74ee7f302fd4bbb736c514227138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5226468558182375579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5252876203237504413}
+  m_Layer: 12
+  m_Name: HitPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5252876203237504413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5226468558182375579}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1692621794146701403}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5254737259317605047
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +313,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetObject: {fileID: 1533597320779392982}
   turnOffTime: 1.5
+--- !u!1 &5687630031478581770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5719211344609649897}
+  - component: {fileID: 3794561823819173626}
+  m_Layer: 12
+  m_Name: HitFeedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5719211344609649897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687630031478581770}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3013252022879491233}
+  m_Father: {fileID: 1692621794146701403}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3794561823819173626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687630031478581770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ff74ee7f302fd4bbb736c514227138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6646914870736437144
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +405,53 @@ MonoBehaviour:
   particlePrefab: {fileID: 5853701086517013895, guid: 3c4f31c31d469a94898d8801b7afe4b1,
     type: 3}
   autoDestroyTime: 1
+--- !u!1 &7577131655306178617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3013252022879491233}
+  - component: {fileID: 2884561431763930582}
+  m_Layer: 12
+  m_Name: SpawnParticle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3013252022879491233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7577131655306178617}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5719211344609649897}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2884561431763930582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7577131655306178617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef15662e3b78964791dd85f3940b2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 141433446842962268, guid: 9fe8f8b3288e45a44af36ff8aa04486e,
+    type: 3}
+  autoDestroyTime: 1
 --- !u!1 &7671886679003051456
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +492,9 @@ Transform:
   m_Children:
   - {fileID: 4943591639572074250}
   - {fileID: 2991031573949161822}
+  - {fileID: 5252876203237504413}
   - {fileID: 1757850798224512475}
+  - {fileID: 5719211344609649897}
   - {fileID: 7324263510788662094}
   - {fileID: 3918352559461123943}
   m_Father: {fileID: 0}
@@ -465,7 +590,20 @@ MonoBehaviour:
         m_CallState: 2
   onDamagedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3794561823819173626}
+        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 5252876203237504413}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  hitPoint: {fileID: 5252876203237504413}
 --- !u!114 &3581594052873808028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,7 +692,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.15
+  m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1352007759704261647
 Rigidbody:
@@ -701,8 +839,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1692621794146701403}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

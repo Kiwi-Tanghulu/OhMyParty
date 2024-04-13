@@ -10,6 +10,7 @@ namespace OMG.Minigames.RockFestival
     {
         [SerializeField] UnityEvent onCollisionEvent = null;
         [SerializeField] UnityEvent onDamagedEvent = null;
+        [SerializeField] Transform hitPoint = null;
 
         private new Rigidbody rigidbody = null;
         public bool ActiveCollisionOther { get; private set; } = false;
@@ -55,19 +56,23 @@ namespace OMG.Minigames.RockFestival
             if(other.rigidbody.TryGetComponent<IDamageable>(out IDamageable damageable) == false)
                 return;
 
-            damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].normal);
+            damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].point, other.contacts[0].normal);
         }
 
-        public void OnDamaged(float damage, Transform attacker, Vector3 point)
+        public void OnDamaged(float damage, Transform attacker, Vector3 point, Vector3 normal = default)
         {
             // Calc Normal Vector
             if(ActiveCollisionOther)
                 return;
 
+            hitPoint.position = point;
             onDamagedEvent?.Invoke();
 
-            Vector3 normal = point.normalized;
-            rigidbody.AddForce(-normal * damage * 100f);
+            normal = attacker.position - transform.position;
+            normal = new Vector3(normal.x, 0, normal.z).normalized;
+            normal.y = -0.25f;
+
+            rigidbody.AddForce(-normal.normalized * damage * 100f);
         }
 
         public void SetActiveCollisionOther(bool active)

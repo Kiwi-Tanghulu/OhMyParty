@@ -10,6 +10,8 @@ namespace OMG.Feedbacks
 
         public override void Play(Transform playTrm)
         {
+            StopAllCoroutines();
+
             targetObject.SetActive(true);
             StartCoroutine(this.DelayCoroutine(turnOffTime, () => targetObject.SetActive(false)));
         }

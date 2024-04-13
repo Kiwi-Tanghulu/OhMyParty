@@ -19,7 +19,7 @@ namespace OMG.Players
         public Vector3 HitDir => hitDir;
         public Vector3 HitPoint => hitPoint;
 
-        public void OnDamaged(float damage, Transform attacker, Vector3 point)
+        public void OnDamaged(float damage, Transform attacker, Vector3 point, Vector3 normal = default)
         {
             Debug.Log("damaged");
             this.attacker = attacker;

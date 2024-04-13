@@ -7,15 +7,31 @@ namespace OMG.Feedbacks
     {
         [SerializeField] ParticleSystem particlePrefab = null;
         [SerializeField] float autoDestroyTime = 1f;
+        private ParticleSystem instance = null;
 
         public override void Play(Transform playTrm)
         {
-            ParticleSystem instance = Instantiate(particlePrefab);
+            if(instance != null)
+            {
+                StopAllCoroutines();
+                DestroyInstance();
+            }
+
+            instance = Instantiate(particlePrefab);
             instance.transform.position = playTrm.position;
             instance.Play();
 
             if(autoDestroyTime > 0)
-                StartCoroutine(this.DelayCoroutine(autoDestroyTime, () => Destroy(instance)));
+                StartCoroutine(this.DelayCoroutine(autoDestroyTime, DestroyInstance));
+        }
+
+        private void DestroyInstance()
+        {
+            if(instance == null)
+                return;
+
+            Destroy(instance.gameObject);
+            instance = null;
         }
     }
 }
