@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Lobbies;
 using OMG.Players;
@@ -49,6 +48,7 @@ namespace OMG.Minigames
                 }
             });
 
+            Debug.Log($"Display Result");
             minigame.MinigameUI.ResultPanel.Display(true);
 
             if(IsHost)
@@ -73,8 +73,8 @@ namespace OMG.Minigames
                     {
                         if(players[bindedCount].TryGet(out NetworkObject player))
                         {
-                            MinigamePlayer minigamePlayer = player.GetComponent<MinigamePlayer>();
-                            timelineHolder.SetGenericBinding(binding.sourceObject, minigamePlayer.PlayerController.Anim);
+                            PlayerController minigamePlayer = player.GetComponent<PlayerController>();
+                            timelineHolder.SetGenericBinding(binding.sourceObject, minigamePlayer.Anim);
 
                             bindedCount++;
                             if(bindedCount >= minigame.PlayerDatas.Count)

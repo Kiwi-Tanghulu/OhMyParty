@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using OMG.Extensions;
+using OMG.Players;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace OMG.Minigames
 {
     public abstract class PlayableMinigame : Minigame
     {
-        [SerializeField] protected MinigamePlayer playerPrefab = null;
+        [SerializeField] protected PlayerController playerPrefab = null;
         [SerializeField] Transform[] spawnPositions = null;
 
         private NetworkList<NetworkObjectReference> players = null;
@@ -31,7 +31,7 @@ namespace OMG.Minigames
         protected void CreatePlayer(int index)
         {
             Debug.Log("Client Player Setting");
-            MinigamePlayer player = Instantiate(playerPrefab, spawnPositions[index].position, Quaternion.identity);
+            PlayerController player = Instantiate(playerPrefab, spawnPositions[index].position, Quaternion.identity);
             player.NetworkObject.SpawnWithOwnership(PlayerDatas[index].clientID, true);
             player.NetworkObject.TrySetParent(NetworkObject);
 
