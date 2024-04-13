@@ -5,6 +5,7 @@ namespace OMG.Interacting
     public interface IHolder
     {
         public Transform HoldingParent { get; }
+        public GameObject HolderObject { get; }
         public IHoldable HoldingObject { get; }
 
         public bool IsEmpty { get; }

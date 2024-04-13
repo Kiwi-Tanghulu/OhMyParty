@@ -31,8 +31,6 @@ namespace OMG.Minigames
         /// </summary>  
         public virtual void Init(params ulong[] playerIDs)
         {
-            minigameUI.Init();
-
             for(int i = 0; i < playerIDs.Length; ++i)
                 playerDatas.Add(new PlayerData(playerIDs[i]));
         }
@@ -42,7 +40,6 @@ namespace OMG.Minigames
         /// </summary>
         public virtual void Release() 
         {
-            minigameUI.Release();
         }
 
         public virtual void StartIntro()

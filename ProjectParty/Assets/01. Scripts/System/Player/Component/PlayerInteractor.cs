@@ -34,7 +34,7 @@ namespace OMG.Players
 
         private void HandleInteract(bool actived)
         {
-            if(gameObject.activeSelf == false)
+            if(gameObject.activeInHierarchy == false)
                 return;
 
             if (focuser.IsEmpty)

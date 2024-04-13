@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace OMG.UI.Minigames
 {
-    public class MinigameUI : NetworkBehaviour
+    public class MinigameUI : MonoBehaviour
     {
         private ResultPanel resultPanel = null;
         public ResultPanel ResultPanel => resultPanel;
@@ -18,25 +18,23 @@ namespace OMG.UI.Minigames
             resultPanel = transform.Find("ResultPanel").GetComponent<ResultPanel>();
         }
 
-        public void Init()
+        private void Start()
         {
-            SettingCameraClientRpc();
+            SettingCamera();
         }
 
-        public void Release()
+        private void OnDestroy()
         {
-            ReleaseCameraClientRpc();
+            ReleaseCamera();
         }
 
-        [ClientRpc]
-        private void SettingCameraClientRpc()
+        private void SettingCamera()
         {
             cameraData = Camera.main.GetUniversalAdditionalCameraData();
             cameraData.cameraStack.Add(uiCamera);
         }
 
-        [ClientRpc]
-        private void ReleaseCameraClientRpc()
+        private void ReleaseCamera()
         {
             cameraData?.cameraStack.Remove(uiCamera);
         }
