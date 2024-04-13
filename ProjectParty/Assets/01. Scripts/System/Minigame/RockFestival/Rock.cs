@@ -62,7 +62,10 @@ namespace OMG.Minigames.RockFestival
             IHolder prevHolder = currentHolder;
             currentHolder = null;
             
-            rockTransform.ReleaseParent(collision.ActiveCollisionOther == false);
+            if(collision.ActiveCollisionOther == false)
+                rockTransform.FitToGround();
+
+            rockTransform.ReleaseParent();
             collision.SetActiveRigidbody(true);
             
             OnHoldEvent?.Invoke(false);
