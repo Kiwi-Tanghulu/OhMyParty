@@ -54,19 +54,22 @@ namespace OMG.Minigames.RockFestival
             if(NetworkManager.Singleton.LocalClientId != clientID)
                 return;
 
+            SetPositionImmediately(holderCache.HoldingParent.position);
             parent.SetParent(holderCache.HoldingParent);
         }
 
-        public void ReleaseParent()
+        public void ReleaseParent(bool fitToGround)
         {
-            ReleaseParentServerRpc();
+            ReleaseParentServerRpc(fitToGround);
         }
         
         [ServerRpc(RequireOwnership = false)]
-        private void ReleaseParentServerRpc()
+        private void ReleaseParentServerRpc(bool fitToGround)
         {
             NetworkObject.ChangeOwnership(NetworkManager.ServerClientId);
             ReleaseParentClientRpc();
+            if(fitToGround)
+                FitToGround();
         }
 
         [ClientRpc]

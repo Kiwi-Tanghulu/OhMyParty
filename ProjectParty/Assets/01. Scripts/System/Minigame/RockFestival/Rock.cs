@@ -40,7 +40,6 @@ namespace OMG.Minigames.RockFestival
                 return false;
 
             currentHolder = holder;
-            // rockTransform.SetPositionImmediately(currentHolder.HoldingParent.position);
             rockTransform.SetParent(currentHolder.HolderObject.GetComponent<NetworkObject>().OwnerClientId, currentHolder);
             OnHoldEvent?.Invoke(true);
 
@@ -53,7 +52,6 @@ namespace OMG.Minigames.RockFestival
         {
             Vector3 direction = currentHolder.HoldingParent.forward + Vector3.up * 0.5f;
             collision.SetActiveCollisionOther(true);
-            collision.SetActiveRigidbody(true);
             collision.AddForce(direction, 12.5f);
 
             currentHolder.Release();
@@ -64,10 +62,7 @@ namespace OMG.Minigames.RockFestival
             IHolder prevHolder = currentHolder;
             currentHolder = null;
             
-            rockTransform.ReleaseParent();
-
-            // if(collision.ActiveCollisionOther == false)
-            //     rockTransform.FitToGround();
+            rockTransform.ReleaseParent(collision.ActiveCollisionOther == false);
             collision.SetActiveRigidbody(true);
             
             OnHoldEvent?.Invoke(false);
