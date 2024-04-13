@@ -16,11 +16,6 @@ namespace OMG.Players
             movement = actioningPlayer.GetComponent<PlayerMovement>();
         }
 
-        public override void EnterState()
-        {
-
-        }
-
         public override bool MakeDecision()
         {
             result = movement.MoveDir != Vector3.zero;

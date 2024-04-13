@@ -9,7 +9,8 @@ namespace OMG.Players
     public class PlayerController : NetworkBehaviour
     {
         private List<FSMState> states;
-        [SerializeField] private FSMState startState;
+        [SerializeField] private FSMState defaultState;
+        public FSMState DefaultState => defaultState;
         [SerializeField] private FSMState currentState;
 
         private Animator anim;
@@ -32,14 +33,14 @@ namespace OMG.Players
                 }
             }
 
-            if (startState == null)
+            if (defaultState == null)
             {
                 Debug.Log("not set start state");
             }
             else
             {
                 if (IsOwner)
-                    ChangeState(startState);
+                    ChangeState(defaultState);
             }
 
             anim = transform.Find("Visual").GetComponent<Animator>();

@@ -20,8 +20,6 @@ namespace OMG.Lobbies
         private LobbyResultComponent resultComponent = null;
         private LobbyReadyComponent readyComponent = null;
 
-        [SerializeField] private List<Transform> sitPointList;
-        public List<Transform> SitPointList => sitPointList;
         private NetworkList<ulong> playerIdList;
 
         private ulong currentClientID = 0;

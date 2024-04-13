@@ -16,7 +16,10 @@ namespace OMG.Players
             this.actioningPlayer = actioningPlayer;
         }
 
-        public abstract void EnterState();
+        public virtual void EnterState()
+        {
+            result = false;
+        }
 
         public virtual bool MakeDecision()
         {

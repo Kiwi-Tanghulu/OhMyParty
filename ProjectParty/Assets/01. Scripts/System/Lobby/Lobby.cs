@@ -17,6 +17,7 @@ namespace OMG.Lobbies
         private Dictionary<Type, LobbyComponent> lobbyComponents = null;
         private NetworkList<PlayerData> players = null;
         public NetworkList<PlayerData> PlayerDatas => players;
+        public PlayerContainer PlayerContainer;
 
         private NetworkVariable<LobbyState> lobbyState = null;
         public LobbyState LobbyState => lobbyState.Value;
@@ -30,6 +31,7 @@ namespace OMG.Lobbies
             components.ForEach(i => i.Init(this));
 
             players = new NetworkList<PlayerData>();
+            PlayerContainer = new();
             lobbyState = new NetworkVariable<LobbyState>(LobbyState.Community);
             lobbyState.OnValueChanged += HandleLobbyStateChanged;
 

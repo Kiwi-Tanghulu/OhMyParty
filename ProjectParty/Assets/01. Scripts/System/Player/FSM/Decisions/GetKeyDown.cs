@@ -6,19 +6,18 @@ namespace OMG.Players
 {
     public class GetKeyDown : FSMDecision
     {
-        [SerializeField] private KeyCode keyCode;
-
-        public override void EnterState()
-        {
-            
-        }
+        [SerializeField] private List<KeyCode> keyCode;
 
         public override bool MakeDecision()
         {
-            if(UnityEngine.Input.GetKeyDown(keyCode))
-                result = true;
-            else 
-                result = false;
+            for (int i = 0; i < keyCode.Count; i++)
+            {
+                if (UnityEngine.Input.GetKeyDown(keyCode[i]))
+                {
+                    result = true;
+                    break;
+                }
+            }
 
             base.MakeDecision();
 
