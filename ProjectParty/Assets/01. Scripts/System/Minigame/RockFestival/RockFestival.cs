@@ -1,31 +1,20 @@
-using System.Collections.Generic;
-using OMG.Players;
 using UnityEngine;
 
 namespace OMG.Minigames.RockFestival
 {
-    
-    public class RockFestival : Minigame, IPlayableMinigame
+    public class RockFestival : PlayableMinigame
     {
-        [SerializeField] PlayerController playerPrefab = null;
-        [SerializeField] float playTime = 60f;
+        [SerializeField] ScoreArea[] scoreAreas = null;
 
         [Space(15f)]
-        [SerializeField] ScoreArea[] scoreAreas = null;
-        [SerializeField] Transform[] spawnPositions = null;
-        
-        private PlayerController[] players = null;
-        public PlayerController[] Players => players;
+        [SerializeField] float playTime = 60f;
 
         private RockSpawner spawner = null;
         private TimeAttackCycle timeAttackCycle = null;
 
-
         public override void Init(params ulong[] playerIDs)
         {
             base.Init(playerIDs);
-
-            players = new PlayerController[playerIDs.Length];
 
             for(int i = 0; i < scoreAreas.Length; ++i)
             {
@@ -42,15 +31,14 @@ namespace OMG.Minigames.RockFestival
             timeAttackCycle = cycle as TimeAttackCycle;
 
             timeAttackCycle.SetPlayTime(playTime);
+
+            StartIntro();
         }
 
         public override void Release()
         {
             base.Release();
             spawner.Release();
-
-            foreach(PlayerController player in players)
-                player.NetworkObject.Despawn(true);
         }
 
         public override void StartGame()
@@ -79,13 +67,6 @@ namespace OMG.Minigames.RockFestival
             timeAttackCycle.FinishCycle();
         
             base.FinishGame();
-        }
-
-        private void CreatePlayer(int index)
-        {
-            players[index] = Instantiate(playerPrefab, spawnPositions[index].position, Quaternion.identity);
-            players[index].NetworkObject.SpawnWithOwnership(PlayerDatas[index].clientID, true);
-            players[index].NetworkObject.TrySetParent(spawnPositions[index]);
         }
     }
 }

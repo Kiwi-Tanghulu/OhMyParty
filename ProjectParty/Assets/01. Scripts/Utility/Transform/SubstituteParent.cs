@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Utility.Transforms
@@ -12,8 +13,11 @@ namespace OMG.Utility.Transforms
         private bool activeRotate = true;
         private bool activeTranslate = true;
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
+            // if(IsOwner == false)
+            //     return;
+
             if (parent == null)
                 return;
 

@@ -12,6 +12,7 @@ namespace OMG.Players
 
         [SerializeField] Transform holdingParent = null;
         public Transform HoldingParent => holdingParent;
+        public GameObject HolderObject => gameObject;
 
         private IHoldable holdingObject = null;
         public IHoldable HoldingObject => holdingObject;

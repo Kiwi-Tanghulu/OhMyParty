@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -5,14 +7,23 @@ namespace OMG.Minigames.RockFestival
 {
     public class RockCollision : NetworkBehaviour, IDamageable
     {
-        [SerializeField] LayerMask groundLayer = 0;
-
         private new Rigidbody rigidbody = null;
         public bool ActiveCollisionOther { get; private set; } = false;
+
+        private Queue<Action> hostActionQueue = new Queue<Action>();
 
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
+        }
+
+        private void Update()
+        {
+            if(IsHost == false)
+                return;
+
+            while(hostActionQueue.Count > 0)
+                hostActionQueue.Dequeue()?.Invoke();
         }
 
         public void Init()
@@ -23,7 +34,6 @@ namespace OMG.Minigames.RockFestival
 
         private void OnCollisionEnter(Collision other)
         {
-
             if(ActiveCollisionOther == false)
                 return;
 
@@ -48,9 +58,6 @@ namespace OMG.Minigames.RockFestival
 
             Vector3 normal = point.normalized;
             rigidbody.AddForce(-normal * damage * 100f);
-            Debug.Log("HIT");
-            // 누군가가 날 맞췄어
-            // 그럼 내 꺼에서만 애드포스 하면 되나?
         }
 
         public void SetActiveCollisionOther(bool active)
@@ -67,16 +74,17 @@ namespace OMG.Minigames.RockFestival
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
-        public void FitToGround()
-        {
-            rigidbody.velocity = Vector3.zero;
-            if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, float.MaxValue, groundLayer))
-                transform.position = hit.point + (transform.forward * 0.5f) + (Vector3.up * 0.5f);
-        }
-
         public void AddForce(Vector3 direction, float power)
         {
-            rigidbody.AddForce(direction.normalized * power, ForceMode.Impulse);
+            AddForceServerRpc(direction.normalized * power);
+        }
+
+        [ServerRpc]
+        private void AddForceServerRpc(Vector3 force)
+        {
+            hostActionQueue.Enqueue(() => {
+                rigidbody.AddForce(force, ForceMode.Impulse);
+            });
         }
 
         #if UNITY_EDITOR

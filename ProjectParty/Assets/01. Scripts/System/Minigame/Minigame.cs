@@ -31,31 +31,29 @@ namespace OMG.Minigames
         /// </summary>  
         public virtual void Init(params ulong[] playerIDs)
         {
-            minigameUI.Init();
-
             for(int i = 0; i < playerIDs.Length; ++i)
                 playerDatas.Add(new PlayerData(playerIDs[i]));
-
-            StartIntro();
         }
 
         /// <summary>
         /// Only Host Could Call this Method
-
         /// </summary>
         public virtual void Release() 
         {
-            minigameUI.Release();
         }
 
         public virtual void StartIntro()
         {
-            StartCoroutine(this.DelayCoroutine(minigameData.IntroPostponeTime, cycle.PlayIntro));
+            StartCoroutine(this.DelayCoroutine(minigameData.IntroPostponeTime, () => {
+                cycle.PlayIntro();
+            }));
         }
 
         public virtual void StartOutro()
         {
-            StartCoroutine(this.DelayCoroutine(minigameData.OutroPostponeTime, cycle.PlayOutro));
+            StartCoroutine(this.DelayCoroutine(minigameData.OutroPostponeTime, () => {
+                cycle.PlayOutro();
+            }));
         }
 
         public virtual void StartGame()

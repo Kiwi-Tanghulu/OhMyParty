@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -17,13 +18,23 @@ namespace OMG.UI.Minigames
             resultPanel = transform.Find("ResultPanel").GetComponent<ResultPanel>();
         }
 
-        public void Init()
+        private void Start()
+        {
+            SettingCamera();
+        }
+
+        private void OnDestroy()
+        {
+            ReleaseCamera();
+        }
+
+        private void SettingCamera()
         {
             cameraData = Camera.main.GetUniversalAdditionalCameraData();
             cameraData.cameraStack.Add(uiCamera);
         }
 
-        public void Release()
+        private void ReleaseCamera()
         {
             cameraData?.cameraStack.Remove(uiCamera);
         }
