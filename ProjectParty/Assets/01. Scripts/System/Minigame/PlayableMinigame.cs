@@ -30,19 +30,15 @@ namespace OMG.Minigames
 
         protected void CreatePlayer(int index)
         {
-            Debug.Log("Client Player Setting");
             PlayerController player = Instantiate(playerPrefab, spawnPositions[index].position, Quaternion.identity);
-            player.NetworkObject.SpawnWithOwnership(PlayerDatas[index].clientID, true);
-            player.NetworkObject.TrySetParent(NetworkObject);
-
-            RegisterPlayer(player.NetworkObject);
+            RegisterPlayer(player.NetworkObject, playerDatas[index].clientID);
         }
 
-        public void RegisterPlayer(NetworkObject player)
+        public void RegisterPlayer(NetworkObject player, ulong clientID)
         {
+            player.SpawnWithOwnership(clientID, true);
+            player.TrySetParent(NetworkObject);
             players.Add(player);
-            Debug.Log($"Player Count : {players.Count}");
-            // players.Sort((a, b) => (int)a.OwnerClientId - (int)b.OwnerClientId);
         }
     }
 }

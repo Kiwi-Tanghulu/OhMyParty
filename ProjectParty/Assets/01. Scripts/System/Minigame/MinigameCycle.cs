@@ -48,7 +48,6 @@ namespace OMG.Minigames
                 }
             });
 
-            Debug.Log($"Display Result");
             minigame.MinigameUI.ResultPanel.Display(true);
 
             if(IsHost)
@@ -58,7 +57,6 @@ namespace OMG.Minigames
         [ClientRpc]
         private void PlayCutsceneClientRpc(bool option, bool bindPlayer)
         {
-            Debug.Log($"Play Cutscene Option : {option}");
             timelineHolder.playableAsset = timelineOption.GetOption(option);
             
             bindPlayer &= minigame is PlayableMinigame;
