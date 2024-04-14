@@ -22,6 +22,7 @@ namespace OMG
             DontDestroyOnLoad(gameObject);
 
             InitSingleton();
+            DEFINE.GlobalAudioPlayer = GetComponent<AudioSource>();
         }
 
         private void Start()

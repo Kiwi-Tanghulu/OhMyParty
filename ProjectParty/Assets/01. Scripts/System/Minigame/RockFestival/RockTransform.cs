@@ -14,8 +14,6 @@ namespace OMG.Minigames.RockFestival
         public NetworkTransform NetworkTransform => networkTransform;
 
         private SubstituteParent parent = null;
-        private IHolder holderCache = null;
-        private ulong clientIDCache = 0;
 
         private void Awake()
         {
@@ -34,49 +32,9 @@ namespace OMG.Minigames.RockFestival
             networkTransform.Teleport(position, transform.rotation, transform.lossyScale);
         }
 
-        public void SetParent(ulong clientID, IHolder holder)
+        public void SetParent(Transform newParent)
         {
-            holderCache = holder;
-            clientIDCache = clientID;
-            SetParentServerRpc(clientID);
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void SetParentServerRpc(ulong clientID)
-        {
-            NetworkObject.ChangeOwnership(clientID);
-            SetParentClientRpc(clientID);
-        }
-
-        [ClientRpc]
-        private void SetParentClientRpc(ulong clientID)
-        {
-            if(NetworkManager.Singleton.LocalClientId != clientID)
-                return;
-
-            SetPositionImmediately(holderCache.HoldingParent.position);
-            parent.SetParent(holderCache.HoldingParent);
-        }
-
-        public void ReleaseParent()
-        {
-            ReleaseParentServerRpc();
-        }
-        
-        [ServerRpc(RequireOwnership = false)]
-        private void ReleaseParentServerRpc()
-        {
-            NetworkObject.ChangeOwnership(NetworkManager.ServerClientId);
-            ReleaseParentClientRpc();
-        }
-
-        [ClientRpc]
-        private void ReleaseParentClientRpc()
-        {
-            if(clientIDCache != NetworkManager.Singleton.LocalClientId)
-                return;
-
-            parent.SetParent(null);
+            parent.SetParent(newParent);
         }
     }
 }
