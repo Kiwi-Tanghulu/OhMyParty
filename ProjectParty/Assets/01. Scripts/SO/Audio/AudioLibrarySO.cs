@@ -6,7 +6,7 @@ namespace OMG.Audio
     [CreateAssetMenu(menuName = "SO/Audio/AudioLibrary")]
     public class AudioLibrarySO : ScriptableObject
     {
-        [SerializeField] List<AudioDictionaryTable> audioTables;
+        [SerializeField] List<AudioDictionaryTable> audioTables = new List<AudioDictionaryTable>();
         public Dictionary<string, AudioDictionaryTable> Library = null;
         public AudioClip this[string key] => Library[key].Audio;
 
@@ -36,7 +36,6 @@ namespace OMG.Audio
             for (int i = 0; i < audioTables.Count; ++i)
             {
                 AudioDictionaryTable table = audioTables[i];
-                Debug.Log(table.Key);
                 if (Library.ContainsKey(table.Key))
                     continue;
 

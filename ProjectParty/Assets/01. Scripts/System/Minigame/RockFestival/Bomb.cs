@@ -1,10 +1,13 @@
 using OMG.Extensions;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Minigames.RockFestival
 {
     public class Bomb : Rock
     {
+        [SerializeField] UnityEvent onExplosionEvent = null;
+
         [SerializeField] float explosionLatency = 3f;
         [SerializeField] float explosionRadius = 3f;
         [SerializeField] LayerMask collisionLayer = 0;
@@ -38,6 +41,7 @@ namespace OMG.Minigames.RockFestival
 
             CurrentHolder?.Release();
             NetworkObject.Despawn(true);
+            onExplosionEvent?.Invoke();
         }
 
         #if UNITY_EDITOR

@@ -96,7 +96,7 @@ PrefabInstance:
     - target: {fileID: 7044438202459967477, guid: 33712da99e4b2c645816989178444d57,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1552337176
+      value: 3250793676
       objectReference: {fileID: 0}
     - target: {fileID: 7450153944744321267, guid: 33712da99e4b2c645816989178444d57,
         type: 3}
@@ -130,6 +130,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4417591685736932384}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3525217018462959871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 982459857472117983, guid: 33712da99e4b2c645816989178444d57,
+    type: 3}
+  m_PrefabInstance: {fileID: 4417591685736932384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6284338363354223072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ced6c6c5b00e2488bee562bebdbbfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6284338363354223072 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7671886679003051456, guid: 33712da99e4b2c645816989178444d57,
@@ -176,6 +188,33 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3525217018462959871}
+        m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudio
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BOMB_FUSE
+          m_BoolArgument: 0
+        m_CallState: 2
+  onExplosionEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3525217018462959871}
+        m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayOneShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BOMB_EXPLOSION
           m_BoolArgument: 0
         m_CallState: 2
   explosionLatency: 5
