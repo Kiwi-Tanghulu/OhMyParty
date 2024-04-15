@@ -12,10 +12,14 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - ADDITIVECONFIG_ON
+  - ALPHAFADETRANSPARENCYTOO_ON
   - COLORRAMPGRAD_ON
   - COLORRAMP_ON
+  - FADE_ON
   - GLOW_ON
   - MASK_ON
+  - PREMULTIPLYCOLOR_ON
   - ROUNDWAVEUV_ON
   - SHAPE2DISTORT_ON
   - SHAPE2_ON
@@ -54,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTex:
-        m_Texture: {fileID: 2800000, guid: 48da24d771916524899d36e4bfe7f762, type: 3}
+        m_Texture: {fileID: 2800000, guid: c477a4bab6d417a499e6536c6cb76122, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GlowTex:
@@ -144,14 +148,14 @@ Material:
     - _FadeTransition: 0.075
     - _FishEyeUvAmount: 0.35
     - _Glow: 0.37
-    - _GlowGlobal: 0.97
+    - _GlowGlobal: 1
     - _HandDrawnAmount: 10
     - _HandDrawnSpeed: 5
     - _HsvBright: 1
     - _HsvSaturation: 1
     - _HsvShift: 180
     - _LightAmount: 0
-    - _MaskPow: 0.8
+    - _MaskPow: 0.2
     - _OffsetSh1: 1
     - _OffsetSh2: 1
     - _OffsetSh3: 1
@@ -219,7 +223,7 @@ Material:
     - _ShapeXSpeed: 0
     - _ShapeYSpeed: 0
     - _SoftFactor: 0.5
-    - _SrcMode: 5
+    - _SrcMode: 1
     - _TextureScrollXSpeed: 1
     - _TextureScrollYSpeed: 0
     - _TimingSeed: 0
@@ -242,7 +246,7 @@ Material:
     - _ZoomAmount: 1.5
     m_Colors:
     - _BackFaceTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.17030083, g: 0.58149344, b: 0.8396226, a: 1}
     - _ColorGradingDark: {r: 1, g: 1, b: 1, a: 1}
     - _ColorGradingLight: {r: 1, g: 1, b: 1, a: 1}
     - _ColorGradingMiddle: {r: 1, g: 1, b: 1, a: 1}
@@ -254,7 +258,7 @@ Material:
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _Shape2Color: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
     - _Shape3Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ShapeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShapeColor: {r: 1, g: 1, b: 1, a: 0.89411765}
   m_BuildTextureStacks: []
 --- !u!28 &3965578252448850930
 Texture2D:
