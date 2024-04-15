@@ -16,10 +16,7 @@ namespace OMG.Minigames
 
             timer += Time.deltaTime;
             if(timer >= playTime)
-            {
                 FinishCycle();
-                OnCycleFinish();
-            }
         }
 
         public void SetPlayTime(float playTime)
@@ -33,13 +30,9 @@ namespace OMG.Minigames
             isPlaying = true;
         }
 
-        public void FinishCycle()
+        private void FinishCycle()
         {
             isPlaying = false;
-        }
-
-        private void OnCycleFinish()
-        {
             minigame.FinishGame();
         }
     }

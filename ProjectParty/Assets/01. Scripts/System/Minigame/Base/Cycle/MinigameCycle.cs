@@ -9,6 +9,8 @@ using UnityEngine.Timeline;
 
 namespace OMG.Minigames
 {
+    [RequireComponent(typeof(PlayableDirector))]
+    [RequireComponent(typeof(SignalReceiver))]
     public class MinigameCycle : NetworkBehaviour
     {
         [SerializeField] OptOption<TimelineAsset> timelineOption = null;
