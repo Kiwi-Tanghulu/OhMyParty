@@ -65,7 +65,6 @@ namespace OMG.Minigames.RockFestival
                 return;
 
             spawner.SetActive(false);
-            timeAttackCycle.FinishCycle();
             minigameUI.ScorePanel.Display(false);
         
             base.FinishGame();
