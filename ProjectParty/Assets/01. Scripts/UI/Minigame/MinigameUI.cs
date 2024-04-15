@@ -1,4 +1,3 @@
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -9,13 +8,17 @@ namespace OMG.UI.Minigames
         private ResultPanel resultPanel = null;
         public ResultPanel ResultPanel => resultPanel;
 
+        private ScorePanel scorePanel = null;
+        public ScorePanel ScorePanel => scorePanel;
+
         private UniversalAdditionalCameraData cameraData = null;
         private Camera uiCamera = null;
 
         private void Awake()
         {
             uiCamera = transform.Find("UICamera").GetComponent<Camera>();
-            resultPanel = transform.Find("ResultPanel").GetComponent<ResultPanel>();
+            resultPanel = transform.Find("ResultPanel")?.GetComponent<ResultPanel>();
+            scorePanel = transform.Find("ScorePanel")?.GetComponent<ScorePanel>();
         }
 
         private void Start()

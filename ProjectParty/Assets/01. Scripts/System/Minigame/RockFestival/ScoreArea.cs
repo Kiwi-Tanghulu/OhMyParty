@@ -1,5 +1,6 @@
 using System.Collections;
 using OMG.Extensions;
+using OMG.UI.Minigames;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace OMG.Minigames.RockFestival
 {
     public class ScoreArea : MonoBehaviour
     {
+        [SerializeField] ScoreSlot scoreSlot = null;
         [SerializeField] float updateDelay = 1f;
         private TMP_Text scoreText = null;
 
@@ -24,6 +26,7 @@ namespace OMG.Minigames.RockFestival
         {
             scoreText = transform.Find("ScoreText").GetComponent<TMP_Text>();
             scoreText.text = "-";
+            scoreSlot.Init();
         }
 
         public void Init(ulong ownerID, bool active)
@@ -76,6 +79,7 @@ namespace OMG.Minigames.RockFestival
         {
             pointBuffer += value;
             scoreText.text = pointBuffer.ToString();
+            scoreSlot.SetScore(pointBuffer);
         }
 
         private IEnumerator UpdateCoroutine()
