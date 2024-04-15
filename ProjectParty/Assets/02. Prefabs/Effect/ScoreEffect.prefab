@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 507632992081397892}
   - component: {fileID: 2854839699405576366}
+  - component: {fileID: -7701955294531928424}
+  - component: {fileID: -857180232285051936}
   - component: {fileID: 7051249205535307420}
   - component: {fileID: 4794586549959605767}
   - component: {fileID: 4816931732310407218}
   - component: {fileID: 2879690346762170595}
-  - component: {fileID: -857180232285051936}
   m_Layer: 5
   m_Name: ScoreEffect
   m_TagString: Untagged
@@ -49,7 +50,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: -612544
+  GUIID: 44204
+--- !u!114 &-7701955294531928424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2210707919239632380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39dbde39388a2844a9751271530a6a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tween: {fileID: 11400000, guid: b44ab011f3d170e468141dfa992da72f, type: 2}
+  body: {fileID: 507632992081397892}
+  playOnAwake: 1
+--- !u!114 &-857180232285051936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2210707919239632380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cd0a2870945084881d44f8fe4cfd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoDestroyTime: 1.5
 --- !u!114 &7051249205535307420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,16 +218,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-857180232285051936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2210707919239632380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08cd0a2870945084881d44f8fe4cfd75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoDestroyTime: 2

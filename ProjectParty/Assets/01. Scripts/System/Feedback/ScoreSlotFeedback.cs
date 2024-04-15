@@ -9,7 +9,6 @@ namespace OMG.Feedbacks.Minigames
         [SerializeField] Modular3DText textPrefab = null;
         [SerializeField] Transform feedbackPosition = null;
 
-        private int lastScore = 0;
         private int scoreDiff = 0;
 
         public void HandleScoreChanged(int scoreDiff)
@@ -19,7 +18,9 @@ namespace OMG.Feedbacks.Minigames
 
         public override void Play(Transform playTrm)
         {
-            Modular3DText instance = Instantiate(textPrefab, feedbackPosition.position, feedbackPosition.rotation);
+            Modular3DText instance = Instantiate(textPrefab, feedbackPosition);
+            instance.transform.localPosition = Vector3.zero;
+            instance.transform.localRotation = Quaternion.identity;
             instance.Text = GetScoreText();
         }
 
