@@ -53,6 +53,7 @@ namespace OMG.Minigames.RockFestival
 
             spawner.SetActive(true);
             timeAttackCycle.StartCycle();
+            minigameUI.ScorePanel.Display(true);
         }
 
         public override void FinishGame()
@@ -65,6 +66,7 @@ namespace OMG.Minigames.RockFestival
 
             spawner.SetActive(false);
             timeAttackCycle.FinishCycle();
+            minigameUI.ScorePanel.Display(false);
         
             base.FinishGame();
         }
