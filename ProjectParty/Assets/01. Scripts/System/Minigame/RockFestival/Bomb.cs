@@ -1,4 +1,5 @@
 using OMG.Extensions;
+using OMG.Tweens;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,6 +17,20 @@ namespace OMG.Minigames.RockFestival
         [SerializeField] float explosionDamage = 30f;
         [SerializeField] Vector3 explosionOffset = new Vector3(0f, -0.3f, 0f);
 
+        [Space(15f)]
+        [SerializeField] TweenSO bombScalingTween = null;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            bombScalingTween = bombScalingTween.CreateInstance(transform);
+        }
+
+        private void Start()
+        {
+            BombScalingLoop();
+        }
+
         public override void Init()
         {
             base.Init();
@@ -24,6 +39,8 @@ namespace OMG.Minigames.RockFestival
 
         private void Explosion()
         {
+            bombScalingTween.ForceKillTween();
+
             Collider[] others = Physics.OverlapSphere(transform.position, explosionRadius, collisionLayer);
             foreach(Collider other in others)
             {
@@ -42,6 +59,11 @@ namespace OMG.Minigames.RockFestival
             CurrentHolder?.Release();
             NetworkObject.Despawn(true);
             onExplosionEvent?.Invoke();
+        }
+
+        private void BombScalingLoop()
+        {
+            bombScalingTween.PlayTween(BombScalingLoop);
         }
 
         #if UNITY_EDITOR
