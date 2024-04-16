@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -33,9 +34,12 @@ namespace OMG.Players
         private CharacterController controller;
         public CharacterController Controller => controller;
 
+        private NetworkTransform networkTrm;
+
         private void Awake()
         {
             controller = GetComponent<CharacterController>();
+            networkTrm = GetComponent<NetworkTransform>();
         }
 
         private void Update()
@@ -63,6 +67,11 @@ namespace OMG.Players
         public void Move()
         {
             controller.Move(moveDir * moveSpeed * Time.deltaTime);
+        }
+
+        public void Teleport(Vector3 pos)
+        {
+            networkTrm.Teleport(pos, transform.rotation, transform.localScale);
         }
 
         public void Gravity()

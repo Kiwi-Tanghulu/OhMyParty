@@ -1,3 +1,4 @@
+using OMG.Client.Component;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -23,9 +24,6 @@ namespace OMG.Players
         {
             base.EnterState();
 
-            string animName = ragdoll.HipTrm.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
-            anim.PlayAnim(animName, AnimatorLayerType.Default);
-
             movement.ApplyGravity = true;
         }
 
@@ -33,8 +31,15 @@ namespace OMG.Players
         {
             base.OwnerEnterState();
 
-            actioningPlayer.transform.position = ragdoll.HipTrm.position;
-            actioningPlayer.transform.position -= actioningPlayer.transform.localPosition.y * Vector3.up;
+            RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipTrm.position + Vector3.up * 1000f, Vector3.down, 10000f);
+            if(hit.Length > 0)
+            {
+                movement.Teleport(hit[0].point);
+            }
+
+            string animName = ragdoll.HipTrm.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
+            anim.PlayAnim(animName, AnimatorLayerType.Default);
+            //actioningPlayer.transform.position = ragdoll.HipTrm.position;
         }
     }
 }

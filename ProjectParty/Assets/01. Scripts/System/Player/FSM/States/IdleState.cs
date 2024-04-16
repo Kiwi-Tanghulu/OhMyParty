@@ -24,7 +24,6 @@ namespace OMG.Players
             base.OwnerEnterState();
 
             input.OnMoveEvent += SetMoveDir;
-
             anim.SetFloat(moveSpeedAnimHash, 0f, true, 0.1f);
         }
 
@@ -38,7 +37,7 @@ namespace OMG.Players
         private void SetMoveDir(Vector2 input)
         {
             Vector3 moveDir = new Vector3(input.x, 0f, input.y);
-
+            
             movement.SetMoveDir(moveDir);
         }
     }

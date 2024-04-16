@@ -12,6 +12,7 @@ public class LobbyCutSceneComponent : LobbyComponent
     [SerializeField] private OptOption<TimelineAsset> timelineOption;
     [SerializeField] private string playerTrmTrackName;
     [SerializeField] private string playerAnimTrackName;
+    [SerializeField] private string playerSignalTrackName;
     private PlayableDirector timelineHolder;
 
     private void Awake()
@@ -19,8 +20,13 @@ public class LobbyCutSceneComponent : LobbyComponent
         timelineHolder = GetComponent<PlayableDirector>();
     }
 
+    public void PlayCutscene(bool option)
+    {
+        PlayCutsceneClientRpc(option);
+    }
+
     [ClientRpc]
-    public void PlayCutsceneClientRpc(bool option)
+    private void PlayCutsceneClientRpc(bool option)
     {
         timelineHolder.playableAsset = timelineOption.GetOption(option);
 
@@ -43,9 +49,13 @@ public class LobbyCutSceneComponent : LobbyComponent
 
                 if (binding.streamName.Contains(playerAnimTrackName))
                     timelineHolder.SetGenericBinding(binding.sourceObject, players[index].Anim);
+
+                if (binding.streamName.Contains(playerSignalTrackName))
+                    timelineHolder.SetGenericBinding(binding.sourceObject, players[index].GetComponent<SignalReceiver>());
             }
         }
 
+        Debug.Log("play");
         timelineHolder.Play();
     }
 }
