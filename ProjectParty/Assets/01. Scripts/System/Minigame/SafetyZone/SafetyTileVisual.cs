@@ -1,9 +1,9 @@
 using TinyGiantStudio.Text;
-using Unity.Netcode;
+using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
 {
-    public class SafetyTileVisual : NetworkBehaviour
+    public class SafetyTileVisual : MonoBehaviour
     {
         private Modular3DText numberText = null;
 

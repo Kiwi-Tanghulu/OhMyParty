@@ -1,13 +1,16 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
 {
-    public class SafetyTileCollision : NetworkBehaviour
+    public class SafetyTileCollision : MonoBehaviour
     {
         private HashSet<ulong> includePlayers = null;
         public int IncludePlayerCount => includePlayers.Count;
+
+        public event Action OnPlayerCountChangedEvent = null;
 
         private void Awake()
         {
@@ -23,6 +26,7 @@ namespace OMG.Minigames.SafetyZone
                 return;
 
             includePlayers.Add(playerObject.OwnerClientId);
+            OnPlayerCountChangedEvent?.Invoke();
         }
 
         private void OnTriggerExit(Collider other)
@@ -34,6 +38,7 @@ namespace OMG.Minigames.SafetyZone
                 return;
 
             includePlayers.Remove(playerObject.OwnerClientId);
+            OnPlayerCountChangedEvent?.Invoke();
         }
     }
 }

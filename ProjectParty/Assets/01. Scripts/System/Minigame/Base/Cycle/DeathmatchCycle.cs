@@ -29,7 +29,7 @@ namespace OMG.Minigames
                 FinishCycle();
         }
 
-        public void FinishCycle()
+        public virtual void FinishCycle()
         {
             minigame.FinishGame();
         }
