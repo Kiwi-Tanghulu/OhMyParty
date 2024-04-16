@@ -12,9 +12,9 @@ namespace OMG.Minigames.SafetyZone
 
         private Coroutine cycle = null;
 
-        public void StartCycle(Action reroll, Action decision)
+        public void StartCycle(Action reroll, Action decision, Action reset)
         {
-            cycle = StartCoroutine(CycleCoroutine(reroll, decision));
+            cycle = StartCoroutine(CycleCoroutine(reroll, decision, reset));
         }
 
         public override void FinishCycle()
@@ -25,7 +25,7 @@ namespace OMG.Minigames.SafetyZone
             base.FinishCycle();
         }
 
-        private IEnumerator CycleCoroutine(Action reroll, Action decision)
+        private IEnumerator CycleCoroutine(Action reroll, Action decision, Action reset)
         {
             while(true)
             {
@@ -38,6 +38,8 @@ namespace OMG.Minigames.SafetyZone
                 // decision
 
                 yield return new WaitForSeconds(rerollPostpone);
+                reset?.Invoke();
+                // reset
             }
         }
     }

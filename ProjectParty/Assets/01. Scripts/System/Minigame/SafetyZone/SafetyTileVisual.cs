@@ -14,7 +14,10 @@ namespace OMG.Minigames.SafetyZone
 
         public void SetNumberText(int number)
         {
-            numberText.Text = number.ToString();
+            if(number == -1)
+                numberText.Text = "-";
+            else
+                numberText.Text = number.ToString();
         }
     }
 }

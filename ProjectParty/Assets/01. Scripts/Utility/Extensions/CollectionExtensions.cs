@@ -45,5 +45,11 @@ namespace OMG.Extensions
             for (int i = 0; i < source.Length; ++i)
                 callback?.Invoke(source[i]);
         }
+
+        public static void ForEach<T>(this T[] source, Action<T, int> callback)
+        {
+            for (int i = 0; i < source.Length; ++i)
+                callback?.Invoke(source[i], i);
+        }
     }
 }

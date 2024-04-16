@@ -1,16 +1,20 @@
-using UnityEngine;
-
 namespace OMG.Minigames.SafetyZone
 {
     public class SafetyZone : PlayableMinigame
     {
-        [SerializeField] SafetyTile[] tiles = null;
         private SafetyZoneCycle safetyZoneCycle = null;
+        private SafetyTiles tiles = null;
 
         public override void Init(params ulong[] playerIDs)
         {
             base.Init(playerIDs);
             safetyZoneCycle = cycle as SafetyZoneCycle;
+            tiles = GetComponent<SafetyTiles>();
+
+            for(int i = 0; i < playerDatas.Count; ++i)
+                CreatePlayer(i);
+
+            StartIntro();
         }
 
         public override void StartGame()
@@ -20,7 +24,7 @@ namespace OMG.Minigames.SafetyZone
             if (IsHost == false)
                 return;
 
-            safetyZoneCycle.StartCycle(RerollTiles, DecisionSafetyZone);
+            safetyZoneCycle.StartCycle(tiles.RerollTiles, tiles.DecisionSafetyZone, tiles.ResetTiles);
         }
 
         public override void FinishGame()
@@ -31,16 +35,6 @@ namespace OMG.Minigames.SafetyZone
             }
 
             base.FinishGame();
-        }
-
-        private void RerollTiles()
-        {
-            Debug.Log("Reroll Tile");
-        }
-
-        private void DecisionSafetyZone()
-        {
-            Debug.Log("Decision Safety Zone");
         }
     }
 }
