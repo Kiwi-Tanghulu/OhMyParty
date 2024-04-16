@@ -51,8 +51,7 @@ namespace OMG.Minigames.SafetyZone
         private void ResetTilesClientRpc()
         {
             tiles.ForEach(i => {
-                i.SetActive(true);
-                i.SetSafetyNumber(-1);
+                i.Reset();
             });
         }
     }
