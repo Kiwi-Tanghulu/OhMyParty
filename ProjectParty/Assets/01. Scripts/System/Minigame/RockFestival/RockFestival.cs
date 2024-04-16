@@ -61,13 +61,10 @@ namespace OMG.Minigames.RockFestival
             for (int i = 0; i < PlayerDatas.Count; ++i)
                 scoreAreas[i].SetActive(false, IsHost);
 
-            if (IsHost == false)
-                return;
+            if (IsHost)
+                spawner.SetActive(false);
 
-            spawner.SetActive(false);
-            timeAttackCycle.FinishCycle();
             minigameUI.ScorePanel.Display(false);
-        
             base.FinishGame();
         }
     }
