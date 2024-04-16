@@ -1,18 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace OMG.Players
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : NetworkBehaviour
     {
         [SerializeField] private float moveSpeed = 3f;
         private Vector3 moveDir;
+        private float verticalVelocity;
 
         [Space]
         [SerializeField] private float turnTime;
         private Coroutine trunCo;
+
+        [Space]
+        [SerializeField] private float gravityScale;
+        public bool ApplyGravity;
+
+        [Space]
+        [SerializeField] private Vector3 checkGroundOffset;
+        [SerializeField] private Vector3 checkGroundHalfSize;
+        [SerializeField] private LayerMask checkGroundLayer;
+
+        public bool DrawGizmo;
 
         public Vector3 MoveDir => moveDir;
 
@@ -22,6 +36,11 @@ namespace OMG.Players
         private void Awake()
         {
             controller = GetComponent<CharacterController>();
+        }
+
+        private void Update()
+        {
+            Gravity();
         }
 
         public void SetMoveDir(Vector3 moveDir)
@@ -46,6 +65,35 @@ namespace OMG.Players
             controller.Move(moveDir * moveSpeed * Time.deltaTime);
         }
 
+        public void Gravity()
+        {
+            if (!IsOwner)
+                return;
+            if (!ApplyGravity)
+                return;
+
+            bool isGround = CheckGround();
+
+            if(isGround)
+            {
+                verticalVelocity = gravityScale * 0.3f;
+            }
+            else
+            {
+                verticalVelocity += gravityScale;
+            }
+
+            controller.Move(Vector3.up * gravityScale * Time.deltaTime);
+        }
+
+        public bool CheckGround()
+        {
+            bool result = Physics.CheckBox(transform.position + checkGroundOffset,
+                checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
+            
+            return result;
+        }
+
         private IEnumerator TurnCo()
         {
             float t = 0f;
@@ -61,5 +109,17 @@ namespace OMG.Players
             }
             transform.localRotation = end;
         }
+
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (!DrawGizmo)
+                return;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(transform.position + checkGroundOffset, checkGroundHalfSize * 2);
+        }
+#endif
     }
 }

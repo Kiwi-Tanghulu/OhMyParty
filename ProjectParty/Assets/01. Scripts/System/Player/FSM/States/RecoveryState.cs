@@ -25,6 +25,8 @@ namespace OMG.Players
 
             string animName = ragdoll.HipTrm.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
             anim.PlayAnim(animName, AnimatorLayerType.Default);
+
+            movement.ApplyGravity = true;
         }
 
         protected override void OwnerEnterState()
@@ -33,9 +35,6 @@ namespace OMG.Players
 
             actioningPlayer.transform.position = ragdoll.HipTrm.position;
             actioningPlayer.transform.position -= actioningPlayer.transform.localPosition.y * Vector3.up;
-
-            //string animName = ragdoll.HipTrm.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
-            //anim.PlayAnim(animName, AnimatorLayerType.Default);
         }
     }
 }

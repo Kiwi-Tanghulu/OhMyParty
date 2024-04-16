@@ -16,6 +16,7 @@ namespace OMG.Players
             base.EnterState();
 
             movement.SetMoveDir(Vector3.zero);
+            movement.ApplyGravity = true;
         }
 
         protected override void OwnerEnterState()

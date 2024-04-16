@@ -78,12 +78,19 @@ namespace OMG.Lobbies
                     FocusSpot(true);
                     break;
                 case LobbyState.MinigameSelected: // 미니게임 선택된 상태일 때 레디가 되면 미니게임 시작
+                    // 여기다가 컷씬 시작해주고
                     if(IsHost)
-                    {
-                        readyComponent.ClearLobbyReady();
-                        minigameComponent.StartMinigame();
-                    }
+                        Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>().PlayCutsceneClientRpc(true);
                     break;
+            }
+        }
+
+        public void StartMinigame() //이거 호출하면 미니게임 시작
+        {
+            if (IsHost)
+            {
+                readyComponent.ClearLobbyReady();
+                minigameComponent.StartMinigame();
             }
         }
 

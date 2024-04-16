@@ -19,29 +19,8 @@ public class LobbyCutSceneComponent : LobbyComponent
         timelineHolder = GetComponent<PlayableDirector>();
     }
 
-    private void Start()
-    {
-        Lobby.Current.GetLobbyComponent<LobbyReadyComponent>().OnLobbyReadyEvent += LobbyReadyComponent_OnLobbyReadyEvent;
-    }
-
-    private void LobbyReadyComponent_OnLobbyReadyEvent()
-    {
-        //PlayStartGame();
-        PlayCutsceneClientRpc(true);
-    }
-
-    public void PlayStartGame()
-    {
-        PlayCutsceneClientRpc(true);
-    }
-
-    public void PlayFinishGame()
-    {
-        PlayCutsceneClientRpc(false);
-    }
-
     [ClientRpc]
-    private void PlayCutsceneClientRpc(bool option)
+    public void PlayCutsceneClientRpc(bool option)
     {
         timelineHolder.playableAsset = timelineOption.GetOption(option);
 
