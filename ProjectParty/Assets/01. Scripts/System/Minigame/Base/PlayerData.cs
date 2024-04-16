@@ -8,11 +8,13 @@ namespace OMG.Minigames
     {
         public ulong clientID;
         public int score;
+        public bool isDead;
 
         public PlayerData(ulong id)
         {
             clientID = id;
             score = 0;
+            isDead = false;
         }
 
         public bool Equals(PlayerData other)
@@ -24,6 +26,7 @@ namespace OMG.Minigames
         {
             serializer.SerializeValue(ref clientID);
             serializer.SerializeValue(ref score);
+            serializer.SerializeValue(ref isDead);
         }
     }
 }
