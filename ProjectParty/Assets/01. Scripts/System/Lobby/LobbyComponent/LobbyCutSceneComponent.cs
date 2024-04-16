@@ -26,7 +26,8 @@ public class LobbyCutSceneComponent : LobbyComponent
 
     private void LobbyReadyComponent_OnLobbyReadyEvent()
     {
-        PlayStartGame();
+        //PlayStartGame();
+        PlayCutsceneClientRpc(true);
     }
 
     public void PlayStartGame()
