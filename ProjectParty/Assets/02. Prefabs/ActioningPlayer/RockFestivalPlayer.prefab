@@ -1316,7 +1316,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 3019441013704265511, guid: 5ff70997e8631184791c52973e45d9ba,
     type: 3}
-  autoDestroyTime: 1
 --- !u!1 &2956535443970492942
 GameObject:
   m_ObjectHideFlags: 0
@@ -4387,6 +4386,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   turnTime: 0.3
+  gravityScale: -9.81
+  ApplyGravity: 0
+  checkGroundOffset: {x: 0, y: 0, z: 0}
+  checkGroundHalfSize: {x: 0.25, y: 0.05, z: 0.25}
+  checkGroundLayer:
+    serializedVersion: 2
+    m_Bits: 129
+  DrawGizmo: 0
 --- !u!114 &2227828243156353326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4470,7 +4477,7 @@ CharacterController:
   m_Height: 1.4
   m_Radius: 0.3
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.7, z: 0}

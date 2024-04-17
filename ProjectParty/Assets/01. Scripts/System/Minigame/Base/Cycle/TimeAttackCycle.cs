@@ -30,7 +30,7 @@ namespace OMG.Minigames
             isPlaying = true;
         }
 
-        private void FinishCycle()
+        protected void FinishCycle()
         {
             isPlaying = false;
             minigame.FinishGame();

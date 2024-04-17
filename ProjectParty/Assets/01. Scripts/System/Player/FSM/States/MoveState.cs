@@ -11,6 +11,13 @@ namespace OMG.Players
 
         private int moveSpeedAnimHash = Animator.StringToHash("moveSpeed");
 
+        public override void EnterState()
+        {
+            base.EnterState();
+
+            movement.ApplyGravity = true;
+        }
+
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
