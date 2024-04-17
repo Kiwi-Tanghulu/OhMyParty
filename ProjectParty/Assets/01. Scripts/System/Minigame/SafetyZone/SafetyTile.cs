@@ -24,6 +24,7 @@ namespace OMG.Minigames.SafetyZone
         {
             safetyNumber = number;
             tileVisual.SetNumberText(safetyNumber);
+            ToggleBlock(IsSafetyZone());
         }
 
         public bool IsSafetyZone()
