@@ -67,10 +67,10 @@ namespace OMG.Lobbies
         private void HandleMinigameFinished(Minigame minigame)
         {
             currentCycleCount++;
-            BroadcastMinigameFinishedClientRpc(currentCycleCount >= MinigameCycleCount);
-
             Lobby.SetActive(true);
             Lobby.ChangeLobbyState(LobbyState.MinigameFinished);
+
+            BroadcastMinigameFinishedClientRpc(currentCycleCount >= MinigameCycleCount);
             Debug.Log($"Display Result");
 
             minigame.MinigameData.OnMinigameFinishedEvent -= HandleMinigameFinished;
