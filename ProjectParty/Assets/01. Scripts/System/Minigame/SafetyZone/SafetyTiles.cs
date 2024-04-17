@@ -7,6 +7,12 @@ namespace OMG.Minigames.SafetyZone
     public class SafetyTiles : NetworkBehaviour
     {
         [SerializeField] SafetyTile[] tiles = null;
+        [SerializeField] GameObject groundCollider = null;
+
+        private void Awake()
+        {
+            groundCollider = transform.Find("GroundCollider").gameObject;
+        }
 
         public void RerollTiles()
         {
@@ -27,12 +33,20 @@ namespace OMG.Minigames.SafetyZone
                 
                 TileActiveClientRpc(index);
             });
+            GroundActiveClientRpc(false);
         }
 
         public void ResetTiles()
         {
             Debug.Log("Reset");
             ResetTilesClientRpc();
+            GroundActiveClientRpc(true);
+        }
+
+        [ClientRpc]
+        private void GroundActiveClientRpc(bool active)
+        {
+            groundCollider.SetActive(active);
         }
 
         [ClientRpc]

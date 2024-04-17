@@ -20,6 +20,9 @@ namespace OMG.Player
 
         [Space]
         [SerializeField] private float gravityScale;
+        private const float GRAVITY = -9.81f;
+        public float GravityScale => GRAVITY * gravityScale;
+
         public bool ApplyGravity;
 
         [Space]
@@ -85,14 +88,14 @@ namespace OMG.Player
 
             if(isGround)
             {
-                verticalVelocity = gravityScale * 0.3f;
+                verticalVelocity = GravityScale * 0.3f;
             }
             else
             {
-                verticalVelocity += gravityScale;
+                verticalVelocity += GravityScale;
             }
 
-            controller.Move(Vector3.up * gravityScale * Time.deltaTime);
+            controller.Move(Vector3.up * GravityScale * Time.deltaTime);
         }
 
         public bool CheckGround()
