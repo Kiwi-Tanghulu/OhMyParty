@@ -10,7 +10,14 @@ namespace OMG.Minigames.SafetyZone
         [SerializeField] float rerollPostpone = 1f;
         [SerializeField] float decisionDelay = 3f;
 
+        private SafetyZone safetyZone = null;
         private Coroutine cycle = null;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            safetyZone = minigame as SafetyZone;
+        }
 
         public void StartCycle(Action reroll, Action decision, Action reset)
         {
@@ -23,6 +30,17 @@ namespace OMG.Minigames.SafetyZone
                 StopCoroutine(cycle);
 
             base.FinishCycle();
+        }
+
+        public override void HandlePlayerDead(ulong clientID)
+        {
+            if(IsHost)
+            {
+                safetyZone.PlayerDictionary[clientID].NetworkObject.Despawn(true);
+                safetyZone.PlayerDictionary.Remove(clientID);
+            }
+
+            base.HandlePlayerDead(clientID);
         }
 
         private IEnumerator CycleCoroutine(Action reroll, Action decision, Action reset)

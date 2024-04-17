@@ -14,19 +14,23 @@ namespace OMG.Minigames
         private int deadPlayerCount = 0;
         public int DeadPlayerCount => deadPlayerCount;
 
-        public void HandlePlayerDead(ulong clientID)
+        public virtual void HandlePlayerDead(ulong clientID)
         {
-            deadPlayerCount++;
-            minigame.PlayerDatas.ChangeData(i => i.clientID == clientID, data => {
-                data.isDead = true;
-                data.score = scoreWeight[deadPlayerCount];
-                return data;
-            });
+            if(IsHost)
+            {
+                deadPlayerCount++;
+                
+                minigame.PlayerDatas.ChangeData(i => i.clientID == clientID, data => {
+                    data.isDead = true;
+                    data.score = scoreWeight[deadPlayerCount];
+                    return data;
+                });
+
+                if ((minigame.PlayerDatas.Count - deadPlayerCount) == 1)
+                    FinishCycle();
+            }
 
             OnPlayerDeadEvent?.Invoke(clientID);
-
-            if((minigame.PlayerDatas.Count - deadPlayerCount) == 1)
-                FinishCycle();
         }
 
         public virtual void FinishCycle()
