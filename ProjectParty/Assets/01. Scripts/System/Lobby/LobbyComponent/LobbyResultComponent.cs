@@ -35,9 +35,11 @@ namespace OMG.Lobbies
             Debug.Log($"[Lobby] The Winner is Player {winner.clientID}");
         }
 
-        [ServerRpc]
-        public void SpawnCushionServerRpc()
+        public void SpawnCushione()
         {
+            if (!IsServer)
+                return;
+
             StartCoroutine(SpawnCushionCo());
         }
 
