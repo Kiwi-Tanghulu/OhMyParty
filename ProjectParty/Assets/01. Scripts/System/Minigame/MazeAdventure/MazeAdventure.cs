@@ -3,18 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MazeAdventure : PlayableMinigame
+
+namespace OMG.Minigames.MazeAdventure
 {
-    private DeathmatchCycle deathmatchCycle = null;
-    public override void Init(params ulong[] playerIDs)
+    public class MazeAdventure : PlayableMinigame
     {
-        base.Init(playerIDs);
+        private DeathmatchCycle deathmatchCycle = null;
+        public override void Init(params ulong[] playerIDs)
+        {
+            base.Init(playerIDs);
 
-        for (int i = 0; i < playerDatas.Count; ++i)
-            CreatePlayer(i);
+            for (int i = 0; i < playerDatas.Count; ++i)
+                CreatePlayer(i);
 
-        deathmatchCycle = cycle as DeathmatchCycle;
+            deathmatchCycle = cycle as DeathmatchCycle;
 
-        StartIntro();
+            StartIntro();
+        }
     }
+
 }
