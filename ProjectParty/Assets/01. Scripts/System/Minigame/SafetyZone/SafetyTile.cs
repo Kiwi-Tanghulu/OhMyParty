@@ -44,7 +44,9 @@ namespace OMG.Minigames.SafetyZone
 
         public void Reset()
         {
-            SetSafetyNumber(-1);
+            safetyNumber = 100;
+            tileVisual.SetNumberText(-1);
+
             ToggleBlock(false);
             SetActive(true);
         }

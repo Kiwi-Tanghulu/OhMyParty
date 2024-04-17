@@ -23,7 +23,8 @@ namespace OMG.Minigames.SafetyZone
 
             if (IsHost == false)
                 return;
-
+    
+            tiles.ResetTiles();
             safetyZoneCycle.StartCycle(tiles.RerollTiles, tiles.DecisionSafetyZone, tiles.ResetTiles);
         }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using OMG.Extensions;
 using UnityEngine;
 
 namespace OMG.Utility.OneWayPlatform
@@ -8,7 +9,16 @@ namespace OMG.Utility.OneWayPlatform
     {
         [SerializeField] Direction directionType = Direction.Forward;
         [SerializeField] LayerMask castingLayer = 0;
-        [SerializeField] float castColliderScaleFactor = 1.3f;
+        [SerializeField] float castColliderPaddingFactor = 0.9f;
+        [SerializeField] float castColliderScale = 0.25f;
+
+        public Direction DirectionType {
+            get => directionType;
+            set {
+                directionType = value;
+                SettingTriggerCollider(directionType);
+            }
+        }
 
         private new BoxCollider collider = null;
         private BoxCollider collisionTriggerCollider = null;
@@ -19,9 +29,7 @@ namespace OMG.Utility.OneWayPlatform
             collider.isTrigger  = false;
         
             collisionTriggerCollider = gameObject.AddComponent<BoxCollider>();
-            collisionTriggerCollider.size = collider.size * castColliderScaleFactor;
-            collisionTriggerCollider.center = collider.center;
-            collisionTriggerCollider.isTrigger = true;
+            SettingTriggerCollider(DirectionType);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -46,9 +54,24 @@ namespace OMG.Utility.OneWayPlatform
             Physics.IgnoreCollision(collider, other, !isBlocked);
         }
 
+        private void SettingTriggerCollider(Direction directionType)
+        {
+            Vector3 direction = GetDirection(directionType, Space.World);
+
+            Vector3 originSize = collider.size * castColliderPaddingFactor;
+            Vector3 additionalSize = direction.GetAbs() * castColliderScale;
+            collisionTriggerCollider.size = originSize + additionalSize;
+
+            Vector3 originCenter = collider.center;
+            Vector3 additionalCenter = (collisionTriggerCollider.size - collider.size).GetMultipleEach(direction) * 0.5f;
+            collisionTriggerCollider.center = originCenter + additionalCenter;
+
+            collisionTriggerCollider.isTrigger = true;
+        }
+
         private bool IsBlocked(Transform other)
         {
-            Vector3 wayDirection = GetDirection(directionType);
+            Vector3 wayDirection = GetDirection(DirectionType, Space.Self);
             Vector3 otherDirection = other.position - transform.position;
 
             float dot = Vector3.Dot(wayDirection.normalized, otherDirection.normalized);
@@ -59,22 +82,22 @@ namespace OMG.Utility.OneWayPlatform
             return isBlocked;
         }
 
-        private Vector3 GetDirection(Direction directionType)
+        private Vector3 GetDirection(Direction directionType, Space space)
         {
             Vector3 direction = Vector3.zero;
             switch(directionType)
             {
                 case Direction.Forward:
                 case Direction.Backward:
-                    direction = transform.forward;
+                    direction = space == Space.Self ? transform.forward : Vector3.forward;
                     break;
                 case Direction.Up:
                 case Direction.Down:
-                    direction = transform.up;
+                    direction = space == Space.Self ? transform.up : Vector3.up;
                     break;
                 case Direction.Left:
                 case Direction.Right:
-                    direction = transform.right;
+                    direction = space == Space.Self ? transform.right : Vector3.right;
                     break;
             }
 
@@ -89,7 +112,7 @@ namespace OMG.Utility.OneWayPlatform
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + GetDirection(directionType));
+            Gizmos.DrawLine(transform.position, transform.position + GetDirection(directionType, Space.Self));
         }
 
         #endif

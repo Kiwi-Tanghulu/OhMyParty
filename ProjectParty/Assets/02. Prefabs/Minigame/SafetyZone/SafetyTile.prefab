@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2881096979311502506}
   - component: {fileID: 2760398576614701013}
   - component: {fileID: 4603602554046746408}
+  - component: {fileID: 933130122707185091}
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710707, z: -0, w: 0.70710653}
   m_LocalPosition: {x: 0, y: 1, z: -3.6}
-  m_LocalScale: {x: 0.25, y: 2, z: 6.5}
+  m_LocalScale: {x: 0.25, y: 2, z: 6.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1134486809360412590}
@@ -51,7 +52,8 @@ MonoBehaviour:
   castingLayer:
     serializedVersion: 2
     m_Bits: 513
-  castColliderScaleFactor: 1.3
+  castColliderPaddingFactor: 0.9
+  castColliderScale: 0.75
 --- !u!33 &2760398576614701013
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -81,6 +83,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0.00000023841858, y: 0, z: -0.00000023841858}
+--- !u!54 &933130122707185091
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41551713383740744}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &395931921555255977
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,6 +122,7 @@ GameObject:
   - component: {fileID: 2186728483390887344}
   - component: {fileID: 6178552421838359573}
   - component: {fileID: 5044488863794765204}
+  - component: {fileID: 7379054253915830117}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -110,7 +140,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.6, y: 1, z: 0}
-  m_LocalScale: {x: 0.25, y: 2, z: 6.5}
+  m_LocalScale: {x: 0.25, y: 2, z: 6.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8907362546293085844}
@@ -132,7 +162,8 @@ MonoBehaviour:
   castingLayer:
     serializedVersion: 2
     m_Bits: 513
-  castColliderScaleFactor: 1.3
+  castColliderPaddingFactor: 0.9
+  castColliderScale: 0.75
 --- !u!33 &6178552421838359573
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -162,6 +193,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0.00000023841858, y: 0, z: -0.00000023841858}
+--- !u!54 &7379054253915830117
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395931921555255977}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &607474748392885436
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +283,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6509417145204049081}
@@ -404,6 +462,7 @@ GameObject:
   - component: {fileID: 7042720419928366043}
   - component: {fileID: 3684143577777604761}
   - component: {fileID: 3070704427852868834}
+  - component: {fileID: 2706416381652025864}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -421,7 +480,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.6, y: 1, z: 0}
-  m_LocalScale: {x: 0.25, y: 2, z: 6.5}
+  m_LocalScale: {x: 0.25, y: 2, z: 6.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 235714361235551632}
@@ -443,7 +502,8 @@ MonoBehaviour:
   castingLayer:
     serializedVersion: 2
     m_Bits: 513
-  castColliderScaleFactor: 1.3
+  castColliderPaddingFactor: 0.9
+  castColliderScale: 0.75
 --- !u!33 &3684143577777604761
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -473,6 +533,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0.00000023841858, y: 0, z: -0.00000023841858}
+--- !u!54 &2706416381652025864
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2939910138437082667}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &3595636329532165219
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +588,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9065600657297216699}
@@ -568,6 +655,7 @@ GameObject:
   - component: {fileID: 5738153047783407463}
   - component: {fileID: 5636864591950106156}
   - component: {fileID: 1324733261455145484}
+  - component: {fileID: 2545785144688140025}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -585,7 +673,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710707, z: -0, w: 0.70710653}
   m_LocalPosition: {x: 0, y: 1, z: 3.6}
-  m_LocalScale: {x: 0.25, y: 2, z: 6.5}
+  m_LocalScale: {x: 0.25, y: 2, z: 6.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2135805634604221322}
@@ -607,7 +695,8 @@ MonoBehaviour:
   castingLayer:
     serializedVersion: 2
     m_Bits: 513
-  castColliderScaleFactor: 1.3
+  castColliderPaddingFactor: 0.9
+  castColliderScale: 0.75
 --- !u!33 &5636864591950106156
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -637,6 +726,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0.00000023841858, y: 0, z: -0.00000023841858}
+--- !u!54 &2545785144688140025
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844063279830504082}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &4896331047865295180
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +850,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6102942268227064653}
@@ -817,7 +933,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6727732276375326558}
@@ -920,7 +1036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: 308084
+  GUIID: 230416
 --- !u!114 &8127388376244839577
 MonoBehaviour:
   m_ObjectHideFlags: 0
