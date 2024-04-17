@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using OMG.Interacting;
 using Unity.Netcode;
-using OMG.Players;
+using OMG.Player;
 
 public class TSofa : NetworkBehaviour, IInteractable, IFocusable
 {

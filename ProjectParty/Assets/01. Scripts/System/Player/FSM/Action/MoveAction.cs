@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using OMG.Player;
+using OMG.Input;
 using OMG.FSM;
 
 namespace OMG.Player.FSM
 {
-    public class IsMove : PlayerFSMDecision
+    public class MoveAction : PlayerFSMAction
     {
         private PlayerMovement movement;
 
@@ -17,13 +18,11 @@ namespace OMG.Player.FSM
             movement = player.GetComponent<PlayerMovement>();
         }
 
-        public override bool MakeDecision()
+        public override void UpdateState()
         {
-            result = movement.MoveDir != Vector3.zero;
+            base.UpdateState();
 
-            base.MakeDecision();
-            
-            return result;
+            movement.Move();
         }
     }
 }

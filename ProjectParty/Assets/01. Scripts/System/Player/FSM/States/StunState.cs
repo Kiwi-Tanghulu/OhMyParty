@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using OMG.Player;
+using OMG.FSM;
 
-namespace OMG.Players
+namespace OMG.Player.FSM
 {
-    public class StunState : FSMState
+    public class StunState : PlayerFSMState
     {
         private PlayerRagdoll ragdoll;
         private PlayerHealth health;
+        private PlayerMovement movement;
 
         private int stunAnimHash = Animator.StringToHash("stun");
 
-        public override void InitState(PlayerController actioningPlayer)
+        public override void InitState(FSMBrain brain)
         {
-            base.InitState(actioningPlayer);
+            base.InitState(brain);
 
-            health = actioningPlayer.GetComponent<PlayerHealth>();
-            ragdoll = actioningPlayer.transform.Find("Visual").GetComponent<PlayerRagdoll>();
+            health = player.GetComponent<PlayerHealth>();
+            ragdoll = player.transform.Find("Visual").GetComponent<PlayerRagdoll>();
         }
 
         public override void EnterState()

@@ -1,5 +1,5 @@
 using OMG.Lobbies;
-using OMG.Players;
+using OMG.Player;
 using OMG.Utility;
 using System.Linq;
 using Unity.Netcode;

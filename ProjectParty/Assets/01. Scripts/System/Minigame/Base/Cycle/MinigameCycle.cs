@@ -1,6 +1,6 @@
 using OMG.Extensions;
 using OMG.Lobbies;
-using OMG.Players;
+using OMG.Player;
 using OMG.Utility;
 using Unity.Netcode;
 using UnityEngine;

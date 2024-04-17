@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.Player
 {
     public class PlayerAnimation : MonoBehaviour
     {

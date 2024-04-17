@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.Player
 {
     public class PlayerRagdoll : MonoBehaviour
     {

@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.FSM
 {
     public abstract class FSMDecision : MonoBehaviour
     {
-        protected PlayerController actioningPlayer;
+        protected FSMBrain brain;
 
         [SerializeField] private bool invert;
         protected bool result;
 
-        public virtual void Init(PlayerController actioningPlayer)
+        public virtual void Init(FSMBrain brain)
         {
-            this.actioningPlayer = actioningPlayer;
+            this.brain = brain;
         }
 
         public virtual void EnterState()
@@ -29,6 +29,6 @@ namespace OMG.Players
             return result;
         }
 
-        public abstract void ExitState();
+        public virtual void ExitState() { }
     }
 }

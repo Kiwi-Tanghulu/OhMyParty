@@ -1,8 +1,9 @@
+using OMG.Player.FSM;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.Player.FSM
 {
     public class PunchState : ActionState
     {
@@ -16,8 +17,8 @@ namespace OMG.Players
 
         protected override void DoAction()
         {
-            RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position + actioningPlayer.transform.forward * distance,
-                radius, actioningPlayer.transform.forward, 0f, layer);
+            RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position + player.transform.forward * distance,
+                radius, player.transform.forward, 0f, layer);
 
             if (hits.Length > 0)
             {
@@ -26,7 +27,7 @@ namespace OMG.Players
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
                         Debug.Log($"hit : {hits[i].transform.name}");
-                        damageable.OnDamaged(150f, actioningPlayer.transform, hits[i].point);
+                        damageable.OnDamaged(150f, player.transform, hits[i].point);
                     }
                 }
             }
@@ -39,7 +40,7 @@ namespace OMG.Players
                 return;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(eyeTrm.position + actioningPlayer.transform.forward * distance, radius);
+            Gizmos.DrawWireSphere(eyeTrm.position + player.transform.forward * distance, radius);
         }
 #endif
     }

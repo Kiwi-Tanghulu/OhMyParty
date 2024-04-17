@@ -1,21 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.FSM
 {
     public abstract class FSMState : MonoBehaviour
     {
-        protected PlayerController actioningPlayer;
-        protected PlayerMovement movement;
-        protected PlayerAnimation anim;
+        protected FSMBrain brain;
 
         private List<FSMTransition> transitions;
+        private List<FSMAction> actions;
 
-        public virtual void InitState(PlayerController actioningPlayer)
+        public virtual void InitState(FSMBrain brain)
         {
-            this.actioningPlayer = actioningPlayer;
-            movement = actioningPlayer.GetComponent<PlayerMovement>();
-            anim = actioningPlayer.transform.Find("Visual").GetComponent<PlayerAnimation>();
+            this.brain = brain;
+
+            actions = new List<FSMAction>();
+            GetComponents<FSMAction>(actions);
+            for (int i = 0; i < actions.Count; i++)
+            {
+                actions[i].Init(brain);
+            }
 
             transitions = new List<FSMTransition>();
             foreach (Transform transitionTrm in transform)
@@ -23,15 +27,15 @@ namespace OMG.Players
                 if (transitionTrm.TryGetComponent<FSMTransition>(out FSMTransition transition))
                 {
                     transitions.Add(transition);
-                    transition.Init(actioningPlayer);
-                }
+                    transition.Init(brain);
+                }   
             }
         }
 
         //all
         public virtual void EnterState()
         {
-            if (actioningPlayer.IsOwner)
+            if (brain.IsOwner)
                 OwnerEnterState();
         }
         //single
@@ -41,13 +45,20 @@ namespace OMG.Players
             {
                 transitions[i].EnterState();
             }
+
+            for (int i = 0; i < actions.Count; i++)
+            {
+                actions[i].EnterState();
+            }
         }
 
         //all
         public virtual void UpdateState()
         {
-            if (actioningPlayer.IsOwner)
+            if (brain.IsOwner)
+            {
                 OwnerUpdateState();
+            }
         }
         //single
         protected virtual void OwnerUpdateState() 
@@ -56,12 +67,17 @@ namespace OMG.Players
             {
                 transitions[i].CheckTrans();
             }
+
+            for (int i = 0; i < actions.Count; i++)
+            {
+                actions[i].UpdateState();
+            }
         }
 
         //all
         public virtual void ExitState()
         {
-            if (actioningPlayer.IsOwner)
+            if (brain.IsOwner)
                 OwnerExitState();
         }
         //single
@@ -70,6 +86,11 @@ namespace OMG.Players
             for (int i = 0; i < transitions.Count; i++)
             {
                 transitions[i].ExitState();
+            }
+
+            for (int i = 0; i < actions.Count; i++)
+            {
+                actions[i].ExitState();
             }
         }
     }

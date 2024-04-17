@@ -1,44 +1,41 @@
-using OMG.Input;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using OMG.FSM;
+using OMG.Input;
+using OMG.Player;
 
-namespace OMG.Players
+namespace OMG.Player.FSM
 {
-    public class IdleState : FSMState
+    public class IdleState : PlayerFSMState
     {
         [SerializeField] private PlayInputSO input;
 
-        private int moveSpeedAnimHash = Animator.StringToHash("moveSpeed");
+        private PlayerMovement movement;
+        private PlayerAnimation anim;
+
+        private readonly int moveSpeedAnimHash = Animator.StringToHash("moveSpeed");
+
+        public override void InitState(FSMBrain brain)
+        {
+            base.InitState(brain);
+
+            movement = player.GetComponent<PlayerMovement>();
+            anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
+        }
 
         public override void EnterState()
         {
             base.EnterState();
 
             movement.SetMoveDir(Vector3.zero);
-            movement.ApplyGravity = true;
         }
 
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
 
-            input.OnMoveEvent += SetMoveDir;
             anim.SetFloat(moveSpeedAnimHash, 0f, true, 0.1f);
-        }
-
-        protected override void OwnerExitState()
-        {
-            base.OwnerExitState();
-
-            input.OnMoveEvent -= SetMoveDir;
-        }
-
-        private void SetMoveDir(Vector2 input)
-        {
-            Vector3 moveDir = new Vector3(input.x, 0f, input.y);
-            
-            movement.SetMoveDir(moveDir);
         }
     }
 }

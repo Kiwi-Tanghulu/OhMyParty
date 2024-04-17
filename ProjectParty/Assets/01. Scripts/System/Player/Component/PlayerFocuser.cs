@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace OMG.Players
+namespace OMG.Player
 {
     public class PlayerFocuser : NetworkBehaviour
     {

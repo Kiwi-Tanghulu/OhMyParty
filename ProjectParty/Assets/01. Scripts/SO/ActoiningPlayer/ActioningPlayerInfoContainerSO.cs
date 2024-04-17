@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.Player
 {
     [Serializable]
     public class ActioningPlayerInfo

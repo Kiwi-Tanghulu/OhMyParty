@@ -1,20 +1,31 @@
-using OMG.Lobbies;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using OMG.Lobbies;
+using OMG.Player;
+using OMG.FSM;
 
-namespace OMG.Players
+namespace OMG.Player.FSM
 {
-    public class SitState : FSMState
+    public class SitState : PlayerFSMState
     {
         [SerializeField] private float detectChairDistance = 1.5f;
         private Chair usingChair;
         private Transform sitPoint;
 
+        private PlayerMovement movement;
+
+        public override void InitState(FSMBrain brain)
+        {
+            base.InitState(brain);
+
+            movement = player.GetComponent<PlayerMovement>();
+        }
+
         public override void EnterState()
         {
-            Collider[] cols = Physics.OverlapSphere(actioningPlayer.transform.position, detectChairDistance);
+            Collider[] cols = Physics.OverlapSphere(player.transform.position, detectChairDistance);
             for(int i = 0; i < cols.Length; i++)
             {
                 if (cols[i].TryGetComponent<Chair>(out Chair chair))
@@ -38,13 +49,13 @@ namespace OMG.Players
 
             if(usingChair == null)
             {
-                actioningPlayer.ChangeState(actioningPlayer.DefaultState);
+                brain.ChangeState(brain.DefaultState);
             }
             else
             {
                 usingChair.SetUseWhetherChair(sitPoint, true);
-                actioningPlayer.transform.position = sitPoint.position;
-                actioningPlayer.transform.localRotation = sitPoint.rotation;
+                player.transform.position = sitPoint.position;
+                player.transform.localRotation = sitPoint.rotation;
             }
         }
 

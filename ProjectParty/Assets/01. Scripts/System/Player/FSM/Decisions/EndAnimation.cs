@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using OMG.Player;
+using OMG.FSM;
 
-namespace OMG.Players
+namespace OMG.Player.FSM
 {
-    public class EndAnimation : FSMDecision
+    public class EndAnimation : PlayerFSMDecision
     {
         private PlayerAnimation anim;
 
-        public override void Init(PlayerController actioningPlayer)
+        public override void Init(FSMBrain brain)
         {
-            base.Init(actioningPlayer);
+            base.Init(brain);
 
-            anim = actioningPlayer.transform.Find("Visual").GetComponent<PlayerAnimation>();
+            anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
         }
 
         public override void EnterState()

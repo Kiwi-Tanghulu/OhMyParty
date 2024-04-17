@@ -6,7 +6,7 @@ using OMG.FSM;
 
 namespace OMG.Player.FSM
 {
-    public class IsMove : PlayerFSMDecision
+    public class GravityAction : PlayerFSMAction
     {
         private PlayerMovement movement;
 
@@ -17,13 +17,18 @@ namespace OMG.Player.FSM
             movement = player.GetComponent<PlayerMovement>();
         }
 
-        public override bool MakeDecision()
+        public override void EnterState()
         {
-            result = movement.MoveDir != Vector3.zero;
+            base.EnterState();
 
-            base.MakeDecision();
-            
-            return result;
+            movement.ApplyGravity = true;
+        }
+
+        public override void ExitState()
+        {
+            base.ExitState();
+
+            movement.ApplyGravity = false;
         }
     }
 }

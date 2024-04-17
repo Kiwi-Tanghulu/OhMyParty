@@ -6,7 +6,7 @@ using Unity.Netcode.Components;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.Player
 {
     public class PlayerMovement : NetworkBehaviour
     {

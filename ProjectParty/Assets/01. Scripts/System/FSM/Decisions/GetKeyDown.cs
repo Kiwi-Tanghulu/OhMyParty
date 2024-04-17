@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.FSM
 {
     public class GetKeyDown : FSMDecision
     {
@@ -22,11 +22,6 @@ namespace OMG.Players
             base.MakeDecision();
 
             return result;
-        }
-
-        public override void ExitState()
-        {
-            
         }
     }
 }

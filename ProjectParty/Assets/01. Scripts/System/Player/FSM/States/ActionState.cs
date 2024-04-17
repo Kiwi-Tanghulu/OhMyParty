@@ -1,20 +1,33 @@
-using OMG.Input;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
+using OMG.FSM;
+using OMG.Input;
+using OMG.Player;
 
-namespace OMG.Players
+namespace OMG.Player.FSM
 {
-    public abstract class ActionState : FSMState
+    public abstract class ActionState : PlayerFSMState
     {
         [SerializeField] private PlayInputSO input;
 
         [Space]
         [SerializeField] private bool applyMove;
 
-        private int actionAnimHash = Animator.StringToHash("action");
-        private int moveSpeedAnimHash = Animator.StringToHash("moveSpeed");
+        private PlayerMovement movement;
+        private PlayerAnimation anim;
+
+        private readonly int actionAnimHash = Animator.StringToHash("action");
+        private readonly int moveSpeedAnimHash = Animator.StringToHash("moveSpeed");
+
+        public override void InitState(FSMBrain brain)
+        {
+            base.InitState(brain);
+
+            movement = player.GetComponent<PlayerMovement>();
+            anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
+        }
 
         public override void EnterState()
         {
@@ -22,8 +35,6 @@ namespace OMG.Players
 
             if(!applyMove)
                 movement.SetMoveDir(Vector3.zero);
-
-            movement.ApplyGravity = true;
         }
 
         protected override void OwnerEnterState()

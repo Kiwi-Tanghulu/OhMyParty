@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace OMG.Players
+namespace OMG.Player
 {
     public class LobbyPlayerController : PlayerController
     {

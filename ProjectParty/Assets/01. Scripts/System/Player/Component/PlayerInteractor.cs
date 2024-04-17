@@ -3,7 +3,7 @@ using OMG.Interacting;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.Player
 {
     public class PlayerInteractor : NetworkBehaviour
     {

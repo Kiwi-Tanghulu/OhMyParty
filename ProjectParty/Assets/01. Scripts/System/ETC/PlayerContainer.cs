@@ -1,4 +1,4 @@
-using OMG.Players;
+using OMG.Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;

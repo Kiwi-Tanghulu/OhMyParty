@@ -1,23 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Players
+namespace OMG.FSM
 {
     public class FSMTransition : MonoBehaviour
     {
-        private PlayerController actioningPlayer;
+        private FSMBrain brain;
 
         [SerializeField] private FSMState nextState;
         private FSMDecision[] decisions;
         private bool result;
 
-        public void Init(PlayerController actioningPlayer)
+        public virtual void Init(FSMBrain brain)
         {
-            this.actioningPlayer = actioningPlayer;
+            this.brain = brain;
 
             decisions = GetComponents<FSMDecision>();
             foreach (FSMDecision decision in decisions)
-                decision.Init(actioningPlayer);
+                decision.Init(brain);
         }
 
         public virtual void EnterState()
@@ -42,7 +42,7 @@ namespace OMG.Players
 
 
             if (result)
-                actioningPlayer.ChangeState(nextState);
+                brain.ChangeState(nextState);
         }
 
         public virtual void ExitState()

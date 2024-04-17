@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using OMG.Extensions;
-using OMG.Players;
+using OMG.Player;
 using Unity.Netcode;
 using UnityEngine;
 

@@ -4,7 +4,8 @@ using Cinemachine;
 using OMG.Input;
 using OMG.Interacting;
 using OMG.Minigames;
-using OMG.Players;
+using OMG.Player;
+using OMG.Player.FSM;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -61,7 +62,7 @@ namespace OMG.Lobbies
             {
                 currentClientID = player.OwnerClientId;
                 readyComponent.Ready(currentClientID);
-                playerController.ChangeState(typeof(SitState));
+                playerController.StateMachine.ChangeState(typeof(SitState));
             }
 
             return true;

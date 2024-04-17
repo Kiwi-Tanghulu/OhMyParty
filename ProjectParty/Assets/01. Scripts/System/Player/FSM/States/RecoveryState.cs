@@ -1,30 +1,29 @@
-using OMG.Client.Component;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using OMG.Client.Component;
+using OMG.FSM;
+using OMG.Player;
 
-namespace OMG.Players
+namespace OMG.Player.FSM
 {
-    public class RecoveryState : FSMState
+    public class RecoveryState : PlayerFSMState
     {
+        private PlayerMovement movement;
+        private PlayerAnimation anim;
         private PlayerRagdoll ragdoll;
 
         private readonly string frontRecoveryAnim = "Recovery(Front)";
         private readonly string backRecoveryAnim = "Recovery(Back)";
 
-        public override void InitState(PlayerController actioningPlayer)
+        public override void InitState(FSMBrain brain)
         {
-            base.InitState(actioningPlayer);
+            base.InitState(brain);
 
-            ragdoll = anim.GetComponent<PlayerRagdoll>();
-        }
-
-        public override void EnterState()
-        {
-            base.EnterState();
-
-            movement.ApplyGravity = true;
+            movement = player.GetComponent<PlayerMovement>();
+            anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
+            ragdoll = player.transform.Find("Visual").GetComponent<PlayerRagdoll>();
         }
 
         protected override void OwnerEnterState()
@@ -39,7 +38,6 @@ namespace OMG.Players
 
             string animName = ragdoll.HipTrm.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
             anim.PlayAnim(animName, AnimatorLayerType.Default);
-            //actioningPlayer.transform.position = ragdoll.HipTrm.position;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace OMG.Players
+namespace OMG.Player
 {
     public class PlayerHealth : MonoBehaviour, IDamageable
     {
