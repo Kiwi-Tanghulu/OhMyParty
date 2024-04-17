@@ -19,6 +19,7 @@ namespace OMG.Lobbies
         private LobbyMinigameComponent minigameComponent = null;
         private LobbyResultComponent resultComponent = null;
         private LobbyReadyComponent readyComponent = null;
+        private LobbyCutSceneComponent cutSceneComponent = null;
 
         private NetworkList<ulong> playerIdList;
 
@@ -35,6 +36,7 @@ namespace OMG.Lobbies
             minigameComponent = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
             resultComponent = Lobby.Current.GetLobbyComponent<LobbyResultComponent>();
             readyComponent = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
+            cutSceneComponent = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
 
             minigameComponent.OnMinigameSelectedEvent += HandleMinigameSelected;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
@@ -78,12 +80,19 @@ namespace OMG.Lobbies
                     FocusSpot(true);
                     break;
                 case LobbyState.MinigameSelected: // 미니게임 선택된 상태일 때 레디가 되면 미니게임 시작
+                    // 여기다가 컷씬 시작해주고
                     if(IsHost)
-                    {
-                        readyComponent.ClearLobbyReady();
-                        minigameComponent.StartMinigame();
-                    }
+                        cutSceneComponent.PlayCutscene(true);
                     break;
+            }
+        }
+
+        public void StartMinigame() //이거 호출하면 미니게임 시작
+        {
+            if (IsHost)
+            {
+                readyComponent.ClearLobbyReady();
+                minigameComponent.StartMinigame();
             }
         }
 
@@ -122,6 +131,8 @@ namespace OMG.Lobbies
             FocusSpot(false);
 
             resultComponent.DisplayResult();
+            cutSceneComponent.PlayCutscene(false);
+            
             if(cycleFinished)
                 resultComponent.DisplayWinner();   
         }

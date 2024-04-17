@@ -27,6 +27,8 @@ namespace OMG.Players
                 }
             }
 
+            movement.ApplyGravity = false;
+
             base.EnterState();
         }
 

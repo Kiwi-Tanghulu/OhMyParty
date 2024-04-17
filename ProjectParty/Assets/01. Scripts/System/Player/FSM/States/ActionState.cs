@@ -22,6 +22,8 @@ namespace OMG.Players
 
             if(!applyMove)
                 movement.SetMoveDir(Vector3.zero);
+
+            movement.ApplyGravity = true;
         }
 
         protected override void OwnerEnterState()
