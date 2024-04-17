@@ -30,11 +30,6 @@ namespace OMG.Minigames.SafetyZone
 
         public override void FinishGame()
         {
-            if (IsHost)
-            {
-                safetyZoneCycle.FinishCycle();
-            }
-
             base.FinishGame();
         }
     }

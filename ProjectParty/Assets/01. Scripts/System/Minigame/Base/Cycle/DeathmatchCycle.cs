@@ -26,7 +26,8 @@ namespace OMG.Minigames
                     return data;
                 });
 
-                if ((minigame.PlayerDatas.Count - deadPlayerCount) == 1)
+                Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Dead Player Count : {deadPlayerCount}");
+                if ((minigame.PlayerDatas.Count - deadPlayerCount) <= 1)
                     FinishCycle();
             }
 

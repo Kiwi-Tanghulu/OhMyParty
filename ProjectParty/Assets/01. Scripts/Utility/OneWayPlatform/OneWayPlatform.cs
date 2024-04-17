@@ -76,7 +76,6 @@ namespace OMG.Utility.OneWayPlatform
 
             float dot = Vector3.Dot(wayDirection.normalized, otherDirection.normalized);
             float angle = Mathf.Abs(Mathf.Acos(dot) * Mathf.Rad2Deg);
-            Debug.Log(angle);
 
             bool isBlocked = angle >= 90f;
             return isBlocked;
