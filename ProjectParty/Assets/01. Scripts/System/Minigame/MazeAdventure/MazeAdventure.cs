@@ -1,18 +1,20 @@
+using OMG.Minigames;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MazeAdventure : MonoBehaviour
+public class MazeAdventure : PlayableMinigame
 {
-    // Start is called before the first frame update
-    void Start()
+    private DeathmatchCycle deathmatchCycle = null;
+    public override void Init(params ulong[] playerIDs)
     {
-        
-    }
+        base.Init(playerIDs);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for (int i = 0; i < playerDatas.Count; ++i)
+            CreatePlayer(i);
+
+        deathmatchCycle = cycle as DeathmatchCycle;
+
+        StartIntro();
     }
 }
