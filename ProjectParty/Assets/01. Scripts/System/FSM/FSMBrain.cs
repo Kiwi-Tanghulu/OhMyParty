@@ -14,12 +14,25 @@ namespace OMG.FSM
         public FSMState DefaultState => defaultState;
         [SerializeField] private FSMState currentState;
 
+        [Space(15f)]
+        [SerializeField] List<FSMParamSO> fsmParams = null;
+        private Dictionary<Type, FSMParamSO> fsmParamDictionary = null;
+
         private bool isInit;
 
         public void Init()
         {
-            states = new List<FSMState>();
+            //param
+            fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
+            fsmParams.ForEach(i => {
+                Type type = i.GetType();
+                if (fsmParamDictionary.ContainsKey(type))
+                    return;
+                fsmParamDictionary.Add(type, ScriptableObject.Instantiate(i));
+            });
 
+            //state
+            states = new List<FSMState>();
             Transform stateContainer = transform.Find("States");
             foreach (Transform stateTrm in stateContainer)
             {
@@ -59,6 +72,11 @@ namespace OMG.FSM
         private void OnDisable()
         {
             currentState?.ExitState();   
+        }
+
+        public T GetFSMParam<T>() where T : FSMParamSO
+        {
+            return fsmParamDictionary[typeof(T)] as T;
         }
 
         #region Change State

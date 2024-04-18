@@ -5,9 +5,12 @@ using UnityEngine;
 
 namespace OMG.Minigames.MazeAdventure
 {
-    public class IdleState : FSMState
+    public class FindState : FSMState
     {
 
+        public override void InitState(FSMBrain brain)
+        {
+            base.InitState(brain);
+        }
     }
-
 }

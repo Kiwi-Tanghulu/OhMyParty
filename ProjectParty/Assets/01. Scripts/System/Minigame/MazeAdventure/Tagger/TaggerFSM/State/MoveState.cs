@@ -9,6 +9,7 @@ namespace OMG.Minigames.MazeAdventure
     public class MoveState : FSMState
     {
 
+
     }
 
 }
