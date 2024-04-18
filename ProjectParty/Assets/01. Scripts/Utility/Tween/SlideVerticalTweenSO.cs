@@ -25,7 +25,7 @@ public class SlideVerticalTweenSO : TweenSO
     protected override void HandleTweenCompleted()
     {
         base.HandleTweenCompleted();
-        body.localPosition = new Vector3(0, endValue, 0);
+        body.localPosition = new Vector3(body.localPosition.x, endValue, body.localPosition.z);
     }
 }
 }

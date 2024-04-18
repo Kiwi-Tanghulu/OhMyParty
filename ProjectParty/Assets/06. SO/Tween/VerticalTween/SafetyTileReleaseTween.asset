@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2266f97c24890b4182a58307f8d900b, type: 3}
-  m_Name: New Tween Sequence SO
+  m_Script: {fileID: 11500000, guid: fb112ffb328c5594bb46ee86bdcb02d5, type: 3}
+  m_Name: SafetyTileReleaseTween
   m_EditorClassIdentifier: 
-  tweenParams: []
-  tweenSequence:
-  - {fileID: 11400000, guid: 4d288a9cda528ed4e93920375b3dc4f8, type: 2}
-  - {fileID: 11400000, guid: b44ab011f3d170e468141dfa992da72f, type: 2}
+  tweenParams:
+  - Caption: Release
+    Delay: 0
+    Duration: 1
+    Value: 0
+    Ease: 2
+  endValue: 0
