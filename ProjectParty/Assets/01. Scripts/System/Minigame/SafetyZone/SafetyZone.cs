@@ -21,10 +21,11 @@ namespace OMG.Minigames.SafetyZone
         {
             base.StartGame();
 
+            tiles.Init();
+
             if (IsHost == false)
                 return;
     
-            tiles.ResetTiles();
             safetyZoneCycle.StartCycle(tiles.RerollTiles, tiles.DecisionSafetyZone, tiles.ResetTiles);
         }
 

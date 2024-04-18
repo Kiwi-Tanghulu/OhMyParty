@@ -1,10 +1,13 @@
 using System;
+using OMG.Tweens;
 using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTile : MonoBehaviour
     {
+        [SerializeField] TweenOptOption tweenOption = null;
+
         private SafetyTileCollision tileCollision = null;
         private SafetyTileVisual tileVisual = null;
         private GameObject block = null;
@@ -16,6 +19,8 @@ namespace OMG.Minigames.SafetyZone
             tileCollision = transform.Find("Collision").GetComponent<SafetyTileCollision>();
             tileVisual = transform.Find("Visual").GetComponent<SafetyTileVisual>();
             block = transform.Find("Block").gameObject;
+
+            tweenOption.Init(transform);
 
             tileCollision.OnPlayerCountChangedEvent += HandlePlayerCountChanged;
         }
@@ -34,12 +39,21 @@ namespace OMG.Minigames.SafetyZone
 
         public void SetActive(bool active)
         {
-            gameObject.SetActive(active);
+            tweenOption.GetOption(active).PlayTween();
         }
 
         public void ToggleBlock(bool active)
         {
             block.SetActive(active);
+        }
+
+        public void Init()
+        {
+            safetyNumber = 100;
+            tileVisual.SetNumberText(-1);
+
+            ToggleBlock(false);
+            gameObject.SetActive(true);
         }
 
         public void Reset()
