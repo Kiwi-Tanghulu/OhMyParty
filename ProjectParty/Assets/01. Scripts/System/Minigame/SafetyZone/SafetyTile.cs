@@ -10,7 +10,7 @@ namespace OMG.Minigames.SafetyZone
 
         private SafetyTileCollision tileCollision = null;
         private SafetyTileVisual tileVisual = null;
-        private GameObject block = null;
+        private SafetyTileBlock block = null;
 
         private int safetyNumber = 0;
 
@@ -18,7 +18,7 @@ namespace OMG.Minigames.SafetyZone
         {
             tileCollision = transform.Find("Collision").GetComponent<SafetyTileCollision>();
             tileVisual = transform.Find("Visual").GetComponent<SafetyTileVisual>();
-            block = transform.Find("Block").gameObject;
+            block = transform.Find("Block").GetComponent<SafetyTileBlock>();
 
             tweenOption.Init(transform);
 
@@ -42,9 +42,9 @@ namespace OMG.Minigames.SafetyZone
             tweenOption.GetOption(active).PlayTween();
         }
 
-        public void ToggleBlock(bool active)
+        public void ToggleBlock(bool active, bool immediately = false)
         {
-            block.SetActive(active);
+            block.SetActive(active, immediately);
         }
 
         public void Init()
@@ -61,7 +61,7 @@ namespace OMG.Minigames.SafetyZone
             safetyNumber = 100;
             tileVisual.SetNumberText(-1);
 
-            ToggleBlock(false);
+            ToggleBlock(false, true);
             SetActive(true);
         }
 
