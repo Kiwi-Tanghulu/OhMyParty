@@ -51,6 +51,16 @@ namespace OMG.FSM
             currentState?.UpdateState();
         }
 
+        private void OnEnable()
+        {
+            currentState?.EnterState();
+        }
+
+        private void OnDisable()
+        {
+            currentState?.ExitState();   
+        }
+
         #region Change State
         public void ChangeState(Type type)
         {

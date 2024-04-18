@@ -1,9 +1,9 @@
-using OMG.FSM;
-using OMG.Input;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using OMG.FSM;
+using OMG.Input;
 
 namespace OMG.Player
 {
