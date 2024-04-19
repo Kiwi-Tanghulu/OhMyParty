@@ -112,6 +112,10 @@ namespace OMG.Player
         #region Jump
         public void Jump()
         {
+            if (!IsGround)
+                return;
+
+            Debug.Log("jump");
             verticalVelocity = jumpPower;
         }
         #endregion
@@ -124,7 +128,7 @@ namespace OMG.Player
 
             isGround = CheckGround();
 
-            if (isGround && verticalVelocity < 0f)
+            if (isGround && verticalVelocity <= 0f)
             {
                 verticalVelocity = GravityScale * 0.3f * Time.deltaTime;
             }
@@ -144,7 +148,7 @@ namespace OMG.Player
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
                 checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
-            Debug.Log(result);
+            
             return result;
         }
 

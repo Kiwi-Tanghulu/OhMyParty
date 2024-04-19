@@ -15,7 +15,7 @@ namespace OMG.Player
         {
             if(collision.transform.CompareTag("Ground"))
             {
-                OnContectGround?.Invoke();
+                //OnContectGround?.Invoke();
                 Debug.Log("on contect ground");
             }
         }
