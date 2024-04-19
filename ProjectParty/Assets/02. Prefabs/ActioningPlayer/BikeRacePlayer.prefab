@@ -1471,7 +1471,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3915178208457094058}
   - component: {fileID: 8326668885422355054}
-  - component: {fileID: 6896424085374745665}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -1518,22 +1517,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6896424085374745665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3445271670229015172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RigLayers:
-  - m_Rig: {fileID: 2551307995311436581}
-    m_Active: 1
-  m_Effectors: []
 --- !u!1 &3571331195553101383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,6 +1707,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3839755149484769544}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4161478484826542047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5111448792444538844}
+  m_Layer: 9
+  m_Name: CameraArm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5111448792444538844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161478484826542047}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.43, z: -3.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5845832658030693927}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4199811770319603984
 GameObject:
@@ -2989,8 +3003,9 @@ GameObject:
   - component: {fileID: 4850883981637513249}
   - component: {fileID: 3418470924855362196}
   - component: {fileID: 1843428252655548498}
+  - component: {fileID: 6127680956677045914}
   m_Layer: 9
-  m_Name: ScooterRacePlayer
+  m_Name: BikeRacePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3013,6 +3028,7 @@ Transform:
   - {fileID: 9183050882309328440}
   - {fileID: 5696699419132826436}
   - {fileID: 2198812671133386064}
+  - {fileID: 5111448792444538844}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4086877098179833118
@@ -3077,8 +3093,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 429872bc8a99f07419c4c9c323171679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camPrefab: {fileID: 4365384202527037267, guid: 1f602da60ce82a04c8f1237dc9c5c897,
-    type: 3}
 --- !u!114 &223871968555477875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3107,10 +3121,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   turnTime: 0.3
-  jumpPower: 500
+  jumpPower: 5
   gravityScale: 1
-  checkGroundOffset: {x: 0, y: -0.12, z: 0.09}
-  checkGroundHalfSize: {x: 0.09, y: 0.05, z: 0.52}
+  checkGroundOffset: {x: 0, y: -0.08, z: 0.09}
+  checkGroundHalfSize: {x: 0.09, y: 0.09, z: 0.52}
   checkGroundLayer:
     serializedVersion: 2
     m_Bits: 129
@@ -3237,6 +3251,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6127680956677045914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167256256994134352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3da5c7de9bf6f438f7dcbe18affed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camPrefab: {fileID: 4365384202527037267, guid: 1f602da60ce82a04c8f1237dc9c5c897,
+    type: 3}
+  setFollow: 0
+  setLook: 0
+  offset: {x: 0, y: 2.3, z: -5}
 --- !u!1 &8188095966439739360
 GameObject:
   m_ObjectHideFlags: 0

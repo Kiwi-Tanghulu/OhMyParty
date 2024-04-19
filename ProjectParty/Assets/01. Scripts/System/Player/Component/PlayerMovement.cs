@@ -109,10 +109,10 @@ namespace OMG.Player
         }
         #endregion
 
-        #region
+        #region Jump
         public void Jump()
         {
-            verticalVelocity += jumpPower;
+            verticalVelocity = jumpPower;
         }
         #endregion
 
@@ -126,15 +126,15 @@ namespace OMG.Player
 
             if (isGround && verticalVelocity < 0f)
             {
-                verticalVelocity = GravityScale * 0.3f;
+                verticalVelocity = GravityScale * 0.3f * Time.deltaTime;
             }
             else
             {
-                verticalVelocity += GravityScale;
+                verticalVelocity += GravityScale * Time.deltaTime;
             }
 
             Vector3 velocity = rb.velocity;
-            velocity.y = verticalVelocity * Time.deltaTime;
+            velocity.y = verticalVelocity;
             rb.velocity = velocity;
         }
         #endregion
@@ -144,7 +144,7 @@ namespace OMG.Player
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
                 checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
-
+            Debug.Log(result);
             return result;
         }
 
