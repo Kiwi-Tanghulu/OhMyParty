@@ -4367,9 +4367,10 @@ GameObject:
   - component: {fileID: 6851354970861626853}
   - component: {fileID: 8441183456195435575}
   - component: {fileID: 5062687372235613388}
-  - component: {fileID: 5194995565634527085}
   - component: {fileID: 7866662810107708660}
   - component: {fileID: 8522371165116064975}
+  - component: {fileID: 6274855299993467173}
+  - component: {fileID: 3356963185384073837}
   m_Layer: 9
   m_Name: DefaultMovablePlayer
   m_TagString: Player
@@ -4489,40 +4490,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   turnTime: 0.3
+  jumpPower: 0
   gravityScale: 1.5
-  ApplyGravity: 0
   checkGroundOffset: {x: 0, y: 0, z: 0}
   checkGroundHalfSize: {x: 0.25, y: 0.05, z: 0.25}
   checkGroundLayer:
     serializedVersion: 2
     m_Bits: 129
   DrawGizmo: 1
---- !u!143 &5194995565634527085
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8653656707965372744}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1.4
-  m_Radius: 0.3
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!95 &7866662810107708660
 Animator:
   serializedVersion: 5
@@ -4571,6 +4546,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &6274855299993467173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653656707965372744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &3356963185384073837
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653656707965372744}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!1 &8679340472802336869
 GameObject:
   m_ObjectHideFlags: 0
