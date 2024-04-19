@@ -9,9 +9,11 @@ namespace OMG.Input
     public class PlayInputSO : InputSO, IPlayActions
     {
         public Action<Vector2> OnMoveEvent;
+        public Action<Vector2> OnMouseDeltaEvent;
         public Action<bool> OnInteractEvent;
         public Action OnActionEvent;
         public Action OnActiveEvent;
+        public Action OnJumpEvent;
 
         protected override void OnEnable()
         {
@@ -46,6 +48,17 @@ namespace OMG.Input
         {
             if (context.started)
                 OnActiveEvent?.Invoke();
+        }
+
+        public void OnMouseDelta(InputAction.CallbackContext context)
+        {
+            OnMouseDeltaEvent?.Invoke(context.ReadValue<Vector2>());
+        }
+
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            if(context.started)
+                OnJumpEvent?.Invoke();
         }
     }
 }

@@ -62,6 +62,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""46edce26-0e27-4f89-869c-56e308b326c3"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed685cdd-51cf-465b-a8dd-f8c8a00d7196"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -150,6 +168,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Active"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74ec7362-dabc-4193-82c1-30b5b44b8822"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9c6ea0c-814f-4648-b258-4d41cce67bc5"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -252,6 +292,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Play_Interact = m_Play.FindAction("Interact", throwIfNotFound: true);
         m_Play_Action = m_Play.FindAction("Action", throwIfNotFound: true);
         m_Play_Active = m_Play.FindAction("Active", throwIfNotFound: true);
+        m_Play_MouseDelta = m_Play.FindAction("MouseDelta", throwIfNotFound: true);
+        m_Play_Jump = m_Play.FindAction("Jump", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Space = m_UI.FindAction("Space", throwIfNotFound: true);
@@ -323,6 +365,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Play_Interact;
     private readonly InputAction m_Play_Action;
     private readonly InputAction m_Play_Active;
+    private readonly InputAction m_Play_MouseDelta;
+    private readonly InputAction m_Play_Jump;
     public struct PlayActions
     {
         private @Controls m_Wrapper;
@@ -331,6 +375,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Play_Interact;
         public InputAction @Action => m_Wrapper.m_Play_Action;
         public InputAction @Active => m_Wrapper.m_Play_Active;
+        public InputAction @MouseDelta => m_Wrapper.m_Play_MouseDelta;
+        public InputAction @Jump => m_Wrapper.m_Play_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Play; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -352,6 +398,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Active.started += instance.OnActive;
             @Active.performed += instance.OnActive;
             @Active.canceled += instance.OnActive;
+            @MouseDelta.started += instance.OnMouseDelta;
+            @MouseDelta.performed += instance.OnMouseDelta;
+            @MouseDelta.canceled += instance.OnMouseDelta;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IPlayActions instance)
@@ -368,6 +420,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Active.started -= instance.OnActive;
             @Active.performed -= instance.OnActive;
             @Active.canceled -= instance.OnActive;
+            @MouseDelta.started -= instance.OnMouseDelta;
+            @MouseDelta.performed -= instance.OnMouseDelta;
+            @MouseDelta.canceled -= instance.OnMouseDelta;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IPlayActions instance)
@@ -461,6 +519,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);
         void OnActive(InputAction.CallbackContext context);
+        void OnMouseDelta(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

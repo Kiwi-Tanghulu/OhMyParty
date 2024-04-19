@@ -28,7 +28,8 @@ namespace OMG.Player
         public void SetActive(bool value)
         {
             anim.enabled = !value;
-            movement.Controller.enabled = !value;
+            movement.Collider.enabled = !value;
+            movement.Rigidbody.isKinematic = !value;
 
             for(int i = 0; i < rbList.Count; i++)
             {
