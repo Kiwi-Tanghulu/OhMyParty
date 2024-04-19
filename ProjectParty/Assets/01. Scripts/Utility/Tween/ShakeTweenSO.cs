@@ -13,7 +13,8 @@ namespace OMG.Tweens
         protected override void OnTween(Sequence sequence)
         {
             Tween tween;
-            tween = body.DOShakePosition(GetParam(0).Duration, strength, vibrato);
+            TweenParam param = GetParam(0);
+            tween = body.DOShakePosition(param.Duration, strength, vibrato).SetDelay(param.Delay);
             sequence.Append(tween);
         }
     }
