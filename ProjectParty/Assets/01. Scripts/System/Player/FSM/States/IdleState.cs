@@ -21,13 +21,13 @@ namespace OMG.Player.FSM
             base.InitState(brain);
 
             movement = player.GetComponent<PlayerMovement>();
-            anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
+            //anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
         }
 
         public override void EnterState()
         {
             base.EnterState();
-
+            Debug.Log(1);
             movement.SetMoveDir(Vector3.zero);
         }
 
@@ -35,7 +35,7 @@ namespace OMG.Player.FSM
         {
             base.OwnerEnterState();
 
-            anim.SetFloat(moveSpeedAnimHash, 0f, true, 0.1f);
+            //anim.SetFloat(moveSpeedAnimHash, 0f, true, 0.1f);
         }
     }
 }

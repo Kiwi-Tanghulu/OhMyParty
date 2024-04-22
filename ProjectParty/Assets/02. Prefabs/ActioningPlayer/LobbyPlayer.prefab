@@ -2777,7 +2777,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bbae456192a9d4e8604d7b04f5678e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: 2bad7e2a336d0ff45a57c72358fa1002, type: 2}
 --- !u!114 &5415783682685119730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4211,9 +4210,11 @@ GameObject:
   - component: {fileID: 7852917561015819019}
   - component: {fileID: 2227828243156353326}
   - component: {fileID: 8679296315069631493}
-  - component: {fileID: 5194995565634527085}
   - component: {fileID: 95693856938980469}
   - component: {fileID: 2766348336317173191}
+  - component: {fileID: 8801114458983654135}
+  - component: {fileID: 2973116433631301114}
+  - component: {fileID: 4860434384770646246}
   m_Layer: 9
   m_Name: LobbyPlayer
   m_TagString: Untagged
@@ -4251,7 +4252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 189675782
+  GlobalObjectIdHash: 1287839005
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -4329,14 +4330,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   turnTime: 0.3
+  jumpPower: 0
   gravityScale: 1
-  ApplyGravity: 0
   checkGroundOffset: {x: 0, y: 0, z: 0}
   checkGroundHalfSize: {x: 0.25, y: 0.05, z: 0.25}
   checkGroundLayer:
     serializedVersion: 2
     m_Bits: 129
-  DrawGizmo: 0
+  DrawGizmo: 1
 --- !u!114 &7852917561015819019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4397,32 +4398,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!143 &5194995565634527085
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8653656707965372744}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1.5
-  m_Radius: 0.3
-  m_SlopeLimit: 45
-  m_StepOffset: 0.1
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!95 &95693856938980469
 Animator:
   serializedVersion: 5
@@ -4474,6 +4449,68 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!54 &8801114458983654135
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653656707965372744}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &2973116433631301114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653656707965372744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &4860434384770646246
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653656707965372744}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!1 &8679340472802336869
 GameObject:
   m_ObjectHideFlags: 0

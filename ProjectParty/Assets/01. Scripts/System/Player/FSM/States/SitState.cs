@@ -38,8 +38,6 @@ namespace OMG.Player.FSM
                 }
             }
 
-            movement.ApplyGravity = false;
-
             base.EnterState();
         }
 

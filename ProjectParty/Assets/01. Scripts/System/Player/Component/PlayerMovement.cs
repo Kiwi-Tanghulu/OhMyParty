@@ -10,102 +10,88 @@ namespace OMG.Player
 {
     public class PlayerMovement : NetworkBehaviour
     {
+        [Header("Move")]
         [SerializeField] private float moveSpeed = 3f;
+        public float MoveSpeed
+        {
+            get { return moveSpeed; }
+            set { moveSpeed = value; }
+        }
         private Vector3 moveDir;
+        public Vector3 MoveDir => moveDir;
         private float verticalVelocity;
 
+        [Header("Turn")]
         [Space]
         [SerializeField] private float turnTime;
         private Coroutine trunCo;
 
+        [Header("Jump")]
+        [SerializeField] private float jumpPower;
+
+        [Header("Gravity")]
         [Space]
         [SerializeField] private float gravityScale;
         private const float GRAVITY = -9.81f;
         public float GravityScale => GRAVITY * gravityScale;
+        
 
-        public bool ApplyGravity;
-
+        [Header("Ground Check")]
         [Space]
         [SerializeField] private Vector3 checkGroundOffset;
         [SerializeField] private Vector3 checkGroundHalfSize;
         [SerializeField] private LayerMask checkGroundLayer;
-
+        private bool isGround;
+        public bool IsGround => isGround;
         public bool DrawGizmo;
 
-        public Vector3 MoveDir => moveDir;
-
-        private CharacterController controller;
-        public CharacterController Controller => controller;
-
+        [Header("Component")]
         private NetworkTransform networkTrm;
+        private Rigidbody rb;
+        private CapsuleCollider col;
+        public Rigidbody Rigidbody => rb;
+        public CapsuleCollider Collider => col;
 
         private void Awake()
         {
-            controller = GetComponent<CharacterController>();
             networkTrm = GetComponent<NetworkTransform>();
+            rb = GetComponent<Rigidbody>();
         }
 
-        private void Update()
-        {
-            Gravity();
-        }
-
-        public void SetMoveDir(Vector3 moveDir)
+        #region Move
+        public void SetMoveDir(Vector3 moveDir, bool turn = true)
         {
             this.moveDir = moveDir.normalized;
 
-            if(moveDir != Vector3.zero)
+            if (turn)
             {
-                if (trunCo != null)
-                    StopCoroutine(trunCo);
-                trunCo = StartCoroutine(TurnCo());
-            }
-            else
-            {
-                if(trunCo != null)
-                    StopCoroutine(trunCo);
+                if (moveDir != Vector3.zero)
+                {
+                    if (trunCo != null)
+                        StopCoroutine(trunCo);
+                    trunCo = StartCoroutine(TurnCo());
+                }
+                else
+                {
+                    if (trunCo != null)
+                        StopCoroutine(trunCo);
+                }
             }
         }
 
         public void Move()
         {
-            controller.Move(moveDir * moveSpeed * Time.deltaTime);
+            Vector3 horizontalVelocity = moveDir * moveSpeed;
+            rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
         }
 
         public void Teleport(Vector3 pos)
         {
             networkTrm.Teleport(pos, transform.rotation, transform.localScale);
         }
+        #endregion
 
-        public void Gravity()
-        {
-            if (!IsOwner)
-                return;
-            if (!ApplyGravity)
-                return;
-
-            bool isGround = CheckGround();
-
-            if(isGround)
-            {
-                verticalVelocity = GravityScale * 0.3f;
-            }
-            else
-            {
-                verticalVelocity += GravityScale;
-            }
-
-            controller.Move(Vector3.up * GravityScale * Time.deltaTime);
-        }
-
-        public bool CheckGround()
-        {
-            bool result = Physics.CheckBox(transform.position + checkGroundOffset,
-                checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
-            
-            return result;
-        }
-
+        #region Turn
         private IEnumerator TurnCo()
         {
             float t = 0f;
@@ -121,7 +107,50 @@ namespace OMG.Player
             }
             transform.localRotation = end;
         }
+        #endregion
 
+        #region Jump
+        public void Jump()
+        {
+            if (!IsGround)
+                return;
+
+            Debug.Log("jump");
+            verticalVelocity = jumpPower;
+        }
+        #endregion
+
+        #region Gravity
+        public void Gravity()
+        {
+            if (!IsOwner)
+                return;
+
+            isGround = CheckGround();
+
+            if (isGround && verticalVelocity <= 0f)
+            {
+                verticalVelocity = GravityScale * 0.3f * Time.deltaTime;
+            }
+            else
+            {
+                verticalVelocity += GravityScale * Time.deltaTime;
+            }
+
+            Vector3 velocity = rb.velocity;
+            velocity.y = verticalVelocity;
+            rb.velocity = velocity;
+        }
+        #endregion
+
+        #region Check Ground
+        public bool CheckGround()
+        {
+            bool result = Physics.CheckBox(transform.position + checkGroundOffset,
+                checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
+            
+            return result;
+        }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
@@ -133,5 +162,6 @@ namespace OMG.Player
             Gizmos.DrawWireCube(transform.position + checkGroundOffset, checkGroundHalfSize * 2);
         }
 #endif
+        #endregion
     }
 }
