@@ -9,6 +9,9 @@ namespace OMG.Minigames.SafetyZone
         [SerializeField] SafetyTile[] tiles = null;
         [SerializeField] GameObject groundCollider = null;
 
+        [Space(15f)]
+        [SerializeField] float fallingPostpone = 2f;
+
         private void Awake()
         {
             groundCollider = transform.Find("GroundCollider").gameObject;
@@ -33,7 +36,8 @@ namespace OMG.Minigames.SafetyZone
                 
                 TileActiveClientRpc(index);
             });
-            GroundActiveClientRpc(false);
+
+            StartCoroutine(this.DelayCoroutine(fallingPostpone, () => GroundActiveClientRpc(false)));
         }
 
         public void ResetTiles()
@@ -41,6 +45,11 @@ namespace OMG.Minigames.SafetyZone
             Debug.Log("Reset");
             ResetTilesClientRpc();
             GroundActiveClientRpc(true);
+        }
+
+        public void Init()
+        {
+            tiles.ForEach(i => i.Init());
         }
 
         [ClientRpc]

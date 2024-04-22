@@ -25,6 +25,12 @@ namespace OMG.Tweens
 
         public void PlayTween(Action callback = null)
         {
+            CreateTween(callback);
+            sequence.Play();
+        }
+
+        public Tween CreateTween(Action callback = null)
+        {
             sequence = DOTween.Sequence();
             sequence.OnComplete(() =>
             {
@@ -33,6 +39,7 @@ namespace OMG.Tweens
             });
 
             OnTween(sequence);
+            return sequence;
         }
 
         public void ForceKillTween()
