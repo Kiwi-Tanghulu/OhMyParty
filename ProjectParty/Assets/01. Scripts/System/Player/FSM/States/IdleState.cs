@@ -27,7 +27,7 @@ namespace OMG.Player.FSM
         public override void EnterState()
         {
             base.EnterState();
-            Debug.Log(1);
+           
             movement.SetMoveDir(Vector3.zero);
         }
 

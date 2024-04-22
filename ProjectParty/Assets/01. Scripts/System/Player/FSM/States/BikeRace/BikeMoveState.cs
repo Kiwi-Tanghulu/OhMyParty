@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Player.FSM.Bike
+namespace OMG.Player.FSM
 {
     public class BikeMoveState : PlayerFSMState
     {

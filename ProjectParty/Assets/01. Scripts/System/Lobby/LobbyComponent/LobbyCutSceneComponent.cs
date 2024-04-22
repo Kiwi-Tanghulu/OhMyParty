@@ -55,7 +55,6 @@ public class LobbyCutSceneComponent : LobbyComponent
             }
         }
 
-        Debug.Log("play");
         timelineHolder.Play();
     }
 }

@@ -72,8 +72,6 @@ namespace OMG.Player.FSM
 
             anim.OnPlayingEvent -= DoAction;
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
-
-            Debug.Log("exit action state");
         }
 
         protected abstract void DoAction();

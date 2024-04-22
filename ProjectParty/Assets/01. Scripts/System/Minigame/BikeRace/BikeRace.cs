@@ -1,7 +1,9 @@
 using OMG.Minigames.RockFestival;
+using OMG.Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Minigames.BikeRace
@@ -11,8 +13,10 @@ namespace OMG.Minigames.BikeRace
         [SerializeField] private float playTime = 60f;
         private BikeRaceCycle bikeRaceCycle;
 
-        public Action<int> OnPlayerGoal;
         private bool[] isGoal;
+
+        public Action OnStartGame;
+        public Action<int> OnPlayerGoal;
 
         public override void Init(params ulong[] playerIDs)
         {
@@ -41,10 +45,14 @@ namespace OMG.Minigames.BikeRace
                 return;
 
             bikeRaceCycle.StartCycle();
+            OnStartGame?.Invoke();
         }
 
-        public void PlayerGoal(int index)
+        public void GoalPlayer(PlayerController player)
         {
+            int index = Players.IndexOf(player.GetComponent<NetworkObject>());
+
+            Debug.Log($"Goal Player : {index}");
             isGoal[index] = true;
             OnPlayerGoal?.Invoke(index);
         }
