@@ -8,6 +8,7 @@ namespace OMG.Minigames.MazeAdventure
     {
         [SerializeField] private Transform testSpawnTrm;
         [SerializeField] private GameObject testObject;
+        [SerializeField] private Transform taggerFindTrm;
         private void Start()
         {
             Debug.Log("SpawnTagger");
@@ -15,6 +16,8 @@ namespace OMG.Minigames.MazeAdventure
             Tagger tagger = obj.GetComponent<Tagger>();
             tagger.NetworkObject.Spawn(true);
             tagger.NetworkObject.TrySetParent(gameObject, false);
+
+            
         }
     }
 

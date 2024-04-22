@@ -4,28 +4,53 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace OMG.Minigames.MazeAdventure
 {
+    [System.Serializable]
+    public struct StatesData
+    {
+        public FSMState nextState;
+        public float weight;
+    }
     public class IdleState : FSMState
     {
-        [SerializeField] private FSMState testNextState;
-        private float testTime;
+        [SerializeField] private StatesData[] nextStatesData;
 
+        private float maxWeight = 0;
+        private float randomValue;
+        private float cumulativeWeight;
+        private NavMeshAgent navMeshAgent;
+        public override void InitState(FSMBrain brain)
+        {
+            base.InitState(brain);
+            foreach(var  data in nextStatesData) 
+            { 
+                maxWeight += data.weight;
+            }
+            navMeshAgent = brain.GetComponent<NavMeshAgent>();
+        }
         public override void EnterState()
         {
             base.EnterState();
-            testTime = 0;
-        }
-        public override void UpdateState()
-        {
-            base.UpdateState();
-            testTime += Time.deltaTime;
 
-            if(testTime > 5f)
+            navMeshAgent.ResetPath();
+
+            randomValue = Random.Range(0, maxWeight);
+            cumulativeWeight = 0;
+
+            foreach(var data in nextStatesData)
             {
-                brain.ChangeState(testNextState);
+                cumulativeWeight += data.weight;
+
+                if(cumulativeWeight >= randomValue)
+                {
+                    brain.ChangeState(data.nextState);
+                    break;
+                }
             }
+            
         }
     }
 

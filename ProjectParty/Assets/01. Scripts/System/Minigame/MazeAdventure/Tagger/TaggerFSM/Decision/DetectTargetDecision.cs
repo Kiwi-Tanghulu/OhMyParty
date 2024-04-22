@@ -28,7 +28,11 @@ namespace OMG.Minigames.MazeAdventure
                     float dot = Vector3.Dot(hit.point - transform.position, transform.forward);
                     float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
 
-                    if (degree < detectAngle) return true;
+                    if (degree < detectAngle)
+                    {
+                        targetParam.Target = hit.transform;
+                        return true;
+                    }
                 }
             }
             return false;

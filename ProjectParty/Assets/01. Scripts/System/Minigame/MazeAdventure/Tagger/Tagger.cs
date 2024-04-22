@@ -1,7 +1,9 @@
+using OMG.FSM;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 namespace OMG.Minigames.MazeAdventure
@@ -13,20 +15,25 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private float moveSpeed;
         private Vector3 moveDir;
         private float testTimer = 0;
+        private FSMBrain brain;
+        private NavMeshAgent navMeshAgent;
+        private void Awake()
+        {
+            brain = GetComponent<FSMBrain>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
+        }
+
+        private void Update()
+        {
+            brain.UpdateFSM();
+        }
         public override void OnNetworkSpawn()
         {
             onSpawnedEvent?.Invoke();
-            moveDir = Vector3.left;
-        }
-        private void Update()
-        {
-            if (!IsHost) return;
-            testTimer += Time.deltaTime;
-            transform.position += moveDir * moveSpeed * Time.deltaTime;
-            if(testTimer > 3f)
+            if (IsHost)
             {
-                moveDir *= -1;
-                testTimer = 0;
+                brain.enabled = true;
+                navMeshAgent.enabled = true;
             }
         }
     }
