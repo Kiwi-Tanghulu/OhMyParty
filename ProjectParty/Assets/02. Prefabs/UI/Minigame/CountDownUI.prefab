@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6621437754846890959}
   - component: {fileID: 8112331151688344829}
   - component: {fileID: 5444520301214074910}
+  - component: {fileID: 394629120776210613}
   m_Layer: 5
   m_Name: CountDownUI
   m_TagString: Untagged
@@ -124,6 +125,36 @@ MonoBehaviour:
   OnFinishedCountDown:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &394629120776210613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2934478083799477203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 442d31c8c469e104bbc8290d2f5473ae, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5444520301214074910}
+          m_TargetAssemblyTypeName: OMG.UI.CountDownUI, Assembly-CSharp
+          m_MethodName: StartCoundDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7540582977269078634
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,8 @@ namespace OMG.UI
         private Sequence countSeq;
         private Sequence finishSeq;
 
-        private WaitForSeconds wfs;
+        private WaitForSeconds showTextWfs;
+        private WaitForSeconds finishWfs;
         private Coroutine countDownCoroutine;
 
         public UnityEvent OnFinishedCountDown;
@@ -31,7 +32,6 @@ namespace OMG.UI
         private void Awake()
         {
             timeText = transform.Find("TimeText").GetComponent<TextMeshProUGUI>();
-            wfs = new WaitForSeconds(1f + showTextTime);
 
             countSeq = DOTween.Sequence()
                 .SetAutoKill(false);
@@ -48,8 +48,13 @@ namespace OMG.UI
             finishSeq.Join(timeText.DOFade(0f, 0f));
             finishSeq.Append(timeText.transform.DOScale(Vector3.one * endFinishSeqTextSize, showTextTime));
             finishSeq.Join(timeText.DOFade(1f, showTextTime));
+            finishSeq.AppendInterval(showTextTime);
+            finishSeq.Append(timeText.DOFade(0f, showTextTime));
 
-            StartCoundDown();
+            showTextWfs = new WaitForSeconds(1f + showTextTime);
+            finishWfs = new WaitForSeconds(finishSeq.Duration());
+
+            timeText.gameObject.SetActive(false);
         }
 
         public void StartCoundDown()
@@ -61,17 +66,23 @@ namespace OMG.UI
 
         private IEnumerator CoundDownCo()
         {
-            for(int i = 3; i > 0; i--)
+            timeText.gameObject.SetActive(true);
+
+            for (int i = 3; i > 0; i--)
             {
                 timeText.text = i.ToString();
                 countSeq.Restart();
 
 
-                yield return wfs;
+                yield return showTextWfs;
             }
 
             timeText.text = finishCountText;
             finishSeq.Restart();
+
+            yield return finishWfs;
+
+            timeText.gameObject.SetActive(false);
         }
     }
 }
