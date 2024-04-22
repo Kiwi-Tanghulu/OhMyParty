@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 namespace OMG.UI
 {
-    public class CountDownUI : NetworkBehaviour
+    public class CountDownUI : MonoBehaviour
     {
         [SerializeField] private Vector2 startCountPos;
         [SerializeField] private Vector2 endCountPos;
@@ -48,18 +48,11 @@ namespace OMG.UI
             finishSeq.Join(timeText.DOFade(0f, 0f));
             finishSeq.Append(timeText.transform.DOScale(Vector3.one * endFinishSeqTextSize, showTextTime));
             finishSeq.Join(timeText.DOFade(1f, showTextTime));
+
+            StartCoundDown();
         }
 
         public void StartCoundDown()
-        {
-            if (IsHost)
-                return;
-
-            StartCoundDownClientRpc();
-        }
-
-        [ClientRpc]
-        private void StartCoundDownClientRpc()
         {
             if (countDownCoroutine != null)
                 StopCoroutine(countDownCoroutine);
