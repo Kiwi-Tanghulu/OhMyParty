@@ -21,10 +21,11 @@ namespace OMG.UI
         private TextMeshProUGUI timeText;
 
         private Sequence countSeq;
-        private Sequence finishSeq;
+        private Sequence finishCountSeq;
+        private Sequence hideTextSeq;
 
         private WaitForSeconds showTextWfs;
-        private WaitForSeconds finishWfs;
+        private WaitForSeconds finishCountWfs;
         private Coroutine countDownCoroutine;
 
         public UnityEvent OnFinishedCountDown;
@@ -40,19 +41,22 @@ namespace OMG.UI
             countSeq.Append(timeText.rectTransform.DOAnchorPos(endCountPos, showTextTime));
             countSeq.Join(timeText.DOFade(1f, showTextTime));
 
-            finishSeq = DOTween.Sequence()
+            finishCountSeq = DOTween.Sequence()
                 .SetAutoKill(false)
                 .OnComplete(() => OnFinishedCountDown?.Invoke());
-            finishSeq.Append(timeText.transform.DOScale(Vector3.one * startFinishSeqTextSize, 0f));
-            finishSeq.Join(timeText.rectTransform.DOAnchorPos(endCountPos, 0f));
-            finishSeq.Join(timeText.DOFade(0f, 0f));
-            finishSeq.Append(timeText.transform.DOScale(Vector3.one * endFinishSeqTextSize, showTextTime));
-            finishSeq.Join(timeText.DOFade(1f, showTextTime));
-            finishSeq.AppendInterval(showTextTime);
-            finishSeq.Append(timeText.DOFade(0f, showTextTime));
+            finishCountSeq.Append(timeText.transform.DOScale(Vector3.one * startFinishSeqTextSize, 0f));
+            finishCountSeq.Join(timeText.rectTransform.DOAnchorPos(endCountPos, 0f));
+            finishCountSeq.Join(timeText.DOFade(0f, 0f));
+            finishCountSeq.Append(timeText.transform.DOScale(Vector3.one * endFinishSeqTextSize, showTextTime));
+            finishCountSeq.Join(timeText.DOFade(1f, showTextTime));
+
+            hideTextSeq = DOTween.Sequence()
+                .SetAutoKill(false);
+            hideTextSeq.AppendInterval(showTextTime);
+            hideTextSeq.Append(timeText.DOFade(0f, showTextTime));
 
             showTextWfs = new WaitForSeconds(1f + showTextTime);
-            finishWfs = new WaitForSeconds(finishSeq.Duration());
+            finishCountWfs = new WaitForSeconds(finishCountSeq.Duration());
 
             timeText.gameObject.SetActive(false);
         }
@@ -78,11 +82,11 @@ namespace OMG.UI
             }
 
             timeText.text = finishCountText;
-            finishSeq.Restart();
+            finishCountSeq.Restart();
 
-            yield return finishWfs;
+            yield return finishCountWfs;
 
-            timeText.gameObject.SetActive(false);
+            hideTextSeq.Restart();
         }
     }
 }
