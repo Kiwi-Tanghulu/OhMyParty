@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using OMG.Extensions;
 
 namespace OMG.Minigames.BikeRace
 {
@@ -13,7 +14,12 @@ namespace OMG.Minigames.BikeRace
         [SerializeField] private float playTime = 60f;
         private BikeRaceCycle bikeRaceCycle;
 
+        [Space]
+        [SerializeField] private int maxScore;
+        [SerializeField] private int scoreInterval;
+
         private bool[] isGoal;
+        private int goalCount;
 
         public Action OnStartGame;
         public Action<int> OnPlayerGoal;
@@ -33,6 +39,7 @@ namespace OMG.Minigames.BikeRace
             bikeRaceCycle.SetPlayTime(playTime);
 
             isGoal = new bool[PlayerDatas.Count];
+            goalCount = 0;
 
             StartIntro();
         }
@@ -50,11 +57,17 @@ namespace OMG.Minigames.BikeRace
 
         public void GoalPlayer(PlayerController player)
         {
-            int index = Players.IndexOf(player.GetComponent<NetworkObject>());
+            NetworkObject playerNetworkObj = player.GetComponent<NetworkObject>();
+            int playerIndex = Players.IndexOf(playerNetworkObj);
 
-            Debug.Log($"Goal Player : {index}");
-            isGoal[index] = true;
-            OnPlayerGoal?.Invoke(index);
+            isGoal[playerIndex] = true;
+            playerDatas.ChangeData(i => i.clientID == playerNetworkObj.OwnerClientId, data => {
+                data.score += maxScore - (scoreInterval * goalCount);
+                return data;
+            });
+            goalCount++;
+
+            OnPlayerGoal?.Invoke(playerIndex);
         }
     }
 }
