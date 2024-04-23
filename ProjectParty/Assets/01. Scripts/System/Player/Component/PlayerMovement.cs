@@ -54,6 +54,11 @@ namespace OMG.Player
             rb = GetComponent<Rigidbody>();
         }
 
+        private void Start()
+        {
+            rb.useGravity = false;
+        }
+
         #region Move
         public void SetMoveDir(Vector3 moveDir, bool lookMoveDir = true)
         {
