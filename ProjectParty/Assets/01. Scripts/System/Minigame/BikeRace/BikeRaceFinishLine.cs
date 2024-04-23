@@ -17,13 +17,14 @@ namespace OMG.Minigames.BikeRace
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player"))
-            {
-                if (!IsHost)
-                    return;
+            if (!IsHost)
+                return;
 
-                if(other.TryGetComponent<PlayerController>(out PlayerController player))
+            if (other.CompareTag("Player"))
+            {
+                if(other.TryGetComponent<BikeRacePlayerController>(out BikeRacePlayerController player))
                 {
+                    player.Goal();
                     bikeRace.GoalPlayer(player);
                 }
             }

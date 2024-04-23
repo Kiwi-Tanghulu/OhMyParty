@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace OMG.Player
 {
-    public class PlayerCamera : MonoBehaviour
+    public class PlayerCamera : NetworkBehaviour
     {
         [SerializeField] private CinemachineVirtualCamera camPrefab;
         protected CinemachineVirtualCamera cam;
@@ -16,6 +16,9 @@ namespace OMG.Player
 
         protected virtual void Start()
         {
+            if (!IsOwner)
+                return;
+
             cam = Instantiate(camPrefab);
 
             if (setFollow)

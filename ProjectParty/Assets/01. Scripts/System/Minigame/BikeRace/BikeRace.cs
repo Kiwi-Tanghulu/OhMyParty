@@ -18,11 +18,19 @@ namespace OMG.Minigames.BikeRace
         [SerializeField] private int maxScore;
         [SerializeField] private int scoreInterval;
 
-        private bool[] isGoal;
+        private NetworkList<int> rank;
+        public NetworkList<int> Rank => rank;
         private int goalCount;
 
         public Action OnStartGame;
         public Action<int> OnPlayerGoal;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            rank = new NetworkList<int>();
+        }
 
         public override void Init(params ulong[] playerIDs)
         {
@@ -37,8 +45,7 @@ namespace OMG.Minigames.BikeRace
 
             bikeRaceCycle.Init(this);
             bikeRaceCycle.SetPlayTime(playTime);
-
-            isGoal = new bool[PlayerDatas.Count];
+            
             goalCount = 0;
 
             StartIntro();
@@ -58,9 +65,14 @@ namespace OMG.Minigames.BikeRace
         public void GoalPlayer(PlayerController player)
         {
             NetworkObject playerNetworkObj = player.GetComponent<NetworkObject>();
+
+            if (IsGoal(playerNetworkObj))
+                return;
+
             int playerIndex = Players.IndexOf(playerNetworkObj);
 
-            isGoal[playerIndex] = true;
+            rank.Add(playerIndex);
+            
             playerDatas.ChangeData(i => i.clientID == playerNetworkObj.OwnerClientId, data => {
                 data.score += maxScore - (scoreInterval * goalCount);
                 return data;
@@ -68,6 +80,11 @@ namespace OMG.Minigames.BikeRace
             goalCount++;
 
             OnPlayerGoal?.Invoke(playerIndex);
+        }
+
+        public bool IsGoal(NetworkObject player)
+        {
+            return rank.Contains(Players.IndexOf(player));
         }
     }
 }

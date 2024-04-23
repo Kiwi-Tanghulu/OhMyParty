@@ -61,7 +61,7 @@ namespace OMG.Minigames
         {
             timelineHolder.playableAsset = timelineOption.GetOption(option);
 
-            BindingTimeLineObject(timelineHolder);
+            BindingTimeLineObject(timelineHolder, option);
 
             bindPlayer &= minigame is PlayableMinigame;
             if(bindPlayer)
@@ -90,6 +90,6 @@ namespace OMG.Minigames
         }
 
         //binding timeline object except player 
-        protected virtual void BindingTimeLineObject(PlayableDirector timelineHolder) { }
+        protected virtual void BindingTimeLineObject(PlayableDirector timelineHolder, bool option) { }
     }
 }

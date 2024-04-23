@@ -1,4 +1,5 @@
 using Cinemachine;
+using JetBrains.Annotations;
 using OMG.Input;
 using OMG.Minigames;
 using OMG.Minigames.BikeRace;
@@ -7,12 +8,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Player
 {
     public class BikeRacePlayerController : PlayerController
     {
         public event Action OnContectGround;
+        public UnityEvent OnGoal;
 
         public override void OnNetworkSpawn()
         {
@@ -33,6 +36,11 @@ namespace OMG.Player
                 //OnContectGround?.Invoke();
                 Debug.Log("on contect ground");
             }
+        }
+
+        public void Goal()
+        {
+            OnGoal?.Invoke();
         }
 
         private void Minigame_OnStartGame()

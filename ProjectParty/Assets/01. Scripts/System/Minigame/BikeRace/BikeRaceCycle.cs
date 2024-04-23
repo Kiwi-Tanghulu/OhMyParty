@@ -3,7 +3,6 @@ using OMG.Player;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -13,10 +12,15 @@ namespace OMG.Minigames.BikeRace
     {
         private int goalCount;
 
+        private BikeRace bikeRace;
+
+        [SerializeField] private Transform[] resultStandingPoint;
+
         public void Init(BikeRace bikeRace)
         {
             goalCount = 0;
             
+            this.bikeRace = bikeRace;
             bikeRace.OnPlayerGoal += OnPlayerGoal;
         }
 
@@ -28,13 +32,32 @@ namespace OMG.Minigames.BikeRace
                 FinishCycle();
         }
 
-        protected override void BindingTimeLineObject(PlayableDirector timelineHolder)
+        protected override void BindingTimeLineObject(PlayableDirector timelineHolder, bool option)
         {
-            foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
+            if(option)
             {
-                if (binding.streamName == "Cinemachine Track")
+                foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
                 {
-                    timelineHolder.SetGenericBinding(binding.sourceObject, Camera.main.GetComponent<CinemachineBrain>()); 
+                    if (binding.streamName == "Cinemachine Track")
+                    {
+                        timelineHolder.SetGenericBinding(binding.sourceObject, Camera.main.GetComponent<CinemachineBrain>());
+                    }
+                }
+            }
+            else
+            {
+                List<NetworkObject> playersSortByRank = new List<NetworkObject>();
+                for (int i = 0; i < bikeRace.Rank.Count; i++)
+                {
+                    if (bikeRace.Players[bikeRace.Rank[i]].TryGet(out NetworkObject networkObject))
+                        playersSortByRank.Add(networkObject);
+                }
+
+                for (int i = 0; i < playersSortByRank.Count; i++)
+                {
+                    playersSortByRank[i].GetComponent<PlayerMovement>().Teleport(resultStandingPoint[i].position);
+                    playersSortByRank[i].transform.rotation = resultStandingPoint[i].rotation;
+
                 }
             }
         }

@@ -61,7 +61,10 @@ namespace OMG.Player
         #region Move
         public void SetMoveDir(Vector3 moveDir, bool turn = true)
         {
+            moveDir.y = 0f;
             this.moveDir = moveDir.normalized;
+
+            rb.velocity = moveDir * moveSpeed;
 
             if (turn)
             {
