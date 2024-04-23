@@ -28,16 +28,14 @@ namespace OMG.Player.FSM
             float speed = movement.MoveSpeed;
             speed += Time.deltaTime * accelation;
             speed = Mathf.Min(speed, maxMoveSpeed);
-            movement.MoveSpeed = speed;
-
-            movement.Move();
+            movement.SetMoveSpeed(speed);
         }
 
-        public override void ExitState()
-        {
-            base.ExitState();
+        //public override void ExitState()
+        //{
+        //    base.ExitState();
 
-            movement.MoveSpeed = 0f;
-        }
+        //    movement.setmove
+        //}
     }
 }

@@ -41,7 +41,7 @@ namespace OMG.Player.FSM
             player.transform.rotation = Quaternion.Euler(rotation);
 
             slantDirection = 1f;
-            movement.MoveSpeed = 0f;
+            movement.SetMoveSpeed(0f);
             slantValue = 0f;
 
             inputSO.OnMoveEvent += SetSlantDir;

@@ -52,14 +52,6 @@ namespace OMG.Player.FSM
             anim.SetTrigger(actionAnimHash);
         }
 
-        protected override void OwnerUpdateState()
-        {
-            base.OwnerUpdateState();
-
-            if (applyMove)
-                movement.Move();
-        }
-
         protected override void OwnerExitState()
         {
             base.OwnerExitState();

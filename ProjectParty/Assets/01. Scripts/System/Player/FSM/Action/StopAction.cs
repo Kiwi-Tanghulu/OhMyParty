@@ -25,7 +25,7 @@ namespace OMG.Player.FSM
             base.EnterState();
 
             if(OnEnter)
-                movement.SetMoveDir(Vector3.zero, false);
+                movement.SetHorizontalVelocity(Vector3.zero, 0f, false);
         }
 
         public override void UpdateState()
@@ -33,7 +33,7 @@ namespace OMG.Player.FSM
             base.UpdateState();
 
             if (OnUpdate)
-                movement.SetMoveDir(Vector3.zero, false);
+                movement.SetHorizontalVelocity(Vector3.zero, 0f, false);
         }
 
         public override void ExitState()
@@ -41,7 +41,7 @@ namespace OMG.Player.FSM
             base.ExitState();
 
             if (OnExit)
-                movement.SetMoveDir(Vector3.zero, false);
+                movement.SetHorizontalVelocity(Vector3.zero, 0f, false);
         }
     }
 }
