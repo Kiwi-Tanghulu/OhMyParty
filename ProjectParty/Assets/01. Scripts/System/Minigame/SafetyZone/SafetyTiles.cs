@@ -1,13 +1,21 @@
 using OMG.Extensions;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTiles : NetworkBehaviour
     {
         [SerializeField] SafetyTile[] tiles = null;
-        [SerializeField] GameObject groundCollider = null;
+        [SerializeField] float fallingPostpone = 2f;
+        
+        [Space(15f)]
+        [SerializeField] UnityEvent onRerollEvent = null;
+        [SerializeField] UnityEvent onDecisionEvent = null;
+        [SerializeField] UnityEvent onResetEvent = null;
+
+        private GameObject groundCollider = null;
 
         private void Awake()
         {
@@ -22,6 +30,8 @@ namespace OMG.Minigames.SafetyZone
                 int safetyNumber = Random.Range(0, 4);
                 UpdateSafetyNumberClientRpc(i, safetyNumber);
             }
+
+            RerollTilesClientRpc();
         }
 
         public void DecisionSafetyZone()
@@ -33,20 +43,32 @@ namespace OMG.Minigames.SafetyZone
                 
                 TileActiveClientRpc(index);
             });
-            GroundActiveClientRpc(false);
+
+            DecisionSafetyZoneClientRpc();
         }
 
         public void ResetTiles()
         {
             Debug.Log("Reset");
             ResetTilesClientRpc();
-            GroundActiveClientRpc(true);
+        }
+
+        public void Init()
+        {
+            tiles.ForEach(i => i.Init());
         }
 
         [ClientRpc]
-        private void GroundActiveClientRpc(bool active)
+        private void RerollTilesClientRpc()
         {
-            groundCollider.SetActive(active);
+            onRerollEvent?.Invoke();
+        }
+
+        [ClientRpc]
+        private void DecisionSafetyZoneClientRpc()
+        {
+            StartCoroutine(this.DelayCoroutine(fallingPostpone, () => groundCollider.SetActive(false)));
+            onDecisionEvent?.Invoke();
         }
 
         [ClientRpc]
@@ -67,6 +89,8 @@ namespace OMG.Minigames.SafetyZone
             tiles.ForEach(i => {
                 i.Reset();
             });
+            groundCollider.SetActive(true);
+            onResetEvent?.Invoke();
         }
     }
 }

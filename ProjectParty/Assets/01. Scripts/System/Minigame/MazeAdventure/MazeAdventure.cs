@@ -9,6 +9,7 @@ namespace OMG.Minigames.MazeAdventure
     public class MazeAdventure : PlayableMinigame
     {
         private DeathmatchCycle deathmatchCycle = null;
+        private TaggerSpawner spawner = null;
         public override void Init(params ulong[] playerIDs)
         {
             base.Init(playerIDs);
@@ -18,7 +19,14 @@ namespace OMG.Minigames.MazeAdventure
 
             deathmatchCycle = cycle as DeathmatchCycle;
 
+            spawner = GetComponent<TaggerSpawner>();
+
             StartIntro();
+        }
+
+        public override void StartGame()
+        {
+            base.StartGame();
         }
     }
 

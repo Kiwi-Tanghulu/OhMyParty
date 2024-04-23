@@ -22,9 +22,13 @@ namespace OMG.UI.Solid
         private void Update()
         {
             CastUIResult result = CastUI();
+            
+            if(result.ui?.Active == false)
+                return;
+
             if(currentUI == result.ui)
                 return;
-            
+
             FocusUI(result.ui, result.point);
         }
 

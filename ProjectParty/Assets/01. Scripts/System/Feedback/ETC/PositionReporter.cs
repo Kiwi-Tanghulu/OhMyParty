@@ -9,6 +9,11 @@ namespace OMG.Feedbacks
         [SerializeField] float distance = 5f;
 
         [Space(15f)]
+        [SerializeField] bool ignoreX;
+        [SerializeField] bool ignoreY;
+        [SerializeField] bool ignoreZ;
+
+        [Space(15f)]
         [SerializeField] UnityEvent OnPositionChangedEvent = null;
 
         private Vector3 lastPosition = Vector3.zero;
@@ -27,6 +32,13 @@ namespace OMG.Feedbacks
         private void Update()
         {
             Vector3 distanceVector = reportBody.position - lastPosition;
+            if(ignoreX)
+                distanceVector.x = 0f;
+            if(ignoreY)
+                distanceVector.y = 0f;
+            if(ignoreZ)
+                distanceVector.z = 0f;
+
             if(distanceVector.sqrMagnitude < distance * distance)
                 return;
 

@@ -30,7 +30,7 @@ namespace OMG.Network
         /// <summary>
         /// 호스트로써 클라이언트 시작
         /// </summary>
-        public async void StartHost(int maxMember)
+        public async void StartHost(int maxMember, Action onHostStarted = null)
         {
             NetworkManager networkManager = NetworkManager.Singleton;
             networkManager.OnServerStarted += HandleServerStarted;
@@ -38,6 +38,7 @@ namespace OMG.Network
             networkManager.StartHost();
 
             ClientManager.Instance.CurrentLobby = await SteamMatchmaking.CreateLobbyAsync(maxMember);
+            onHostStarted?.Invoke();
         }
 
         /// <summary>

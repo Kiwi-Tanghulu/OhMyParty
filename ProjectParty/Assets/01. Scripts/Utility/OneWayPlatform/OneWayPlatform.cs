@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using OMG.Extensions;
 using UnityEngine;
 
 namespace OMG.Utility.OneWayPlatform
 {
     [RequireComponent(typeof(BoxCollider))]
-    public partial class OneWayPlatform : MonoBehaviour
+    public class OneWayPlatform : MonoBehaviour
     {
         [SerializeField] Direction directionType = Direction.Forward;
         [SerializeField] LayerMask castingLayer = 0;
