@@ -5,7 +5,7 @@ using static Controls;
 
 namespace OMG.Input
 {
-    [CreateAssetMenu(menuName = "SO/InteriorInputSO")]
+    [CreateAssetMenu(menuName = "SO/Input/InteriorInputSO")]
     public class InteriorInputSO : InputSO, IInteriorActions
     {
         public Action OnPlaceEvent = null;

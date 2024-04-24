@@ -6,7 +6,7 @@ namespace OMG.Interiors
     [CreateAssetMenu(menuName = "SO/Interior/PropData")]
     public class InteriorPropSO : ScriptableObject
     {
-        public Mesh PropMesh = null;
+        public InteriorProp Prefab = null;
         public Vector3Int PropSize = Vector3Int.one;
 
         [SerializeField] Vector3Int offset = Vector3Int.zero;
