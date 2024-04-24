@@ -30,7 +30,6 @@ namespace OMG.Interiors
             if(drawGizmos == false)
                 return;
 
-            Gizmos.color = Color.red;
             Vector3 size = (Vector3)PropSize * gridSize;
             Vector3 center = position + Pivot * gridSize;
 

@@ -18,13 +18,14 @@ namespace OMG.Interiors
             }
         }
 
-        #if UNITY_EDITOR
+        // #if UNITY_EDITOR
 
-        private void OnDrawGizmos()
-        {
-            propData.DrawGizmos(transform.position, gridSize);
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     Gizmos.color = Color.red;
+        //     propData.DrawGizmos(transform.position, gridSize);
+        // }
 
-        #endif
+        // #endif
     }
 }

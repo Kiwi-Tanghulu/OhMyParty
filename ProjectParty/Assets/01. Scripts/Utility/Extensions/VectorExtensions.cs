@@ -13,13 +13,6 @@ namespace OMG.Extensions
             return new Vector3(posX, posY, posZ);
         }
 
-        public static void MultipleEach(this Vector3 left, Vector3 right)
-        {
-            left.x *= right.x;
-            left.y *= right.y;
-            left.z *= right.z;
-        }
-
         public static Vector3 GetMultipleEach(this Vector3 left, Vector3 right)
         {
             Vector3 value = Vector3.zero;
@@ -29,6 +22,65 @@ namespace OMG.Extensions
 
             return value;
         }
+
+        public static Vector3 PlaneVector(this Vector3 left)
+        {
+            left.y = 0;
+            return left;
+        }
+
+        public static Vector3 Sign(this Vector3 left)
+        {
+            Vector3 value = Vector3.zero;
+            value.x = Mathf.Sign(left.x);
+            value.y = Mathf.Sign(left.y);
+            value.z = Mathf.Sign(left.z);
+            return value;
+        }
+
+        #region Division
+        public static Vector3 GetDivisionEach(this Vector3 left, Vector3 right)
+        {
+            Vector3 value = Vector3.zero;
+            value.x = left.x / right.x;
+            value.y = left.y / right.y;
+            value.z = left.z / right.z;
+
+            return value;
+        }
+
+        public static Vector3Int GetDivisionEach(this Vector3Int left, Vector3Int right)
+        {
+            Vector3Int value = Vector3Int.zero;
+            value.x = left.x / right.x;
+            value.y = left.y / right.y;
+            value.z = left.z / right.z;
+
+            return value;
+        }
+        #endregion
+
+        #region Mod
+        public static Vector3 GetModEach(this Vector3 left, Vector3 right)
+        {
+            Vector3 value = Vector3.zero;
+            value.x = left.x % right.x;
+            value.y = left.y % right.y;
+            value.z = left.z % right.z;
+
+            return value;
+        }
+
+        public static Vector3Int GetModEach(this Vector3Int left, Vector3Int right)
+        {
+            Vector3Int value = Vector3Int.zero;
+            value.x = left.x % right.x;
+            value.y = left.y % right.y;
+            value.z = left.z % right.z;
+
+            return value;
+        }
+        #endregion
 
         #region Clamp
         public static Vector3 GetClampEach(this Vector3 left, Vector3 min, Vector3 max)
