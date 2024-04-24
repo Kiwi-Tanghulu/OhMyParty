@@ -3161,7 +3161,7 @@ GameObject:
   - component: {fileID: 1750698819791663957}
   - component: {fileID: 1843428252655548498}
   - component: {fileID: 3418470924855362196}
-  - component: {fileID: 4850883981637513249}
+  - component: {fileID: 7967921831614205123}
   - component: {fileID: 3156045741783251009}
   - component: {fileID: 223871968555477875}
   - component: {fileID: 6541278226922489194}
@@ -3285,14 +3285,14 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &4850883981637513249
-CapsuleCollider:
+--- !u!65 &7967921831614205123
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8167256256994134352}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e33bc6d32d399d24aa2bf7dcc8795922, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -3303,11 +3303,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.11
-  m_Height: 1.25
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.76, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.18, y: 1.4891051, z: 0.92510414}
+  m_Center: {x: 0, y: 0.7494275, z: 0.07716793}
 --- !u!114 &3156045741783251009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3349,6 +3347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultState: {fileID: 8993724752744398176}
   currentState: {fileID: 0}
+  fsmParams: []
 --- !u!114 &6541278226922489194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3363,10 +3362,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   turnTime: 0.3
-  jumpPower: 5
+  jumpPower: 10
   gravityScale: 1
-  checkGroundOffset: {x: 0, y: 0.05, z: 0.09}
-  checkGroundHalfSize: {x: 0.09, y: 0.15, z: 0.52}
+  checkGroundOffset: {x: 0, y: 0.07, z: 0.09}
+  checkGroundHalfSize: {x: 0.09, y: 0.12, z: 0.52}
   checkGroundLayer:
     serializedVersion: 2
     m_Bits: 129

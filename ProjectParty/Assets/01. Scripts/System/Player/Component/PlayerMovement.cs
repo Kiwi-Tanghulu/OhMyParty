@@ -15,7 +15,6 @@ namespace OMG.Player
         public float MoveSpeed => moveSpeed;
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
-        private float verticalVelocity;
 
         [Header("Turn")]
         [Space]
@@ -56,9 +55,12 @@ namespace OMG.Player
 
         private void Start()
         {
-            
-
             rb.useGravity = false;
+        }
+
+        private void Update()
+        {
+            CheckGround();
         }
 
         #region Move
@@ -136,31 +138,30 @@ namespace OMG.Player
             if (!IsGround)
                 return;
 
-            Debug.Log("jump");
-            verticalVelocity = jumpPower;
+            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
         #endregion
 
         #region Gravity
         public void Gravity()
         {
-            if (!IsOwner)
-                return;
+            //if (!IsOwner)
+            //    return;
 
-            isGround = CheckGround();
+            //isGround = CheckGround();
 
-            if (isGround && verticalVelocity <= 0f)
-            {
-                verticalVelocity = GravityScale * 0.3f * Time.deltaTime;
-            }
-            else
-            {
-                verticalVelocity += GravityScale * Time.deltaTime;
-            }
+            //if (isGround && verticalVelocity <= 0f)
+            //{
+            //    verticalVelocity = GravityScale * 0.3f * Time.deltaTime;
+            //}
+            //else
+            //{
+            //    verticalVelocity += GravityScale * Time.deltaTime;
+            //}
 
-            Vector3 velocity = rb.velocity;
-            velocity.y = verticalVelocity;
-            rb.velocity = velocity;
+            //Vector3 velocity = rb.velocity;
+            //velocity.y = verticalVelocity;
+            //rb.velocity = velocity;
         }
         #endregion
 
@@ -169,8 +170,9 @@ namespace OMG.Player
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
                 checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
+            isGround = result;
             
-            return result;
+            return isGround;
         }
 
 #if UNITY_EDITOR

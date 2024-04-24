@@ -17,6 +17,20 @@ namespace OMG.Player.FSM
             movement = player.GetComponent<PlayerMovement>();
         }
 
+        public override void EnterState()
+        {
+            base.EnterState();
+
+            movement.Rigidbody.useGravity = true;
+        }
+
+        public override void ExitState()
+        {
+            base.ExitState();
+
+            movement.Rigidbody.useGravity = false;
+        }
+
         public override void UpdateState()
         {
             base.UpdateState();

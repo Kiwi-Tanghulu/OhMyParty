@@ -22,7 +22,7 @@ namespace OMG.Player.FSM
         public override void EnterState()
         {
             base.EnterState();
-
+            
             inputSO.OnJumpEvent += movement.Jump;
         }
 

@@ -25,11 +25,6 @@ namespace OMG.Player
         {
             visualType = newVisualType;
 
-            Debug.Log(PlayerManager.Instance);
-            Debug.Log(PlayerManager.Instance.playerVisualInfo);
-            Debug.Log(PlayerManager.Instance.playerVisualInfo[visualType]);
-            Debug.Log(render);
-
             render.sharedMesh = PlayerManager.Instance.playerVisualInfo[visualType];
         }
     }
