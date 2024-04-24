@@ -18,6 +18,7 @@ namespace OMG.Minigames.MazeAdventure
         {
             base.InitState(brain);
             targetParam = brain.GetFSMParam<DetectTargetParams>();
+            navMeshAgent = brain.GetComponent<NavMeshAgent>();
         }
 
         public override void UpdateState()
@@ -28,7 +29,7 @@ namespace OMG.Minigames.MazeAdventure
                 navMeshAgent.SetDestination(targetParam.Target.position);
             }
 
-            if(navMeshAgent.remainingDistance < 0.1f)
+            if(navMeshAgent.remainingDistance < 0.02f)
             {
                 brain.ChangeState(nextStateFind);
             }
