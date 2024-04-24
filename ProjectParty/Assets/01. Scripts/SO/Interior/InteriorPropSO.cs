@@ -30,7 +30,7 @@ namespace OMG.Interiors
             if(drawGizmos == false)
                 return;
 
-            Vector3 size = (Vector3)PropSize * gridSize;
+            Vector3 size = (Vector3)PropSize * gridSize * 0.95f;
             Vector3 center = position + Pivot * gridSize;
 
             Gizmos.DrawWireCube(center, size);

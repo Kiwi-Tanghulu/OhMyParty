@@ -29,12 +29,32 @@ namespace OMG.Extensions
             return left;
         }
 
-        public static Vector3 Sign(this Vector3 left)
+        public static Vector3 Sign(this Vector3 left, bool includeZero = false)
         {
             Vector3 value = Vector3.zero;
             value.x = Mathf.Sign(left.x);
             value.y = Mathf.Sign(left.y);
-            value.z = Mathf.Sign(left.z);
+            value.z = Mathf.Sign(left.z);        
+
+            if(includeZero)
+            {
+                if (left.x == 0)
+                    value.x = 0;
+                if (left.y == 0)
+                    value.y = 0;
+                if (left.z == 0)
+                    value.z = 0;
+            }
+
+            return value;
+        }
+
+        public static Vector3Int GetRoundEach(this Vector3 left)
+        {
+            Vector3Int value = Vector3Int.zero;
+            value.x = Mathf.RoundToInt(left.x);
+            value.y = Mathf.RoundToInt(left.y);
+            value.z = Mathf.RoundToInt(left.z);
             return value;
         }
 
