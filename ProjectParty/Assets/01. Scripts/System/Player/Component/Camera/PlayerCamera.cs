@@ -30,5 +30,12 @@ namespace OMG.Player
             if (setLook)
                 cam.LookAt = transform;
         }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            Destroy(cam);
+        }
     }
 }

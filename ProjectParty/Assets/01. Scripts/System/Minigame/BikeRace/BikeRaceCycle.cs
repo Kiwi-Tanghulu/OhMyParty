@@ -14,7 +14,7 @@ namespace OMG.Minigames.BikeRace
 
         private BikeRace bikeRace;
 
-        [SerializeField] private Transform[] resultStandingPoint;
+        [SerializeField] private PlayerVisual[] resultPlayerVisuals;
 
         public void Init(BikeRace bikeRace)
         {
@@ -34,15 +34,17 @@ namespace OMG.Minigames.BikeRace
 
         protected override void BindingTimeLineObject(PlayableDirector timelineHolder, bool option)
         {
-            if(option)
+            foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
             {
-                foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
+                if (binding.streamName == "Cinemachine Track")
                 {
-                    if (binding.streamName == "Cinemachine Track")
-                    {
-                        timelineHolder.SetGenericBinding(binding.sourceObject, Camera.main.GetComponent<CinemachineBrain>());
-                    }
+                    timelineHolder.SetGenericBinding(binding.sourceObject, Camera.main.GetComponent<CinemachineBrain>());
                 }
+            }
+
+            if (option)
+            {
+                
             }
             else
             {
@@ -55,9 +57,7 @@ namespace OMG.Minigames.BikeRace
 
                 for (int i = 0; i < playersSortByRank.Count; i++)
                 {
-                    playersSortByRank[i].GetComponent<PlayerMovement>().Teleport(resultStandingPoint[i].position);
-                    playersSortByRank[i].transform.rotation = resultStandingPoint[i].rotation;
-
+                    resultPlayerVisuals[i].SetVisual(playersSortByRank[i].transform.Find("Visual").GetComponent<PlayerVisual>().VisualType); 
                 }
             }
         }

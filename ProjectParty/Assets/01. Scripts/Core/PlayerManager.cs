@@ -7,11 +7,16 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
 
-    private Dictionary<ulong, PlayerController> playerDic = new Dictionary<ulong, PlayerController>();
-    public Dictionary<ulong, PlayerController> PlayerDic => playerDic;
+    [SerializeField] private PlayerVisualInfoListSO playerVisualList;
+    public PlayerVisualInfoListSO playerVisualInfo => playerVisualList;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 }

@@ -6,8 +6,8 @@ namespace OMG.Player
 {
     public class PlayerVisual : MonoBehaviour
     {
-        private PlayerVisualInfo visualInfo;
-        public PlayerVisualInfo VisualInfo => visualInfo;
+        private PlayerVisualType visualType;
+        public PlayerVisualType VisualType => visualType;
 
         private SkinnedMeshRenderer render;
 
@@ -16,11 +16,21 @@ namespace OMG.Player
             render = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
         }
 
-        public void SetVisual(PlayerVisualInfo newVisualInfo)
+        private void Start()
         {
-            visualInfo = newVisualInfo;
+            SetVisual(PlayerVisualType.BoxHead);//test
+        }
 
-            render.sharedMesh = visualInfo.mesh;
+        public void SetVisual(PlayerVisualType newVisualType)
+        {
+            visualType = newVisualType;
+
+            Debug.Log(PlayerManager.Instance);
+            Debug.Log(PlayerManager.Instance.playerVisualInfo);
+            Debug.Log(PlayerManager.Instance.playerVisualInfo[visualType]);
+            Debug.Log(render);
+
+            render.sharedMesh = PlayerManager.Instance.playerVisualInfo[visualType];
         }
     }
 }
