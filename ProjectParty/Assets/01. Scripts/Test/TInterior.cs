@@ -1,4 +1,3 @@
-using OMG.Extensions;
 using OMG.Interiors;
 using UnityEngine;
 

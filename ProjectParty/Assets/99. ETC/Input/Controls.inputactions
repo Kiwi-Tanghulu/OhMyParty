@@ -260,6 +260,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Interior",
+            "id": "ff04ec73-ead5-437c-9235-01be5e1315e3",
+            "actions": [
+                {
+                    "name": "PlacePosition",
+                    "type": "Value",
+                    "id": "93525a2e-910e-4716-9a9f-979b13476a90",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Place",
+                    "type": "Button",
+                    "id": "15d26d2d-783c-4278-b5da-c60400bd58ee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "452f9dcb-1f14-4503-9ea9-c6a9c37fbb21",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlacePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc5958f3-5a6e-4ad7-bef7-4d29a1deee36",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Place",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
