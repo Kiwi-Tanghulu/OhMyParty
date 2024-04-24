@@ -29,15 +29,6 @@ namespace OMG.Player
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if(collision.transform.CompareTag("Ground"))
-            {
-                //OnContectGround?.Invoke();
-                Debug.Log("on contect ground");
-            }
-        }
-
         public void Goal()
         {
             OnGoal?.Invoke();

@@ -56,6 +56,8 @@ namespace OMG.Player
 
         private void Start()
         {
+            
+
             rb.useGravity = false;
         }
 

@@ -77,6 +77,13 @@ namespace OMG.Minigames.BikeRace
                 data.score += maxScore - (scoreInterval * goalCount);
                 return data;
             });
+
+            GoalPlayerClientRpc(playerIndex);
+        }
+
+        [ClientRpc]
+        private void GoalPlayerClientRpc(int playerIndex)
+        {
             goalCount++;
 
             OnPlayerGoal?.Invoke(playerIndex);
