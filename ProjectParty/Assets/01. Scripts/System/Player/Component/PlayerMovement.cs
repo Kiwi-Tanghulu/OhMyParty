@@ -12,11 +12,7 @@ namespace OMG.Player
     {
         [Header("Move")]
         [SerializeField] private float moveSpeed = 3f;
-        public float MoveSpeed
-        {
-            get { return moveSpeed; }
-            set { moveSpeed = value; }
-        }
+        public float MoveSpeed => moveSpeed;
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
         private float verticalVelocity;
@@ -58,31 +54,37 @@ namespace OMG.Player
             rb = GetComponent<Rigidbody>();
         }
 
-        #region Move
-        public void SetMoveDir(Vector3 moveDir, bool turn = true)
+        private void Start()
         {
-            this.moveDir = moveDir.normalized;
-
-            if (turn)
-            {
-                if (moveDir != Vector3.zero)
-                {
-                    if (trunCo != null)
-                        StopCoroutine(trunCo);
-                    trunCo = StartCoroutine(TurnCo());
-                }
-                else
-                {
-                    if (trunCo != null)
-                        StopCoroutine(trunCo);
-                }
-            }
+            rb.useGravity = false;
         }
 
-        public void Move()
+        #region Move
+        public void SetMoveDir(Vector3 moveDir, bool lookMoveDir = true)
         {
-            Vector3 horizontalVelocity = moveDir * moveSpeed;
-            rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
+            SetHorizontalVelocity(moveDir, moveSpeed, lookMoveDir);
+        }
+
+        public void SetMoveSpeed(float speed)
+        {
+            SetHorizontalVelocity(MoveDir, speed);
+        }
+        
+        public void SetHorizontalVelocity(Vector3 moveDir, float speed, bool lookMoveDir = true)
+        {
+            moveDir.y = 0f;
+            this.moveDir = moveDir.normalized;
+            moveSpeed = speed;
+
+            Vector3 newVelocity = moveDir * moveSpeed;
+            Vector3 velocity = rb.velocity;
+
+            newVelocity.y = velocity.y;
+
+            rb.velocity = newVelocity;
+
+            if (lookMoveDir)
+                Look(moveDir);
         }
 
         public void Teleport(Vector3 pos)
@@ -92,11 +94,28 @@ namespace OMG.Player
         #endregion
 
         #region Turn
-        private IEnumerator TurnCo()
+        private void Look(Vector3 lookVector)
+        {
+            lookVector.Normalize();
+
+            if (lookVector != Vector3.zero)
+            {
+                if (trunCo != null)
+                    StopCoroutine(trunCo);
+                trunCo = StartCoroutine(TurnCo(lookVector));
+            }
+            else
+            {
+                if (trunCo != null)
+                    StopCoroutine(trunCo);
+            }
+        }
+
+        private IEnumerator TurnCo(Vector3 lookVector)
         {
             float t = 0f;
             Quaternion start = transform.localRotation;
-            Quaternion end = Quaternion.AngleAxis(Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg, Vector3.up);
+            Quaternion end = Quaternion.AngleAxis(Mathf.Atan2(lookVector.x, lookVector.z) * Mathf.Rad2Deg, Vector3.up);
 
             while (1f - t > 0.1f)
             {

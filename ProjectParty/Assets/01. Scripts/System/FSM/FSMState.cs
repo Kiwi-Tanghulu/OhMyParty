@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace OMG.FSM
 {
-    public abstract class FSMState : MonoBehaviour
+    public class FSMState : MonoBehaviour
     {
         protected FSMBrain brain;
 

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Player.FSM.Bike
+namespace OMG.Player.FSM
 {
     public class BikeMoveState : PlayerFSMState
     {
@@ -41,7 +41,7 @@ namespace OMG.Player.FSM.Bike
             player.transform.rotation = Quaternion.Euler(rotation);
 
             slantDirection = 1f;
-            movement.MoveSpeed = 0f;
+            movement.SetMoveSpeed(0f);
             slantValue = 0f;
 
             inputSO.OnMoveEvent += SetSlantDir;

@@ -15,7 +15,7 @@ namespace OMG.Minigames
     {
         [SerializeField] OptOption<TimelineAsset> timelineOption = null;
 
-        private PlayableDirector timelineHolder = null;
+        protected PlayableDirector timelineHolder = null;
         protected Minigame minigame = null;
 
         protected virtual void Awake()
@@ -60,7 +60,9 @@ namespace OMG.Minigames
         private void PlayCutsceneClientRpc(bool option, bool bindPlayer)
         {
             timelineHolder.playableAsset = timelineOption.GetOption(option);
-            
+
+            BindingTimeLineObject(timelineHolder, option);
+
             bindPlayer &= minigame is PlayableMinigame;
             if(bindPlayer)
             {
@@ -86,5 +88,8 @@ namespace OMG.Minigames
 
             timelineHolder.Play();
         }
+
+        //binding timeline object except player 
+        protected virtual void BindingTimeLineObject(PlayableDirector timelineHolder, bool option) { }
     }
 }
