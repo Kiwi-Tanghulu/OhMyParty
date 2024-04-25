@@ -8,16 +8,30 @@ namespace OMG.Test
     {
         [SerializeField] InteriorPropSO propData = null;
         private InteriorSystem system = null;
+        private InteriorPresetComponent presetComponent = null;
 
         private void Awake()
         {
             system = GetComponent<InteriorSystem>();
+            presetComponent = GetComponent<InteriorPresetComponent>();
         }
 
         private void Start()
         {
             InputManager.ChangeInputMap(InputMapType.Interior);
             system.SetPropData(propData.PropID);
+        }
+
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha1))
+                presetComponent.LoadPreset(0);
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha2))
+                presetComponent.LoadPreset(1);
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha3))
+                presetComponent.LoadPreset(2);
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+                presetComponent.CreatePreset();
         }
 
         #if UNITY_EDITOR

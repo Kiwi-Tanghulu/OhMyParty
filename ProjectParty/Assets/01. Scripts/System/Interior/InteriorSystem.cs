@@ -10,23 +10,24 @@ namespace OMG.Interiors
         [SerializeField] float gridSize = 1f;
         public float GridSize => gridSize;
 
-        private InteriorData interiorData = null;
         private InteriorPropSO currentPropData = null;
         private bool enableToPlace = false;
         private bool active = false;
 
+        private InteriorPresetComponent presetComponent = null;
         private InteriorGridComponent gridComponent = null;
         private InteriorPlaceComponent placeComponent = null;
 
         private void Awake()
         {
-            interiorData = new InteriorData();
+            presetComponent = GetComponent<InteriorPresetComponent>();
             gridComponent = GetComponent<InteriorGridComponent>();
             placeComponent = GetComponent<InteriorPlaceComponent>();
         }
 
         private void Start()
         {
+            presetComponent.Init();
             gridComponent.Init(gridSize);
         }
 
@@ -62,7 +63,7 @@ namespace OMG.Interiors
                 return;
 
             placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridPosition);
-            interiorData.AddPlacement(currentPropData.PropID, gridComponent.CurrentGridIndex);
+            presetComponent.AddPlacement(currentPropData.PropID, gridComponent.CurrentGridIndex);
         }
 
         #if UNITY_EDITOR

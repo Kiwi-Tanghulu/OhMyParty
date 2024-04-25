@@ -6,7 +6,7 @@ namespace OMG.Interiors
     [System.Serializable]
     public class InteriorData
     {
-        private List<PlacementData> placementDatas = null;
+        [SerializeField] List<PlacementData> placementDatas = null;
         public PlacementData this[int index] => placementDatas[index];
         public int PlacementCount => placementDatas.Count;
 

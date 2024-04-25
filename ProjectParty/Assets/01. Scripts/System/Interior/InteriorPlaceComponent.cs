@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OMG.Input;
 using UnityEngine;
 
@@ -7,7 +8,13 @@ namespace OMG.Interiors
     {
         [SerializeField] LayerMask obstacleLayer = 0;
 
+        private List<InteriorProp> props = null;
         private Collider[] obstacleCache = new Collider[1];
+
+        private void Awake()
+        {
+            props = new List<InteriorProp>();
+        }
 
         public bool EnableToPlace(InteriorPropSO propData, Vector3 gridPosition, float gridSize)
         {
@@ -19,7 +26,16 @@ namespace OMG.Interiors
 
         public void PlaceProp(InteriorPropSO propData, Vector3 position)
         {
-            Instantiate(propData.Prefab, position, Quaternion.identity);
+            props.Add(Instantiate(propData.Prefab, position, Quaternion.identity));
+        }
+
+        public void ClearProps()
+        {
+            props.ForEach(i => {
+                Destroy(i?.gameObject);
+            });
+
+            props.Clear();
         }
     }
 }
