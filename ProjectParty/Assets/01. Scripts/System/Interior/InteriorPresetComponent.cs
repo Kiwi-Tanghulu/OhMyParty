@@ -6,7 +6,7 @@ namespace OMG.Interiors
 {
     public class InteriorPresetComponent : MonoBehaviour
     {
-        [SerializeField] PropListSO propList = null;
+        [SerializeField] PropDatabaseSO propDatabase = null;
 
         private UserInteriorData interiorData = null;
         private InteriorData currentInteriorData = null;
@@ -34,7 +34,7 @@ namespace OMG.Interiors
             for(int i = 0; i < currentInteriorData.PlacementCount; ++i)
             {
                 PlacementData placementData = currentInteriorData[i];
-                InteriorPropSO propData = propList[placementData.PropID];
+                InteriorPropSO propData = propDatabase[placementData.PropID];
                 Vector3 placePosition = gridComponent.GetGridPosition(placementData.GridIndex);
                 placeComponent.PlaceProp(propData, placePosition);
             }

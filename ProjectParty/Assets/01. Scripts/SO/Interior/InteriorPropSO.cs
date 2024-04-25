@@ -6,6 +6,7 @@ namespace OMG.Interiors
     [CreateAssetMenu(menuName = "SO/Interior/PropData")]
     public class InteriorPropSO : ScriptableObject
     {
+        public InteriorPropType PropType = InteriorPropType.Furniture;
         public string PropID = "";
 
         public InteriorProp Prefab = null;

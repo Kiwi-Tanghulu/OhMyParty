@@ -6,7 +6,7 @@ namespace OMG.Interiors
     public class InteriorSystem : MonoBehaviour
     {
         [SerializeField] InteriorInputSO input = null;
-        [SerializeField] PropListSO propList = null;
+        [SerializeField] PropDatabaseSO propDatabase = null;
         [SerializeField] float gridSize = 1f;
         public float GridSize => gridSize;
 
@@ -44,7 +44,7 @@ namespace OMG.Interiors
         public void SetPropData(string propID)
         {
             input.OnPlaceEvent += HandlePlace;
-            currentPropData = propList[propID];
+            currentPropData = propDatabase[propID];
             active = true;
         }
 
