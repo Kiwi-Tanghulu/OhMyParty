@@ -21,8 +21,7 @@ namespace OMG.Test
                 {
                     if(UnityEngine.Input.GetKeyDown(KeyCode.R))
                     {
-                        DataManager.ClearData();
-                        DataManager.LoadData();
+                        ClearData();
                     }
                 }
             }
@@ -31,6 +30,13 @@ namespace OMG.Test
         private void OnDestroy()
         {
             DataManager.SaveData();
+        }
+        
+        [ContextMenu("ClearData")]
+        public void ClearData()
+        {
+            DataManager.ClearData();
+            DataManager.LoadData();
         }
     }
 }

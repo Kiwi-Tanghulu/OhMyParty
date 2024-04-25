@@ -21,14 +21,15 @@ namespace OMG.Interiors
             grid = GetComponent<Grid>();
         }
 
-        public void CalculateGrid(Vector3 placePosition)
+        public bool CalculateGrid(Vector3 placePosition)
         {
             Ray groundDetectRay = mainCam.ScreenPointToRay(placePosition);
             if(Physics.Raycast(groundDetectRay, out RaycastHit hit, float.MaxValue, groundLayer) == false)
-                return;
+                return false;
 
             CurrentGridIndex = grid.WorldToCell(hit.point);
             CurrentGridPosition = grid.GetCellCenterWorld(CurrentGridIndex);
+            return true;
         }
 
         public void Init(float gridSize)

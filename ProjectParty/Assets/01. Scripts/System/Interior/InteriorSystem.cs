@@ -36,8 +36,9 @@ namespace OMG.Interiors
             if(active == false)
                 return;
 
-            gridComponent.CalculateGrid(input.PlacePosition);
-            enableToPlace = placeComponent.EnableToPlace(currentPropData, gridComponent.CurrentGridPosition, gridSize);
+            enableToPlace = gridComponent.CalculateGrid(input.PlacePosition);
+            if(enableToPlace)
+                enableToPlace = placeComponent.EnableToPlace(currentPropData, gridComponent.CurrentGridPosition, gridSize);
         }
 
         public void SetPropData(string propID)

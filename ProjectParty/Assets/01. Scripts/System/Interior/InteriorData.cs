@@ -19,5 +19,10 @@ namespace OMG.Interiors
         {
             placementDatas.Add(new PlacementData(propID, gridIndex));
         }
+
+        public void ClearData()
+        {
+            placementDatas.Clear();
+        }
     }
 }

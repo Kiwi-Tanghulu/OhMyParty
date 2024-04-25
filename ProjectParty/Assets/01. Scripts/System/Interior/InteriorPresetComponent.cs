@@ -8,7 +8,7 @@ namespace OMG.Interiors
     {
         [SerializeField] PropListSO propList = null;
 
-        private List<InteriorData> presets = null;
+        private UserInteriorData interiorData = null;
         private InteriorData currentInteriorData = null;
 
         private InteriorGridComponent gridComponent = null;
@@ -22,14 +22,15 @@ namespace OMG.Interiors
 
         public void Init()
         {
-            presets = DataManager.UserData.InteriorPrests;
+            interiorData = DataManager.UserData.InteriorData;
         }
 
         public void LoadPreset(int index)
         {
+            interiorData.CurrentPreset = index;
             placeComponent.ClearProps();
 
-            currentInteriorData = presets[index];
+            currentInteriorData = interiorData.InteriorPrests[interiorData.CurrentPreset];
             for(int i = 0; i < currentInteriorData.PlacementCount; ++i)
             {
                 PlacementData placementData = currentInteriorData[i];
@@ -39,12 +40,10 @@ namespace OMG.Interiors
             }
         }
 
-        public void CreatePreset()
+        public void ClearPreset()
         {
             placeComponent.ClearProps();
-
-            currentInteriorData = new InteriorData();
-            presets.Add(currentInteriorData);
+            currentInteriorData.ClearData();
         }
 
         public void AddPlacement(string propID, Vector3Int gridIndex)
