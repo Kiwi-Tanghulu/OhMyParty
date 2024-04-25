@@ -1,5 +1,6 @@
 using OMG.Input;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace OMG.Interiors
 {
@@ -18,11 +19,15 @@ namespace OMG.Interiors
         private InteriorGridComponent gridComponent = null;
         private InteriorPlaceComponent placeComponent = null;
 
+        private EventSystem eventSystem = null;
+
         private void Awake()
         {
             presetComponent = GetComponent<InteriorPresetComponent>();
             gridComponent = GetComponent<InteriorGridComponent>();
             placeComponent = GetComponent<InteriorPlaceComponent>();
+
+            eventSystem = EventSystem.current;
         }
 
         private void Start()
@@ -35,6 +40,12 @@ namespace OMG.Interiors
         {
             if(active == false)
                 return;
+
+            if(eventSystem.IsPointerOverGameObject())
+            {
+                enableToPlace = false;
+                return;
+            }
 
             enableToPlace = gridComponent.CalculateGrid(input.PlacePosition);
             if(enableToPlace)
