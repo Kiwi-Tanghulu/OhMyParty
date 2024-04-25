@@ -7,96 +7,69 @@ namespace OMG.Interiors
     {
         [SerializeField] InteriorInputSO input = null;
         [SerializeField] PropListSO propList = null;
-        
-        [Space(15f)]
-        [SerializeField] LayerMask obstacleLayer = 0;
-        [SerializeField] LayerMask groundLayer = 0;
         [SerializeField] float gridSize = 1f;
         public float GridSize => gridSize;
 
         private InteriorData interiorData = null;
-
         private InteriorPropSO currentPropData = null;
-        private Camera mainCam = null;
-        private Grid grid = null;
-
-        private bool isActive = false;
         private bool enableToPlace = false;
+        private bool active = false;
 
-        private Collider[] obstacleCache = new Collider[1];
-        private Vector3 gridPositionCache = Vector3.zero;
+        private InteriorGridComponent gridComponent = null;
+        private InteriorPlaceComponent placeComponent = null;
 
         private void Awake()
         {
-            mainCam = Camera.main;
-
-            grid = GetComponent<Grid>();
-            grid.cellSize = new Vector3(gridSize, gridSize, gridSize);
-
             interiorData = new InteriorData();
+            gridComponent = GetComponent<InteriorGridComponent>();
+            placeComponent = GetComponent<InteriorPlaceComponent>();
+        }
+
+        private void Start()
+        {
+            gridComponent.Init(gridSize);
         }
 
         private void Update()
         {
-            if(isActive == false)
+            if(active == false)
                 return;
 
-            Ray groundDetectRay = mainCam.ScreenPointToRay(input.PlacePosition);
-            if(Physics.Raycast(groundDetectRay, out RaycastHit hit, float.MaxValue, groundLayer) == false)
-                return;
-
-            Vector3Int gridIndex = grid.WorldToCell(hit.point);
-            Vector3 gridPosition = grid.GetCellCenterWorld(gridIndex);
-            gridPositionCache = gridPosition;
-
-            Vector3 center = gridPosition + currentPropData.Pivot * gridSize;
-            Vector3 halfExtents = (Vector3)currentPropData.PropSize * gridSize * 0.45f;
-            int detectedCount = Physics.OverlapBoxNonAlloc(center, halfExtents, obstacleCache, Quaternion.identity, obstacleLayer);
-            enableToPlace = detectedCount < 1;
+            gridComponent.CalculateGrid(input.PlacePosition);
+            enableToPlace = placeComponent.EnableToPlace(currentPropData, gridComponent.CurrentGridPosition, gridSize);
         }
 
         public void SetPropData(string propID)
         {
-            currentPropData = propList[propID];
-            isActive = true;
-            enableToPlace = false;
-
-            RegisterHandleInput();
-        }
-
-        public void ClearProp()
-        {
-            UnregisterHandleInput();
-
-            currentPropData = null;
-            isActive = false;
-            enableToPlace = false;
-        }
-
-        private void RegisterHandleInput()
-        {
             input.OnPlaceEvent += HandlePlace;
+            currentPropData = propList[propID];
+            active = true;
         }
 
-        private void UnregisterHandleInput()
+        public void ClearPropData()
         {
             input.OnPlaceEvent -= HandlePlace;
+            currentPropData = null;
+            active = false;
         }
 
         private void HandlePlace()
         {
+            if(active == false)
+                return;
+
             if(enableToPlace == false)
                 return;
 
-            Instantiate(currentPropData.Prefab, gridPositionCache, Quaternion.identity);
-            interiorData.AddPlacement(currentPropData.PropID, grid.WorldToCell(gridPositionCache));
+            placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridPosition);
+            interiorData.AddPlacement(currentPropData.PropID, gridComponent.CurrentGridIndex);
         }
 
         #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.color = enableToPlace ? Color.green : Color.red;
-            currentPropData?.DrawGizmos(gridPositionCache, gridSize);
+            currentPropData?.DrawGizmos(gridComponent.CurrentGridPosition, gridSize);
         }
         #endif
     }
