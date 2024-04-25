@@ -9,11 +9,12 @@ namespace OMG.Player
         private PlayerVisualType visualType;
         public PlayerVisualType VisualType => visualType;
 
-        private SkinnedMeshRenderer render;
+        [SerializeField] private SkinnedMeshRenderer render;
 
         private void Awake()
         {
-            render = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
+            if (render == null)
+                render = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
         }
 
         private void Start()

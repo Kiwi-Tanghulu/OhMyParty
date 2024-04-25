@@ -32,6 +32,7 @@ namespace OMG.Player
         public void Goal()
         {
             OnGoal?.Invoke();
+            gameObject.SetActive(false);
         }
 
         private void Minigame_OnStartGame()

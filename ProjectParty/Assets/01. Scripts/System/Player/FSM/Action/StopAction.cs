@@ -25,7 +25,10 @@ namespace OMG.Player.FSM
             base.EnterState();
 
             if(OnEnter)
+            {
+                Debug.Log("123");
                 movement.SetHorizontalVelocity(Vector3.zero, 0f, false);
+            }
         }
 
         public override void UpdateState()
