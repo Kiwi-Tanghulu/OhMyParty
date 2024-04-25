@@ -12,8 +12,6 @@ namespace OMG.Player.FSM
 
         private PlayerMovement movement;
 
-        private BikeRacePlayerController bikeRacePlayer;
-
         public override void Init(FSMBrain brain)
         {
             base.Init(brain);
@@ -29,13 +27,7 @@ namespace OMG.Player.FSM
             speed += Time.deltaTime * accelation;
             speed = Mathf.Min(speed, maxMoveSpeed);
             movement.SetMoveSpeed(speed);
+            movement.Move();
         }
-
-        //public override void ExitState()
-        //{
-        //    base.ExitState();
-
-        //    movement.setmove
-        //}
     }
 }

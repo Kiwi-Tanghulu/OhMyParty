@@ -22,6 +22,8 @@ namespace OMG.Player
             base.OnNetworkSpawn();
 
             BikeRace bikeRace = MinigameManager.Instance.CurrentMinigame as BikeRace;
+            Debug.Log(MinigameManager.Instance);
+            Debug.Log(MinigameManager.Instance.CurrentMinigame);
             Debug.Log(bikeRace);
 
             if (IsOwner)

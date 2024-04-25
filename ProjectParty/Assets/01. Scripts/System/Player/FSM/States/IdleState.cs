@@ -24,13 +24,6 @@ namespace OMG.Player.FSM
             //anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
         }
 
-        public override void EnterState()
-        {
-            base.EnterState();
-           
-            movement.SetMoveDir(Vector3.zero);
-        }
-
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();

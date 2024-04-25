@@ -15,6 +15,7 @@ namespace OMG.Player
         public float MoveSpeed => moveSpeed;
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
+        private Vector3 horiVelocity;
 
         [Header("Turn")]
         [Space]
@@ -42,30 +43,35 @@ namespace OMG.Player
 
         [Header("Component")]
         private NetworkTransform networkTrm;
+        private Collider col;
+        public Collider Collider => col;
         private Rigidbody rb;
-        private CapsuleCollider col;
         public Rigidbody Rigidbody => rb;
-        public CapsuleCollider Collider => col;
 
         private void Awake()
         {
             networkTrm = GetComponent<NetworkTransform>();
             rb = GetComponent<Rigidbody>();
-        }
-
-        private void Start()
-        {
-            rb.useGravity = false;
+            col = GetComponent<Collider>();
         }
 
         private void Update()
         {
+            Debug.Log(rb.velocity);
             CheckGround();
         }
 
         #region Move
+        public void Move()
+        {
+            Vector3 velocity = new Vector3(horiVelocity.x, rb.velocity.y, horiVelocity.z);
+
+            rb.velocity = velocity;
+        }
+
         public void SetMoveDir(Vector3 moveDir, bool lookMoveDir = true)
         {
+            Debug.Log(moveDir);
             SetHorizontalVelocity(moveDir, moveSpeed, lookMoveDir);
         }
 
@@ -80,12 +86,7 @@ namespace OMG.Player
             this.moveDir = moveDir.normalized;
             moveSpeed = speed;
 
-            Vector3 newVelocity = moveDir * moveSpeed;
-            Vector3 velocity = rb.velocity;
-
-            newVelocity.y = velocity.y;
-
-            rb.velocity = newVelocity;
+            horiVelocity = moveDir * moveSpeed;
 
             if (lookMoveDir)
                 Look(moveDir);
