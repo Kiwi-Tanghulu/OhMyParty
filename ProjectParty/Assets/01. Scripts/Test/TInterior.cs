@@ -1,49 +1,21 @@
-using OMG.Datas;
 using OMG.Input;
 using OMG.Interiors;
-using TMPro;
 using UnityEngine;
 
 namespace OMG.Test
 {
     public class TInterior : MonoBehaviour
     {
-        [SerializeField] InteriorPropSO propData = null;
-        [SerializeField] TMP_Text presetText = null;
         private InteriorSystem system = null;
-        private InteriorPresetComponent presetComponent = null;
 
         private void Awake()
         {
             system = GetComponent<InteriorSystem>();
-            presetComponent = GetComponent<InteriorPresetComponent>();
         }
 
         private void Start()
         {
             InputManager.ChangeInputMap(InputMapType.Interior);
-            system.SetPropData(propData.PropID);
-
-            LoadPreset(DataManager.UserData.InteriorData.CurrentPreset);
-        }
-
-        public void LoadPreset(int index)
-        {
-            presetComponent.LoadPreset(index);
-            if(presetText != null)
-                presetText.text = $"PRESET {index + 1}";
-        }
-
-        private void Update()
-        {
-            // if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha1))
-            //     presetComponent.LoadPreset(0);
-            // if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha2))
-            //     presetComponent.LoadPreset(1);
-            // if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha3))
-            //     presetComponent.LoadPreset(2);
-            // if (UnityEngine.Input.GetKeyDown(KeyCode.C))
-            //     presetComponent.ClearPreset();
         }
 
         #if UNITY_EDITOR
