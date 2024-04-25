@@ -57,7 +57,6 @@ namespace OMG.Player
 
         private void Update()
         {
-            Debug.Log(rb.velocity);
             CheckGround();
         }
 
@@ -71,7 +70,6 @@ namespace OMG.Player
 
         public void SetMoveDir(Vector3 moveDir, bool lookMoveDir = true)
         {
-            Debug.Log(moveDir);
             SetHorizontalVelocity(moveDir, moveSpeed, lookMoveDir);
         }
 

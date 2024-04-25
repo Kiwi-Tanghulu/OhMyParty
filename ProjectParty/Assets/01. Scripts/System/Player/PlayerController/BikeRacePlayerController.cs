@@ -1,47 +1,49 @@
-using Cinemachine;
-using JetBrains.Annotations;
-using OMG.Input;
 using OMG.Minigames;
 using OMG.Minigames.BikeRace;
 using OMG.Player.FSM;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace OMG.Player
 {
     public class BikeRacePlayerController : PlayerController
     {
-        public event Action OnContectGround;
-        public UnityEvent OnGoal;
+        private BikeRace bikeRace;
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
-            BikeRace bikeRace = MinigameManager.Instance.CurrentMinigame as BikeRace;
-            Debug.Log(MinigameManager.Instance);
-            Debug.Log(MinigameManager.Instance.CurrentMinigame);
-            Debug.Log(bikeRace);
+            bikeRace = MinigameManager.Instance.CurrentMinigame as BikeRace;
 
-            if (IsOwner)
+            if (IsHost)
             {
                 bikeRace.OnStartGame += Minigame_OnStartGame;
             }
+
+            bikeRace.OnPlayerGoal += Minigame_OnPlayerGoal;
         }
 
-        public void Goal()
-        {
-            OnGoal?.Invoke();
-            gameObject.SetActive(false);
-        }
+        
 
         private void Minigame_OnStartGame()
         {
-            Debug.Log(123);
             StateMachine.ChangeState(typeof(BikeMoveState));
+        }
+
+        private void Minigame_OnPlayerGoal(int index)
+        {
+            bikeRace.Players[index].TryGet(out NetworkObject networkObject);
+
+            if(networkObject.OwnerClientId == OwnerClientId)
+            {
+                Goal();
+            }
+        }
+
+        private void Goal()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

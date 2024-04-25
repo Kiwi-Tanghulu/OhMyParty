@@ -12,8 +12,8 @@ namespace OMG.Player
         private Animator anim;
         public Animator Anim => anim;
 
-        private Transform visual;
-        public Transform Visual => visual;
+        private PlayerVisual visual;
+        public PlayerVisual Visual => visual;
 
         private FSMBrain stateMachine;
         public FSMBrain StateMachine => stateMachine;
@@ -23,7 +23,7 @@ namespace OMG.Player
             InputManager.ChangeInputMap(InputMapType.Play);//test
 
             stateMachine = GetComponent<FSMBrain>();
-            visual = transform.Find("Visual");
+            visual = transform.Find("Visual").GetComponent<PlayerVisual>();
             anim = visual.GetComponent<Animator>();
 
             stateMachine.Init();

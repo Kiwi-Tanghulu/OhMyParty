@@ -28,7 +28,7 @@ namespace OMG.Minigames.BikeRace
         protected override void Awake()
         {
             base.Awake();
-
+            
             rank = new NetworkList<int>();
         }
 
@@ -43,7 +43,6 @@ namespace OMG.Minigames.BikeRace
 
             bikeRaceCycle = cycle as BikeRaceCycle;
 
-            bikeRaceCycle.Init(this);
             bikeRaceCycle.SetPlayTime(playTime);
             
             goalCount = 0;

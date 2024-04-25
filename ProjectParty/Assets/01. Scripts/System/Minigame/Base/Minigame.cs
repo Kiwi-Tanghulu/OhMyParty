@@ -26,6 +26,11 @@ namespace OMG.Minigames
             minigameUI = transform.Find("MinigameUI").GetComponent<MinigameUI>();
         }
 
+        public override void OnNetworkSpawn()
+        {
+            MinigameManager.Instance.CurrentMinigame = this;
+        }
+
         /// <summary>
         /// Only Host Could Call this Method
         /// </summary>  

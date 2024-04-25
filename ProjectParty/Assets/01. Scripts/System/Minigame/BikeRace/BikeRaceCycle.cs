@@ -16,11 +16,13 @@ namespace OMG.Minigames.BikeRace
 
         [SerializeField] private PlayerVisual[] resultPlayerVisuals;
 
-        public void Init(BikeRace bikeRace)
+        protected override void Awake()
         {
+            base.Awake();
+
             goalCount = 0;
-            
-            this.bikeRace = bikeRace;
+            bikeRace = minigame as BikeRace;
+
             bikeRace.OnPlayerGoal += OnPlayerGoal;
         }
 
@@ -48,16 +50,18 @@ namespace OMG.Minigames.BikeRace
             }
             else
             {
-                List<NetworkObject> playersSortByRank = new List<NetworkObject>();
+                List<PlayerController> playersSortByRank = new List<PlayerController>();
+                Debug.Log(bikeRace);
+                Debug.Log(bikeRace.Rank);
                 for (int i = 0; i < bikeRace.Rank.Count; i++)
                 {
                     if (bikeRace.Players[bikeRace.Rank[i]].TryGet(out NetworkObject networkObject))
-                        playersSortByRank.Add(networkObject);
+                        playersSortByRank.Add(networkObject.GetComponent<PlayerController>());
                 }
 
                 for (int i = 0; i < playersSortByRank.Count; i++)
                 {
-                    resultPlayerVisuals[i].SetVisual(playersSortByRank[i].transform.Find("Visual").GetComponent<PlayerVisual>().VisualType); 
+                    resultPlayerVisuals[i].SetVisual(playersSortByRank[i].Visual.VisualType); 
                 }
             }
         }
