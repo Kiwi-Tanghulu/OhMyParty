@@ -34,6 +34,7 @@ namespace OMG.Minigames.MazeAdventure
             {
                 brain.enabled = true;
                 navMeshAgent.enabled = true;
+                brain.Init();
             }
         }
     }

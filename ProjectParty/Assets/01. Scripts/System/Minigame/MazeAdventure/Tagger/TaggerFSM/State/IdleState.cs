@@ -34,23 +34,25 @@ namespace OMG.Minigames.MazeAdventure
         public override void EnterState()
         {
             base.EnterState();
+            StartCoroutine(SetNextState());
+        }
 
-            navMeshAgent.ResetPath();
-
+        private IEnumerator SetNextState()
+        {
+            yield return new WaitForSeconds(1f);
             randomValue = Random.Range(0, maxWeight);
             cumulativeWeight = 0;
 
-            foreach(var data in nextStatesData)
+            foreach (var data in nextStatesData)
             {
                 cumulativeWeight += data.weight;
 
-                if(cumulativeWeight >= randomValue)
+                if (cumulativeWeight >= randomValue)
                 {
                     brain.ChangeState(data.nextState);
                     break;
                 }
             }
-            
         }
     }
 

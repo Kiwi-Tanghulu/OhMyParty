@@ -29,12 +29,12 @@ namespace OMG.Player
             stateMachine.Init();
         }
 
-        public void Init(ulong ownerId)
+        public virtual void Init(ulong ownerId)
         {
             NetworkObject.ChangeOwnership(ownerId);
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             stateMachine.UpdateFSM();
         }

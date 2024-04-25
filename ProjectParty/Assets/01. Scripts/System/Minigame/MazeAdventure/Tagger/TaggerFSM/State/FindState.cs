@@ -25,6 +25,7 @@ namespace OMG.Minigames.MazeAdventure
         {
             base.EnterState();
             navMeshAgent.ResetPath();
+            navMeshAgent.enabled = false;
             StartCoroutine(Reconnaissance());
         }
 
@@ -32,40 +33,45 @@ namespace OMG.Minigames.MazeAdventure
         {
             base.ExitState();
             StopAllCoroutines();
+            navMeshAgent.enabled = true;
         }
 
         private IEnumerator Reconnaissance()
         {
             float timer = 0;
-            float rotationY = taggerTrm.localRotation.y;
-            while (timer < reconnaissanceTime / 4)
+            float rotationY = taggerTrm.eulerAngles.y;
+            while (timer < reconnaissanceTime)
             {
                 timer += Time.deltaTime;
-                taggerTrm.localRotation = Quaternion.Euler(new Vector3(0, rotationY + EaseInCirc(timer) * reconnaissanceAngle, 0));
+                float angle = Mathf.Lerp(rotationY, rotationY + reconnaissanceAngle, EaseOutCirc(timer / reconnaissanceTime));
+                taggerTrm.rotation = Quaternion.Euler(0,angle,0);
                 yield return null;
             }
             timer = 0;
-            rotationY = taggerTrm.localRotation.y;
-            while (timer < reconnaissanceTime / 2)
+            rotationY = taggerTrm.eulerAngles.y;
+            while (timer < reconnaissanceTime * 2)
             {
                 timer += Time.deltaTime;
-                taggerTrm.localRotation = Quaternion.Euler(new Vector3(0, rotationY + -(EaseInCirc(timer) * reconnaissanceAngle * 2), 0));
+                float angle = Mathf.Lerp(rotationY, rotationY - reconnaissanceAngle * 2, EaseOutCirc(timer / (reconnaissanceTime * 2)));
+                taggerTrm.rotation = Quaternion.Euler(0, angle, 0);
                 yield return null;
             }
             timer = 0;
-            rotationY = taggerTrm.localRotation.y;
-            while (timer < reconnaissanceTime / 4)
+            rotationY = taggerTrm.eulerAngles.y;
+            while (timer < reconnaissanceTime)
             {
                 timer += Time.deltaTime;
-                taggerTrm.localRotation = Quaternion.Euler(new Vector3(0, rotationY + EaseInCirc(timer) * reconnaissanceAngle, 0));
+                float angle = Mathf.Lerp(rotationY, rotationY + reconnaissanceAngle, EaseOutCirc(timer / reconnaissanceTime));
+                taggerTrm.rotation = Quaternion.Euler(0, angle, 0);
                 yield return null;
             }
             brain.ChangeState(nextState);
         }
 
-        private float EaseInCirc(float value)
+        private float EaseOutCirc(float value)
         {
-            return 1 - Mathf.Sqrt(1 - Mathf.Pow(value, 2));
+            if (value >= 1f) value = 1f;
+            return Mathf.Sqrt(1 - Mathf.Pow(value - 1, 2));
         }
     }
 }
