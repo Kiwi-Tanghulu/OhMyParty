@@ -12,7 +12,7 @@ namespace OMG.Minigames.BikeRace
     public class BikeRace : PlayableMinigame
     {
         [SerializeField] private float playTime = 60f;
-        private BikeRaceCycle bikeRaceCycle;
+        private RaceCycle raceCycle;
 
         [Space]
         [SerializeField] private int maxScore;
@@ -41,9 +41,8 @@ namespace OMG.Minigames.BikeRace
                 CreatePlayer(i);
             }
 
-            bikeRaceCycle = cycle as BikeRaceCycle;
-
-            bikeRaceCycle.SetPlayTime(playTime);
+            raceCycle = cycle as RaceCycle;
+            raceCycle.SetPlayTime(playTime);
             
             goalCount = 0;
 
@@ -57,7 +56,7 @@ namespace OMG.Minigames.BikeRace
             if (IsHost == false)
                 return;
 
-            bikeRaceCycle.StartCycle();
+            raceCycle.StartCycle();
             OnStartGame?.Invoke();
         }
 

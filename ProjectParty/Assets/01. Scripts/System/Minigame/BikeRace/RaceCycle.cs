@@ -8,7 +8,7 @@ using UnityEngine.Playables;
 
 namespace OMG.Minigames.BikeRace
 {
-    public class BikeRaceCycle : TimeAttackCycle
+    public class RaceCycle : TimeAttackCycle
     {
         private int goalCount;
 
