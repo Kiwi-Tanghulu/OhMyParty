@@ -17,7 +17,7 @@ namespace OMG.Test
         private void Start()
         {
             InputManager.ChangeInputMap(InputMapType.Interior);
-            system.SetPropData(propData);
+            system.SetPropData(propData.PropID);
         }
 
         #if UNITY_EDITOR

@@ -1,4 +1,3 @@
-using System;
 using OMG.Input;
 using UnityEngine;
 
@@ -7,12 +6,15 @@ namespace OMG.Interiors
     public class InteriorSystem : MonoBehaviour
     {
         [SerializeField] InteriorInputSO input = null;
+        [SerializeField] PropListSO propList = null;
         
         [Space(15f)]
         [SerializeField] LayerMask obstacleLayer = 0;
         [SerializeField] LayerMask groundLayer = 0;
         [SerializeField] float gridSize = 1f;
         public float GridSize => gridSize;
+
+        private InteriorData interiorData = null;
 
         private InteriorPropSO currentPropData = null;
         private Camera mainCam = null;
@@ -30,6 +32,8 @@ namespace OMG.Interiors
 
             grid = GetComponent<Grid>();
             grid.cellSize = new Vector3(gridSize, gridSize, gridSize);
+
+            interiorData = new InteriorData();
         }
 
         private void Update()
@@ -51,9 +55,9 @@ namespace OMG.Interiors
             enableToPlace = detectedCount < 1;
         }
 
-        public void SetPropData(InteriorPropSO propData)
+        public void SetPropData(string propID)
         {
-            currentPropData = propData;
+            currentPropData = propList[propID];
             isActive = true;
             enableToPlace = false;
 
@@ -85,6 +89,7 @@ namespace OMG.Interiors
                 return;
 
             Instantiate(currentPropData.Prefab, gridPositionCache, Quaternion.identity);
+            interiorData.AddPlacement(currentPropData.PropID, grid.WorldToCell(gridPositionCache));
         }
 
         #if UNITY_EDITOR

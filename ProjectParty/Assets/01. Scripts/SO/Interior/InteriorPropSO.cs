@@ -6,6 +6,8 @@ namespace OMG.Interiors
     [CreateAssetMenu(menuName = "SO/Interior/PropData")]
     public class InteriorPropSO : ScriptableObject
     {
+        public string PropID = "";
+
         public InteriorProp Prefab = null;
         public Vector3Int PropSize = Vector3Int.one;
 
@@ -19,9 +21,13 @@ namespace OMG.Interiors
 
         public Vector3 Pivot => offset + (Vector3)(PropSize - Vector3Int.one) * 0.5f;
 
+        #if UNITY_EDITOR
         private void OnValidate()
         {
             Offset = offset;
+
+            string path = UnityEditor.AssetDatabase.GetAssetPath(this);
+            PropID = UnityEditor.AssetDatabase.AssetPathToGUID(path);
         }
 
         [SerializeField] bool drawGizmos = false;
@@ -35,5 +41,6 @@ namespace OMG.Interiors
 
             Gizmos.DrawWireCube(center, size);
         }
+        #endif
     }
 }
