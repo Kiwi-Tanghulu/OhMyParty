@@ -27,11 +27,12 @@ namespace OMG.UI
 
         private void Awake()
         {
+            text = transform.Find("Text").GetComponent<TextMeshProUGUI>();
+
+            //create seq
             readyGoSeq = DOTween.Sequence()
                 .SetAutoKill(false)
                 .OnComplete(() => OnFinishReadyGo?.Invoke());
-
-            text = transform.Find("Text").GetComponent<TextMeshProUGUI>();
 
             //ready 
             readyGoSeq.AppendCallback(() => text.SetText("Ready"));
@@ -53,13 +54,9 @@ namespace OMG.UI
             text.gameObject.SetActive(false);
         }
 
-        private void Update()
+        public void Play()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
-            {
-                text.gameObject.SetActive(true);
-                readyGoSeq.Restart();
-            }
+            readyGoSeq.Restart();
         }
     }
 }

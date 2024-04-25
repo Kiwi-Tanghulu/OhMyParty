@@ -22,15 +22,7 @@ namespace OMG.UI
             mat_2 = transform.Find("Image_2").GetComponent<Image>().material;
         }
 
-        private void Update()
-        {
-            if (UnityEngine.Input.GetMouseButtonDown(0))
-                Fade(true);
-            if (UnityEngine.Input.GetMouseButtonDown(1))
-                Fade(false);
-        }
-
-        public void Fade(bool isOut)
+        public void Play(bool isOut)
         {
             StartCoroutine(FadeCo(isOut));
         }
