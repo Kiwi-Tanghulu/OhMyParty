@@ -21,11 +21,12 @@ namespace OMG.Player
         {
             base.OnNetworkSpawn();
 
-            if(IsHost)
-            {
-                BikeRace bikeRace = MinigameManager.Instance.CurrentMinigame as BikeRace;
-                bikeRace.OnStartGame += Minigame_OnStartGame;
+            BikeRace bikeRace = MinigameManager.Instance.CurrentMinigame as BikeRace;
+            Debug.Log(bikeRace);
 
+            if (IsOwner)
+            {
+                bikeRace.OnStartGame += Minigame_OnStartGame;
             }
         }
 
@@ -37,6 +38,7 @@ namespace OMG.Player
 
         private void Minigame_OnStartGame()
         {
+            Debug.Log(123);
             StateMachine.ChangeState(typeof(BikeMoveState));
         }
     }

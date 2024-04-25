@@ -26,7 +26,6 @@ namespace OMG.Player.FSM
 
             if(OnEnter)
             {
-                Debug.Log("123");
                 movement.SetHorizontalVelocity(Vector3.zero, 0f, false);
             }
         }

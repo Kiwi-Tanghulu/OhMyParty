@@ -11,13 +11,15 @@ namespace OMG.Lobbies
     public partial class Lobby : NetworkBehaviour
     {
         [SerializeField] PlayerController playerPrefab = null;
+        [SerializeField] Transform spawnPosition = null;
 
         public static Lobby Current { get; private set; } = null;
 
         private Dictionary<Type, LobbyComponent> lobbyComponents = null;
         private NetworkList<PlayerData> players = null;
         public NetworkList<PlayerData> PlayerDatas => players;
-        public PlayerContainer PlayerContainer;
+        
+        [HideInInspector] public PlayerContainer PlayerContainer;
 
         private NetworkVariable<LobbyState> lobbyState = null;
         public LobbyState LobbyState => lobbyState.Value;
@@ -60,7 +62,7 @@ namespace OMG.Lobbies
         private void CreatePlayer(PlayerData playerData)
         {
             players.Add(playerData);
-            PlayerController player = Instantiate(playerPrefab, transform);
+            PlayerController player = Instantiate(playerPrefab, spawnPosition.position, Quaternion.identity, transform);
             player.NetworkObject.SpawnWithOwnership(playerData.clientID, true);
             player.NetworkObject.TrySetParent(NetworkObject);
             // something
