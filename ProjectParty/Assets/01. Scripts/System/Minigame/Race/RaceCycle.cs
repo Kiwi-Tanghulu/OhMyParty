@@ -12,7 +12,7 @@ namespace OMG.Minigames.BikeRace
     {
         private int goalCount;
 
-        private BikeRace bikeRace;
+        private Race bikeRace;
 
         [SerializeField] private PlayerVisual[] resultPlayerVisuals;
 
@@ -21,7 +21,7 @@ namespace OMG.Minigames.BikeRace
             base.Awake();
 
             goalCount = 0;
-            bikeRace = minigame as BikeRace;
+            bikeRace = minigame as Race;
 
             bikeRace.OnPlayerGoal += OnPlayerGoal;
         }

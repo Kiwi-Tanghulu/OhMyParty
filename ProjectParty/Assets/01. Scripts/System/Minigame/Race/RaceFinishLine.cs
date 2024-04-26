@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace OMG.Minigames.BikeRace
 {
-    public class BikeRaceFinishLine : NetworkBehaviour
+    public class RaceFinishLine : NetworkBehaviour
     {
-        private BikeRace bikeRace;
+        private Race bikeRace;
 
         private void Start()
         {
-            bikeRace = MinigameManager.Instance.CurrentMinigame as BikeRace;
+            bikeRace = MinigameManager.Instance.CurrentMinigame as Race;
         }
 
         private void OnTriggerEnter(Collider other)

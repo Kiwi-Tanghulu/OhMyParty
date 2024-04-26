@@ -9,7 +9,7 @@ using OMG.Extensions;
 
 namespace OMG.Minigames.BikeRace
 {
-    public class BikeRace : PlayableMinigame
+    public class Race : PlayableMinigame
     {
         [SerializeField] private float playTime = 60f;
         private RaceCycle raceCycle;

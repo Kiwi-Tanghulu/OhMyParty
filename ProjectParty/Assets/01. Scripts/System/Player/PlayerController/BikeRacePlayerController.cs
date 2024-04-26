@@ -8,13 +8,13 @@ namespace OMG.Player
 {
     public class BikeRacePlayerController : PlayerController
     {
-        private BikeRace bikeRace;
+        private Race bikeRace;
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
-            bikeRace = MinigameManager.Instance.CurrentMinigame as BikeRace;
+            bikeRace = MinigameManager.Instance.CurrentMinigame as Race;
 
             if (IsHost)
             {
