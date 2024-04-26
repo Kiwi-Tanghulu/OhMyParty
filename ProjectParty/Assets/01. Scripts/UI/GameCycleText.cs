@@ -72,13 +72,17 @@ namespace OMG.UI
             finishSeq = DOTween.Sequence()
                 .SetAutoKill(false);
 
-            finishSeq.AppendCallback(() => text.SetText(finishText));
+            finishSeq.AppendCallback(() => {
+                text.SetText(finishText);
+                text.gameObject.SetActive(true);
+            });
             finishSeq.Append(text.transform.DOScale(Vector3.one * endFinishTextSize, textShowTime)
                 .From(Vector3.one * startFinishTextSize));
             finishSeq.Join(text.DOFade(1f, textShowTime)
                 .From(0f));
             finishSeq.AppendInterval(finishDelayTime);
             finishSeq.AppendCallback(() => OnEndFinish?.Invoke());
+            finishSeq.AppendCallback(() => text.gameObject.SetActive(false));
             #endregion
 
             text.gameObject.SetActive(false);
