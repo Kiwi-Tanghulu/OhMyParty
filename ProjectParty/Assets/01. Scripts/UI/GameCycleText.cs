@@ -33,8 +33,10 @@ namespace OMG.UI
         private Sequence readyGoSeq;
         private Sequence finishSeq;
 
-        public UnityEvent OnEndReadyGo;
-        public UnityEvent OnEndFinish;
+        public UnityEvent OnDisplayReady;
+        public UnityEvent OnDisplayGo;
+        public UnityEvent OnDisplayFinish;
+        public UnityEvent OnFinish;
 
         private void Awake()
         {
@@ -54,6 +56,7 @@ namespace OMG.UI
                 .From(Vector3.one * startReadyTextSize));
             readyGoSeq.Join(text.DOFade(1f, textShowTime)
                 .From(0f));
+            readyGoSeq.AppendCallback(() => OnDisplayReady?.Invoke());
 
             readyGoSeq.AppendInterval(readyTime);
 
@@ -63,7 +66,7 @@ namespace OMG.UI
                 .From(Vector3.one * startGoTextSize));
             readyGoSeq.Join(text.DOFade(1f, textShowTime)
                 .From(0f));
-            readyGoSeq.AppendCallback(() => OnEndReadyGo?.Invoke());
+            readyGoSeq.AppendCallback(() => OnDisplayGo?.Invoke());
             readyGoSeq.Append(text.DOFade(0f, textShowTime));
             readyGoSeq.AppendCallback(() => text.gameObject.SetActive(false));
             #endregion
@@ -80,8 +83,9 @@ namespace OMG.UI
                 .From(Vector3.one * startFinishTextSize));
             finishSeq.Join(text.DOFade(1f, textShowTime)
                 .From(0f));
+            finishSeq.AppendCallback(() => OnDisplayFinish?.Invoke());
             finishSeq.AppendInterval(finishDelayTime);
-            finishSeq.AppendCallback(() => OnEndFinish?.Invoke());
+            finishSeq.AppendCallback(() => OnFinish?.Invoke());
             finishSeq.AppendCallback(() => text.gameObject.SetActive(false));
             #endregion
 

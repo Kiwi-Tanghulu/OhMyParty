@@ -132,10 +132,13 @@ namespace OMG.Player
         #endregion
 
         #region Jump
-        public void Jump()
+        public void Jump(float jumpPower = -1)
         {
             if (!IsGround)
                 return;
+
+            if (jumpPower == -1)
+                jumpPower = this.jumpPower; 
 
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }

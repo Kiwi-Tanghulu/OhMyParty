@@ -8,7 +8,7 @@ namespace OMG.Player.FSM
 {
     public class JumpAction : FSMAction
     {
-        [SerializeField] private PlayInputSO inputSO;
+        [SerializeField] private float jumpPower;
 
         private PlayerMovement movement;
 
@@ -22,15 +22,13 @@ namespace OMG.Player.FSM
         public override void EnterState()
         {
             base.EnterState();
-            
-            inputSO.OnJumpEvent += movement.Jump;
+
+            Jump();
         }
 
-        public override void ExitState()
+        private void Jump()
         {
-            base.ExitState();
-
-            inputSO.OnJumpEvent -= movement.Jump;
+            movement.Jump(jumpPower);
         }
     }
 }
