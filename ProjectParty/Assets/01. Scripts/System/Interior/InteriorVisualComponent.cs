@@ -42,7 +42,6 @@ namespace OMG.Interiors
         {
             ClearVisual();
 
-            visualTransform.localPosition = propData.Pivot * gridSize;
             GameObject visual = Instantiate(propData.VisualPrefab, visualTransform);
             visual.transform.localPosition = Vector3.zero;
 

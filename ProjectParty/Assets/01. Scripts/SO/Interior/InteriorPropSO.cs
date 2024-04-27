@@ -21,7 +21,7 @@ namespace OMG.Interiors
             }
         }
 
-        public Vector3 Pivot => offset + (Vector3)(PropSize - Vector3Int.one) * 0.5f;
+        public Vector3 Center => offset + (Vector3)(PropSize - Vector3Int.one) * 0.5f;
 
         #if UNITY_EDITOR
         private void OnValidate()
@@ -38,9 +38,10 @@ namespace OMG.Interiors
             if(drawGizmos == false)
                 return;
 
-            Vector3 size = (Vector3)PropSize * gridSize * 0.95f;
-            Vector3 center = position + Pivot * gridSize;
+            Vector3 size = (Vector3)PropSize * gridSize;
+            Vector3 center = position + Center;
 
+            Gizmos.color = Color.white;
             Gizmos.DrawWireCube(center, size);
         }
         #endif
