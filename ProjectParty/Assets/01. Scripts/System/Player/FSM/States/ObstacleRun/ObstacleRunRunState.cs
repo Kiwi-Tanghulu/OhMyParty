@@ -18,12 +18,15 @@ namespace OMG.Player.FSM
         private float currentRunSpeed;
 
         private PlayerMovement movement;
+        private PlayerAnimation anim;
+        private int speedHash = Animator.StringToHash("speed");
 
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
 
             movement = player.GetComponent<PlayerMovement>();
+            anim = player.Visual.GetComponent<PlayerAnimation>();
         }
 
         public override void EnterState()
@@ -32,8 +35,7 @@ namespace OMG.Player.FSM
 
             input.OnActionEvent += IncreaseRunSpeed;
 
-            currentRunSpeed = minRunSpeed;
-            SetRunSpeed();
+            movement.SetMoveDir(Vector3.forward);
         }
 
         public override void UpdateState()
@@ -62,6 +64,7 @@ namespace OMG.Player.FSM
             currentRunSpeed = Mathf.Clamp(currentRunSpeed, minRunSpeed, maxRunSpeed);
 
             movement.SetMoveSpeed(currentRunSpeed);
+            anim.SetFloat(speedHash, currentRunSpeed / maxRunSpeed);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace OMG.Minigames.BikeRace
         public NetworkList<int> Rank => rank;
         private int goalCount;
 
+        public Action OnReadyGame;
         public Action OnStartGame;
         public Action<int> OnPlayerGoal;
 
@@ -49,11 +50,19 @@ namespace OMG.Minigames.BikeRace
             StartIntro();
         }
 
+        public void ReadyGame()
+        {
+            if (!IsHost)
+                return;
+
+            OnReadyGame?.Invoke();
+        }
+
         public override void StartGame()
         {
             base.StartGame();
 
-            if (IsHost == false)
+            if (!IsHost)
                 return;
 
             raceCycle.StartCycle();

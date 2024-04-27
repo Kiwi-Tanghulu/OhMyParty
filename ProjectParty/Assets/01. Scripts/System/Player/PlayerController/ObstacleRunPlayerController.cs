@@ -1,6 +1,8 @@
 using UnityEngine;
 using OMG.UI;
 using OMG.Minigames;
+using OMG.Minigames.BikeRace;
+using System;
 
 namespace OMG.Player
 {
@@ -9,6 +11,21 @@ namespace OMG.Player
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+
+            Race race = MinigameManager.Instance.CurrentMinigame as Race;
+
+            race.OnReadyGame += Race_OnReadyGame;
+            race.OnStartGame += Race_OnStartGame;
+        }
+
+        private void Race_OnReadyGame()
+        {
+            StateMachine.ChangeState("ReadyState");
+        }
+
+        private void Race_OnStartGame()
+        {
+            StateMachine.ChangeState("RunState");
         }
     }
 }

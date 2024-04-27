@@ -23,7 +23,7 @@ namespace OMG.Player
         private Coroutine trunCo;
 
         [Header("Jump")]
-        [SerializeField] private float jumpPower;
+        [SerializeField] private float jumpPower = 5f;
 
         [Header("Gravity")]
         [Space]
@@ -172,7 +172,7 @@ namespace OMG.Player
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
                 checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
-            isGround = result;
+            isGround = result && rb.velocity.y <= 0f;
             
             return isGround;
         }
