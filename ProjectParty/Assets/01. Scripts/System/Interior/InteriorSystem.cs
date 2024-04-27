@@ -18,6 +18,7 @@ namespace OMG.Interiors
         private InteriorPresetComponent presetComponent = null;
         private InteriorGridComponent gridComponent = null;
         private InteriorPlaceComponent placeComponent = null;
+        private InteriorVisualComponent visualComponent = null;
 
         private EventSystem eventSystem = null;
 
@@ -26,6 +27,7 @@ namespace OMG.Interiors
             presetComponent = GetComponent<InteriorPresetComponent>();
             gridComponent = GetComponent<InteriorGridComponent>();
             placeComponent = GetComponent<InteriorPlaceComponent>();
+            visualComponent = GetComponent<InteriorVisualComponent>();
 
             eventSystem = EventSystem.current;
         }
@@ -34,6 +36,7 @@ namespace OMG.Interiors
         {
             presetComponent.Init();
             gridComponent.Init(gridSize);
+            visualComponent.Init(gridSize);
         }
 
         private void Update()
@@ -44,24 +47,29 @@ namespace OMG.Interiors
             if(eventSystem.IsPointerOverGameObject())
             {
                 enableToPlace = false;
+                visualComponent.UpdateBound(gridComponent.CurrentGridPosition, enableToPlace);
                 return;
             }
 
             enableToPlace = gridComponent.CalculateGrid(input.PlacePosition);
             if(enableToPlace)
                 enableToPlace = placeComponent.EnableToPlace(currentPropData, gridComponent.CurrentGridPosition, gridSize);
+            visualComponent.UpdateBound(gridComponent.CurrentGridPosition, enableToPlace);
         }
 
         public void SetPropData(string propID)
         {
             input.OnPlaceEvent += HandlePlace;
             currentPropData = propDatabase[propID];
+            visualComponent.SetPropBound(currentPropData);
+            visualComponent.Display(true);
             active = true;
         }
 
         public void ClearPropData()
         {
             input.OnPlaceEvent -= HandlePlace;
+            visualComponent.Display(false);
             currentPropData = null;
             active = false;
         }
@@ -75,15 +83,7 @@ namespace OMG.Interiors
                 return;
 
             placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridPosition);
-            presetComponent.AddPlacement(currentPropData.PropID, gridComponent.CurrentGridIndex);
+            presetComponent.AddPlacement(currentPropData, gridComponent.CurrentGridIndex);
         }
-
-        #if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = enableToPlace ? Color.green : Color.red;
-            currentPropData?.DrawGizmos(gridComponent.CurrentGridPosition, gridSize);
-        }
-        #endif
     }
 }

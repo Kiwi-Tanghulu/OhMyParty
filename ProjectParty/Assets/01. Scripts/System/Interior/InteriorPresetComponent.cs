@@ -46,12 +46,12 @@ namespace OMG.Interiors
             currentInteriorData.ClearData();
         }
 
-        public void AddPlacement(string propID, Vector3Int gridIndex)
+        public void AddPlacement(InteriorPropSO propData, Vector3Int gridIndex)
         {
             if(currentInteriorData == null)
                 return;
 
-            currentInteriorData.AddPlacement(propID, gridIndex);
+            currentInteriorData.AddPlacement(propData.PropID, gridIndex);
         }
     }
 }
