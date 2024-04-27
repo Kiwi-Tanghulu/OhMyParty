@@ -27,5 +27,10 @@ namespace OMG.Player
         {
             StateMachine.ChangeState("RunState");
         }
+
+        public void HangingObstacle()
+        {
+            StateMachine.ChangeState("StunState");
+        }
     }
 }

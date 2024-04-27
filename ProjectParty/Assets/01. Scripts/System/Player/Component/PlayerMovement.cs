@@ -86,6 +86,8 @@ namespace OMG.Player
 
             horiVelocity = moveDir * moveSpeed;
 
+            Move();
+
             if (lookMoveDir)
                 Look(moveDir);
         }
