@@ -1,4 +1,5 @@
 using OMG.Extensions;
+using UnityEditor;
 using UnityEngine;
 
 namespace OMG.Interiors
@@ -22,6 +23,16 @@ namespace OMG.Interiors
         }
 
         public Vector3 Center => offset + (Vector3)(PropSize - Vector3Int.one) * 0.5f;
+
+        [ContextMenu("Fill Data")]
+        public void FillData()
+        {
+            OnValidate();
+            string path = $"Assets/02. Prefabs/Interior/{PropType}/{name}";
+            VisualPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{path}_Visual.prefab");
+            Prefab = AssetDatabase.LoadAssetAtPath<InteriorProp>($"{path}.prefab");
+            Prefab.SetPropData(this);
+        }
 
         #if UNITY_EDITOR
         private void OnValidate()

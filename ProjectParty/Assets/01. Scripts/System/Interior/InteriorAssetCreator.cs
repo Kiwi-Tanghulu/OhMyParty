@@ -14,9 +14,9 @@ namespace OMG.Interiors
             InteriorProp[] props = transform.GetComponentsInChildren<InteriorProp>();
             foreach(InteriorProp prop in props)
             {
-                CreateSO(prop);
                 CreatePrefabs(prop);
-                LoadSOData(prop);
+                InteriorPropSO data = CreateSO(prop);
+                data.FillData();
             }
         }
 
@@ -32,25 +32,17 @@ namespace OMG.Interiors
             PrefabUtility.SaveAsPrefabAssetAndConnect(prop.gameObject, path, InteractionMode.UserAction);
         }
 
-        private void CreateSO(InteriorProp prop)
+        private InteriorPropSO CreateSO(InteriorProp prop)
         {
             InteriorPropSO propData = ScriptableObject.CreateInstance<InteriorPropSO>();
             propData.name = prop.gameObject.name;
+            propData.PropType = type;
 
             string dataPath = $"Assets/06. SO/Interior/{type}/{propData.name}.asset";
             AssetDatabase.CreateAsset(propData, dataPath);
             AssetDatabase.Refresh();
 
-            prop.SetPropData(propData);
-        }
-
-        private void LoadSOData(InteriorProp prop)
-        {
-            prop.PropData.PropType = type;
-
-            string path = $"Assets/02. Prefabs/Interior/{type}/{prop.name}";
-            prop.PropData.VisualPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{path}_Visual.prefab");
-            prop.PropData.Prefab = AssetDatabase.LoadAssetAtPath<InteriorProp>($"{path}.prefab");
+            return propData;
         }
     }
 }
