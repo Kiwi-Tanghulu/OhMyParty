@@ -6,7 +6,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace OMG.Minigames.BikeRace
+namespace OMG.Minigames.Race
 {
     public class RaceCycle : TimeAttackCycle
     {
@@ -50,18 +50,18 @@ namespace OMG.Minigames.BikeRace
             }
             else
             {
-                List<PlayerController> playersSortByRank = new List<PlayerController>();
+                //List<PlayerController> playersSortByRank = new List<PlayerController>();
                 
-                for (int i = 0; i < bikeRace.Rank.Count; i++)
-                {
-                    if (bikeRace.Players[bikeRace.Rank[i]].TryGet(out NetworkObject networkObject))
-                        playersSortByRank.Add(networkObject.GetComponent<PlayerController>());
-                }
+                //for (int i = 0; i < bikeRace.Rank.Count; i++)
+                //{
+                //    if (bikeRace.Players[bikeRace.Rank[i]].TryGet(out NetworkObject networkObject))
+                //        playersSortByRank.Add(networkObject.GetComponent<PlayerController>());
+                //}
 
-                for (int i = 0; i < playersSortByRank.Count; i++)
-                {
-                    resultPlayerVisuals[i].SetVisual(playersSortByRank[i].Visual.VisualType); 
-                }
+                //for (int i = 0; i < playersSortByRank.Count; i++)
+                //{
+                //    resultPlayerVisuals[i].SetVisual(playersSortByRank[i].Visual.VisualType); 
+                //}
             }
         }
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using OMG.UI;
 using OMG.Minigames;
-using OMG.Minigames.BikeRace;
+using OMG.Minigames.Race;
 using System;
 
 namespace OMG.Player

@@ -7,7 +7,7 @@ using Unity.Netcode;
 using UnityEngine;
 using OMG.Extensions;
 
-namespace OMG.Minigames.BikeRace
+namespace OMG.Minigames.Race
 {
     public class Race : PlayableMinigame
     {

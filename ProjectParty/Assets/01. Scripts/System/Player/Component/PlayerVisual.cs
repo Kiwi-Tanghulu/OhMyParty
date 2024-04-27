@@ -6,7 +6,7 @@ namespace OMG.Player
 {
     public class PlayerVisual : MonoBehaviour
     {
-        private PlayerVisualType visualType;
+        [SerializeField] private PlayerVisualType visualType;
         public PlayerVisualType VisualType => visualType;
 
         [SerializeField] private SkinnedMeshRenderer render;
@@ -19,7 +19,7 @@ namespace OMG.Player
 
         private void Start()
         {
-            SetVisual(PlayerVisualType.BoxHead);//test
+            SetVisual(visualType);//test
         }
 
         public void SetVisual(PlayerVisualType newVisualType)

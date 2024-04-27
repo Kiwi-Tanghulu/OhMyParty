@@ -1,5 +1,5 @@
 using OMG.Minigames;
-using OMG.Minigames.BikeRace;
+using OMG.Minigames.Race;
 using OMG.Player.FSM;
 using Unity.Netcode;
 using UnityEngine;

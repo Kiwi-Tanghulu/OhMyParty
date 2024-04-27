@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace OMG.Minigames.BikeRace
+namespace OMG.Minigames.Race
 {
     public class RaceFinishLine : NetworkBehaviour
     {
