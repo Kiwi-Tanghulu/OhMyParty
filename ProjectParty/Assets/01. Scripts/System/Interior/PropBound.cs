@@ -12,8 +12,6 @@ namespace OMG.Interiors
         private Transform visualTransform = null;
 
         private MeshRenderer boundRenderer = null;
-        private MeshRenderer visualRenderer = null;
-        private MeshFilter visualMeshFilter = null;
 
         private void Awake()
         {
@@ -21,21 +19,22 @@ namespace OMG.Interiors
             boundRenderer = boundTransform.GetComponent<MeshRenderer>();
 
             visualTransform = transform.Find("Visual");
-            visualRenderer = visualTransform.GetComponent<MeshRenderer>();
-            visualMeshFilter = visualTransform.GetComponent<MeshFilter>();
         }
 
         public void Init(InteriorPropSO propData, float gridSize)
         {
+            Clear();
+
             visualTransform.localPosition = propData.Pivot;
-            visualMeshFilter.mesh = propData.PropMesh;
+            GameObject visual = Instantiate(propData.VisualPrefab, visualTransform);
+            visual.transform.localPosition = Vector3.zero;
+
             SetState(false);
         }
 
         public void SetState(bool enableToPlace)
         {
             boundRenderer.material = boundMaterialOption.GetOption(enableToPlace);
-            visualRenderer.material = meshMaterialOption.GetOption(enableToPlace);
         }
 
         public void SetPosition(Vector3 position)
@@ -46,6 +45,11 @@ namespace OMG.Interiors
         public void SetActive(bool active)
         {
             gameObject.SetActive(active);
+        }
+
+        private void Clear()
+        {
+            Destroy(visualTransform.GetChild(0).gameObject);
         }
     }
 }

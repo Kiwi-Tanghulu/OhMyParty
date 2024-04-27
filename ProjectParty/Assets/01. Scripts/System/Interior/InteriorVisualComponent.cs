@@ -10,14 +10,11 @@ namespace OMG.Interiors
 
         [Space(15f)]
         [SerializeField] OptOption<Material> boundMaterialOption;
-        [SerializeField] OptOption<Material> meshMaterialOption;
 
         private Transform boundTransform = null;
         private Transform visualTransform = null;
 
         private MeshRenderer boundRenderer = null;
-        private MeshRenderer visualRenderer = null;
-        private MeshFilter visualMeshFilter = null;
 
         private float gridSize = 0f;
 
@@ -27,8 +24,6 @@ namespace OMG.Interiors
             boundRenderer = boundTransform.GetComponent<MeshRenderer>();
 
             visualTransform = bound.Find("Visual");
-            visualRenderer = visualTransform.GetComponent<MeshRenderer>();
-            visualMeshFilter = visualTransform.GetComponent<MeshFilter>();
         }
 
         public void Init(float gridSize) 
@@ -45,18 +40,27 @@ namespace OMG.Interiors
 
         public void SetPropBound(InteriorPropSO propData)
         {
+            ClearVisual();
+
             visualTransform.localPosition = propData.Pivot * gridSize;
-            visualMeshFilter.mesh = propData.PropMesh;
+            GameObject visual = Instantiate(propData.VisualPrefab, visualTransform);
+            visual.transform.localPosition = Vector3.zero;
+
             boundTransform.localScale = new Vector3(propData.PropSize.x * gridSize, 1f, propData.PropSize.z * gridSize);
+
             UpdateBound(Vector3.zero, false);
         }
 
         public void UpdateBound(Vector3 position, bool enableToPlace)
         {
             boundRenderer.material = boundMaterialOption.GetOption(enableToPlace);
-            visualRenderer.material = meshMaterialOption.GetOption(enableToPlace);
-            
             bound.position = position;
+        }
+
+        private void ClearVisual()
+        {
+            foreach(Transform child in visualTransform)
+                Destroy(child?.gameObject);
         }
     }
 }

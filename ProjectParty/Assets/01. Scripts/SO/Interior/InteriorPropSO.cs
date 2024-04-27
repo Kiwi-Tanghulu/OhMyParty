@@ -10,7 +10,7 @@ namespace OMG.Interiors
         public string PropID = "";
 
         public InteriorProp Prefab = null;
-        public Mesh PropMesh = null;
+        public GameObject VisualPrefab = null;
         public Vector3Int PropSize = Vector3Int.one;
 
         [SerializeField] Vector3Int offset = Vector3Int.zero;

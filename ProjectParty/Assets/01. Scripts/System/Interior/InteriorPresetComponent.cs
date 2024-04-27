@@ -43,7 +43,7 @@ namespace OMG.Interiors
         public void ClearPreset()
         {
             placeComponent.ClearProps();
-            currentInteriorData.ClearData();
+            currentInteriorData?.ClearData();
         }
 
         public void AddPlacement(InteriorPropSO propData, Vector3Int gridIndex)
