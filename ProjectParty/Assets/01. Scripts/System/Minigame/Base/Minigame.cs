@@ -1,6 +1,7 @@
 using OMG.Extensions;
 using OMG.Input;
 using OMG.UI.Minigames;
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ namespace OMG.Minigames
         public MinigameUI MinigameUI => minigameUI;
 
         protected MinigameCycle cycle = null;
+
+        public event Action OnFinishGame;
 
         protected virtual void Awake()
         {
@@ -69,6 +72,7 @@ namespace OMG.Minigames
         public virtual void FinishGame() 
         {
             InputManager.ChangeInputMap(InputMapType.UI);
+            OnFinishGame?.Invoke();
             StartOutro();
         }
 

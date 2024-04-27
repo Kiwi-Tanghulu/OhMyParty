@@ -1,4 +1,5 @@
 using DG.Tweening;
+using OMG.Minigames;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -22,7 +23,7 @@ namespace OMG.UI
         [Space]
         [SerializeField] private float startFinishTextSize;
         [SerializeField] private float endFinishTextSize;
-        [SerializeField] private float finishDelayTime;
+        //[SerializeField] private float finishDelayTime;
 
         [Space]
         [SerializeField] private float textShowTime;
@@ -38,8 +39,11 @@ namespace OMG.UI
         public UnityEvent OnDisplayFinish;
         public UnityEvent OnFinish;
 
-        private void Awake()
+        private void Start()
         {
+            Minigame minigame = MinigameManager.Instance.CurrentMinigame;
+            minigame.OnFinishGame += Minigame_OnFinishGame;
+
             text = transform.Find("Text").GetComponent<TextMeshProUGUI>();
 
             #region readyGo
@@ -84,12 +88,17 @@ namespace OMG.UI
             finishSeq.Join(text.DOFade(1f, textShowTime)
                 .From(0f));
             finishSeq.AppendCallback(() => OnDisplayFinish?.Invoke());
-            finishSeq.AppendInterval(finishDelayTime);
+            finishSeq.AppendInterval(minigame.MinigameData.OutroPostponeTime);
             finishSeq.AppendCallback(() => OnFinish?.Invoke());
             finishSeq.AppendCallback(() => text.gameObject.SetActive(false));
             #endregion
 
             text.gameObject.SetActive(false);
+        }
+
+        private void Minigame_OnFinishGame()
+        {
+            PlayFinish();
         }
 
         public void PlayRaedyGo()
