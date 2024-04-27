@@ -51,8 +51,7 @@ namespace OMG.Minigames.BikeRace
             else
             {
                 List<PlayerController> playersSortByRank = new List<PlayerController>();
-                Debug.Log(bikeRace);
-                Debug.Log(bikeRace.Rank);
+                
                 for (int i = 0; i < bikeRace.Rank.Count; i++)
                 {
                     if (bikeRace.Players[bikeRace.Rank[i]].TryGet(out NetworkObject networkObject))
