@@ -29,9 +29,9 @@ namespace OMG.Player.FSM
             anim = player.Visual.GetComponent<PlayerAnimation>();
         }
 
-        public override void EnterState()
+        protected override void OwnerEnterState()
         {
-            base.EnterState();
+            base.OwnerEnterState();
 
             input.OnActionEvent += IncreaseRunSpeed;
 
@@ -44,18 +44,18 @@ namespace OMG.Player.FSM
             movement.SetMoveDir(Vector3.forward);
         }
 
-        public override void UpdateState()
+        protected override void OwnerUpdateState()
         {
-            base.UpdateState();
+            base.OwnerUpdateState();
 
             currentRunSpeed -= decreaseRunSpeedAmount * Time.deltaTime;
 
             SetRunSpeed();
         }
 
-        public override void ExitState()
+        protected override void OwnerExitState()
         {
-            base.ExitState();
+            base.OwnerExitState();
 
             input.OnActionEvent -= IncreaseRunSpeed;
         }
