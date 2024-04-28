@@ -1,11 +1,12 @@
 using OMG.Player;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Minigames.Race
 {
-    public class Obstacle : MonoBehaviour
+    public class Obstacle : NetworkBehaviour
     {
         private Animator anim;
         private Collider col;
@@ -18,6 +19,9 @@ namespace OMG.Minigames.Race
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!IsHost)
+                return;
+
             if (other.CompareTag("Player"))
             {
                 other.GetComponent<ObstacleRunPlayerController>().HangingObstacle();
