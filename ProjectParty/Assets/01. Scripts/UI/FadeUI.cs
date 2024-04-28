@@ -1,31 +1,40 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
+using OMG.Utility;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 namespace OMG.UI
 {
     public class FadeUI : MonoBehaviour
     {
-        private Animator anim;
+        [SerializeField] private OptOption<TimelineAsset> timelineOption = null;
+
+        private PlayableDirector timelineHolder = null;
 
         private readonly int fadeInHash = Animator.StringToHash("fadeIn");
         private readonly int fadeOutHash = Animator.StringToHash("fadeOut");
 
         private void Awake()
         {
-            anim = GetComponent<Animator>();
+            timelineHolder = GetComponent<PlayableDirector>();
         }
 
         public void FadeIn()
         {
-            anim.SetTrigger(fadeInHash);
+            Play(true);
         }
 
         public void FadeOut()
         {
-            anim.SetTrigger(fadeOutHash);
+            Play(false);
+        }
+
+        private void Play(bool option)
+        {
+            TimelineAsset timelineAsset = option ? timelineOption.PositiveOption : timelineOption.NegativeOption;
+            timelineHolder.playableAsset = timelineAsset;
+
+            timelineHolder.Play(timelineAsset);
         }
     }
 }
