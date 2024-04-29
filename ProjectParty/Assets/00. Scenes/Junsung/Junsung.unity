@@ -605,6 +605,8 @@ GameObject:
   - component: {fileID: 636221744}
   - component: {fileID: 636221746}
   - component: {fileID: 636221747}
+  - component: {fileID: 636221749}
+  - component: {fileID: 636221748}
   m_Layer: 0
   m_Name: Fade
   m_TagString: Untagged
@@ -667,8 +669,59 @@ PlayableDirector:
     value: {fileID: 1541357783}
   - key: {fileID: 2308221052022819438, guid: 688ac05985d311f4483191a7012aa7dc, type: 2}
     value: {fileID: 1649495753}
+  - key: {fileID: -1337398948483001111, guid: 688ac05985d311f4483191a7012aa7dc, type: 2}
+    value: {fileID: 132836143}
+  - key: {fileID: 707204935598525405, guid: 688ac05985d311f4483191a7012aa7dc, type: 2}
+    value: {fileID: 636221748}
+  - key: {fileID: -6488517998038382895, guid: 65d88e912717ac8489f00288a6297cf5, type: 2}
+    value: {fileID: 132836143}
+  - key: {fileID: -3991674962258279805, guid: 65d88e912717ac8489f00288a6297cf5, type: 2}
+    value: {fileID: 636221748}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &636221748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636221743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: c312f3cbaace44448a395250a522290c, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 636221749}
+          m_TargetAssemblyTypeName: OMG.Screenshot, Assembly-CSharp
+          m_MethodName: TakeScreenShot
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &636221749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636221743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34cd41a9bb228f441ba3b27417f7c6ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showImage: {fileID: 1541357781}
 --- !u!1 &642729326
 GameObject:
   m_ObjectHideFlags: 0
