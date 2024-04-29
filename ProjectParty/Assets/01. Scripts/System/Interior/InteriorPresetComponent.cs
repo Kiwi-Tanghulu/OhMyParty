@@ -55,6 +55,11 @@ namespace OMG.Interiors
             return currentInteriorData.AddPlacement(propData.PropID, gridIndex, rotate);
         }
 
+        public void RemovePlacement(InteriorProp prop)
+        {
+            currentInteriorData.RemovePlacement(prop.PlacementData.GridIndex);
+        }
+
         public void ModifyPlacement(Vector3Int gridIndex, int rotate)
         {
             currentInteriorData.ModifyPlacement(gridIndex, rotate);

@@ -32,6 +32,15 @@ namespace OMG.Interiors
             placementDatas[index].Rotate = rotate;
         }
 
+        public void RemovePlacement(Vector3Int gridIndex)
+        {
+            int index = placementDatas.FindIndex(i => i.GridIndex == gridIndex);
+            if (index == -1)
+                return;
+
+            placementDatas.RemoveAt(index);
+        }
+
         public void ClearData()
         {
             placementDatas.Clear();

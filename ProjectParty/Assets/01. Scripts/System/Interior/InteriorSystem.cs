@@ -24,6 +24,8 @@ namespace OMG.Interiors
 
         private EventSystem eventSystem = null;
 
+        public event Action<InteriorProp> OnPropPlacedEvent = null;
+
         private void Awake()
         {
             presetComponent = GetComponent<InteriorPresetComponent>();
@@ -103,6 +105,8 @@ namespace OMG.Interiors
             InteriorProp prop = placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridIndex, gridComponent.CurrentGridPosition, rotate);
             PlacementData data = presetComponent.AddPlacement(currentPropData, gridComponent.CurrentGridIndex, rotate);
             prop.Init(data);
+
+            OnPropPlacedEvent?.Invoke(prop);
         }
 
         private void HandleRotate(int direction)

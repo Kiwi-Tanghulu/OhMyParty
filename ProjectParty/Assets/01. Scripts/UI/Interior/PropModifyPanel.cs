@@ -1,3 +1,4 @@
+using System;
 using OMG.Interiors;
 using OMG.Tweens;
 using UnityEngine;
@@ -36,8 +37,6 @@ namespace OMG.UI.Interiors
             int rotate = currentProp.PlacementData.Rotate;
             rotate = (rotate + 4 + 1) % 4;
             presetComponent.ModifyPlacement(currentProp.PlacementData.GridIndex, rotate);
-            
-
 
             Vector3 pivot = gridComponent.GetGridPosition(currentProp.PlacementData.GridIndex);
             currentProp.transform.RotateAround(pivot, Vector3.up, (prev - rotate) * 90f);
@@ -47,7 +46,12 @@ namespace OMG.UI.Interiors
 
         public void OnMoveClick()
         {
+            interiorSystem.OnPropPlacedEvent += HandlePropPlaced;
 
+            presetComponent.RemovePlacement(currentProp);
+            interiorSystem.SetPropData(currentProp.PropData.PropID);
+            Destroy(currentProp.gameObject);
+            currentProp = null;
         }
 
         public void OnSellClick()
@@ -58,6 +62,13 @@ namespace OMG.UI.Interiors
         public void OnExitClick()
         {
 
+        }
+
+        private void HandlePropPlaced(InteriorProp prop)
+        {
+            interiorSystem.OnPropPlacedEvent -= HandlePropPlaced;
+            interiorSystem.ClearPropData();
+            currentProp = prop;
         }
     }
 }
