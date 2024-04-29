@@ -64,11 +64,14 @@ namespace OMG.Interiors
             if(currentPropData != null)
                 ClearPropData();
 
+            InputManager.ChangeInputMap(InputMapType.Interior);
+
             rotate = 0;
             visualComponent.ResetBound();
 
             input.OnPlaceEvent += HandlePlace;
             input.OnRotateEvent += HandleRotate;
+            input.OnCancelEvent += HandleCancel;
             
             currentPropData = propDatabase[propID];
             visualComponent.SetPropBound(currentPropData);
@@ -78,8 +81,11 @@ namespace OMG.Interiors
 
         public void ClearPropData()
         {
+            InputManager.ChangeInputMap(InputMapType.UI);
+
             input.OnPlaceEvent -= HandlePlace;
             input.OnRotateEvent -= HandleRotate;
+            input.OnCancelEvent -= HandleCancel;
 
             visualComponent.Display(false);
             currentPropData = null;
@@ -104,6 +110,12 @@ namespace OMG.Interiors
             rotate = (rotate + 4 + direction) % 4;
 
             visualComponent.SetRotate(rotate - prev);
+        }
+
+        private void HandleCancel()
+        {
+            if(currentPropData != null)
+                ClearPropData();
         }
     }
 }

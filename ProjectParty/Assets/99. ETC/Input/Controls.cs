@@ -313,6 +313,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""2d7f5a1e-7761-4400-b1fd-bebee47db75d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -370,6 +379,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6da688f3-6163-4116-b452-608a1d4ea277"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -395,6 +415,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Interior_PlacePosition = m_Interior.FindAction("PlacePosition", throwIfNotFound: true);
         m_Interior_Place = m_Interior.FindAction("Place", throwIfNotFound: true);
         m_Interior_Rotate = m_Interior.FindAction("Rotate", throwIfNotFound: true);
+        m_Interior_Cancel = m_Interior.FindAction("Cancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -615,6 +636,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Interior_PlacePosition;
     private readonly InputAction m_Interior_Place;
     private readonly InputAction m_Interior_Rotate;
+    private readonly InputAction m_Interior_Cancel;
     public struct InteriorActions
     {
         private @Controls m_Wrapper;
@@ -622,6 +644,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @PlacePosition => m_Wrapper.m_Interior_PlacePosition;
         public InputAction @Place => m_Wrapper.m_Interior_Place;
         public InputAction @Rotate => m_Wrapper.m_Interior_Rotate;
+        public InputAction @Cancel => m_Wrapper.m_Interior_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_Interior; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -640,6 +663,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Rotate.started += instance.OnRotate;
             @Rotate.performed += instance.OnRotate;
             @Rotate.canceled += instance.OnRotate;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         private void UnregisterCallbacks(IInteriorActions instance)
@@ -653,6 +679,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Rotate.started -= instance.OnRotate;
             @Rotate.performed -= instance.OnRotate;
             @Rotate.canceled -= instance.OnRotate;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         public void RemoveCallbacks(IInteriorActions instance)
@@ -691,5 +720,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnPlacePosition(InputAction.CallbackContext context);
         void OnPlace(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }
