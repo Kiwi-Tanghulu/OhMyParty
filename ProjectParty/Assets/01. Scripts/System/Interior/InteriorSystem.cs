@@ -1,3 +1,4 @@
+using System;
 using OMG.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,6 +15,7 @@ namespace OMG.Interiors
         private InteriorPropSO currentPropData = null;
         private bool enableToPlace = false;
         private bool active = false;
+        private int rotate = 0;
 
         private InteriorPresetComponent presetComponent = null;
         private InteriorGridComponent gridComponent = null;
@@ -60,6 +62,8 @@ namespace OMG.Interiors
         public void SetPropData(string propID)
         {
             input.OnPlaceEvent += HandlePlace;
+            input.OnRotateEvent += HandleRotate;
+            
             currentPropData = propDatabase[propID];
             visualComponent.SetPropBound(currentPropData);
             visualComponent.Display(true);
@@ -69,6 +73,8 @@ namespace OMG.Interiors
         public void ClearPropData()
         {
             input.OnPlaceEvent -= HandlePlace;
+            input.OnRotateEvent -= HandleRotate;
+
             visualComponent.Display(false);
             currentPropData = null;
             active = false;
@@ -82,8 +88,16 @@ namespace OMG.Interiors
             if(enableToPlace == false)
                 return;
 
-            placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridPosition);
-            presetComponent.AddPlacement(currentPropData, gridComponent.CurrentGridIndex);
+            placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridPosition, rotate);
+            presetComponent.AddPlacement(currentPropData, gridComponent.CurrentGridIndex, rotate);
+        }
+
+        private void HandleRotate(int direction)
+        {
+            int prev = rotate;
+            rotate = (rotate + 4 + direction) % 4;
+
+            visualComponent.SetRotate(rotate - prev);
         }
     }
 }
