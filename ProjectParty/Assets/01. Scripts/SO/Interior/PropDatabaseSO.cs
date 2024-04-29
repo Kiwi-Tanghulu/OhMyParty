@@ -19,9 +19,17 @@ namespace OMG.Interiors
             {
                 InteriorPropSO propData = propDatas[i];
                 if(propData == null)
-                    return;
-                if(propDictionary.ContainsKey(propData.PropID))
-                    return;
+                {
+                    propDatas.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+                if (propDictionary.ContainsKey(propData.PropID))
+                {
+                    propDatas.RemoveAt(i);
+                    i--;
+                    continue;
+                }
                 propDictionary.Add(propData.PropID, propData);
             }
 
