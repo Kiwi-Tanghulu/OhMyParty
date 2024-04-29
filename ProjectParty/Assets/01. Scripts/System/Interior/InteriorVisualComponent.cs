@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using OMG.Utility;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace OMG.Interiors
         private Transform visualTransform = null;
 
         private MeshRenderer boundRenderer = null;
+        private Vector3 offset = Vector3.zero;
 
         private float gridSize = 0f;
 
@@ -42,10 +44,12 @@ namespace OMG.Interiors
         {
             ClearVisual();
 
-            GameObject visual = Instantiate(propData.VisualPrefab, visualTransform);
-            visual.transform.localPosition = Vector3.zero;
+            offset = propData.Center.PlaneVector();
 
-            boundTransform.localScale = new Vector3(propData.PropSize.x * gridSize, 1f, propData.PropSize.z * gridSize);
+            GameObject visual = Instantiate(propData.VisualPrefab, visualTransform);
+            visual.transform.localPosition -= offset;
+
+            boundTransform.localScale = new Vector3(propData.PropSize.x * gridSize, propData.PropSize.z * gridSize, 1f);
 
             UpdateBound(Vector3.zero, false);
         }
@@ -53,7 +57,7 @@ namespace OMG.Interiors
         public void UpdateBound(Vector3 position, bool enableToPlace)
         {
             boundRenderer.material = boundMaterialOption.GetOption(enableToPlace);
-            bound.position = position;
+            bound.position = position + offset;
         }
 
         private void ClearVisual()
