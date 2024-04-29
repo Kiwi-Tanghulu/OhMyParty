@@ -9,10 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c3eadfeba51d164fb3d79ba1302a5e9, type: 3}
-  m_Name: _FurnitureList
+  m_Script: {fileID: 11500000, guid: 65b41e40713916b4d9274e3e7f3f392b, type: 3}
+  m_Name: Prop_Click
   m_EditorClassIdentifier: 
-  PropType: 0
-  propDatas:
-  - {fileID: 11400000, guid: 6bc1087100a74bc47abaf6ea8fdf6e74, type: 2}
-  - {fileID: 11400000, guid: 9bf4777af728b5d41b8b348a33ce7874, type: 2}
+  tweenParams:
+  - Caption: Scale Up
+    Delay: 0
+    Duration: 0.15
+    Value: 1.2
+    Ease: 2
+  - Caption: Release
+    Delay: 0
+    Duration: 0.1
+    Value: 1
+    Ease: 1
+  endValue: 1
