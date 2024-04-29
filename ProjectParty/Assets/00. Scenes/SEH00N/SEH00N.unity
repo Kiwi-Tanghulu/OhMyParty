@@ -4807,7 +4807,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 313843384}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 449992595}
+        m_TargetAssemblyTypeName: OMG.UI.Interiors.PropModifyPanel, Assembly-CSharp
+        m_MethodName: OnExitClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &313843384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7453,7 +7465,7 @@ GameObject:
   - component: {fileID: 435877467}
   - component: {fileID: 435877466}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MainCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7660,7 +7672,7 @@ GameObject:
   - component: {fileID: 440409108}
   - component: {fileID: 440409109}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SolidUICaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7786,12 +7798,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tweenOption:
-    PositiveOption: {fileID: 0}
-    NegativeOption: {fileID: 0}
+    PositiveOption: {fileID: 11400000, guid: 5be6c2db1662a484e9d0e55fd713b8a2, type: 2}
+    NegativeOption: {fileID: 11400000, guid: f447e4bb6b5ab094094c0f76cf4bb6df, type: 2}
   interiorSystem: {fileID: 1730365780}
   presetComponent: {fileID: 1730365784}
   gridComponent: {fileID: 1730365783}
-  currentProp: {fileID: 0}
+  yOffset: -100
 --- !u!95 &452865873 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7538835888680357099, guid: 0d9cbf840e2732246b8bfd0f2a201f75,
@@ -19313,7 +19325,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1984783662}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 449992595}
+        m_TargetAssemblyTypeName: OMG.UI.Interiors.PropModifyPanel, Assembly-CSharp
+        m_MethodName: OnSellClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1984783662
 MonoBehaviour:
   m_ObjectHideFlags: 0

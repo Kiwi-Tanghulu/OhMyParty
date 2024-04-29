@@ -14,16 +14,27 @@ namespace OMG.UI.Interiors
         [SerializeField] InteriorPresetComponent presetComponent = null;
         [SerializeField] InteriorGridComponent gridComponent = null;
 
-        [SerializeField] InteriorProp currentProp = null;
+        [Space(15f)]
+        [SerializeField] float yOffset = -30f;
+
+        private Camera mainCam = null;
+        private InteriorProp currentProp = null;
 
         private void Awake()
         {
+            mainCam = Camera.main;
             tweenOption.Init(transform);
         }
 
-        public void Init(InteriorProp prop)
+        private void Start()
+        {
+            transform.localScale = Vector3.zero;
+        }
+
+        public void Init(InteriorProp prop, Vector3 worldPosition)
         {
             currentProp = prop;
+            transform.position = mainCam.WorldToScreenPoint(worldPosition) + Vector3.up * yOffset;
         }
 
         public void Display(bool active)
@@ -52,23 +63,29 @@ namespace OMG.UI.Interiors
             interiorSystem.SetPropData(currentProp.PropData.PropID);
             Destroy(currentProp.gameObject);
             currentProp = null;
+
+            Display(false);
         }
 
         public void OnSellClick()
         {
-
+            Debug.Log($"Sell Prop");
+            Destroy(currentProp.gameObject);
+            Display(false);
         }
 
         public void OnExitClick()
         {
-
+            currentProp = null;
+            Display(false);
         }
 
         private void HandlePropPlaced(InteriorProp prop)
         {
             interiorSystem.OnPropPlacedEvent -= HandlePropPlaced;
             interiorSystem.ClearPropData();
-            currentProp = prop;
+            Init(prop, prop.transform.position + prop.PropData.Center);
+            Display(true);
         }
     }
 }
