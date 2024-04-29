@@ -62,6 +62,13 @@ namespace OMG.Interiors
             offset = bound.position - pivot;
         }
 
+        public void ResetBound()
+        {
+            bound.position = Vector3.zero;
+            bound.rotation = Quaternion.identity;
+            offset = Vector3.zero;
+        }
+
         public void UpdateBound(Vector3 position, bool enableToPlace)
         {
             boundRenderer.material = boundMaterialOption.GetOption(enableToPlace);

@@ -61,6 +61,12 @@ namespace OMG.Interiors
 
         public void SetPropData(string propID)
         {
+            if(currentPropData != null)
+                ClearPropData();
+
+            rotate = 0;
+            visualComponent.ResetBound();
+
             input.OnPlaceEvent += HandlePlace;
             input.OnRotateEvent += HandleRotate;
             
