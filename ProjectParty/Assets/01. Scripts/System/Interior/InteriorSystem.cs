@@ -100,8 +100,9 @@ namespace OMG.Interiors
             if(enableToPlace == false)
                 return;
 
-            placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridPosition, rotate);
-            presetComponent.AddPlacement(currentPropData, gridComponent.CurrentGridIndex, rotate);
+            InteriorProp prop = placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridIndex, gridComponent.CurrentGridPosition, rotate);
+            PlacementData data = presetComponent.AddPlacement(currentPropData, gridComponent.CurrentGridIndex, rotate);
+            prop.Init(data);
         }
 
         private void HandleRotate(int direction)

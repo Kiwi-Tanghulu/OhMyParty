@@ -15,9 +15,21 @@ namespace OMG.Interiors
             placementDatas = new List<PlacementData>();
         }
 
-        public void AddPlacement(string propID, Vector3Int gridIndex, int rotate)
+        public PlacementData AddPlacement(string propID, Vector3Int gridIndex, int rotate)
         {
-            placementDatas.Add(new PlacementData(propID, gridIndex, rotate));
+            PlacementData data = new PlacementData(propID, gridIndex, rotate);
+            placementDatas.Add(data);
+
+            return data;
+        }
+
+        public void ModifyPlacement(Vector3Int gridIndex, int rotate)
+        {
+            int index = placementDatas.FindIndex(i => i.GridIndex == gridIndex);
+            if(index == -1)
+                return;
+
+            placementDatas[index].Rotate = rotate;
         }
 
         public void ClearData()

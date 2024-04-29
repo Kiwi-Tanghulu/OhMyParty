@@ -24,11 +24,13 @@ namespace OMG.Interiors
             return detectedCount < 1;
         }
 
-        public void PlaceProp(InteriorPropSO propData, Vector3 position, int rotate)
+        public InteriorProp PlaceProp(InteriorPropSO propData, Vector3Int gridIndex, Vector3 position, int rotate)
         {
             InteriorProp prop = Instantiate(propData.Prefab, position, Quaternion.identity);
             prop.transform.RotateAround(position, Vector3.up, rotate * 90f);
             props.Add(prop);
+
+            return prop;
         }
 
         public void ClearProps()

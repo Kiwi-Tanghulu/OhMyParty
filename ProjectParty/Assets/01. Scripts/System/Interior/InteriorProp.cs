@@ -7,6 +7,13 @@ namespace OMG.Interiors
         [SerializeField] InteriorPropSO propData = null;
         public InteriorPropSO PropData => propData;
 
+        public PlacementData PlacementData { get; private set; }
+
+        public void Init(PlacementData data)
+        {
+            PlacementData = data;
+        }
+
         public void SetPropData(InteriorPropSO propData)
         {
             this.propData = propData;

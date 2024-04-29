@@ -3,7 +3,7 @@ using UnityEngine;
 namespace OMG.Interiors
 {
     [System.Serializable]
-    public struct PlacementData 
+    public class PlacementData 
     {
         public string PropID;
         public Vector3Int GridIndex;

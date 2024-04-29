@@ -1,4 +1,5 @@
 using OMG.Datas;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Interiors
@@ -35,7 +36,8 @@ namespace OMG.Interiors
                 PlacementData placementData = currentInteriorData[i];
                 InteriorPropSO propData = propDatabase[placementData.PropID];
                 Vector3 placePosition = gridComponent.GetGridPosition(placementData.GridIndex);
-                placeComponent.PlaceProp(propData, placePosition, placementData.Rotate);
+                InteriorProp prop = placeComponent.PlaceProp(propData, placementData.GridIndex, placePosition, placementData.Rotate);
+                prop.Init(placementData);
             }
         }
 
@@ -45,12 +47,17 @@ namespace OMG.Interiors
             currentInteriorData?.ClearData();
         }
 
-        public void AddPlacement(InteriorPropSO propData, Vector3Int gridIndex, int rotate)
+        public PlacementData AddPlacement(InteriorPropSO propData, Vector3Int gridIndex, int rotate)
         {
             if(currentInteriorData == null)
-                return;
+                return default;
 
-            currentInteriorData.AddPlacement(propData.PropID, gridIndex, rotate);
+            return currentInteriorData.AddPlacement(propData.PropID, gridIndex, rotate);
+        }
+
+        public void ModifyPlacement(Vector3Int gridIndex, int rotate)
+        {
+            currentInteriorData.ModifyPlacement(gridIndex, rotate);
         }
     }
 }
