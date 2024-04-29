@@ -1,3 +1,4 @@
+using System;
 using OMG.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,6 +15,7 @@ namespace OMG.Interiors
         private InteriorPropSO currentPropData = null;
         private bool enableToPlace = false;
         private bool active = false;
+        private int rotate = 0;
 
         private InteriorPresetComponent presetComponent = null;
         private InteriorGridComponent gridComponent = null;
@@ -21,6 +23,8 @@ namespace OMG.Interiors
         private InteriorVisualComponent visualComponent = null;
 
         private EventSystem eventSystem = null;
+
+        public event Action<InteriorProp> OnPropPlacedEvent = null;
 
         private void Awake()
         {
@@ -59,7 +63,18 @@ namespace OMG.Interiors
 
         public void SetPropData(string propID)
         {
+            if(currentPropData != null)
+                ClearPropData();
+
+            InputManager.ChangeInputMap(InputMapType.Interior);
+
+            rotate = 0;
+            visualComponent.ResetBound();
+
             input.OnPlaceEvent += HandlePlace;
+            input.OnRotateEvent += HandleRotate;
+            input.OnCancelEvent += HandleCancel;
+            
             currentPropData = propDatabase[propID];
             visualComponent.SetPropBound(currentPropData);
             visualComponent.Display(true);
@@ -68,7 +83,12 @@ namespace OMG.Interiors
 
         public void ClearPropData()
         {
+            InputManager.ChangeInputMap(InputMapType.UI);
+
             input.OnPlaceEvent -= HandlePlace;
+            input.OnRotateEvent -= HandleRotate;
+            input.OnCancelEvent -= HandleCancel;
+
             visualComponent.Display(false);
             currentPropData = null;
             active = false;
@@ -82,8 +102,25 @@ namespace OMG.Interiors
             if(enableToPlace == false)
                 return;
 
-            placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridPosition);
-            presetComponent.AddPlacement(currentPropData, gridComponent.CurrentGridIndex);
+            InteriorProp prop = placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridIndex, gridComponent.CurrentGridPosition, rotate);
+            PlacementData data = presetComponent.AddPlacement(currentPropData, gridComponent.CurrentGridIndex, rotate);
+            prop.Init(data);
+
+            OnPropPlacedEvent?.Invoke(prop);
+        }
+
+        private void HandleRotate(int direction)
+        {
+            int prev = rotate;
+            rotate = (rotate + 4 + direction) % 4;
+
+            visualComponent.SetRotate(rotate - prev);
+        }
+
+        private void HandleCancel()
+        {
+            if(currentPropData != null)
+                ClearPropData();
         }
     }
 }

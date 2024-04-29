@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using OMG.Utility;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ namespace OMG.Interiors
         private Transform visualTransform = null;
 
         private MeshRenderer boundRenderer = null;
+
+        private Vector3 offset = Vector3.zero;
+        private Vector3 pivot = Vector3.zero;
 
         private float gridSize = 0f;
 
@@ -41,19 +45,35 @@ namespace OMG.Interiors
         public void SetPropBound(InteriorPropSO propData)
         {
             ClearVisual();
+            offset = propData.Center.PlaneVector();
 
             GameObject visual = Instantiate(propData.VisualPrefab, visualTransform);
-            visual.transform.localPosition = Vector3.zero;
+            visual.transform.localPosition -= offset;
 
-            boundTransform.localScale = new Vector3(propData.PropSize.x * gridSize, 1f, propData.PropSize.z * gridSize);
+            boundTransform.localScale = new Vector3(propData.PropSize.x * gridSize, propData.PropSize.z * gridSize, 1f);
 
             UpdateBound(Vector3.zero, false);
+        }
+
+        public void SetRotate(int amount)
+        {
+            bound.position = pivot + offset;
+            bound.RotateAround(pivot, Vector3.up, amount * 90f);
+            offset = bound.position - pivot;
+        }
+
+        public void ResetBound()
+        {
+            bound.position = Vector3.zero;
+            bound.rotation = Quaternion.identity;
+            offset = Vector3.zero;
         }
 
         public void UpdateBound(Vector3 position, bool enableToPlace)
         {
             boundRenderer.material = boundMaterialOption.GetOption(enableToPlace);
-            bound.position = position;
+            bound.position = position + offset;
+            pivot = position;
         }
 
         private void ClearVisual()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using OMG.UI.Interiors;
 
 namespace OMG.Interiors
 {
@@ -7,9 +8,31 @@ namespace OMG.Interiors
         [SerializeField] InteriorPropSO propData = null;
         public InteriorPropSO PropData => propData;
 
+        public PlacementData PlacementData { get; private set; }
+
+        private Camera mainCam = null;
+        private PropModifyPanel modifyPanel = null;
+
+        private void Awake()
+        {
+            mainCam = Camera.main;
+            modifyPanel = DEFINE.MainCanvas.Find("PropModifyPanel").GetComponent<PropModifyPanel>();
+        }
+
+        public void Init(PlacementData data)
+        {
+            PlacementData = data;
+        }
+
         public void SetPropData(InteriorPropSO propData)
         {
             this.propData = propData;
+        }
+
+        public void SetModifyPanel()
+        {
+            modifyPanel.Init(this, transform.position + propData.Center);
+            modifyPanel.Display(true);
         }
 
         #if UNITY_EDITOR

@@ -15,7 +15,7 @@ namespace OMG.Test
 
         private void Start()
         {
-            InputManager.ChangeInputMap(InputMapType.Interior);
+            // InputManager.ChangeInputMap(InputMapType.Interior);
         }
 
         // #if UNITY_EDITOR
