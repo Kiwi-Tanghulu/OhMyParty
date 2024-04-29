@@ -30,12 +30,5 @@ namespace OMG.Player.FSM
 
             movement.Rigidbody.useGravity = false;
         }
-
-        public override void UpdateState()
-        {
-            base.UpdateState();
-
-            movement.Gravity();
-        }
     }
 }

@@ -9,7 +9,7 @@ namespace OMG.Player.FSM
 {
     public class MoveAction : PlayerFSMAction
     {
-        private PlayerMovement movement;
+        protected PlayerMovement movement;
 
         public override void Init(FSMBrain brain)
         {
@@ -18,11 +18,18 @@ namespace OMG.Player.FSM
             movement = player.GetComponent<PlayerMovement>();
         }
 
-        public override void UpdateState()
+        public override void EnterState()
         {
-            base.UpdateState();
+            base.EnterState();
 
-            movement.Move();
+            movement.ApplyMove = true;
+        }
+
+        public override void ExitState()
+        {
+            base.ExitState();
+
+            movement.ApplyMove = false;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace OMG.Player
         public float MoveSpeed => moveSpeed;
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
+        public bool ApplyMove;
         private Vector3 horiVelocity;
 
         [Header("Turn")]
@@ -24,13 +25,6 @@ namespace OMG.Player
 
         [Header("Jump")]
         [SerializeField] private float jumpPower = 5f;
-
-        [Header("Gravity")]
-        [Space]
-        [SerializeField] private float gravityScale;
-        private const float GRAVITY = -9.81f;
-        public float GravityScale => GRAVITY * gravityScale;
-        
 
         [Header("Ground Check")]
         [Space]
@@ -58,14 +52,14 @@ namespace OMG.Player
         private void Update()
         {
             CheckGround();
+            Move();
         }
 
         #region Move
-        public void Move()
+        private void Move()
         {
-            Vector3 velocity = new Vector3(horiVelocity.x, rb.velocity.y, horiVelocity.z);
-
-            rb.velocity = velocity;
+            Vector3 velocity = ApplyMove ? horiVelocity : Vector3.zero;
+            rb.velocity = velocity + Vector3.up * rb.velocity.y;
         }
 
         public void SetMoveDir(Vector3 moveDir, bool lookMoveDir = true)
@@ -85,8 +79,6 @@ namespace OMG.Player
             moveSpeed = speed;
 
             horiVelocity = moveDir * moveSpeed;
-
-            Move();
 
             if (lookMoveDir)
                 Look(moveDir);
@@ -133,39 +125,23 @@ namespace OMG.Player
         }
         #endregion
 
-        #region Jump
+        #region Vertical Velocity
+        public void SetVerticalVelocity(float value)
+        {
+            Vector3 velocity = rb.velocity;
+            velocity.y = value;
+            rb.velocity = velocity;
+        }
+
         public void Jump(float jumpPower = -1)
         {
             if (!IsGround)
                 return;
 
             if (jumpPower == -1)
-                jumpPower = this.jumpPower; 
+                jumpPower = this.jumpPower;
 
-            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-        }
-        #endregion
-
-        #region Gravity
-        public void Gravity()
-        {
-            //if (!IsOwner)
-            //    return;
-
-            //isGround = CheckGround();
-
-            //if (isGround && verticalVelocity <= 0f)
-            //{
-            //    verticalVelocity = GravityScale * 0.3f * Time.deltaTime;
-            //}
-            //else
-            //{
-            //    verticalVelocity += GravityScale * Time.deltaTime;
-            //}
-
-            //Vector3 velocity = rb.velocity;
-            //velocity.y = verticalVelocity;
-            //rb.velocity = velocity;
+            SetVerticalVelocity(jumpPower);
         }
         #endregion
 

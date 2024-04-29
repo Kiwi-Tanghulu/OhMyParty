@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace OMG.Player.FSM
 {
-    public class StopAction : PlayerFSMAction
+    public class SetVerticalVelocityAction : PlayerFSMAction
     {
+        [SerializeField] private float verticalVelocity;
+
         public bool OnEnter;
         public bool OnUpdate;
         public bool OnExit;
@@ -25,25 +27,23 @@ namespace OMG.Player.FSM
             base.EnterState();
 
             if(OnEnter)
-            {
-                movement.SetMoveDir(Vector3.zero);
-            }
+                movement.SetVerticalVelocity(verticalVelocity);
         }
 
         public override void UpdateState()
         {
             base.UpdateState();
 
-            if (OnUpdate)
-                movement.SetMoveDir(Vector3.zero);
+            if(OnUpdate)
+                movement.SetVerticalVelocity(verticalVelocity);
         }
 
         public override void ExitState()
         {
             base.ExitState();
 
-            if (OnExit)
-                movement.SetMoveDir(Vector3.zero);
+            if(OnExit)
+                movement.SetVerticalVelocity(verticalVelocity);
         }
     }
 }
