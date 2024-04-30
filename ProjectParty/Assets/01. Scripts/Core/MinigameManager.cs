@@ -23,9 +23,6 @@ namespace OMG.Minigames
             {
                 Time.timeScale = 1.0f;
             });
-            
-            // Test
-            // CurrentMinigame.StartGame();
         }
 
         public void FinishMinigame()
