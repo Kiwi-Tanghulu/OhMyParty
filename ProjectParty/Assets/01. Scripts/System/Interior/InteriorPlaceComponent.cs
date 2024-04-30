@@ -35,9 +35,16 @@ namespace OMG.Interiors
 
         public void ClearProps()
         {
-            props.ForEach(i => {
-                Destroy(i?.gameObject);
-            });
+            for(int i = 0; i < props.Count; ++ i)
+            {
+                if(props[i] == null)
+                    continue;
+
+                if(props[i].gameObject == null)
+                    continue;
+                
+                Destroy(props[i].gameObject);
+            }
 
             props.Clear();
         }

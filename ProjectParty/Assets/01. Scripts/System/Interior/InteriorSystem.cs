@@ -1,5 +1,6 @@
 using System;
 using OMG.Input;
+using OMG.UI.Interiors;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,6 +18,8 @@ namespace OMG.Interiors
         private bool active = false;
         private int rotate = 0;
 
+        private PropModifyPanel modifyPanel = null;
+
         private InteriorPresetComponent presetComponent = null;
         private InteriorGridComponent gridComponent = null;
         private InteriorPlaceComponent placeComponent = null;
@@ -28,6 +31,8 @@ namespace OMG.Interiors
 
         private void Awake()
         {
+            modifyPanel = DEFINE.MainCanvas.Find("PropModifyPanel").GetComponent<PropModifyPanel>();
+
             presetComponent = GetComponent<InteriorPresetComponent>();
             gridComponent = GetComponent<InteriorGridComponent>();
             placeComponent = GetComponent<InteriorPlaceComponent>();
@@ -96,10 +101,10 @@ namespace OMG.Interiors
 
         private void HandlePlace()
         {
-            if(active == false)
+            if (active == false)
                 return;
 
-            if(enableToPlace == false)
+            if (enableToPlace == false)
                 return;
 
             InteriorProp prop = placeComponent.PlaceProp(currentPropData, gridComponent.CurrentGridIndex, gridComponent.CurrentGridPosition, rotate);

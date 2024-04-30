@@ -31,7 +31,10 @@ namespace OMG.Interiors
 
         public void SetModifyPanel()
         {
-            modifyPanel.Init(this, transform.position + propData.Center);
+            if(modifyPanel.Active)
+                return;
+
+            modifyPanel.Init(this);
             modifyPanel.Display(true);
         }
 

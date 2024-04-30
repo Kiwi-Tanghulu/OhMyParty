@@ -1,4 +1,4 @@
-using System;
+using OMG.Input;
 using OMG.Interiors;
 using OMG.Tweens;
 using UnityEngine;
@@ -7,6 +7,7 @@ namespace OMG.UI.Interiors
 {
     public class PropModifyPanel : MonoBehaviour
     {
+        [SerializeField] UIInputSO input = null;
         [SerializeField] TweenOptOption tweenOption = null;
 
         [Space(15f)]
@@ -20,6 +21,8 @@ namespace OMG.UI.Interiors
         private Camera mainCam = null;
         private InteriorProp currentProp = null;
 
+        public bool Active {get;private set;} = false;
+
         private void Awake()
         {
             mainCam = Camera.main;
@@ -31,15 +34,18 @@ namespace OMG.UI.Interiors
             transform.localScale = Vector3.zero;
         }
 
-        public void Init(InteriorProp prop, Vector3 worldPosition)
+        public void Init(InteriorProp prop)
         {
             currentProp = prop;
+
+            Vector3 worldPosition = prop.transform.position;
             transform.position = mainCam.WorldToScreenPoint(worldPosition) + Vector3.up * yOffset;
         }
 
         public void Display(bool active)
         {
             tweenOption?.GetOption(active)?.PlayTween();
+            Active = active;
         }
 
         public void OnRotateClick()
@@ -50,7 +56,7 @@ namespace OMG.UI.Interiors
             presetComponent.ModifyPlacement(currentProp.PlacementData.GridIndex, rotate);
 
             Vector3 pivot = gridComponent.GetGridPosition(currentProp.PlacementData.GridIndex);
-            currentProp.transform.RotateAround(pivot, Vector3.up, (prev - rotate) * 90f);
+            currentProp.transform.RotateAround(pivot, Vector3.up, (rotate - prev) * 90f);
 
             currentProp.PlacementData.Rotate = rotate;
         }
@@ -70,6 +76,7 @@ namespace OMG.UI.Interiors
         public void OnSellClick()
         {
             Debug.Log($"Sell Prop");
+            presetComponent.RemovePlacement(currentProp);
             Destroy(currentProp.gameObject);
             Display(false);
         }
@@ -84,7 +91,7 @@ namespace OMG.UI.Interiors
         {
             interiorSystem.OnPropPlacedEvent -= HandlePropPlaced;
             interiorSystem.ClearPropData();
-            Init(prop, prop.transform.position + prop.PropData.Center);
+            Init(prop);
             Display(true);
         }
     }
