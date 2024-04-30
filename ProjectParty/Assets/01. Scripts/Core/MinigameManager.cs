@@ -6,7 +6,7 @@ namespace OMG.Minigames
     {
         public static MinigameManager Instance = null;
 
-        public Minigame CurrentMinigame { get; private set; } = null;
+        public Minigame CurrentMinigame = null;
 
         public void StartMinigame(MinigameSO minigameData, params ulong[] joinedPlayers)
         {

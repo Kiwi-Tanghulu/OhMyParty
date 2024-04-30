@@ -10,6 +10,9 @@ namespace OMG.Player
 
         private void Update()
         {
+            if (!IsSpawned)
+                return;
+
             cam.transform.position = transform.position + offset;
         }
     }

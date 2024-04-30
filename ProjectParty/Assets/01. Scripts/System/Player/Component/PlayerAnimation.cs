@@ -9,7 +9,7 @@ namespace OMG.Player
     public class PlayerAnimation : MonoBehaviour
     {
         private Animator anim;
-        public Animator Anim;
+        public Animator Anim => anim;
 
         public event Action OnStartEvent;
         public event Action OnPlayingEvent;

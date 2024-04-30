@@ -1,6 +1,7 @@
 using OMG.Extensions;
 using OMG.Input;
 using OMG.UI.Minigames;
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -19,11 +20,18 @@ namespace OMG.Minigames
 
         protected MinigameCycle cycle = null;
 
+        public event Action OnFinishGame;
+
         protected virtual void Awake()
         {
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
             minigameUI = transform.Find("MinigameUI").GetComponent<MinigameUI>();
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            MinigameManager.Instance.CurrentMinigame = this;
         }
 
         /// <summary>
@@ -64,6 +72,7 @@ namespace OMG.Minigames
         public virtual void FinishGame() 
         {
             InputManager.ChangeInputMap(InputMapType.UI);
+            OnFinishGame?.Invoke();
             StartOutro();
         }
 

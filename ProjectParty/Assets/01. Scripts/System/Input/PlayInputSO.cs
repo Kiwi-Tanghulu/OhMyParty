@@ -57,7 +57,7 @@ namespace OMG.Input
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if(context.started)
+            if (context.started)
                 OnJumpEvent?.Invoke();
         }
     }

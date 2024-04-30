@@ -25,7 +25,7 @@ namespace OMG.Tweens
         protected override void HandleTweenCompleted()
         {
             base.HandleTweenCompleted();
-            body.localScale = new Vector3(endValue, endValue, 1f);
+            body.localScale = new Vector3(endValue, endValue, endValue);
         }
     }
 }

@@ -15,7 +15,8 @@ namespace OMG.Player
         public float MoveSpeed => moveSpeed;
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
-        private float verticalVelocity;
+        public bool ApplyMove;
+        private Vector3 horiVelocity;
 
         [Header("Turn")]
         [Space]
@@ -23,14 +24,7 @@ namespace OMG.Player
         private Coroutine trunCo;
 
         [Header("Jump")]
-        [SerializeField] private float jumpPower;
-
-        [Header("Gravity")]
-        [Space]
-        [SerializeField] private float gravityScale;
-        private const float GRAVITY = -9.81f;
-        public float GravityScale => GRAVITY * gravityScale;
-        
+        [SerializeField] private float jumpPower = 5f;
 
         [Header("Ground Check")]
         [Space]
@@ -43,23 +37,31 @@ namespace OMG.Player
 
         [Header("Component")]
         private NetworkTransform networkTrm;
+        private Collider col;
+        public Collider Collider => col;
         private Rigidbody rb;
-        private CapsuleCollider col;
         public Rigidbody Rigidbody => rb;
-        public CapsuleCollider Collider => col;
 
         private void Awake()
         {
             networkTrm = GetComponent<NetworkTransform>();
             rb = GetComponent<Rigidbody>();
+            col = GetComponent<Collider>();
         }
 
-        private void Start()
+        private void Update()
         {
-            rb.useGravity = false;
+            CheckGround();
+            Move();
         }
 
         #region Move
+        private void Move()
+        {
+            Vector3 velocity = ApplyMove ? horiVelocity : Vector3.zero;
+            rb.velocity = velocity + Vector3.up * rb.velocity.y;
+        }
+
         public void SetMoveDir(Vector3 moveDir, bool lookMoveDir = true)
         {
             SetHorizontalVelocity(moveDir, moveSpeed, lookMoveDir);
@@ -76,12 +78,7 @@ namespace OMG.Player
             this.moveDir = moveDir.normalized;
             moveSpeed = speed;
 
-            Vector3 newVelocity = moveDir * moveSpeed;
-            Vector3 velocity = rb.velocity;
-
-            newVelocity.y = velocity.y;
-
-            rb.velocity = newVelocity;
+            horiVelocity = moveDir * moveSpeed;
 
             if (lookMoveDir)
                 Look(moveDir);
@@ -128,37 +125,23 @@ namespace OMG.Player
         }
         #endregion
 
-        #region Jump
-        public void Jump()
+        #region Vertical Velocity
+        public void SetVerticalVelocity(float value)
+        {
+            Vector3 velocity = rb.velocity;
+            velocity.y = value;
+            rb.velocity = velocity;
+        }
+
+        public void Jump(float jumpPower = -1)
         {
             if (!IsGround)
                 return;
 
-            Debug.Log("jump");
-            verticalVelocity = jumpPower;
-        }
-        #endregion
+            if (jumpPower == -1)
+                jumpPower = this.jumpPower;
 
-        #region Gravity
-        public void Gravity()
-        {
-            if (!IsOwner)
-                return;
-
-            isGround = CheckGround();
-
-            if (isGround && verticalVelocity <= 0f)
-            {
-                verticalVelocity = GravityScale * 0.3f * Time.deltaTime;
-            }
-            else
-            {
-                verticalVelocity += GravityScale * Time.deltaTime;
-            }
-
-            Vector3 velocity = rb.velocity;
-            velocity.y = verticalVelocity;
-            rb.velocity = velocity;
+            SetVerticalVelocity(jumpPower);
         }
         #endregion
 
@@ -167,8 +150,9 @@ namespace OMG.Player
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
                 checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
+            isGround = result && rb.velocity.y <= 0f;
             
-            return result;
+            return isGround;
         }
 
 #if UNITY_EDITOR

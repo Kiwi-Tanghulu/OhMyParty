@@ -282,6 +282,116 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Interior"",
+            ""id"": ""ff04ec73-ead5-437c-9235-01be5e1315e3"",
+            ""actions"": [
+                {
+                    ""name"": ""PlacePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""93525a2e-910e-4716-9a9f-979b13476a90"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Place"",
+                    ""type"": ""Button"",
+                    ""id"": ""15d26d2d-783c-4278-b5da-c60400bd58ee"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""7864d901-5cc9-47fe-9ee6-ef45b0a85782"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""2d7f5a1e-7761-4400-b1fd-bebee47db75d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""452f9dcb-1f14-4503-9ea9-c6a9c37fbb21"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlacePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc5958f3-5a6e-4ad7-bef7-4d29a1deee36"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Place"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""QE"",
+                    ""id"": ""39365ba9-b8f0-4724-86bf-cd494805407c"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""5151c8e0-9641-4091-a16d-27a047f6ec45"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""5c6d62b5-d4fc-4d44-833b-5f2f2e6c7532"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6da688f3-6163-4116-b452-608a1d4ea277"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -300,6 +410,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_UI_Interact = m_UI.FindAction("Interact", throwIfNotFound: true);
         m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
         m_UI_MousePosition = m_UI.FindAction("MousePosition", throwIfNotFound: true);
+        // Interior
+        m_Interior = asset.FindActionMap("Interior", throwIfNotFound: true);
+        m_Interior_PlacePosition = m_Interior.FindAction("PlacePosition", throwIfNotFound: true);
+        m_Interior_Place = m_Interior.FindAction("Place", throwIfNotFound: true);
+        m_Interior_Rotate = m_Interior.FindAction("Rotate", throwIfNotFound: true);
+        m_Interior_Cancel = m_Interior.FindAction("Cancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -513,6 +629,76 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // Interior
+    private readonly InputActionMap m_Interior;
+    private List<IInteriorActions> m_InteriorActionsCallbackInterfaces = new List<IInteriorActions>();
+    private readonly InputAction m_Interior_PlacePosition;
+    private readonly InputAction m_Interior_Place;
+    private readonly InputAction m_Interior_Rotate;
+    private readonly InputAction m_Interior_Cancel;
+    public struct InteriorActions
+    {
+        private @Controls m_Wrapper;
+        public InteriorActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @PlacePosition => m_Wrapper.m_Interior_PlacePosition;
+        public InputAction @Place => m_Wrapper.m_Interior_Place;
+        public InputAction @Rotate => m_Wrapper.m_Interior_Rotate;
+        public InputAction @Cancel => m_Wrapper.m_Interior_Cancel;
+        public InputActionMap Get() { return m_Wrapper.m_Interior; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InteriorActions set) { return set.Get(); }
+        public void AddCallbacks(IInteriorActions instance)
+        {
+            if (instance == null || m_Wrapper.m_InteriorActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_InteriorActionsCallbackInterfaces.Add(instance);
+            @PlacePosition.started += instance.OnPlacePosition;
+            @PlacePosition.performed += instance.OnPlacePosition;
+            @PlacePosition.canceled += instance.OnPlacePosition;
+            @Place.started += instance.OnPlace;
+            @Place.performed += instance.OnPlace;
+            @Place.canceled += instance.OnPlace;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
+        }
+
+        private void UnregisterCallbacks(IInteriorActions instance)
+        {
+            @PlacePosition.started -= instance.OnPlacePosition;
+            @PlacePosition.performed -= instance.OnPlacePosition;
+            @PlacePosition.canceled -= instance.OnPlacePosition;
+            @Place.started -= instance.OnPlace;
+            @Place.performed -= instance.OnPlace;
+            @Place.canceled -= instance.OnPlace;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
+        }
+
+        public void RemoveCallbacks(IInteriorActions instance)
+        {
+            if (m_Wrapper.m_InteriorActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IInteriorActions instance)
+        {
+            foreach (var item in m_Wrapper.m_InteriorActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_InteriorActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public InteriorActions @Interior => new InteriorActions(this);
     public interface IPlayActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -528,5 +714,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+    }
+    public interface IInteriorActions
+    {
+        void OnPlacePosition(InputAction.CallbackContext context);
+        void OnPlace(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }

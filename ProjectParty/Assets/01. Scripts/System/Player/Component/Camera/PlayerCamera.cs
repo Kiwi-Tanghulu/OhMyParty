@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using OMG;
 
 namespace OMG.Player
 {
@@ -14,17 +15,27 @@ namespace OMG.Player
         [SerializeField] private bool setFollow;
         [SerializeField] private bool setLook;
 
-        protected virtual void Start()
+        public override void OnNetworkSpawn()
         {
-            if (!IsOwner)
-                return;
-
+          
             cam = Instantiate(camPrefab);
+
+            if (IsOwner)
+                cam.Priority = DEFINE.FOCUSED_PRIORITY;
+            else
+                cam.Priority = DEFINE.UNFOCUSED_PRIORITY;
 
             if (setFollow)
                 cam.Follow = transform;
             if (setLook)
                 cam.LookAt = transform;
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            Destroy(cam);
         }
     }
 }

@@ -80,6 +80,13 @@ namespace OMG.FSM
         }
 
         #region Change State
+        public void ChangeState(string stateName)
+        {
+            FSMState state = states.Find(x => x.gameObject.name == stateName);
+            if (state != null)
+                ChangeState(state);
+        }
+
         public void ChangeState(Type type)
         {
             FSMState state = states.Find(x => x.GetType() == type);
