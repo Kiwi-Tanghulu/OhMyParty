@@ -1145,7 +1145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fd1112d2f94544a90e74a20add80d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextState: {fileID: 4209858709263184631}
+  nextState: {fileID: 7661793204645588930}
 --- !u!114 &7373534951360292105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1250,7 +1250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84def128ac8f4524691fc87b8929f900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Anim: {fileID: 0}
 --- !u!114 &4847010274163992959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1310,8 +1309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c41787ba1c1fba47922c332a53920c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: 2bad7e2a336d0ff45a57c72358fa1002, type: 2}
-  applyMove: 1
   eyeTrm: {fileID: 4608841162862439907}
   distance: 1
   radius: 0.5
@@ -3437,7 +3434,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.3, z: 2.82}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5806082196640103981}
@@ -3457,7 +3454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2547275658
+  GlobalObjectIdHash: 1036749174
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -3507,7 +3504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697309a2258a4f1418469513740ca90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultState: {fileID: 4209858709263184631}
+  defaultState: {fileID: 0}
   currentState: {fileID: 0}
   fsmParams: []
 --- !u!114 &5732088598588039054
@@ -3523,9 +3520,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  ApplyMove: 0
   turnTime: 0.3
   jumpPower: 0
-  gravityScale: 1
   checkGroundOffset: {x: 0, y: 0, z: 0}
   checkGroundHalfSize: {x: 0.25, y: 0.05, z: 0.25}
   checkGroundLayer:
@@ -3650,7 +3647,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.35
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.75, z: 0}
@@ -4401,7 +4398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5399377073753312167}
-  - component: {fileID: 4209858709263184631}
+  - component: {fileID: 7661793204645588930}
   - component: {fileID: 4748709281510235910}
   - component: {fileID: 6003421012928176077}
   m_Layer: 0
@@ -4428,7 +4425,7 @@ Transform:
   - {fileID: 4676847244039556212}
   m_Father: {fileID: 8734697180467604278}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4209858709263184631
+--- !u!114 &7661793204645588930
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4437,10 +4434,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9098856571459981322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a2dd14b7938ee944972a39382a02638, type: 3}
+  m_Script: {fileID: 11500000, guid: 9be34ef640971004d91cf8459a9b1ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: 2bad7e2a336d0ff45a57c72358fa1002, type: 2}
 --- !u!114 &4748709281510235910
 MonoBehaviour:
   m_ObjectHideFlags: 0
