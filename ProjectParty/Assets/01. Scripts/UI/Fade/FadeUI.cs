@@ -1,6 +1,7 @@
 using OMG.Utility;
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -13,7 +14,7 @@ namespace OMG.UI
         Finish
     }
 
-    public class FadeUI : MonoBehaviour
+    public class FadeUI : NetworkBehaviour
     {
         public static FadeUI Instance { get; private set; }
 
@@ -60,14 +61,24 @@ namespace OMG.UI
 
         private void Play(bool option, Action onStartEvent, Action onEndEvents)
         {
+            if (!IsOwnedByServer)
+                return;
+
+            FadingEvents[FadeStateType.Begin] = onStartEvent;
+            FadingEvents[FadeStateType.Finish] = onEndEvents;
+
+            PlayClientRpc(option);
+        }
+
+        [ClientRpc]
+        private void PlayClientRpc(bool option)
+        {
+            Debug.Log(1);
             Transform mainCamTrm = Camera.main.transform;
             fadeCamTrm.SetPositionAndRotation(mainCamTrm.position, mainCamTrm.rotation);
 
             TimelineAsset timelineAsset = option ? timelineOption.PositiveOption : timelineOption.NegativeOption;
             timelineHolder.playableAsset = timelineAsset;
-
-            FadingEvents[FadeStateType.Begin] = onStartEvent;
-            FadingEvents[FadeStateType.Finish] = onEndEvents;
 
             timelineHolder.Play(timelineAsset);
         }

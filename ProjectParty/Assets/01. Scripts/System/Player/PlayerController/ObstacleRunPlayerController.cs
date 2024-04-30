@@ -28,9 +28,13 @@ namespace OMG.Player
             StateMachine.ChangeState("RunState");
         }
 
-        public void HangingObstacle()
+        public void HangingObstacle(Obstacle obstacle)
         {
+            if (!IsOwner)
+                return;
+
             StateMachine.ChangeState("StunState");
+            obstacle.FallDown();
         }
     }
 }

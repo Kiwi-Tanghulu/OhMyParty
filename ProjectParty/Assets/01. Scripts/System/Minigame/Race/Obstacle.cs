@@ -19,17 +19,13 @@ namespace OMG.Minigames.Race
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!IsHost)
-                return;
-
             if (other.CompareTag("Player"))
             {
-                other.GetComponent<ObstacleRunPlayerController>().HangingObstacle();
-                FallDown();
+                other.GetComponent<ObstacleRunPlayerController>().HangingObstacle(this);
             }
         }
 
-        private void FallDown()
+        public void FallDown()
         {
             anim.SetTrigger("fallDown");
             col.enabled = false;
