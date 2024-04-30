@@ -9,10 +9,8 @@ namespace OMG.UI
 {
     public enum FadeStateType
     {
-        StartFadeIn = 0,
-        EndFadeIn,
-        StartFadeOut,
-        EndFadeOut,
+        Begin,
+        Finish
     }
 
     public class FadeUI : MonoBehaviour
@@ -39,24 +37,37 @@ namespace OMG.UI
             foreach(FadeStateType type in Enum.GetValues(typeof(FadeStateType)))
                 FadingEvents[type] = null;
         }
-
+   
         public void FadeIn()
         {
-            Play(true);
+            Play(true, null, null);
         }
 
         public void FadeOut()
         {
-            Play(false);
+            Play(false, null, null);
         }
 
-        private void Play(bool option)
+        public void FadeIn(Action onStartEvent = null, Action onEndEvent = null)
+        {
+            Play(true, onStartEvent, onEndEvent);
+        }
+
+        public void FadeOut(Action onStartEvent = null, Action onEndEvent = null)
+        {
+            Play(false, onStartEvent, onEndEvent);
+        }
+
+        private void Play(bool option, Action onStartEvent, Action onEndEvents)
         {
             Transform mainCamTrm = Camera.main.transform;
             fadeCamTrm.SetPositionAndRotation(mainCamTrm.position, mainCamTrm.rotation);
 
             TimelineAsset timelineAsset = option ? timelineOption.PositiveOption : timelineOption.NegativeOption;
             timelineHolder.playableAsset = timelineAsset;
+
+            FadingEvents[FadeStateType.Begin] = onStartEvent;
+            FadingEvents[FadeStateType.Finish] = onEndEvents;
 
             timelineHolder.Play(timelineAsset);
         }

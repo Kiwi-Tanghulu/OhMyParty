@@ -33,9 +33,6 @@ namespace OMG.Minigames
         public override void OnNetworkSpawn()
         {
             MinigameManager.Instance.CurrentMinigame = this;
-
-            //
-            FadeUI.Instance.FadeIn();
         }
 
         /// <summary>
@@ -43,7 +40,7 @@ namespace OMG.Minigames
         /// </summary>  
         public virtual void Init(params ulong[] playerIDs)
         {
-            for(int i = 0; i < playerIDs.Length; ++i)
+            for (int i = 0; i < playerIDs.Length; ++i)
                 playerDatas.Add(new PlayerData(playerIDs[i]));
         }
 

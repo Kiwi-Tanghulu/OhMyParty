@@ -43,10 +43,6 @@ namespace OMG.Lobbies
             minigameComponent.OnMinigameSelectedEvent += HandleMinigameSelected;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
             readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
-
-            //
-            FadeUI.Instance.FadingEvents[FadeStateType.EndFadeOut] += StartMinigame;
-            Debug.Log("regist");
         }
 
         public override void OnNetworkSpawn()
@@ -95,12 +91,14 @@ namespace OMG.Lobbies
 
         public void StartMinigame() //이거 호출하면 미니게임 시작
         {
-                Debug.Log(123);
-            if (IsHost)
+            FadeUI.Instance.FadeOut(null, () =>
             {
-                readyComponent.ClearLobbyReady();
-                minigameComponent.StartMinigame();
-            }
+                if (IsHost)
+                {
+                    readyComponent.ClearLobbyReady();
+                    minigameComponent.StartMinigame();
+                }
+            });
         }
 
         // Select Minigame
