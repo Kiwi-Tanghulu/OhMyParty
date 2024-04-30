@@ -26,6 +26,7 @@ namespace OMG.Minigames.MazeAdventure
             base.EnterState();
             navMeshAgent.ResetPath();
             navMeshAgent.enabled = false;
+            Debug.Log("ÇöÀç : FindStateEnter");
             StartCoroutine(Reconnaissance());
         }
 

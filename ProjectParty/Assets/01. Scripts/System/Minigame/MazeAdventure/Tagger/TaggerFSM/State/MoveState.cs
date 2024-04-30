@@ -10,17 +10,21 @@ namespace OMG.Minigames.MazeAdventure
     public class MoveState : FSMState
     {
         [SerializeField] private FSMState nextState;
-        [SerializeField] private Vector3[] findPos;
 
+        private MoveTargetParams targetParam = null;
         private NavMeshAgent navMeshAgent;
         private Vector3 targetPos;
+
+        public override void InitState(FSMBrain brain)
+        {
+            base.InitState(brain);
+            targetParam = brain.GetFSMParam<MoveTargetParams>();
+            navMeshAgent = brain.GetComponent<NavMeshAgent>();
+        }
         public override void EnterState()
         {
             base.EnterState();
-            navMeshAgent = brain.GetComponent<NavMeshAgent>();
-            int randomValue = Random.Range(0, findPos.Length);
-            targetPos = findPos[randomValue];
-
+            targetPos = targetParam.movePos;
             navMeshAgent.SetDestination(targetPos);
         }
 

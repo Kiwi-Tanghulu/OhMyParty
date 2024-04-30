@@ -24,6 +24,7 @@ namespace OMG.Minigames.MazeAdventure
         public void PlayerDead()
         {
             deadEvent.Invoke();
+
         }
     }
 }

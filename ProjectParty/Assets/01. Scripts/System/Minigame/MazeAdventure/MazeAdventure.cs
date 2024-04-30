@@ -27,6 +27,10 @@ namespace OMG.Minigames.MazeAdventure
         public override void StartGame()
         {
             base.StartGame();
+
+            if (!IsHost) return;
+            spawner.enabled = true;
+            spawner.TestSpawn();
         }
     }
 
