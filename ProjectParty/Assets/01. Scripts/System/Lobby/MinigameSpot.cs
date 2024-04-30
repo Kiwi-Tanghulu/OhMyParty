@@ -6,6 +6,7 @@ using OMG.Interacting;
 using OMG.Minigames;
 using OMG.Player;
 using OMG.Player.FSM;
+using OMG.UI;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -42,6 +43,10 @@ namespace OMG.Lobbies
             minigameComponent.OnMinigameSelectedEvent += HandleMinigameSelected;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
             readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
+
+            //
+            FadeUI.Instance.FadingEvents[FadeStateType.EndFadeOut] += StartMinigame;
+            Debug.Log("regist");
         }
 
         public override void OnNetworkSpawn()
@@ -90,6 +95,7 @@ namespace OMG.Lobbies
 
         public void StartMinigame() //이거 호출하면 미니게임 시작
         {
+                Debug.Log(123);
             if (IsHost)
             {
                 readyComponent.ClearLobbyReady();

@@ -1,5 +1,6 @@
 using OMG.Extensions;
 using OMG.Input;
+using OMG.UI;
 using OMG.UI.Minigames;
 using System;
 using Unity.Netcode;
@@ -32,6 +33,9 @@ namespace OMG.Minigames
         public override void OnNetworkSpawn()
         {
             MinigameManager.Instance.CurrentMinigame = this;
+
+            //
+            FadeUI.Instance.FadeIn();
         }
 
         /// <summary>
