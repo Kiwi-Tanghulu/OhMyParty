@@ -17,11 +17,12 @@ namespace OMG.Minigames.MazeAdventure
     public class IdleState : FSMState
     {
         [SerializeField] private StatesData[] nextStatesData;
+        [SerializeField] private Vector3[] findPos;
 
         private float maxWeight = 0;
         private float randomValue;
         private float cumulativeWeight;
-        private NavMeshAgent navMeshAgent;
+        private MoveTargetParams targetParam = null;
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
@@ -29,11 +30,13 @@ namespace OMG.Minigames.MazeAdventure
             { 
                 maxWeight += data.weight;
             }
-            navMeshAgent = brain.GetComponent<NavMeshAgent>();
+            targetParam = brain.GetFSMParam<MoveTargetParams>();
         }
         public override void EnterState()
         {
             base.EnterState();
+            int randomValue = Random.Range(0, findPos.Length);
+            targetParam.movePos = findPos[randomValue];
             StartCoroutine(SetNextState());
         }
 

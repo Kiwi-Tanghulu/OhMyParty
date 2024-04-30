@@ -36,6 +36,7 @@ namespace OMG.Minigames
 
         public virtual void FinishCycle()
         {
+            Debug.Log("게임 종료 못했어 ㅠㅠ");
             minigame.FinishGame();
         }
     }

@@ -17,12 +17,16 @@ namespace OMG.Minigames.MazeAdventure
         private float testTimer = 0;
         private FSMBrain brain;
         private NavMeshAgent navMeshAgent;
+        public DeathmatchCycle Cycle { get; private set; }
         private void Awake()
         {
             brain = GetComponent<FSMBrain>();
             navMeshAgent = GetComponent<NavMeshAgent>();
         }
-
+        public void Init(DeathmatchCycle cycle)
+        {
+            Cycle = cycle;
+        }
         private void Update()
         {
             brain.UpdateFSM();
