@@ -8,6 +8,7 @@ namespace OMG.Interiors
     {
         [SerializeField] InteriorPropType type;
 
+#if UNITY_EDITOR
         [ContextMenu("Create Data")]
         public void CreateData()
         {
@@ -44,5 +45,6 @@ namespace OMG.Interiors
 
             return propData;
         }
+#endif
     }
 }

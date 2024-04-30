@@ -24,6 +24,7 @@ namespace OMG.Interiors
 
         public Vector3 Center => offset + (Vector3)(PropSize - Vector3Int.one) * 0.5f;
 
+        #if UNITY_EDITOR
         [ContextMenu("Fill Data")]
         public void FillData()
         {
@@ -34,7 +35,6 @@ namespace OMG.Interiors
             Prefab.SetPropData(this);
         }
 
-        #if UNITY_EDITOR
         private void OnValidate()
         {
             Offset = offset;
