@@ -1,4 +1,5 @@
 using OMG.UI;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace OMG.Minigames
             CurrentMinigame = Instantiate(minigameData.MinigamePrefab);
             CurrentMinigame.NetworkObject.Spawn(true);
 
-            FadeUI.Instance.FadeIn(() =>
+            FadeUI.Instance.FadeIn(3f, () =>
             {
                 CurrentMinigame.Init(joinedPlayers);
                 Time.timeScale = 0f;
@@ -27,7 +28,7 @@ namespace OMG.Minigames
 
         public void FinishMinigame()
         {
-            FadeUI.Instance.FadeOut(null, () =>
+            FadeUI.Instance.FadeOut(0f, null, () =>
             {
                 CurrentMinigame.Release();
 
@@ -35,7 +36,7 @@ namespace OMG.Minigames
                 CurrentMinigame.NetworkObject.Despawn(true);
                 CurrentMinigame = null;
 
-                FadeUI.Instance.FadeIn();
+                FadeUI.Instance.FadeIn(3f);
             });
         }
     }
