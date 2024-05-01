@@ -41,29 +41,35 @@ namespace OMG.UI
    
         public void FadeIn()
         {
-            Play(true, null, null);
+            StartCoroutine(Play(0f, true, null, null));
         }
 
         public void FadeOut()
         {
-            Play(false, null, null);
+            StartCoroutine(Play(0f, false, null, null));
         }
 
-        public void FadeIn(Action onStartEvent = null, Action onEndEvent = null)
+        public void FadeIn(float delay = 0f, Action onStartEvent = null, Action onEndEvent = null)
         {
-            Play(true, onStartEvent, onEndEvent);
+            StartCoroutine(Play(delay, true, onStartEvent, onEndEvent));
         }
 
-        public void FadeOut(Action onStartEvent = null, Action onEndEvent = null)
+        public void FadeOut(float delay = 0f, Action onStartEvent = null, Action onEndEvent = null)
         {
-            Play(false, onStartEvent, onEndEvent);
+            StartCoroutine(Play(delay, false, onStartEvent, onEndEvent));
         }
 
-        private void Play(bool option, Action onStartEvent, Action onEndEvents)
+        private System.Collections.IEnumerator Play(float delay, bool option, Action onStartEvent, Action onEndEvents)
         {
+            Time.timeScale = 0.0f;
+
+            yield return new WaitForSecondsRealtime(delay);
+
+            Time.timeScale = 1.0f;
+
             if (!IsOwnedByServer)
-                return;
-
+                yield break;
+            
             FadingEvents[FadeStateType.Begin] = onStartEvent;
             FadingEvents[FadeStateType.Finish] = onEndEvents;
 
@@ -73,7 +79,6 @@ namespace OMG.UI
         [ClientRpc]
         private void PlayClientRpc(bool option)
         {
-            Debug.Log(1);
             Transform mainCamTrm = Camera.main.transform;
             fadeCamTrm.SetPositionAndRotation(mainCamTrm.position, mainCamTrm.rotation);
 
