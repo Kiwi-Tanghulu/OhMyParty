@@ -7,7 +7,7 @@ namespace OMG.Minigames
     [Serializable]
     public class ControlKeyInfo
     {
-        public List<Sprite> ControlKeysImage;
+        public List<Sprite> ControlKeyImages;
         public string ControlKeyName;
     }
 
