@@ -36,7 +36,13 @@ namespace OMG.Minigames
                 CurrentMinigame.NetworkObject.Despawn(true);
                 CurrentMinigame = null;
 
-                FadeUI.Instance.FadeIn(3f);
+                FadeUI.Instance.FadeIn(3f, () =>
+                {
+                    Time.timeScale = 0f;
+                }, () =>
+                {
+                    Time.timeScale = 1.0f;
+                });
             });
         }
     }

@@ -61,8 +61,12 @@ namespace OMG.UI
 
         private System.Collections.IEnumerator Play(float delay, bool option, Action onStartEvent, Action onEndEvents)
         {
-            yield return new WaitForSeconds(delay);
-            
+            Time.timeScale = 0.0f;
+
+            yield return new WaitForSecondsRealtime(delay);
+
+            Time.timeScale = 1.0f;
+
             if (!IsOwnedByServer)
                 yield break;
             
