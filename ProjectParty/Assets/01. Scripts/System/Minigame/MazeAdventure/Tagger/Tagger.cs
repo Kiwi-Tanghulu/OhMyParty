@@ -11,12 +11,8 @@ namespace OMG.Minigames.MazeAdventure
     public class Tagger : NetworkBehaviour
     {
         [SerializeField] private UnityEvent onSpawnedEvent = null;
-        
-        [SerializeField] private float moveSpeed;
-        private Vector3 moveDir;
-        private float testTimer = 0;
-        private FSMBrain brain;
-        private NavMeshAgent navMeshAgent;
+        private FSMBrain brain = null;
+        private NavMeshAgent navMeshAgent = null;
         public DeathmatchCycle Cycle { get; private set; }
         private void Awake()
         {

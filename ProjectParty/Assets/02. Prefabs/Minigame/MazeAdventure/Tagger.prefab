@@ -32,6 +32,64 @@ Transform:
   - {fileID: 102687150221934771}
   m_Father: {fileID: 5627301831679453655}
   m_LocalEulerAnglesHint: {x: -2.6999457, y: 39.572357, z: -45.30323}
+--- !u!1 &667429908767119536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5092389109391311776}
+  - component: {fileID: 5610878255901714394}
+  - component: {fileID: 3401603347386671024}
+  m_Layer: 0
+  m_Name: SurpriseState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5092389109391311776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667429908767119536}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7072122144132019585}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5610878255901714394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667429908767119536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be34ef640971004d91cf8459a9b1ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3401603347386671024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667429908767119536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1eb49802890f8448f4b6e3eb6f62c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextState: {fileID: 3848308343217400436}
 --- !u!1 &738433402450954200
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,8 +417,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onSpawnedEvent:
     m_PersistentCalls:
-      m_Calls: []
-  moveSpeed: 3
+      m_Calls:
+      - m_Target: {fileID: 5230548173733889382}
+        m_TargetAssemblyTypeName: OMG.Minigames.MazeAdventure.TaggerVisual, Assembly-CSharp
+        m_MethodName: OnDissolve
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!195 &5372254269900039298
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -370,7 +439,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1993988503407102008}
   m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.55
+  m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1114,8 +1183,9 @@ GameObject:
   m_Component:
   - component: {fileID: 504244124089864207}
   - component: {fileID: 186346172918966905}
+  - component: {fileID: 5230548173733889382}
   m_Layer: 0
-  m_Name: Ghost
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1209,6 +1279,19 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.0028099762, z: -0.002145351}
     m_Extent: {x: 0.003942514, y: 0.005561375, z: 0.0047500785}
   m_DirtyAABB: 0
+--- !u!114 &5230548173733889382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6459419182134317746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce4841d91589774e908339320c45287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveTime: 2
 --- !u!1 &7043760270188227311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,6 +1585,7 @@ Transform:
   - {fileID: 7465317995007636732}
   - {fileID: 990546477908738588}
   - {fileID: 1910929646292370359}
+  - {fileID: 5092389109391311776}
   m_Father: {fileID: 7958560352743738096}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9184809482130230925
