@@ -1,5 +1,6 @@
 using OMG.Extensions;
 using OMG.Input;
+using OMG.UI;
 using OMG.UI.Minigames;
 using System;
 using Unity.Netcode;
@@ -39,7 +40,7 @@ namespace OMG.Minigames
         /// </summary>  
         public virtual void Init(params ulong[] playerIDs)
         {
-            for(int i = 0; i < playerIDs.Length; ++i)
+            for (int i = 0; i < playerIDs.Length; ++i)
                 playerDatas.Add(new PlayerData(playerIDs[i]));
         }
 

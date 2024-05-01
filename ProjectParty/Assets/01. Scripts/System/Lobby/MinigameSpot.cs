@@ -6,6 +6,7 @@ using OMG.Interacting;
 using OMG.Minigames;
 using OMG.Player;
 using OMG.Player.FSM;
+using OMG.UI;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -90,11 +91,14 @@ namespace OMG.Lobbies
 
         public void StartMinigame() //이거 호출하면 미니게임 시작
         {
-            if (IsHost)
+            FadeUI.Instance.FadeOut(null, () =>
             {
-                readyComponent.ClearLobbyReady();
-                minigameComponent.StartMinigame();
-            }
+                if (IsHost)
+                {
+                    readyComponent.ClearLobbyReady();
+                    minigameComponent.StartMinigame();
+                }
+            });
         }
 
         // Select Minigame
