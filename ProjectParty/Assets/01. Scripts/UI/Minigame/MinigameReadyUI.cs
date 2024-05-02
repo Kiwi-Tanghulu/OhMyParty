@@ -29,9 +29,18 @@ namespace OMG.UI
         {
             container = transform.Find("Container").gameObject;
 
-            Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>().OnMinigameSelectedEvent += MinigameInfoUI_OnMinigameSelectedEvent;
-            Lobby.Current.GetLobbyComponent<LobbyReadyComponent>().OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
+            LobbyMinigameComponent lobbyMinigame = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
+            lobbyMinigame.OnMinigameSelectedEvent += MinigameInfoUI_OnMinigameSelectedEvent;
+            lobbyMinigame.OnMinigameStartedEvent += LobbyMinigame_OnMinigameStartEvent;
 
+            LobbyReadyComponent lobbyReady = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
+            lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
+
+            Hide();
+        }
+
+        private void LobbyMinigame_OnMinigameStartEvent()
+        {
             Hide();
         }
 
