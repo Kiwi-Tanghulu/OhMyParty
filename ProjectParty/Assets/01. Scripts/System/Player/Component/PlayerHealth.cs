@@ -21,7 +21,6 @@ namespace OMG.Player
 
         public void OnDamaged(float damage, Transform attacker, Vector3 point, Vector3 normal = default)
         {
-            Debug.Log("damaged");
             this.attacker = attacker;
             this.damage = damage;
             hitDir = (transform.position - attacker.position).normalized;
