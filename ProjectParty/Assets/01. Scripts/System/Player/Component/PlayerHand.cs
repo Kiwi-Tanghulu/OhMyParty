@@ -20,6 +20,7 @@ namespace OMG.Player
         private PlayerFocuser focuser = null;
 
         public bool IsEmpty => holdingObject == null;
+        private bool active = true;
 
         public override void OnNetworkSpawn()
         {
@@ -67,8 +68,23 @@ namespace OMG.Player
             return prevObject;
         }
 
+        public void SetActive(bool active)
+        {
+            this.active = active;
+            if(this.active == false)
+            {
+                if (IsEmpty)
+                    return;
+
+                Release();
+            }
+        }
+
         private void HandleInteract(bool interact)
         {
+            if(active == false)
+                return;
+
             if (interact == false)
                 return;
 
@@ -88,6 +104,9 @@ namespace OMG.Player
 
         private void HandleActive()
         {
+            if (active == false)
+                return;
+
             Active();
         }
     }

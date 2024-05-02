@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.FSM
 {
     public class FSMState : MonoBehaviour
     {
         protected FSMBrain brain;
+
+        public UnityEvent OnStateEnterEvent;
+        public UnityEvent OnStateExitEvent;
 
         private List<FSMTransition> transitions;
         private List<FSMAction> actions;
@@ -37,6 +41,8 @@ namespace OMG.FSM
         {
             if (brain.IsOwner)
                 OwnerEnterState();
+
+            OnStateEnterEvent?.Invoke();
         }
         //single
         protected virtual void OwnerEnterState() 
@@ -79,6 +85,7 @@ namespace OMG.FSM
         {
             if (brain.IsOwner)
                 OwnerExitState();
+            OnStateExitEvent?.Invoke();
         }
         //single
         protected virtual void OwnerExitState() 
