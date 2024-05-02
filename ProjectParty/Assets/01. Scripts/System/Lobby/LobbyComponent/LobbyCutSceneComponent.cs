@@ -15,6 +15,8 @@ public class LobbyCutSceneComponent : LobbyComponent
     [SerializeField] private string playerSignalTrackName;
     private PlayableDirector timelineHolder;
 
+    public bool IsPlaying => timelineHolder.state == PlayState.Playing;
+
     private void Awake()
     {
         timelineHolder = GetComponent<PlayableDirector>();
@@ -54,7 +56,7 @@ public class LobbyCutSceneComponent : LobbyComponent
                     timelineHolder.SetGenericBinding(binding.sourceObject, players[index].GetComponent<SignalReceiver>());
             }
         }
-
+        
         timelineHolder.Play();
     }
 }

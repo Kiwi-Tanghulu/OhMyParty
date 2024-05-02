@@ -28,10 +28,20 @@ namespace OMG.UI
         private void Start()
         {
             container = transform.Find("Container").gameObject;
-            container.SetActive(false);
 
-            Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>().OnMinigameSelectedEvent += MinigameInfoUI_OnMinigameSelectedEvent;
-            Lobby.Current.GetLobbyComponent<LobbyReadyComponent>().OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
+            LobbyMinigameComponent lobbyMinigame = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
+            lobbyMinigame.OnMinigameSelectedEvent += MinigameInfoUI_OnMinigameSelectedEvent;
+            lobbyMinigame.OnMinigameStartedEvent += LobbyMinigame_OnMinigameStartEvent;
+
+            LobbyReadyComponent lobbyReady = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
+            lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
+
+            Hide();
+        }
+
+        private void LobbyMinigame_OnMinigameStartEvent()
+        {
+            Hide();
         }
 
         private void MinigameInfoUI_OnMinigameSelectedEvent(int index)
@@ -43,7 +53,10 @@ namespace OMG.UI
         {
             if(Lobby.Current.LobbyState == LobbyState.MinigameSelected)
             {
-                readyCheckBoxDictionary[id].SetCheck(true);
+                if(readyCheckBoxDictionary.ContainsKey(id))
+                {
+                    readyCheckBoxDictionary[id].SetCheck(true);
+                }
             }
         }
 
@@ -54,6 +67,9 @@ namespace OMG.UI
 
         public void Display()
         {
+            if (minigameSO == null)
+                return;
+
             foreach (Transform controlKey in controlKeyInfoContainer)
                 Destroy(controlKey.gameObject);
             foreach (Transform checkBox in readyCheckBoxContainer)
@@ -77,6 +93,11 @@ namespace OMG.UI
             }
 
             container.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            container.SetActive(false);
         }
     }
 }

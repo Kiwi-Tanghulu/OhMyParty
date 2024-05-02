@@ -26,7 +26,6 @@ namespace OMG.Player.FSM
                 {
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
-                        Debug.Log($"hit : {hits[i].transform.name}");
                         damageable.OnDamaged(150f, player.transform, hits[i].point);
                     }
                 }

@@ -7,6 +7,7 @@ using OMG.Minigames;
 using OMG.Player;
 using OMG.Player.FSM;
 using OMG.UI;
+using Steamworks.Data;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace OMG.Lobbies
         private LobbyMinigameComponent minigameComponent = null;
         private LobbyResultComponent resultComponent = null;
         private LobbyReadyComponent readyComponent = null;
-        private LobbyCutSceneComponent cutSceneComponent = null;
+        private LobbyCutSceneComponent cutSceneComponent = null; private LobbyCutSceneComponent cutScene;
 
         private NetworkList<ulong> playerIdList;
 
@@ -39,6 +40,7 @@ namespace OMG.Lobbies
             resultComponent = Lobby.Current.GetLobbyComponent<LobbyResultComponent>();
             readyComponent = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             cutSceneComponent = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
+            cutScene = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
 
             minigameComponent.OnMinigameSelectedEvent += HandleMinigameSelected;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
@@ -82,9 +84,7 @@ namespace OMG.Lobbies
                     FocusSpot(true);
                     break;
                 case LobbyState.MinigameSelected: // 미니게임 선택된 상태일 때 레디가 되면 미니게임 시작
-                    // 여기다가 컷씬 시작해주고
-                    //if(IsHost)
-                        //cutSceneComponent.PlayCutscene(true);
+                    StartMinigame();
                     break;
             }
         }
@@ -116,7 +116,7 @@ namespace OMG.Lobbies
             if(IsHost)
                 readyComponent.ClearLobbyReady();
             input.OnInteractEvent += HandleInteractInput;
-            cutSceneComponent.PlayCutscene(true);
+           cutSceneComponent.PlayCutscene(true);
 
             DisplayMinigameInfo(minigameList[index]);
         }
@@ -128,6 +128,9 @@ namespace OMG.Lobbies
 
         private void HandleInteractInput()
         {
+            if (cutScene.IsPlaying)
+                return;
+
             readyComponent.Ready(currentClientID);
             input.OnInteractEvent -= HandleInteractInput;
         }

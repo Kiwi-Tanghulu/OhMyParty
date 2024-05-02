@@ -20,12 +20,18 @@ namespace OMG.Lobbies
         {
             Lobby.PlayerDatas.ChangeData(i => i.clientID == clientID, data => {
                 data.isReady = true;
-                OnPlayerReadyEvent?.Invoke(clientID);
+                BroadcastReadyClientRpc(clientID);
                 return data;
             });
 
             Debug.Log($"[Lobby] Player {clientID} Set Ready");
             CheckLobbyReady();
+        }
+
+        [ClientRpc]
+        private void BroadcastReadyClientRpc(ulong clientID)
+        {
+            OnPlayerReadyEvent?.Invoke(clientID);
         }
 
         private void CheckLobbyReady()

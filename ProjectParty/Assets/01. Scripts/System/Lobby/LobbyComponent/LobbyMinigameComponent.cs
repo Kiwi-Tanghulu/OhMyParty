@@ -20,6 +20,7 @@ namespace OMG.Lobbies
         /// </summary>
         public event Action<Minigame, bool> OnMinigameFinishedEvent = null;
         public event Action<int> OnMinigameSelectedEvent = null;
+        public event Action OnMinigameStartedEvent = null;
         private MinigameSO currentMinigame = null;
 
         public override void Init(Lobby lobby)
@@ -59,6 +60,7 @@ namespace OMG.Lobbies
             ulong[] joinedPlayers = new ulong[Lobby.PlayerDatas.Count];
             Lobby.PlayerDatas.ForEach((i, index) => joinedPlayers[index] = i.clientID);
             MinigameManager.Instance.StartMinigame(currentMinigame, joinedPlayers);
+            BroadcastMinigameStartedClientRpc();
 
             Lobby.ChangeLobbyState(LobbyState.MinigamePlaying);
             Lobby.SetActive(false);
@@ -74,6 +76,12 @@ namespace OMG.Lobbies
             Debug.Log($"Display Result");
 
             minigame.MinigameData.OnMinigameFinishedEvent -= HandleMinigameFinished;
+        }
+
+        [ClientRpc]
+        private void BroadcastMinigameStartedClientRpc()
+        {
+            OnMinigameStartedEvent?.Invoke();
         }
 
         [ClientRpc]
