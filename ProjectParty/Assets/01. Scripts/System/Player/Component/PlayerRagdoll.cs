@@ -8,6 +8,7 @@ namespace OMG.Player
     {
         [SerializeField] private Transform hipTrm;
         private List<Rigidbody> rbList;
+        private List<Collider> colList;
         private Rigidbody hipRb;
         private Animator anim;
         private PlayerMovement movement;
@@ -22,20 +23,25 @@ namespace OMG.Player
             hipRb = hipTrm.GetComponent<Rigidbody>();
 
             rbList = new List<Rigidbody>();
-            GetRigidbody(hipTrm);
+            colList = new List<Collider>();
+            GetRagdollCompo(hipTrm);
         }
 
         public void SetActive(bool value)
         {
             anim.enabled = !value;
             movement.Collider.enabled = !value;
-            movement.Rigidbody.isKinematic = !value;
+            movement.Rigidbody.isKinematic = value;
 
             for(int i = 0; i < rbList.Count; i++)
             {
                 rbList[i].isKinematic = !value;
                 if (value)
                     rbList[i].velocity = Vector3.zero;
+            }
+            for (int i = 0; i < rbList.Count; i++)
+            {
+                colList[i].enabled = value;
             }
         }
 
@@ -49,14 +55,16 @@ namespace OMG.Player
             hipRb.AddForceAtPosition(power, point, mode);
         }
 
-        private void GetRigidbody(Transform trm)
+        private void GetRagdollCompo(Transform trm)
         {
             if(trm.TryGetComponent<Rigidbody>(out Rigidbody rb))
                 rbList.Add(rb);
+            if (trm.TryGetComponent<Collider>(out Collider col))
+                colList.Add(col);
 
-            for(int i = 0; i < trm.childCount; i++)
+            for (int i = 0; i < trm.childCount; i++)
             {
-                GetRigidbody(trm.GetChild(i));
+                GetRagdollCompo(trm.GetChild(i));
             }
         }
     }

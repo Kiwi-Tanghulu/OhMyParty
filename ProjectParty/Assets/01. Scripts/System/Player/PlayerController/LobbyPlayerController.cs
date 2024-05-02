@@ -13,6 +13,9 @@ namespace OMG.Player
             base.OnNetworkSpawn();
 
             Lobby.Current.PlayerContainer.RegistPlayer(this);
+            Debug.Log(Lobby.Current.PlayerContainer.Count);
+            Lobby.Current.PlayerContainer.UnregistPlayer(this);
+            Debug.Log(Lobby.Current.PlayerContainer.Count);
         }
 
         public override void OnNetworkDespawn()

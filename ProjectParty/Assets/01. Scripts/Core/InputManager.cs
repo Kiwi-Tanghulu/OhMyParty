@@ -30,6 +30,14 @@ namespace OMG.Input
             if (inputMapDic.ContainsKey(currentInputMapType))
                 inputMapDic[currentInputMapType]?.Enable();
         }
+
+        public static void SetInputEnable(bool value)
+        {
+            if(value)
+                inputMapDic[currentInputMapType]?.Enable();
+            else
+                inputMapDic[currentInputMapType]?.Disable();
+        }
     }
 
 }
