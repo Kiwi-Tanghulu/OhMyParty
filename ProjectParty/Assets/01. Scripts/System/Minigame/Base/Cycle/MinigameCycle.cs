@@ -1,3 +1,4 @@
+using Cinemachine;
 using OMG.Extensions;
 using OMG.Lobbies;
 using OMG.Player;
@@ -90,6 +91,15 @@ namespace OMG.Minigames
         }
 
         //binding timeline object except player 
-        protected virtual void BindingTimeLineObject(PlayableDirector timelineHolder, bool option) { }
+        protected virtual void BindingTimeLineObject(PlayableDirector timelineHolder, bool option)
+        {
+            foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
+            {
+                if (binding.streamName == "Cinemachine Track")
+                {
+                    timelineHolder.SetGenericBinding(binding.sourceObject, Camera.main.GetComponent<CinemachineBrain>());
+                }
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace OMG.Minigames.MazeAdventure
 {
     public class MazeAdventure : PlayableMinigame
     {
+        [SerializeField] Material mazeAdventureSkyBoxMaterial;
         private DeathmatchCycle deathmatchCycle = null;
         private TaggerSpawner spawner = null;
         public override void Init(params ulong[] playerIDs)
@@ -22,6 +23,8 @@ namespace OMG.Minigames.MazeAdventure
             spawner = GetComponent<TaggerSpawner>();
 
             StartIntro();
+
+            RenderSettings.skybox = mazeAdventureSkyBoxMaterial;
         }
 
         public override void StartGame()
