@@ -19,11 +19,11 @@ namespace OMG.Editor
 
             if(GUILayout.Button("FadeIn", GUILayout.Width(120f), GUILayout.Height(30f)))
             {
-                fadeUi.FadeIn();
+                fadeUi.FadeIn(0f);
             }
             if (GUILayout.Button("FadeOut", GUILayout.Width(120f), GUILayout.Height(30f)))
             {
-                fadeUi.FadeOut();
+                fadeUi.FadeOut(0f);
             }
 
             GUILayout.FlexibleSpace();

@@ -15,10 +15,10 @@ namespace OMG.Minigames
         {
             CurrentMinigame = Instantiate(minigameData.MinigamePrefab);
             CurrentMinigame.NetworkObject.Spawn(true);
+            CurrentMinigame.Init(joinedPlayers);
 
             FadeUI.Instance.FadeIn(3f, () =>
             {
-                CurrentMinigame.Init(joinedPlayers);
                 Time.timeScale = 0f;
             }, () =>
             {

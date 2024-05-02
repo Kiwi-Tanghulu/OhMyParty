@@ -39,14 +39,14 @@ namespace OMG.UI
                 FadingEvents[type] = null;
         }
    
-        public void FadeIn()
+        public void FadeIn(float delay = 0f)
         {
-            StartCoroutine(Play(0f, true, null, null));
+            StartCoroutine(Play(delay, true, null, null));
         }
 
-        public void FadeOut()
+        public void FadeOut(float delay = 0f)
         {
-            StartCoroutine(Play(0f, false, null, null));
+            StartCoroutine(Play(delay, false, null, null));
         }
 
         public void FadeIn(float delay = 0f, Action onStartEvent = null, Action onEndEvent = null)
@@ -66,6 +66,9 @@ namespace OMG.UI
             yield return new WaitForSecondsRealtime(delay);
 
             Time.timeScale = 1.0f;
+
+            yield return null;
+
 
             if (!IsOwnedByServer)
                 yield break;
