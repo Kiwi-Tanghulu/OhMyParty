@@ -12,6 +12,7 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private FSMState nextStateIdle;
         [SerializeField] private FSMState nextStateFind;
         private DetectTargetParams targetParam = null;
+        private MoveTargetParams moveParam = null;
         private NavMeshAgent navMeshAgent;
         private DeathmatchCycle cycle = null;
 
@@ -19,6 +20,7 @@ namespace OMG.Minigames.MazeAdventure
         {
             base.InitState(brain);
             targetParam = brain.GetFSMParam<DetectTargetParams>();
+            moveParam = brain.GetFSMParam<MoveTargetParams>();
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
             cycle = brain.GetComponent<Tagger>().Cycle;
         }
@@ -26,7 +28,6 @@ namespace OMG.Minigames.MazeAdventure
         public override void EnterState()
         {
             base.EnterState();
-            Debug.Log("현재 : ChaseStateEnter");
         }
 
         public override void UpdateState()
@@ -35,13 +36,18 @@ namespace OMG.Minigames.MazeAdventure
             navMeshAgent.SetDestination(targetParam.Target.position);
         }
 
+        public override void ExitState()
+        {
+            moveParam.movePos = targetParam.Target.position;
+            base.ExitState();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 MazeAdventurePlayerController player = other.GetComponent<MazeAdventurePlayerController>();
                 player.PlayerDead();
-                Debug.Log("잡았다");
                 cycle.HandlePlayerDead(player.OwnerClientId);
                 brain.ChangeState(nextStateIdle);
             }

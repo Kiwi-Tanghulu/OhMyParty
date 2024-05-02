@@ -12,6 +12,7 @@ namespace OMG.Minigames.MazeAdventure
         private void AnimationEndTrigger()
         {
             AnimationEnd?.Invoke();
+            Debug.Log("애니메이션 끝남 이벤트 발행");
         }
     }
 }

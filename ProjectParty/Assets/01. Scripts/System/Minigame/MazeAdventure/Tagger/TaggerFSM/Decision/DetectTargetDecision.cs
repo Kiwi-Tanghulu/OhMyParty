@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 namespace OMG.Minigames.MazeAdventure
@@ -10,17 +11,20 @@ namespace OMG.Minigames.MazeAdventure
     public class DetectTargetDecision : FSMDecision
     {
         [SerializeField] private float detectAngle;
+        [SerializeField] private LayerMask groundLayer;
         private DetectTargetParams targetParam = null;
 
+        private float checkDistance;
         public override void Init(FSMBrain brain)
         {
             base.Init(brain);
             targetParam = brain.GetFSMParam<DetectTargetParams>();
+            checkDistance = targetParam.Radius;
         }
 
         public override bool MakeDecision()
         {
-            RaycastHit[] hitInfo = Physics.SphereCastAll(transform.position, targetParam.Radius, Vector3.up, 0, targetParam.TargetLayer);
+            RaycastHit[] hitInfo = Physics.SphereCastAll(transform.position, checkDistance, Vector3.up, 0, targetParam.TargetLayer);
             if (hitInfo.Length > 0)
             {
                 foreach (RaycastHit hit in hitInfo)
@@ -30,18 +34,21 @@ namespace OMG.Minigames.MazeAdventure
 
                     if (degree < detectAngle)
                     {
-                        targetParam.Target = hit.transform;
-                        return true;
+                        if(!Physics.Raycast(transform.position, (hit.point - transform.position).normalized, checkDistance * 2, groundLayer)) 
+                        {
+                            targetParam.Target = hit.transform;
+                            return true;
+                        }
                     }
                 }
             }
             return false;
         }
 
-        //private void OnDrawGizmos()
-        //{
-        //    Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, detectAngle / 2, 4);
-        //    Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -detectAngle / 2, 4);
-        //}
+        private void OnDrawGizmos()
+        {
+            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, 40, 8);
+            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -40, 8);
+        }
     }
 }
