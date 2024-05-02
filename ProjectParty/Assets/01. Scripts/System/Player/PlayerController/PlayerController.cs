@@ -20,7 +20,7 @@ namespace OMG.Player
 
         public override void OnNetworkSpawn()
         {
-            InputManager.ChangeInputMap(InputMapType.Play);//test
+            // InputManager.ChangeInputMap(InputMapType.Play);//test
 
             stateMachine = GetComponent<FSMBrain>();
             visual = transform.Find("Visual").GetComponent<PlayerVisual>();

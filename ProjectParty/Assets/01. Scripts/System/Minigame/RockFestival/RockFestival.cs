@@ -1,3 +1,4 @@
+using OMG.Input;
 using UnityEngine;
 
 namespace OMG.Minigames.RockFestival
