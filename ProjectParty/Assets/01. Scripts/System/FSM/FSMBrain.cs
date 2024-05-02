@@ -1,3 +1,4 @@
+using OMG.Minigames.MazeAdventure;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -107,6 +108,11 @@ namespace OMG.FSM
 
             int index = states.IndexOf(state);
 
+            if(IsOwner)
+            {
+                ChangeState(index);
+            }
+
             ChangeStateServerRpc(index);
         }
 
@@ -119,6 +125,16 @@ namespace OMG.FSM
         [ClientRpc]
         private void ChangeStateClientRpc(int stateIndex)
         {
+            ChangeState(stateIndex);
+        }
+
+        private void ChangeState(int stateIndex)
+        {
+            FSMState nextState = states[stateIndex];
+
+            if (currentState == nextState)
+                return;
+
             currentState?.ExitState();
             currentState = states[stateIndex];
             currentState.EnterState();

@@ -27,6 +27,18 @@ namespace OMG.Minigames.Race
 
         public void FallDown()
         {
+            FallDownServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void FallDownServerRpc()
+        {
+            FallDownClientRpc();
+        }
+
+        [ClientRpc]
+        private void FallDownClientRpc()
+        {
             anim.SetTrigger("fallDown");
             col.enabled = false;
         }
