@@ -33,16 +33,5 @@ namespace OMG.Minigames.Race
             if (goalCount >= minigame.PlayerDatas.Count)
                 FinishCycle();
         }
-
-        protected override void BindingTimeLineObject(PlayableDirector timelineHolder, bool option)
-        {
-            foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
-            {
-                if (binding.streamName == "Cinemachine Track")
-                {
-                    timelineHolder.SetGenericBinding(binding.sourceObject, Camera.main.GetComponent<CinemachineBrain>());
-                }
-            }
-        }
     }
 }

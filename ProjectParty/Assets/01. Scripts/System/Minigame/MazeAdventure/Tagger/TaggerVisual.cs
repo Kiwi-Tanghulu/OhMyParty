@@ -12,7 +12,6 @@ namespace OMG.Minigames.MazeAdventure
         private void Awake()
         {
             material = GetComponent<Renderer>().material;
-            Debug.Log(material);
         }
 
         public void OnDissolve()
@@ -23,7 +22,6 @@ namespace OMG.Minigames.MazeAdventure
         private IEnumerator Dissolve()
         {
             material.SetFloat("_Dissolve", 0);
-            Debug.Log("µðÁ¹ºê½ÇÇà");
             float curTime = 0;
             while(curTime <= dissolveTime)
             {

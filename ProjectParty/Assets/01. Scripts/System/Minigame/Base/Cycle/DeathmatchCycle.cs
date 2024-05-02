@@ -1,6 +1,8 @@
+using Cinemachine;
 using OMG.Extensions;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Playables;
 
 namespace OMG.Minigames
 {
