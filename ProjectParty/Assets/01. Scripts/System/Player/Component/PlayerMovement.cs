@@ -58,8 +58,10 @@ namespace OMG.Player
         #region Move
         private void Move()
         {
-            Vector3 velocity = ApplyMove ? horiVelocity : Vector3.zero;
-            rb.velocity = velocity + Vector3.up * rb.velocity.y;
+            if(!ApplyMove)
+                SetHorizontalVelocity(Vector3.zero, moveSpeed, false);
+
+            rb.velocity = horiVelocity + Vector3.up * rb.velocity.y;
         }
 
         public void SetMoveDir(Vector3 moveDir, bool lookMoveDir = true)
