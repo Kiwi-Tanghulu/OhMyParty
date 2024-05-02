@@ -22,6 +22,7 @@ namespace OMG.Minigames
         public float ResultPostponeTime = 1f;
 
         [Space(15f)]
+        public string MinigameName;
         public Sprite MinigameImage;
         public List<ControlKeyInfo> ControlKeyInfoList;
 
