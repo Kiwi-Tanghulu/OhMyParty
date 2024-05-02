@@ -8,6 +8,7 @@ namespace OMG.Lobbies
     public class LobbyReadyComponent : LobbyComponent
     {
         public event Action OnLobbyReadyEvent = null;
+        public event Action<ulong> OnPlayerReadyEvent = null;
 
         public void Ready(ulong clientID)
         {
@@ -19,6 +20,7 @@ namespace OMG.Lobbies
         {
             Lobby.PlayerDatas.ChangeData(i => i.clientID == clientID, data => {
                 data.isReady = true;
+                OnPlayerReadyEvent?.Invoke(clientID);
                 return data;
             });
 
