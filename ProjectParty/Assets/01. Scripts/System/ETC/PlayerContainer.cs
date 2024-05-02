@@ -10,21 +10,16 @@ public class PlayerContainer
     private List<PlayerController> playerList;
     public List<PlayerController> PlayerList => playerList;
 
+    public int Count => playerList.Count;
+
     public PlayerContainer()
     {
-        playerList = new List<PlayerController>(new PlayerController[4]);
+        playerList = new List<PlayerController>();
     }
 
     public void RegistPlayer(PlayerController player)
     {
-        for(int i = 0; i < playerList.Count; i++)
-        {
-            if (playerList[i] == null)
-            {
-                playerList[i] = player;
-                break;
-            }
-        }
+        playerList.Add(player);
     }
 
     public void UnregistPlayer(PlayerController player)

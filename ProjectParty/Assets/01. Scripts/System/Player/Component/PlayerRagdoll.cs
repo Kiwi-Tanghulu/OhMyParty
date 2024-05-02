@@ -23,6 +23,7 @@ namespace OMG.Player
             hipRb = hipTrm.GetComponent<Rigidbody>();
 
             rbList = new List<Rigidbody>();
+            colList = new List<Collider>();
             GetRagdollCompo(hipTrm);
         }
 
