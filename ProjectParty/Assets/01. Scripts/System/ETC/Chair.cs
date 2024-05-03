@@ -1,3 +1,5 @@
+using Cinemachine;
+using OMG;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -6,6 +8,9 @@ using UnityEngine;
 public class Chair : NetworkBehaviour
 {
     [SerializeField] private List<Transform> sitPoints;
+
+    [Space]
+    [SerializeField] private CinemachineVirtualCamera focusCam;
 
     private NetworkList<bool> isUsed;
 
@@ -30,6 +35,15 @@ public class Chair : NetworkBehaviour
     public void SetUseWhetherChair(Transform sitPoint, bool isUse)
     {
         int index = sitPoints.IndexOf(sitPoint);
+
+        if(focusCam != null)
+        {
+            if (isUse)
+                CameraManager.Instance.ChangeCamera(focusCam);
+            else
+                CameraManager.Instance.ChangePrevCam();
+        }
+
         SetUseWhetherChairServerRpc(index, isUse);
     }
 
