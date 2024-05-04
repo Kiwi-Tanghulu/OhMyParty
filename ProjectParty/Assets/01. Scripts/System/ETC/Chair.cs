@@ -36,7 +36,7 @@ public class Chair : NetworkBehaviour
     {
         int index = sitPoints.IndexOf(sitPoint);
 
-        if(focusCam != null)
+        if (focusCam != null)
         {
             if (isUse)
                 CameraManager.Instance.ChangeCamera(focusCam);
