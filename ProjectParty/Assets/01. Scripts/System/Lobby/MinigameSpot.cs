@@ -22,7 +22,7 @@ namespace OMG.Lobbies
         private LobbyMinigameComponent minigameComponent = null;
         private LobbyResultComponent resultComponent = null;
         private LobbyReadyComponent readyComponent = null;
-        private LobbyCutSceneComponent cutSceneComponent = null; private LobbyCutSceneComponent cutScene;
+        private LobbyCutSceneComponent cutSceneComponent = null;
 
         private NetworkList<ulong> playerIdList;
 
@@ -40,11 +40,11 @@ namespace OMG.Lobbies
             resultComponent = Lobby.Current.GetLobbyComponent<LobbyResultComponent>();
             readyComponent = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             cutSceneComponent = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
-            cutScene = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
 
             minigameComponent.OnMinigameSelectedEvent += HandleMinigameSelected;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
             readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
+            cutSceneComponent.CutSceneEvents[LobbyCutSceneState.EndFinish] += LobbyCutScene_OnEndFinish;
         }
 
         public override void OnNetworkSpawn()
@@ -116,7 +116,7 @@ namespace OMG.Lobbies
             if(IsHost)
                 readyComponent.ClearLobbyReady();
             input.OnInteractEvent += HandleInteractInput;
-           cutSceneComponent.PlayCutscene(true);
+            cutSceneComponent.PlayCutscene(true);
 
             DisplayMinigameInfo(minigameList[index]);
         }
@@ -128,9 +128,6 @@ namespace OMG.Lobbies
 
         private void HandleInteractInput()
         {
-            if (cutScene.IsPlaying)
-                return;
-
             readyComponent.Ready(currentClientID);
             input.OnInteractEvent -= HandleInteractInput;
         }
@@ -149,7 +146,12 @@ namespace OMG.Lobbies
         private void FocusSpot(bool focus)
         {
             InputManager.ChangeInputMap(focus ? InputMapType.UI : InputMapType.Play);
-            focusVCam.Priority = focus ? DEFINE.FOCUSED_PRIORITY : DEFINE.UNFOCUSED_PRIORITY;
+            //focusVCam.Priority = focus ? DEFINE.FOCUSED_PRIORITY : DEFINE.UNFOCUSED_PRIORITY;
+        }
+
+        private void LobbyCutScene_OnEndFinish()
+        {
+            CameraManager.Instance.ChangeCamera(focusVCam);
         }
     }
 }

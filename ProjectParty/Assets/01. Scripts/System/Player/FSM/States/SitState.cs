@@ -52,8 +52,7 @@ namespace OMG.Player.FSM
             else
             {
                 usingChair.SetUseWhetherChair(sitPoint, true);
-                player.transform.position = sitPoint.position;
-                player.transform.localRotation = sitPoint.rotation;
+                player.transform.SetPositionAndRotation(sitPoint.position, sitPoint.rotation);
             }
         }
 

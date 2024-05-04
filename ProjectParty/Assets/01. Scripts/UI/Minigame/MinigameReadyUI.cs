@@ -1,5 +1,7 @@
+using Cinemachine;
 using OMG.Lobbies;
 using OMG.Minigames;
+using Steamworks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,20 +23,31 @@ namespace OMG.UI
         private Dictionary<ulong, PlayerReadyCheckBox> readyCheckBoxDictionary;
 
         [Space]
+        [SerializeField] private CinemachineVirtualCamera focusCam;
+
+        [Space]
         [SerializeField] MinigameListSO minigameList = null;
 
         private MinigameSO minigameSO;
 
+        private void Awake()
+        {
+            readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
+
+            container = transform.Find("Container").gameObject;
+        }
+
         private void Start()
         {
-            container = transform.Find("Container").gameObject;
-
             LobbyMinigameComponent lobbyMinigame = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
             lobbyMinigame.OnMinigameSelectedEvent += MinigameInfoUI_OnMinigameSelectedEvent;
             lobbyMinigame.OnMinigameStartedEvent += LobbyMinigame_OnMinigameStartEvent;
 
             LobbyReadyComponent lobbyReady = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
+
+            LobbyCutSceneComponent lobbyCutScene = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
+            lobbyCutScene.CutSceneEvents[LobbyCutSceneState.StartFinish] += LobbyCutScene_OnStartFinish;
 
             Hide();
         }
@@ -60,6 +73,13 @@ namespace OMG.UI
             }
         }
 
+        private void LobbyCutScene_OnStartFinish()
+        {
+            CameraManager.Instance.ChangeCamera(focusCam);
+
+            Display();
+        }
+
         public void SetMinigameInfo(MinigameSO minigameSO)
         {
             this.minigameSO = minigameSO;
@@ -70,10 +90,12 @@ namespace OMG.UI
             if (minigameSO == null)
                 return;
 
+            Debug.Log(1);
+
             foreach (Transform controlKey in controlKeyInfoContainer)
                 Destroy(controlKey.gameObject);
-            foreach (Transform checkBox in readyCheckBoxContainer)
-                Destroy(readyCheckBoxContainer.gameObject);
+            foreach (var keyValuePair in readyCheckBoxDictionary)
+                Destroy(keyValuePair.Value.gameObject);
             readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
 
             gameNameText.text = minigameSO.MinigameName;
