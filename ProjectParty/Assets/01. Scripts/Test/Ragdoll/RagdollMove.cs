@@ -3,26 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RagdollMove : MonoBehaviour
+namespace OMG.Ragdoll
 {
-    [SerializeField] PlayInputSO input;
-    [SerializeField] Rigidbody hip;
-    Vector3 dir;
-
-    private void Awake()
+    public class RagdollMove : MonoBehaviour
     {
-        InputManager.ChangeInputMap(InputMapType.Play);
+        [SerializeField] PlayInputSO input;
+        [SerializeField] Rigidbody hip;
+        Vector3 dir;
+        Vector3 prevDir;
 
-        input.OnMoveEvent += SetMoveDir;
-    }
+        float speed;
 
-    private void Update()
-    {
-        transform.position += dir * 3f * Time.deltaTime;
-    }
+        private RagdollAnimator anim;
 
-    private void SetMoveDir(Vector2 dir)
-    {
-        this.dir = new Vector3(dir.x, 0f, dir.y);
+        private void Awake()
+        {
+            InputManager.ChangeInputMap(InputMapType.Play);
+
+            input.OnMoveEvent += SetMoveDir;
+
+            anim = GetComponent<RagdollAnimator>();
+        }
+
+        private void Update()
+        {
+            transform.position += prevDir * speed * Time.deltaTime;
+
+            if (dir != Vector3.zero)
+                speed += Time.deltaTime * 5f;
+            else
+                speed -= Time.deltaTime * 5f;
+
+            anim.SetCopyMotionWeight(speed / 5f);
+
+            speed = Mathf.Clamp(speed, 0f, 5f);
+        }
+
+        private void SetMoveDir(Vector2 input)
+        {
+            dir = new Vector3(input.x, 0f, input.y);
+
+            if (dir != Vector3.zero)
+                prevDir = dir;
+        }
     }
 }

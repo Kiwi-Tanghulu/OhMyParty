@@ -2,57 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CopyMotion : MonoBehaviour
+namespace OMG.Ragdoll
 {
-    public Transform CopyTrm;
-    public bool IsRagdoll;
-    [Range(0f, 1f)]
-    public float Weight = 1f;
-
-    private ConfigurableJoint joint;
-
-    private Vector3 MirrorAnchorPosition;
-    private Quaternion MirrorAnchorRotation;
-
-    private void Awake()
+    public class CopyMotion : MonoBehaviour
     {
-        joint = GetComponent<ConfigurableJoint>();
+        [SerializeField] private Transform copyTrm;
+        private float weight;
 
-        Weight = 1f;
+        private ConfigurableJoint joint;
 
-        if (CopyTrm.name != transform.name)
-            Debug.Log($"wrong sync object : {transform.name}");
-    }
+        private Vector3 MirrorAnchorPosition;
+        private Quaternion MirrorAnchorRotation;
 
-    private void Start()
-    {
-        MirrorAnchorPosition = CopyTrm.position;
-        MirrorAnchorRotation = CopyTrm.rotation;
-    }
-
-    private void Update()
-    {
-        if(IsRagdoll)
+        private void Awake()
         {
-            Vector3 MirrorTargetPosition = GetTargetPosition(CopyTrm.transform.position, MirrorAnchorPosition);
-            joint.targetPosition = MirrorTargetPosition * Weight;
+            joint = GetComponent<ConfigurableJoint>();
 
-            Quaternion MirrorTargetRotation = GetTargetRotation(CopyTrm.transform.rotation, MirrorAnchorRotation);
-            joint.targetRotation = Quaternion.Lerp(Quaternion.identity, MirrorTargetRotation, Weight);
+            if (copyTrm.name != transform.name)
+                Debug.Log($"wrong sync object : {transform.name}");
+
+            MirrorAnchorPosition = copyTrm.position;
+            MirrorAnchorRotation = copyTrm.rotation;
         }
-        else
+
+        private void Update()
         {
-            transform.localRotation = CopyTrm.localRotation;
+            Vector3 MirrorTargetPosition = GetTargetPosition(copyTrm.transform.position, MirrorAnchorPosition);
+            joint.targetPosition = MirrorTargetPosition * weight;
+
+            Quaternion MirrorTargetRotation = GetTargetRotation(copyTrm.transform.rotation, MirrorAnchorRotation);
+            joint.targetRotation = Quaternion.Lerp(Quaternion.identity, MirrorTargetRotation, weight);
         }
-    }
 
-    Vector3 GetTargetPosition(Vector3 currentPosition, Vector3 anchorPosition)
-    {
-        return anchorPosition - currentPosition;
-    }
+        public void SetCopyMotionWeight(float value)
+        {
+            value = Mathf.Clamp(value, 0f, 1f);
 
-    Quaternion GetTargetRotation(Quaternion currentRotation, Quaternion anchorRotation)
-    {
-        return Quaternion.Inverse(currentRotation) * anchorRotation;
+            weight = value;
+        }
+
+        Vector3 GetTargetPosition(Vector3 currentPosition, Vector3 anchorPosition)
+        {
+            return anchorPosition - currentPosition;
+        }
+
+        Quaternion GetTargetRotation(Quaternion currentRotation, Quaternion anchorRotation)
+        {
+            return Quaternion.Inverse(currentRotation) * anchorRotation;
+        }
     }
 }
