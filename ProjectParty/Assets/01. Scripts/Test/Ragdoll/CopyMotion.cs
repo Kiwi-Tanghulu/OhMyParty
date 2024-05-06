@@ -6,6 +6,9 @@ public class CopyMotion : MonoBehaviour
 {
     public Transform CopyTrm;
     public bool IsRagdoll;
+    [Range(0f, 1f)]
+    public float Weight = 1f;
+
     private ConfigurableJoint joint;
 
     private Vector3 MirrorAnchorPosition;
@@ -14,13 +17,16 @@ public class CopyMotion : MonoBehaviour
     private void Awake()
     {
         joint = GetComponent<ConfigurableJoint>();
+
+        Weight = 1f;
+
+        if (CopyTrm.name != transform.name)
+            Debug.Log($"wrong sync object : {transform.name}");
     }
 
     private void Start()
     {
-        if (gameObject.name != CopyTrm.name)
-            Debug.Log(123);
-
+        MirrorAnchorPosition = CopyTrm.position;
         MirrorAnchorRotation = CopyTrm.rotation;
     }
 
@@ -29,10 +35,10 @@ public class CopyMotion : MonoBehaviour
         if(IsRagdoll)
         {
             Vector3 MirrorTargetPosition = GetTargetPosition(CopyTrm.transform.position, MirrorAnchorPosition);
-            joint.targetPosition = MirrorTargetPosition;
+            joint.targetPosition = MirrorTargetPosition * Weight;
 
             Quaternion MirrorTargetRotation = GetTargetRotation(CopyTrm.transform.rotation, MirrorAnchorRotation);
-            joint.targetRotation = MirrorTargetRotation;
+            joint.targetRotation = Quaternion.Lerp(Quaternion.identity, MirrorTargetRotation, Weight);
         }
         else
         {
