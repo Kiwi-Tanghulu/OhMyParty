@@ -34,7 +34,7 @@ namespace OMG.Minigames.MazeAdventure
         }
         protected override void OwnerEnterState()
         {
-            base.EnterState();
+            base.OwnerEnterState();
             int randomValue = Random.Range(0, findPos.Length);
             targetParam.movePos = findPos[randomValue];
             StartCoroutine(SetNextState());

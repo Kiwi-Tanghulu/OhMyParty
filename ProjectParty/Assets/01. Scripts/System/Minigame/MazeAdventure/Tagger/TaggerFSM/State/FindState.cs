@@ -23,7 +23,7 @@ namespace OMG.Minigames.MazeAdventure
 
         protected override void OwnerEnterState()
         {
-            base.EnterState();
+            base.OwnerEnterState();
             navMeshAgent.ResetPath();
             navMeshAgent.enabled = false;
             StartCoroutine(Reconnaissance());
@@ -31,7 +31,7 @@ namespace OMG.Minigames.MazeAdventure
 
         protected override void OwnerExitState()
         {
-            base.ExitState();
+            base.OwnerExitState();
             StopAllCoroutines();
             navMeshAgent.enabled = true;
         }

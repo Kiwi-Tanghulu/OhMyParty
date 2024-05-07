@@ -20,12 +20,14 @@ namespace OMG.Minigames.MazeAdventure
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
+            Debug.Log("State : SurpriseEnter");
             navMeshAgent.enabled = false;
         }
         protected override void OwnerExitState()
         {
             navMeshAgent.enabled = true;
-            base.ExitState();
+            Debug.Log("State : SurpriseExit");
+            base.OwnerExitState();
         }
     }
 }

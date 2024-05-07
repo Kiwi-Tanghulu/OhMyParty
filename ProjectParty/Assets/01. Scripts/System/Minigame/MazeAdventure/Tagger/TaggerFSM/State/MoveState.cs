@@ -23,15 +23,16 @@ namespace OMG.Minigames.MazeAdventure
         }
         protected override void OwnerEnterState()
         {
-            base.EnterState();
+            base.OwnerEnterState();
             targetPos = targetParam.movePos;
             navMeshAgent.SetDestination(targetPos);
         }
 
         protected override void OwnerUpdateState()
         {
-            base.UpdateState();
-            if (navMeshAgent.remainingDistance < 0.1f)
+            base.OwnerUpdateState();
+            Debug.Log("State : MoveUpdate");
+            if (navMeshAgent.remainingDistance < 0.1f)  
             {
                 brain.ChangeState(nextState);
             }

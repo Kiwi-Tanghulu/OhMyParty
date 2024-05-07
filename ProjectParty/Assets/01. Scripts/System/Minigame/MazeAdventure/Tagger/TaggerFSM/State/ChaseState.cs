@@ -27,14 +27,14 @@ namespace OMG.Minigames.MazeAdventure
 
         protected override void OwnerUpdateState()
         {
-            base.UpdateState();
+            base.OwnerUpdateState();
             navMeshAgent.SetDestination(targetParam.Target.position);
         }
 
         protected override void OwnerExitState()
         {
             moveParam.movePos = targetParam.Target.position;
-            base.ExitState();
+            base.OwnerExitState();
         }
 
         private void OnTriggerEnter(Collider other)

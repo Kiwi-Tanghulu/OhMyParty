@@ -125,6 +125,9 @@ namespace OMG.FSM
         [ClientRpc]
         private void ChangeStateClientRpc(int stateIndex)
         {
+            if (IsOwner)
+                return;
+
             ChangeState(stateIndex);
         }
 
