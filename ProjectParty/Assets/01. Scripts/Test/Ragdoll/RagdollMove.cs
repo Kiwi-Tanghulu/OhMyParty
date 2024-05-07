@@ -12,7 +12,7 @@ namespace OMG.Ragdoll
         Vector3 dir;
         Vector3 prevDir;
 
-        float speed;
+        private float speed;
 
         private RagdollAnimator anim;
 
