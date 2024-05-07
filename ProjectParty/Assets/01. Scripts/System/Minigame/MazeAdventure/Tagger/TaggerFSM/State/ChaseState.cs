@@ -25,18 +25,13 @@ namespace OMG.Minigames.MazeAdventure
             cycle = brain.GetComponent<Tagger>().Cycle;
         }
 
-        public override void EnterState()
-        {
-            base.EnterState();
-        }
-
-        public override void UpdateState()
+        protected override void OwnerUpdateState()
         {
             base.UpdateState();
             navMeshAgent.SetDestination(targetParam.Target.position);
         }
 
-        public override void ExitState()
+        protected override void OwnerExitState()
         {
             moveParam.movePos = targetParam.Target.position;
             base.ExitState();

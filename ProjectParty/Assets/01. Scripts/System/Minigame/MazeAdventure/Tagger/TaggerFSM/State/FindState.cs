@@ -21,16 +21,15 @@ namespace OMG.Minigames.MazeAdventure
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
         }
 
-        public override void EnterState()
+        protected override void OwnerEnterState()
         {
             base.EnterState();
             navMeshAgent.ResetPath();
             navMeshAgent.enabled = false;
-            Debug.Log("ÇöÀç : FindStateEnter");
             StartCoroutine(Reconnaissance());
         }
 
-        public override void ExitState()
+        protected override void OwnerExitState()
         {
             base.ExitState();
             StopAllCoroutines();

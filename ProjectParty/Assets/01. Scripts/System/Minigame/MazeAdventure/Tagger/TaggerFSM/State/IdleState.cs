@@ -32,7 +32,7 @@ namespace OMG.Minigames.MazeAdventure
             }
             targetParam = brain.GetFSMParam<MoveTargetParams>();
         }
-        public override void EnterState()
+        protected override void OwnerEnterState()
         {
             base.EnterState();
             int randomValue = Random.Range(0, findPos.Length);

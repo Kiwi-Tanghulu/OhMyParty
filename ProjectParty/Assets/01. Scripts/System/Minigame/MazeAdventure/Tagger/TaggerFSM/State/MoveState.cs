@@ -21,14 +21,14 @@ namespace OMG.Minigames.MazeAdventure
             targetParam = brain.GetFSMParam<MoveTargetParams>();
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
         }
-        public override void EnterState()
+        protected override void OwnerEnterState()
         {
             base.EnterState();
             targetPos = targetParam.movePos;
             navMeshAgent.SetDestination(targetPos);
         }
 
-        public override void UpdateState()
+        protected override void OwnerUpdateState()
         {
             base.UpdateState();
             if (navMeshAgent.remainingDistance < 0.1f)
