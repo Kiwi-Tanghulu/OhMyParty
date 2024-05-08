@@ -23,6 +23,8 @@ namespace OMG.Ragdoll
 
             MirrorAnchorPosition = copyTrm.position;
             MirrorAnchorRotation = copyTrm.rotation;
+
+            SetCopyMotionWeight(1f);
         }
 
         private void Update()
