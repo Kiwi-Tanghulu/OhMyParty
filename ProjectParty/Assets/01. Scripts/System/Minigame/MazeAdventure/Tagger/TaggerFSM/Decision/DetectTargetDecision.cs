@@ -45,10 +45,12 @@ namespace OMG.Minigames.MazeAdventure
             return false;
         }
 
+        #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, 40, 8);
             Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -40, 8);
         }
+        #endif
     }
 }
