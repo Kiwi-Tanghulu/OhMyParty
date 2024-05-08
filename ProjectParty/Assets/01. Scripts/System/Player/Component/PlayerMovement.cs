@@ -113,17 +113,17 @@ namespace OMG.Player
         private IEnumerator TurnCo(Vector3 lookVector)
         {
             float t = 0f;
-            Quaternion start = transform.localRotation;
+            Quaternion start = transform.rotation;
             Quaternion end = Quaternion.AngleAxis(Mathf.Atan2(lookVector.x, lookVector.z) * Mathf.Rad2Deg, Vector3.up);
 
             while (1f - t > 0.1f)
             {
                 t += Time.deltaTime / turnTime;
-                transform.localRotation = Quaternion.Lerp(start, end, t);
+                transform.rotation = Quaternion.Lerp(start, end, t);
 
                 yield return null;
             }
-            transform.localRotation = end;
+            transform.rotation = end;
         }
         #endregion
 
