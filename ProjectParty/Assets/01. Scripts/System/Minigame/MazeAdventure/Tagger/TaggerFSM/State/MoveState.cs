@@ -31,7 +31,6 @@ namespace OMG.Minigames.MazeAdventure
         protected override void OwnerUpdateState()
         {
             base.OwnerUpdateState();
-            Debug.Log("State : MoveUpdate");
             if (navMeshAgent.remainingDistance < 0.1f)  
             {
                 brain.ChangeState(nextState);

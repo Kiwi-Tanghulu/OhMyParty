@@ -1,3 +1,4 @@
+using OMG.Input;
 using OMG.Minigames;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +29,8 @@ namespace OMG.Minigames.MazeAdventure
             StartIntro();
             SettingTaggerMoveTargetSO();
             RenderSettings.skybox = mazeAdventureSkyBoxMaterial;
+
+            InputManager.ChangeInputMap(InputMapType.Play);
         }
 
         public override void StartGame()
@@ -41,7 +44,7 @@ namespace OMG.Minigames.MazeAdventure
 
         private void SettingTaggerMoveTargetSO()
         {
-            m_targetSO.moveTargetList = taggerMoveTrmList.Select(t => t.position).ToList();
+            tagger_mSO.moveTargetList = taggerMoveTrmList.Select(t => t.position).ToList();
         }
     }
 

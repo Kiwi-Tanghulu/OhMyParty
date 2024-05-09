@@ -26,6 +26,11 @@ namespace OMG.Player.FSM
             input.OnMoveEvent += SetMoveDir;
         }
 
+        public override void UpdateState()
+        {
+            base.UpdateState();
+        }
+
         public override void ExitState()
         {
             base.ExitState();
@@ -36,7 +41,7 @@ namespace OMG.Player.FSM
         private void SetMoveDir(Vector2 input)
         {
             Vector3 moveDir = new Vector3(input.x, 0f, input.y);
-
+            
             movement.SetMoveDir(moveDir);
         }
     }

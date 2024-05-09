@@ -1,3 +1,4 @@
+using OMG.FSM;
 using OMG.Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,22 +9,12 @@ namespace OMG.Minigames.MazeAdventure
 {
     public class MazeAdventurePlayerController : PlayerController
     {
-        private bool isDead;
-        [SerializeField] private UnityEvent deadEvent;
-        public override void Init(ulong ownerId)
-        {
-            base.Init(ownerId);
-            isDead = false;
-        }
-        protected override void Update()
-        {
-            if(!isDead)
-            base.Update();
-        }
-
+        [SerializeField] private FSMState dieState;
+        [SerializeField] private UnityEvent dieEvent;
         public void PlayerDead()
         {
-            deadEvent.Invoke();
+            dieEvent?.Invoke();
+            StateMachine.ChangeState(dieState);
         }
     }
 }

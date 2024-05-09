@@ -106,6 +106,8 @@ namespace OMG.FSM
             if (currentState == state)
                 return;
 
+            Debug.Log($"player {state}");
+
             int index = states.IndexOf(state);
 
             if(IsOwner)

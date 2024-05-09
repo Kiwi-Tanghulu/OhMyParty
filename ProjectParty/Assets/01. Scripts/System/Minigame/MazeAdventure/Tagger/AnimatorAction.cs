@@ -14,13 +14,14 @@ public class AnimatorAction : FSMAction
     {
         base.Init(brain);
         animator = brain.GetComponent<Animator>();
+        if(animator == null )
+            animator = brain.transform.Find("Visual").GetComponent<Animator>();
         animBoolHash = Animator.StringToHash(animBoolName);
     }
     public override void EnterState()
     {
         base.EnterState();
         animator.SetBool(animBoolHash, true);
-
     }
     public override void ExitState()
     {

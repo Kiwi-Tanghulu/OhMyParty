@@ -58,14 +58,14 @@ namespace OMG.Player
         #region Move
         private void Move()
         {
-            if(!ApplyMove)
-                SetHorizontalVelocity(Vector3.zero, moveSpeed, false);
+            //SetHorizontalVelocity(Vector3.zero, moveSpeed, false);
 
             rb.velocity = horiVelocity + Vector3.up * rb.velocity.y;
         }
 
         public void SetMoveDir(Vector3 moveDir, bool lookMoveDir = true)
         {
+            Debug.Log($"1 : {moveDir}");
             SetHorizontalVelocity(moveDir, moveSpeed, lookMoveDir);
         }
 
@@ -81,7 +81,7 @@ namespace OMG.Player
             moveSpeed = speed;
 
             horiVelocity = moveDir * moveSpeed;
-
+            
             if (lookMoveDir)
                 Look(moveDir);
         }
