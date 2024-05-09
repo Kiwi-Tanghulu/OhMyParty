@@ -6,7 +6,7 @@ namespace OMG.Minigames.MazeAdventure
 {
     public class TaggerSpawner : MonoBehaviour
     {
-        [SerializeField] private Transform testSpawnTrm;
+        [SerializeField] private List<Transform> taggerSpawnTrms;
         [SerializeField] private GameObject taggerObj;
 
         private DeathmatchCycle cycle = null;
@@ -15,13 +15,32 @@ namespace OMG.Minigames.MazeAdventure
         {
             cycle = GetComponent<DeathmatchCycle>();
         }
-        public void TestSpawn()
+        private void SpawnTagger()
         {
-            GameObject obj = Instantiate(taggerObj, testSpawnTrm.position, Quaternion.identity);
+            GameObject obj = Instantiate(taggerObj, taggerSpawnTrms[Random.Range(0,taggerSpawnTrms.Count)].position, Quaternion.identity);
             Tagger tagger = obj.GetComponent<Tagger>();
             tagger.Init(cycle);
             tagger.NetworkObject.Spawn(true);
             tagger.NetworkObject.TrySetParent(gameObject, false);
+        }
+        public void StartSpawn()
+        {
+            StartCoroutine(SpawnCycle());
+        }
+
+        private IEnumerator SpawnCycle()
+        {
+            float time = 0;
+            while (true)
+            {
+                time += Time.deltaTime;
+                if(time >= 8f)
+                {
+                    SpawnTagger();
+                    time = 0;
+                }
+                yield return null;
+            }
         }
     }
 

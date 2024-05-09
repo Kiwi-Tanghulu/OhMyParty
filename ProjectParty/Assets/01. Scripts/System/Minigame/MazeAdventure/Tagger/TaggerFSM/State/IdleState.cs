@@ -17,7 +17,8 @@ namespace OMG.Minigames.MazeAdventure
     public class IdleState : FSMState
     {
         [SerializeField] private StatesData[] nextStatesData;
-        [SerializeField] private Vector3[] findPos;
+        [SerializeField] private TaggerMoveTargetSO tagger_mSO;
+        private List<Vector3> findPosList;
 
         private float maxWeight = 0;
         private float randomValue;
@@ -31,12 +32,13 @@ namespace OMG.Minigames.MazeAdventure
                 maxWeight += data.weight;
             }
             targetParam = brain.GetFSMParam<MoveTargetParams>();
+            findPosList = tagger_mSO.moveTargetList;
         }
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
-            int randomValue = Random.Range(0, findPos.Length);
-            targetParam.movePos = findPos[randomValue];
+            int randomValue = Random.Range(0, findPosList.Count);
+            targetParam.movePos = findPosList[randomValue];
             StartCoroutine(SetNextState());
         }
 
