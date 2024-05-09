@@ -9,6 +9,9 @@ namespace OMG.Ragdoll
         [SerializeField] private Transform copyTrm;
         private float weight;
 
+        [SerializeField] private bool hardCopy;
+        [SerializeField] private float hardCopyWeight;
+
         private ConfigurableJoint joint;
 
         private Vector3 MirrorAnchorPosition;
@@ -25,15 +28,30 @@ namespace OMG.Ragdoll
             MirrorAnchorRotation = copyTrm.rotation;
 
             SetCopyMotionWeight(1f);
+            hardCopy = false;
+            hardCopyWeight = 10f;
         }
 
         private void Update()
         {
-            Vector3 MirrorTargetPosition = GetTargetPosition(copyTrm.transform.position, MirrorAnchorPosition);
-            joint.targetPosition = MirrorTargetPosition * weight;
+            if (hardCopy)
+            {
+                //transform.localRotation = Quaternion.Lerp(transform.localRotation, copyTrm.localRotation,
+                //    Time.deltaTime * hardCopyWeight);
+                //transform.localPosition = Vector3.Lerp(transform.localPosition, copyTrm.localPosition,
+                //    Time.deltaTime * hardCopyWeight);
 
-            Quaternion MirrorTargetRotation = GetTargetRotation(copyTrm.transform.rotation, MirrorAnchorRotation);
-            joint.targetRotation = Quaternion.Lerp(Quaternion.identity, MirrorTargetRotation, weight);
+                transform.localRotation = copyTrm.localRotation;
+                transform.localPosition = copyTrm.localPosition;
+            }
+            else
+            {
+                Vector3 MirrorTargetPosition = GetTargetPosition(copyTrm.transform.position, MirrorAnchorPosition);
+                joint.targetPosition = MirrorTargetPosition * weight;
+
+                Quaternion MirrorTargetRotation = GetTargetRotation(copyTrm.transform.rotation, MirrorAnchorRotation);
+                joint.targetRotation = Quaternion.Lerp(Quaternion.identity, MirrorTargetRotation, weight);
+            }
         }
 
         public void SetCopyMotionWeight(float value)
