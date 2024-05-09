@@ -27,10 +27,10 @@ namespace OMG.Ragdoll
 
             weight = value;
 
-            for(int i = 0; i <  copyMotionList.Count; i++)
-            {
-                copyMotionList[i].SetCopyMotionWeight(weight);
-            }
+            //for(int i = 0; i <  copyMotionList.Count; i++)
+            //{
+            //    copyMotionList[i].SetCopyMotionWeight(weight);
+            //}
         }
         
         private void GetCopyMotionCompo(Transform trm)
