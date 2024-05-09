@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,45 +54,39 @@ namespace OMG.Ragdoll
         //}
         #endregion
 
+        [SerializeField] private RagdollPart ragdollCopyPart;
         [SerializeField] private Transform animCopyTrm;
-        [SerializeField] private Transform ragdollCopyTrm;
 
         [SerializeField] private float ragdollCopyWeight;
-        private Vector3 ragdollOriginPos;
-        private Quaternion ragdollOriginRot;
 
-        private void Awake()
+        public void Init(Transform ragdollRoot, Transform animCopyRoot, float ragdollCopyWeight)
         {
-            ragdollOriginPos = ragdollCopyTrm.localPosition;
-            ragdollOriginRot = ragdollCopyTrm.localRotation;
+            ragdollCopyPart = ragdollRoot.FindFromAll(transform.name).GetComponent<RagdollPart>();
+            animCopyTrm = animCopyRoot.FindFromAll(transform.name);
 
-            ragdollCopyWeight = 1f;
+            ragdollCopyPart.Init(ragdollRoot);
+
+            SetRagdollCopyWeight(ragdollCopyWeight);
         }
 
-        private void Update()
+        public void Update()
         {
-            Vector3 copyPos = animCopyTrm.localPosition + 
-                GetRagdollCopyPos(ragdollCopyTrm.localPosition, ragdollOriginPos, ragdollCopyWeight);
-            Quaternion copyRot = GetRagdollCopyRot(ragdollCopyTrm.localRotation, ragdollOriginRot, ragdollCopyWeight) 
-                * animCopyTrm.localRotation;
+            if(animCopyTrm == null || ragdollCopyPart == null)
+            {
+                Debug.Log($"not setting copy motion component : {transform.name}");
+                return;
+            }
+
+            Vector3 copyPos = animCopyTrm.localPosition + ragdollCopyPart.GetCopyPos(ragdollCopyWeight);
+            Quaternion copyRot = ragdollCopyPart.GetCopyRot(ragdollCopyWeight) * animCopyTrm.localRotation;
 
             transform.localPosition = copyPos;
             transform.localRotation = copyRot;
         }
-        
-        private Vector3 GetRagdollCopyPos(Vector3 currentPosition, Vector3 anchorPosition, float weight)
+
+        public void SetRagdollCopyWeight(float wieght)
         {
-            weight = Mathf.Clamp(weight, 0f, 1f);
-
-            return (anchorPosition - currentPosition) * weight;
-        }
-
-        private Quaternion GetRagdollCopyRot(Quaternion currentRotation, Quaternion anchorRotation, float weight)
-        {
-            weight = Mathf.Clamp(weight, 0f, 1f);
-
-            return Quaternion.Lerp(Quaternion.Euler(Vector3.zero), Quaternion.Inverse(currentRotation) * anchorRotation,
-                weight);
+            ragdollCopyWeight = wieght;
         }
     }
 }
