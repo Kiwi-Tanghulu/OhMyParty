@@ -23,12 +23,14 @@ namespace OMG.Ragdoll
             originRot = transform.localRotation;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (root == null)
                 return;
 
-            joint.targetPosition = -root.position;
+            Vector3 targetPosition = -root.position;
+
+            joint.targetPosition = targetPosition;
         }
 
         public Vector3 GetCopyPos(float weight)

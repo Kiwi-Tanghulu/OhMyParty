@@ -48,6 +48,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &141871094580902388
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,6 +484,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &608050575378251282
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +708,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &754919575865823961
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +896,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -949,19 +955,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -1134,7 +1140,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1193,19 +1199,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -1332,7 +1338,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1391,19 +1397,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -1524,7 +1530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ragdollRoot: {fileID: 7680142919975886447}
   animRoot: {fileID: 312447682590760960}
-  initRagdollCopyWeight: 1
+  ragdollCopyWeight: 1
 --- !u!1 &1140864950619314143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,7 +1763,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1816,19 +1822,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -2042,6 +2048,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &1310190485712277957
 GameObject:
   m_ObjectHideFlags: 0
@@ -2100,7 +2108,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -2159,19 +2167,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -2356,6 +2364,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &1389883030472129962
 GameObject:
   m_ObjectHideFlags: 0
@@ -2923,7 +2933,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -2982,19 +2992,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -3123,7 +3133,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -3182,19 +3192,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -3384,7 +3394,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -3443,19 +3453,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -3617,7 +3627,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -3676,19 +3686,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -3871,6 +3881,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &2346209567869958831
 GameObject:
   m_ObjectHideFlags: 0
@@ -4111,6 +4123,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &2657341660521857075
 GameObject:
   m_ObjectHideFlags: 0
@@ -4695,7 +4709,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -4754,19 +4768,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -4958,7 +4972,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -5017,19 +5031,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -5190,7 +5204,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -5249,19 +5263,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -5745,10 +5759,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 10
   m_CollisionDetection: 0
 --- !u!153 &7249713111581573470
 ConfigurableJoint:
@@ -5804,19 +5818,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -6093,6 +6107,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &4499523435257925963
 GameObject:
   m_ObjectHideFlags: 0
@@ -6216,7 +6232,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -6275,19 +6291,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -6547,7 +6563,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -6606,19 +6622,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -7027,6 +7043,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &5262092928604290556
 GameObject:
   m_ObjectHideFlags: 0
@@ -7214,7 +7232,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -7273,19 +7291,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -7500,6 +7518,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &5839209181135753045
 GameObject:
   m_ObjectHideFlags: 0
@@ -7708,6 +7728,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &6160916862562568193
 GameObject:
   m_ObjectHideFlags: 0
@@ -7820,6 +7842,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &6377853849021862636
 GameObject:
   m_ObjectHideFlags: 0
@@ -7941,7 +7965,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -8000,19 +8024,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -8194,6 +8218,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &6828486953239104152
 GameObject:
   m_ObjectHideFlags: 0
@@ -8500,6 +8526,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &7308094011468983645
 GameObject:
   m_ObjectHideFlags: 0
@@ -8558,7 +8586,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -8617,19 +8645,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -8748,6 +8776,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &7432798686631555225
 GameObject:
   m_ObjectHideFlags: 0
@@ -8796,6 +8826,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &7456146524186961912
 GameObject:
   m_ObjectHideFlags: 0
@@ -9131,6 +9163,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &7712205075949676364
 GameObject:
   m_ObjectHideFlags: 0
@@ -9214,6 +9248,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &7725167871872676016
 GameObject:
   m_ObjectHideFlags: 0
@@ -9304,7 +9340,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -9363,19 +9399,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -9635,7 +9671,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -9694,19 +9730,19 @@ ConfigurableJoint:
   m_TargetVelocity: {x: 0, y: 0, z: 0}
   m_XDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_YDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ZDrive:
     serializedVersion: 4
-    positionSpring: 1000
+    positionSpring: 100000
     positionDamper: 0
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -9923,6 +9959,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &8351034362391731606
 GameObject:
   m_ObjectHideFlags: 0
@@ -10390,6 +10428,8 @@ MonoBehaviour:
   ragdollCopyPart: {fileID: 0}
   animCopyTrm: {fileID: 0}
   ragdollCopyWeight: 0
+  ApplyAnimation: 0
+  ApplyRagdoll: 0
 --- !u!1 &8967859719595584225
 GameObject:
   m_ObjectHideFlags: 0

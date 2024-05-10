@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace OMG.Ragdoll
@@ -53,16 +54,21 @@ namespace OMG.Ragdoll
         [SerializeField] private Transform ragdollRoot;
         [SerializeField] private Transform animRoot;
 
-        [SerializeField] private float initRagdollCopyWeight = 1f;
+        [Space]
+        [Range(0f, 1f)]
+        [SerializeField] private float ragdollCopyWeight = 1f;
 
         private CopyMotion[] copyMotions;
+
+        private Animator anim;
 
         private void Awake()
         {
             copyMotions = GetComponentsInChildren<CopyMotion>();
+            anim = animRoot.GetComponent<Animator>();
 
             for (int i = 0; i < copyMotions.Length; i++)
-                copyMotions[i].Init(ragdollRoot, animRoot, initRagdollCopyWeight);
+                copyMotions[i].Init(ragdollRoot, animRoot, ragdollCopyWeight);
         }
 
         public void SetRagdollCopyWeight(float weight)
