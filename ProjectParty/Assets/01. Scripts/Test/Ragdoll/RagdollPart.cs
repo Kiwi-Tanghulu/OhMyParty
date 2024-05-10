@@ -28,8 +28,7 @@ namespace OMG.Ragdoll
             if (root == null)
                 return;
 
-            Vector3 targetPosition = root.position + originPos;
-            //joint.targetPosition = targetPosition;
+            joint.targetPosition = -root.position;
         }
 
         public Vector3 GetCopyPos(float weight)
@@ -43,8 +42,8 @@ namespace OMG.Ragdoll
         {
             weight = Mathf.Clamp(weight, 0f, 1f);
 
-            return Quaternion.Lerp(Quaternion.Euler(Vector3.zero), Quaternion.Inverse(Quaternion.Inverse(transform.localRotation) * originRot),
-                weight);
+            return Quaternion.Lerp(Quaternion.Euler(Vector3.zero),
+                Quaternion.Inverse(Quaternion.Inverse(transform.localRotation) * originRot), weight);
         }
     }
 }
