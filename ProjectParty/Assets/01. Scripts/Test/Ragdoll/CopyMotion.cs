@@ -54,16 +54,16 @@ namespace OMG.Ragdoll
         //}
         #endregion
 
-        private RagdollCopyPart ragdollCopyPart;
-        private RagdollCopyPart animCopyPart;
+        private CopyPart ragdollCopyPart;
+        private CopyPart animCopyPart;
 
         private float ragdollCopyWeight;
         private float animCopyWeight;
 
         public void Init(Transform ragdollRoot, Transform animRoot, float ragdollCopyWeight, float animCopyWeight)
         {
-            ragdollCopyPart = ragdollRoot.FindFromAll(transform.name).GetComponent<RagdollCopyPart>();
-            animCopyPart = animRoot.FindFromAll(transform.name).GetComponent<RagdollCopyPart>();
+            ragdollCopyPart = ragdollRoot.FindFromAll(transform.name).GetComponent<CopyPart>();
+            animCopyPart = animRoot.FindFromAll(transform.name).GetComponent<CopyPart>();
 
             ragdollCopyPart.Init(ragdollRoot);
             animCopyPart.Init(animRoot);

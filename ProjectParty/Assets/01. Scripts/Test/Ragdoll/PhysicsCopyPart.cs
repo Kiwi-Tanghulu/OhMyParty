@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OMG.Ragdoll
 {
-    public class PhysicsCopyPart : RagdollCopyPart
+    public class PhysicsCopyPart : CopyPart
     {
         private ConfigurableJoint joint;
 

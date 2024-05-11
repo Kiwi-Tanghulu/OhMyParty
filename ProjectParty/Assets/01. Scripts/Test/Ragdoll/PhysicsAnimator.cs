@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace OMG.Ragdoll
 {
-    public class RagdollAnimator : MonoBehaviour
+    public class PhysicsAnimator : MonoBehaviour
     {
         #region
         //[SerializeField] private Transform ragdollRootTrm;

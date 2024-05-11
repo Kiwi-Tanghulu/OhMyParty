@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OMG.Ragdoll
 {
-    public abstract class RagdollCopyPart : MonoBehaviour
+    public abstract class CopyPart : MonoBehaviour
     {
         protected Transform root;
 
