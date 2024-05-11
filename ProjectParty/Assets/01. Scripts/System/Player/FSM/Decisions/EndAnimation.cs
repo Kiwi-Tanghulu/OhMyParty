@@ -8,13 +8,13 @@ namespace OMG.Player.FSM
 {
     public class EndAnimation : PlayerFSMDecision
     {
-        private PlayerAnimation anim;
+        private ExtendedAnimator anim;
 
         public override void Init(FSMBrain brain)
         {
             base.Init(brain);
 
-            anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
+            anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
         }
 
         public override void EnterState()

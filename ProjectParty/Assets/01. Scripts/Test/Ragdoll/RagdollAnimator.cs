@@ -1,9 +1,4 @@
-using OMG.Extensions;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace OMG.Ragdoll
@@ -57,24 +52,37 @@ namespace OMG.Ragdoll
         [Space]
         [Range(0f, 1f)]
         [SerializeField] private float ragdollCopyWeight = 1f;
+        [Range(0f, 1f)]
+        [SerializeField] private float animCopyWeight = 1f;
 
         private CopyMotion[] copyMotions;
 
-        private Animator anim;
+        private ExtendedAnimator animator;
+        public ExtendedAnimator Animator => animator;
 
         private void Awake()
         {
             copyMotions = GetComponentsInChildren<CopyMotion>();
-            anim = animRoot.GetComponent<Animator>();
+            animator = animRoot.GetComponent<ExtendedAnimator>();
 
             for (int i = 0; i < copyMotions.Length; i++)
-                copyMotions[i].Init(ragdollRoot, animRoot, ragdollCopyWeight);
+                copyMotions[i].Init(ragdollRoot, animRoot, ragdollCopyWeight, animCopyWeight);
         }
 
         public void SetRagdollCopyWeight(float weight)
         {
+            ragdollCopyWeight = weight;
+
             for (int i = 0; i < copyMotions.Length; i++)
-                copyMotions[i].SetRagdollCopyWeight(weight);
+                copyMotions[i].SetRagdollCopyWeight(ragdollCopyWeight);
+        }
+
+        public void SetAnimationCopyWeight(float weight)
+        {
+            animCopyWeight = weight;
+
+            for (int i = 0; i < copyMotions.Length; i++)
+                copyMotions[i].SetAnimationCopyWeight(animCopyWeight);
         }
     }
 }

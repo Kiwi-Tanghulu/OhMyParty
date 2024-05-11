@@ -18,7 +18,7 @@ namespace OMG.Player.FSM
         private float currentRunSpeed;
 
         private PlayerMovement movement;
-        private PlayerAnimation anim;
+        private ExtendedAnimator anim;
         private int speedHash = Animator.StringToHash("speed");
 
         public override void InitState(FSMBrain brain)
@@ -26,7 +26,7 @@ namespace OMG.Player.FSM
             base.InitState(brain);
 
             movement = player.GetComponent<PlayerMovement>();
-            anim = player.Visual.GetComponent<PlayerAnimation>();
+            anim = player.Visual.GetComponent<ExtendedAnimator>();
         }
 
         protected override void OwnerEnterState()

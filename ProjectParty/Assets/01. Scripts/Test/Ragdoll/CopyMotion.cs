@@ -54,31 +54,35 @@ namespace OMG.Ragdoll
         //}
         #endregion
 
-        [SerializeField] private RagdollPart ragdollCopyPart;
-        [SerializeField] private Transform animCopyTrm;
+        private RagdollCopyPart ragdollCopyPart;
+        private RagdollCopyPart animCopyPart;
 
-        [SerializeField] private float ragdollCopyWeight;
+        private float ragdollCopyWeight;
+        private float animCopyWeight;
 
-        public void Init(Transform ragdollRoot, Transform animCopyRoot, float ragdollCopyWeight)
+        public void Init(Transform ragdollRoot, Transform animRoot, float ragdollCopyWeight, float animCopyWeight)
         {
-            ragdollCopyPart = ragdollRoot.FindFromAll(transform.name).GetComponent<RagdollPart>();
-            animCopyTrm = animCopyRoot.FindFromAll(transform.name);
+            ragdollCopyPart = ragdollRoot.FindFromAll(transform.name).GetComponent<RagdollCopyPart>();
+            animCopyPart = animRoot.FindFromAll(transform.name).GetComponent<RagdollCopyPart>();
 
             ragdollCopyPart.Init(ragdollRoot);
+            animCopyPart.Init(animRoot);
 
             SetRagdollCopyWeight(ragdollCopyWeight);
+            SetAnimationCopyWeight(animCopyWeight);
         }
 
         public void Update()
         {
-            if(animCopyTrm == null || ragdollCopyPart == null)
+            if(animCopyPart == null || ragdollCopyPart == null)
             {
                 Debug.Log($"not setting copy motion component : {transform.name}");
                 return;
             }
 
-            Vector3 copyPos = animCopyTrm.localPosition + ragdollCopyPart.GetCopyPos(ragdollCopyWeight);
-            Quaternion copyRot = ragdollCopyPart.GetCopyRot(ragdollCopyWeight) * animCopyTrm.localRotation;
+            //copy form : anim + ragdoll
+            Vector3 copyPos = animCopyPart.GetCopyPosition(animCopyWeight) + ragdollCopyPart.GetCopyPosition(ragdollCopyWeight);
+            Quaternion copyRot = ragdollCopyPart.GetCopyRotation(ragdollCopyWeight) * animCopyPart.GetCopyRotation(animCopyWeight);
 
             transform.localPosition = copyPos;
             transform.localRotation = copyRot;
@@ -87,6 +91,11 @@ namespace OMG.Ragdoll
         public void SetRagdollCopyWeight(float wieght)
         {
             ragdollCopyWeight = wieght;
+        }
+
+        public void SetAnimationCopyWeight(float wieght)
+        {
+            animCopyWeight = wieght;
         }
     }
 }

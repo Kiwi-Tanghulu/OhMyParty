@@ -6,46 +6,40 @@ namespace OMG.Ragdoll
 {
     public class RagdollPart : MonoBehaviour
     {
-        private Transform root;
+        
 
-        private ConfigurableJoint joint;
+        //private ConfigurableJoint joint;
 
-        private Vector3 originPos;
-        private Quaternion originRot;
+        
 
-        public void Init(Transform root)
-        {
-            this.root = root;
+        //public void Init(Transform root)
+        //{
+        //    joint = GetComponent<ConfigurableJoint>();
+        //}
 
-            joint = GetComponent<ConfigurableJoint>();
+        //private void FixedUpdate()
+        //{
+        //    if (root == null)
+        //        return;
 
-            originPos = transform.localPosition;
-            originRot = transform.localRotation;
-        }
+        //    Vector3 targetPosition = -root.position;
 
-        private void FixedUpdate()
-        {
-            if (root == null)
-                return;
+        //    joint.targetPosition = targetPosition;
+        //}
 
-            Vector3 targetPosition = -root.position;
+        //public Vector3 GetCopyPos(float weight)
+        //{
+        //    weight = Mathf.Clamp(weight, 0f, 1f);
 
-            joint.targetPosition = targetPosition;
-        }
+        //    return (originPos - transform.localPosition) * weight;
+        //}
 
-        public Vector3 GetCopyPos(float weight)
-        {
-            weight = Mathf.Clamp(weight, 0f, 1f);
+        //public Quaternion GetCopyRot(float weight)
+        //{
+        //    weight = Mathf.Clamp(weight, 0f, 1f);
 
-            return (originPos - transform.localPosition) * weight;
-        }
-
-        public Quaternion GetCopyRot(float weight)
-        {
-            weight = Mathf.Clamp(weight, 0f, 1f);
-
-            return Quaternion.Lerp(Quaternion.Euler(Vector3.zero),
-                Quaternion.Inverse(Quaternion.Inverse(transform.localRotation) * originRot), weight);
-        }
+        //    return Quaternion.Lerp(Quaternion.Euler(Vector3.zero),
+        //        Quaternion.Inverse(Quaternion.Inverse(transform.localRotation) * originRot), weight);
+        //}
     }
 }
