@@ -9,8 +9,8 @@ namespace OMG.Player
 {
     public class PlayerController : NetworkBehaviour
     {
-        private Animator anim;
-        public Animator Anim => anim;
+        private ExtendedAnimator animator;
+        public ExtendedAnimator Animator => animator;
 
         private PlayerVisual visual;
         public PlayerVisual Visual => visual;
@@ -20,11 +20,9 @@ namespace OMG.Player
 
         public override void OnNetworkSpawn()
         {
-            // InputManager.ChangeInputMap(InputMapType.Play);//test
-
             stateMachine = GetComponent<FSMBrain>();
             visual = transform.Find("Visual").GetComponent<PlayerVisual>();
-            anim = visual.GetComponent<Animator>();
+            animator = visual.GetComponent<ExtendedAnimator>();
 
             stateMachine.Init();
         }

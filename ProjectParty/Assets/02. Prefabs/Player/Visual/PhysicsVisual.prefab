@@ -473,7 +473,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &6170738544727388477
 ConfigurableJoint:
@@ -707,7 +707,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &3176570552406228850
 ConfigurableJoint:
@@ -1048,7 +1048,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &3342982417111248196
 ConfigurableJoint:
@@ -1280,7 +1280,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &5771450713109880933
 ConfigurableJoint:
@@ -1911,7 +1911,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &8002350314080899783
 ConfigurableJoint:
@@ -2142,7 +2142,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &1594674279465851709
 ConfigurableJoint:
@@ -2754,7 +2754,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &7728622017480650395
 ConfigurableJoint:
@@ -2973,6 +2973,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b4308da002cf54f9acc3c71c091a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1544479777011035199}
+  AnimEvent: {fileID: 0}
   ragdollRoot: {fileID: 2203238394272208703}
   animRoot: {fileID: 5057867491338230958}
   ragdollCopyWeight: 1
@@ -3559,7 +3561,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &7141349557594050485
 ConfigurableJoint:
@@ -3877,7 +3879,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &427032270148699042
 ConfigurableJoint:
@@ -5271,7 +5273,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &8801676852912159704
 ConfigurableJoint:
@@ -5516,7 +5518,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &5971755205891965975
 ConfigurableJoint:
@@ -5825,7 +5827,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &5395956192975072850
 ConfigurableJoint:
@@ -6902,7 +6904,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &514985264780043254
 ConfigurableJoint:
@@ -7548,7 +7550,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 10
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &2999170693484353711
 ConfigurableJoint:
@@ -7791,7 +7793,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &6506173805785600891
 ConfigurableJoint:
@@ -7971,6 +7973,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5057867491338230958}
   - component: {fileID: 1544479777011035199}
+  - component: {fileID: 9027279343294775719}
   m_Layer: 0
   m_Name: AnimationCopyTarget
   m_TagString: Untagged
@@ -8016,6 +8019,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9027279343294775719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7187198110501967777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7db2bb4af2cb2e4da4c632600a1c8b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7271849744688542588
 GameObject:
   m_ObjectHideFlags: 0
@@ -8876,7 +8891,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &4130128767642076658
 ConfigurableJoint:
@@ -9574,7 +9589,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &2578441414992000440
 ConfigurableJoint:
@@ -9774,7 +9789,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &5035846719519360971
 ConfigurableJoint:
@@ -10073,7 +10088,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &190585308598046359
 ConfigurableJoint:
@@ -10363,7 +10378,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!153 &4617616360573943432
 ConfigurableJoint:

@@ -8,24 +8,21 @@ using UnityEngine;
 
 namespace OMG
 {
-    [RequireComponent(typeof(Animator))]
     public class ExtendedAnimator : MonoBehaviour
     {
-        protected Animator animator;
+        [SerializeField] protected Animator animator;
         public Animator Animator => animator;
 
-        public event Action OnStartEvent;
-        public event Action OnPlayingEvent;
-        public event Action OnEndEvent;
+        [HideInInspector] public AnimationEvent AnimEvent;
 
         private Coroutine floatParamLerpingCo;
         private Coroutine layerWeightLerpingCo;
 
         protected virtual void Awake()
         {
-            animator = GetComponent<Animator>();
+            AnimEvent = animator.GetComponent<AnimationEvent>();
         }
-
+        
         public void SetTrigger(int hash)
         {
             animator.SetTrigger(hash);
@@ -75,10 +72,6 @@ namespace OMG
         {
             animator.Play(name, (int)layer, 0f);
         }
-
-        public void InvokeStartEvent() => OnStartEvent?.Invoke();
-        public void InvokePlayingEvent() => OnPlayingEvent?.Invoke();
-        public void InvokeEndEvent() => OnEndEvent?.Invoke();
 
         private IEnumerator ParamLerpingCo(int hash, float end, float time)
         {

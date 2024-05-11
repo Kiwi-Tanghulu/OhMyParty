@@ -24,7 +24,7 @@ namespace OMG.Player.FSM
         {
             base.OwnerEnterState();
             
-            anim.OnPlayingEvent += DoAction;
+            anim.AnimEvent.OnPlayingEvent += DoAction;
             anim.SetLayerWeight(AnimatorLayerType.Upper, 1, true, 0.1f);
         }
 
@@ -32,7 +32,7 @@ namespace OMG.Player.FSM
         {
             base.OwnerExitState();
 
-            anim.OnPlayingEvent -= DoAction;
+            anim.AnimEvent.OnPlayingEvent -= DoAction;
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
         }
 

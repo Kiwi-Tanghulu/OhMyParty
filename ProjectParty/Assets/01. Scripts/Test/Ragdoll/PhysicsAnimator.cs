@@ -1,9 +1,10 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace OMG.Ragdoll
 {
-    public class PhysicsAnimator : MonoBehaviour
+    public class PhysicsAnimator : ExtendedAnimator
     {
         #region
         //[SerializeField] private Transform ragdollRootTrm;
@@ -46,6 +47,7 @@ namespace OMG.Ragdoll
         //    }
         //}
         #endregion
+        [Space]
         [SerializeField] private Transform ragdollRoot;
         [SerializeField] private Transform animRoot;
 
@@ -57,14 +59,11 @@ namespace OMG.Ragdoll
 
         private CopyMotion[] copyMotions;
 
-        private ExtendedAnimator animator;
-        public ExtendedAnimator Animator => animator;
-
-        private void Awake()
+        protected override void Awake()
         {
-            copyMotions = GetComponentsInChildren<CopyMotion>();
-            animator = animRoot.GetComponent<ExtendedAnimator>();
+            base.Awake();
 
+            copyMotions = GetComponentsInChildren<CopyMotion>();
             for (int i = 0; i < copyMotions.Length; i++)
                 copyMotions[i].Init(ragdollRoot, animRoot, ragdollCopyWeight, animCopyWeight);
         }

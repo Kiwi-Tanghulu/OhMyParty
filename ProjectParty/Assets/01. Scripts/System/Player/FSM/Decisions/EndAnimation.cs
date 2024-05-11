@@ -20,14 +20,14 @@ namespace OMG.Player.FSM
         public override void EnterState()
         {
             base.EnterState();
-            anim.OnStartEvent += StartAnim;
-            anim.OnEndEvent += EndAnim;
+            anim.AnimEvent.OnStartEvent += StartAnim;
+            anim.AnimEvent.OnEndEvent += EndAnim;
         }
 
         public override void ExitState()
         {
-            anim.OnStartEvent -= StartAnim;
-            anim.OnEndEvent -= EndAnim;
+            anim.AnimEvent.OnStartEvent -= StartAnim;
+            anim.AnimEvent.OnEndEvent -= EndAnim;
         }
 
         private void StartAnim()

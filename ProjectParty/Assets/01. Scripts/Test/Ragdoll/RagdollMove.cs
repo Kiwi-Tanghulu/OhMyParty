@@ -27,16 +27,14 @@ namespace OMG.Ragdoll
 
         private void Update()
         {
-            //transform.position += prevDir * speed * Time.deltaTime;
+            transform.position += prevDir * speed * Time.deltaTime;
 
-            //if (dir != Vector3.zero)
-            //    speed += Time.deltaTime * 5f;
-            //else
-            //    speed -= Time.deltaTime * 5f;
+            if (dir != Vector3.zero)
+                speed += Time.deltaTime * 5f;
+            else
+                speed -= Time.deltaTime * 5f;
 
-            //anim.SetCopyMotionWeight(speed / 5f);
-
-            //speed = Mathf.Clamp(speed, 0f, 5f);
+            speed = Mathf.Clamp(speed, 0f, 5f);
         }
 
         private void SetMoveDir(Vector2 input)

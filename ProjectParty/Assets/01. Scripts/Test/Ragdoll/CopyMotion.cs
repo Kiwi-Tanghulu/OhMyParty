@@ -81,7 +81,7 @@ namespace OMG.Ragdoll
             }
 
             //copy form : anim + ragdoll
-            Vector3 copyPos = animCopyPart.GetCopyPosition(animCopyWeight) + ragdollCopyPart.GetCopyPosition(ragdollCopyWeight);
+            Vector3 copyPos = animCopyPart.GetCopyPosition(animCopyWeight) /*+ ragdollCopyPart.GetCopyPosition(ragdollCopyWeight)*/;
             Quaternion copyRot = ragdollCopyPart.GetCopyRotation(ragdollCopyWeight) * animCopyPart.GetCopyRotation(animCopyWeight);
 
             transform.localPosition = copyPos;
