@@ -9,12 +9,12 @@ namespace OMG.Player
         [SerializeField] private PlayerVisualType visualType;
         public PlayerVisualType VisualType => visualType;
 
-        [SerializeField] private SkinnedMeshRenderer render;
+        [SerializeField] private SkinnedMeshRenderer skin;
 
         private void Awake()
         {
-            if (render == null)
-                render = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
+            if (skin == null)
+                skin = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
         }
 
         private void Start()
@@ -26,7 +26,7 @@ namespace OMG.Player
         {
             visualType = newVisualType;
 
-            render.sharedMesh = PlayerManager.Instance.playerVisualInfo[visualType];
+            skin.sharedMesh = PlayerManager.Instance.playerVisualInfo[visualType];
         }
     }
 }

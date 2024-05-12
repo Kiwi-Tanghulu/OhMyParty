@@ -77,7 +77,7 @@ namespace OMG.Minigames
                         if(players[bindedCount].TryGet(out NetworkObject player))
                         {
                             PlayerController minigamePlayer = player.GetComponent<PlayerController>();
-                            timelineHolder.SetGenericBinding(binding.sourceObject, minigamePlayer.Anim);
+                            timelineHolder.SetGenericBinding(binding.sourceObject, minigamePlayer.Animator.Animator);
 
                             bindedCount++;
                             if(bindedCount >= minigame.PlayerDatas.Count)

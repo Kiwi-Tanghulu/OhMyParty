@@ -27,7 +27,7 @@ namespace OMG.Player.FSM
             base.EnterState();
 
             ragdoll.SetActive(true);
-            ragdoll.AddForceAtPosition(health.Damage * health.HitDir, health.HitPoint, ForceMode.Impulse);
+            ragdoll.AddForce(health.Damage * health.HitDir, ForceMode.Impulse);
         }
 
         public override void ExitState()

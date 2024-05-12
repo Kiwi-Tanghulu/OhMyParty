@@ -12,13 +12,13 @@ namespace OMG.Player.FSM
 
         protected int hash;
 
-        protected PlayerAnimation anim;
+        protected ExtendedAnimator anim;
 
         public override void Init(FSMBrain brain)
         {
             base.Init(brain);
 
-            anim = player.Visual.GetComponent<PlayerAnimation>();
+            anim = player.Visual.GetComponent<ExtendedAnimator>();
             hash = Animator.StringToHash(proertyName);
         }
     }

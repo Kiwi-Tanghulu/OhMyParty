@@ -11,20 +11,20 @@ namespace OMG.Player.FSM
 {
     public abstract class ActionState : PlayerFSMState
     {
-        private PlayerAnimation anim;
+        private ExtendedAnimator anim;
 
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
 
-            anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
+            anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
         }
 
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
             
-            anim.OnPlayingEvent += DoAction;
+            anim.AnimEvent.OnPlayingEvent += DoAction;
             anim.SetLayerWeight(AnimatorLayerType.Upper, 1, true, 0.1f);
         }
 
@@ -32,7 +32,7 @@ namespace OMG.Player.FSM
         {
             base.OwnerExitState();
 
-            anim.OnPlayingEvent -= DoAction;
+            anim.AnimEvent.OnPlayingEvent -= DoAction;
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
         }
 

@@ -11,7 +11,7 @@ namespace OMG.Player.FSM
     public class RecoveryState : PlayerFSMState
     {
         private PlayerMovement movement;
-        private PlayerAnimation anim;
+        private ExtendedAnimator anim;
         private PlayerRagdoll ragdoll;
 
         private readonly string frontRecoveryAnim = "Recovery(Front)";
@@ -22,7 +22,7 @@ namespace OMG.Player.FSM
             base.InitState(brain);
 
             movement = player.GetComponent<PlayerMovement>();
-            anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
+            anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
             ragdoll = player.transform.Find("Visual").GetComponent<PlayerRagdoll>();
         }
 

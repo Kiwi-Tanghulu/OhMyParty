@@ -70,7 +70,7 @@ namespace OMG.Lobbies
                         timelineHolder.SetGenericBinding(binding.sourceObject, players[index].GetComponent<Animator>());
 
                     if (binding.streamName.Contains(playerAnimTrackName))
-                        timelineHolder.SetGenericBinding(binding.sourceObject, players[index].Anim);
+                        timelineHolder.SetGenericBinding(binding.sourceObject, players[index].Animator.Animator);
 
                     if (binding.streamName.Contains(playerSignalTrackName))
                         timelineHolder.SetGenericBinding(binding.sourceObject, players[index].GetComponent<SignalReceiver>());

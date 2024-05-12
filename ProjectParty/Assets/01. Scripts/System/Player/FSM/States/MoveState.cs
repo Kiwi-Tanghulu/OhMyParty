@@ -7,7 +7,7 @@ namespace OMG.Player.FSM
 {
     public class MoveState : PlayerFSMState
     {
-        private PlayerAnimation anim;
+        private ExtendedAnimator anim;
 
         private readonly int moveSpeedAnimHash = Animator.StringToHash("moveSpeed");
 
@@ -15,7 +15,7 @@ namespace OMG.Player.FSM
         {
             base.InitState(brain);
 
-            anim = player.transform.Find("Visual").GetComponent<PlayerAnimation>();
+            anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
         }
 
         protected override void OwnerEnterState()

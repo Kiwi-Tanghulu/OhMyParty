@@ -14,7 +14,7 @@ namespace OMG.Ragdoll
 
         private float speed;
 
-        private RagdollAnimator anim;
+        private PhysicsAnimator anim;
 
         private void Awake()
         {
@@ -22,7 +22,7 @@ namespace OMG.Ragdoll
 
             input.OnMoveEvent += SetMoveDir;
 
-            anim = GetComponent<RagdollAnimator>();
+            anim = GetComponent<PhysicsAnimator>();
         }
 
         private void Update()
@@ -33,8 +33,6 @@ namespace OMG.Ragdoll
                 speed += Time.deltaTime * 5f;
             else
                 speed -= Time.deltaTime * 5f;
-
-            anim.SetCopyMotionWeight(speed / 5f);
 
             speed = Mathf.Clamp(speed, 0f, 5f);
         }
