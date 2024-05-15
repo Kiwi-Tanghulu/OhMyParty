@@ -19,7 +19,8 @@ namespace OMG.Skins
             skinLibrary.OnSkinChangedEvent -= SetSkin;
         }
 
-        public void SetSkin()
+        // 호스트만 Lobby의 초기화 부분에서 실행해주면 됨
+        public void SetSkin() 
         {
             if(currentSkin != null)
                 ReleaseSkin();
