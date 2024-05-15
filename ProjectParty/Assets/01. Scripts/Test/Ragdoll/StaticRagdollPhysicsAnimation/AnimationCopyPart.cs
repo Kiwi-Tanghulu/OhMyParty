@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OMG.Ragdoll
 {
-    public class AnimaionCopyPart : CopyPart
+    public class AnimationCopyPart : CopyPart
     {
         public override Vector3 GetCopyPosition(float weight)
         {
