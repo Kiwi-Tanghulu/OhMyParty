@@ -8,19 +8,39 @@ using UnityEngine;
 
 namespace OMG.Player
 {
-    public class PlayerMovement : NetworkBehaviour
+    [RequireComponent(typeof(CharacterController))]
+    public class CharacterMovement : NetworkBehaviour
     {
         [Header("Move")]
         [SerializeField] private float moveSpeed = 3f;
         public float MoveSpeed => moveSpeed;
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
-        public bool ApplyMove;
-        private Vector3 horiVelocity;
+        private Vector3 moveVector;
+
+        [Header("Gravity")]
+        [SerializeField] private float gravityScale;
+        private bool applyGravity;
+        public bool ApplyGravity
+        {
+            get 
+            { 
+                return applyGravity;
+            }
+            set
+            {
+                applyGravity = value;
+
+                if (!applyGravity)
+                    SetVerticalVelocity(0f);
+            }
+        }
+
+        private float verticalVelocity;
 
         [Header("Turn")]
         [Space]
-        [SerializeField] private float turnTime;
+        [SerializeField] private float turnSpped;
         private Coroutine trunCo;
 
         [Header("Jump")]
@@ -37,53 +57,50 @@ namespace OMG.Player
 
         [Header("Component")]
         private NetworkTransform networkTrm;
-        private Collider col;
-        public Collider Collider => col;
-        private Rigidbody rb;
-        public Rigidbody Rigidbody => rb;
+        private CharacterController cc;
 
         private void Awake()
         {
             networkTrm = GetComponent<NetworkTransform>();
-            rb = GetComponent<Rigidbody>();
-            col = GetComponent<Collider>();
+            cc = GetComponent<CharacterController>();
         }
 
         private void Update()
         {
+            Gravity();
+
             CheckGround();
             Move();
         }
 
         #region Move
-        private void Move()
+        public void Move()
         {
-            //SetHorizontalVelocity(Vector3.zero, moveSpeed, false);
+            CalcMoveVector();
 
-            rb.velocity = horiVelocity + Vector3.up * rb.velocity.y;
+            cc.Move(moveVector);
         }
 
-        public void SetMoveDir(Vector3 moveDir, bool lookMoveDir = true)
+        private void CalcMoveVector()
         {
-            Debug.Log($"1 : {moveDir}");
-            SetHorizontalVelocity(moveDir, moveSpeed, lookMoveDir);
+            Vector3 moveVec = Vector3.zero;
+
+            moveVec = moveDir * moveSpeed;
+
+            moveVector = new Vector3(moveVec.x, verticalVelocity, moveVec.z) * Time.deltaTime;
         }
 
-        public void SetMoveSpeed(float speed)
+        public void SetMoveSpeed(float value)
         {
-            SetHorizontalVelocity(MoveDir, speed);
+            moveSpeed = value;
         }
-        
-        public void SetHorizontalVelocity(Vector3 moveDir, float speed, bool lookMoveDir = true)
-        {
-            moveDir.y = 0f;
-            this.moveDir = moveDir.normalized;
-            moveSpeed = speed;
 
-            horiVelocity = moveDir * moveSpeed;
-            
-            if (lookMoveDir)
-                Look(moveDir);
+        public void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
+        {
+            moveDir = value;
+
+            if (value != Vector3.zero && lookMoveDir)
+                Turn(moveDir);
         }
 
         public void Teleport(Vector3 pos)
@@ -93,7 +110,7 @@ namespace OMG.Player
         #endregion
 
         #region Turn
-        private void Look(Vector3 lookVector)
+        private void Turn(Vector3 lookVector)
         {
             lookVector.Normalize();
 
@@ -118,7 +135,7 @@ namespace OMG.Player
 
             while (1f - t > 0.1f)
             {
-                t += Time.deltaTime / turnTime;
+                t += Time.deltaTime * turnSpped;
                 transform.rotation = Quaternion.Lerp(start, end, t);
 
                 yield return null;
@@ -128,21 +145,40 @@ namespace OMG.Player
         #endregion
 
         #region Vertical Velocity
-        public void SetVerticalVelocity(float value)
+        private void Gravity()
         {
-            Vector3 velocity = rb.velocity;
-            velocity.y = value;
-            rb.velocity = velocity;
+            if (!applyGravity) return;
+
+            if(isGround)
+            {
+                if(verticalVelocity < 0f)
+                {
+                    verticalVelocity = gravityScale * Time.deltaTime * 0.5f;
+                }
+            }
+            else
+            {
+                verticalVelocity += gravityScale * Time.deltaTime;
+            }
         }
 
-        public void Jump(float jumpPower = -1)
+        public void SetVerticalVelocity(float value)
         {
-            if (!IsGround)
-                return;
+            verticalVelocity = value;
+        }
 
-            if (jumpPower == -1)
-                jumpPower = this.jumpPower;
+        public void Jump()
+        {
+            if (!IsGround) return;
 
+            SetVerticalVelocity(jumpPower);
+        }
+
+        public void Jump(float jumpPower)
+        {
+            if (!IsGround) return;
+            if (jumpPower < 0f) return;
+            
             SetVerticalVelocity(jumpPower);
         }
         #endregion
@@ -152,7 +188,7 @@ namespace OMG.Player
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
                 checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
-            isGround = result && rb.velocity.y <= 0f;
+            isGround = result && verticalVelocity <= 0f;
             
             return isGround;
         }
@@ -167,6 +203,13 @@ namespace OMG.Player
             Gizmos.DrawWireCube(transform.position + checkGroundOffset, checkGroundHalfSize * 2);
         }
 #endif
+        #endregion
+
+        #region ETC
+        public void SetCollision(bool value)
+        {
+            cc.detectCollisions = value;
+        }
         #endregion
     }
 }

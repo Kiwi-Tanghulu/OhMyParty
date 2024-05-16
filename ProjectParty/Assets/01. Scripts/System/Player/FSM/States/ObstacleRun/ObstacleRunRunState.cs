@@ -17,7 +17,7 @@ namespace OMG.Player.FSM
         [SerializeField] private float decreaseRunSpeedAmount;
         private float currentRunSpeed;
 
-        private PlayerMovement movement;
+        private CharacterMovement movement;
         private ExtendedAnimator anim;
         private int speedHash = Animator.StringToHash("speed");
 
@@ -25,7 +25,7 @@ namespace OMG.Player.FSM
         {
             base.InitState(brain);
 
-            movement = player.GetComponent<PlayerMovement>();
+            movement = player.GetComponent<CharacterMovement>();
             anim = player.Visual.GetComponent<ExtendedAnimator>();
         }
 
@@ -41,7 +41,7 @@ namespace OMG.Player.FSM
                 SetRunSpeed();
             }
 
-            movement.SetMoveDir(Vector3.forward);
+            movement.SetMoveDirection(Vector3.forward);
         }
 
         protected override void OwnerUpdateState()

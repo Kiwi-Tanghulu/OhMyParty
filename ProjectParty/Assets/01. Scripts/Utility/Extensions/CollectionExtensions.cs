@@ -25,7 +25,7 @@ namespace OMG.Extensions
             return source[randomIndex];
         }
 
-        public static Dictionary<Type, T> GetTypeDictionary<T>(this T[] source)
+        public static Dictionary<Type, T> GetDictionaryByType<T>(this T[] source)
         {
             Dictionary<Type, T> dictionary = new Dictionary<Type, T>();
             for (int i = 0; i < source.Length; ++i)
