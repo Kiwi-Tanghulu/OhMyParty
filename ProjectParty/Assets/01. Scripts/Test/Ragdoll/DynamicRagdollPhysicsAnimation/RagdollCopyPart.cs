@@ -4,18 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestRagdollCopy : CopyPart
+public class RagdollCopyPart : CopyPart
 {
     private Transform copyTarget;
     private ConfigurableJoint joint;
 
     public bool IsHip;
 
-    public override void Init(Transform root)
+    public override void Init(Transform animRoot, Transform ragdollRoot)
     {
-        base.Init(root);    
+        base.Init(animRoot, ragdollRoot);    
 
-        copyTarget = root.FindFromAll(transform.name);
+        copyTarget = animRoot.FindFromAll(transform.name);
         joint = GetComponent<ConfigurableJoint>();
 
         if (IsHip)
@@ -25,7 +25,7 @@ public class TestRagdollCopy : CopyPart
             
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (copyTarget == null)
             return;

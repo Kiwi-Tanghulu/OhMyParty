@@ -6,22 +6,24 @@ using UnityEngine;
 
 public class TestCopyMotion : MonoBehaviour
 {
-    private TestRagdollCopy rag;
-    private AnimationCopyPart anim;
+    private RagdollCopyPart ragdollCopyPart;
+    private AnimationCopyPart animCopyPart;
 
     private float ragdollWeight;
 
-    public void Init(TestRagdollCopy rag, AnimationCopyPart anim, float ragdollWeight)
+    public void Init(RagdollCopyPart rag, AnimationCopyPart anim, float ragdollWeight)
     {
-        this.rag = rag;
-        this.anim = anim;
+        this.ragdollCopyPart = rag;
+        this.animCopyPart = anim;
         this.ragdollWeight = ragdollWeight;
     }
 
     private void Update()
     {
-        transform.localPosition = Vector3.Lerp(anim.GetCopyPosition(1f), rag.GetCopyPosition(1f), ragdollWeight);
-        transform.localRotation = Quaternion.Lerp(anim.GetCopyRotation(1f), rag.GetCopyRotation(1f), ragdollWeight);
+        transform.localPosition = Vector3.Lerp(animCopyPart.GetCopyPosition(1f),
+            ragdollCopyPart.GetCopyPosition(1f), ragdollWeight);
+        transform.localRotation = Quaternion.Lerp(animCopyPart.GetCopyRotation(1f),
+            ragdollCopyPart.GetCopyRotation(1f), ragdollWeight);
     }
 
     public void SetRagdollWeight(float value)

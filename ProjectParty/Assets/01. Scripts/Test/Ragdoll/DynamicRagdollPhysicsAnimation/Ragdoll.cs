@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TestRagdoll : MonoBehaviour
+public class Ragdoll : MonoBehaviour
 {
-    List<TestRagdollCopy> rp;
-    List<AnimationCopyPart> ap;
-    List<TestCopyMotion> cp;
+    private List<RagdollCopyPart> rp;
+    private List<AnimationCopyPart> ap;
+    private List<TestCopyMotion> cp;
+
     public Transform RagdollCopyTargetRoot;
     public Transform AnimCopyTargetRoot;
 
@@ -17,14 +18,14 @@ public class TestRagdoll : MonoBehaviour
 
     private void Awake()
     {
-        rp = RagdollCopyTargetRoot.GetComponentsInChildren<TestRagdollCopy>().ToList();
+        rp = RagdollCopyTargetRoot.GetComponentsInChildren<RagdollCopyPart>().ToList();
         ap = AnimCopyTargetRoot.GetComponentsInChildren<AnimationCopyPart>().ToList();
         cp = GetComponentsInChildren<TestCopyMotion>().ToList();
 
-        foreach (TestRagdollCopy ragdoll in rp)
-            ragdoll.Init(AnimCopyTargetRoot);
+        foreach (RagdollCopyPart ragdoll in rp)
+            ragdoll.Init(AnimCopyTargetRoot, RagdollCopyTargetRoot);
         foreach (AnimationCopyPart anim in ap)
-            anim.Init(AnimCopyTargetRoot);
+            anim.Init(AnimCopyTargetRoot, RagdollCopyTargetRoot);
         foreach (TestCopyMotion c in cp)
             c.Init(rp.Find(x => x.name == c.name), ap.Find(x => x.name == c.name), ragdollWeight);
     }
