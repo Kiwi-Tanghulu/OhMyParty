@@ -30,6 +30,7 @@ namespace OMG.Player
         public virtual void Init(ulong ownerId)
         {
             NetworkObject.ChangeOwnership(ownerId);
+            Debug.Log("Player Init");
         }
 
         protected virtual void Update()

@@ -28,9 +28,8 @@ namespace OMG.Minigames.MazeAdventure
 
             StartIntro();
             SettingTaggerMoveTargetSO();
-            RenderSettings.skybox = mazeAdventureSkyBoxMaterial;
 
-            InputManager.ChangeInputMap(InputMapType.Play);
+            RenderSettings.skybox = mazeAdventureSkyBoxMaterial;
         }
 
         public override void StartGame()
@@ -40,6 +39,8 @@ namespace OMG.Minigames.MazeAdventure
             if (!IsHost) return;
             spawner.enabled = true;
             spawner.StartSpawn();
+
+            InputManager.ChangeInputMap(InputMapType.Play);
         }
 
         private void SettingTaggerMoveTargetSO()
