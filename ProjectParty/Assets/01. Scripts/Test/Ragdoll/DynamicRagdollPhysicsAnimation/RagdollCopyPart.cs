@@ -30,7 +30,7 @@ public class RagdollCopyPart : CopyPart
         if (copyTarget == null)
             return;
 
-        joint.targetPosition = copyTarget.localPosition - originPos;
+        //joint.targetPosition = copyTarget.localPosition - originPos;
         joint.targetRotation = Quaternion.Inverse(copyTarget.localRotation) * originRot;
     }
 
