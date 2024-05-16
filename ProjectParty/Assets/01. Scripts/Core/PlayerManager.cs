@@ -9,6 +9,8 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private PlayerVisualInfoListSO playerVisualList;
     public PlayerVisualInfoListSO playerVisualInfo => playerVisualList;
+    [SerializeField] private List<Color> playerColorList;
+    
 
     private void Awake()
     {
@@ -19,4 +21,14 @@ public class PlayerManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
+
+    public Color GetPlayerColor(int index)
+    {
+        if (index < 0 || index >= playerColorList.Count)
+        {
+            Debug.LogError("color index found fail");
+            return default;
+        }
+        return playerColorList[index];
+    } 
 }
