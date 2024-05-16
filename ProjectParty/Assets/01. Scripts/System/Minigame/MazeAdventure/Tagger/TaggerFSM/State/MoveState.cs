@@ -31,7 +31,7 @@ namespace OMG.Minigames.MazeAdventure
         protected override void OwnerUpdateState()
         {
             base.OwnerUpdateState();
-            if (navMeshAgent.remainingDistance < 0.1f)  
+            if (navMeshAgent.remainingDistance < 0.1f)  //FSM can play 2State lol
             {
                 brain.ChangeState(nextState);
             }
