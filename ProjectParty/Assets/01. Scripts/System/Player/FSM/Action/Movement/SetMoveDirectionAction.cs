@@ -10,13 +10,13 @@ namespace OMG.Player.FSM
     {
         [SerializeField] private PlayInputSO input;
 
-        private PlayerMovement movement;
+        private CharacterMovement movement;
 
         public override void Init(FSMBrain brain)
         {
             base.Init(brain);
 
-            movement = brain.GetComponent<PlayerMovement>();
+            movement = brain.GetComponent<CharacterMovement>();
         }
 
         public override void EnterState()
@@ -42,7 +42,7 @@ namespace OMG.Player.FSM
         {
             Vector3 moveDir = new Vector3(input.x, 0f, input.y);
             
-            movement.SetMoveDir(moveDir);
+            movement.SetMoveDirection(moveDir);
         }
     }
 }

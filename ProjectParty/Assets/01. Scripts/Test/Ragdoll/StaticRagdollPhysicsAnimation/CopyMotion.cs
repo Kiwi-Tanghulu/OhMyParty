@@ -7,53 +7,6 @@ namespace OMG.Ragdoll
 {
     public class CopyMotion : MonoBehaviour
     {
-        #region
-        //[SerializeField] private Transform copyTrm;
-
-
-        //private Vector3 MirrorAnchorPosition;
-        //private Quaternion MirrorAnchorRotation;
-
-        //private void Awake()
-        //{
-        //    MirrorAnchorPosition = copyTrm.position;
-        //    MirrorAnchorRotation = copyTrm.rotation;
-
-        //    SetCopyMotionWeight(1f);
-
-        //    enabled = false;
-        //}
-
-        //private void Update()
-        //{
-        //    if (hardCopy)
-        //    {
-        //        //transform.localRotation = Quaternion.Lerp(transform.localRotation, copyTrm.localRotation,
-        //        //    Time.deltaTime * hardCopyWeight);
-        //        //transform.localPosition = Vector3.Lerp(transform.localPosition, copyTrm.localPosition,
-        //        //    Time.deltaTime * hardCopyWeight);
-
-        //        transform.localRotation = copyTrm.localRotation;
-        //        transform.localPosition = copyTrm.localPosition;
-        //    }
-        //    else
-        //    {
-        //        Vector3 MirrorTargetPosition = GetTargetPosition(copyTrm.transform.position, MirrorAnchorPosition);
-        //        joint.targetPosition = MirrorTargetPosition * weight;
-
-        //        Quaternion MirrorTargetRotation = GetTargetRotation(copyTrm.transform.rotation, MirrorAnchorRotation);
-        //        joint.targetRotation = Quaternion.Lerp(Quaternion.identity, MirrorTargetRotation, weight);
-        //    }
-        //}
-
-        //public void SetCopyMotionWeight(float value)
-        //{
-        //    value = Mathf.Clamp(value, 0f, 1f);
-
-        //    weight = value;
-        //}
-        #endregion
-
         private CopyPart ragdollCopyPart;
         private CopyPart animCopyPart;
 
@@ -65,8 +18,8 @@ namespace OMG.Ragdoll
             ragdollCopyPart = ragdollRoot.FindFromAll(transform.name).GetComponent<CopyPart>();
             animCopyPart = animRoot.FindFromAll(transform.name).GetComponent<CopyPart>();
 
-            ragdollCopyPart.Init(ragdollRoot);
-            animCopyPart.Init(animRoot);
+            ragdollCopyPart.Init(animRoot, ragdollRoot);
+            animCopyPart.Init(animRoot, ragdollRoot);
 
             SetRagdollCopyWeight(ragdollCopyWeight);
             SetAnimationCopyWeight(animCopyWeight);

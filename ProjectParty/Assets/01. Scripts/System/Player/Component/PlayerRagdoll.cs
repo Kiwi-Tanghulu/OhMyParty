@@ -11,7 +11,7 @@ namespace OMG.Player
         private List<Collider> colList;
         private Rigidbody hipRb;
         private Animator anim;
-        private PlayerMovement movement;
+        private CharacterMovement movement;
 
         public Transform HipTrm => hipTrm;
         public Rigidbody HipRb => hipRb;
@@ -19,7 +19,7 @@ namespace OMG.Player
         private void Awake()
         {
             anim = GetComponent<Animator>();
-            movement = transform.parent.GetComponent<PlayerMovement>();
+            movement = transform.parent.GetComponent<CharacterMovement>();
             hipRb = hipTrm.GetComponent<Rigidbody>();
 
             rbList = new List<Rigidbody>();
@@ -30,8 +30,7 @@ namespace OMG.Player
         public void SetActive(bool value)
         {
             anim.enabled = !value;
-            movement.Collider.enabled = !value;
-            movement.Rigidbody.isKinematic = value;
+            movement.SetCollision(!value);
 
             for(int i = 0; i < rbList.Count; i++)
             {

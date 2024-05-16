@@ -6,15 +6,11 @@ namespace OMG.Ragdoll
 {
     public abstract class CopyPart : MonoBehaviour
     {
-        protected Transform root;
-
         protected Vector3 originPos;
         protected Quaternion originRot;
 
-        public virtual void Init(Transform root)
+        public virtual void Init(Transform animRoot, Transform ragdollRoot)
         {
-            this.root = root;
-
             originPos = transform.localPosition;
             originRot = transform.localRotation;
         }

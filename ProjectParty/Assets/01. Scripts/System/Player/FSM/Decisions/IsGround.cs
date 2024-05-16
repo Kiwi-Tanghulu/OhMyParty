@@ -7,13 +7,13 @@ namespace OMG.Player.FSM
 {
     public class IsGround : PlayerFSMDecision
     {
-        private PlayerMovement movement;
+        private CharacterMovement movement;
 
         public override void Init(FSMBrain brain)
         {
             base.Init(brain);
 
-            movement = player.GetComponent<PlayerMovement>();
+            movement = player.GetComponent<CharacterMovement>();
         }
 
         public override bool MakeDecision()

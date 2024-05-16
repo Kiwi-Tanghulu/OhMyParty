@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.AnimatedValues;
 using UnityEngine;
 
 namespace OMG.Ragdoll
 {
     public class PhysicsCopyPart : CopyPart
     {
-        private ConfigurableJoint joint;
+        private Transform root;
 
+        private ConfigurableJoint joint;
         private Vector3 originRootPos;
 
-        public override void Init(Transform root)
+        public override void Init(Transform animRoot, Transform ragdollRoot)
         {
-            base.Init(root);
-
+            base.Init(animRoot, ragdollRoot);
+            
             joint = GetComponent<ConfigurableJoint>();
 
+            root = ragdollRoot;
             originRootPos = root.position;
         }
 

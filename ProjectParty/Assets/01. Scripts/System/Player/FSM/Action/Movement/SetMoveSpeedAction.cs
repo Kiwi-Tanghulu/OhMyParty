@@ -9,13 +9,13 @@ namespace OMG.Player.FSM
     {
         [SerializeField] private float moveSpeed;
 
-        private PlayerMovement movement;
+        private CharacterMovement movement;
 
         public override void Init(FSMBrain brain)
         {
             base.Init(brain);
 
-            movement = player.GetComponent<PlayerMovement>();
+            movement = player.GetComponent<CharacterMovement>();
         }
 
         public override void EnterState()
