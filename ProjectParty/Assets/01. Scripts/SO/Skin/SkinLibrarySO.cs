@@ -9,6 +9,7 @@ namespace OMG.Skins
     {
         [SerializeField] List<SkinSO> skins = null;
         public SkinSO this[int index] => skins[index];
+        public int Count => skins.Count;
 
         private int currentIndex = 0;
         public int CurrentIndex { 
