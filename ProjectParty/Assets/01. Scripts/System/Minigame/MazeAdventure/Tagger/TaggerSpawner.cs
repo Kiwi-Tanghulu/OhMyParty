@@ -7,6 +7,7 @@ namespace OMG.Minigames.MazeAdventure
     public class TaggerSpawner : MonoBehaviour
     {
         [SerializeField] private List<Transform> taggerSpawnTrms;
+        [SerializeField] private float taggerSpawnTime;
         [SerializeField] private GameObject taggerObj;
 
         private DeathmatchCycle cycle = null;
@@ -30,11 +31,11 @@ namespace OMG.Minigames.MazeAdventure
 
         private IEnumerator SpawnCycle()
         {
-            float time = 0;
+            float time = taggerSpawnTime;
             while (true)
             {
                 time += Time.deltaTime;
-                if(time >= 8f)
+                if(time >= taggerSpawnTime)
                 {
                     SpawnTagger();
                     time = 0;
