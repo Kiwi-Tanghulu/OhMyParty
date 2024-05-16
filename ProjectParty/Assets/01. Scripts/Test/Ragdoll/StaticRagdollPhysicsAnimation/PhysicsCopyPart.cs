@@ -23,10 +23,6 @@ namespace OMG.Ragdoll
         {
             if (root == null)
                 return;
-
-            Vector3 targetPosition = (originRootPos - root.position);
-
-            joint.targetPosition = targetPosition;
         }
 
         public override Vector3 GetCopyPosition(float weight)
