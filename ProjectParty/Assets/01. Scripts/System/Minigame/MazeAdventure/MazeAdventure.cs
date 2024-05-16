@@ -1,5 +1,6 @@
 using OMG.Input;
 using OMG.Minigames;
+using OMG.Player;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,10 @@ namespace OMG.Minigames.MazeAdventure
             base.Init(playerIDs);
 
             for (int i = 0; i < playerDatas.Count; ++i)
-                CreatePlayer(i);
+            {
+                MazeAdventurePlayerController pc = CreatePlayer(i) as MazeAdventurePlayerController;
+                pc.Init(i);
+            }
 
             deathmatchCycle = cycle as DeathmatchCycle;
 

@@ -27,12 +27,6 @@ namespace OMG.Player
             stateMachine.Init();
         }
 
-        public virtual void Init(ulong ownerId)
-        {
-            NetworkObject.ChangeOwnership(ownerId);
-            Debug.Log("Player Init");
-        }
-
         protected virtual void Update()
         {
             stateMachine.UpdateFSM();
