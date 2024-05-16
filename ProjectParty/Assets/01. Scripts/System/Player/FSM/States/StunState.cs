@@ -10,7 +10,7 @@ namespace OMG.Player.FSM
     {
         private PlayerRagdoll ragdoll;
         private PlayerHealth health;
-        private PlayerMovement movement;
+        private CharacterMovement movement;
 
         private int stunAnimHash = Animator.StringToHash("stun");
 

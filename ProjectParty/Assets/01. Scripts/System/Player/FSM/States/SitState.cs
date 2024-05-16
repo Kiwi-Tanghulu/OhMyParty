@@ -14,13 +14,13 @@ namespace OMG.Player.FSM
         private Chair usingChair;
         private Transform sitPoint;
 
-        private PlayerMovement movement;
+        private CharacterMovement movement;
 
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
 
-            movement = player.GetComponent<PlayerMovement>();
+            movement = player.GetComponent<CharacterMovement>();
         }
 
         public override void EnterState()

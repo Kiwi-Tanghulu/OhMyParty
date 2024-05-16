@@ -20,13 +20,13 @@ namespace OMG.Player.FSM
         [SerializeField] private float handlingPower;
         private float handlingValue;
         
-        private PlayerMovement movement;
+        private CharacterMovement movement;
 
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
 
-            movement = player.GetComponent<PlayerMovement>();
+            movement = player.GetComponent<CharacterMovement>();
             
             handlingValue = 0f;
         }
@@ -55,7 +55,7 @@ namespace OMG.Player.FSM
             slantValue += movement.MoveSpeed * angularVelocityCoefficient * slantDirection * Time.deltaTime;
 
             player.transform.rotation = Quaternion.Euler(new Vector3(0f, handlingValue, slantValue));
-            movement.SetMoveDir(brain.transform.forward, false);
+            movement.SetMoveDirection(brain.transform.forward, false);
         }
 
         protected override void OwnerExitState()
