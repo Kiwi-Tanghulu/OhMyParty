@@ -16,6 +16,8 @@ public class AnimatorAction : FSMAction
         animator = brain.GetComponent<Animator>();
         if(animator == null )
             animator = brain.transform.Find("Visual").GetComponent<Animator>();
+        if (animator == null)
+            animator = brain.transform.Find("Visual").Find("AnimationCopyTarget").GetComponent<Animator>();
         animBoolHash = Animator.StringToHash(animBoolName);
     }
     public override void EnterState()
