@@ -1,22 +1,27 @@
 using OMG.Skins;
 using OMG.UI.Solid;
+using TinyGiantStudio.Text;
 using UnityEngine;
 
 namespace OMG.UI.Skin
 {
     public class SkinPanel : MonoBehaviour
     {
-        [SerializeField] SolidButton purchaseButton;
-        [SerializeField] SolidButton selectButton;
+        [SerializeField] Modular3DText panelTitle = null;
+        [SerializeField] Modular3DText skinTitle = null;
+
+        [SerializeField] SolidButton purchaseButton = null;
+        [SerializeField] SolidButton selectButton = null;
 
         private SkinLibrarySO skinLibrary = null;
-        private SkinSelector skinSelector = null;
+        private SkinLibrarySO visualLibrary = null;
+        private SkinSelector visualSelector = null;
 
         private int skinCache = 0;
 
         private void Awake()
         {
-            skinSelector = GetComponent<SkinSelector>();
+            visualSelector = GetComponent<SkinSelector>();
         }
 
         private void Start()
@@ -26,39 +31,48 @@ namespace OMG.UI.Skin
 
         public void Display(bool active)
         {
-            if(active)
+            if(skinLibrary)
             {
-                skinSelector.SetSkin();
-                skinCache = skinLibrary.CurrentIndex;
-            }
-            else
-            {
-                skinSelector.ReleaseSkin();
-                skinLibrary.CurrentIndex = skinCache;
+                if(active)
+                {
+                    visualSelector.SetSkin();
+                    skinCache = skinLibrary.CurrentIndex;
+                }
+                else
+                {
+                    visualSelector.ReleaseSkin();
+                    skinLibrary.CurrentIndex = skinCache;
+                }
             }
 
             gameObject.SetActive(active);
         }
 
-        public void SetSkinLibrary(SkinLibrarySO library)
+        public void SetSkinLibrary(SkinLibrarySO skinLibrary)
         {
-            skinSelector.ReleaseSkin();
-            skinSelector.SetSkinLibrary(library);
-            skinLibrary = library;
+            this.skinLibrary = skinLibrary;
+            panelTitle.Text = skinLibrary.LibraryName;
+        }
+
+        public void SetVisualLibrary(SkinLibrarySO visualLibrary)
+        {
+            visualSelector.ReleaseSkin();
+            visualSelector.SetSkinLibrary(visualLibrary);
+            this.visualLibrary = visualLibrary;
         }
 
         public void MoveSkinIndex(int amount)
         {
-            int current = skinLibrary.CurrentIndex;
-            int limit = skinLibrary.Count;
-            skinLibrary.CurrentIndex = (current + amount + limit) % limit;
+            int current = visualLibrary.CurrentIndex;
+            int limit = visualLibrary.Count;
+            visualLibrary.CurrentIndex = (current + amount + limit) % limit;
 
-            skinSelector.SetSkin();
+            visualSelector.SetSkin();
         }
 
         public void SelectSkin()
         {
-            skinCache = skinLibrary.CurrentIndex;
+            skinCache = visualLibrary.CurrentIndex;
         }
 
         public void PurchaseSkin()

@@ -21,14 +21,20 @@ namespace OMG.Skins
             if(currentSkin != null)
                 ReleaseSkin();
 
-            currentSkin = Instantiate(skinLibrary.CurrentSkinData.SkinPrefab, skinContainer);
-            currentSkin.Init();
+            if(skinLibrary.CurrentSkinData.SkinPrefab != null)
+            {
+                currentSkin = Instantiate(skinLibrary.CurrentSkinData.SkinPrefab, skinContainer);
+                currentSkin.Init();
+            }
         }
 
         public void ReleaseSkin()
         {
-            currentSkin?.Release();
-            Destroy(currentSkin?.gameObject);
+            if(currentSkin != null)
+            {
+                currentSkin.Release();
+                Destroy(currentSkin.gameObject);
+            }
 
             currentSkin = null;
         }

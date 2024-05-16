@@ -7,6 +7,7 @@ namespace OMG.Skins
     [CreateAssetMenu(menuName = "SO/Skins/SkinLibraray")]
     public class SkinLibrarySO : ScriptableObject
     {
+        public string LibraryName = "SKIN";
         [SerializeField] List<SkinSO> skins = null;
         public SkinSO this[int index] => skins[index];
         public int Count => skins.Count;
