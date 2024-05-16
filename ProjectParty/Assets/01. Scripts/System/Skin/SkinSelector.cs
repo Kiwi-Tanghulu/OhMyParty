@@ -8,15 +8,11 @@ namespace OMG.Skins
         [SerializeField] Transform skinContainer = null;
 
         private Skin currentSkin = null;
+        public Skin CurrentSkin => currentSkin;
 
-        private void Awake()
+        public void SetSkinLibrary(SkinLibrarySO library)
         {
-            skinLibrary.OnSkinChangedEvent += SetSkin;
-        }
-
-        private void OnDestroy()
-        {
-            skinLibrary.OnSkinChangedEvent -= SetSkin;
+            skinLibrary = library;
         }
 
         // 호스트만 Lobby의 초기화 부분에서 실행해주면 됨
@@ -31,8 +27,8 @@ namespace OMG.Skins
 
         public void ReleaseSkin()
         {
-            currentSkin.Release();
-            Destroy(currentSkin.gameObject);
+            currentSkin?.Release();
+            Destroy(currentSkin?.gameObject);
 
             currentSkin = null;
         }
