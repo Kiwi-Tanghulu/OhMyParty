@@ -112,7 +112,7 @@ MonoBehaviour:
   OnStateEnterEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6726463878315224016}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
         m_MethodName: set_useGravity
         m_Mode: 6
@@ -124,7 +124,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8037472295133310693}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 6
@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animBoolName: Die
+  animator: {fileID: 304868655009326990}
 --- !u!1 &3839064655445244171
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,17 +255,17 @@ PrefabInstance:
     - target: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
@@ -367,11 +368,35 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5275389935828522059}
-    - targetCorrespondingSourceObject: {fileID: 231581997986253678, guid: fcf90dc6047265e4db4c32e1eba10505,
+    - targetCorrespondingSourceObject: {fileID: 4739390915760268885, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1252824606713485097}
+      addedObject: {fileID: 4853164168397771365}
   m_SourcePrefab: {fileID: 100100000, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
+--- !u!95 &304868655009326990 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5283001597413914941, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &913759540754561254 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4739390915760268885, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4853164168397771365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913759540754561254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c568a1270264d48a121bb7bf734768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3853981177553999867 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8653656707965372744, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -394,24 +419,6 @@ MonoBehaviour:
   dieEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &5646773973527991773 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 231581997986253678, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 5578800621233249971}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1252824606713485097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646773973527991773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0c568a1270264d48a121bb7bf734768, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6578611427595972520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -421,18 +428,6 @@ Transform:
 --- !u!4 &6665563329042696071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1291186274025330996, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 5578800621233249971}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &6726463878315224016 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 1167227083834766691, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 5578800621233249971}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &8037472295133310693 stripped
-CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: 2513351556588433494, guid: fcf90dc6047265e4db4c32e1eba10505,
     type: 3}
   m_PrefabInstance: {fileID: 5578800621233249971}
   m_PrefabAsset: {fileID: 0}

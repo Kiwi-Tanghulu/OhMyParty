@@ -8,16 +8,11 @@ public class AnimatorAction : FSMAction
 {
     [SerializeField] private string animBoolName;
     private int animBoolHash;
-    private Animator animator;
+    [SerializeField] private Animator animator;
 
     public override void Init(FSMBrain brain)
     {
         base.Init(brain);
-        animator = brain.GetComponent<Animator>();
-        if(animator == null )
-            animator = brain.transform.Find("Visual").GetComponent<Animator>();
-        if (animator == null)
-            animator = brain.transform.Find("Visual").Find("AnimationCopyTarget").GetComponent<Animator>();
         animBoolHash = Animator.StringToHash(animBoolName);
     }
     public override void EnterState()
