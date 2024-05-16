@@ -30,8 +30,8 @@ public class TestRagdollCopy : CopyPart
         if (copyTarget == null)
             return;
 
-        //joint.targetPosition = copyTarget.localPosition;
-        //joint.targetRotation = Quaternion.Inverse(copyTarget.localRotation) * originRot;
+        joint.targetPosition = copyTarget.localPosition - originPos;
+        joint.targetRotation = Quaternion.Inverse(copyTarget.localRotation) * originRot;
     }
 
     public override Vector3 GetCopyPosition(float weight)

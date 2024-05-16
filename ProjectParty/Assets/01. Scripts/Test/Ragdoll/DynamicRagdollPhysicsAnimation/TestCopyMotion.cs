@@ -23,4 +23,9 @@ public class TestCopyMotion : MonoBehaviour
         transform.localPosition = Vector3.Lerp(anim.GetCopyPosition(1f), rag.GetCopyPosition(1f), ragdollWeight);
         transform.localRotation = Quaternion.Lerp(anim.GetCopyRotation(1f), rag.GetCopyRotation(1f), ragdollWeight);
     }
+
+    public void SetRagdollWeight(float value)
+    {
+        ragdollWeight = value;
+    }
 }

@@ -28,4 +28,10 @@ public class TestRagdoll : MonoBehaviour
         foreach (TestCopyMotion c in cp)
             c.Init(rp.Find(x => x.name == c.name), ap.Find(x => x.name == c.name), ragdollWeight);
     }
+
+    private void Update()
+    {
+        for(int i = 0; i < cp.Count; i++)
+            cp[i].SetRagdollWeight(ragdollWeight);
+    }
 }
