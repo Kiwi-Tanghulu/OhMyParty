@@ -32,7 +32,7 @@ namespace OMG.Lobbies
         private void Awake()
         {
             LobbyComponent[] components = GetComponents<LobbyComponent>();
-            lobbyComponents = components.GetTypeDictionary();
+            lobbyComponents = components.GetDictionaryByType();
             components.ForEach(i => i.Init(this));
 
             players = new NetworkList<PlayerData>();

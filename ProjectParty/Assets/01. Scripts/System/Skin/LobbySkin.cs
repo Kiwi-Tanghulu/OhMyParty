@@ -5,12 +5,15 @@ namespace OMG.Skins
 {
     public class LobbySkin : Skin
     {
-        [SerializeField] MinigameSpot spot = null;
+        [SerializeField] Transform minigameSpotTrm = null;
 
         public override void Init()
         {
             base.Init();
-            spot.NetworkObject.TrySetParent(Lobby.Current.NetworkObject);
+
+            Transform minigameSpot = Lobby.Current.transform.Find("MinigameSpot");
+            minigameSpot.position = minigameSpotTrm.position;
+            minigameSpot.rotation = minigameSpotTrm.rotation;
         }
 
         public override void Release()
