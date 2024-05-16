@@ -9,6 +9,7 @@ namespace OMG.UI.Solid
         [SerializeField] TweenOptOption focusTweenOption;
         [SerializeField] TweenOptOption clickTweenOption;
 
+        [Space(15f)]
         public UnityEvent OnClickEvent = null;
 
         private void Awake()

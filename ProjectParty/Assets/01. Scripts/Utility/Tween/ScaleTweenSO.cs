@@ -1,4 +1,5 @@
 using DG.Tweening;
+using OMG.Extensions;
 using UnityEngine;
 
 namespace OMG.Tweens
@@ -8,6 +9,7 @@ namespace OMG.Tweens
     {
         [Space(15f)]
         [SerializeField] float endValue = 1f;
+        [SerializeField] bool keepSign = false;
 
         protected override void OnTween(Sequence sequence)
         {
@@ -17,7 +19,8 @@ namespace OMG.Tweens
             for(int i = 0; i < tweenParams.Count; ++i)
             {
                 param = GetParam(i);
-                tween = body.DOScale(param.Value, param.Duration).SetDelay(param.Delay).SetEase(param.Ease);
+                Vector3 value = (keepSign ? body.localScale.Sign() : Vector3.one) * param.Value;
+                tween = body.DOScale(value, param.Duration).SetDelay(param.Delay).SetEase(param.Ease);
                 sequence.Append(tween);
             }
         }
@@ -25,7 +28,9 @@ namespace OMG.Tweens
         protected override void HandleTweenCompleted()
         {
             base.HandleTweenCompleted();
-            body.localScale = new Vector3(endValue, endValue, endValue);
+            Vector3 value = (keepSign ? body.localScale.Sign() : Vector3.one) * endValue;
+
+            body.localScale = value;
         }
     }
 }

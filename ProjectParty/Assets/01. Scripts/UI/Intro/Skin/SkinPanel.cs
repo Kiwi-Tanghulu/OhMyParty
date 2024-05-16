@@ -7,6 +7,8 @@ namespace OMG.UI.Skin
 {
     public class SkinPanel : MonoBehaviour
     {
+        private const string SKIN_TITLE_FORMAT = "[ {0} ]";
+
         [SerializeField] Modular3DText panelTitle = null;
         [SerializeField] Modular3DText skinTitle = null;
 
@@ -35,7 +37,7 @@ namespace OMG.UI.Skin
             {
                 if(active)
                 {
-                    visualSelector.SetSkin();
+                    DisplaySkin();
                     skinCache = skinLibrary.CurrentIndex;
                 }
                 else
@@ -67,6 +69,12 @@ namespace OMG.UI.Skin
             int limit = visualLibrary.Count;
             visualLibrary.CurrentIndex = (current + amount + limit) % limit;
 
+            DisplaySkin();
+        }
+
+        private void DisplaySkin()
+        {
+            skinTitle.Text = string.Format(SKIN_TITLE_FORMAT, visualLibrary.CurrentSkinData.SkinName);
             visualSelector.SetSkin();
         }
 
