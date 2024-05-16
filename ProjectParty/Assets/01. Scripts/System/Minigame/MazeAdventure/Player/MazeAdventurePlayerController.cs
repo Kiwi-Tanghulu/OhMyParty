@@ -17,11 +17,6 @@ namespace OMG.Minigames.MazeAdventure
             base.OnNetworkSpawn();
 
             int index = MinigameManager.Instance.CurrentMinigame.PlayerDatas.Find(out PlayerData foundPlayer, x => x.clientID == OwnerClientId);
-            
-        }
-
-        public void Init(int index)
-        {
             transform.Find("Visual").Find("Skin").GetComponent<PlayerOutLine>().SettingOutLine(index);
         }
 

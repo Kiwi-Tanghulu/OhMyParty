@@ -21,10 +21,7 @@ namespace OMG.Minigames.MazeAdventure
             base.Init(playerIDs);
 
             for (int i = 0; i < playerDatas.Count; ++i)
-            {
-                MazeAdventurePlayerController pc = CreatePlayer(i) as MazeAdventurePlayerController;
-                pc.Init(i);
-            }
+                CreatePlayer(i);
 
             deathmatchCycle = cycle as DeathmatchCycle;
 
