@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Steamworks;
 using Steamworks.Data;
 using UnityEngine;
@@ -36,6 +37,17 @@ namespace OMG.Network
             SteamMatchmaking.OnLobbyGameCreated -= HandleLobbyGameCreated;
 
             SteamFriends.OnGameLobbyJoinRequested -= HandleLobbyJoinRequested;
+        }
+
+        public async Task<bool> GetLobbyListAsync(Lobby[] container, int count = 5)
+        {
+            LobbyQuery query = SteamMatchmaking.LobbyList
+                .WithKeyValue("private", "false")
+                .WithSlotsAvailable(1)
+                .WithMaxResults(count);
+
+            container = await query.RequestAsync();
+            return container != null;
         }
 
         #region Steamworks Callback
