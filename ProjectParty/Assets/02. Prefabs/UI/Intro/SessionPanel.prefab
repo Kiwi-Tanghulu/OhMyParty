@@ -139,7 +139,19 @@ MonoBehaviour:
     NegativeOption: {fileID: 0}
   OnClickEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8390876317709242156}
+        m_TargetAssemblyTypeName: OMG.UI.Sessions.SessionPanel, Assembly-CSharp
+        m_MethodName: Display
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &2756869509416534591
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -546,7 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fa2df8af97b7b41b1516436323916d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Active>k__BackingField: 1
+  <Active>k__BackingField: 0
   focusTweenOption:
     PositiveOption: {fileID: 0}
     NegativeOption: {fileID: 0}
@@ -768,7 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: 297532
+  GUIID: 194484
 --- !u!114 &4630410520554942370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1010,6 +1022,7 @@ GameObject:
   - component: {fileID: 7762745382955452515}
   - component: {fileID: 3991890742001594945}
   - component: {fileID: 7409972003474182382}
+  - component: {fileID: 3406928923524945273}
   - component: {fileID: 113142610126942739}
   m_Layer: 5
   m_Name: OwnerField
@@ -1117,6 +1130,33 @@ MonoBehaviour:
   onInputEnd:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3406928923524945273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4229063139153029518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 824117404e34f954082c8157cb9f2509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnInputEndEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8390876317709242156}
+        m_TargetAssemblyTypeName: OMG.UI.Sessions.SessionPanel, Assembly-CSharp
+        m_MethodName: FillSlots
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &113142610126942739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1186,7 +1226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: 297148
+  GUIID: 194516
 --- !u!114 &4767025072641339647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1479,6 +1519,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1289694751085291438}
+  - component: {fileID: 8390876317709242156}
   m_Layer: 5
   m_Name: SessionPanel
   m_TagString: Untagged
@@ -1503,6 +1544,21 @@ Transform:
   - {fileID: 8202711829282611611}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -3.5, z: 0}
+--- !u!114 &8390876317709242156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5253005625797290780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2053617a459bd4943abd2ebda6b82745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotPrefab: {fileID: -8873775192788150035, guid: a6a8ef45525ea0d40aaa3170b82452a8,
+    type: 3}
+  container: {fileID: 4500427074090010902}
 --- !u!1 &5741135487265799828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,7 +1614,19 @@ MonoBehaviour:
     NegativeOption: {fileID: 0}
   OnClickEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8390876317709242156}
+        m_TargetAssemblyTypeName: OMG.UI.Sessions.SessionPanel, Assembly-CSharp
+        m_MethodName: FillSlots
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &473821395939388050
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1628,7 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: 297046
+  GUIID: 194548
 --- !u!114 &8739033606963792092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2207,7 +2275,7 @@ PrefabInstance:
     - target: {fileID: 2009473210121516637, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
       propertyPath: GUIID
-      value: -144114
+      value: -89114
       objectReference: {fileID: 0}
     - target: {fileID: 5042193654400812079, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
@@ -2267,7 +2335,7 @@ PrefabInstance:
     - target: {fileID: 7815864120915168777, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
       propertyPath: GUIID
-      value: -144100
+      value: -89100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2297,7 +2365,7 @@ PrefabInstance:
     - target: {fileID: 2009473210121516637, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
       propertyPath: GUIID
-      value: -143446
+      value: -88988
       objectReference: {fileID: 0}
     - target: {fileID: 5042193654400812079, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
@@ -2357,7 +2425,7 @@ PrefabInstance:
     - target: {fileID: 7815864120915168777, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
       propertyPath: GUIID
-      value: -143432
+      value: -88974
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2387,7 +2455,7 @@ PrefabInstance:
     - target: {fileID: 2009473210121516637, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
       propertyPath: GUIID
-      value: -144154
+      value: -89030
       objectReference: {fileID: 0}
     - target: {fileID: 5042193654400812079, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
@@ -2447,7 +2515,7 @@ PrefabInstance:
     - target: {fileID: 7815864120915168777, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
       propertyPath: GUIID
-      value: -144140
+      value: -89016
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2477,7 +2545,7 @@ PrefabInstance:
     - target: {fileID: 2009473210121516637, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
       propertyPath: GUIID
-      value: -144034
+      value: -88946
       objectReference: {fileID: 0}
     - target: {fileID: 5042193654400812079, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
@@ -2537,7 +2605,7 @@ PrefabInstance:
     - target: {fileID: 7815864120915168777, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
       propertyPath: GUIID
-      value: -144020
+      value: -88932
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2564,11 +2632,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4500427074090010902}
     m_Modifications:
-    - target: {fileID: 2009473210121516637, guid: a6a8ef45525ea0d40aaa3170b82452a8,
-        type: 3}
-      propertyPath: GUIID
-      value: -144074
-      objectReference: {fileID: 0}
     - target: {fileID: 5042193654400812079, guid: a6a8ef45525ea0d40aaa3170b82452a8,
         type: 3}
       propertyPath: m_Name
@@ -2623,11 +2686,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7815864120915168777, guid: a6a8ef45525ea0d40aaa3170b82452a8,
-        type: 3}
-      propertyPath: GUIID
-      value: -144060
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

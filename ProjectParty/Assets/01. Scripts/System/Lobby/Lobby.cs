@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Input;
+using OMG.Network;
 using OMG.Player;
 using OMG.Skins;
 using Unity.Netcode;
@@ -49,7 +50,17 @@ namespace OMG.Lobbies
         {
             InputManager.ChangeInputMap(InputMapType.Play);
             if(IsHost)
-               skinSelector.SetSkin();
+            {
+                string lobbySkin = skinSelector.SkinLibrary.CurrentIndex.ToString();
+                ClientManager.Instance.CurrentLobby?.SetData("LobbySkin", lobbySkin);
+            }
+            else
+            {
+                string lobbySkin = ClientManager.Instance.CurrentLobby?.GetData("LobbySkin");
+                skinSelector.SkinLibrary.CurrentIndex = int.Parse(lobbySkin);
+            }
+
+            skinSelector.SetSkin();
 
             // 모든 처리가 끝난 후 로비씬을 들어오게 되기 때문에 스타트에서 해줘도 됨
             PlayerJoinServerRpc();

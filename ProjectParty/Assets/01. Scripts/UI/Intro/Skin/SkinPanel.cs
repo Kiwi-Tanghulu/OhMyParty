@@ -3,7 +3,7 @@ using OMG.UI.Solid;
 using TinyGiantStudio.Text;
 using UnityEngine;
 
-namespace OMG.UI.Skin
+namespace OMG.UI.Skins
 {
     public class SkinPanel : MonoBehaviour
     {

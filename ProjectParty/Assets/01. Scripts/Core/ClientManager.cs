@@ -39,15 +39,31 @@ namespace OMG.Network
             SteamFriends.OnGameLobbyJoinRequested -= HandleLobbyJoinRequested;
         }
 
-        public async Task<bool> GetLobbyListAsync(Lobby[] container, int count = 5)
+        public async Task<Lobby[]> GetLobbyListAsync(string owner = null, int count = 5)
         {
             LobbyQuery query = SteamMatchmaking.LobbyList
                 .WithKeyValue("private", "false")
                 .WithSlotsAvailable(1)
                 .WithMaxResults(count);
 
-            container = await query.RequestAsync();
-            return container != null;
+            if(string.IsNullOrEmpty(owner) == false)
+                query = query.WithKeyValue("owner", owner);
+
+            return await query.RequestAsync();
+        }
+
+        public async void JoinLobbyAsync(Lobby lobby)
+        {
+            // 참가 요청에 대한 응답 받기
+            RoomEnter reqResult = await lobby.Join();
+            if(reqResult != RoomEnter.Success)
+            {
+                Debug.Log($"[Steamworks] Failed to Join lobby : {reqResult}");
+                return;
+            }
+
+            // 참가 되었다면 CurrentLobby 업데이트 해줌
+            CurrentLobby = lobby;
         }
 
         #region Steamworks Callback
@@ -72,18 +88,9 @@ namespace OMG.Network
             Debug.Log($"[Steamworks] Lobby Game Created");
         }
 
-        private async void HandleLobbyJoinRequested(Lobby lobby, SteamId id)
+        private void HandleLobbyJoinRequested(Lobby lobby, SteamId id)
         {
-            // 참가 요청에 대한 응답 받기
-            RoomEnter reqResult = await lobby.Join();
-            if(reqResult != RoomEnter.Success)
-            {
-                Debug.Log($"[Steamworks] Failed to Join lobby : {reqResult}");
-                return;
-            }
-
-            // 참가 되었다면 CurrentLobby 업데이트 해줌
-            CurrentLobby = lobby;
+            JoinLobbyAsync(lobby);
         }
 
         #endregion

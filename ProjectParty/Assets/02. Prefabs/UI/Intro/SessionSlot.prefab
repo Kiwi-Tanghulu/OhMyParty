@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5066949958017615933}
+  - component: {fileID: -8873775192788150035}
   - component: {fileID: 8860107085543030868}
   - component: {fileID: 1663390889138444948}
   m_Layer: 5
@@ -119,6 +120,20 @@ Transform:
   - {fileID: 2849968105575321840}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8873775192788150035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5042193654400812079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c490f7353e0cb4e92266fd99f171c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerText: {fileID: 6400555160597012954}
+  userText: {fileID: 2720649000129277569}
 --- !u!114 &8860107085543030868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,14 +148,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Active>k__BackingField: 1
   focusTweenOption:
-    PositiveOption: {fileID: 0}
-    NegativeOption: {fileID: 0}
+    PositiveOption: {fileID: 11400000, guid: ff780646c13806146bc5bca193e407e4, type: 2}
+    NegativeOption: {fileID: 11400000, guid: 5da41ede04eceb34185988992eae71d9, type: 2}
   clickTweenOption:
     PositiveOption: {fileID: 0}
     NegativeOption: {fileID: 0}
   OnClickEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -8873775192788150035}
+        m_TargetAssemblyTypeName: OMG.UI.Sessions.SessionSlot, Assembly-CSharp
+        m_MethodName: JoinLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &1663390889138444948
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -210,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: -2944
+  GUIID: -89058
 --- !u!114 &6400555160597012954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: -2958
+  GUIID: -89072
 --- !u!114 &2720649000129277569
 MonoBehaviour:
   m_ObjectHideFlags: 0

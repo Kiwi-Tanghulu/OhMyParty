@@ -39,6 +39,7 @@ namespace OMG.Network
 
             ClientManager.Instance.CurrentLobby = await SteamMatchmaking.CreateLobbyAsync(maxMember);
             ClientManager.Instance.CurrentLobby?.SetData("private", "false");
+            ClientManager.Instance.CurrentLobby?.SetData("owner", "SEH00N");
             onHostStarted?.Invoke();
         }
 

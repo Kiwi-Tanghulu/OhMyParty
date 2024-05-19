@@ -4,8 +4,9 @@ namespace OMG.Skins
 {
     public class SkinSelector : MonoBehaviour
     {
-        [SerializeField] SkinLibrarySO skinLibrary = null;
         [SerializeField] Transform skinContainer = null;
+        [SerializeField] SkinLibrarySO skinLibrary = null;
+        public SkinLibrarySO SkinLibrary => skinLibrary;
 
         private Skin currentSkin = null;
         public Skin CurrentSkin => currentSkin;

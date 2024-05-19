@@ -1,3 +1,4 @@
+using System.Collections;
 using Netcode.Transports.Facepunch;
 using Steamworks;
 using Steamworks.Data;
@@ -83,8 +84,8 @@ namespace OMG.Network
         
         private void HandleLobbyEntered(Lobby lobby)
         {
-            // 로비에 참가했을 때 난 당연히 호스트이면 안 됨
-            if(NetworkManager.Singleton.IsHost)
+            // 로비에 참가했을 때 이미 클라이언트가 켜져있다면 문제가 생긴 상황
+            if(NetworkManager.Singleton.IsConnectedClient)
                 return;
 
             // 정상적으로 로비에 참가했다면 넷코드 클라이언트 시작
