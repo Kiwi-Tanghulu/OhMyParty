@@ -3,8 +3,6 @@ using UnityEngine;
 using OMG.Network;
 using Unity.Netcode;
 using OMG.Minigames;
-using Steamworks;
-using Steamworks.Data;
 
 namespace OMG
 {
@@ -30,10 +28,6 @@ namespace OMG
         private void Start()
         {
             InitNetwork();
-            // LobbyQuery query = SteamMatchmaking.LobbyList
-            //     .WithKeyValue("private", "false")
-            //     .WithSlotsAvailable(1);
-            // Lobby[] lobbies = await query.RequestAsync();
         }
 
         private void OnApplicationQuit()

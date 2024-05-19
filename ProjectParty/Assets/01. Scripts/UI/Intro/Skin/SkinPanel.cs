@@ -1,3 +1,4 @@
+using OMG.Datas;
 using OMG.Skins;
 using OMG.UI.Solid;
 using TinyGiantStudio.Text;
@@ -38,7 +39,7 @@ namespace OMG.UI.Skins
                 if(active)
                 {
                     DisplaySkin();
-                    skinCache = skinLibrary.CurrentIndex;
+                    skinCache = visualLibrary.CurrentIndex = skinLibrary.CurrentIndex;
                 }
                 else
                 {
@@ -74,7 +75,7 @@ namespace OMG.UI.Skins
 
         private void DisplaySkin()
         {
-            skinTitle.Text = string.Format(SKIN_TITLE_FORMAT, visualLibrary.CurrentSkinData.SkinName);
+            skinTitle.Text = string.Format(SKIN_TITLE_FORMAT, visualLibrary.CurrentSkin.SkinName);
             visualSelector.SetSkin();
         }
 

@@ -22,9 +22,9 @@ namespace OMG.Skins
             if(currentSkin != null)
                 ReleaseSkin();
 
-            if(skinLibrary.CurrentSkinData.SkinPrefab != null)
+            if(skinLibrary.CurrentSkin.SkinPrefab != null)
             {
-                currentSkin = Instantiate(skinLibrary.CurrentSkinData.SkinPrefab, skinContainer);
+                currentSkin = Instantiate(skinLibrary.CurrentSkin.SkinPrefab, skinContainer);
                 currentSkin.Init();
             }
         }
