@@ -46,13 +46,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fa2df8af97b7b41b1516436323916d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Active>k__BackingField: 1
+  active: 1
   focusTweenOption:
     PositiveOption: {fileID: 11400000, guid: 90faac070bea86846ae06b74bb18da3e, type: 2}
     NegativeOption: {fileID: 11400000, guid: ebaa9f7bc56408f4298c3f7f7439c667, type: 2}
   clickTweenOption:
     PositiveOption: {fileID: 0}
     NegativeOption: {fileID: 0}
+  renderTarget: {fileID: 0}
+  colorOption:
+    PositiveOption: {r: 0, g: 0, b: 0, a: 0}
+    NegativeOption: {r: 0, g: 0, b: 0, a: 0}
   OnClickEvent:
     m_PersistentCalls:
       m_Calls:
@@ -138,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: 159446
+  GUIID: -83298
 --- !u!114 &5704913800786270925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: 159696
+  GUIID: -83360
 --- !u!114 &7666995015789961491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,13 +551,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fa2df8af97b7b41b1516436323916d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Active>k__BackingField: 1
+  active: 1
   focusTweenOption:
     PositiveOption: {fileID: 11400000, guid: 90faac070bea86846ae06b74bb18da3e, type: 2}
     NegativeOption: {fileID: 11400000, guid: ebaa9f7bc56408f4298c3f7f7439c667, type: 2}
   clickTweenOption:
     PositiveOption: {fileID: 0}
     NegativeOption: {fileID: 0}
+  renderTarget: {fileID: 0}
+  colorOption:
+    PositiveOption: {r: 0, g: 0, b: 0, a: 0}
+    NegativeOption: {r: 0, g: 0, b: 0, a: 0}
   OnClickEvent:
     m_PersistentCalls:
       m_Calls:
@@ -776,7 +784,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -828,7 +836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: 158664
+  GUIID: -83410
 --- !u!114 &3526833283717566332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -850,7 +858,7 @@ MonoBehaviour:
   generatedMeshes: []
   autoSaveMesh: 0
   _font: {fileID: 11400000, guid: b3eef0d5e6b1e9d4fbc94f2c0246c368, type: 2}
-  _material: {fileID: 2100000, guid: f8447650751d4b643832daa94d65c448, type: 2}
+  _material: {fileID: 2100000, guid: 62edbfd140d75c044ad1536a76bc55ed, type: 2}
   _fontSize: {x: 3, y: 3, z: 500}
   _capitalize: 0
   _lowercase: 0
@@ -919,7 +927,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f8447650751d4b643832daa94d65c448, type: 2}
+  - {fileID: 2100000, guid: 62edbfd140d75c044ad1536a76bc55ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1015,16 +1023,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fa2df8af97b7b41b1516436323916d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Active>k__BackingField: 1
+  active: 1
   focusTweenOption:
     PositiveOption: {fileID: 11400000, guid: 345ae86df48fca84dac742729df8f497, type: 2}
     NegativeOption: {fileID: 11400000, guid: 915270d8eeb673c4091667cf8dea149b, type: 2}
   clickTweenOption:
     PositiveOption: {fileID: 0}
     NegativeOption: {fileID: 0}
+  renderTarget: {fileID: 1954150293615773062}
+  colorOption:
+    PositiveOption: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 1}
+    NegativeOption: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 0.7490196}
   OnClickEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8933928047790179397}
+        m_TargetAssemblyTypeName: OMG.UI.Skins.SkinPanel, Assembly-CSharp
+        m_MethodName: PurchaseSkin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &2960970986428059495
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1074,7 +1098,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.85, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6821421048170976649}
@@ -1092,13 +1116,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fa2df8af97b7b41b1516436323916d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Active>k__BackingField: 1
+  active: 1
   focusTweenOption:
     PositiveOption: {fileID: 11400000, guid: 90faac070bea86846ae06b74bb18da3e, type: 2}
     NegativeOption: {fileID: 11400000, guid: ebaa9f7bc56408f4298c3f7f7439c667, type: 2}
   clickTweenOption:
     PositiveOption: {fileID: 0}
     NegativeOption: {fileID: 0}
+  renderTarget: {fileID: 0}
+  colorOption:
+    PositiveOption: {r: 0, g: 0, b: 0, a: 0}
+    NegativeOption: {r: 0, g: 0, b: 0, a: 0}
   OnClickEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1152,7 +1180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4505090274505720176
 Transform:
   m_ObjectHideFlags: 0
@@ -1182,16 +1210,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fa2df8af97b7b41b1516436323916d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Active>k__BackingField: 1
+  active: 1
   focusTweenOption:
     PositiveOption: {fileID: 11400000, guid: 345ae86df48fca84dac742729df8f497, type: 2}
     NegativeOption: {fileID: 11400000, guid: 915270d8eeb673c4091667cf8dea149b, type: 2}
   clickTweenOption:
     PositiveOption: {fileID: 0}
     NegativeOption: {fileID: 0}
+  renderTarget: {fileID: 5284678316114290630}
+  colorOption:
+    PositiveOption: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 1}
+    NegativeOption: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 0.7490196}
   OnClickEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8933928047790179397}
+        m_TargetAssemblyTypeName: OMG.UI.Skins.SkinPanel, Assembly-CSharp
+        m_MethodName: SelectSkin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &570589435567494429
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1261,7 +1305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b69eb3f1c55974bb1bcc1dbc547a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIID: -63884
+  GUIID: -83440
 --- !u!114 &52550998561917779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1283,7 +1327,7 @@ MonoBehaviour:
   generatedMeshes: []
   autoSaveMesh: 0
   _font: {fileID: 11400000, guid: b3eef0d5e6b1e9d4fbc94f2c0246c368, type: 2}
-  _material: {fileID: 2100000, guid: f8447650751d4b643832daa94d65c448, type: 2}
+  _material: {fileID: 2100000, guid: 62edbfd140d75c044ad1536a76bc55ed, type: 2}
   _fontSize: {x: 3, y: 3, z: 500}
   _capitalize: 0
   _lowercase: 0
@@ -1352,7 +1396,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f8447650751d4b643832daa94d65c448, type: 2}
+  - {fileID: 2100000, guid: 62edbfd140d75c044ad1536a76bc55ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1662,7 +1706,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6771def5894b20a4f8dc31f5430b8d3d, type: 2}
+  - {fileID: 2100000, guid: 9fdef553774a2e04fac1292104443a7f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1780,7 +1824,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6771def5894b20a4f8dc31f5430b8d3d, type: 2}
+  - {fileID: 2100000, guid: 9fdef553774a2e04fac1292104443a7f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1865,8 +1909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d6d55c36dc5cd4f93e0bab5f032c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skinLibrary: {fileID: 0}
   skinContainer: {fileID: 7072937394579846604}
+  skinLibrary: {fileID: 0}
 --- !u!1 &7500683460193594815
 GameObject:
   m_ObjectHideFlags: 0

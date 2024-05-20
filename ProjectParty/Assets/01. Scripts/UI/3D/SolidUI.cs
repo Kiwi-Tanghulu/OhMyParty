@@ -4,7 +4,7 @@ namespace OMG.UI.Solid
 {
     public abstract class SolidUI : MonoBehaviour
     {
-        [field : SerializeField]
-        public bool Active { get; protected set; } = true;
+        public virtual bool Active { get => active; set => active = value; }
+        [SerializeField] protected bool active = true;
     }
 }
