@@ -77,6 +77,10 @@ namespace OMG.UI.Skins
         {
             skinTitle.Text = string.Format(SKIN_TITLE_FORMAT, visualLibrary.CurrentSkin.SkinName);
             visualSelector.SetSkin();
+
+            bool unlocked = skinLibrary.SkinData.IsUnlocked(visualLibrary.CurrentIndex);
+            purchaseButton.gameObject.SetActive(!unlocked);
+            selectButton.gameObject.SetActive(unlocked);
         }
 
         public void SelectSkin()
@@ -87,7 +91,8 @@ namespace OMG.UI.Skins
         public void PurchaseSkin()
         {
             // process purchase
-            SelectSkin();
+            skinLibrary.SkinData.UnlockedSkin.Add(visualLibrary.CurrentIndex);
+            DisplaySkin();
         }
     }
 }
