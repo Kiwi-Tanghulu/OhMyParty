@@ -33,7 +33,7 @@ namespace OMG.Player.FSM
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipTrm.position + Vector3.up * 1000f, Vector3.down, 10000f);
             if(hit.Length > 0)
             {
-                movement.Teleport(hit[0].point);
+                movement.Teleport(hit[0].point, transform.rotation);
             }
 
             string animName = ragdoll.HipTrm.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;

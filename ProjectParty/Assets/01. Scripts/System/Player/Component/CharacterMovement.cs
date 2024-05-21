@@ -70,7 +70,6 @@ namespace OMG.Player
             Gravity();
 
             CheckGround();
-            Move();
         }
 
         #region Move
@@ -87,7 +86,7 @@ namespace OMG.Player
 
             moveVec = moveDir * moveSpeed;
 
-            moveVector = new Vector3(moveVec.x, verticalVelocity, moveVec.z) * Time.deltaTime;
+            moveVector = new Vector3(moveVec.x, 0f, moveVec.z) * Time.deltaTime;
         }
 
         public void SetMoveSpeed(float value)
@@ -103,9 +102,9 @@ namespace OMG.Player
                 Turn(moveDir);
         }
 
-        public void Teleport(Vector3 pos)
+        public void Teleport(Vector3 pos, Quaternion rot)
         {
-            networkTrm.Teleport(pos, transform.rotation, transform.localScale);
+            networkTrm.Teleport(pos, rot, transform.localScale);
         }
         #endregion
 
@@ -160,6 +159,8 @@ namespace OMG.Player
             {
                 verticalVelocity += gravityScale * Time.deltaTime;
             }
+
+            cc.Move(new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime);
         }
 
         public void SetVerticalVelocity(float value)
