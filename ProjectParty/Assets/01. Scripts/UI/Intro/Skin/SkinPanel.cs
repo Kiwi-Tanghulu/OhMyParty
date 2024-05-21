@@ -38,8 +38,8 @@ namespace OMG.UI.Skins
             {
                 if(active)
                 {
-                    DisplaySkin();
                     skinCache = visualLibrary.CurrentIndex = skinLibrary.CurrentIndex;
+                    DisplaySkin();
                 }
                 else
                 {
@@ -81,11 +81,15 @@ namespace OMG.UI.Skins
             bool unlocked = skinLibrary.SkinData.IsUnlocked(visualLibrary.CurrentIndex);
             purchaseButton.gameObject.SetActive(!unlocked);
             selectButton.gameObject.SetActive(unlocked);
+
+            bool selected = skinCache == visualLibrary.SkinData.CurrentIndex;
+            selectButton.Active = !selected;
         }
 
         public void SelectSkin()
         {
             skinCache = visualLibrary.CurrentIndex;
+            DisplaySkin();
         }
 
         public void PurchaseSkin()
