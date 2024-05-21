@@ -4,6 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using OMG.FSM;
 using OMG.Input;
+using OMG.Player.FSM;
 
 namespace OMG.Player
 {
@@ -30,6 +31,9 @@ namespace OMG.Player
         protected virtual void Update()
         {
             stateMachine.UpdateFSM();
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.X))
+                stateMachine.ChangeState(typeof(StunState));
         }
     }
 }

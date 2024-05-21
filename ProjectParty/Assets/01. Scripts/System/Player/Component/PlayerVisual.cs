@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using OMG.Ragdoll;
 
 namespace OMG.Player
 {
@@ -10,6 +11,10 @@ namespace OMG.Player
         public PlayerVisualType VisualType => visualType;
 
         [SerializeField] private SkinnedMeshRenderer skin;
+
+        [Space]
+        [SerializeField] private RagdollController ragdoll;
+        public RagdollController Ragdoll => ragdoll;
 
         private void Awake()
         {
