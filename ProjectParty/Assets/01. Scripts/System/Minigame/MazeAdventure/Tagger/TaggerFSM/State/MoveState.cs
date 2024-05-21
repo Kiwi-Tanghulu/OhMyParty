@@ -36,6 +36,13 @@ namespace OMG.Minigames.MazeAdventure
                 brain.ChangeState(nextState);
             }
         }
+
+        public override void ExitState()
+        {
+            base.ExitState();
+
+            Debug.Log(1);
+        }
     }
 
 }

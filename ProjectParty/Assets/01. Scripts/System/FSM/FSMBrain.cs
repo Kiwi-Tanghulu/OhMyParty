@@ -46,7 +46,7 @@ namespace OMG.FSM
 
             if (defaultState == null)
             {
-                Debug.Log("not set start state");
+                Debug.LogError("not set start state");
             }
             else
             {
@@ -110,10 +110,10 @@ namespace OMG.FSM
 
             int index = states.IndexOf(state);
 
-            if(IsOwner)
-            {
-                ChangeState(index);
-            }
+            //if(IsOwner)
+            //{
+            //    ChangeState(index);
+            //}
 
             ChangeStateServerRpc(index);
         }
@@ -127,8 +127,8 @@ namespace OMG.FSM
         [ClientRpc]
         private void ChangeStateClientRpc(int stateIndex)
         {
-            if (IsOwner)
-                return;
+            //if (IsOwner)
+            //    return;
 
             ChangeState(stateIndex);
         }

@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667429908767119536}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -201,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 1136730980519896932}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invert: 0
-  detectAngle: 40
+  detectAngle: 50
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -264,7 +264,7 @@ Transform:
   m_GameObject: {fileID: 1539421566179093658}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invert: 0
-  detectAngle: 40
+  detectAngle: 50
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -650,10 +650,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnStateEnterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5230548173733889382}
+        m_TargetAssemblyTypeName: OMG.Minigames.MazeAdventure.TaggerVisual, Assembly-CSharp
+        m_MethodName: ChangeMaterialClientRpc
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnStateExitEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5230548173733889382}
+        m_TargetAssemblyTypeName: OMG.Minigames.MazeAdventure.TaggerVisual, Assembly-CSharp
+        m_MethodName: ChangeMaterialClientRpc
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   nextStateIdle: {fileID: 5095827988795727332}
   nextStateFind: {fileID: 5619389038734092719}
 --- !u!136 &7676892332527622559
@@ -1111,7 +1135,7 @@ Transform:
   m_GameObject: {fileID: 5470385975284635219}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1143,7 +1167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invert: 0
-  detectAngle: 40
+  detectAngle: 50
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1328,6 +1352,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce4841d91589774e908339320c45287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taggerMat:
+  - {fileID: 2100000, guid: ef4389fb6bde8be4ea299a4c534d591b, type: 2}
+  - {fileID: 2100000, guid: 6767d139387db55418380429aa474cdb, type: 2}
   dissolveTime: 2
 --- !u!1 &7043760270188227311
 GameObject:
@@ -1383,9 +1410,9 @@ MonoBehaviour:
       m_Calls: []
   nextStatesData:
   - nextState: {fileID: 7219522139378989907}
-    weight: 60
+    weight: 70
   - nextState: {fileID: 5619389038734092719}
-    weight: 40
+    weight: 30
   tagger_mSO: {fileID: 11400000, guid: 58c0e965be61a2246ae241f556df0934, type: 2}
 --- !u!114 &7620069998348720703
 MonoBehaviour:
