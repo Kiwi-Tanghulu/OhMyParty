@@ -56,15 +56,15 @@ namespace OMG.Minigames.MazeAdventure
                 taggerTrm.rotation = Quaternion.Euler(0, angle, 0);
                 yield return null;
             }
-            timer = 0;
-            rotationY = taggerTrm.eulerAngles.y;
-            while (timer < reconnaissanceTime)
-            {
-                timer += Time.deltaTime;
-                float angle = Mathf.Lerp(rotationY, rotationY + reconnaissanceAngle, EaseOutCirc(timer / reconnaissanceTime));
-                taggerTrm.rotation = Quaternion.Euler(0, angle, 0);
-                yield return null;
-            }
+            //timer = 0;
+            //rotationY = taggerTrm.eulerAngles.y;
+            //while (timer < reconnaissanceTime)
+            //{
+            //    timer += Time.deltaTime;
+            //    float angle = Mathf.Lerp(rotationY, rotationY + reconnaissanceAngle, EaseOutCirc(timer / reconnaissanceTime));
+            //    taggerTrm.rotation = Quaternion.Euler(0, angle, 0);
+            //    yield return null;
+            //}
             brain.ChangeState(nextState);
         }
 

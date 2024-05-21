@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 
 namespace OMG.Minigames.MazeAdventure
 {
-    public class TaggerVisual : MonoBehaviour
+    public enum TaggerMaterial
     {
+        Basic,
+        Chase
+    }
+    public class TaggerVisual : NetworkBehaviour
+    {
+        [SerializeField] private Material[] taggerMat;
         [SerializeField] private float dissolveTime;
         private Material material;
+        private SkinnedMeshRenderer skinnedMeshRenderer;
         private void Awake()
         {
             material = GetComponent<Renderer>().material;
+            skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
         }
 
         public void OnDissolve()
@@ -29,7 +38,13 @@ namespace OMG.Minigames.MazeAdventure
                 material.SetFloat("_Dissolve",curTime / dissolveTime);
                 yield return null;
             }
-            material.SetFloat("_Dissolve", 1f);
+            material.SetFloat("_Dissolve", 1.1f);
+        }
+
+        [ClientRpc]
+        public void ChangeMaterialClientRpc(int index)
+        {
+            skinnedMeshRenderer.material = taggerMat[index];
         }
     }
 }

@@ -1,4 +1,5 @@
 using OMG.FSM;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,10 @@ namespace OMG.Minigames.MazeAdventure
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
             cycle = brain.GetComponent<Tagger>().Cycle;
         }
-
+        protected override void OwnerEnterState()
+        {
+            base.OwnerEnterState();
+        }
         protected override void OwnerUpdateState()
         {
             base.OwnerUpdateState();
