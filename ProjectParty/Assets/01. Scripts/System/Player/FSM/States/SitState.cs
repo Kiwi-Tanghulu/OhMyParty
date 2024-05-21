@@ -25,17 +25,12 @@ namespace OMG.Player.FSM
 
         public override void EnterState()
         {
-            Collider[] cols = Physics.OverlapSphere(player.transform.position, detectChairDistance);
-            for(int i = 0; i < cols.Length; i++)
+            if (brain.GetComponent<PlayerFocuser>().FocusedObject.CurrentObject
+                .TryGetComponent<Chair>(out Chair chair))
             {
-                if (cols[i].TryGetComponent<Chair>(out Chair chair))
-                {
-                    usingChair = chair;
+                usingChair = chair;
+                sitPoint = usingChair.GetUseableSitPoint();
 
-                    sitPoint = usingChair.GetUseableSitPoint();
-
-                    break;
-                }
             }
 
             base.EnterState();
