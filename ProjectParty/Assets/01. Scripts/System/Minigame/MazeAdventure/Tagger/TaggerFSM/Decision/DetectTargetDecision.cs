@@ -30,20 +30,17 @@ namespace OMG.Minigames.MazeAdventure
             {
                 foreach (RaycastHit hit in hitInfo)
                 {
-                    float dot = Vector3.Dot((hit.point - transform.position).normalized, transform.forward);
+                    Vector3 targetDir = hit.transform.position - transform.position;
+                    float dot = Vector3.Dot(targetDir.normalized, transform.forward);
                     float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
-                    if (degree < detectAngle)
+                    Debug.Log("각도 : " + degree);
+                    if (degree < detectAngle / 2f)
                     {
-                        Debug.Log("각도 들어감");
-
-                        //if(!Physics.Raycast(transform.position, (hit.point - transform.position).normalized, checkDistance, groundLayer)) 
-                        //{
-                        //    targetParam.Target = hit.transform;
-                        //    return true;
-                        //}
-
-                        targetParam.Target = hit.transform;
-                        result = true;
+                        if (!Physics.Raycast(transform.position, (hit.transform.position - transform.position).normalized, checkDistance, groundLayer))
+                        {
+                            targetParam.Target = hit.transform;
+                            return true;
+                        }
                     }
                 }
             }
