@@ -17,18 +17,25 @@ namespace OMG.Player.FSM
             movement = player.GetComponent<CharacterMovement>();
         }
 
-        public override void EnterState()
+        public override void UpdateState()
         {
-            base.EnterState();
+            base.UpdateState();
 
-            movement.ApplyGravity = true;
+            movement.Gravity();
         }
 
-        public override void ExitState()
-        {
-            base.ExitState();
+        //public override void EnterState()
+        //{
+        //    base.EnterState();
 
-            movement.ApplyGravity = false;
-        }
+        //    movement.ApplyGravity = true;
+        //}
+
+        //public override void ExitState()
+        //{
+        //    base.ExitState();
+
+        //    movement.ApplyGravity = false;
+        //}
     }
 }

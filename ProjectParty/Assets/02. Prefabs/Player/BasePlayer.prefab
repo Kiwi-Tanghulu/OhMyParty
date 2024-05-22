@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 1343306222645780362}
   - component: {fileID: 712200597379242346}
   - component: {fileID: 3865175214236070695}
+  - component: {fileID: 1969255014367668241}
   m_Layer: 0
   m_Name: JumpState
   m_TagString: Untagged
@@ -164,6 +165,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bbae456192a9d4e8604d7b04f5678e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1969255014367668241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463844303369207688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f978b0dda809b54f807970e41fd9532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proertyName: jump
 --- !u!1 &1819956357976648589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1587,6 +1601,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 229373857
+    DestinationState: 125937960
+    TransitionDuration: 0.22131039
+    TriggerNameHash: -1481439722
+    TransitionIndex: 0
   - IsCrossFadeExit: 0
     Layer: 1
     OriginatingState: -1459219776

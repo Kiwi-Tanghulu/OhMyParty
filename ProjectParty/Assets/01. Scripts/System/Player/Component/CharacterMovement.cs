@@ -20,21 +20,21 @@ namespace OMG.Player
 
         [Header("Gravity")]
         [SerializeField] private float gravityScale;
-        private bool applyGravity;
-        public bool ApplyGravity
-        {
-            get 
-            { 
-                return applyGravity;
-            }
-            set
-            {
-                applyGravity = value;
+        //private bool applyGravity;
+        //public bool ApplyGravity
+        //{
+        //    get 
+        //    { 
+        //        return applyGravity;
+        //    }
+        //    set
+        //    {
+        //        applyGravity = value;
 
-                if (!applyGravity)
-                    SetVerticalVelocity(0f);
-            }
-        }
+        //        if (!applyGravity)
+        //            SetVerticalVelocity(0f);
+        //    }
+        //}
 
         private float verticalVelocity;
 
@@ -67,7 +67,7 @@ namespace OMG.Player
 
         private void Update()
         {
-            Gravity();
+            //Gravity();
 
             CheckGround();
         }
@@ -144,9 +144,9 @@ namespace OMG.Player
         #endregion
 
         #region Vertical Velocity
-        private void Gravity()
+        public void Gravity()
         {
-            if (!applyGravity) return;
+            //if (!applyGravity) return;
 
             if(isGround)
             {
