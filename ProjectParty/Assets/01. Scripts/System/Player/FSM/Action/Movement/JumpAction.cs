@@ -9,9 +9,6 @@ namespace OMG.Player.FSM
     [RequireComponent(typeof(GravityAction))]
     public class JumpAction : FSMAction
     {
-        [SerializeField] private PlayInputSO input;
-
-        [Space]
         [SerializeField] private float jumpPower;
 
         private CharacterMovement movement;
@@ -27,18 +24,6 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            input.OnJumpEvent += Jump;
-        }
-
-        public override void ExitState()
-        {
-            base.ExitState();
-
-            input.OnJumpEvent -= Jump;
-        }
-
-        private void Jump()
-        {
             movement.Jump(jumpPower);
         }
     }
