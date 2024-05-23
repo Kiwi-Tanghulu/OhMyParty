@@ -11,12 +11,12 @@ namespace OMG.Minigames.MazeAdventure
     {
         [SerializeField] private FSMState dieState;
         [SerializeField] private UnityEvent dieEvent;
-
+        [SerializeField] private PlayerOutLine playerOutLine;
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             int index = MinigameManager.Instance.CurrentMinigame.PlayerDatas.Find(out PlayerData foundPlayer, x => x.clientID == OwnerClientId);
-            transform.Find("Visual").Find("Skin").GetComponent<PlayerOutLine>().SettingOutLine(index);
+            playerOutLine.SettingOutLine(index);
         }
 
         public void PlayerDead()

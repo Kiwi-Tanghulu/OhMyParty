@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 namespace OMG.Minigames.MazeAdventure
 {
@@ -14,11 +15,13 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private float reconnaissanceAngle;
         private Transform taggerTrm;
         private NavMeshAgent navMeshAgent;
+        private EmotionText emotionText;
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
             taggerTrm = brain.transform;
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
+            emotionText = brain.transform.Find("TaggerEmotionText").GetComponent<EmotionText>();
         }
 
         protected override void OwnerEnterState()
@@ -26,6 +29,7 @@ namespace OMG.Minigames.MazeAdventure
             base.OwnerEnterState();
             navMeshAgent.ResetPath();
             navMeshAgent.enabled = false;
+            emotionText.StartEffect('?');
             StartCoroutine(Reconnaissance());
         }
 
