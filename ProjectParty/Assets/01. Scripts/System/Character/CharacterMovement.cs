@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,7 +7,7 @@ using Unity.Netcode.Components;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace OMG.Player
+namespace OMG
 {
     [RequireComponent(typeof(CharacterController))]
     public class CharacterMovement : NetworkBehaviour
@@ -20,21 +21,6 @@ namespace OMG.Player
 
         [Header("Gravity")]
         [SerializeField] private float gravityScale;
-        //private bool applyGravity;
-        //public bool ApplyGravity
-        //{
-        //    get 
-        //    { 
-        //        return applyGravity;
-        //    }
-        //    set
-        //    {
-        //        applyGravity = value;
-
-        //        if (!applyGravity)
-        //            SetVerticalVelocity(0f);
-        //    }
-        //}
 
         private float verticalVelocity;
 
@@ -53,22 +39,21 @@ namespace OMG.Player
         [SerializeField] private LayerMask checkGroundLayer;
         private bool isGround;
         public bool IsGround => isGround;
+        public event Action<bool> OnIsGroundChagend;
         public bool DrawGizmo;
 
         [Header("Component")]
         private NetworkTransform networkTrm;
         private CharacterController cc;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             networkTrm = GetComponent<NetworkTransform>();
             cc = GetComponent<CharacterController>();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
-            //Gravity();
-
             CheckGround();
         }
 
@@ -188,8 +173,13 @@ namespace OMG.Player
         public bool CheckGround()
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
-                checkGroundHalfSize, Quaternion.identity, checkGroundLayer);
-            isGround = result && verticalVelocity <= 0f;
+                checkGroundHalfSize, Quaternion.identity, checkGroundLayer) && verticalVelocity <= 0f;
+
+            if(isGround != result)
+            {
+                isGround = result;
+                OnIsGroundChagend?.Invoke(isGround);
+            }
             
             return isGround;
         }

@@ -12,16 +12,12 @@ namespace OMG.Player.FSM
         [SerializeField] private float jumpPower;
 
         private CharacterMovement movement;
-        private ExtendedAnimator anim;
-
-        private int isGroundHash = Animator.StringToHash("isGround");
 
         public override void Init(FSMBrain brain)
         {
             base.Init(brain);
 
             movement = brain.GetComponent<CharacterMovement>();
-            anim = player.Animator;
         }
 
         public override void EnterState()
@@ -29,14 +25,11 @@ namespace OMG.Player.FSM
             base.EnterState();
 
             movement.Jump(jumpPower);
-            anim.SetBool(isGroundHash, false);
         }
 
         public override void ExitState()
         {
             base.ExitState();
-
-            anim.SetBool(isGroundHash, true);
         }
     }
 }
