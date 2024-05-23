@@ -138,13 +138,11 @@ namespace OMG
         #region Vertical Velocity
         public void Gravity()
         {
-            //if (!applyGravity) return;
-
             if(isGround)
             {
                 if(verticalVelocity < 0f)
                 {
-                    verticalVelocity = gravityScale * Time.deltaTime * 0.5f;
+                    verticalVelocity = gravityScale * Time.deltaTime;
                 }
             }
             else
@@ -180,11 +178,12 @@ namespace OMG
         public bool CheckGround()
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
-                checkGroundHalfSize, Quaternion.identity/*, checkGroundLayer*/) && verticalVelocity <= 0f;
+                checkGroundHalfSize, Quaternion.identity) && verticalVelocity <= 0f;
 
             if(isGround != result)
             {
                 isGround = result;
+
                 OnIsGroundChagend?.Invoke(isGround);
             }
             
