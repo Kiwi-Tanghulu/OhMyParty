@@ -10,13 +10,13 @@ namespace OMG.Minigames.MazeAdventure
 {
     public class SurpriseState : FSMState
     {
+        [SerializeField] private TaggerTextEffect taggerTextEffect;
         private NavMeshAgent navMeshAgent;
-        private EmotionText emotionText;
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
-            emotionText = brain.transform.Find("TaggerEmotionText").GetComponent<EmotionText>();
+            taggerTextEffect = brain.GetComponent<TaggerTextEffect>();
         }
 
         protected override void OwnerEnterState()
@@ -28,7 +28,7 @@ namespace OMG.Minigames.MazeAdventure
         public override void EnterState()
         {
             base.EnterState();
-            emotionText.StartEffect('!');
+            taggerTextEffect.MakeTextEffect('!');
         }
         protected override void OwnerExitState()
         {

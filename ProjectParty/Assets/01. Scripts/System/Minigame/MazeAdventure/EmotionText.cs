@@ -12,10 +12,10 @@ public class EmotionText : MonoBehaviour
     private void Awake()
     {
         textMeshPro = GetComponent<TextMeshPro>();
+        effectSequence = DOTween.Sequence();
     }
     private void Start()
     {
-        effectSequence = DOTween.Sequence();
         originSize = transform.localScale;
         originColor = textMeshPro.color;
     }
@@ -36,8 +36,9 @@ public class EmotionText : MonoBehaviour
     }
     private void ResetSetting()
     {
-        transform.localScale = originSize;
-        textMeshPro.color = originColor;
+        Destroy(gameObject);
+        //transform.localScale = originSize;
+        //textMeshPro.color = originColor;
     }
     
 }
