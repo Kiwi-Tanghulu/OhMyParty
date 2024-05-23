@@ -28,13 +28,6 @@ namespace OMG.Player
             OnMoveDirectionChanged -= PlayerMovement_OnMoveDirectionChanged;
         }
 
-        protected override void Update()
-        {
-            base.Update();
-
-            anim.SetFloat(moveSpeedHash, MoveDir.sqrMagnitude, true, animParamLerpTime);
-        }
-
         private void PlayerMovement_OnIsGroundChagend(bool isGround)
         {
             ChangeIsGroundParam(isGround);

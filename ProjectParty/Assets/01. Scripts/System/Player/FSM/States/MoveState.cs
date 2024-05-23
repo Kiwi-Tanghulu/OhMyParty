@@ -15,7 +15,7 @@ namespace OMG.Player.FSM
         {
             base.InitState(brain);
 
-            anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
+            anim = player.Animator;
         }
 
         protected override void OwnerEnterState()

@@ -15,10 +15,12 @@ namespace OMG
         [Header("Move")]
         [SerializeField] private float moveSpeed = 3f;
         public float MoveSpeed => moveSpeed;
+
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
-        public event Action<Vector3> OnMoveDirectionChanged;
         private Vector3 moveVector;
+
+        public event Action<Vector3> OnMoveDirectionChanged;
 
         [Header("Gravity")]
         [SerializeField] private float gravityScale;
@@ -38,8 +40,10 @@ namespace OMG
         [SerializeField] private Vector3 checkGroundOffset;
         [SerializeField] private Vector3 checkGroundHalfSize;
         [SerializeField] private LayerMask checkGroundLayer;
+
         private bool isGround;
         public bool IsGround => isGround;
+
         public event Action<bool> OnIsGroundChagend;
         public bool DrawGizmo;
 
@@ -83,6 +87,8 @@ namespace OMG
         public void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
         {
             moveDir = value;
+
+            OnMoveDirectionChanged?.Invoke(moveDir);
 
             if (value != Vector3.zero && lookMoveDir)
                 Turn(moveDir);
@@ -174,7 +180,7 @@ namespace OMG
         public bool CheckGround()
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
-                checkGroundHalfSize, Quaternion.identity, checkGroundLayer) && verticalVelocity <= 0f;
+                checkGroundHalfSize, Quaternion.identity/*, checkGroundLayer*/) && verticalVelocity <= 0f;
 
             if(isGround != result)
             {

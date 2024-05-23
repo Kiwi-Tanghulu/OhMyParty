@@ -563,7 +563,6 @@ GameObject:
   - component: {fileID: 9090850957994257878}
   - component: {fileID: 4398605521259756476}
   - component: {fileID: 9084830343226441940}
-  - component: {fileID: 7293432044771560999}
   m_Layer: 0
   m_Name: MoveState
   m_TagString: Untagged
@@ -644,27 +643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bbae456192a9d4e8604d7b04f5678e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7293432044771560999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5432371374261051569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af953cc4a5e6964897a42e1c2f7937b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  proertyName: moveSpeed
-  setOnEnter: 1
-  onEnterValue: 1
-  onEnterLerping: 1
-  onEnterLerpingTime: 0.2
-  setOnExit: 1
-  onExitValue: 0
-  onExitLerping: 1
-  onExitLerpingTime: 0.2
 --- !u!1 &6170314695351476638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,7 +1353,7 @@ MonoBehaviour:
   turnSpped: 10
   jumpPower: 5
   checkGroundOffset: {x: 0, y: 0, z: 0}
-  checkGroundHalfSize: {x: 0.5, y: 0.1, z: 0.5}
+  checkGroundHalfSize: {x: 0.3, y: 0.1, z: 0.3}
   checkGroundLayer:
     serializedVersion: 2
     m_Bits: 129
