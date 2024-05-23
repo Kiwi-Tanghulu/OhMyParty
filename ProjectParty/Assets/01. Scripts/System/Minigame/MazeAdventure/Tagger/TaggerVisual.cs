@@ -28,6 +28,11 @@ namespace OMG.Minigames.MazeAdventure
             StartCoroutine(Dissolve());
         }
 
+        public void Invisible()
+        {
+            material.SetFloat("_Dissolve", 0);
+        }
+
         private IEnumerator Dissolve()
         {
             material.SetFloat("_Dissolve", 0);

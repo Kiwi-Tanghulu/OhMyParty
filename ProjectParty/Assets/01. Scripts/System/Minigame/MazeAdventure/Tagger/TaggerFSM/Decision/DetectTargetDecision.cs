@@ -36,7 +36,7 @@ namespace OMG.Minigames.MazeAdventure
                     Debug.Log("°¢µµ : " + degree);
                     if (degree < detectAngle / 2f)
                     {
-                        if (!Physics.Raycast(transform.position, (hit.transform.position - transform.position).normalized, checkDistance, groundLayer))
+                        if (!Physics.Raycast(transform.position, ((hit.transform.position + Vector3.up) - transform.position).normalized, checkDistance, groundLayer))
                         {
                             targetParam.Target = hit.transform;
                             return true;
