@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animBoolName: Die
-  animator: {fileID: 304868655009326990}
+  animator: {fileID: 0}
 --- !u!1 &3839064655445244171
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +447,11 @@ PrefabInstance:
       propertyPath: DrawGizmo
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5062687372235613388, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8653656707965372744, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: m_Name
@@ -487,35 +492,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5275389935828522059}
-    - targetCorrespondingSourceObject: {fileID: 4739390915760268885, guid: fcf90dc6047265e4db4c32e1eba10505,
+    - targetCorrespondingSourceObject: {fileID: 1967133164473002834, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4853164168397771365}
+      addedObject: {fileID: 5239219210692149678}
   m_SourcePrefab: {fileID: 100100000, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
---- !u!95 &304868655009326990 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5283001597413914941, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 5578800621233249971}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &913759540754561254 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4739390915760268885, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 5578800621233249971}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4853164168397771365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913759540754561254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0c568a1270264d48a121bb7bf734768, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!143 &1399364974354547511 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 6773531061483789700, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -544,6 +525,25 @@ MonoBehaviour:
   dieEvent:
     m_PersistentCalls:
       m_Calls: []
+  playerOutLine: {fileID: 5239219210692149678}
+--- !u!1 &6208010513366627809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1967133164473002834, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5239219210692149678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6208010513366627809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c568a1270264d48a121bb7bf734768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6578611427595972520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
