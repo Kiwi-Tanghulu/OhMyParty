@@ -10,13 +10,14 @@ using UnityEngine;
 namespace OMG
 {
     [RequireComponent(typeof(CharacterController))]
-    public class CharacterMovement : NetworkBehaviour
+    public class CharacterMovement : MonoBehaviour
     {
         [Header("Move")]
         [SerializeField] private float moveSpeed = 3f;
         public float MoveSpeed => moveSpeed;
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
+        public event Action<Vector3> OnMoveDirectionChanged;
         private Vector3 moveVector;
 
         [Header("Gravity")]
