@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 namespace OMG.Minigames.MazeAdventure
 {
     public class FindState : FSMState
     {
+        [SerializeField] private TaggerTextEffect taggerTextEffect;
         [SerializeField] private FSMState nextState;
         [SerializeField] private float reconnaissanceTime;
         [SerializeField] private float reconnaissanceAngle;
+
         private Transform taggerTrm;
         private NavMeshAgent navMeshAgent;
         public override void InitState(FSMBrain brain)
@@ -27,6 +30,12 @@ namespace OMG.Minigames.MazeAdventure
             navMeshAgent.ResetPath();
             navMeshAgent.enabled = false;
             StartCoroutine(Reconnaissance());
+        }
+
+        public override void EnterState()
+        {
+            base.EnterState();
+            taggerTextEffect.MakeTextEffect('?');
         }
 
         protected override void OwnerExitState()

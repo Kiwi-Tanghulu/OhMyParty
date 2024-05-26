@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace OMG.Player.FSM
 {
-    public class JumpAction : FSMAction
+    [RequireComponent(typeof(GravityAction))]
+    public class JumpAction : PlayerFSMAction
     {
         [SerializeField] private float jumpPower;
 
@@ -23,12 +24,12 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            Jump();
+            movement.Jump(jumpPower);
         }
 
-        private void Jump()
+        public override void ExitState()
         {
-            movement.Jump(jumpPower);
+            base.ExitState();
         }
     }
 }

@@ -5,14 +5,17 @@ using UnityEngine;
 using OMG.Client.Component;
 using OMG.FSM;
 using OMG.Player;
+using OMG.Ragdoll;
 
 namespace OMG.Player.FSM
 {
     public class RecoveryState : PlayerFSMState
     {
+        [SerializeField] private LayerMask groundLayer;
+
         private CharacterMovement movement;
         private ExtendedAnimator anim;
-        private PlayerRagdoll ragdoll;
+        private RagdollController ragdoll;
 
         private readonly string frontRecoveryAnim = "Recovery(Front)";
         private readonly string backRecoveryAnim = "Recovery(Back)";
@@ -23,20 +26,22 @@ namespace OMG.Player.FSM
 
             movement = player.GetComponent<CharacterMovement>();
             anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
-            ragdoll = player.transform.Find("Visual").GetComponent<PlayerRagdoll>();
+            ragdoll = player.Visual.Ragdoll;
         }
 
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
 
-            RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipTrm.position + Vector3.up * 1000f, Vector3.down, 10000f);
+            player.Visual.Ragdoll.SetActive(false);
+
+            RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position + Vector3.up * 1000f, Vector3.down, 10000f, groundLayer);
             if(hit.Length > 0)
             {
-                movement.Teleport(hit[0].point);
+                movement.Teleport(hit[0].point, transform.rotation);
             }
 
-            string animName = ragdoll.HipTrm.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
+            string animName = ragdoll.HipRb.transform.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
             anim.PlayAnim(animName, AnimatorLayerType.Default);
         }
     }

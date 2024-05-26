@@ -14,12 +14,12 @@ namespace OMG.Minigames.MazeAdventure
         {
             base.Init(brain);
             targetParam = brain.GetFSMParam<DetectTargetParams>();
+            maxDistance = targetParam.Radius + productValue;
         }
 
         public override void EnterState()
         {
             base.EnterState();
-            maxDistance = targetParam.Radius + productValue;
         }
         public override bool MakeDecision()
         {
