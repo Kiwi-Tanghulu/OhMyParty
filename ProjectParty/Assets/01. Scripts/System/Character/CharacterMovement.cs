@@ -6,6 +6,7 @@ using Unity.Netcode;
 using Unity.Netcode.Components;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG
 {
@@ -25,7 +26,7 @@ namespace OMG
 
         private Vector3 moveVector;
 
-        public event Action<Vector3> OnMoveDirectionChanged;
+        public UnityEvent<Vector3> OnMoveDirectionChanged;
 
         [Header("Gravity")]
         [SerializeField] private float gravityScale;
@@ -49,7 +50,7 @@ namespace OMG
         private bool isGround;
         public bool IsGround => isGround;
 
-        public event Action<bool> OnIsGroundChagend;
+        public UnityEvent<bool> OnIsGroundChagend;
         public bool DrawGizmo;
 
         [Header("Component")]
@@ -171,7 +172,7 @@ namespace OMG
             {
                 if(verticalVelocity < 0f)
                 {
-                    verticalVelocity = gravityScale * Time.deltaTime * 10f;
+                    verticalVelocity = gravityScale * Time.deltaTime * 20f;
                 }
             }
             else

@@ -18,14 +18,14 @@ namespace OMG.Player
         {
             anim = GetComponent<PlayerController>().Animator;
 
-            OnIsGroundChagend += PlayerMovement_OnIsGroundChagend;
-            OnMoveDirectionChanged += PlayerMovement_OnMoveDirectionChanged;
+            OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
+            OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
         }
 
         private void OnDestroy()
         {
-            OnIsGroundChagend -= PlayerMovement_OnIsGroundChagend;
-            OnMoveDirectionChanged -= PlayerMovement_OnMoveDirectionChanged;
+            OnIsGroundChagend.RemoveListener(PlayerMovement_OnIsGroundChagend);
+            OnMoveDirectionChanged.RemoveListener(PlayerMovement_OnMoveDirectionChanged);
         }
 
         private void PlayerMovement_OnIsGroundChagend(bool isGround)
