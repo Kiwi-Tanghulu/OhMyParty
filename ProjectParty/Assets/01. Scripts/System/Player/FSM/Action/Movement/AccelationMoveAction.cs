@@ -14,7 +14,7 @@ namespace OMG.Player.FSM
         {
             base.UpdateState();
 
-            float speed = movement.MoveSpeed;
+            float speed = movement.MaxMoveSpeed;
             speed += Time.deltaTime * accelation;
             speed = Mathf.Min(speed, maxMoveSpeed);
             movement.SetMoveSpeed(speed);

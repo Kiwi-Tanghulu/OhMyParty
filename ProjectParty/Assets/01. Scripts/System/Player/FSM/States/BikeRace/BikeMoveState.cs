@@ -52,7 +52,7 @@ namespace OMG.Player.FSM
         {
             base.OwnerUpdateState();
 
-            slantValue += movement.MoveSpeed * angularVelocityCoefficient * slantDirection * Time.deltaTime;
+            slantValue += movement.MaxMoveSpeed * angularVelocityCoefficient * slantDirection * Time.deltaTime;
 
             player.transform.rotation = Quaternion.Euler(new Vector3(0f, handlingValue, slantValue));
             movement.SetMoveDirection(brain.transform.forward, false);

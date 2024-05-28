@@ -6,6 +6,7 @@ using Unity.Netcode;
 using Unity.Netcode.Components;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG
 {
@@ -13,12 +14,19 @@ namespace OMG
     public class CharacterMovement : MonoBehaviour
     {
         [Header("Move")]
-        [SerializeField] private float moveSpeed = 3f;
-        public float MoveSpeed => moveSpeed;
+        [SerializeField] private float maxMoveSpeed = 3f;
+        public float MaxMoveSpeed => maxMoveSpeed;
+        private float currentMoveSpeed;
+        [SerializeField]
+        private float accelration;
+
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
-        public event Action<Vector3> OnMoveDirectionChanged;
+        private Vector3 prevMoveDir;
+
         private Vector3 moveVector;
+
+        public UnityEvent<Vector3> OnMoveDirectionChanged;
 
         [Header("Gravity")]
         [SerializeField] private float gravityScale;
@@ -38,9 +46,11 @@ namespace OMG
         [SerializeField] private Vector3 checkGroundOffset;
         [SerializeField] private Vector3 checkGroundHalfSize;
         [SerializeField] private LayerMask checkGroundLayer;
+
         private bool isGround;
         public bool IsGround => isGround;
-        public event Action<bool> OnIsGroundChagend;
+
+        public UnityEvent<bool> OnIsGroundChagend;
         public bool DrawGizmo;
 
         [Header("Component")]
@@ -70,19 +80,45 @@ namespace OMG
         {
             Vector3 moveVec = Vector3.zero;
 
-            moveVec = moveDir * moveSpeed;
+            if(moveDir != Vector3.zero)
+            {
+                if (prevMoveDir != Vector3.zero)
+                {
+                    if (Mathf.Acos(Vector3.Dot(prevMoveDir, MoveDir)) * Mathf.Rad2Deg > 90f)
+                    {
+                        currentMoveSpeed = 0f;
+                    }
+                }
+
+                currentMoveSpeed += accelration * Time.deltaTime;
+
+                moveVec = moveDir;
+            }
+            else
+            {
+                currentMoveSpeed -= accelration * Time.deltaTime;
+
+                moveVec = prevMoveDir;
+            }
+
+            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, 0f, MaxMoveSpeed);
+
+            moveVec *= currentMoveSpeed;
 
             moveVector = new Vector3(moveVec.x, 0f, moveVec.z) * Time.deltaTime;
         }
 
         public void SetMoveSpeed(float value)
         {
-            moveSpeed = value;
+            maxMoveSpeed = value;
         }
 
         public void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
         {
+            prevMoveDir = moveDir;
             moveDir = value;
+
+            OnMoveDirectionChanged?.Invoke(moveDir);
 
             if (value != Vector3.zero && lookMoveDir)
                 Turn(moveDir);
@@ -132,13 +168,11 @@ namespace OMG
         #region Vertical Velocity
         public void Gravity()
         {
-            //if (!applyGravity) return;
-
             if(isGround)
             {
                 if(verticalVelocity < 0f)
                 {
-                    verticalVelocity = gravityScale * Time.deltaTime * 0.5f;
+                    verticalVelocity = gravityScale * Time.deltaTime * 20f;
                 }
             }
             else
@@ -174,11 +208,12 @@ namespace OMG
         public bool CheckGround()
         {
             bool result = Physics.CheckBox(transform.position + checkGroundOffset,
-                checkGroundHalfSize, Quaternion.identity, checkGroundLayer) && verticalVelocity <= 0f;
+                checkGroundHalfSize, Quaternion.identity) && verticalVelocity <= 0f;
 
             if(isGround != result)
             {
                 isGround = result;
+
                 OnIsGroundChagend?.Invoke(isGround);
             }
             

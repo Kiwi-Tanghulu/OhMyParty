@@ -23,19 +23,5 @@ namespace OMG.Player.FSM
 
             movement.Gravity();
         }
-
-        //public override void EnterState()
-        //{
-        //    base.EnterState();
-
-        //    movement.ApplyGravity = true;
-        //}
-
-        //public override void ExitState()
-        //{
-        //    base.ExitState();
-
-        //    movement.ApplyGravity = false;
-        //}
     }
 }
