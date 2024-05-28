@@ -67,6 +67,11 @@ namespace OMG.Minigames.RockFestival
             });
         }
 
+        public Transform GetDamagedTransfrom()
+        {
+            return transform;
+        }
+
         public void SetActiveCollisionOther(bool active)
         {
             ActiveCollisionOther = active;
@@ -98,6 +103,6 @@ namespace OMG.Minigames.RockFestival
         {
             rigidbody.AddForce(Vector3.forward * 10f, ForceMode.Impulse);
         }
-        #endif
+#endif
     }
 }
