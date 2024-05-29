@@ -33,13 +33,15 @@ namespace OMG.Minigames.MazeAdventure
                     Vector3 targetDir = hit.transform.position - transform.position;
                     float dot = Vector3.Dot(targetDir.normalized, transform.forward);
                     float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
-                    Debug.Log("°¢µµ : " + degree);
                     if (degree < detectAngle / 2f)
                     {
                         if (!Physics.Raycast(transform.position, ((hit.transform.position + Vector3.up) - transform.position).normalized, checkDistance, groundLayer))
                         {
-                            targetParam.Target = hit.transform;
-                            return true;
+                            if (!hit.transform.GetComponent<IInvisibility>().IsInvisibil)
+                            {
+                                targetParam.Target = hit.transform;
+                                return true;
+                            }
                         }
                     }
                 }

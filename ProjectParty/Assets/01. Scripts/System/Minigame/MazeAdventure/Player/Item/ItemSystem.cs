@@ -12,6 +12,7 @@ namespace OMG.Minigames.MazeAdventure
     {
         None,
         MakeWall,
+        Invisibility,
     }
 public class ItemSystem : MonoBehaviour
     {
@@ -20,7 +21,7 @@ public class ItemSystem : MonoBehaviour
         private ItemType currentItemType;
         public void Init(Transform playerTrm)
         {
-            currentItemType = ItemType.MakeWall;
+            currentItemType = ItemType.Invisibility;
             playerItemDictionary = new Dictionary<ItemType, MazeAdventureItem>();
             foreach(Transform itemTrm in transform)
             {
