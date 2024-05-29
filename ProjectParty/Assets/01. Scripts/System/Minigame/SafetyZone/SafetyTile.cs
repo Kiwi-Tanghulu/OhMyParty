@@ -6,7 +6,6 @@ namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTile : MonoBehaviour
     {
-        [SerializeField] TweenOptOption tweenOption = null;
         [SerializeField] UnityEvent onTileDropEvent = null;
 
         private SafetyTileCollision tileCollision = null;
@@ -20,8 +19,6 @@ namespace OMG.Minigames.SafetyZone
             tileCollision = transform.Find("Collision").GetComponent<SafetyTileCollision>();
             tileVisual = transform.Find("Visual").GetComponent<SafetyTileVisual>();
             block = transform.Find("Block").GetComponent<SafetyTileBlock>();
-
-            tweenOption.Init(transform);
 
             tileCollision.OnPlayerCountChangedEvent += HandlePlayerCountChanged;
         }
@@ -45,12 +42,12 @@ namespace OMG.Minigames.SafetyZone
             else
                 onTileDropEvent?.Invoke();
 
-            tweenOption.GetOption(active).PlayTween();
+            gameObject.SetActive(active);
         }
 
-        public void ToggleBlock(bool active, bool immediately = false)
+        public void ToggleBlock(bool active)
         {
-            block.SetActive(active, immediately);
+            block.SetActive(active);
         }
 
         public void Init()
@@ -67,7 +64,7 @@ namespace OMG.Minigames.SafetyZone
             safetyNumber = 100;
             tileVisual.SetNumberText(-1);
 
-            ToggleBlock(false, true);
+            ToggleBlock(false);
             SetActive(true);
         }
 
