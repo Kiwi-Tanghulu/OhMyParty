@@ -25,7 +25,7 @@ namespace OMG.Player.FSM
             base.InitState(brain);
 
             movement = player.GetComponent<CharacterMovement>();
-            anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
+            anim = player.Animator;
             ragdoll = player.Visual.Ragdoll;
         }
 

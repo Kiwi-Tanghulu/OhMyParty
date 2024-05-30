@@ -10,15 +10,15 @@ namespace OMG.Player
         [SerializeField] private PlayerVisualType visualType;
         public PlayerVisualType VisualType => visualType;
 
-        [Space]
-        [SerializeField] private RagdollController ragdoll;
-        public RagdollController Ragdoll => ragdoll;
+        private PlayerRagdollController ragdoll;
+        public PlayerRagdollController Ragdoll => ragdoll;
 
         private SkinnedMeshRenderer skin;
 
         private void Awake()
         {
             skin = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
+            ragdoll = GetComponent<PlayerRagdollController>();
         }
 
         private void Start()

@@ -13,15 +13,15 @@ namespace OMG.Ragdoll
         public Rigidbody HipRb => hipRb;
 
         [Space]
-        [SerializeField] private bool onInitActive;
+        [SerializeField] protected bool onInitActive;
 
         [Space]
         public UnityEvent OnActiveEvent;
         public UnityEvent OnDeactiveEvent;
 
-        private RagdollPart[] parts;
+        protected RagdollPart[] parts;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             parts = GetComponentsInChildren<RagdollPart>();
             for (int i = 0; i < parts.Length; i++)
@@ -30,7 +30,7 @@ namespace OMG.Ragdoll
             gameObject.SetActive(onInitActive);
         }
 
-        public void SetActive(bool value)
+        public virtual void SetActive(bool value)
         {
             gameObject.SetActive(value);
 

@@ -11,7 +11,6 @@ namespace OMG.Player.FSM
     {
         private RagdollController ragdoll;
         private PlayerHealth health;
-        private CharacterMovement movement;
 
         public override void InitState(FSMBrain brain)
         {

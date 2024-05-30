@@ -1450,7 +1450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4160663879202071373}
-  - component: {fileID: 7970499233928892283}
+  - component: {fileID: 1773381852135593506}
   m_Layer: 0
   m_Name: Ragdoll
   m_TagString: Untagged
@@ -1475,7 +1475,7 @@ Transform:
   - {fileID: 1891450563623763314}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7970499233928892283
+--- !u!114 &1773381852135593506
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1484,11 +1484,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4259194315415405052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bdd5c091ac8f8d4583fcbd3820a9f75, type: 3}
+  m_Script: {fileID: 11500000, guid: 671fa8e4c3422e94baa27f612f3ba4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  copyTargetRoot: {fileID: 4160663879202071373}
   hipRb: {fileID: 7866586174826294368}
-  onInitActive: 0
+  onInitActive: 1
   OnActiveEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2145,7 +2146,7 @@ GameObject:
   - component: {fileID: 1891450563623763314}
   - component: {fileID: 7842016522921891033}
   m_Layer: 11
-  m_Name: body_bitard_skin
+  m_Name: Skin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

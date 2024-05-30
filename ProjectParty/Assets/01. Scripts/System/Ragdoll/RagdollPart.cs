@@ -8,10 +8,15 @@ namespace OMG.Ragdoll
     {
         private Transform copyTarget;
         private Rigidbody rb;
+        private Collider col;
+
+        public Rigidbody Rb => rb;
+        public Collider Col => col;
 
         public void Init(Transform copyTarget)
         {
             rb = GetComponent<Rigidbody>();
+            col = GetComponent<Collider>();
 
             this.copyTarget = copyTarget;
         }
