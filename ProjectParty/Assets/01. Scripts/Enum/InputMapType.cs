@@ -1,4 +1,4 @@
-namespace OMG.Input
+namespace OMG.Inputs
 {
     public enum InputMapType
     {

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using OMG.Input;
+using OMG.Inputs;
 using UnityEngine;
 
 namespace OMG.Interiors
