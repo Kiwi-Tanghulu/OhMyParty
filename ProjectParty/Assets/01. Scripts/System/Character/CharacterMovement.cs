@@ -1,3 +1,4 @@
+using OMG.Minigames.MazeAdventure;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,6 +58,7 @@ namespace OMG
         private NetworkTransform networkTrm;
         private CharacterController cc;
 
+        public UnityEvent<Collider> OnColliderHit;
         protected virtual void Awake()
         {
             networkTrm = GetComponent<NetworkTransform>();
@@ -218,6 +220,11 @@ namespace OMG
             }
             
             return isGround;
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            OnColliderHit?.Invoke(hit.collider);
         }
 
 #if UNITY_EDITOR

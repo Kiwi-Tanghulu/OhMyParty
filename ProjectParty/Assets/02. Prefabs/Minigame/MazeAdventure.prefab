@@ -737,7 +737,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602459083815236514}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0113617955, y: 0.9579512, z: -0.038305786, w: 0.28413582}
+  m_LocalRotation: {x: 0.011361796, y: 0.9579512, z: -0.03830579, w: 0.28413582}
   m_LocalPosition: {x: 0.65695655, y: 1.6504421, z: 6.404312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8056,7 +8056,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 128
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -8066,7 +8066,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: c91ca635ca5b85e489b20d205efa0ec6, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 474f8e806abd2da4ca8a9432db17f872, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &2156282899928076666
 MonoBehaviour:
@@ -8163,6 +8163,7 @@ GameObject:
   - component: {fileID: 3541343077005991909}
   - component: {fileID: 6644552977826721643}
   - component: {fileID: 295371961209531498}
+  - component: {fileID: 6542811692836762078}
   m_Layer: 0
   m_Name: MazeAdventure
   m_TagString: Untagged
@@ -8252,6 +8253,7 @@ MonoBehaviour:
   - {fileID: 7928556716680021046}
   - {fileID: 3351533468612155836}
   - {fileID: 3651271610142583807}
+  mapManager: {fileID: 2156282899928076666}
 --- !u!320 &4308928014816440598
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -8397,6 +8399,23 @@ MonoBehaviour:
   taggerSpawnTime: 100
   taggerObj: {fileID: 1993988503407102008, guid: d5e6f38623c6ee743aaaf6d770aea62b,
     type: 3}
+--- !u!114 &6542811692836762078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004020425414398961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabe27034a191d24b87f1ea10135ddff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemBoxPrefab: {fileID: 7969033298322542699, guid: 5f4b27e57e36e9242a3b4885d45eec0a,
+    type: 3}
+  itemSpawnTime: 5
+  mapCenterPos: {x: 0, y: 0, z: -4.5}
+  range: 25
 --- !u!1 &7011349736176456842
 GameObject:
   m_ObjectHideFlags: 0
@@ -42510,12 +42529,12 @@ PrefabInstance:
     - target: {fileID: 1942324417577920185, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
       propertyPath: GUIID
-      value: -28826
+      value: -306480
       objectReference: {fileID: 0}
     - target: {fileID: 2171468722324875372, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
       propertyPath: GUIID
-      value: -28840
+      value: -306494
       objectReference: {fileID: 0}
     - target: {fileID: 2364136166963490615, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
@@ -42525,12 +42544,12 @@ PrefabInstance:
     - target: {fileID: 4252750356261542898, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
       propertyPath: GUIID
-      value: -28772
+      value: -306426
       objectReference: {fileID: 0}
     - target: {fileID: 4598970590045771047, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
       propertyPath: GUIID
-      value: -28758
+      value: -306412
       objectReference: {fileID: 0}
     - target: {fileID: 6206538268186137816, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
@@ -42545,12 +42564,12 @@ PrefabInstance:
     - target: {fileID: 6612952777084792685, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
       propertyPath: GUIID
-      value: -28874
+      value: -306528
       objectReference: {fileID: 0}
     - target: {fileID: 6851086689244635576, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
       propertyPath: GUIID
-      value: -28860
+      value: -306514
       objectReference: {fileID: 0}
     - target: {fileID: 7143066739495830325, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
@@ -42560,7 +42579,7 @@ PrefabInstance:
     - target: {fileID: 7722451623766741187, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
       propertyPath: GUIID
-      value: -28806
+      value: -306460
       objectReference: {fileID: 0}
     - target: {fileID: 7821471797473002432, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
@@ -42615,7 +42634,7 @@ PrefabInstance:
     - target: {fileID: 8069806623142862358, guid: dcd9a74855431e1408ea24e8e08b3c3e,
         type: 3}
       propertyPath: GUIID
-      value: -28792
+      value: -306446
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

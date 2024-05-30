@@ -12,15 +12,16 @@ namespace OMG.Minigames.MazeAdventure
     {
         None,
         MakeWall,
+        Invisibility,
     }
-public class ItemSystem : MonoBehaviour
+public class ItemSystem : MonoBehaviour, IPlayerCollision
     {
         [SerializeField] private PlayInputSO input;
         private Dictionary<ItemType, MazeAdventureItem> playerItemDictionary = null;
         private ItemType currentItemType;
         public void Init(Transform playerTrm)
         {
-            currentItemType = ItemType.MakeWall;
+            currentItemType = ItemType.Invisibility;
             playerItemDictionary = new Dictionary<ItemType, MazeAdventureItem>();
             foreach(Transform itemTrm in transform)
             {
@@ -38,7 +39,30 @@ public class ItemSystem : MonoBehaviour
         {
             if(currentItemType == ItemType.None) { return; }
             playerItemDictionary[currentItemType].Active();
-            //currentItemType = ItemType.None;
+            currentItemType = ItemType.None;
+        }
+
+        private void ChangeItem(ItemType newItem)
+        {
+            currentItemType = newItem;
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if(hit.transform.TryGetComponent(out ItemBox itemBox))
+            {
+                ChangeItem(itemBox.ItemType);
+                Destroy(itemBox.gameObject);
+            }
+        }
+
+        public void OnCollision(Collider collider)
+        {
+            if (collider.transform.TryGetComponent(out ItemBox itemBox))
+            {
+                ChangeItem(itemBox.ItemType);
+                Destroy(itemBox.gameObject);
+            }
         }
     }
 }

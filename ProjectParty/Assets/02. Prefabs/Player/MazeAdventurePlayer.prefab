@@ -64,6 +64,7 @@ MonoBehaviour:
   wallPrefab: {fileID: 8985352915662661471, guid: 7eb1d84d14d30a1478930292869da62a,
     type: 3}
   makeLength: 3
+  makeHeight: 1
 --- !u!1 &440925007681616218
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +385,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4638105444544961700}
+  - component: {fileID: 2035338924594925279}
+  - component: {fileID: 2944965971595998399}
   m_Layer: 9
   m_Name: Item_Invisible
   m_TagString: Untagged
@@ -406,6 +409,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1436687083947453813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2035338924594925279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7403359711402070263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5cf23b197b1b604c98d2fc40895d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2944965971595998399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7403359711402070263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04855e1ef1251254fbd3a1270d0f2034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnActiveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemType: 2
+  invisibilityTime: 5
 --- !u!1001 &5578800621233249971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -499,6 +531,36 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnColliderHit.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnColliderHit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3878486720323711876}
+    - target: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnColliderHit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnColliderHit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnCollision
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnColliderHit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OMG.Minigames.MazeAdventure.ItemSystem, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnColliderHit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8653656707965372744, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: m_Name
@@ -542,6 +604,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5275389935828522059}
+    - targetCorrespondingSourceObject: {fileID: 186108572973996147, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2504250072039652087}
     - targetCorrespondingSourceObject: {fileID: 1967133164473002834, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       insertIndex: -1
@@ -550,6 +616,12 @@ PrefabInstance:
 --- !u!143 &1399364974354547511 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 6773531061483789700, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2363680458560121192 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7901173303943116763, guid: fcf90dc6047265e4db4c32e1eba10505,
     type: 3}
   m_PrefabInstance: {fileID: 5578800621233249971}
   m_PrefabAsset: {fileID: 0}
@@ -577,6 +649,28 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   playerOutLine: {fileID: 5239219210692149678}
+  mazeAdventurePlayerVisual: {fileID: 2504250072039652087}
+--- !u!1 &5764274755957098176 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 186108572973996147, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2504250072039652087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5764274755957098176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ad99d4bc1c6bb41bb9e3549fbd976f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invisibilityAlpha: 50
+  playerVisualTrm: {fileID: 7375669960432869248}
+  playerRagdollTrm: {fileID: 2363680458560121192}
 --- !u!1 &6208010513366627809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1967133164473002834, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -604,6 +698,12 @@ Transform:
 --- !u!4 &6665563329042696071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1291186274025330996, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7375669960432869248 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3112063600484204851, guid: fcf90dc6047265e4db4c32e1eba10505,
     type: 3}
   m_PrefabInstance: {fileID: 5578800621233249971}
   m_PrefabAsset: {fileID: 0}
