@@ -2,6 +2,7 @@ using OMG.Lobbies;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace OMG.Player
@@ -19,24 +20,35 @@ namespace OMG.Player
 
             anim = GetComponent<Animator>();
 
+            Lobby.Current.OnLobbyStateChangedEvent += Lobby_OnLobbyStateChangedEvent;
             LobbyReadyComponent lobbyReady = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
         }
+
+        
 
         public void SetOwenrID(ulong ownerID)
         {
             this.ownerID = ownerID;
         }
 
+        public void SetReady(bool value)
+        {
+            anim.SetBool(isReadyHash, true);
+        }
+
+        private void Lobby_OnLobbyStateChangedEvent(LobbyState state)
+        {
+            //bagguayaham
+            if(state == LobbyState.MinigameFinished)
+                SetReady(false);
+
+        }
+
         private void MinigameInfoUI_OnPlayerReadyEvent(ulong clientID)
         {
             if (Lobby.Current.LobbyState == LobbyState.MinigameSelected)
-            {
-                if (clientID == ownerID)
-                {
-                    anim.SetBool(isReadyHash, true);
-                }
-            }
+                SetReady(clientID == ownerID);
         }
     }
 }
