@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     [Space]
     private Dictionary<ulong, RenderTexture> playerRenderTextureDic;
     private List<Camera> playerRenderCameraList;
-    [SerializeField] private PlayerVisual playerVisualPrefab;
+    [SerializeField] private CameraRenderPlayerVisual playerVisualPrefab;
     [SerializeField] private Vector3 createPlayerVisualPos;
     [SerializeField] private Vector3 playerVisualPosOffset;
     [SerializeField] private Vector3 cameraOffset;
@@ -55,12 +55,13 @@ public class PlayerManager : MonoBehaviour
         playerVisualRenderTrm.SetParent(transform);
         
 
-        PlayerVisual playerVisual = Instantiate(
+        CameraRenderPlayerVisual playerVisual = Instantiate(
             playerVisualPrefab,
             playerVisualPos,
             Quaternion.Euler(0f, 180f, 0f),
             playerVisualRenderTrm);
         playerVisual.SetVisual(player.Visual.VisualType);
+        playerVisual.SetOwenrID(player.OwnerClientId);
 
         RenderTexture rt = new RenderTexture(256, 256, 16);
         rt.Create();

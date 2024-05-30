@@ -21,7 +21,7 @@ namespace OMG.Player
             ragdoll = GetComponent<PlayerRagdollController>();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             SetVisual(visualType);//test
         }
