@@ -5,21 +5,13 @@ using UnityEngine;
 
 public class MazeAdventureMapManager : MonoBehaviour
 {
-    public static MazeAdventureMapManager Instance { get; private set; }
     private NavMeshSurface navMeshSurface;
-
     private void Awake()
     {
-        if(Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
         navMeshSurface = GetComponent<NavMeshSurface>();
     }
 
-    private void BakeMap()
+    public void BakeMap()
     {
         navMeshSurface.BuildNavMesh();
     }

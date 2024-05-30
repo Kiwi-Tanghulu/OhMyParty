@@ -9,6 +9,7 @@ namespace OMG.Minigames.MazeAdventure
 {
     public class MazeAdventurePlayerController : PlayerController
     {
+        [SerializeField] private ItemSystem itemSystem;
         [SerializeField] private FSMState dieState;
         [SerializeField] private UnityEvent dieEvent;
         [SerializeField] private PlayerOutLine playerOutLine;
@@ -17,6 +18,7 @@ namespace OMG.Minigames.MazeAdventure
             base.OnNetworkSpawn();
             int index = MinigameManager.Instance.CurrentMinigame.PlayerDatas.Find(out PlayerData foundPlayer, x => x.clientID == OwnerClientId);
             playerOutLine.SettingOutLine(index);
+            itemSystem.Init(transform);  
         }
 
         public void PlayerDead()
