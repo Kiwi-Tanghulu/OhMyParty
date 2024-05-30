@@ -56,14 +56,15 @@ namespace OMG.Minigames.SafetyZone
                 TileActiveClientRpc(i);
             }
 
+            Debug.Log("[Server] Decision");
             DecisionSafetyZoneClientRpc();
         }
 
         public void ResetTiles()
         {
             Debug.Log("Reset");
-            safetyTiles.Clear();
             ResetTilesClientRpc();
+            safetyTiles.Clear();
         }
 
         public void Init()
@@ -80,7 +81,8 @@ namespace OMG.Minigames.SafetyZone
         [ClientRpc]
         private void DecisionSafetyZoneClientRpc()
         {
-            StartCoroutine(this.DelayCoroutine(fallingPostpone, () => groundCollider.SetActive(false)));
+            // StartCoroutine(this.DelayCoroutine(fallingPostpone, () => groundCollider.SetActive(false)));
+            Debug.Log("[Client] Decision");
             onDecisionEvent?.Invoke();
         }
 
@@ -100,11 +102,13 @@ namespace OMG.Minigames.SafetyZone
         [ClientRpc]
         private void ResetTilesClientRpc()
         {
-            tiles.ForEach(i => {
-                i.Reset();
-                i.gameObject.SetActive(false);
-            });
-            groundCollider.SetActive(true);
+            foreach(int i in safetyTiles)
+            {
+                tiles[i].Reset();
+                tiles[i].SetActive(false);    
+            }
+
+            // groundCollider.SetActive(true);
             onResetEvent?.Invoke();
         }
     }

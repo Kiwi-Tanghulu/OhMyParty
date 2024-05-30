@@ -6,8 +6,6 @@ namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTile : MonoBehaviour
     {
-        [SerializeField] UnityEvent onTileDropEvent = null;
-
         private SafetyTileCollision tileCollision = null;
         private SafetyTileVisual tileVisual = null;
         private SafetyTileBlock block = null;
@@ -37,12 +35,8 @@ namespace OMG.Minigames.SafetyZone
 
         public void SetActive(bool active)
         {
-            if(active)
-                ;
-            else
-                onTileDropEvent?.Invoke();
-
             gameObject.SetActive(active);
+            ToggleBlock(IsSafetyZone());
         }
 
         public void ToggleBlock(bool active)
@@ -52,11 +46,7 @@ namespace OMG.Minigames.SafetyZone
 
         public void Init()
         {
-            safetyNumber = 100;
-            tileVisual.SetNumberText(-1);
-
-            ToggleBlock(false);
-            gameObject.SetActive(true);
+            Reset();
         }
 
         public void Reset()
@@ -65,7 +55,7 @@ namespace OMG.Minigames.SafetyZone
             tileVisual.SetNumberText(-1);
 
             ToggleBlock(false);
-            SetActive(true);
+            SetActive(false);
         }
 
         private void HandlePlayerCountChanged()

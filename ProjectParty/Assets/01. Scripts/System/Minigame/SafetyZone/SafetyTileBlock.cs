@@ -10,7 +10,10 @@ namespace OMG.Minigames.SafetyZone
 
         public void SetActive(bool active)
         {
-            blocks.ForEach(i => i.isTrigger = !active);
+            blocks.ForEach(i => {
+                i.isTrigger = !active;
+                i.gameObject.SetActive(active);
+            });
         }
     }
 }
