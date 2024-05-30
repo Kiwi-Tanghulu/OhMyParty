@@ -13,7 +13,8 @@ namespace OMG.Minigames.MazeAdventure
 
         public void StartCycle()
         {
-            mapManager = FindObjectOfType<MazeAdventureMapManager>();
+            MazeAdventure mazeAdventure = MinigameManager.Instance.CurrentMinigame as MazeAdventure;
+            mapManager = mazeAdventure.MapManager;
             StartCoroutine(ItemWallCycle());
         }
         private IEnumerator ItemWallCycle()

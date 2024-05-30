@@ -15,7 +15,10 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] Material mazeAdventureSkyBoxMaterial;
         [SerializeField] List<Transform> taggerMoveTrmList;
         private DeathmatchCycle deathmatchCycle = null;
-        private TaggerSpawner spawner = null;
+        private TaggerSpawner taggerSpawner = null;
+        private ItemSpawner itemSpawner = null;
+        [SerializeField] private MazeAdventureMapManager mapManager;
+        public MazeAdventureMapManager MapManager => mapManager;
         public override void Init(params ulong[] playerIDs)
         {
             base.Init(playerIDs);
@@ -25,7 +28,8 @@ namespace OMG.Minigames.MazeAdventure
 
             deathmatchCycle = cycle as DeathmatchCycle;
 
-            spawner = GetComponent<TaggerSpawner>();
+            taggerSpawner = GetComponent<TaggerSpawner>();
+            itemSpawner = GetComponent<ItemSpawner>();
 
             StartIntro();
             SettingTaggerMoveTargetSO();
@@ -38,9 +42,9 @@ namespace OMG.Minigames.MazeAdventure
             base.StartGame();
 
             if (!IsHost) return;
-            spawner.enabled = true;
-            spawner.StartSpawn();
-
+            taggerSpawner.enabled = true;
+            taggerSpawner.StartSpawn();
+            itemSpawner.StartSpawn();
             InputManager.ChangeInputMap(InputMapType.Play);
         }
 

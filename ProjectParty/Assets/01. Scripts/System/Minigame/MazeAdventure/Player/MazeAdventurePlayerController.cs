@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using OMG.Extensions;
+using Unity.Netcode;
 namespace OMG.Minigames.MazeAdventure
 {
     public class MazeAdventurePlayerController : PlayerController, IInvisibility
@@ -32,15 +33,55 @@ namespace OMG.Minigames.MazeAdventure
             dieEvent?.Invoke();
             StateMachine.ChangeState(dieState);
         }
-        public void EnterInvisibil()
+
+        [ServerRpc]
+        public void EnterInvisibilServerRpc()
+        {
+            EnterInvisibilClientRpc();
+        }
+
+        [ClientRpc]
+        private void EnterInvisibilClientRpc()
         {
             isInvisibil = true;
             mazeAdventurePlayerVisual.ChangeColorInvisibility();
         }
-        public void ExitInvisibil()
+
+        [ServerRpc]
+        public void ExitInvisibilServerRpc()
+        {
+            ExitInvisibilClientRpc();
+        }
+
+        [ClientRpc]
+        private void ExitInvisibilClientRpc()
         {
             isInvisibil = false;
             mazeAdventurePlayerVisual.ChangeColorDefault();
+        }
+
+        public void EnterInvisibil()
+        {
+            if (IsHost)
+            {
+                EnterInvisibilClientRpc();
+            }
+            else
+            {
+                EnterInvisibilServerRpc();
+            }
+        }
+
+        public void ExitInvisibil()
+        {
+            if (IsHost)
+            {
+                ExitInvisibilClientRpc();
+            }
+            else
+            {
+                ExitInvisibilServerRpc();
+            }
         }
     }
 }
