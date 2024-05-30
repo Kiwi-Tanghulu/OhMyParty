@@ -23,6 +23,5 @@ namespace OMG.Feedbacks
             for (int i = 0; i < feedbacks.Count; i++)
                 feedbacks[i].Play(playTrm);
         }
-
     }
 }
