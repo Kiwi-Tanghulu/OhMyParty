@@ -23,6 +23,7 @@ namespace OMG.Minigames
 
         [Space(15f)]
         public string MinigameName;
+        [TextArea] public string MinigameDescription;
         public Sprite MinigameImage;
         public List<ControlKeyInfo> ControlKeyInfoList;
 

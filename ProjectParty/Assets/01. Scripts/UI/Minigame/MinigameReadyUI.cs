@@ -1,6 +1,7 @@
 using Cinemachine;
 using OMG.Lobbies;
 using OMG.Minigames;
+using OMG.Player;
 using Steamworks;
 using System.Collections.Generic;
 using TMPro;
@@ -12,7 +13,10 @@ namespace OMG.UI
     public class MinigameReadyUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI gameNameText;
+        [SerializeField] private TextMeshProUGUI gameDescriptionText;
         [SerializeField] private Image gameImage;
+
+        [Space]
         [SerializeField] private Transform controlKeyInfoContainer;
         [SerializeField] private ControlKeyInfoUI controlKeyInfoPrefab;
         private GameObject container;
@@ -90,8 +94,6 @@ namespace OMG.UI
             if (minigameSO == null)
                 return;
 
-            Debug.Log(1);
-
             foreach (Transform controlKey in controlKeyInfoContainer)
                 Destroy(controlKey.gameObject);
             foreach (var keyValuePair in readyCheckBoxDictionary)
@@ -99,6 +101,7 @@ namespace OMG.UI
             readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
 
             gameNameText.text = minigameSO.MinigameName;
+            gameDescriptionText.text = minigameSO.MinigameDescription;
             gameImage.sprite = minigameSO.MinigameImage;
 
             foreach (ControlKeyInfo keyInfo in minigameSO.ControlKeyInfoList)
@@ -108,10 +111,11 @@ namespace OMG.UI
                 controlKey.DisplayKeyInfo(keyInfo);
             }
 
-            foreach(OMG.Lobbies.PlayerData playerData in Lobby.Current.PlayerDatas)
+            foreach(PlayerController player in Lobby.Current.PlayerContainer.PlayerList)
             {
                 PlayerReadyCheckBox checkBox = Instantiate(readyCheckBoxPrefab, readyCheckBoxContainer);
-                readyCheckBoxDictionary.Add(playerData.clientID, checkBox);
+                checkBox.SetPlayerImage(PlayerManager.Instance.PlayerVisualList[player.Visual.VisualType].Profile);
+                readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
             }
 
             container.SetActive(true);

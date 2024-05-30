@@ -10,16 +10,15 @@ namespace OMG.Player
         [SerializeField] private PlayerVisualType visualType;
         public PlayerVisualType VisualType => visualType;
 
-        [SerializeField] private SkinnedMeshRenderer skin;
-
         [Space]
         [SerializeField] private RagdollController ragdoll;
         public RagdollController Ragdoll => ragdoll;
 
+        private SkinnedMeshRenderer skin;
+
         private void Awake()
         {
-            if (skin == null)
-                skin = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
+            skin = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
         }
 
         private void Start()
@@ -31,7 +30,7 @@ namespace OMG.Player
         {
             visualType = newVisualType;
 
-            skin.sharedMesh = PlayerManager.Instance.playerVisualInfo[visualType];
+            skin.sharedMesh = PlayerManager.Instance.PlayerVisualList[visualType].VisualMesh;
         }
     }
 }

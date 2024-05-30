@@ -7,8 +7,8 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
 
-    [SerializeField] private PlayerVisualInfoListSO playerVisualList;
-    public PlayerVisualInfoListSO playerVisualInfo => playerVisualList;
+    [SerializeField] private PlayerVisualSOListSO playerVisualList;
+    public PlayerVisualSOListSO PlayerVisualList => playerVisualList;
     [SerializeField] private List<Color> playerColorList;
     
 
