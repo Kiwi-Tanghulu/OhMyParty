@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OMG.Tweens;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +11,8 @@ namespace OMG.Minigames.SafetyZone
         private SafetyTileVisual tileVisual = null;
         private SafetyTileBlock block = null;
 
+        private HashSet<SafetyZonePlayerController> includePlayers = null;
+
         private int safetyNumber = 0;
 
         private void Awake()
@@ -18,7 +21,9 @@ namespace OMG.Minigames.SafetyZone
             tileVisual = transform.Find("Visual").GetComponent<SafetyTileVisual>();
             block = transform.Find("Block").GetComponent<SafetyTileBlock>();
 
-            tileCollision.OnPlayerCountChangedEvent += HandlePlayerCountChanged;
+            includePlayers = new HashSet<SafetyZonePlayerController>();
+            tileCollision.OnPlayerEnterEvent += HandlePlayerEnter;
+            tileCollision.OnPlayerExitEvent += HandlePlayerExit;
         }
 
         public void SetSafetyNumber(int number)
@@ -30,13 +35,16 @@ namespace OMG.Minigames.SafetyZone
 
         public bool IsSafetyZone()
         {
-            return tileCollision.IncludePlayerCount == safetyNumber;
+            return includePlayers.Count == safetyNumber;
         }
 
         public void SetActive(bool active)
         {
-            gameObject.SetActive(active);
+            SetSafety(IsSafetyZone());
+            includePlayers.Clear();
+
             ToggleBlock(IsSafetyZone());
+            gameObject.SetActive(active);
         }
 
         public void ToggleBlock(bool active)
@@ -58,9 +66,27 @@ namespace OMG.Minigames.SafetyZone
             SetActive(false);
         }
 
-        private void HandlePlayerCountChanged()
+        private void SetSafety(bool safety)
         {
-            ToggleBlock(IsSafetyZone());
+            foreach(SafetyZonePlayerController p in includePlayers)
+                p.IsSafety = safety;
+            ToggleBlock(safety);
+        }
+
+        private void HandlePlayerEnter(SafetyZonePlayerController player)
+        {
+            includePlayers.Add(player);
+
+            bool isSafety = IsSafetyZone();
+            SetSafety(isSafety);
+        }
+
+        private void HandlePlayerExit(SafetyZonePlayerController player)
+        {
+            includePlayers.Remove(player);
+
+            bool isSafety = IsSafetyZone();
+            SetSafety(isSafety);
         }
     }
 }

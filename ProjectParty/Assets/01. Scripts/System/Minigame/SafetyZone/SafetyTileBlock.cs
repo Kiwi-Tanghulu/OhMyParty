@@ -1,5 +1,4 @@
 using OMG.Extensions;
-using OMG.Tweens;
 using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
