@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using OMG.FSM;
-using OMG.Input;
+using OMG.Inputs;
 using OMG.Player.FSM;
 
 namespace OMG.Player

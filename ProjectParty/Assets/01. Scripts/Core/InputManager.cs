@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using static Controls;
 
-namespace OMG.Input
+namespace OMG.Inputs
 {
     public static class InputManager
     {

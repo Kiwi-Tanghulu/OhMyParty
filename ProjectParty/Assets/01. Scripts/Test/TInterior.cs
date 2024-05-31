@@ -1,4 +1,4 @@
-using OMG.Input;
+using OMG.Inputs;
 using OMG.Interiors;
 using UnityEngine;
 

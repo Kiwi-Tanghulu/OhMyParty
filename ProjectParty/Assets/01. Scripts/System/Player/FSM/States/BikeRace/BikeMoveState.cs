@@ -1,5 +1,5 @@
 using OMG.FSM;
-using OMG.Input;
+using OMG.Inputs;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

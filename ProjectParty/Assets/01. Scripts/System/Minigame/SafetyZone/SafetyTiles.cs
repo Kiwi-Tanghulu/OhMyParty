@@ -1,34 +1,49 @@
+using System.Collections.Generic;
 using OMG.Extensions;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Playables;
 
 namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTiles : NetworkBehaviour
     {
-        [SerializeField] SafetyTile[] tiles = null;
-        [SerializeField] float fallingPostpone = 2f;
+        [SerializeField] float decisionPostpone = 2f;
         
         [Space(15f)]
         [SerializeField] UnityEvent onRerollEvent = null;
         [SerializeField] UnityEvent onDecisionEvent = null;
         [SerializeField] UnityEvent onResetEvent = null;
 
-        private GameObject groundCollider = null;
+        private DeathmatchCycle cycle = null;
+        private PlayableMinigame minigame = null;
+
+        private SafetyTile[] tiles = null;
+        private HashSet<int> safetyTiles = new HashSet<int>();
+
+        public int SafetyTileCount = 3;
 
         private void Awake()
         {
-            groundCollider = transform.Find("GroundCollider").gameObject;
+            tiles = transform.Find("Tiles").GetComponentsInChildren<SafetyTile>();
+            minigame = GetComponent<PlayableMinigame>();
+            cycle = GetComponent<DeathmatchCycle>();
         }
 
         public void RerollTiles()
         {
             Debug.Log("Reroll");
-            for(int i = 0; i < tiles.Length; ++i)
+            for(int i = 0; i < SafetyTileCount; ++i)
             {
-                int safetyNumber = Random.Range(0, 4);
-                UpdateSafetyNumberClientRpc(i, safetyNumber);
+                int safetyTile;
+                do
+                    safetyTile = Random.Range(0, tiles.Length);
+                while(safetyTiles.Contains(safetyTile) == true);
+
+                int safetyNumber = Random.Range(0, 2);
+                safetyTiles.Add(safetyTile);
+                UpdateSafetyNumberClientRpc(safetyTile, safetyNumber);
             }
 
             RerollTilesClientRpc();
@@ -37,12 +52,25 @@ namespace OMG.Minigames.SafetyZone
         public void DecisionSafetyZone()
         {
             Debug.Log("Decision");
-            tiles.ForEach((i, index) => {
-                if(i.IsSafetyZone())
-                    return;
-                
-                TileActiveClientRpc(index);
-            });
+            foreach(int i in safetyTiles)
+            {
+                SafetyTile tile = tiles[i];
+                if(tile.IsSafetyZone())
+                    continue;
+                TileActiveClientRpc(i);
+            }
+
+            StartCoroutine(this.DelayCoroutine(decisionPostpone, () => {
+                Debug.Log("asd");
+                minigame.PlayerDatas.ForEach(i => {
+                    SafetyZonePlayerController player = minigame.PlayerDictionary[i.clientID] as SafetyZonePlayerController;
+                    if(player.IsDead == false && player.IsSafety == false)
+                    {
+                        cycle.HandlePlayerDead(i.clientID);
+                        player.IsDead = true;
+                    }
+                });
+            }));
 
             DecisionSafetyZoneClientRpc();
         }
@@ -51,6 +79,7 @@ namespace OMG.Minigames.SafetyZone
         {
             Debug.Log("Reset");
             ResetTilesClientRpc();
+            safetyTiles.Clear();
         }
 
         public void Init()
@@ -67,7 +96,7 @@ namespace OMG.Minigames.SafetyZone
         [ClientRpc]
         private void DecisionSafetyZoneClientRpc()
         {
-            StartCoroutine(this.DelayCoroutine(fallingPostpone, () => groundCollider.SetActive(false)));
+            // StartCoroutine(this.DelayCoroutine(fallingPostpone, () => groundCollider.SetActive(false)));
             onDecisionEvent?.Invoke();
         }
 
@@ -75,6 +104,7 @@ namespace OMG.Minigames.SafetyZone
         private void UpdateSafetyNumberClientRpc(int index, int number)
         {
             tiles[index].SetSafetyNumber(number);
+            tiles[index].SetActive(true);
         }
 
         [ClientRpc]
@@ -86,10 +116,13 @@ namespace OMG.Minigames.SafetyZone
         [ClientRpc]
         private void ResetTilesClientRpc()
         {
-            tiles.ForEach(i => {
-                i.Reset();
-            });
-            groundCollider.SetActive(true);
+            foreach(int i in safetyTiles)
+            {
+                tiles[i].Reset();
+                tiles[i].SetActive(false);    
+            }
+
+            // groundCollider.SetActive(true);
             onResetEvent?.Invoke();
         }
     }

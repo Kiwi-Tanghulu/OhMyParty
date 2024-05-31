@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 using OMG.FSM;
-using OMG.Input;
+using OMG.Inputs;
 using OMG.Player;
 using Unity.XR.OpenVR;
 

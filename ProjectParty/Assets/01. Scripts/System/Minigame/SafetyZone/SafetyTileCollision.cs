@@ -1,32 +1,23 @@
 using System;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTileCollision : MonoBehaviour
     {
-        private HashSet<ulong> includePlayers = null;
-        public int IncludePlayerCount => includePlayers.Count;
-
-        public event Action OnPlayerCountChangedEvent = null;
-
-        private void Awake()
-        {
-            includePlayers = new HashSet<ulong>();
-        }
+        public event Action<SafetyZonePlayerController> OnPlayerEnterEvent = null;
+        public event Action<SafetyZonePlayerController> OnPlayerExitEvent = null;
 
         private void OnTriggerEnter(Collider other)
         {
             if(other.CompareTag("Player") == false)
                 return;
             
-            if(other.TryGetComponent<NetworkObject>(out NetworkObject playerObject) == false)
+            if(other.TryGetComponent<SafetyZonePlayerController>(out SafetyZonePlayerController playerObject) == false)
                 return;
 
-            includePlayers.Add(playerObject.OwnerClientId);
-            OnPlayerCountChangedEvent?.Invoke();
+            OnPlayerEnterEvent?.Invoke(playerObject);
         }
 
         private void OnTriggerExit(Collider other)
@@ -34,11 +25,10 @@ namespace OMG.Minigames.SafetyZone
             if(other.CompareTag("Player") == false)
                 return;
             
-            if(other.TryGetComponent<NetworkObject>(out NetworkObject playerObject) == false)
+            if(other.TryGetComponent<SafetyZonePlayerController>(out SafetyZonePlayerController playerObject) == false)
                 return;
 
-            includePlayers.Remove(playerObject.OwnerClientId);
-            OnPlayerCountChangedEvent?.Invoke();
+            OnPlayerExitEvent?.Invoke(playerObject);
         }
     }
 }
