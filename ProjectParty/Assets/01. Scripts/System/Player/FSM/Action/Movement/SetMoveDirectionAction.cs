@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using OMG.FSM;
-using OMG.Input;
+using OMG.Inputs;
 
 namespace OMG.Player.FSM
 {

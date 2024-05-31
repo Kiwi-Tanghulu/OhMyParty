@@ -8,11 +8,11 @@ namespace OMG.UI
     public class PlayerReadyCheckBox : CheckBox
     {
         [SerializeField] private GameObject fillImage;
-        [SerializeField] private Image playerImage;
+        [SerializeField] private RawImage playerImage;
 
-        public void SetPlayerImage(Sprite sprite)
+        public void SetPlayerImage(Texture texture)
         {
-            playerImage.sprite = sprite;
+            playerImage.texture = texture;
         }
 
         public override void SetCheck(bool value)

@@ -13,6 +13,8 @@ namespace OMG.Player
             base.OnNetworkSpawn();
 
             Lobby.Current.PlayerContainer.RegistPlayer(this);
+
+            PlayerManager.Instance.CreatePlayerRenderTexture(this);
         }
 
         public override void OnNetworkDespawn()

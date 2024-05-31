@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using OMG.Extensions;
-using OMG.Input;
+using OMG.Inputs;
 using OMG.Player;
 using Unity.Netcode;
 using UnityEngine;

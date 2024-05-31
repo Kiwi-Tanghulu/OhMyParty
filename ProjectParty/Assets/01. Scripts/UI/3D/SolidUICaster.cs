@@ -1,4 +1,4 @@
-using OMG.Input;
+using OMG.Inputs;
 using UnityEngine;
 
 namespace OMG.UI.Solid

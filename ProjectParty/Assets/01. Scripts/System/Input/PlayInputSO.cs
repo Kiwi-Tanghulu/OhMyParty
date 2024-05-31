@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Controls;
 
-namespace OMG.Input
+namespace OMG.Inputs
 {
     [CreateAssetMenu(menuName = "SO/PlayInputSO")]
     public class PlayInputSO : InputSO, IPlayActions

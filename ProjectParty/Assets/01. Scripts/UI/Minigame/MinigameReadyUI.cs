@@ -114,7 +114,7 @@ namespace OMG.UI
             foreach(PlayerController player in Lobby.Current.PlayerContainer.PlayerList)
             {
                 PlayerReadyCheckBox checkBox = Instantiate(readyCheckBoxPrefab, readyCheckBoxContainer);
-                checkBox.SetPlayerImage(PlayerManager.Instance.PlayerVisualList[player.Visual.VisualType].Profile);
+                checkBox.SetPlayerImage(PlayerManager.Instance.PlayerRenderTextureDic[player.OwnerClientId]);
                 readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
             }
 
