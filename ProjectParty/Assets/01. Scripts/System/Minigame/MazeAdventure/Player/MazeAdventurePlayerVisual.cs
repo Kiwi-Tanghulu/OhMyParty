@@ -38,5 +38,10 @@ namespace OMG.Minigames.MazeAdventure
             playerVisualMat.color = visualDefaultColor;
             playerRagdollMat.color = ragdollDefaultColor;
         }
+
+        //private IEnumerator BlinkVisual()
+        //{
+            
+        //}
     }
 }
