@@ -14,7 +14,7 @@ namespace OMG.Player
 
             Lobby.Current.PlayerContainer.RegistPlayer(this);
 
-            PlayerManager.Instance.CreatePlayerRenderTexture(this);
+            PlayerManager.Instance.CreatePlayerRenderTarget(this);
         }
 
         public override void OnNetworkDespawn()
