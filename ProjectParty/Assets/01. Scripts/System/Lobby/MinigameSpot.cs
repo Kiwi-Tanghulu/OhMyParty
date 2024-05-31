@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
-using OMG.Input;
+using OMG.Inputs;
 using OMG.Interacting;
 using OMG.Minigames;
 using OMG.Player;

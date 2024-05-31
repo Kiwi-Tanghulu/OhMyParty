@@ -1,5 +1,5 @@
 using System;
-using OMG.Input;
+using OMG.Inputs;
 using OMG.UI.Interiors;
 using UnityEngine;
 using UnityEngine.EventSystems;

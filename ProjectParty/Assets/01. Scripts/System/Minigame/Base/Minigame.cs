@@ -1,5 +1,5 @@
 using OMG.Extensions;
-using OMG.Input;
+using OMG.Inputs;
 using OMG.UI;
 using OMG.UI.Minigames;
 using System;

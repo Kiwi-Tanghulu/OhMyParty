@@ -1,23 +1,23 @@
-using TinyGiantStudio.Text;
+using TMPro;
 using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTileVisual : MonoBehaviour
     {
-        private Modular3DText numberText = null;
+        private TMP_Text numberText = null;
 
         private void Awake()
         {
-            numberText = transform.Find("NumberText").GetComponent<Modular3DText>();
+            numberText = transform.Find("NumberText").GetComponent<TMP_Text>();
         }
 
         public void SetNumberText(int number)
         {
             if(number == -1)
-                numberText.Text = "-";
+                numberText.text = "-";
             else
-                numberText.Text = number.ToString();
+                numberText.text = number.ToString();
         }
     }
 }

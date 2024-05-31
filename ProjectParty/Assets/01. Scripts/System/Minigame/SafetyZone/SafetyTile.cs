@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OMG.Tweens;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,12 +7,11 @@ namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTile : MonoBehaviour
     {
-        [SerializeField] TweenOptOption tweenOption = null;
-        [SerializeField] UnityEvent onTileDropEvent = null;
-
         private SafetyTileCollision tileCollision = null;
         private SafetyTileVisual tileVisual = null;
         private SafetyTileBlock block = null;
+
+        private HashSet<SafetyZonePlayerController> includePlayers = null;
 
         private int safetyNumber = 0;
 
@@ -21,9 +21,9 @@ namespace OMG.Minigames.SafetyZone
             tileVisual = transform.Find("Visual").GetComponent<SafetyTileVisual>();
             block = transform.Find("Block").GetComponent<SafetyTileBlock>();
 
-            tweenOption.Init(transform);
-
-            tileCollision.OnPlayerCountChangedEvent += HandlePlayerCountChanged;
+            includePlayers = new HashSet<SafetyZonePlayerController>();
+            tileCollision.OnPlayerEnterEvent += HandlePlayerEnter;
+            tileCollision.OnPlayerExitEvent += HandlePlayerExit;
         }
 
         public void SetSafetyNumber(int number)
@@ -35,31 +35,26 @@ namespace OMG.Minigames.SafetyZone
 
         public bool IsSafetyZone()
         {
-            return tileCollision.IncludePlayerCount == safetyNumber;
+            return includePlayers.Count == safetyNumber;
         }
 
         public void SetActive(bool active)
         {
-            if(active)
-                ;
-            else
-                onTileDropEvent?.Invoke();
+            SetSafety(IsSafetyZone());
+            includePlayers.Clear();
 
-            tweenOption.GetOption(active).PlayTween();
+            ToggleBlock(IsSafetyZone());
+            gameObject.SetActive(active);
         }
 
-        public void ToggleBlock(bool active, bool immediately = false)
+        public void ToggleBlock(bool active)
         {
-            block.SetActive(active, immediately);
+            block.SetActive(active);
         }
 
         public void Init()
         {
-            safetyNumber = 100;
-            tileVisual.SetNumberText(-1);
-
-            ToggleBlock(false);
-            gameObject.SetActive(true);
+            Reset();
         }
 
         public void Reset()
@@ -67,13 +62,31 @@ namespace OMG.Minigames.SafetyZone
             safetyNumber = 100;
             tileVisual.SetNumberText(-1);
 
-            ToggleBlock(false, true);
-            SetActive(true);
+            ToggleBlock(false);
+            SetActive(false);
         }
 
-        private void HandlePlayerCountChanged()
+        private void SetSafety(bool safety)
         {
-            ToggleBlock(IsSafetyZone());
+            foreach(SafetyZonePlayerController p in includePlayers)
+                p.IsSafety = safety;
+            ToggleBlock(safety);
+        }
+
+        private void HandlePlayerEnter(SafetyZonePlayerController player)
+        {
+            includePlayers.Add(player);
+
+            bool isSafety = IsSafetyZone();
+            SetSafety(isSafety);
+        }
+
+        private void HandlePlayerExit(SafetyZonePlayerController player)
+        {
+            includePlayers.Remove(player);
+
+            bool isSafety = IsSafetyZone();
+            SetSafety(isSafety);
         }
     }
 }

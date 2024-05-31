@@ -19,14 +19,13 @@ namespace OMG.Minigames.SafetyZone
             for(int i = 0; i < playerDatas.Count; ++i)
                 CreatePlayer(i);
 
+            tiles.Init();
             StartIntro();
         }
 
         public override void StartGame()
         {
             base.StartGame();
-
-            tiles.Init();
 
             if (IsHost == false)
                 return;
