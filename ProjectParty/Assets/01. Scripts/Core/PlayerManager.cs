@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour
         RenderTargetPlayerVisual playerVisual = Instantiate(
             cameraRenderPlayerVisual,
             playerVisualPos,
-            Quaternion.Euler(0f, 180f, 0f),
+            Quaternion.identity,
             transform);
 
         playerVisual.SetVisual(player.Visual.VisualType);
