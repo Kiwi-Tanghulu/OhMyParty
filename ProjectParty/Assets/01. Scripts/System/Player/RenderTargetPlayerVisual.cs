@@ -7,12 +7,17 @@ using UnityEngine;
 
 namespace OMG.Player
 {
-    public class CameraRenderPlayerVisual : PlayerVisual
+    public class RenderTargetPlayerVisual : PlayerVisual
     {
         private ulong ownerID;
 
         private Animator anim;
         private int isReadyHash = Animator.StringToHash("isReady");
+
+        private RenderTexture renderTexture;
+        public RenderTexture RenderTexture => renderTexture;
+
+        [SerializeField] private Camera renderCamera;
 
         protected override void Start()
         {
@@ -20,12 +25,13 @@ namespace OMG.Player
 
             anim = GetComponent<Animator>();
 
-            Lobby.Current.OnLobbyStateChangedEvent += Lobby_OnLobbyStateChangedEvent;
-            LobbyReadyComponent lobbyReady = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
+            CreateRenderTexture();
+
+            Lobby lobby = Lobby.Current;
+            lobby.OnLobbyStateChangedEvent += Lobby_OnLobbyStateChangedEvent;
+            LobbyReadyComponent lobbyReady = lobby.GetLobbyComponent<LobbyReadyComponent>();
             lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
         }
-
-        
 
         public void SetOwenrID(ulong ownerID)
         {
@@ -37,9 +43,17 @@ namespace OMG.Player
             anim.SetBool(isReadyHash, true);
         }
 
+        private void CreateRenderTexture()
+        {
+            RenderTexture rt = new RenderTexture(256, 256, 16);
+            rt.Create();
+            renderTexture = rt;
+
+            renderCamera.targetTexture = renderTexture;
+        }
+
         private void Lobby_OnLobbyStateChangedEvent(LobbyState state)
         {
-            //bagguayaham
             if(state == LobbyState.MinigameFinished)
                 SetReady(false);
 
