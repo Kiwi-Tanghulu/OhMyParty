@@ -1,4 +1,3 @@
-using OMG.Datas;
 using OMG.Skins;
 using OMG.UI.Solid;
 using TinyGiantStudio.Text;

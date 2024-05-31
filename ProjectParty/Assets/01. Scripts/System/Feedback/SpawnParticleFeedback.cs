@@ -5,13 +5,6 @@ namespace OMG.Feedbacks
 {
     public class SpawnParticleFeedback : Feedback
     {
-        [SerializeField] ParticleSystem particlePrefab = null;
-
-        [SerializeField] bool multipleParticle = false;
-
-        [ConditionalField("multipleParticle", true)]
-        [SerializeField] MultipleParticlePreset multipleSetting = new MultipleParticlePreset();
-
         [System.Serializable]
         public class MultipleParticlePreset
         {
@@ -23,6 +16,17 @@ namespace OMG.Feedbacks
             public bool Y;
             public bool Z;
         }
+
+        [SerializeField] ParticleSystem particlePrefab = null;
+
+        [SerializeField] bool multipleParticle = false;
+
+        [ConditionalField("multipleParticle", true)]
+        [SerializeField] MultipleParticlePreset multipleSetting = new MultipleParticlePreset();
+
+        [SerializeField] bool randomSize = false;
+        [ConditionalField("randomSize", true)]
+        [SerializeField] Vector2 range = new Vector2(0.5f, 1f);
 
         public override void Play(Transform playTrm)
         {
@@ -36,6 +40,9 @@ namespace OMG.Feedbacks
         {
             ParticleSystem instance = Instantiate(particlePrefab);
             instance.transform.position = position;
+            if(randomSize)
+                instance.transform.localScale *= Random.Range(range.x, range.y);
+            
             instance.Play();
         }
 
