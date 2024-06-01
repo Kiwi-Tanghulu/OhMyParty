@@ -30,20 +30,20 @@ namespace OMG.Minigames.SafetyZone
         {
             safetyNumber = number;
             tileVisual.SetNumberText(safetyNumber);
-            ToggleBlock(IsSafetyZone());
+            ToggleBlock(IsSafetyZone(includePlayers.Count));
         }
 
-        public bool IsSafetyZone()
+        public bool IsSafetyZone(int playerCount)
         {
-            return includePlayers.Count == safetyNumber;
+            return playerCount == safetyNumber;
         }
 
         public void SetActive(bool active)
         {
-            SetSafety(IsSafetyZone());
+            SetSafety(IsSafetyZone(includePlayers.Count));
             includePlayers.Clear();
 
-            ToggleBlock(IsSafetyZone());
+            ToggleBlock(IsSafetyZone(includePlayers.Count));
             gameObject.SetActive(active);
         }
 
@@ -77,16 +77,16 @@ namespace OMG.Minigames.SafetyZone
         {
             includePlayers.Add(player);
 
-            bool isSafety = IsSafetyZone();
+            bool isSafety = IsSafetyZone(includePlayers.Count);
             SetSafety(isSafety);
         }
 
         private void HandlePlayerExit(SafetyZonePlayerController player)
         {
-            includePlayers.Remove(player);
-
-            bool isSafety = IsSafetyZone();
+            bool isSafety = IsSafetyZone(includePlayers.Count - 1);
             SetSafety(isSafety);
+
+            includePlayers.Remove(player);
         }
     }
 }
