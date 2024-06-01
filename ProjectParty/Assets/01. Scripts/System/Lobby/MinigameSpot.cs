@@ -91,7 +91,7 @@ namespace OMG.Lobbies
 
         public void StartMinigame() //이거 호출하면 미니게임 시작
         {
-            FadeUI.Instance.FadeOut(0f, null, () =>
+            Fade.Instance.FadeOut(0f, null, () =>
             {
                 if (IsHost)
                 {

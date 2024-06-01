@@ -14,11 +14,13 @@ namespace OMG.UI
         Finish
     }
 
-    public class FadeUI : NetworkBehaviour
+    public class Fade : NetworkBehaviour
     {
-        public static FadeUI Instance { get; private set; }
+        public static Fade Instance { get; private set; }
 
         [SerializeField] private Transform fadeCamTrm;
+
+        [Space]
         [SerializeField] private OptOption<TimelineAsset> timelineOption = null;
 
         public Dictionary<FadeStateType, Action> FadingEvents;

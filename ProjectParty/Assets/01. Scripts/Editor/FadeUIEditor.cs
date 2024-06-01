@@ -4,14 +4,14 @@ using OMG.UI;
 
 namespace OMG.Editor
 {
-    [CustomEditor(typeof(FadeUI))]
+    [CustomEditor(typeof(Fade))]
     public class FadeUIEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
-            FadeUI fadeUi = (FadeUI)target;
+            Fade fadeUi = (Fade)target;
 
             GUILayout.BeginHorizontal();
 
