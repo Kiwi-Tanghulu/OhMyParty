@@ -22,6 +22,11 @@ namespace OMG.Player
             OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
         }
 
+        private void OnEnable()
+        {
+            ChangeIsGroundParam(IsGround);
+        }
+
         private void OnDestroy()
         {
             OnIsGroundChagend.RemoveListener(PlayerMovement_OnIsGroundChagend);
