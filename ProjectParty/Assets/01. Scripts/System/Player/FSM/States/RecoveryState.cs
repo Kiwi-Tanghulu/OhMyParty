@@ -17,8 +17,7 @@ namespace OMG.Player.FSM
         private ExtendedAnimator anim;
         private RagdollController ragdoll;
 
-        private readonly string frontRecoveryAnim = "Recovery(Front)";
-        private readonly string backRecoveryAnim = "Recovery(Back)";
+        private readonly int recoveryDirHash = Animator.StringToHash("recoveryDir");
 
         public override void InitState(FSMBrain brain)
         {
@@ -31,8 +30,6 @@ namespace OMG.Player.FSM
 
         protected override void OwnerEnterState()
         {
-            base.OwnerEnterState();
-
             player.Visual.Ragdoll.SetActive(false);
 
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position + Vector3.up * 1000f, Vector3.down, 10000f, groundLayer);
@@ -41,8 +38,10 @@ namespace OMG.Player.FSM
                 movement.Teleport(hit[0].point, transform.rotation);
             }
 
-            string animName = ragdoll.HipRb.transform.forward.y > 0f ? frontRecoveryAnim : backRecoveryAnim;
-            anim.PlayAnim(animName, AnimatorLayerType.Default);
+            int recoDir = ragdoll.HipRb.transform.forward.y > 0f ? 1 : -1;
+            anim.SetInt(recoveryDirHash, recoDir);
+
+            base.OwnerEnterState();
         }
     }
 }
