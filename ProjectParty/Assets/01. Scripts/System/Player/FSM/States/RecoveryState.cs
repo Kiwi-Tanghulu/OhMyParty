@@ -18,6 +18,7 @@ namespace OMG.Player.FSM
         private RagdollController ragdoll;
 
         private readonly int recoveryDirHash = Animator.StringToHash("recoveryDir");
+        private readonly string recoverySelectAnim = "RecoverySelect";
 
         public override void InitState(FSMBrain brain)
         {
@@ -37,6 +38,8 @@ namespace OMG.Player.FSM
             {
                 movement.Teleport(hit[0].point, transform.rotation);
             }
+
+            anim.PlayAnim(recoverySelectAnim, AnimatorLayerType.Default);
 
             int recoDir = ragdoll.HipRb.transform.forward.y > 0f ? 1 : -1;
             anim.SetInt(recoveryDirHash, recoDir);

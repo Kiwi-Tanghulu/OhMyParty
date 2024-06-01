@@ -19,11 +19,23 @@ namespace OMG
         private Coroutine floatParamLerpingCo;
         private Coroutine layerWeightLerpingCo;
 
+        public UnityEngine.Animation a;
+
         protected virtual void Awake()
         {
             AnimEvent = animator.GetComponent<AnimationEvent>();
         }
-        
+
+        private void OnEnable()
+        {
+            animator.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            animator.enabled = false;
+        }
+
         public void SetTrigger(int hash)
         {
             animator.SetTrigger(hash);
