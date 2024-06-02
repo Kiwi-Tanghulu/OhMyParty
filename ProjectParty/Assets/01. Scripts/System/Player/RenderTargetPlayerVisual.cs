@@ -36,7 +36,7 @@ namespace OMG.Player
 
         public void SetReady(bool value)
         {
-            anim.SetBool(isReadyHash, true);
+            anim.SetBool(isReadyHash, value);
         }
 
         private void CreateRenderTexture()
