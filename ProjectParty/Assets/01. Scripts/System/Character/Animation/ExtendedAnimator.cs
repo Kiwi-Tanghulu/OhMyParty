@@ -19,8 +19,6 @@ namespace OMG
         private Coroutine floatParamLerpingCo;
         private Coroutine layerWeightLerpingCo;
 
-        public UnityEngine.Animation a;
-
         protected virtual void Awake()
         {
             AnimEvent = animator.GetComponent<AnimationEvent>();

@@ -52,13 +52,17 @@ namespace OMG.Player
         {
             if(state == LobbyState.MinigameFinished)
                 SetReady(false);
-
         }
 
         private void MinigameInfoUI_OnPlayerReadyEvent(ulong clientID)
         {
             if (Lobby.Current.LobbyState == LobbyState.MinigameSelected)
-                SetReady(clientID == ownerID);
+            {
+                if (clientID == ownerID)
+                {
+                    SetReady(true);
+                }
+            }
         }
     }
 }
