@@ -12,15 +12,21 @@ namespace OMG.Player
     {
         [SerializeField] private ScoreText scoreText;
 
+        private RenderTargetPlayerVisual renderTargetPlayerVisual;
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
-            Lobby.Current.PlayerContainer.RegistPlayer(this);
-            Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>().
+            renderTargetPlayerVisual = PlayerManager.Instance.CreatePlayerRenderTarget(this);
+            
+            Lobby lobby = Lobby.Current;
+            lobby.PlayerContainer.RegistPlayer(this);
+            lobby.GetLobbyComponent<LobbyCutSceneComponent>().
                 CutSceneEvents[LobbyCutSceneState.EndFinish] += LobbyCutSscene_OnEndFinish;
-
-            PlayerManager.Instance.CreatePlayerRenderTarget(this);
+            lobby.OnLobbyStateChangedEvent += Lobby_OnLobbyStateChangedEvent;
+            LobbyReadyComponent lobbyReady = lobby.GetLobbyComponent<LobbyReadyComponent>();
+            lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
         }
 
         public override void OnNetworkDespawn()
@@ -36,6 +42,23 @@ namespace OMG.Player
         {
             scoreText.SetScore(Lobby.Current.PlayerDatas[(int)OwnerClientId].score);
             scoreText.Show();
+        }
+
+        private void Lobby_OnLobbyStateChangedEvent(LobbyState state)
+        {
+            if (state == LobbyState.MinigameFinished)
+                renderTargetPlayerVisual.SetPose(RenderTargetPlayerPoseType.Idle);
+        }
+
+        private void MinigameInfoUI_OnPlayerReadyEvent(ulong clientID)
+        {
+            if (Lobby.Current.LobbyState == LobbyState.MinigameSelected)
+            {
+                if (clientID == OwnerClientId)
+                {
+                    renderTargetPlayerVisual.SetPose(RenderTargetPlayerPoseType.Ready);
+                }
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
 using OMG.Lobbies;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace OMG.Player
@@ -8,12 +10,13 @@ namespace OMG.Player
         private ulong ownerID;
 
         private Animator anim;
-        private int isReadyHash = Animator.StringToHash("isReady");
 
         private RenderTexture renderTexture;
         public RenderTexture RenderTexture => renderTexture;
 
         [SerializeField] private Camera renderCamera;
+
+        private Dictionary<RenderTargetPlayerPoseType, int> PoseHashDic;
 
         protected override void Start()
         {
@@ -23,10 +26,11 @@ namespace OMG.Player
 
             CreateRenderTexture();
 
-            Lobby lobby = Lobby.Current;
-            lobby.OnLobbyStateChangedEvent += Lobby_OnLobbyStateChangedEvent;
-            LobbyReadyComponent lobbyReady = lobby.GetLobbyComponent<LobbyReadyComponent>();
-            lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
+            PoseHashDic = new Dictionary<RenderTargetPlayerPoseType, int>();
+            foreach(RenderTargetPlayerPoseType type in Enum.GetValues(typeof(RenderTargetPlayerPoseType)))
+            {
+                PoseHashDic[type] = Animator.StringToHash(type.ToString());
+            }
         }
 
         public void SetOwenrID(ulong ownerID)
@@ -34,9 +38,9 @@ namespace OMG.Player
             this.ownerID = ownerID;
         }
 
-        public void SetReady(bool value)
+        public void SetPose(RenderTargetPlayerPoseType poseType)
         {
-            anim.SetBool(isReadyHash, value);
+            anim.SetTrigger(PoseHashDic[poseType]);
         }
 
         private void CreateRenderTexture()
@@ -46,23 +50,6 @@ namespace OMG.Player
             renderTexture = rt;
 
             renderCamera.targetTexture = renderTexture;
-        }
-
-        private void Lobby_OnLobbyStateChangedEvent(LobbyState state)
-        {
-            if(state == LobbyState.MinigameFinished)
-                SetReady(false);
-        }
-
-        private void MinigameInfoUI_OnPlayerReadyEvent(ulong clientID)
-        {
-            if (Lobby.Current.LobbyState == LobbyState.MinigameSelected)
-            {
-                if (clientID == ownerID)
-                {
-                    SetReady(true);
-                }
-            }
         }
     }
 }
