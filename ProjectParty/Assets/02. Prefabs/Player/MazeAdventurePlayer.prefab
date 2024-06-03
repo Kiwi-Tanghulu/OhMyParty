@@ -159,7 +159,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4309860845689339147}
   - {fileID: 5636893582532404682}
   - {fileID: 4638105444544961700}
   m_Father: {fileID: 6578611427595972520}
@@ -300,37 +299,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 3019441013704265511, guid: 5ff70997e8631184791c52973e45d9ba,
     type: 3}
---- !u!1 &4927386311545944486
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4309860845689339147}
-  m_Layer: 9
-  m_Name: Item_DestroyWall
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4309860845689339147
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4927386311545944486}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1436687083947453813}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  multipleParticle: 0
+  multipleSetting:
+    Radius: 10
+    Count: 10
+    X: 0
+    Y: 0
+    Z: 0
+  randomSize: 0
+  range: {x: 0.5, y: 1}
 --- !u!1 &6016312216857355400
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,15 +581,35 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5275389935828522059}
-    - targetCorrespondingSourceObject: {fileID: 186108572973996147, guid: fcf90dc6047265e4db4c32e1eba10505,
+    - targetCorrespondingSourceObject: {fileID: 5513217023626660693, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2504250072039652087}
-    - targetCorrespondingSourceObject: {fileID: 1967133164473002834, guid: fcf90dc6047265e4db4c32e1eba10505,
+      addedObject: {fileID: 7734326310850369387}
+    - targetCorrespondingSourceObject: {fileID: 3340150539314745490, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5239219210692149678}
+      addedObject: {fileID: 8304864388738980539}
   m_SourcePrefab: {fileID: 100100000, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
+--- !u!1 &137641500970407398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5513217023626660693, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7734326310850369387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137641500970407398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ad99d4bc1c6bb41bb9e3549fbd976f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invisibilityAlpha: 40
+  playerVisualTrm: {fileID: 2363680458560121192}
 --- !u!143 &1399364974354547511 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 6773531061483789700, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -648,47 +645,8 @@ MonoBehaviour:
   dieEvent:
     m_PersistentCalls:
       m_Calls: []
-  playerOutLine: {fileID: 5239219210692149678}
-  mazeAdventurePlayerVisual: {fileID: 2504250072039652087}
---- !u!1 &5764274755957098176 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 186108572973996147, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 5578800621233249971}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2504250072039652087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5764274755957098176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94ad99d4bc1c6bb41bb9e3549fbd976f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invisibilityAlpha: 30
-  playerVisualTrm: {fileID: 7375669960432869248}
-  playerRagdollTrm: {fileID: 2363680458560121192}
---- !u!1 &6208010513366627809 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1967133164473002834, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 5578800621233249971}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5239219210692149678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6208010513366627809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0c568a1270264d48a121bb7bf734768, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  playerOutLine: {fileID: 8304864388738980539}
+  mazeAdventurePlayerVisual: {fileID: 7734326310850369387}
 --- !u!4 &6578611427595972520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -701,9 +659,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5578800621233249971}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7375669960432869248 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3112063600484204851, guid: fcf90dc6047265e4db4c32e1eba10505,
+--- !u!1 &7147626766116933153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3340150539314745490, guid: fcf90dc6047265e4db4c32e1eba10505,
     type: 3}
   m_PrefabInstance: {fileID: 5578800621233249971}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8304864388738980539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147626766116933153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c568a1270264d48a121bb7bf734768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

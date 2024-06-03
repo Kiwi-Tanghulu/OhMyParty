@@ -39,7 +39,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         {
             if(currentItemType == ItemType.None) { return; }
             playerItemDictionary[currentItemType].Active();
-            currentItemType = ItemType.None;
+            //currentItemType = ItemType.None;
         }
 
         private void ChangeItem(ItemType newItem)

@@ -1,7 +1,5 @@
 using OMG.Items;
 using OMG.Minigames.MazeAdventure;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MazeAdventureItem : NetworkItem

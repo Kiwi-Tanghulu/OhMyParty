@@ -18,11 +18,11 @@ namespace OMG.Feedbacks
             }
         }
 
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-                Play(transform);
-        }
+        //private void Update()
+        //{
+        //    if(Input.GetKeyDown(KeyCode.Space))
+        //        Play(transform);
+        //}
 
         public void Play(Transform playTrm)
         {
