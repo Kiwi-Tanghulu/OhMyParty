@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -27,7 +25,7 @@ namespace OMG.Minigames.MazeAdventure
 
         private void SetRadomItemType()
         {
-            ItemType randomType = (ItemType)Random.Range(0, System.Enum.GetValues(typeof(ItemType)).Length);
+            ItemType randomType = (ItemType)Random.Range(1, System.Enum.GetValues(typeof(ItemType)).Length);
             itemType.Value = randomType;
         }
 
@@ -35,8 +33,6 @@ namespace OMG.Minigames.MazeAdventure
         {
             FlotingMove();
         }
-
-
         private void FlotingMove()
         {
             Vector3 upPosition = transform.position + new Vector3(0, floatDistance, 0);

@@ -45,6 +45,7 @@ namespace OMG.Minigames.RockFestival
         public void Display(bool active)
         {
             render = active;
+            decalRenderer.enabled = render;
         }
 
         private float GetDistance()

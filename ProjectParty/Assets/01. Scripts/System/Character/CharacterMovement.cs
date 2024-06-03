@@ -201,7 +201,8 @@ namespace OMG
         {
             if (!IsGround) return;
             if (jumpPower < 0f) return;
-            
+
+            Debug.Log("jump");
             SetVerticalVelocity(jumpPower);
         }
         #endregion

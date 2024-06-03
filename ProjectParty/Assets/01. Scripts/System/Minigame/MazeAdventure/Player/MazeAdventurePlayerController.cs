@@ -1,7 +1,5 @@
 using OMG.FSM;
 using OMG.Player;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using OMG.Extensions;
