@@ -21,6 +21,12 @@ namespace OMG.Player
         public Vector3 HitDir => hitDir;
         public Vector3 HitPoint => hitPoint;
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+                OnDamaged(10f, transform, transform.position);
+        }
+
         public void OnDamaged(float damage, Transform attacker, Vector3 point, Vector3 normal = default)
         {
             this.attacker = attacker;

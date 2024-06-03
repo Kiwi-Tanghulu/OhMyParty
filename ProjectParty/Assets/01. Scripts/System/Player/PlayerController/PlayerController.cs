@@ -31,9 +31,6 @@ namespace OMG.Player
         protected virtual void Update()
         {
             stateMachine.UpdateFSM();
-
-            if (UnityEngine.Input.GetKeyDown(KeyCode.X))
-                stateMachine.ChangeState(typeof(StunState));
         }
     }
 }
