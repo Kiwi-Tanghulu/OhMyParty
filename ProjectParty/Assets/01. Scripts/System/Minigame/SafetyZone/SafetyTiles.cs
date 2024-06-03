@@ -66,8 +66,9 @@ namespace OMG.Minigames.SafetyZone
                     SafetyZonePlayerController player = minigame.PlayerDictionary[i.clientID] as SafetyZonePlayerController;
                     if(player.IsDead == false && player.IsSafety == false)
                     {
-                        cycle.HandlePlayerDead(i.clientID);
+                        player.Health.OnDamaged(100f, transform, transform.position);
                         player.IsDead = true;
+                        cycle.HandlePlayerDead(i.clientID);
                     }
                 });
             }));
