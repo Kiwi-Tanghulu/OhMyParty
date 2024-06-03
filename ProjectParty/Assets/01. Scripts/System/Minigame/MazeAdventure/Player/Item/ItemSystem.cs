@@ -21,7 +21,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         private ItemType currentItemType;
         public void Init(Transform playerTrm)
         {
-            currentItemType = ItemType.Invisibility;
+            currentItemType = ItemType.MakeWall;
             playerItemDictionary = new Dictionary<ItemType, MazeAdventureItem>();
             foreach(Transform itemTrm in transform)
             {
