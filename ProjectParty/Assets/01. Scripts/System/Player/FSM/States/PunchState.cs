@@ -21,7 +21,7 @@ namespace OMG.Player.FSM
         protected override void DoAction()
         {
             RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position + player.transform.forward * distance,
-                radius, player.transform.forward, 0f, layer);
+                radius, player.transform.forward, 0f);
 
             if (hits.Length > 0)
             {
