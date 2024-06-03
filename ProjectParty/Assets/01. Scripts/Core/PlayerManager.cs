@@ -14,13 +14,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private List<Color> playerColorList;
 
     [Space]
-    private Dictionary<ulong, RenderTexture> playerRenderTextureDic;
-    private List<Camera> playerRenderCameraList;
-    [SerializeField] private CameraRenderPlayerVisual playerVisualPrefab;
+    private Dictionary<ulong, RenderTargetPlayerVisual> renderTargetPlayerDic;
+    [SerializeField] private RenderTargetPlayerVisual cameraRenderPlayerVisual;
     [SerializeField] private Vector3 createPlayerVisualPos;
     [SerializeField] private Vector3 playerVisualPosOffset;
-    [SerializeField] private Vector3 cameraOffset;
-    public Dictionary<ulong, RenderTexture> PlayerRenderTextureDic => playerRenderTextureDic;
+    public Dictionary<ulong, RenderTargetPlayerVisual> RenderTargetPlayerDic => renderTargetPlayerDic;
 
     private void Awake()
     {
@@ -31,8 +29,7 @@ public class PlayerManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        playerRenderTextureDic = new Dictionary<ulong, RenderTexture>();
-        playerRenderCameraList = new List<Camera>();
+        renderTargetPlayerDic = new Dictionary<ulong, RenderTargetPlayerVisual>();
     }
 
     public Color GetPlayerColor(int index)
@@ -45,38 +42,23 @@ public class PlayerManager : MonoBehaviour
         return playerColorList[index];
     }
 
-    public RenderTexture CreatePlayerRenderTexture(PlayerController player)
+    //create player render target
+    public RenderTargetPlayerVisual CreatePlayerRenderTarget(PlayerController player)
     {
         Vector3 playerVisualPos =
-            createPlayerVisualPos + (playerVisualPosOffset * playerRenderTextureDic.Count);
-
-        Transform playerVisualRenderTrm = new GameObject($"PlayerRender_{playerRenderTextureDic.Count}").transform;
-        playerVisualRenderTrm.position = playerVisualPos;
-        playerVisualRenderTrm.SetParent(transform);
+            createPlayerVisualPos + (playerVisualPosOffset * renderTargetPlayerDic.Count);
         
-
-        CameraRenderPlayerVisual playerVisual = Instantiate(
-            playerVisualPrefab,
+        RenderTargetPlayerVisual playerVisual = Instantiate(
+            cameraRenderPlayerVisual,
             playerVisualPos,
-            Quaternion.Euler(0f, 180f, 0f),
-            playerVisualRenderTrm);
+            Quaternion.identity,
+            transform);
+
         playerVisual.SetVisual(player.Visual.VisualType);
         playerVisual.SetOwenrID(player.OwnerClientId);
 
-        RenderTexture rt = new RenderTexture(256, 256, 16);
-        rt.Create();
-        playerRenderTextureDic.Add(player.OwnerClientId, rt);
+        renderTargetPlayerDic.Add(player.OwnerClientId, playerVisual);
 
-        Transform camTrm = new GameObject("Cam").transform;
-        camTrm.SetParent(playerVisualRenderTrm);
-        camTrm.localPosition = cameraOffset;
-
-        Camera cam = camTrm.gameObject.AddComponent<Camera>();
-        cam.targetTexture = rt;
-        cam.clearFlags = CameraClearFlags.SolidColor;
-        cam.backgroundColor = new Color(0f, 0f, 0f, 0f);
-        playerRenderCameraList.Add(cam);
-
-        return rt;
+        return playerVisual;
     }
 }
