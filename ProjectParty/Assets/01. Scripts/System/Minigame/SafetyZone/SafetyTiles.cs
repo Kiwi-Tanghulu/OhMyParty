@@ -9,9 +9,6 @@ namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTiles : NetworkBehaviour
     {
-        [SerializeField] float decisionPostpone = 2f;
-        
-        [Space(15f)]
         [SerializeField] UnityEvent onRerollEvent = null;
         [SerializeField] UnityEvent onDecisionEvent = null;
         [SerializeField] UnityEvent onResetEvent = null;
@@ -60,18 +57,15 @@ namespace OMG.Minigames.SafetyZone
                 TileActiveClientRpc(i);
             }
 
-            StartCoroutine(this.DelayCoroutine(decisionPostpone, () => {
-                Debug.Log("asd");
-                minigame.PlayerDatas.ForEach(i => {
-                    SafetyZonePlayerController player = minigame.PlayerDictionary[i.clientID] as SafetyZonePlayerController;
-                    if(player.IsDead == false && player.IsSafety == false)
-                    {
-                        player.Health.OnDamaged(100f, transform, transform.position);
-                        player.IsDead = true;
-                        cycle.HandlePlayerDead(i.clientID);
-                    }
-                });
-            }));
+            minigame.PlayerDatas.ForEach(i => {
+                SafetyZonePlayerController player = minigame.PlayerDictionary[i.clientID] as SafetyZonePlayerController;
+                if (player.IsDead == false && player.IsSafety == false)
+                {
+                    player.Health.OnDamaged(10f, transform, transform.position);
+                    player.IsDead = true;
+                    cycle.HandlePlayerDead(i.clientID);
+                }
+            });
 
             DecisionSafetyZoneClientRpc();
         }

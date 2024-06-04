@@ -15,7 +15,7 @@ namespace OMG.Minigames.SafetyZone
             HoldableItem item = Instantiate(prefabs.PickRandom());
             item.Init();
 
-            IHolder hand = performer as IHolder;
+            IHolder hand = performer.GetComponent<IHolder>();
             if(hand == null)
                 return false;
 

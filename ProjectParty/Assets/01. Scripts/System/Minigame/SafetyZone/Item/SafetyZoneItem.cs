@@ -12,9 +12,20 @@ namespace OMG.Minigames.SafetyZone
             collision = GetComponent<ItemCollision>();
             collision.OnCollisionEvent.AddListener(OnCollision);
         }
+        
+        public override void Init()
+        {
+            base.Init();
+            collision.Init();
+        }
 
         public override void OnActive()
         {
+            if(IsHost == false)
+                return;
+
+            currentHolder.Release();
+
             collision.SetActiveCollisionOther(true);
             collision.SetActiveRigidbody(true);
 

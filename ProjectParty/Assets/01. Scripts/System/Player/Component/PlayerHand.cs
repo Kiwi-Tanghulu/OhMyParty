@@ -22,6 +22,8 @@ namespace OMG.Player
         public bool IsEmpty => holdingObject == null;
         private bool active = true;
 
+        private bool readInteractInput = false;
+
         public override void OnNetworkSpawn()
         {
             if(IsOwner == false)
@@ -82,6 +84,9 @@ namespace OMG.Player
 
         private void HandleInteract(bool interact)
         {
+            if(readInteractInput == false)
+                return;
+
             if(active == false)
                 return;
 

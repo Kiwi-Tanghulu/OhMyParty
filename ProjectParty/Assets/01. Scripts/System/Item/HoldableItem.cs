@@ -16,6 +16,14 @@ namespace OMG.Items
 
         public event Action<bool> OnHoldEvent = null;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            transformController = GetComponent<TransformController>();
+            ownershipController = GetComponent<OwnershipController>();
+        }
+
         public virtual bool Hold(IHolder holder, Vector3 point = default)
         {
             if(holder.IsEmpty == false)
