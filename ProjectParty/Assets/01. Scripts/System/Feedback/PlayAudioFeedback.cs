@@ -17,7 +17,7 @@ namespace OMG.Feedbacks
                 player = DEFINE.GlobalAudioPlayer;
         }
 
-        public override void Play(Transform playTrm)
+        public override void Play(Vector3 playPos)
         {
             player?.PlayOneShot(GetAudioClip());
         }

@@ -13,7 +13,7 @@ namespace OMG.Feedbacks
             transform.GetComponentsInChildren<ParticleSystem>(particles);
         }
 
-        public override void Play(Transform playTrm)
+        public override void Play(Vector3 playPos)
         {
             particles.ForEach(i => i.Play());
         }

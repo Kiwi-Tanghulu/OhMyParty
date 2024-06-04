@@ -24,10 +24,10 @@ namespace OMG.Feedbacks
         //        Play(transform);
         //}
 
-        public void Play(Transform playTrm)
+        public void Play(Vector3 playPos)
         {
             for (int i = 0; i < feedbacks.Count; i++)
-                feedbacks[i].Play(playTrm);
+                feedbacks[i].Play(playPos);
         }
     }
 }

@@ -13,6 +13,6 @@ public class TJunsung : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            p.Play(transform);
+            p.Play(transform.position);
     }
 }

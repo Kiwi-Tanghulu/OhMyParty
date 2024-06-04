@@ -28,12 +28,12 @@ namespace OMG.Feedbacks
         [ConditionalField("randomSize", true)]
         [SerializeField] Vector2 range = new Vector2(0.5f, 1f);
 
-        public override void Play(Transform playTrm)
+        public override void Play(Vector3 playPos)
         {
             if(multipleParticle)
-                SpawnMultipleParticle(playTrm);            
+                SpawnMultipleParticle(playPos);            
             else
-                SpawnParticle(playTrm.position);
+                SpawnParticle(playPos);
         }
 
         private void SpawnParticle(Vector3 position)
@@ -46,7 +46,7 @@ namespace OMG.Feedbacks
             instance.Play();
         }
 
-        private void SpawnMultipleParticle(Transform playTrm)
+        private void SpawnMultipleParticle(Vector3 playPos)
         {
             for(int i = 0; i < multipleSetting.Count; ++i)
             {
@@ -58,7 +58,7 @@ namespace OMG.Feedbacks
                 if (multipleSetting.Z)
                     randomPosition.z = 0f;
 
-                Vector3 position = playTrm.position + randomPosition;
+                Vector3 position = playPos + randomPosition;
                 SpawnParticle(position);
             }
         }

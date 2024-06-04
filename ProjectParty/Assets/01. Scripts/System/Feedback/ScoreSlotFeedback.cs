@@ -16,7 +16,7 @@ namespace OMG.Feedbacks.Minigames
             this.scoreDiff = scoreDiff;
         }
 
-        public override void Play(Transform playTrm)
+        public override void Play(Vector3 playPos)
         {
             Modular3DText instance = Instantiate(textPrefab, feedbackPosition);
             instance.transform.localPosition = Vector3.zero;

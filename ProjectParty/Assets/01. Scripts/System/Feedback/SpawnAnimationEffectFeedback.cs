@@ -15,9 +15,9 @@ namespace OMG.Feedbacks
             wfs = new WaitForSeconds(playTime);
         }
 
-        public override void Play(Transform playTrm)
+        public override void Play(Vector3 playPos)
         {
-            Animator effect = Instantiate(animEffect, playTrm.position, Quaternion.identity);
+            Animator effect = Instantiate(animEffect, playPos, Quaternion.identity);
             StartCoroutine(DestoryEffect(effect));
         }
 
