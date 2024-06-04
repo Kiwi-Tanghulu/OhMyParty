@@ -6,11 +6,14 @@ using OMG.FSM;
 using OMG.Inputs;
 using OMG.Player;
 using Unity.XR.OpenVR;
+using UnityEngine.Events;
 
 namespace OMG.Player.FSM
 {
-    public abstract class ActionState : PlayerFSMState
+    public class ActionState : PlayerFSMState
     {
+        public UnityEvent OnActionEvent;
+
         private ExtendedAnimator anim;
 
         public override void InitState(FSMBrain brain)
@@ -48,6 +51,9 @@ namespace OMG.Player.FSM
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
         }
 
-        protected abstract void DoAction();
+        protected virtual void DoAction()
+        {
+            OnActionEvent?.Invoke();
+        }
     }
 }
