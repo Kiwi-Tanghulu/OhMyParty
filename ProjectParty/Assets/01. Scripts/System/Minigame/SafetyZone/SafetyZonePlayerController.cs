@@ -7,5 +7,12 @@ namespace OMG.Minigames.SafetyZone
     {
         public bool IsSafety = false;
         public bool IsDead = false;
+
+        public PlayerHealth Health = null;
+
+        private void Awake()
+        {
+            Health = GetComponent<PlayerHealth>();
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace OMG.Minigames
             CurrentMinigame.NetworkObject.Spawn(true);
             CurrentMinigame.Init(joinedPlayers);
 
-            FadeUI.Instance.FadeIn(3f, () =>
+            Fade.Instance.FadeIn(3f, () =>
             {
                 Time.timeScale = 0f;
             }, () =>
@@ -28,7 +28,7 @@ namespace OMG.Minigames
 
         public void FinishMinigame()
         {
-            FadeUI.Instance.FadeOut(0f, null, () =>
+            Fade.Instance.FadeOut(0f, null, () =>
             {
                 CurrentMinigame.Release();
 
@@ -36,7 +36,7 @@ namespace OMG.Minigames
                 CurrentMinigame.NetworkObject.Despawn(true);
                 CurrentMinigame = null;
 
-                FadeUI.Instance.FadeIn(3f, () =>
+                Fade.Instance.FadeIn(3f, () =>
                 {
                     Time.timeScale = 0f;
                 }, () =>

@@ -78,6 +78,7 @@ namespace OMG.Minigames.SafetyZone
             includePlayers.Add(player);
 
             bool isSafety = IsSafetyZone();
+            player.IsSafety = isSafety;
             SetSafety(isSafety);
         }
 
@@ -86,6 +87,7 @@ namespace OMG.Minigames.SafetyZone
             includePlayers.Remove(player);
 
             bool isSafety = IsSafetyZone();
+            player.IsSafety = isSafety;
             SetSafety(isSafety);
         }
     }

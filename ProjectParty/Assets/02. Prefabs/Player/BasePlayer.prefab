@@ -44,8 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef15662e3b78964791dd85f3940b2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particlePrefab: {fileID: 660604078598729725, guid: 28e3a12f83bb82d4187803aac2e18d7f,
+  particlePrefab: {fileID: 6573858478253499287, guid: a98cc73353e6c61438a7fa81ea75a88c,
     type: 3}
+  multipleParticle: 0
+  multipleSetting:
+    Radius: 10
+    Count: 10
+    X: 0
+    Y: 0
+    Z: 0
+  randomSize: 0
+  range: {x: 0.5, y: 1}
 --- !u!1 &590574370029970255
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +327,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invert: 0
   keyCode: 20000000
+--- !u!1 &2485162317587838089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5612435006592387892}
+  - component: {fileID: 6203248122334376861}
+  m_Layer: 9
+  m_Name: SpawnAnimationEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5612435006592387892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485162317587838089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1447431710891457921}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6203248122334376861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485162317587838089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 296a424815a0054478452c85ee0e84ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animEffect: {fileID: 6061033019212092309, guid: 1ee9f015e1f08bf42aa8aa724fbc3b43,
+    type: 3}
 --- !u!1 &2492972787291538945
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,6 +1027,7 @@ GameObject:
   - component: {fileID: 6435401285651530014}
   - component: {fileID: 1687471952416354455}
   - component: {fileID: 6463859716102333337}
+  - component: {fileID: 2304377250135179713}
   m_Layer: 0
   m_Name: RecoveryState
   m_TagString: Untagged
@@ -1028,6 +1084,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0179f9b3107b7904b9f8ededc3cdf8e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2304377250135179713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6474381543726556816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f978b0dda809b54f807970e41fd9532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proertyName: recovery
 --- !u!1 &6583876910675778117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,6 +1128,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4693608958313162052}
+  - {fileID: 5612435006592387892}
   m_Father: {fileID: 2964513312760995152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519051357584297999
@@ -1238,6 +1308,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 1327856628545037429, guid: f041ceb3d98945e4380d7a6bccbec7d1,
     type: 3}
+  multipleParticle: 0
+  multipleSetting:
+    Radius: 10
+    Count: 10
+    X: 0
+    Y: 0
+    Z: 0
+  randomSize: 0
+  range: {x: 0.5, y: 1}
 --- !u!1 &7569269787013309519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,19 +1549,7 @@ MonoBehaviour:
   DrawGizmo: 0
   OnHitEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 519051357584297999}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &5000397531534581130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1846,6 +1913,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 519051357584297999}
+        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7505170656876643933}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8662157353629703026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,6 +1971,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 3019441013704265511, guid: 5ff70997e8631184791c52973e45d9ba,
     type: 3}
+  multipleParticle: 0
+  multipleSetting:
+    Radius: 10
+    Count: 10
+    X: 0
+    Y: 0
+    Z: 0
+  randomSize: 0
+  range: {x: 0.5, y: 1}
 --- !u!1001 &8618010646402140841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1947,6 +2035,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1773381852135593506, guid: 3185d771f47aa69468dbf7ee7a18a2fa,
         type: 3}
+      propertyPath: forceMultiplier
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773381852135593506, guid: 3185d771f47aa69468dbf7ee7a18a2fa,
+        type: 3}
       propertyPath: OnActiveEvent.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1974,7 +2067,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OnActiveEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 2418013592375262734}
+      objectReference: {fileID: 8288274099845626911}
     - target: {fileID: 1773381852135593506, guid: 3185d771f47aa69468dbf7ee7a18a2fa,
         type: 3}
       propertyPath: OnDeactiveEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1994,7 +2087,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OnDeactiveEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 2418013592375262734}
+      objectReference: {fileID: 8288274099845626911}
     - target: {fileID: 1773381852135593506, guid: 3185d771f47aa69468dbf7ee7a18a2fa,
         type: 3}
       propertyPath: OnActiveEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -2454,6 +2547,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 525909960
+    DestinationState: -755839935
+    TransitionDuration: 0.25
+    TriggerNameHash: -213675063
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 525909960
+    DestinationState: 649638640
+    TransitionDuration: 0.25
+    TriggerNameHash: -213675063
+    TransitionIndex: 1
   - IsCrossFadeExit: 0
     Layer: 1
     OriginatingState: -1459219776

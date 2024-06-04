@@ -14,12 +14,22 @@ namespace OMG.Player
         private int isGroundHash = Animator.StringToHash("isGround");
         private int moveSpeedHash = Animator.StringToHash("moveSpeed");
 
+        private bool isInit;
+
         private void Start()
         {
             anim = GetComponent<PlayerController>().Animator;
 
             OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
             OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
+
+            isInit = true;
+        }
+
+        private void OnEnable()
+        {
+            if(isInit)
+                ChangeIsGroundParam(IsGround);
         }
 
         private void OnDestroy()

@@ -20,19 +20,31 @@ namespace OMG.Player.FSM
             anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
         }
 
+        public override void EnterState()
+        {
+            base.EnterState();
+
+            anim.AnimEvent.OnPlayingEvent += DoAction;
+        }
+
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
             
-            anim.AnimEvent.OnPlayingEvent += DoAction;
             anim.SetLayerWeight(AnimatorLayerType.Upper, 1, true, 0.1f);
+        }
+
+        public override void ExitState()
+        {
+            base.ExitState();
+
+            anim.AnimEvent.OnPlayingEvent -= DoAction;
         }
 
         protected override void OwnerExitState()
         {
             base.OwnerExitState();
 
-            anim.AnimEvent.OnPlayingEvent -= DoAction;
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
         }
 

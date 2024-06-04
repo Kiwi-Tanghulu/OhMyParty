@@ -4,6 +4,7 @@ using OMG.Minigames;
 using OMG.Player;
 using Steamworks;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -116,6 +117,7 @@ namespace OMG.UI
                 PlayerReadyCheckBox checkBox = Instantiate(readyCheckBoxPrefab, readyCheckBoxContainer);
                 checkBox.SetPlayerImage(
                     PlayerManager.Instance.RenderTargetPlayerDic[player.OwnerClientId].RenderTexture);
+                checkBox.SetNameText(player.name); //
                 readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
             }
 

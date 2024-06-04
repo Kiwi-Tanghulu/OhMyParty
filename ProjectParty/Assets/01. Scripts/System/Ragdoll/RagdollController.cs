@@ -13,6 +13,9 @@ namespace OMG.Ragdoll
         public Rigidbody HipRb => hipRb;
 
         [Space]
+        [SerializeField] private float forceMultiplier;
+
+        [Space]
         [SerializeField] protected bool onInitActive;
 
         [Space]
@@ -49,7 +52,7 @@ namespace OMG.Ragdoll
 
         public void AddForce(Vector3 power, ForceMode mode)
         {
-            hipRb.AddForce(power, mode);
+            hipRb.AddForce(power * forceMultiplier, mode);
         }
     }
 }
