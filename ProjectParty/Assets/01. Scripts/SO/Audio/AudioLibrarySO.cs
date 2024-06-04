@@ -42,5 +42,12 @@ namespace OMG.Audio
                 Library.Add(table.Key, table);
             }
         }
+
+        public AudioDictionaryTable GetRandomAudio()
+        {
+            int index = UnityEngine.Random.Range(0, audioTables.Count);
+
+            return audioTables[index];
+        }
     }
 }

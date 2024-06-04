@@ -16,12 +16,12 @@ namespace OMG.Player.FSM
         [Space]
         [SerializeField] private bool DrawGizmo;
 
-        public UnityEvent<Transform> OnHitEvent;
-
         protected override void DoAction()
         {
+            base.DoAction();
+
             RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position + player.transform.forward * distance,
-                radius, player.transform.forward, 0f, layer);
+                radius, player.transform.forward, 0f);
 
             if (hits.Length > 0)
             {
@@ -33,7 +33,6 @@ namespace OMG.Player.FSM
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
                         damageable.OnDamaged(150f, player.transform, hits[i].point);
-                        OnHitEvent?.Invoke(damageable.GetDamagedTransfrom());
                     }
                 }
             }

@@ -1,4 +1,5 @@
 using OMG;
+using OMG.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -7,18 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class TJunsung : MonoBehaviour
 {
-    public string scenename;
-    
-    public void SceneLoad()
-    {
-        NetworkManager.Singleton.ConnectionApprovalCallback += HandleConnectionApproval;
-        if (NetworkManager.Singleton.StartHost())
-            OMG.SceneManager.Instance.LoadScene(scenename);
-    }
+    public FeedbackPlayer p;
 
-    private void HandleConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+    private void Update()
     {
-        response.Approved = true;
-        response.CreatePlayerObject = false;
+        if (Input.GetKeyDown(KeyCode.Space))
+            p.Play(transform);
     }
 }
