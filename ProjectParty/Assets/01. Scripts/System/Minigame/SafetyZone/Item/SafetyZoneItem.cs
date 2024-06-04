@@ -1,4 +1,5 @@
 using OMG.Items;
+using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
 {
@@ -29,13 +30,13 @@ namespace OMG.Minigames.SafetyZone
             collision.SetActiveCollisionOther(true);
             collision.SetActiveRigidbody(true);
 
-            collision.AddForce(transform.forward, 10f);
+            collision.AddForce(transform.forward, 15f);
         }
 
         public override void OnHold() { }
 
         public override void OnRelease() { }
 
-        public abstract void OnCollision();
+        public abstract void OnCollision(Transform other);
     }
 }
