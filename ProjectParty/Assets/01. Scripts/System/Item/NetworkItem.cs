@@ -14,6 +14,11 @@ namespace OMG.Items
             itemBehaviour = GetComponent<NetworkItemBehaviour>();
         }
 
+        public virtual void Init()
+        {
+            NetworkObject.Spawn(true);
+        }
+
         public override void Active()
         {
             itemBehaviour.ActiveItem();
