@@ -15,6 +15,8 @@ namespace OMG.Minigames.MazeAdventure
 
         public override void OnActive()
         {
+            StopAllCoroutines();
+            playerInvisibility.ExitInvisibil();
             StartCoroutine(TemporaryInvisibility());
         }
 

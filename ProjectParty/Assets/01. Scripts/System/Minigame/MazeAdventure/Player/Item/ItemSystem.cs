@@ -17,6 +17,7 @@ namespace OMG.Minigames.MazeAdventure
 public class ItemSystem : MonoBehaviour, IPlayerCollision
     {
         [SerializeField] private PlayInputSO input;
+        [SerializeField] private ParticleSystem itemHitParticle;
         private Dictionary<ItemType, MazeAdventureItem> playerItemDictionary = null;
         private ItemType currentItemType;
         public void Init(Transform playerTrm)
@@ -55,11 +56,11 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
                 Destroy(itemBox.gameObject);
             }
         }
-
-        public void OnCollision(Collider collider)
+        public void OnCollision(HitInfo hitInfo)
         {
-            if (collider.transform.TryGetComponent(out ItemBox itemBox))
+            if (hitInfo.collider.transform.TryGetComponent(out ItemBox itemBox))
             {
+                ParticleSystem particle = Instantiate(itemHitParticle, hitInfo.hitPoint,Quaternion.identity);
                 ChangeItem(itemBox.ItemType);
                 Destroy(itemBox.gameObject);
             }

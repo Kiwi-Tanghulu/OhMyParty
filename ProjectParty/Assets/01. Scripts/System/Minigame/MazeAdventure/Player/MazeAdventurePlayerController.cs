@@ -54,6 +54,7 @@ namespace OMG.Minigames.MazeAdventure
         [ClientRpc]
         private void ExitInvisibilClientRpc()
         {
+            if (isInvisibil == false) return;
             isInvisibil = false;
             mazeAdventurePlayerVisual.ChangeColorDefault();
         }

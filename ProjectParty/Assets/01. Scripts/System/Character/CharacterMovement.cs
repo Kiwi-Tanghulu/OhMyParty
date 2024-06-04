@@ -58,7 +58,8 @@ namespace OMG
         private NetworkTransform networkTrm;
         private CharacterController cc;
 
-        public UnityEvent<Collider> OnColliderHit;
+        public UnityEvent<HitInfo> OnColliderHit;
+        private HitInfo hitInfo = new HitInfo();
         protected virtual void Awake()
         {
             networkTrm = GetComponent<NetworkTransform>();
@@ -224,7 +225,9 @@ namespace OMG
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            OnColliderHit?.Invoke(hit.collider);
+            hitInfo.collider = hit.collider;
+            hitInfo.hitPoint = hit.point;
+            OnColliderHit?.Invoke(hitInfo);
         }
 
 #if UNITY_EDITOR
