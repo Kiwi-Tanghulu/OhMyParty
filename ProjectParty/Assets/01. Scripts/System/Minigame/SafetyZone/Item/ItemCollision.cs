@@ -5,7 +5,7 @@ namespace OMG.Minigames.SafetyZone
 {
     public class ItemCollision : MonoBehaviour
     {
-        public UnityEvent<Transform> OnCollisionEvent = new UnityEvent<Transform>();
+        public UnityEvent<Collision> OnCollisionEvent = new UnityEvent<Collision>();
 
         private new Rigidbody rigidbody = null;
         public bool ActiveCollisionOther { get; private set; } = false;
@@ -23,18 +23,11 @@ namespace OMG.Minigames.SafetyZone
 
         private void OnCollisionEnter(Collision other)
         {
-            OnCollisionEvent?.Invoke(other.transform);
-
             if(ActiveCollisionOther == false)
                 return;
 
-            if(other.rigidbody == null)
-                return;
-
-            if(other.rigidbody.TryGetComponent<IDamageable>(out IDamageable damageable) == false)
-                return;
-
-            damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].point, other.contacts[0].normal);
+            OnCollisionEvent?.Invoke(other);
+            // damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].point, other.contacts[0].normal);
         }
 
         public void SetActiveCollisionOther(bool active)

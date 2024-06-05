@@ -37,6 +37,6 @@ namespace OMG.Minigames.SafetyZone
 
         public override void OnRelease() { }
 
-        public abstract void OnCollision(Transform other);
+        public abstract void OnCollision(Collision other);
     }
 }
