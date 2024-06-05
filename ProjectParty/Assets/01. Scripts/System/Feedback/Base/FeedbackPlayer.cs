@@ -29,5 +29,11 @@ namespace OMG.Feedbacks
             for (int i = 0; i < feedbacks.Count; i++)
                 feedbacks[i].Play(playPos);
         }
+
+        public void Play(Transform playTrm)
+        {
+            for (int i = 0; i < feedbacks.Count; i++)
+                feedbacks[i].Play(playTrm.position);
+        }
     }
 }
