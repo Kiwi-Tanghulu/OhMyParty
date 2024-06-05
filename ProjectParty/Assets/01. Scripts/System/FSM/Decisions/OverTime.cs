@@ -8,7 +8,7 @@ namespace OMG.Player
 {
     public class OverTime : FSMDecision
     {
-        [SerializeField] private float time;
+        [SerializeField] protected float time;
         private float currentTime;
 
         public override void EnterState()

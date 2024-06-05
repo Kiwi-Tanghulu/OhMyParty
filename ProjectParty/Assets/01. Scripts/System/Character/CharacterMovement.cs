@@ -14,12 +14,11 @@ namespace OMG
     [RequireComponent(typeof(CharacterController))]
     public class CharacterMovement : MonoBehaviour
     {
-        [Header("Move")]
-        [SerializeField] private float maxMoveSpeed = 3f;
-        public float MaxMoveSpeed => maxMoveSpeed;
+        [SerializeField] private CharacterStatSO characterStatSO;
+
+        //move
         private float currentMoveSpeed;
-        [SerializeField]
-        private float accelration;
+        public float MaxMoveSpeed => characterStatSO.MaxMoveSpeed;
 
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
@@ -27,21 +26,16 @@ namespace OMG
 
         private Vector3 moveVector;
 
+        [Space]
         public UnityEvent<Vector3> OnMoveDirectionChanged;
 
-        [Header("Gravity")]
-        [SerializeField] private float gravityScale;
-
+        //vertical
         private float verticalVelocity;
 
-        [Header("Turn")]
-        [Space]
-        [SerializeField] private float turnSpped;
+        //turn
         private Coroutine trunCo;
 
-        [Header("Jump")]
-        [SerializeField] private float jumpPower = 5f;
-
+        //ground
         [Header("Ground Check")]
         [Space]
         [SerializeField] private Vector3 checkGroundOffset;
@@ -54,11 +48,13 @@ namespace OMG
         public UnityEvent<bool> OnIsGroundChagend;
         public bool DrawGizmo;
 
+        //compo
         [Header("Component")]
         private NetworkTransform networkTrm;
         private CharacterController cc;
 
         public UnityEvent<Collider> OnColliderHit;
+
         protected virtual void Awake()
         {
             networkTrm = GetComponent<NetworkTransform>();
@@ -92,13 +88,13 @@ namespace OMG
                     }
                 }
 
-                currentMoveSpeed += accelration * Time.deltaTime;
+                currentMoveSpeed += characterStatSO.Accelration * Time.deltaTime;
 
                 moveVec = moveDir;
             }
             else
             {
-                currentMoveSpeed -= accelration * Time.deltaTime;
+                currentMoveSpeed -= characterStatSO.Accelration * Time.deltaTime;
 
                 moveVec = prevMoveDir;
             }
@@ -112,7 +108,7 @@ namespace OMG
 
         public void SetMoveSpeed(float value)
         {
-            maxMoveSpeed = value;
+            characterStatSO.MaxMoveSpeed = value;
         }
 
         public void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
@@ -158,7 +154,7 @@ namespace OMG
 
             while (1f - t > 0.1f)
             {
-                t += Time.deltaTime * turnSpped;
+                t += Time.deltaTime * characterStatSO.TurnSpeed;
                 transform.rotation = Quaternion.Lerp(start, end, t);
 
                 yield return null;
@@ -174,12 +170,12 @@ namespace OMG
             {
                 if(verticalVelocity < 0f)
                 {
-                    verticalVelocity = gravityScale * Time.deltaTime * 20f;
+                    verticalVelocity = characterStatSO.GravityScale* Time.deltaTime * 20f;
                 }
             }
             else
             {
-                verticalVelocity += gravityScale * Time.deltaTime;
+                verticalVelocity += characterStatSO.GravityScale * Time.deltaTime;
             }
 
             cc.Move(new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime);
@@ -194,7 +190,7 @@ namespace OMG
         {
             if (!IsGround) return;
 
-            SetVerticalVelocity(jumpPower);
+            SetVerticalVelocity(characterStatSO.JumpPower);
         }
 
         public void Jump(float jumpPower)

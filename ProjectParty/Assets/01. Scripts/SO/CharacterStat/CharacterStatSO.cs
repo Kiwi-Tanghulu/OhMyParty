@@ -10,7 +10,7 @@ namespace OMG
         [Header("Movement")]
         public float MaxMoveSpeed;
         public float Accelration;
-        public float gravityScale;
+        public float GravityScale;
         public float TurnSpeed;
         public float JumpPower;
 

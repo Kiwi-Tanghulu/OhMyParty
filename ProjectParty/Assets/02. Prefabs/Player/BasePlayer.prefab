@@ -1237,7 +1237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3385248640966010197}
   - component: {fileID: 6826626472959804931}
-  - component: {fileID: 6269878367491100447}
+  - component: {fileID: 5460179497988107595}
   m_Layer: 0
   m_Name: TransRecovery
   m_TagString: Untagged
@@ -1273,7 +1273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextState: {fileID: 1687471952416354455}
---- !u!114 &6269878367491100447
+--- !u!114 &5460179497988107595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1282,11 +1282,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6170314695351476638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ffd03e6f169d8c49a7541a66419a549, type: 3}
+  m_Script: {fileID: 11500000, guid: d5db38c1b64a6354a9e313abaaefde0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   invert: 0
-  time: 3
+  time: 0
+  characterStatSO: {fileID: 11400000, guid: 6158b9effabe2f048a0397e1df8effc3, type: 2}
 --- !u!1 &6384725845684402338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,19 +2215,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a70684cc2d1ac1459a8cab6d5e110e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveSpeed: 7
-  accelration: 65
+  characterStatSO: {fileID: 11400000, guid: 6158b9effabe2f048a0397e1df8effc3, type: 2}
   OnMoveDirectionChanged:
     m_PersistentCalls:
       m_Calls: []
-  gravityScale: -19.62
-  turnSpped: 10
-  jumpPower: 5
   checkGroundOffset: {x: 0, y: 0, z: 0}
   checkGroundHalfSize: {x: 0.3, y: 0.15, z: 0.3}
   checkGroundLayer:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 641
   OnIsGroundChagend:
     m_PersistentCalls:
       m_Calls:
