@@ -8,6 +8,7 @@ using System.ComponentModel.Design;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 namespace OMG.UI
 {
@@ -15,7 +16,7 @@ namespace OMG.UI
     {
         [SerializeField] private TextMeshProUGUI gameNameText;
         [SerializeField] private TextMeshProUGUI gameDescriptionText;
-        [SerializeField] private Image gameImage;
+        [SerializeField] private VideoPlayer videoPlayer;
 
         [Space]
         [SerializeField] private Transform controlKeyInfoContainer;
@@ -103,7 +104,8 @@ namespace OMG.UI
 
             gameNameText.text = minigameSO.MinigameName;
             gameDescriptionText.text = minigameSO.MinigameDescription;
-            gameImage.sprite = minigameSO.MinigameImage;
+            videoPlayer.clip = minigameSO.Video;
+            videoPlayer.Play();
 
             foreach (ControlKeyInfo keyInfo in minigameSO.ControlKeyInfoList)
             {
