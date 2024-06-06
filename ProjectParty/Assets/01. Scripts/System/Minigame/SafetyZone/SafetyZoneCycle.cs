@@ -36,7 +36,7 @@ namespace OMG.Minigames.SafetyZone
         {
             if(IsHost)
             {
-                safetyZone.PlayerDictionary[clientID].NetworkObject.Despawn(true);
+                // safetyZone.PlayerDictionary[clientID].NetworkObject.Despawn(true);
                 safetyZone.PlayerDictionary.Remove(clientID);
             }
 

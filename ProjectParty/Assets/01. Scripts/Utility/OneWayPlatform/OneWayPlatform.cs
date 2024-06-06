@@ -38,7 +38,6 @@ namespace OMG.Utility.OneWayPlatform
                 return;
             
             bool isBlocked = IsBlocked(other.transform);
-            Debug.Log(isBlocked);
             Physics.IgnoreCollision(collider, other, !isBlocked);
         }
 

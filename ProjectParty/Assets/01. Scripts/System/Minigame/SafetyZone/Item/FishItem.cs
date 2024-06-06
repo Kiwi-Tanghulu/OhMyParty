@@ -4,9 +4,13 @@ namespace OMG.Minigames.SafetyZone
 {
     public class FishItem : SafetyZoneItem
     {
-        public override void OnCollision()
+        [SerializeField] float power = 10f;
+        public override void OnCollision(Collision other)
         {
-            Debug.Log("철썩");
+            if(other.transform.TryGetComponent<IDamageable>(out IDamageable id))
+                id?.OnDamaged(power, transform, other.contacts[0].point, other.contacts[0].normal);
+
+            Destroy(gameObject);
         }
     }
 }
