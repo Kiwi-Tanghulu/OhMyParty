@@ -21,6 +21,7 @@ namespace OMG
 
         public void SetVolume(AudioGroupType groupType, float volume)
         {
+            Debug.Log(volume * 100f - 80f);
             audioMixer.SetFloat(groupType.ToString(), volume * 100f - 80f);
         }
     }
