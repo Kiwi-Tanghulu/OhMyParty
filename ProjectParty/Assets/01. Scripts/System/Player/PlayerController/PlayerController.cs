@@ -5,6 +5,7 @@ using UnityEngine;
 using OMG.FSM;
 using OMG.Inputs;
 using OMG.Player.FSM;
+using UnityEngine.Events;
 
 namespace OMG.Player
 {
@@ -19,6 +20,8 @@ namespace OMG.Player
         private FSMBrain stateMachine;
         public FSMBrain StateMachine => stateMachine;
 
+        public UnityEvent<ulong/*owner id*/> OnSpawnedEvent;
+
         public override void OnNetworkSpawn()
         {
             stateMachine = GetComponent<FSMBrain>();
@@ -26,6 +29,8 @@ namespace OMG.Player
             animator = visual.GetComponent<ExtendedAnimator>();
 
             stateMachine.Init();
+
+            OnSpawnedEvent?.Invoke(OwnerClientId);
         }
 
         protected virtual void Update()

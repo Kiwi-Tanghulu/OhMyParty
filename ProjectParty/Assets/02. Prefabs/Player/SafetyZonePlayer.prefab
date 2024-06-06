@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 1918210536326220238, guid: 0813ba86e08f42a42941aaf27f9f044d,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1151504681
+      value: 3167924872
       objectReference: {fileID: 0}
     - target: {fileID: 4008510504206360464, guid: 0813ba86e08f42a42941aaf27f9f044d,
         type: 3}
@@ -78,6 +78,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: -1170330901426536250}
   m_SourcePrefab: {fileID: 100100000, guid: 0813ba86e08f42a42941aaf27f9f044d, type: 3}
+--- !u!114 &4820721328798838777 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8083642350874573390, guid: 0813ba86e08f42a42941aaf27f9f044d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3659308160178099639}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d9a68111d371840ad1b3f66eac7c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7736785284879479412 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6455606995556722627, guid: 0813ba86e08f42a42941aaf27f9f044d,
@@ -96,5 +108,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160f4ba52e8b05c4d8075cc6fe8c5396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnSpawnedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4820721328798838777}
+        m_TargetAssemblyTypeName: OMG.Player.PlayerNameTag, Assembly-CSharp
+        m_MethodName: SetNameTag
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   IsSafety: 0
   IsDead: 0
+  Health: {fileID: 0}

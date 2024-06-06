@@ -19885,7 +19885,7 @@ PrefabInstance:
     - target: {fileID: 4260335872563373893, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 836552328
+      value: 1503285153
       objectReference: {fileID: 0}
     - target: {fileID: 5062687372235613388, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
@@ -20011,6 +20011,18 @@ CharacterController:
     type: 3}
   m_PrefabInstance: {fileID: 5578800621233249971}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2072824396306975350 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5886142406603183301, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d9a68111d371840ad1b3f66eac7c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2363680458560121192 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7901173303943116763, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -20035,6 +20047,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f04b13fa9f237646b452fa169bbd751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnSpawnedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2072824396306975350}
+        m_TargetAssemblyTypeName: OMG.Player.PlayerNameTag, Assembly-CSharp
+        m_MethodName: SetNameTag
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   itemSystem: {fileID: 3878486720323711876}
   dieState: {fileID: 5558648300610355026}
   dieEvent:
