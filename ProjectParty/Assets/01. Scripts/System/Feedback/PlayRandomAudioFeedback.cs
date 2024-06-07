@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace OMG.Feedbacks
 {
-    public class PlayAudioFeedback : Feedback
+    public class PlayRandomAudioFeedback : Feedback
     {
         private AudioSource player;
-        [SerializeField] private AudioClip clip;
+        [SerializeField] private AudioLibrarySO audioLib;
 
         private void Awake()
         {
@@ -17,7 +17,12 @@ namespace OMG.Feedbacks
 
         public override void Play(Vector3 playPos)
         {
-            player?.PlayOneShot(clip);
+            player?.PlayOneShot(GetAudioClip());
+        }
+
+        private AudioClip GetAudioClip()
+        {
+            return audioLib.GetRandomAudio().Audio;
         }
     }
 }
