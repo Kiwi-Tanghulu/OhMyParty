@@ -1,9 +1,8 @@
-using OMG.Player;
 using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
 {
-    public class FishItem : SafetyZoneItem
+    public class FruitItem : SafetyZoneItem
     {
         [SerializeField] float power = 10f;
 
