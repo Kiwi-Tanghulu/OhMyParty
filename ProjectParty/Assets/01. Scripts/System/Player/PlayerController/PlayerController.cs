@@ -20,6 +20,9 @@ namespace OMG.Player
         private FSMBrain stateMachine;
         public FSMBrain StateMachine => stateMachine;
 
+        private CharacterStat stat;
+        public CharacterStat Stat => stat;
+
         public UnityEvent<ulong/*owner id*/> OnSpawnedEvent;
 
         public override void OnNetworkSpawn()
@@ -27,6 +30,7 @@ namespace OMG.Player
             stateMachine = GetComponent<FSMBrain>();
             visual = transform.Find("Visual").GetComponent<PlayerVisual>();
             animator = visual.GetComponent<ExtendedAnimator>();
+            stat = GetComponent<CharacterStat>();   
 
             stateMachine.Init();
 

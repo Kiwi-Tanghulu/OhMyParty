@@ -14,11 +14,10 @@ namespace OMG
     [RequireComponent(typeof(CharacterController))]
     public class CharacterMovement : MonoBehaviour
     {
-        [SerializeField] private CharacterStatSO characterStatSO;
+        private CharacterStatSO characterStatSO;
 
         //move
         private float currentMoveSpeed;
-        public float MaxMoveSpeed => characterStatSO.MaxMoveSpeed;
 
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
@@ -59,6 +58,8 @@ namespace OMG
         {
             networkTrm = GetComponent<NetworkTransform>();
             cc = GetComponent<CharacterController>();
+
+            characterStatSO = GetComponent<CharacterStat>().StatSO;  
         }
 
         protected virtual void Update()
@@ -99,7 +100,7 @@ namespace OMG
                 moveVec = prevMoveDir;
             }
 
-            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, 0f, MaxMoveSpeed);
+            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, 0f, characterStatSO.MaxMoveSpeed);
 
             moveVec *= currentMoveSpeed;
 
