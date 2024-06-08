@@ -15,6 +15,7 @@ namespace OMG
 
         [SerializeField] private Image playImage;
         [SerializeField] private Image stopImage;
+        [SerializeField] private GameObject blindImage;
 
         private Tween videoPlayTween;
         private Tween videoStopTween;
@@ -30,17 +31,17 @@ namespace OMG
             videoPlaySeq.Append(playImage.transform.DOScale(1f, 0f));
             videoPlaySeq.Join(playImage.DOFade(1f, 0f));
             videoPlaySeq.Append(playImage.transform.DOScale(0.75f, 0.2f));
+            videoPlaySeq.AppendCallback(() => blindImage.SetActive(false));
             videoPlaySeq.Append(playImage.transform.DOScale(3f, 0.2f));
             videoPlaySeq.Join(playImage.DOFade(0f, 0.2f));
-            //videoPlaySeq.AppendCallback(() => videoPlayer.Play());
             videoPlaySeq.SetAutoKill(false);
             videoPlayTween = videoPlaySeq;
 
             Sequence videoStopSeq = DOTween.Sequence();
             videoStopSeq.Append(stopImage.transform.DOScale(3f, 0f));
             videoStopSeq.Join(stopImage.DOFade(0f, 0f));
-            //videoPlaySeq.AppendCallback(() => videoPlayer.Stop());
             videoStopSeq.Append(stopImage.transform.DOScale(0.75f, 0.2f));
+            videoStopSeq.AppendCallback(() => blindImage.SetActive(true));
             videoStopSeq.Join(stopImage.DOFade(1f, 0.2f));
             videoStopSeq.Append(stopImage.transform.DOScale(1f, 0.2f));
             videoStopSeq.SetAutoKill(false);
@@ -52,6 +53,8 @@ namespace OMG
             playImage.transform.DOScale(1f, 0f);
             playImage.DOFade(1f, 0f);
             playImage.gameObject.SetActive(true);
+
+            blindImage.SetActive(true);
 
             videoPlayer.Stop();
         }

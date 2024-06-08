@@ -44,7 +44,6 @@ namespace OMG.Lobbies
             minigameComponent.OnMinigameSelectedEvent += HandleMinigameSelected;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
             readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
-            cutSceneComponent.CutSceneEvents[LobbyCutSceneState.EndFinish] += LobbyCutScene_OnEndFinish;
         }
 
         public override void OnNetworkSpawn()
@@ -146,12 +145,12 @@ namespace OMG.Lobbies
         private void FocusSpot(bool focus)
         {
             InputManager.ChangeInputMap(focus ? InputMapType.UI : InputMapType.Play);
-            //focusVCam.Priority = focus ? DEFINE.FOCUSED_PRIORITY : DEFINE.UNFOCUSED_PRIORITY;
-        }
 
-        private void LobbyCutScene_OnEndFinish()
-        {
-            CameraManager.Instance.ChangeCamera(focusVCam);
+            if (focus)
+                CameraManager.Instance.ChangeCamera(focusVCam);
+            else
+                CameraManager.Instance.ChangeCamera(Lobby.Current.GetLobbyComponent<LobbySkinComponent>().Skin.Cam);
+            //focusVCam.Priority = focus ? DEFINE.FOCUSED_PRIORITY : DEFINE.UNFOCUSED_PRIORITY;
         }
     }
 }

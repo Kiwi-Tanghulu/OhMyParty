@@ -14,11 +14,10 @@ namespace OMG
     [RequireComponent(typeof(CharacterController))]
     public class CharacterMovement : MonoBehaviour
     {
-        [SerializeField] private CharacterStatSO characterStatSO;
+        private CharacterStatSO characterStatSO;
 
         //move
         private float currentMoveSpeed;
-        public float MaxMoveSpeed => characterStatSO.MaxMoveSpeed;
 
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
@@ -39,7 +38,7 @@ namespace OMG
         [Header("Ground Check")]
         [Space]
         [SerializeField] private Vector3 checkGroundOffset;
-        [SerializeField] private Vector3 checkGroundHalfSize;
+        [SerializeField] private float checkGroundRadius;
         [SerializeField] private LayerMask checkGroundLayer;
 
         private bool isGround;
@@ -59,6 +58,8 @@ namespace OMG
         {
             networkTrm = GetComponent<NetworkTransform>();
             cc = GetComponent<CharacterController>();
+
+            characterStatSO = GetComponent<CharacterStat>().StatSO;  
         }
 
         protected virtual void Update()
@@ -99,7 +100,7 @@ namespace OMG
                 moveVec = prevMoveDir;
             }
 
-            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, 0f, MaxMoveSpeed);
+            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, 0f, characterStatSO.MaxMoveSpeed);
 
             moveVec *= currentMoveSpeed;
 
@@ -205,8 +206,8 @@ namespace OMG
         #region Check Ground
         public bool CheckGround()
         {
-            bool result = Physics.CheckBox(transform.position + checkGroundOffset,
-                checkGroundHalfSize, Quaternion.identity) && verticalVelocity <= 0f;
+            bool result = Physics.CheckSphere(transform.position + checkGroundOffset,
+                checkGroundRadius, checkGroundLayer) && verticalVelocity <= 0f;
 
             if(isGround != result)
             {
@@ -230,7 +231,7 @@ namespace OMG
                 return;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(transform.position + checkGroundOffset, checkGroundHalfSize * 2);
+            Gizmos.DrawWireSphere(transform.position + checkGroundOffset, checkGroundRadius);
         }
 #endif
         #endregion

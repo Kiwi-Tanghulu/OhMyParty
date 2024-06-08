@@ -35,11 +35,11 @@ namespace OMG.Player.FSM
 
             input.OnActionEvent += IncreaseRunSpeed;
 
-            if (movement.MaxMoveSpeed <= 0f)
-            {
-                currentRunSpeed = minRunSpeed;
-                SetRunSpeed();
-            }
+            //if (movement.MaxMoveSpeed <= 0f)
+            //{
+            //    currentRunSpeed = minRunSpeed;
+            //    SetRunSpeed();
+            //}
 
             movement.SetMoveDirection(Vector3.forward);
         }

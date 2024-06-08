@@ -7,6 +7,8 @@ namespace OMG.Lobbies
     {
         private SkinSelector skinSelector = null;
 
+        public LobbySkin Skin => skinSelector.CurrentSkin as LobbySkin;
+
         public override void Init(Lobby lobby)
         {
             base.Init(lobby);
