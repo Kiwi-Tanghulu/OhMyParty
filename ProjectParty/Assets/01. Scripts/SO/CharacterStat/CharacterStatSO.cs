@@ -19,6 +19,10 @@ namespace OMG
 
         private void OnEnable()
         {
+            if(statDic == null)
+                statDic = new Dictionary<CharacterStatType, Stat>();
+            statDic.Clear();
+
             foreach(Stat stat in statList)
             {
                 statDic[stat.Type] = stat;
