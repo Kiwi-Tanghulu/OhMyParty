@@ -89,18 +89,18 @@ namespace OMG
                     }
                 }
 
-                currentMoveSpeed += characterStatSO.Accelration * Time.deltaTime;
+                currentMoveSpeed += characterStatSO[CharacterStatType.Accelration].Value * Time.deltaTime;
 
                 moveVec = moveDir;
             }
             else
             {
-                currentMoveSpeed -= characterStatSO.Accelration * Time.deltaTime;
+                currentMoveSpeed -= characterStatSO[CharacterStatType.Accelration].Value * Time.deltaTime;
 
                 moveVec = prevMoveDir;
             }
 
-            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, 0f, characterStatSO.MaxMoveSpeed);
+            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, 0f, characterStatSO[CharacterStatType.MaxMoveSpeed].Value);
 
             moveVec *= currentMoveSpeed;
 
@@ -109,7 +109,7 @@ namespace OMG
 
         public void SetMoveSpeed(float value)
         {
-            characterStatSO.MaxMoveSpeed = value;
+            //characterStatSO.MaxMoveSpeed = value;
         }
 
         public void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
@@ -155,7 +155,7 @@ namespace OMG
 
             while (1f - t > 0.1f)
             {
-                t += Time.deltaTime * characterStatSO.TurnSpeed;
+                t += Time.deltaTime * characterStatSO[CharacterStatType.TurnSpeed].Value;
                 transform.rotation = Quaternion.Lerp(start, end, t);
 
                 yield return null;
@@ -171,12 +171,12 @@ namespace OMG
             {
                 if(verticalVelocity < 0f)
                 {
-                    verticalVelocity = characterStatSO.GravityScale* Time.deltaTime * 20f;
+                    verticalVelocity = characterStatSO[CharacterStatType.GravityScale].Value * Time.deltaTime * 20f;
                 }
             }
             else
             {
-                verticalVelocity += characterStatSO.GravityScale * Time.deltaTime;
+                verticalVelocity += characterStatSO[CharacterStatType.GravityScale].Value * Time.deltaTime;
             }
 
             cc.Move(new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime);
@@ -191,7 +191,7 @@ namespace OMG
         {
             if (!IsGround) return;
 
-            SetVerticalVelocity(characterStatSO.JumpPower);
+            SetVerticalVelocity(characterStatSO[CharacterStatType.JumpPower].Value);
         }
 
         public void Jump(float jumpPower)
