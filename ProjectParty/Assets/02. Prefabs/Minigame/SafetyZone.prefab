@@ -900,6 +900,7 @@ GameObject:
   - component: {fileID: 2593048378029384321}
   - component: {fileID: 1724562664442202983}
   - component: {fileID: 3740180997731263181}
+  - component: {fileID: 7231584572836726763}
   m_Layer: 0
   m_Name: SafetyZone
   m_TagString: Untagged
@@ -995,9 +996,9 @@ MonoBehaviour:
   OnPlayerDeadEvent:
     m_PersistentCalls:
       m_Calls: []
-  rerollDelay: 3000
-  rerollPostpone: 5
-  decisionDelay: 3
+  rerollDelay: 4
+  decisionDelay: 4
+  resetDelay: 6
 --- !u!114 &2593048378029384321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,7 +1013,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onRerollEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5893336984723303277}
+        m_TargetAssemblyTypeName: OMG.UI.Minigames.SafetyZones.TimerPanel, Assembly-CSharp
+        m_MethodName: HandleReroll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDecisionEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1028,13 +1041,25 @@ MonoBehaviour:
           m_StringArgument: EARTHQUAKE
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 5950278372189016880}
         m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 8036388049083664997}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5893336984723303277}
+        m_TargetAssemblyTypeName: OMG.UI.Minigames.SafetyZones.TimerPanel, Assembly-CSharp
+        m_MethodName: HandleDecision
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1042,7 +1067,19 @@ MonoBehaviour:
         m_CallState: 2
   onResetEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5893336984723303277}
+        m_TargetAssemblyTypeName: OMG.UI.Minigames.SafetyZones.TimerPanel, Assembly-CSharp
+        m_MethodName: HandleReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   SafetyTileCount: 3
 --- !u!320 &1724562664442202983
 PlayableDirector:
@@ -1126,6 +1163,37 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &7231584572836726763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872781912382508777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7a494bb0423ac4e97792129b2b792a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueType: 1
+  OnValueChangedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5893336984723303277}
+        m_TargetAssemblyTypeName: OMG.UI.Minigames.SafetyZones.TimerPanel, Assembly-CSharp
+        m_MethodName: SetText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnTimerFinishedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1903087081895245562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,14 +1556,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3556360753223061709}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.06540306, w: 0.99785894}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3543397462816582926}
   m_Father: {fileID: 3323708637293296379}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -7.5}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1554,7 +1622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6477493825662365032
 Transform:
   m_ObjectHideFlags: 0
@@ -1779,8 +1847,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 590, y: 185}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7773529397972168190
 CanvasRenderer:
@@ -1803,7 +1871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2133,6 +2201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3323708637293296379}
+  - component: {fileID: 5893336984723303277}
   m_Layer: 0
   m_Name: TimerPanel
   m_TagString: Untagged
@@ -2161,6 +2230,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5893336984723303277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879129449568033678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b21962a68bd6148828f5a81c6d9e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeText: {fileID: 1921109828692255809}
+  idleTween: {fileID: 11400000, guid: 882f139290aa2d444b8cf600e3757f20, type: 2}
+  explosionTween: {fileID: 11400000, guid: 0d94919091aeb59498605cfa19cf3a56, type: 2}
+  tweenBody: {fileID: 1365728749704409032}
 --- !u!1 &7132758191061284306
 GameObject:
   m_ObjectHideFlags: 0
@@ -5539,12 +5624,12 @@ PrefabInstance:
     - target: {fileID: 232578015136633264, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
       propertyPath: GUIID
-      value: -25892
+      value: -2023124
       objectReference: {fileID: 0}
     - target: {fileID: 570926845479870309, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
       propertyPath: GUIID
-      value: -25906
+      value: -2023138
       objectReference: {fileID: 0}
     - target: {fileID: 723873207090144464, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
@@ -5554,7 +5639,7 @@ PrefabInstance:
     - target: {fileID: 723873207090144464, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 787309327843654665, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
@@ -5634,12 +5719,12 @@ PrefabInstance:
     - target: {fileID: 3734624479425064478, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
       propertyPath: GUIID
-      value: -25824
+      value: -2023056
       objectReference: {fileID: 0}
     - target: {fileID: 3963752222618869963, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
       propertyPath: GUIID
-      value: -25838
+      value: -2023070
       objectReference: {fileID: 0}
     - target: {fileID: 4180273922948449191, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
@@ -5654,12 +5739,12 @@ PrefabInstance:
     - target: {fileID: 4758932886874626148, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
       propertyPath: GUIID
-      value: -25872
+      value: -2023104
       objectReference: {fileID: 0}
     - target: {fileID: 5106306509136008881, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
       propertyPath: GUIID
-      value: -25858
+      value: -2023090
       objectReference: {fileID: 0}
     - target: {fileID: 5749092000047477113, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
@@ -5689,12 +5774,12 @@ PrefabInstance:
     - target: {fileID: 7204466454408209711, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
       propertyPath: GUIID
-      value: -25790
+      value: -2023022
       objectReference: {fileID: 0}
     - target: {fileID: 7434728963059952634, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}
       propertyPath: GUIID
-      value: -25804
+      value: -2023036
       objectReference: {fileID: 0}
     - target: {fileID: 7705296193382220519, guid: dacc8c3b7d4faa440b0cc04899875450,
         type: 3}

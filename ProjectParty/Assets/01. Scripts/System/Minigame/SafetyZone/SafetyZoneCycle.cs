@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using OMG.Timers;
 using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
@@ -7,16 +8,18 @@ namespace OMG.Minigames.SafetyZone
     public class SafetyZoneCycle : DeathmatchCycle
     {
         [SerializeField] float rerollDelay = 5f;
-        [SerializeField] float rerollPostpone = 1f;
         [SerializeField] float decisionDelay = 3f;
+        [SerializeField] float resetDelay = 5f;
 
-        private SafetyZone safetyZone = null;
+        private Timer timer = null;
         private Coroutine cycle = null;
+        private SafetyZone safetyZone = null;
 
         protected override void Awake()
         {
             base.Awake();
             safetyZone = minigame as SafetyZone;
+            timer = GetComponent<Timer>();
         }
 
         public void StartCycle(Action reroll, Action decision, Action reset)
@@ -28,6 +31,7 @@ namespace OMG.Minigames.SafetyZone
         {
             if(cycle != null)
                 StopCoroutine(cycle);
+            timer.ResetTimer();
 
             base.FinishCycle();
         }
@@ -45,19 +49,21 @@ namespace OMG.Minigames.SafetyZone
 
         private IEnumerator CycleCoroutine(Action reroll, Action decision, Action reset)
         {
+            reset?.Invoke();
+
             while(true)
             {
-                yield return new WaitForSeconds(rerollDelay);
-                reroll?.Invoke();
                 // reroll
+                timer.SetTimer(rerollDelay, reroll);
+                yield return new WaitUntil(() => timer.Finished);
                 
-                yield return new WaitForSeconds(decisionDelay);
-                decision?.Invoke();
                 // decision
+                timer.SetTimer(decisionDelay, decision);
+                yield return new WaitUntil(() => timer.Finished);
 
-                yield return new WaitForSeconds(rerollPostpone);
-                reset?.Invoke();
                 // reset
+                timer.SetTimer(resetDelay, reset);
+                yield return new WaitUntil(() => timer.Finished);
             }
         }
     }
