@@ -58,7 +58,10 @@ namespace OMG
         {
             networkTrm = GetComponent<NetworkTransform>();
             cc = GetComponent<CharacterController>();
+        }
 
+        protected virtual void Start()
+        {
             characterStatSO = GetComponent<CharacterStat>().StatSO;  
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace OMG
@@ -15,6 +16,11 @@ namespace OMG
         public Stat this[CharacterStatType type]
         {
             get { return statDic[type]; }
+        }
+
+        public void Init()
+        {
+            statList.ForEach(i => i.Init());
         }
 
         private void OnEnable()

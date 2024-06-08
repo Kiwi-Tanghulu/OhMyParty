@@ -13,6 +13,7 @@ namespace OMG
         private void Awake()
         {
             statSO = ScriptableObject.Instantiate(statSORef);
+            statSO.Init();
         }
 
         public void AddModifier(CharacterStatType type, float value, float time)

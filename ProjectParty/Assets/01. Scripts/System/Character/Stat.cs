@@ -34,6 +34,11 @@ namespace OMG
             OnValueChanged?.Invoke(value);
         }
 
+        public void Init()
+        {
+            value = baseValue;
+        }
+
         public void AddModifier(float modifier)
         {
             modifiers.Add(modifier);

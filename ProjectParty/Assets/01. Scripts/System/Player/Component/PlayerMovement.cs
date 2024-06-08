@@ -16,8 +16,10 @@ namespace OMG.Player
 
         private bool isInit;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             anim = GetComponent<PlayerController>().Animator;
 
             OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
