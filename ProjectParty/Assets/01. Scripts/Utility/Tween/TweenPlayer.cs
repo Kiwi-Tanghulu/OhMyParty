@@ -9,6 +9,7 @@ namespace OMG.Tweens
 
         [Space(15f)]
         [SerializeField] bool playOnAwake = true;
+        [SerializeField] bool loop = false;
 
         private void Awake()
         {
@@ -29,7 +30,10 @@ namespace OMG.Tweens
 
         public void PlayTween()
         {
-            tween.PlayTween();
+            if(loop)
+                tween.PlayTween(PlayTween);
+            else
+                tween.PlayTween();
         }
     }
 }
