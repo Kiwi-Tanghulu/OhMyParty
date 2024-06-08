@@ -24,6 +24,8 @@ namespace OMG.UI
 
         public override void SetCheck(bool value)
         {
+            base.SetCheck(value);
+
             fillImage.SetActive(value);
         }
     }
