@@ -31,7 +31,7 @@ namespace OMG
                 groupType = input.groupType;
             }
 
-            Debug.Log($"value : {finalValue * 100f - 80f}");
+            //Debug.Log($"value : {finalValue * 100f - 80f}");
             //assign the result to the bound object
             trackBinding.SetFloat(groupType.ToString(), finalValue * 100f - 80f);
         }

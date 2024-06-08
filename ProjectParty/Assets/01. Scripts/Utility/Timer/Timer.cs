@@ -22,7 +22,7 @@ namespace OMG.Timers
         private float timer = 0f;
         private float time = 0f;
 
-        public float Ratio => timer / time;
+        public float Ratio => 1f - timer / time;
         public bool Finished => timer <= 0f;
 
         private void Update()
