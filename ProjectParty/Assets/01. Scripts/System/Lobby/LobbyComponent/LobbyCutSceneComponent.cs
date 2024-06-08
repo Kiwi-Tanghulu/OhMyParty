@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Lobbies;
 using OMG.Player;
@@ -52,30 +53,30 @@ namespace OMG.Lobbies
         {
             timelineHolder.playableAsset = timelineOption.GetOption(option);
 
-            PlayerController[] players = Lobby.Current.PlayerContainer.PlayerList.ToArray();
+            //PlayerController[] players = Lobby.Current.PlayerContainer.PlayerList.ToArray();
 
-            if (players == null)
-                return;
+            //if (players == null)
+            //    return;
 
-            foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
-            {
-                if (binding.streamName.Contains("Player"))
-                {
-                    int index = int.Parse(binding.streamName.Last().ToString());
+            //foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
+            //{
+            //    if (binding.streamName.Contains("Player"))
+            //    {
+            //        int index = int.Parse(binding.streamName.Last().ToString());
 
-                    if (players[index] == null)
-                        continue;
+            //        if (players[index] == null)
+            //            continue;
 
-                    if (binding.streamName.Contains(playerTrmTrackName))
-                        timelineHolder.SetGenericBinding(binding.sourceObject, players[index].GetComponent<Animator>());
+            //        if (binding.streamName.Contains(playerTrmTrackName))
+            //            timelineHolder.SetGenericBinding(binding.sourceObject, players[index].GetComponent<Animator>());
 
-                    if (binding.streamName.Contains(playerAnimTrackName))
-                        timelineHolder.SetGenericBinding(binding.sourceObject, players[index].Animator.Animator);
+            //        if (binding.streamName.Contains(playerAnimTrackName))
+            //            timelineHolder.SetGenericBinding(binding.sourceObject, players[index].Animator.Animator);
 
-                    if (binding.streamName.Contains(playerSignalTrackName))
-                        timelineHolder.SetGenericBinding(binding.sourceObject, players[index].GetComponent<SignalReceiver>());
-                }
-            }
+            //        if (binding.streamName.Contains(playerSignalTrackName))
+            //            timelineHolder.SetGenericBinding(binding.sourceObject, players[index].GetComponent<SignalReceiver>());
+            //    }
+            //}
 
             timelineHolder.Play();
 
