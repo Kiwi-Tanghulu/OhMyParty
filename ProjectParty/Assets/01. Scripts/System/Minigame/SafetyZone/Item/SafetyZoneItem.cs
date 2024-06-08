@@ -12,6 +12,7 @@ namespace OMG.Minigames.SafetyZone
             base.Awake();
             collision = GetComponent<ItemCollision>();
             collision.OnCollisionEvent.AddListener(OnCollision);
+            collision.OnCollisionPlayerEvent.AddListener(OnCollisionPlayer);
         }
         
         public override void Init()
@@ -37,6 +38,10 @@ namespace OMG.Minigames.SafetyZone
 
         public override void OnRelease() { }
 
-        public abstract void OnCollision(Collision other);
+        public abstract void OnCollisionPlayer(SafetyZonePlayerController player, Collision other);
+        public virtual void OnCollision(Collision other) 
+        {
+            Destroy(gameObject);
+        }
     }
 }

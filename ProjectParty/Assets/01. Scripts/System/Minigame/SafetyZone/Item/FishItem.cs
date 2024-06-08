@@ -1,4 +1,3 @@
-using OMG.Player;
 using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
@@ -7,15 +6,10 @@ namespace OMG.Minigames.SafetyZone
     {
         [SerializeField] float power = 10f;
 
-        public override void OnCollision(Collision other)
+        public override void OnCollisionPlayer(SafetyZonePlayerController player, Collision other)
         {
-            if(false) // 부딪힌 것이 본인 클라라면
-                return;
-
-            if(other.transform.TryGetComponent<IDamageable>(out IDamageable id))
-                id?.OnDamaged(power, transform, other.contacts[0].point, other.contacts[0].normal);
-
-            Destroy(gameObject);
+            player.Health.OnDamaged(power, transform, other.contacts[0].point, other.contacts[0].normal);
+            // 속도 감소
         }
     }
 }

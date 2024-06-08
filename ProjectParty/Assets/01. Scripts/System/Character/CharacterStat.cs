@@ -14,5 +14,10 @@ namespace OMG
         {
             statSO = ScriptableObject.Instantiate(statSORef);
         }
+
+        public void ChangeStat()
+        {
+            
+        }
     }
 }

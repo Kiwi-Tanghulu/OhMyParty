@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,6 +7,7 @@ namespace OMG.Minigames.SafetyZone
     public class ItemCollision : MonoBehaviour
     {
         public UnityEvent<Collision> OnCollisionEvent = new UnityEvent<Collision>();
+        public UnityEvent<SafetyZonePlayerController, Collision> OnCollisionPlayerEvent = new UnityEvent<SafetyZonePlayerController, Collision>();
 
         private new Rigidbody rigidbody = null;
         public bool ActiveCollisionOther { get; private set; } = false;
@@ -25,6 +27,10 @@ namespace OMG.Minigames.SafetyZone
         {
             if(ActiveCollisionOther == false)
                 return;
+
+            if (other.transform.TryGetComponent<SafetyZonePlayerController>(out SafetyZonePlayerController player))
+                if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
+                    OnCollisionPlayerEvent?.Invoke(player, other);
 
             OnCollisionEvent?.Invoke(other);
             // damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].point, other.contacts[0].normal);
