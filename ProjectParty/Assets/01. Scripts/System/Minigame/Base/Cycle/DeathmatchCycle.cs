@@ -1,5 +1,6 @@
 using Cinemachine;
 using OMG.Extensions;
+using OMG.UI.Minigames.Deathmatches;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
@@ -12,9 +13,16 @@ namespace OMG.Minigames
 
         [Space(15f)]
         [SerializeField] UnityEvent<ulong> OnPlayerDeadEvent = null;
+        private PlayerPanel playerPanel = null;
 
         private int deadPlayerCount = 0;
         public int DeadPlayerCount => deadPlayerCount;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            playerPanel = DEFINE.MinigameCanvas.Find("TopPanel/PlayerPanel").GetComponent<PlayerPanel>();
+        }
 
         public virtual void HandlePlayerDead(ulong clientID)
         {
@@ -32,6 +40,11 @@ namespace OMG.Minigames
                 if ((minigame.PlayerDatas.Count - deadPlayerCount) <= 1)
                     FinishCycle();
             }
+
+            minigame.PlayerDatas.ForEach((i, index) => {
+                if(i.clientID == clientID)
+                    playerPanel.SetDead(index);
+            });
 
             OnPlayerDeadEvent?.Invoke(clientID);
         }
