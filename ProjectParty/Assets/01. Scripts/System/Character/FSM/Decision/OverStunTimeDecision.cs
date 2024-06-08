@@ -14,7 +14,7 @@ namespace OMG.FSM
         {
             base.Init(brain);
 
-            time = characterStatSO.StunTime;
+            time = characterStatSO[CharacterStatType.StunTime].Value;
         }
     }
 }

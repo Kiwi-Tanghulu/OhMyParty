@@ -14,5 +14,19 @@ namespace OMG
         {
             statSO = ScriptableObject.Instantiate(statSORef);
         }
+
+        public void AddModifier(CharacterStatType type, float value, float time)
+        {
+            StartCoroutine(AddModifierCo(type, value, time));
+        }
+
+        private IEnumerator AddModifierCo(CharacterStatType type, float value, float time)
+        {
+            statSO[type].AddModifier(value);
+
+            yield return new WaitForSeconds(time);
+
+            statSO[type].RemoveModifier(value);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,20 +8,21 @@ namespace OMG
     [CreateAssetMenu(menuName = "SO/Character/CharacterStatSO")]
     public class CharacterStatSO : ScriptableObject
     {
-        [Header("Movement")]
-        public float MaxMoveSpeed;
-        public float Accelration;
-        public float GravityScale;
-        public float TurnSpeed;
-        public float JumpPower;
+        [SerializeField] private List<Stat> statList;
 
-        [Space]
-        [Header("Health")]
-        public float MaxHealth;
-        public float StunTime;
+        private Dictionary<CharacterStatType, Stat> statDic;
 
-        [Space]
-        [Header("Attack")]
-        public float AttackDelay;
+        public Stat this[CharacterStatType type]
+        {
+            get { return statDic[type]; }
+        }
+
+        private void OnEnable()
+        {
+            foreach(Stat stat in statList)
+            {
+                statDic[stat.Type] = stat;
+            }
+        }
     }
 }
