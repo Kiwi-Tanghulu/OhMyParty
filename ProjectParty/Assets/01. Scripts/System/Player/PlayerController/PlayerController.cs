@@ -12,8 +12,6 @@ namespace OMG.Player
 {
     public class PlayerController : NetworkBehaviour
     {
-        [SerializeField] PlayInputSO input = null;
-
         private ExtendedAnimator animator;
         public ExtendedAnimator Animator => animator;
 
@@ -43,16 +41,6 @@ namespace OMG.Player
         protected virtual void Update()
         {
             stateMachine.UpdateFSM();
-        }
-
-        private Coroutine inversionCoroutine = null;
-        public void InvertInput(float duration)
-        {
-            input.MoveInputInversion = true;
-
-            if(inversionCoroutine != null)
-                StopCoroutine(inversionCoroutine);
-            inversionCoroutine = StartCoroutine(this.DelayCoroutine(duration, () => input.MoveInputInversion = true));
         }
     }
 }
