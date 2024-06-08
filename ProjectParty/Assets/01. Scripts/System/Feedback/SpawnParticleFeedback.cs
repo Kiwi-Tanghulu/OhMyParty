@@ -1,28 +1,21 @@
 using UnityEngine;
 using OMG.Editor;
+using OMG.Extensions;
 
 namespace OMG.Feedbacks
 {
-    public class SpawnParticleFeedback : Feedback
+    public partial class SpawnParticleFeedback : Feedback
     {
-        [System.Serializable]
-        public class MultipleParticlePreset
-        {
-            public float Radius = 10f;
-            public int Count = 10;
-
-            [Header("Ignore Option")]
-            public bool X;
-            public bool Y;
-            public bool Z;
-        }
-
         [SerializeField] ParticleSystem particlePrefab = null;
 
         [SerializeField] bool multipleParticle = false;
 
         [ConditionalField("multipleParticle", true)]
         [SerializeField] MultipleParticlePreset multipleSetting = new MultipleParticlePreset();
+
+        [SerializeField] bool randomPosition = false;
+        [ConditionalField("randomPosition", true)]
+        [SerializeField] RandomPositionPreset positionSetting = new RandomPositionPreset();
 
         [SerializeField] bool randomSize = false;
         [ConditionalField("randomSize", true)]
@@ -31,7 +24,7 @@ namespace OMG.Feedbacks
         public override void Play(Vector3 playPos)
         {
             if(multipleParticle)
-                SpawnMultipleParticle(playPos);            
+                SpawnMultipleParticle(playPos);
             else
                 SpawnParticle(playPos);
         }
@@ -39,7 +32,20 @@ namespace OMG.Feedbacks
         private void SpawnParticle(Vector3 position)
         {
             ParticleSystem instance = Instantiate(particlePrefab);
+
             instance.transform.position = position;
+            if(randomPosition)
+            {
+                Vector3 randomPosition = Random.insideUnitSphere * positionSetting.Radius;
+                if (positionSetting.X)
+                    randomPosition.x = 0f;
+                if (positionSetting.Y)
+                    randomPosition.y = 0f;
+                if (positionSetting.Z)
+                    randomPosition.z = 0f;
+                instance.transform.position += randomPosition;
+            }
+
             if(randomSize)
                 instance.transform.localScale *= Random.Range(range.x, range.y);
             
@@ -48,29 +54,24 @@ namespace OMG.Feedbacks
 
         private void SpawnMultipleParticle(Vector3 playPos)
         {
-            for(int i = 0; i < multipleSetting.Count; ++i)
+            foreach(var i in multipleSetting)
             {
-                Vector3 randomPosition = Random.insideUnitSphere * multipleSetting.Radius;
-                if (multipleSetting.X)
-                    randomPosition.x = 0f;
-                if (multipleSetting.Y)
-                    randomPosition.y = 0f;
-                if (multipleSetting.Z)
-                    randomPosition.z = 0f;
-
-                Vector3 position = playPos + randomPosition;
-                SpawnParticle(position);
+                StartCoroutine(this.DelayCoroutine(i.Delay, () => {
+                    int count = i.Count + Random.Range(-i.Randomness, i.Randomness);
+                    for(int j = 0; j < count; ++j)
+                        SpawnParticle(playPos);
+                }));
             }
         }
 
         #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if(multipleParticle == false)
+            if(randomPosition == false)
                 return;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, multipleSetting.Radius);
+            Gizmos.DrawWireSphere(transform.position, positionSetting.Radius);
         }
         #endif
     }

@@ -16,6 +16,7 @@ namespace OMG.Editor
             {
                 Rect newPosition = new Rect(position);
                 newPosition.x += 10;
+                newPosition.width -= 10;
                 EditorGUI.PropertyField(newPosition, property, label, true);
             }
         }

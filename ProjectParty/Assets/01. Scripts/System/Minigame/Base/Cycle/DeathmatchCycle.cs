@@ -24,6 +24,11 @@ namespace OMG.Minigames
             playerPanel = DEFINE.MinigameCanvas.Find("TopPanel/PlayerPanel").GetComponent<PlayerPanel>();
         }
 
+        protected virtual void Start()
+        {
+            playerPanel.Init();
+        }
+
         public virtual void HandlePlayerDead(ulong clientID)
         {
             if(IsHost)

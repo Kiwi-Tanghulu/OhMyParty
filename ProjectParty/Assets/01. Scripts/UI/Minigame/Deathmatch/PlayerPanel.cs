@@ -13,7 +13,7 @@ namespace OMG.UI.Minigames.Deathmatches
             playerSlots = transform.GetComponentsInChildren<PlayerSlot>();
         }
 
-        private void Start()
+        public void Init()
         {
             // 플레이어 이미지 삽입
             playerSlots.ForEach((i, index) => {
