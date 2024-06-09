@@ -19,6 +19,8 @@ namespace OMG
 
         private Vector3 moveVector;
 
+        private bool enableMove;
+
         [Space]
         public UnityEvent<Vector3> OnMoveDirectionChanged;
 
@@ -38,6 +40,8 @@ namespace OMG
         private bool isGround;
         public bool IsGround => isGround;
 
+        private bool enableGravity;
+
         public UnityEvent<bool> OnIsGroundChagend;
         public bool DrawGizmo;
 
@@ -56,6 +60,9 @@ namespace OMG
             cc = GetComponent<UnityEngine.CharacterController>();
 
             characterStatSO = GetComponent<CharacterStat>().StatSO;
+
+            enableMove = true;
+            enableGravity = true;
         }
 
         public override void UpdateCompo()
@@ -63,13 +70,14 @@ namespace OMG
             base.UpdateCompo();
 
             CheckGround();
-
-            // Debug.Log(123);
         }
 
         #region Move
         public void Move()
         {
+            if (!enableMove)
+                return;
+
             CalcMoveVector();
 
             cc.Move(moveVector);
@@ -167,6 +175,9 @@ namespace OMG
         #region Vertical Velocity
         public void Gravity()
         {
+            if (!enableGravity)
+                return;
+
             if(isGround)
             {
                 if(verticalVelocity < 0f)

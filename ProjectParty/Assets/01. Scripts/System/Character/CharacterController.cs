@@ -15,8 +15,10 @@ namespace OMG
 
         private List<CharacterComponent> compoList;
 
-        protected virtual void Awake()
+        public override void OnNetworkSpawn()
         {
+            base.OnNetworkSpawn();
+
             compoList = new List<CharacterComponent>();
 
             stat = InitCompo(GetComponent<CharacterStat>());

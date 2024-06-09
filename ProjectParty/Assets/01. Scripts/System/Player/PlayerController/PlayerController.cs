@@ -23,18 +23,14 @@ namespace OMG.Player
 
         public UnityEvent<ulong/*owner id*/> OnSpawnedEvent;
 
-        protected override void Awake()
+        public override void OnNetworkSpawn()
         {
             visual = transform.Find("Visual").GetComponent<PlayerVisual>();
             animator = visual.GetComponent<ExtendedAnimator>();
 
-            base.Awake();
+            base.OnNetworkSpawn();
 
             stateMachine = GetComponent<FSMBrain>();
-        }
-
-        public override void OnNetworkSpawn()
-        {
             stateMachine.Init();
 
             OnSpawnedEvent?.Invoke(OwnerClientId);

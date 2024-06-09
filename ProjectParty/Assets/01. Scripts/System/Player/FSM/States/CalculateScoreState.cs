@@ -1,5 +1,6 @@
 using OMG.FSM;
 using OMG.Lobbies;
+using OMG.Minigames.MazeAdventure;
 using OMG.Player.FSM;
 using OMG.UI;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace OMG.Player
 
             Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>().
                 CutSceneEvents[LobbyCutSceneState.EndFinish] += LobbyCutSscene_OnEndFinish;
+
+            scoreText.GetComponent<AnimationEvent>().OnEndEvent += CalculateScoreState_OnEndEvent;
         }
 
         protected override void OwnerEnterState()
@@ -36,6 +39,11 @@ namespace OMG.Player
         {
             scoreText.SetScore(Lobby.Current.PlayerDatas[(int)player.OwnerClientId].score);
             scoreText.Show();
+        }
+
+        private void CalculateScoreState_OnEndEvent()
+        {
+            brain.ChangeState(brain.DefaultState);
         }
 
         private void OnDestroy()
