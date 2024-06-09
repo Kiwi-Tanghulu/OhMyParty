@@ -27,7 +27,13 @@ namespace OMG.Tweens
         {
             base.HandleTweenCompleted();
             Vector3 value = body.localEulerAngles + (Vector3.forward * endValue);
+            body.localEulerAngles = value;
+        }
 
+        protected override void HandleTweenForceKilled()
+        {
+            base.HandleTweenForceKilled();
+            Vector3 value = body.localEulerAngles + (Vector3.forward * endValue);
             body.localEulerAngles = value;
         }
     }

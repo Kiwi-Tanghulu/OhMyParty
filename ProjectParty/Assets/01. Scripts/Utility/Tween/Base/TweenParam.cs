@@ -1,4 +1,5 @@
 using DG.Tweening;
+using UnityEngine;
 
 namespace OMG.Tweens
 {
@@ -10,5 +11,6 @@ namespace OMG.Tweens
         public float Duration;
         public float Value;
         public Ease Ease;
+        public Color Color;
     }
 }

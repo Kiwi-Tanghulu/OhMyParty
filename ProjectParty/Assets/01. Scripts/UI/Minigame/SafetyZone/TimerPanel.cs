@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using OMG.Tweens;
+using OMG.Extensions;
 using TMPro;
 using UnityEngine;
 
@@ -10,13 +12,14 @@ namespace OMG.UI.Minigames.SafetyZones
 
         [Space(15f)]
         [SerializeField] TweenSO idleTween = null;
-        [SerializeField] TweenSO explosionTween = null;
+        [SerializeField] List<TweenSO> explosionTweens = null;
         [SerializeField] Transform tweenBody = null;
 
         private void Awake()
         {
             idleTween = idleTween.CreateInstance(tweenBody);
-            explosionTween = explosionTween.CreateInstance(tweenBody);
+            for(int i = 0; i < explosionTweens.Count; ++i)
+                explosionTweens[i] = explosionTweens[i].CreateInstance(tweenBody);
         }
 
         public void SetText(float time)
@@ -28,12 +31,12 @@ namespace OMG.UI.Minigames.SafetyZones
         public void HandleReroll()
         {
             idleTween.ForceKillTween();
-            LoopTween(explosionTween);
+            explosionTweens.ForEach(LoopTween);
         }
 
         public void HandleDecision()
         {
-            explosionTween.ForceKillTween();
+            explosionTweens.ForEach(i => i.ForceKillTween());
 
             timeText.text = "";
             timeText.gameObject.SetActive(false);

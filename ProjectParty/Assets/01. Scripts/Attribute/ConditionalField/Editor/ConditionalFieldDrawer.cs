@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace OMG.Editor
+namespace OMG.Editors
 {
 
     [CustomPropertyDrawer(typeof(ConditionalFieldAttribute))]
