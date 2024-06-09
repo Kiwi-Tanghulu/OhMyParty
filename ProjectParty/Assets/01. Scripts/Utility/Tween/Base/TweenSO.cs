@@ -45,6 +45,7 @@ namespace OMG.Tweens
         public void ForceKillTween()
         {
             sequence?.Kill();
+            HandleTweenForceKilled();
         }
 
         public TweenParam GetParam(int index) => tweenParams[index];
