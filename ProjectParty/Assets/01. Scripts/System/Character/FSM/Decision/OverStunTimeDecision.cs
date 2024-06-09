@@ -7,12 +7,18 @@ namespace OMG.FSM
 {
     public class OverStunTimeDecision : OverTime
     {
-        [Space]
-        [SerializeField] private CharacterStatSO characterStatSO;
+        private CharacterStatSO characterStatSO;
 
         public override void Init(FSMBrain brain)
         {
             base.Init(brain);
+
+            characterStatSO = brain.GetComponent<CharacterStat>().StatSO;
+        }
+
+        public override void EnterState()
+        {
+            base.EnterState();
 
             time = characterStatSO[CharacterStatType.StunTime].Value;
         }
