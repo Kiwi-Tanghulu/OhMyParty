@@ -11,8 +11,8 @@ namespace OMG.Items
         protected IHolder currentHolder = null;
         public IHolder CurrentHolder => currentHolder;
 
-        private TransformController transformController = null;
-        private OwnershipController ownershipController = null;
+        protected TransformController transformController = null;
+        protected OwnershipController ownershipController = null;
 
         public event Action<bool> OnHoldEvent = null;
 

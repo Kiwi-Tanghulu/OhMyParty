@@ -1,3 +1,4 @@
+using OMG.Utility.Netcodes;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -52,7 +53,7 @@ namespace OMG.Minigames.RockFestival
             if(ActiveCollisionOther)
                 return;
 
-            RockOwner otherRockOwner = attacker.GetComponent<RockOwner>();
+            OwnershipController otherRockOwner = attacker.GetComponent<OwnershipController>();
             otherRockOwner.SetOwner(OwnerClientId, 
             () => { // Owner Action
                 normal = attacker.position - transform.position;

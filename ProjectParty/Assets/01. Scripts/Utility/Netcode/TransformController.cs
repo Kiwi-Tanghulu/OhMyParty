@@ -7,7 +7,7 @@ namespace OMG.Utility.Netcodes
 {
     public class TransformController : NetworkBehaviour
     {
-        private NetworkTransform networkTransform = null;
+        protected NetworkTransform networkTransform = null;
         public NetworkTransform NetworkTransform => networkTransform;
 
         private SubstituteParent parent = null;

@@ -46,6 +46,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 3019441013704265511, guid: 5ff70997e8631184791c52973e45d9ba,
     type: 3}
+  multipleParticle: 0
+  multipleSetting:
+    Settings: []
+  randomPosition: 0
+  positionSetting:
+    Radius: 10
+    X: 0
+    Y: 0
+    Z: 0
+  randomSize: 0
+  range: {x: 0.5, y: 1}
 --- !u!1 &4118040765618040307
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7852917561015819019, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
+    - {fileID: 807048018500501385, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -583,6 +595,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -8409077878953954789}
+    - targetCorrespondingSourceObject: {fileID: 8653656707965372744, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8758277294223932725}
   m_SourcePrefab: {fileID: 100100000, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
 --- !u!4 &690783040427507456 stripped
 Transform:
@@ -590,6 +606,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2285060201787903515}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5627790277805693662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5886142406603183301, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 2285060201787903515}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d9a68111d371840ad1b3f66eac7c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7359544870668281047 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8760751646201899724, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -622,6 +650,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 2bad7e2a336d0ff45a57c72358fa1002, type: 2}
   holdingParent: {fileID: 7779717452065154952}
+--- !u!114 &8758277294223932725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7467492412324087635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554a56cda7cd446499482e7a2596d01c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSpawnedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5627790277805693662}
+        m_TargetAssemblyTypeName: OMG.Player.PlayerNameTag, Assembly-CSharp
+        m_MethodName: SetNameTag
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  input: {fileID: 11400000, guid: 2bad7e2a336d0ff45a57c72358fa1002, type: 2}
 --- !u!114 &8118891081474291126 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8005766580219673517, guid: fcf90dc6047265e4db4c32e1eba10505,
