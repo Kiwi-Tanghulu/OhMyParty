@@ -5,6 +5,7 @@ using OMG.UI.Minigames;
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Minigames
 {
@@ -12,6 +13,9 @@ namespace OMG.Minigames
     {
         [SerializeField] MinigameSO minigameData = null;
         public MinigameSO MinigameData => minigameData;
+
+        public UnityEvent OnStartedEvent = new UnityEvent();
+        public UnityEvent OnFinishedEvent = new UnityEvent();
 
         protected NetworkList<PlayerData> playerDatas = null;
         public NetworkList<PlayerData> PlayerDatas => playerDatas;
@@ -21,13 +25,11 @@ namespace OMG.Minigames
 
         protected MinigameCycle cycle = null;
 
-        public event Action OnFinishGame;
-
         protected virtual void Awake()
         {
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
-            minigameUI = transform.Find("MinigameUI").GetComponent<MinigameUI>();
+            minigameUI = DEFINE.MinigameCanvas.GetComponent<MinigameUI>();
         }
 
         public override void OnNetworkSpawn()
@@ -68,12 +70,13 @@ namespace OMG.Minigames
         public virtual void StartGame()
         { 
             InputManager.ChangeInputMap(InputMapType.Play);
+            OnStartedEvent?.Invoke();
         }
 
         public virtual void FinishGame() 
         {
             InputManager.ChangeInputMap(InputMapType.UI);
-            OnFinishGame?.Invoke();
+            OnFinishedEvent?.Invoke();
             StartOutro();
         }
 

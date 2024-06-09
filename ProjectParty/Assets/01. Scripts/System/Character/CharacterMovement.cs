@@ -64,7 +64,7 @@ namespace OMG
 
             CheckGround();
 
-            Debug.Log(123);
+            // Debug.Log(123);
         }
 
         #region Move

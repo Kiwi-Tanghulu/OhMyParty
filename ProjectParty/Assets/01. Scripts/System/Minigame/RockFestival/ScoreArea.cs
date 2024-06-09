@@ -9,7 +9,7 @@ namespace OMG.Minigames.RockFestival
 {
     public class ScoreArea : MonoBehaviour
     {
-        [SerializeField] ScoreSlot scoreSlot = null;
+        [SerializeField] ScorePlayerSlot scoreSlot = null;
         [SerializeField] float updateDelay = 1f;
         private TMP_Text scoreText = null;
 

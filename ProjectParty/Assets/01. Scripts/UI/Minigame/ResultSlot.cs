@@ -1,12 +1,13 @@
 using TinyGiantStudio.Text;
+using TMPro;
 using UnityEngine;
 
 namespace OMG.UI.Minigames
 {
     public class ResultSlot : MonoBehaviour
     {
-        [SerializeField] Modular3DText nameText = null;
-        [SerializeField] Modular3DText scoreText = null;
+        [SerializeField] TMP_Text nameText = null;
+        [SerializeField] TMP_Text scoreText = null;
 
         public const string NAME_FORMAT = "{0} :";
 
@@ -19,13 +20,13 @@ namespace OMG.UI.Minigames
         {
             if(string.IsNullOrEmpty(name))
             {
-                nameText.Text = " -";
-                scoreText.Text = "-";
+                nameText.text = " -";
+                scoreText.text = "-";
                 return;
             }
 
-            nameText.Text = string.Format(NAME_FORMAT, name);
-            scoreText.Text = score.ToString();
+            nameText.text = string.Format(NAME_FORMAT, name);
+            scoreText.text = score.ToString();
         }
     }
 }

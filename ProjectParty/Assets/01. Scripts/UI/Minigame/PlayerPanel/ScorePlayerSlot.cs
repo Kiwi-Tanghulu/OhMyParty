@@ -1,12 +1,16 @@
+using OMG.Editors;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace OMG.UI.Minigames
 {
-    public class ScoreSlot : MonoBehaviour
+    public class ScorePlayerSlot : PlayerSlot
     {
         [SerializeField] TMP_Text scoreText = null;
+        [SerializeField] bool stringFormat = false;
+        [ConditionalField("stringFormat", true)]
+        [SerializeField] string format = "#";
 
         [Space(15f)]
         [SerializeField] UnityEvent<int> OnScoreChangedEvent = null;
@@ -23,7 +27,9 @@ namespace OMG.UI.Minigames
         {
             int prevScore = score;
             score = newScore;
-            scoreText.text = score.ToString("00");
+
+            string text = score.ToString(stringFormat ? format : "");
+            scoreText.text = text;
 
             if(prevScore != score)
                 OnScoreChangedEvent?.Invoke(score - prevScore);
