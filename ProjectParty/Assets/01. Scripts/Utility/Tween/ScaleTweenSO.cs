@@ -29,7 +29,13 @@ namespace OMG.Tweens
         {
             base.HandleTweenCompleted();
             Vector3 value = (keepSign ? body.localScale.Sign() : Vector3.one) * endValue;
+            body.localScale = value;
+        }
 
+        protected override void HandleTweenForceKilled()
+        {
+            base.HandleTweenForceKilled();
+            Vector3 value = (keepSign ? body.localScale.Sign() : Vector3.one) * endValue;
             body.localScale = value;
         }
     }

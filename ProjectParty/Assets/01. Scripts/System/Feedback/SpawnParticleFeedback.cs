@@ -1,5 +1,5 @@
 using UnityEngine;
-using OMG.Editor;
+using OMG.Editors;
 using OMG.Extensions;
 
 namespace OMG.Feedbacks

@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using OMG.Editor;
+using OMG.Editors;
 using UnityEngine;
 using UnityEngine.Rendering;
 

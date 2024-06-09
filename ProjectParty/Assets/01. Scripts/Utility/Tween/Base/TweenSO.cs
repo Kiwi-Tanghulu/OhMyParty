@@ -55,6 +55,8 @@ namespace OMG.Tweens
             sequence?.Kill();
         }
 
+        protected virtual void HandleTweenForceKilled() {}
+
         protected abstract void OnTween(Sequence sequence);
     }
 }
