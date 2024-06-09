@@ -30,7 +30,10 @@ namespace OMG.ETC
             foreach(ControlParams control in controls)
             {
                 foreach(Graphic r in control.Graphics)
-                    r.material.SetColor(control.ColorPropertyName, PlayerManager.Instance.GetPlayerColor(index));
+                {
+                    Color color = PlayerManager.Instance.GetPlayerColor(index);
+                    r.color = color;
+                }
             }
         }
 
