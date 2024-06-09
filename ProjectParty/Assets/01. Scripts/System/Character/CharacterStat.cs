@@ -4,14 +4,16 @@ using UnityEngine;
 
 namespace OMG
 {
-    public class CharacterStat : MonoBehaviour
+    public class CharacterStat : CharacterComponent
     {
         [SerializeField] private CharacterStatSO statSORef;
         private CharacterStatSO statSO;
         public CharacterStatSO StatSO => statSO;
 
-        private void Awake()
+        public override void Init(CharacterController controller)
         {
+            base.Init(controller);
+
             statSO = ScriptableObject.Instantiate(statSORef);
             statSO.Init();
         }

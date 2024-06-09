@@ -1,18 +1,12 @@
-using OMG.Minigames.MazeAdventure;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Netcode;
 using Unity.Netcode.Components;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace OMG
 {
-    [RequireComponent(typeof(CharacterController))]
-    public class CharacterMovement : MonoBehaviour
+    [RequireComponent(typeof(UnityEngine.CharacterController))]
+    public class CharacterMovement : CharacterComponent
     {
         private CharacterStatSO characterStatSO;
 
@@ -50,24 +44,27 @@ namespace OMG
         //compo
         [Header("Component")]
         private NetworkTransform networkTrm;
-        private CharacterController cc;
+        private UnityEngine.CharacterController cc;
 
         public UnityEvent<Collider> OnColliderHit;
 
-        protected virtual void Awake()
+        public override void Init(CharacterController controller)
         {
+            base.Init(controller);
+
             networkTrm = GetComponent<NetworkTransform>();
-            cc = GetComponent<CharacterController>();
+            cc = GetComponent<UnityEngine.CharacterController>();
+
+            characterStatSO = GetComponent<CharacterStat>().StatSO;
         }
 
-        protected virtual void Start()
+        public override void UpdateCompo()
         {
-            characterStatSO = GetComponent<CharacterStat>().StatSO;  
-        }
+            base.UpdateCompo();
 
-        protected virtual void Update()
-        {
             CheckGround();
+
+            Debug.Log(123);
         }
 
         #region Move

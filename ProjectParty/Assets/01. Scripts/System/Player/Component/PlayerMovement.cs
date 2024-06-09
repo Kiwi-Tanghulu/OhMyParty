@@ -16,9 +16,9 @@ namespace OMG.Player
 
         private bool isInit;
 
-        protected override void Start()
+        public override void Init(CharacterController controller)
         {
-            base.Start();
+            base.Init(controller);
 
             anim = GetComponent<PlayerController>().Animator;
 
