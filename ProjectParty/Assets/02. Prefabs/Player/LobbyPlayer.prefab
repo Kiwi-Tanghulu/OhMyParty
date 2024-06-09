@@ -160,10 +160,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnStateEnterEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1186058319287048073}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnStateExitEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1186058319287048073}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   detectChairDistance: 1.5
 --- !u!114 &707346818418968894
 MonoBehaviour:
@@ -390,6 +414,12 @@ PrefabInstance:
       insertIndex: 3
       addedObject: {fileID: 6893667447872586405}
   m_SourcePrefab: {fileID: 100100000, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
+--- !u!143 &1186058319287048073 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 6773531061483789700, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5653657304672799245}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2295168985028796104 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5886142406603183301, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -435,7 +465,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  scoreText: {fileID: 2971972218068032402}
 --- !u!114 &5341065730761341079 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 318231267551883930, guid: fcf90dc6047265e4db4c32e1eba10505,
