@@ -246,12 +246,5 @@ namespace OMG
         }
 #endif
         #endregion
-
-        #region ETC
-        public void SetCollision(bool value)
-        {
-            cc.detectCollisions = value;
-        }
-        #endregion
     }
 }
