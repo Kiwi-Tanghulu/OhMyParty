@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace OMG.Editor
+namespace OMG.Editors
 {
     [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = true)]
     public class ConditionalFieldAttribute : PropertyAttribute

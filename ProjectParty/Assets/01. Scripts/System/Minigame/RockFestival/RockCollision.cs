@@ -67,11 +67,6 @@ namespace OMG.Minigames.RockFestival
             });
         }
 
-        public Transform GetDamagedTransfrom()
-        {
-            return transform;
-        }
-
         public void SetActiveCollisionOther(bool active)
         {
             ActiveCollisionOther = active;

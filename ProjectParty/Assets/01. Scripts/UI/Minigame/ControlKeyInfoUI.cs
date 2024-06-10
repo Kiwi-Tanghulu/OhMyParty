@@ -9,15 +9,15 @@ namespace OMG.UI
 {
     public class ControlKeyInfoUI : MonoBehaviour
     {
-        [SerializeField] private Image keyImagePrefab;
+        [SerializeField] private ControlKeyUI keyImagePrefab;
         [SerializeField] private TextMeshProUGUI keyNameText;
 
         public void DisplayKeyInfo(ControlKeyInfo keyInfo)
         {
-            foreach(Sprite controlKeyImage in keyInfo.ControlKeyImages)
+            foreach(ControlKey controlKey in keyInfo.ControlKeys)
             {
-                Image keyImage = Instantiate(keyImagePrefab, transform);
-                keyImage.sprite = controlKeyImage;
+                ControlKeyUI keyImage = Instantiate(keyImagePrefab, transform);
+                keyImage.SetControlKey(controlKey);
             }
 
             keyNameText.text = keyInfo.ControlKeyName;

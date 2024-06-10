@@ -16,14 +16,24 @@ namespace OMG.Player
 
         private bool isInit;
 
-        private void Start()
+        public override void Init(CharacterController controller)
         {
+            base.Init(controller);
+
             anim = GetComponent<PlayerController>().Animator;
 
             OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
             OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
 
             isInit = true;
+        }
+
+        public override void UpdateCompo()
+        {
+            base.UpdateCompo();
+
+            ChangeIsGroundParam(IsGround);
+            ChangeMoveSpeedParam(MoveDir);
         }
 
         private void OnEnable()

@@ -4,10 +4,9 @@ using OMG.Minigames;
 using OMG.Player;
 using Steamworks;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Video;
 
 namespace OMG.UI
 {
@@ -15,7 +14,7 @@ namespace OMG.UI
     {
         [SerializeField] private TextMeshProUGUI gameNameText;
         [SerializeField] private TextMeshProUGUI gameDescriptionText;
-        [SerializeField] private Image gameImage;
+        [SerializeField] private OMGVideoPlayer videoPlayer;
 
         [Space]
         [SerializeField] private Transform controlKeyInfoContainer;
@@ -103,7 +102,6 @@ namespace OMG.UI
 
             gameNameText.text = minigameSO.MinigameName;
             gameDescriptionText.text = minigameSO.MinigameDescription;
-            gameImage.sprite = minigameSO.MinigameImage;
 
             foreach (ControlKeyInfo keyInfo in minigameSO.ControlKeyInfoList)
             {
@@ -122,6 +120,8 @@ namespace OMG.UI
             }
 
             container.SetActive(true);
+
+            videoPlayer.Play(minigameSO.Video, 1f);
         }
 
         public void Hide()

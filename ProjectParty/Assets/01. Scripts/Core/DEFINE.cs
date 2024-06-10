@@ -17,5 +17,14 @@ namespace OMG
                 return mainCanvas;
             }
         }
+
+        private static Transform minigameCanvas = null;
+        public static Transform MinigameCanvas {
+            get {
+                if(minigameCanvas == null)
+                    minigameCanvas = GameObject.Find("MinigameCanvas")?.transform;
+                return minigameCanvas;
+            }
+        }
     }
 }

@@ -9,8 +9,6 @@ namespace OMG.Player.FSM
     [RequireComponent(typeof(GravityAction))]
     public class JumpAction : PlayerFSMAction
     {
-        [SerializeField] private float jumpPower;
-
         private CharacterMovement movement;
 
         public override void Init(FSMBrain brain)
@@ -24,7 +22,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            movement.Jump(jumpPower);
+            movement.Jump();
         }
 
         public override void ExitState()

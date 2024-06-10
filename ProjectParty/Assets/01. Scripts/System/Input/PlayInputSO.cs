@@ -15,6 +15,8 @@ namespace OMG.Inputs
         public Action OnActiveEvent;
         public Action OnJumpEvent;
 
+        public bool MoveInputInversion = false;
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -27,7 +29,12 @@ namespace OMG.Inputs
         public void OnMove(InputAction.CallbackContext context)
         {
             if(context.performed || context.canceled)
-                OnMoveEvent?.Invoke(context.ReadValue<Vector2>());
+            {
+                Vector2 input = context.ReadValue<Vector2>();
+                if(MoveInputInversion)
+                    input *= -1f;
+                OnMoveEvent?.Invoke(input);
+            }
         }
 
         public void OnInteract(InputAction.CallbackContext context)

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using OMG.Extensions;
 using UnityEngine;
 
 namespace OMG.Feedbacks
 {
     public class PlayParticleFeedback : Feedback
     {
+        [SerializeField] float delay = 0.6f;
         private List<ParticleSystem> particles = null;
 
         private void Awake()
@@ -13,9 +15,9 @@ namespace OMG.Feedbacks
             transform.GetComponentsInChildren<ParticleSystem>(particles);
         }
 
-        public override void Play(Transform playTrm)
+        public override void Play(Vector3 playPos)
         {
-            particles.ForEach(i => i.Play());
+            StartCoroutine(this.DelayCoroutine(delay, () => particles.ForEach(i => i.Play())));
         }
     }
 }

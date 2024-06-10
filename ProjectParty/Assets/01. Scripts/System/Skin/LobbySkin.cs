@@ -10,6 +10,9 @@ namespace OMG.Skins
 
         [Space]
         [SerializeField] private CinemachineVirtualCamera cam;
+        public CinemachineVirtualCamera Cam => cam;
+
+        public PlayerStandingPointContainer PlayerCalcScoreStandingPoint;
 
         public override void Init()
         {

@@ -10,8 +10,6 @@ namespace OMG.Player
 {
     public class LobbyPlayerController : PlayerController
     {
-        [SerializeField] private ScoreText scoreText;
-
         private RenderTargetPlayerVisual renderTargetPlayerVisual;
 
         public override void OnNetworkSpawn()
@@ -22,8 +20,6 @@ namespace OMG.Player
             
             Lobby lobby = Lobby.Current;
             lobby.PlayerContainer.RegistPlayer(this);
-            lobby.GetLobbyComponent<LobbyCutSceneComponent>().
-                CutSceneEvents[LobbyCutSceneState.EndFinish] += LobbyCutSscene_OnEndFinish;
             lobby.OnLobbyStateChangedEvent += Lobby_OnLobbyStateChangedEvent;
             LobbyReadyComponent lobbyReady = lobby.GetLobbyComponent<LobbyReadyComponent>();
             lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
@@ -34,20 +30,17 @@ namespace OMG.Player
             base.OnNetworkDespawn();
 
             Lobby.Current.PlayerContainer.UnregistPlayer(this);
-            Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>().
-                CutSceneEvents[LobbyCutSceneState.EndFinish] -= LobbyCutSscene_OnEndFinish;
-        }
-
-        private void LobbyCutSscene_OnEndFinish()
-        {
-            scoreText.SetScore(Lobby.Current.PlayerDatas[(int)OwnerClientId].score);
-            scoreText.Show();
         }
 
         private void Lobby_OnLobbyStateChangedEvent(LobbyState state)
         {
-            if (state == LobbyState.MinigameFinished)
-                renderTargetPlayerVisual.SetPose(RenderTargetPlayerPoseType.Idle);
+            switch(state)
+            {
+                case LobbyState.MinigameFinished:
+                    renderTargetPlayerVisual.SetPose(RenderTargetPlayerPoseType.Idle);
+                    StateMachine.ChangeState(typeof(CalculateScoreState));
+                    break;
+            }
         }
 
         private void MinigameInfoUI_OnPlayerReadyEvent(ulong clientID)

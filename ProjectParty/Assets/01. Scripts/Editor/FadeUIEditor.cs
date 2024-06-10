@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using OMG.UI;
 
-namespace OMG.Editor
+namespace OMG.Editors
 {
     [CustomEditor(typeof(Fade))]
     public class FadeUIEditor : UnityEditor.Editor

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEngine.UI.Image;
 
 namespace OMG.Player.FSM
 {
@@ -20,22 +21,33 @@ namespace OMG.Player.FSM
         {
             base.DoAction();
 
-            RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position + player.transform.forward * distance,
-                radius, player.transform.forward, 0f);
-
-            if (hits.Length > 0)
+            //RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position + player.transform.forward * distance,
+            //    radius, player.transform.forward, 0f);
+            
+            if (Physics.SphereCast(eyeTrm.position, radius, player.transform.forward, out RaycastHit hit, distance))
             {
-                for(int i = 0; i < hits.Length; i++)
-                {
-                    if (hits[i].transform == player.transform)
-                        continue;
+                //if (hit.transform == player.transform)
+                //    return;
 
-                    if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
-                    {
-                        damageable.OnDamaged(150f, player.transform, hits[i].point);
-                    }
+                if (hit.collider.TryGetComponent<IDamageable>(out IDamageable damageable))
+                {
+                    damageable.OnDamaged(150f, player.transform, hit.point);
                 }
             }
+
+            //if (hits.Length > 0)
+            //{
+            //    for(int i = 0; i < hits.Length; i++)
+            //    {
+            //        if (hits[i].transform == player.transform)
+            //            continue;
+
+            //        if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
+            //        {
+            //            damageable.OnDamaged(150f, player.transform, hits[i].point);
+            //        }
+            //    }
+            //}
         }
 
 #if UNITY_EDITOR

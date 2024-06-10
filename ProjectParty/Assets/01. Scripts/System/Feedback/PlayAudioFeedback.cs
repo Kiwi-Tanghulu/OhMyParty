@@ -1,6 +1,4 @@
 using OMG.Audio;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace OMG.Feedbacks
@@ -8,7 +6,7 @@ namespace OMG.Feedbacks
     public class PlayAudioFeedback : Feedback
     {
         private AudioSource player;
-        [SerializeField] private AudioLibrarySO audioLib;
+        [SerializeField] private AudioClip clip;
 
         private void Awake()
         {
@@ -17,14 +15,9 @@ namespace OMG.Feedbacks
                 player = DEFINE.GlobalAudioPlayer;
         }
 
-        public override void Play(Transform playTrm)
+        public override void Play(Vector3 playPos)
         {
-            player?.PlayOneShot(GetAudioClip());
-        }
-
-        private AudioClip GetAudioClip()
-        {
-            return audioLib.GetRandomAudio().Audio;
+            player?.PlayOneShot(clip);
         }
     }
 }

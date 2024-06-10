@@ -15,39 +15,36 @@ namespace OMG.Player.FSM
         private Transform sitPoint;
 
         private CharacterMovement movement;
+        private PlayerFocuser focuser;
 
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
 
             movement = player.GetComponent<CharacterMovement>();
-        }
-
-        public override void EnterState()
-        {
-            if (brain.GetComponent<PlayerFocuser>().FocusedObject.CurrentObject
-                .TryGetComponent<Chair>(out Chair chair))
-            {
-                usingChair = chair;
-                sitPoint = usingChair.GetUseableSitPoint();
-
-            }
-
-            base.EnterState();
+            focuser = player.GetComponent<PlayerFocuser>();
         }
 
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
 
-            if(usingChair == null)
+            if (focuser.FocusedObject.CurrentObject.TryGetComponent<Chair>(out Chair chair))
+            {
+                usingChair = chair;
+                sitPoint = usingChair.GetUseableSitPoint();
+            }
+
+            if (usingChair == null)
             {
                 brain.ChangeState(brain.DefaultState);
             }
             else
             {
                 usingChair.SetUseWhetherChair(sitPoint, true);
-                player.transform.SetPositionAndRotation(sitPoint.position, sitPoint.rotation);
+                movement.Teleport(sitPoint.position, sitPoint.rotation);
+
+                Debug.Log(234);
             }
         }
 

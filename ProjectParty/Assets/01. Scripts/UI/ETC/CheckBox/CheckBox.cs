@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.UI
 {
-    public abstract class CheckBox : MonoBehaviour
+    public class CheckBox : MonoBehaviour
     {
-        public abstract void SetCheck(bool value);
+        public UnityEvent OnCheckedEvent;
+
+        public virtual void SetCheck(bool value)
+        {
+            if(value)
+                OnCheckedEvent?.Invoke();
+        }
     }
 }

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 namespace OMG.Minigames
 {
     [Serializable]
     public class ControlKeyInfo
     {
-        public List<Sprite> ControlKeyImages;
+        public List<ControlKey> ControlKeys;
         public string ControlKeyName;
     }
 
@@ -24,7 +25,7 @@ namespace OMG.Minigames
         [Space(15f)]
         public string MinigameName;
         [TextArea] public string MinigameDescription;
-        public Sprite MinigameImage;
+        public VideoClip Video;
         public List<ControlKeyInfo> ControlKeyInfoList;
 
         public Action<Minigame> OnMinigameFinishedEvent;

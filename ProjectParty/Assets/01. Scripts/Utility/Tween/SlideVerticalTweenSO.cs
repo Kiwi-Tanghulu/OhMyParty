@@ -3,29 +3,35 @@ using UnityEngine;
 
 namespace OMG.Tweens
 {
-[CreateAssetMenu(menuName = "SO/Tween/SlideVerticalTween")]
-public class SlideVerticalTweenSO : TweenSO
-{
-    [Space(15f)]
-    [SerializeField] float endValue = 0f;
-
-    protected override void OnTween(Sequence sequence)
+    [CreateAssetMenu(menuName = "SO/Tween/SlideVerticalTween")]
+    public class SlideVerticalTweenSO : TweenSO
     {
-        TweenParam param;
-        Tween tween;
+        [Space(15f)]
+        [SerializeField] float endValue = 0f;
 
-        for(int i = 0; i < tweenParams.Count; ++i)
+        protected override void OnTween(Sequence sequence)
         {
-            param = GetParam(i);
-            tween = body.DOLocalMoveY(param.Value, param.Duration).SetDelay(param.Delay).SetEase(param.Ease);
-            sequence.Append(tween);
+            TweenParam param;
+            Tween tween;
+
+            for (int i = 0; i < tweenParams.Count; ++i)
+            {
+                param = GetParam(i);
+                tween = body.DOLocalMoveY(param.Value, param.Duration).SetDelay(param.Delay).SetEase(param.Ease);
+                sequence.Append(tween);
+            }
+        }
+
+        protected override void HandleTweenCompleted()
+        {
+            base.HandleTweenCompleted();
+            body.localPosition = new Vector3(body.localPosition.x, endValue, body.localPosition.z);
+        }
+
+        protected override void HandleTweenForceKilled()
+        {
+            base.HandleTweenForceKilled();
+            body.localPosition = new Vector3(body.localPosition.x, endValue, body.localPosition.z);
         }
     }
-
-    protected override void HandleTweenCompleted()
-    {
-        base.HandleTweenCompleted();
-        body.localPosition = new Vector3(body.localPosition.x, endValue, body.localPosition.z);
-    }
-}
 }

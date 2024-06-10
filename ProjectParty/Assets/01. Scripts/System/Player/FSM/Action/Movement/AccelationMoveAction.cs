@@ -14,10 +14,10 @@ namespace OMG.Player.FSM
         {
             base.UpdateState();
 
-            float speed = movement.MaxMoveSpeed;
-            speed += Time.deltaTime * accelation;
-            speed = Mathf.Min(speed, maxMoveSpeed);
-            movement.SetMoveSpeed(speed);
+            //float speed = movement.MaxMoveSpeed;
+            //speed += Time.deltaTime * accelation;
+            //speed = Mathf.Min(speed, maxMoveSpeed);
+            //movement.SetMoveSpeed(speed);
         }
     }
 }

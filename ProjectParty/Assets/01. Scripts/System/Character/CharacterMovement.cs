@@ -1,25 +1,17 @@
-using OMG.Minigames.MazeAdventure;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Netcode;
 using Unity.Netcode.Components;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace OMG
 {
-    [RequireComponent(typeof(CharacterController))]
-    public class CharacterMovement : MonoBehaviour
+    [RequireComponent(typeof(UnityEngine.CharacterController))]
+    public class CharacterMovement : CharacterComponent
     {
-        [Header("Move")]
-        [SerializeField] private float maxMoveSpeed = 3f;
-        public float MaxMoveSpeed => maxMoveSpeed;
+        private CharacterStatSO characterStatSO;
+
+        //move
         private float currentMoveSpeed;
-        [SerializeField]
-        private float accelration;
 
         private Vector3 moveDir;
         public Vector3 MoveDir => moveDir;
@@ -27,53 +19,65 @@ namespace OMG
 
         private Vector3 moveVector;
 
+        private bool enableMove;
+
+        [Space]
         public UnityEvent<Vector3> OnMoveDirectionChanged;
 
-        [Header("Gravity")]
-        [SerializeField] private float gravityScale;
-
+        //vertical
         private float verticalVelocity;
 
-        [Header("Turn")]
-        [Space]
-        [SerializeField] private float turnSpped;
+        //turn
         private Coroutine trunCo;
 
-        [Header("Jump")]
-        [SerializeField] private float jumpPower = 5f;
-
+        //ground
         [Header("Ground Check")]
         [Space]
         [SerializeField] private Vector3 checkGroundOffset;
-        [SerializeField] private Vector3 checkGroundHalfSize;
+        [SerializeField] private float checkGroundRadius;
         [SerializeField] private LayerMask checkGroundLayer;
 
         private bool isGround;
         public bool IsGround => isGround;
 
+        private bool enableGravity;
+
         public UnityEvent<bool> OnIsGroundChagend;
         public bool DrawGizmo;
 
+        //compo
         [Header("Component")]
         private NetworkTransform networkTrm;
-        private CharacterController cc;
+        private UnityEngine.CharacterController cc;
 
-        public UnityEvent<HitInfo> OnColliderHit;
-        private HitInfo hitInfo = new HitInfo();
-        protected virtual void Awake()
+        public UnityEvent<Collider> OnColliderHit;
+
+        public override void Init(CharacterController controller)
         {
+            base.Init(controller);
+
             networkTrm = GetComponent<NetworkTransform>();
-            cc = GetComponent<CharacterController>();
+            cc = GetComponent<UnityEngine.CharacterController>();
+
+            characterStatSO = GetComponent<CharacterStat>().StatSO;
+
+            enableMove = true;
+            enableGravity = true;
         }
 
-        protected virtual void Update()
+        public override void UpdateCompo()
         {
+            base.UpdateCompo();
+
             CheckGround();
         }
 
         #region Move
         public void Move()
         {
+            if (!enableMove)
+                return;
+
             CalcMoveVector();
 
             cc.Move(moveVector);
@@ -93,18 +97,18 @@ namespace OMG
                     }
                 }
 
-                currentMoveSpeed += accelration * Time.deltaTime;
+                currentMoveSpeed += characterStatSO[CharacterStatType.Accelration].Value * Time.deltaTime;
 
                 moveVec = moveDir;
             }
             else
             {
-                currentMoveSpeed -= accelration * Time.deltaTime;
+                currentMoveSpeed -= characterStatSO[CharacterStatType.Accelration].Value * Time.deltaTime;
 
                 moveVec = prevMoveDir;
             }
 
-            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, 0f, MaxMoveSpeed);
+            currentMoveSpeed = Mathf.Clamp(currentMoveSpeed, 0f, characterStatSO[CharacterStatType.MaxMoveSpeed].Value);
 
             moveVec *= currentMoveSpeed;
 
@@ -113,7 +117,7 @@ namespace OMG
 
         public void SetMoveSpeed(float value)
         {
-            maxMoveSpeed = value;
+            //characterStatSO.MaxMoveSpeed = value;
         }
 
         public void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
@@ -159,7 +163,7 @@ namespace OMG
 
             while (1f - t > 0.1f)
             {
-                t += Time.deltaTime * turnSpped;
+                t += Time.deltaTime * characterStatSO[CharacterStatType.TurnSpeed].Value;
                 transform.rotation = Quaternion.Lerp(start, end, t);
 
                 yield return null;
@@ -171,16 +175,19 @@ namespace OMG
         #region Vertical Velocity
         public void Gravity()
         {
+            if (!enableGravity)
+                return;
+
             if(isGround)
             {
                 if(verticalVelocity < 0f)
                 {
-                    verticalVelocity = gravityScale * Time.deltaTime * 20f;
+                    verticalVelocity = characterStatSO[CharacterStatType.GravityScale].Value * Time.deltaTime * 20f;
                 }
             }
             else
             {
-                verticalVelocity += gravityScale * Time.deltaTime;
+                verticalVelocity += characterStatSO[CharacterStatType.GravityScale].Value * Time.deltaTime;
             }
 
             cc.Move(new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime);
@@ -195,7 +202,7 @@ namespace OMG
         {
             if (!IsGround) return;
 
-            SetVerticalVelocity(jumpPower);
+            SetVerticalVelocity(characterStatSO[CharacterStatType.JumpPower].Value);
         }
 
         public void Jump(float jumpPower)
@@ -210,8 +217,8 @@ namespace OMG
         #region Check Ground
         public bool CheckGround()
         {
-            bool result = Physics.CheckBox(transform.position + checkGroundOffset,
-                checkGroundHalfSize, Quaternion.identity) && verticalVelocity <= 0f;
+            bool result = Physics.CheckSphere(transform.position + checkGroundOffset,
+                checkGroundRadius, checkGroundLayer) && verticalVelocity <= 0f;
 
             if(isGround != result)
             {
@@ -225,9 +232,7 @@ namespace OMG
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            hitInfo.collider = hit.collider;
-            hitInfo.hitPoint = hit.point;
-            OnColliderHit?.Invoke(hitInfo);
+            OnColliderHit?.Invoke(hit.collider);
         }
 
 #if UNITY_EDITOR
@@ -237,16 +242,9 @@ namespace OMG
                 return;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(transform.position + checkGroundOffset, checkGroundHalfSize * 2);
+            Gizmos.DrawWireSphere(transform.position + checkGroundOffset, checkGroundRadius);
         }
 #endif
-        #endregion
-
-        #region ETC
-        public void SetCollision(bool value)
-        {
-            cc.detectCollisions = value;
-        }
         #endregion
     }
 }

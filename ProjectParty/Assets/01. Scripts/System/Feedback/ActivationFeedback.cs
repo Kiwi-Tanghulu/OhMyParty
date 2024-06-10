@@ -8,7 +8,7 @@ namespace OMG.Feedbacks
         [SerializeField] GameObject targetObject = null;
         [SerializeField] float turnOffTime = 1f;
 
-        public override void Play(Transform playTrm)
+        public override void Play(Vector3 playPos)
         {
             StopAllCoroutines();
 

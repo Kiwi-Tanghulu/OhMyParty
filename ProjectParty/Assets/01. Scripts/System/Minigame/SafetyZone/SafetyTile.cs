@@ -85,9 +85,9 @@ namespace OMG.Minigames.SafetyZone
         private void HandlePlayerExit(SafetyZonePlayerController player)
         {
             includePlayers.Remove(player);
-
+            player.IsSafety = false;
+            
             bool isSafety = IsSafetyZone();
-            player.IsSafety = isSafety;
             SetSafety(isSafety);
         }
     }

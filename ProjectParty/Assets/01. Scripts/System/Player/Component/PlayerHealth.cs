@@ -12,9 +12,7 @@ namespace OMG.Player
         private Vector3 hitDir;
         private Vector3 hitPoint;
 
-        [SerializeField] private Transform damagedTrm;
-
-        public UnityEvent OnDamagedEvent;
+        public UnityEvent<Vector3 /*hit point*/> OnDamagedEvent;
 
         public Transform Attacker => attacker;
         public float Damage => damage;
@@ -34,12 +32,7 @@ namespace OMG.Player
             hitDir = (transform.position - attacker.position).normalized;
             hitPoint = point;
 
-            OnDamagedEvent?.Invoke();
-        }
-
-        public Transform GetDamagedTransfrom()
-        {
-            return damagedTrm;
+            OnDamagedEvent?.Invoke(point);
         }
     }
 }
