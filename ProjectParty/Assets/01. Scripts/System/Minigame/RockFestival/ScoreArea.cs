@@ -60,8 +60,9 @@ namespace OMG.Minigames.RockFestival
 
             if(other.CompareTag("Point") == false)
                 return;
-
-            UpdatePointBuffer(1);
+            
+            if(other.TryGetComponent<Rock>(out Rock rock))
+                UpdatePointBuffer(rock.Point);
         }
 
         private void OnTriggerExit(Collider other)
@@ -72,7 +73,8 @@ namespace OMG.Minigames.RockFestival
             if (other.CompareTag("Point") == false)
                 return;
 
-            UpdatePointBuffer(-1);
+            if(other.TryGetComponent<Rock>(out Rock rock))
+                UpdatePointBuffer(-rock.Point);
         }
 
         private void UpdatePointBuffer(int value)
