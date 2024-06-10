@@ -406,8 +406,10 @@ MonoBehaviour:
     type: 3}
   multipleParticle: 0
   multipleSetting:
+    Settings: []
+  randomPosition: 0
+  positionSetting:
     Radius: 10
-    Count: 10
     X: 0
     Y: 0
     Z: 0
@@ -461,8 +463,10 @@ MonoBehaviour:
     type: 3}
   multipleParticle: 0
   multipleSetting:
+    Settings: []
+  randomPosition: 0
+  positionSetting:
     Radius: 10
-    Count: 10
     X: 0
     Y: 0
     Z: 0
@@ -480,7 +484,6 @@ GameObject:
   - component: {fileID: 7044438202459967477}
   - component: {fileID: 2874443408624697251}
   - component: {fileID: 956316481232755839}
-  - component: {fileID: 3969294619700080741}
   - component: {fileID: 1186911224247378889}
   - component: {fileID: 3581594052873808028}
   - component: {fileID: 2426984937881609100}
@@ -490,6 +493,8 @@ GameObject:
   - component: {fileID: 1352007759704261647}
   - component: {fileID: 7641377265664178548}
   - component: {fileID: 7431377744765993101}
+  - component: {fileID: 5958910936145491723}
+  - component: {fileID: 3190665807818232660}
   m_Layer: 12
   m_Name: Rock
   m_TagString: Point
@@ -552,6 +557,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35708d1da03df6340a493cc96a5d2a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnActiveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSpawnedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   onThrowEvent:
     m_PersistentCalls:
       m_Calls:
@@ -578,33 +589,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: ROCK_THROW
           m_BoolArgument: 0
-        m_CallState: 2
-  onSpawnedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 635107377413837729}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1692621794146701403}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8175911418836950968}
-        m_TargetAssemblyTypeName: OMG.Minigames.RockFestival.RockShadow, Assembly-CSharp
-        m_MethodName: Display
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &956316481232755839
 MonoBehaviour:
@@ -685,18 +669,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   hitPoint: {fileID: 5252876203237504413}
---- !u!114 &3969294619700080741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7671886679003051456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b2028d6f6a000c418338e6ea6207b4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1186911224247378889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -966,6 +938,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5958910936145491723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671886679003051456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5cf23b197b1b604c98d2fc40895d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3190665807818232660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671886679003051456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e61dc9c3ee2eb141bac6c50e08baf43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7672205694196191077
 GameObject:
   m_ObjectHideFlags: 0

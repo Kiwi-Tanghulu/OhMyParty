@@ -1,4 +1,3 @@
-using OMG.Inputs;
 using UnityEngine;
 
 namespace OMG.Minigames.RockFestival
@@ -60,7 +59,6 @@ namespace OMG.Minigames.RockFestival
 
             spawner.SetActive(true);
             timeAttackCycle.StartCycle();
-            minigameUI.ScorePanel.Display(true);
         }
 
         public override void FinishGame()
@@ -71,7 +69,6 @@ namespace OMG.Minigames.RockFestival
             if (IsHost)
                 spawner.SetActive(false);
 
-            minigameUI.ScorePanel.Display(false);
             base.FinishGame();
         }
     }

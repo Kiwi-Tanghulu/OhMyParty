@@ -1,12 +1,10 @@
 using DG.Tweening;
-using OMG.Editors;
 using OMG.Extensions;
 using UnityEngine;
 
 namespace OMG.Tweens
 {
     [CreateAssetMenu(menuName = "SO/Tween/Function/List", order = -1)]
-    [HideParentFields("tweenParams")]
     public class TweenListSO : TweenSO
     {
         [SerializeField] TweenSO[] tweenList = null; 

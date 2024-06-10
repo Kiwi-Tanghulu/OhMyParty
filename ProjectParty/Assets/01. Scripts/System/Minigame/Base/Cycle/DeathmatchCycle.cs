@@ -1,9 +1,7 @@
-using Cinemachine;
 using OMG.Extensions;
-using OMG.UI.Minigames.Deathmatches;
+using OMG.UI.Minigames;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Playables;
 
 namespace OMG.Minigames
 {
@@ -13,7 +11,7 @@ namespace OMG.Minigames
 
         [Space(15f)]
         [SerializeField] UnityEvent<ulong> OnPlayerDeadEvent = null;
-        private PlayerPanel playerPanel = null;
+        private DeathmatchPlayerPanel playerPanel = null;
 
         private int deadPlayerCount = 0;
         public int DeadPlayerCount => deadPlayerCount;
@@ -21,7 +19,7 @@ namespace OMG.Minigames
         protected override void Awake()
         {
             base.Awake();
-            playerPanel = DEFINE.MinigameCanvas.Find("TopPanel/PlayerPanel").GetComponent<PlayerPanel>();
+            playerPanel = minigame.MinigameUI.PlayerPanel as DeathmatchPlayerPanel;
         }
 
         protected virtual void Start()

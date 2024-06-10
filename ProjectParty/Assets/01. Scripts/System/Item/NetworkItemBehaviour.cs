@@ -11,6 +11,12 @@ namespace OMG.Items
             item = GetComponent<NetworkItem>();
         }
 
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            item.OnSpawnedEvent?.Invoke();
+        }
+
         public void ActiveItem()
         {
             ActiveServerRpc();

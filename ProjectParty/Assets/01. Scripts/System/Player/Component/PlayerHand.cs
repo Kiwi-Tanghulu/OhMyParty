@@ -22,15 +22,12 @@ namespace OMG.Player
         public bool IsEmpty => holdingObject == null;
         private bool active = true;
 
-        private bool readInteractInput = false;
-
         public override void OnNetworkSpawn()
         {
             if(IsOwner == false)
                 return;
 
             focuser = GetComponent<PlayerFocuser>();
-            input.OnInteractEvent += HandleInteract;
             input.OnActiveEvent += HandleActive;
         }
 
@@ -39,7 +36,6 @@ namespace OMG.Player
             if(IsOwner == false)
                 return;
 
-            input.OnInteractEvent -= HandleInteract;
             input.OnActiveEvent -= HandleActive;
         }
 
@@ -78,31 +74,6 @@ namespace OMG.Player
                 if (IsEmpty)
                     return;
 
-                Release();
-            }
-        }
-
-        private void HandleInteract(bool interact)
-        {
-            if(readInteractInput == false)
-                return;
-
-            if(active == false)
-                return;
-
-            if (interact == false)
-                return;
-
-            if(IsEmpty)
-            {
-                if(focuser.IsEmpty)
-                    return;
-
-                if(focuser.FocusedObject.CurrentObject.TryGetComponent<IHoldable>(out IHoldable target))
-                    Hold(target, focuser.FocusedPoint);
-            }
-            else
-            {
                 Release();
             }
         }
