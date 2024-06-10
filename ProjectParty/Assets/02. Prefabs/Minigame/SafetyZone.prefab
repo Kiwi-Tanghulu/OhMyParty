@@ -761,6 +761,7 @@ GameObject:
   - component: {fileID: 1724562664442202983}
   - component: {fileID: 3740180997731263181}
   - component: {fileID: 7231584572836726763}
+  - component: {fileID: 6853597098800525284}
   m_Layer: 0
   m_Name: SafetyZone
   m_TagString: Untagged
@@ -809,7 +810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 742203353
+  GlobalObjectIdHash: 4070440243
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -832,7 +833,19 @@ MonoBehaviour:
   minigameData: {fileID: 11400000, guid: 3cfaf355f097ae34e83c56b453e66221, type: 2}
   OnStartedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6853597098800525284}
+        m_TargetAssemblyTypeName: OMG.DistanceAlphaController, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1084,6 +1097,19 @@ MonoBehaviour:
   OnTimerFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6853597098800525284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872781912382508777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 428a6ac404a95394dbce146971f972d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceAlphaMat: {fileID: 2100000, guid: 3a5640230c93ae842a8d2f898b71abba, type: 2}
 --- !u!1 &1903087081895245562
 GameObject:
   m_ObjectHideFlags: 0
