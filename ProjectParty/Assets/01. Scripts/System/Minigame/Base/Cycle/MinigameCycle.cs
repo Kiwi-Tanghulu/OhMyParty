@@ -1,38 +1,28 @@
-using Cinemachine;
 using OMG.Extensions;
 using OMG.Lobbies;
-using OMG.Player;
-using OMG.Utility;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Playables;
-using UnityEngine.Timeline;
 
 namespace OMG.Minigames
 {
-    [RequireComponent(typeof(PlayableDirector))]
-    [RequireComponent(typeof(SignalReceiver))]
     public class MinigameCycle : NetworkBehaviour
     {
-        [SerializeField] OptOption<TimelineAsset> timelineOption = null;
-
-        protected PlayableDirector timelineHolder = null;
         protected Minigame minigame = null;
+        protected MinigameCutscene cutscene = null;
 
         protected virtual void Awake()
         {
-            timelineHolder = GetComponent<PlayableDirector>();
             minigame = GetComponent<Minigame>();
         }
 
         public void PlayIntro()
         {
-            PlayCutsceneClientRpc(true, minigame is PlayableMinigame);
+            cutscene.PlayCutsceneClientRpc(true);
         }
 
         public void PlayOutro()
         {
-            PlayCutsceneClientRpc(false, minigame is PlayableMinigame);
+            cutscene.PlayCutsceneClientRpc(false);
         }
 
         public virtual void DisplayResult()
@@ -55,51 +45,6 @@ namespace OMG.Minigames
 
             if(IsHost)
                 StartCoroutine(this.DelayCoroutine(minigame.MinigameData.ResultPostponeTime, MinigameManager.Instance.FinishMinigame));
-        }
-
-        [ClientRpc]
-        private void PlayCutsceneClientRpc(bool option, bool bindPlayer)
-        {
-            timelineHolder.playableAsset = timelineOption.GetOption(option);
-
-            BindingTimeLineObject(timelineHolder, option);
-
-            bindPlayer &= minigame is PlayableMinigame;
-            if(bindPlayer)
-            {
-                NetworkList<NetworkObjectReference> players = (minigame as PlayableMinigame).Players;
-                int bindedCount = 0;
-
-                foreach(PlayableBinding binding in timelineHolder.playableAsset.outputs)
-                {
-                    if(binding.streamName == "Player")
-                    {
-                        if(players[bindedCount].TryGet(out NetworkObject player))
-                        {
-                            PlayerController minigamePlayer = player.GetComponent<PlayerController>();
-                            timelineHolder.SetGenericBinding(binding.sourceObject, minigamePlayer.Animator.Animator);
-
-                            bindedCount++;
-                            if(bindedCount >= minigame.PlayerDatas.Count)
-                                break;
-                        }
-                    }
-                }
-            }
-
-            timelineHolder.Play();
-        }
-
-        //binding timeline object except player 
-        protected virtual void BindingTimeLineObject(PlayableDirector timelineHolder, bool option)
-        {
-            foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
-            {
-                if (binding.streamName == "Cinemachine Track")
-                {
-                    timelineHolder.SetGenericBinding(binding.sourceObject, Camera.main.GetComponent<CinemachineBrain>());
-                }
-            }
         }
     }
 }

@@ -3,12 +3,19 @@ using OMG.Extensions;
 using OMG.Interacting;
 using OMG.Items;
 using OMG.Timers;
+using OMG.UI.Minigames.SafetyZones;
 using UnityEngine;
 
 namespace OMG.Minigames.SafetyZone
 {
     public class ItemBox : MonoBehaviour, IInteractable
     {
+        [SerializeField] ItemBoxPanel panel = null;
+        public ItemBoxPanel ItemBoxPanel => panel;
+
+        [SerializeField] Sprite itemIcon = null;
+
+        [Space(15f)]
         [SerializeField] float cooltime = 3f;
         [SerializeField] List<HoldableItem> prefabs = new List<HoldableItem>();
 
@@ -24,6 +31,9 @@ namespace OMG.Minigames.SafetyZone
         {
             timer.ResetTimer();
             isCooldown = false;
+
+            panel.Init(timer, itemIcon);
+            panel.Display(false);
         }
 
         public bool Interact(Component performer, bool actived, Vector3 point = default)
@@ -32,7 +42,10 @@ namespace OMG.Minigames.SafetyZone
                 return false;
 
             isCooldown = true;
-            timer.SetTimer(cooltime, () => isCooldown = false);
+            timer.SetTimer(cooltime, () => {
+                isCooldown = false;
+                StartCoroutine(this.DelayCoroutine(1f, () => panel.Display(false)));
+            });
 
             HoldableItem item = Instantiate(prefabs.PickRandom());
             item.Init();
