@@ -7,9 +7,6 @@ namespace OMG.Minigames.SafetyZone
 {
     public class ItemBoxVisual : MonoBehaviour, IFocusable
     {
-        private static ItemBox focusedItemBox = null;
-
-        [SerializeField] Sprite itemIcon = null;
         private ItemBox itemBox = null;
         public GameObject CurrentObject => itemBox.gameObject;
 
@@ -19,20 +16,24 @@ namespace OMG.Minigames.SafetyZone
         private void Awake()
         {
             itemBox = transform.parent.GetComponent<ItemBox>();
-            itemBoxPanel = DEFINE.MinigameCanvas.Find("ItemBoxPanel").GetComponent<ItemBoxPanel>();
+            itemBoxPanel = itemBox.ItemBoxPanel;
             timer = itemBox.GetComponent<Timer>();
         }
 
         public void OnFocusBegin(Vector3 point)
         {
-            focusedItemBox = itemBox;
-            itemBoxPanel.Init(point, timer, itemIcon);
+            if(timer.Finished == false)
+                return;
+
+            itemBoxPanel.Display(true);
         }
 
         public void OnFocusEnd()
         {
-            if(focusedItemBox == itemBox)
-                itemBoxPanel.Release();
+            if(timer.Finished == false)
+                return;
+
+            itemBoxPanel.Display(false);
         }
     }
 }
