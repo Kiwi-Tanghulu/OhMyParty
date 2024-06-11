@@ -64,10 +64,7 @@ namespace OMG.UI
 
         private IEnumerator Play(float delay, bool option, Action onStartEvent, Action onEndEvents)
         {
-            Debug.Log("play timeline");
-
             Time.timeScale = 0.0f;
-            Debug.Log(Time.timeScale);
 
             yield return new WaitForSecondsRealtime(delay);
 

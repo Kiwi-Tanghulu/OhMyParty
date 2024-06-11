@@ -13,37 +13,22 @@ namespace OMG.Minigames
 
         public void StartMinigame(MinigameSO minigameData, params ulong[] joinedPlayers)
         {
+            Debug.Log("start game");
+
             CurrentMinigame = Instantiate(minigameData.MinigamePrefab);
             CurrentMinigame.NetworkObject.Spawn(true);
             CurrentMinigame.Init(joinedPlayers);
-
-            Fade.Instance.FadeIn(3f, () =>
-            {
-                Time.timeScale = 0f;
-            }, () =>
-            {
-                Time.timeScale = 1.0f;
-            });
         }
 
         public void FinishMinigame()
         {
-            Fade.Instance.FadeOut(0f, null, () =>
-            {
-                CurrentMinigame.Release();
+            Debug.Log("finish game");
 
-                CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
-                CurrentMinigame.NetworkObject.Despawn(true);
-                CurrentMinigame = null;
+            CurrentMinigame.Release();
 
-                Fade.Instance.FadeIn(3f, () =>
-                {
-                    Time.timeScale = 0f;
-                }, () =>
-                {
-                    Time.timeScale = 1.0f;
-                });
-            });
+            CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
+            CurrentMinigame.NetworkObject.Despawn(true);
+            CurrentMinigame = null;
         }
     }
 }
