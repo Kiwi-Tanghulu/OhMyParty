@@ -12,6 +12,7 @@ namespace OMG.Minigames
 
         protected virtual void Awake()
         {
+            cutscene = GetComponent<MinigameCutscene>();
             minigame = GetComponent<Minigame>();
         }
 
