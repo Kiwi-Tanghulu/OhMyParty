@@ -1,7 +1,5 @@
-using System;
 using OMG.Interacting;
 using OMG.Items;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,6 +7,9 @@ namespace OMG.Minigames.RockFestival
 {
     public class Rock : HoldableItem, IFocusable
     {
+        [SerializeField] int point = 1;
+        public int Point => point;
+
         [SerializeField] UnityEvent onThrowEvent = null;
 
         public GameObject CurrentObject => gameObject;
