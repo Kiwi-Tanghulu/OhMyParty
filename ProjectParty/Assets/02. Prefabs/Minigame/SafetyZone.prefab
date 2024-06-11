@@ -932,6 +932,7 @@ GameObject:
   - component: {fileID: 1724562664442202983}
   - component: {fileID: 3740180997731263181}
   - component: {fileID: 7231584572836726763}
+  - component: {fileID: 3406073567600566187}
   m_Layer: 0
   m_Name: SafetyZone
   m_TagString: Untagged
@@ -1026,9 +1027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e277b33b173884a8142b8f1674fcab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timelineOption:
-    PositiveOption: {fileID: 11400000, guid: 2b320ed9d320f48498e05f173913bdb2, type: 2}
-    NegativeOption: {fileID: 11400000, guid: bafda0b900d4f174e8e751e7503c5b18, type: 2}
   scoreWeight: 3200000064000000f4010000e8030000
   OnPlayerDeadEvent:
     m_PersistentCalls:
@@ -1255,6 +1253,21 @@ MonoBehaviour:
   OnTimerFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3406073567600566187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872781912382508777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timelineOption:
+    PositiveOption: {fileID: 11400000, guid: 2b320ed9d320f48498e05f173913bdb2, type: 2}
+    NegativeOption: {fileID: 11400000, guid: bafda0b900d4f174e8e751e7503c5b18, type: 2}
 --- !u!1 &1903087081895245562
 GameObject:
   m_ObjectHideFlags: 0
