@@ -10,6 +10,7 @@ using OMG.UI;
 using Steamworks.Data;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Lobbies
 {
@@ -27,6 +28,8 @@ namespace OMG.Lobbies
         private NetworkList<ulong> playerIdList;
 
         private ulong currentClientID = 0;
+
+        public UnityEvent OnInteractEvent;
 
         private void Awake()
         {
@@ -67,6 +70,8 @@ namespace OMG.Lobbies
                 playerController.StateMachine.ChangeState(typeof(SitState));
             }
 
+            OnInteractEvent?.Invoke();
+
             return true;
         }
 
@@ -90,6 +95,7 @@ namespace OMG.Lobbies
 
         public void StartMinigame() //이거 호출하면 미니게임 시작
         {
+            Debug.Log("start game");
             Fade.Instance.FadeOut(0f, null, () =>
             {
                 if (IsHost)

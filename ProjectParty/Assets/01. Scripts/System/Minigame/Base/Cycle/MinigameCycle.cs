@@ -1,5 +1,6 @@
 using OMG.Extensions;
 using OMG.Lobbies;
+using OMG.UI;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -44,8 +45,14 @@ namespace OMG.Minigames
 
             minigame.MinigameUI.ResultPanel.Display(true);
 
-            if(IsHost)
-                StartCoroutine(this.DelayCoroutine(minigame.MinigameData.ResultPostponeTime, MinigameManager.Instance.FinishMinigame));
+            StartCoroutine(this.DelayCoroutine(minigame.MinigameData.ResultPostponeTime, () =>
+            {
+                Fade.Instance.FadeOut(0f, null, () =>
+                {
+                    if (IsHost)
+                        MinigameManager.Instance.FinishMinigame();
+                });
+            }));
         }
     }
 }

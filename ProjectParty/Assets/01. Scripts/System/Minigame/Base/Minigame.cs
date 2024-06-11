@@ -35,6 +35,14 @@ namespace OMG.Minigames
         public override void OnNetworkSpawn()
         {
             MinigameManager.Instance.CurrentMinigame = this;
+
+            Fade.Instance.FadeIn(3f, () =>
+            {
+                Time.timeScale = 0f;
+            }, () =>
+            {
+                Time.timeScale = 1.0f;
+            });
         }
 
         /// <summary>
@@ -78,6 +86,19 @@ namespace OMG.Minigames
             InputManager.ChangeInputMap(InputMapType.UI);
             OnFinishedEvent?.Invoke();
             StartOutro();
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+
+            Fade.Instance.FadeIn(3f, () =>
+            {
+                Time.timeScale = 0f;
+            }, () =>
+            {
+                Time.timeScale = 1.0f;
+            });
         }
 
         public virtual int CalculateScore(int origin) => origin;
