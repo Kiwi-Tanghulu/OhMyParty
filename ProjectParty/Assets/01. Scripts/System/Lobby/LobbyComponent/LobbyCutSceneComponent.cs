@@ -45,6 +45,8 @@ namespace OMG.Lobbies
 
         public void PlayCutscene(bool option)
         {
+            Debug.Log($"play cut scene option : {option}");
+
             //PlayCutsceneClientRpc(option);
 
             timelineHolder.playableAsset = timelineOption.GetOption(option);
