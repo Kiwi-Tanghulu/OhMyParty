@@ -1,5 +1,6 @@
 using OMG.Utility;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -61,9 +62,12 @@ namespace OMG.UI
             StartCoroutine(Play(delay, false, onStartEvent, onEndEvent));
         }
 
-        private System.Collections.IEnumerator Play(float delay, bool option, Action onStartEvent, Action onEndEvents)
+        private IEnumerator Play(float delay, bool option, Action onStartEvent, Action onEndEvents)
         {
+            Debug.Log("play timeline");
+
             Time.timeScale = 0.0f;
+            Debug.Log(Time.timeScale);
 
             yield return new WaitForSecondsRealtime(delay);
 
@@ -71,14 +75,16 @@ namespace OMG.UI
 
             yield return null;
 
-
-            if (!IsOwnedByServer)
-                yield break;
-            
             FadingEvents[FadeStateType.Begin] = onStartEvent;
             FadingEvents[FadeStateType.Finish] = onEndEvents;
 
-            PlayClientRpc(option);
+            Transform mainCamTrm = Camera.main.transform;
+            fadeCamTrm.SetPositionAndRotation(mainCamTrm.position, mainCamTrm.rotation);
+
+            TimelineAsset timelineAsset = option ? timelineOption.PositiveOption : timelineOption.NegativeOption;
+            timelineHolder.playableAsset = timelineAsset;
+
+            timelineHolder.Play(timelineAsset);
         }
 
         [ClientRpc]
