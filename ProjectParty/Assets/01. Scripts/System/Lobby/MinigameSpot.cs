@@ -10,6 +10,7 @@ using OMG.UI;
 using Steamworks.Data;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Lobbies
 {
@@ -27,6 +28,8 @@ namespace OMG.Lobbies
         private NetworkList<ulong> playerIdList;
 
         private ulong currentClientID = 0;
+
+        public UnityEvent OnInteractEvent;
 
         private void Awake()
         {
@@ -66,6 +69,8 @@ namespace OMG.Lobbies
                 readyComponent.Ready(currentClientID);
                 playerController.StateMachine.ChangeState(typeof(SitState));
             }
+
+            OnInteractEvent?.Invoke();
 
             return true;
         }

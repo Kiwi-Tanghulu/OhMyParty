@@ -1,5 +1,6 @@
 using OMG.Interacting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Lobbies
 {
@@ -7,6 +8,8 @@ namespace OMG.Lobbies
     {
         private MinigameSpot minigameSpot = null;
         public GameObject CurrentObject => minigameSpot.gameObject;
+
+        public UnityEvent<bool> OnFocusedEvent;
 
         private void Awake()
         {
@@ -16,11 +19,12 @@ namespace OMG.Lobbies
         public void OnFocusBegin(Vector3 point)
         {
             // Set UI
+            OnFocusedEvent?.Invoke(true);
         }
 
         public void OnFocusEnd()
         {
-            
+            OnFocusedEvent?.Invoke(false);
         }
     }
 }
