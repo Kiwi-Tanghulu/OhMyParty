@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,7 +6,10 @@ namespace OMG.Minigames.SafetyZone
 {
     public class SafetyTileVisual : MonoBehaviour
     {
+        private Animator animator = null;
         private TMP_Text numberText = null;
+
+        private Action callbackCache = null;
 
         private void Awake()
         {
@@ -18,6 +22,25 @@ namespace OMG.Minigames.SafetyZone
                 numberText.text = "-";
             else
                 numberText.text = number.ToString();
+        }
+
+        public void Appear(Action callback = null)
+        {
+            animator.SetTrigger("Appear");
+            callbackCache = callback;
+        }
+
+        public void Disappear(Action callback = null)
+        {
+            animator.SetTrigger("Disappear");
+            callbackCache = callback;
+        }
+
+        public void OnAnimationEvent()
+        {
+            Action callback = callbackCache;
+            callbackCache = null;
+            callback?.Invoke();
         }
     }
 }
