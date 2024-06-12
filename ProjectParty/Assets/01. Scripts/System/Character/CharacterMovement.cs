@@ -70,6 +70,7 @@ namespace OMG
             base.UpdateCompo();
 
             CheckGround();
+            Move();
         }
 
         #region Move
@@ -126,8 +127,8 @@ namespace OMG
             moveDir = value;
 
             OnMoveDirectionChanged?.Invoke(moveDir);
-
-            if (value != Vector3.zero && lookMoveDir)
+            
+            if (/*value != Vector3.zero && */lookMoveDir)
                 Turn(moveDir);
         }
 
