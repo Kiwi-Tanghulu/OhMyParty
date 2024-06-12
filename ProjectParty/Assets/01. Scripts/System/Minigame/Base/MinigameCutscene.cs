@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using OMG.Editors;
@@ -28,7 +29,20 @@ namespace OMG.Minigames
         public void PlayCutsceneClientRpc(bool option)
         {
             timelineHolder.playableAsset = timelineOption.GetOption(option);
+            BindingTimeLineObject(timelineHolder, option);
+
             timelineHolder.Play();
+        }
+
+        protected virtual void BindingTimeLineObject(PlayableDirector timelineHolder, bool option)
+        {
+            foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
+            {
+                if (binding.streamName == "Cinemachine Track")
+                {
+                    timelineHolder.SetGenericBinding(binding.sourceObject, Camera.main.GetComponent<CinemachineBrain>());
+                }
+            }
         }
     }
 }

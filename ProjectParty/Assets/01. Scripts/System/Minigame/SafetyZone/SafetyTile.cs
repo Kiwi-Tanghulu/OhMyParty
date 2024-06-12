@@ -44,7 +44,14 @@ namespace OMG.Minigames.SafetyZone
             includePlayers.Clear();
 
             ToggleBlock(IsSafetyZone());
-            gameObject.SetActive(active);
+
+            if(active)
+            {
+                gameObject.SetActive(active);
+                tileVisual.Appear();
+            }
+            else
+                tileVisual.Disappear(() => gameObject.SetActive(active));
         }
 
         public void ToggleBlock(bool active)
@@ -54,7 +61,11 @@ namespace OMG.Minigames.SafetyZone
 
         public void Init()
         {
-            Reset();
+            safetyNumber = 100;
+            tileVisual.SetNumberText(-1);
+
+            ToggleBlock(false);
+            gameObject.SetActive(false);
         }
 
         public void Reset()
