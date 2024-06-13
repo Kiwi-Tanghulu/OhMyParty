@@ -29,6 +29,17 @@ namespace OMG.Minigames
             playerDictionary = new Dictionary<ulong, PlayerController>();   
         }
 
+        public override void StartGame()
+        {
+            base.StartGame();
+            
+            if(IsHost == false)
+                return;
+
+            for (int i = 0; i < playerDatas.Count; ++i)
+                CreatePlayer(i);
+        }
+
         public override void Release()
         {
             base.Release();

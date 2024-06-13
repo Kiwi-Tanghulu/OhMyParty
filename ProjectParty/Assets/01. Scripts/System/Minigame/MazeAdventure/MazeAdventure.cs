@@ -39,9 +39,6 @@ namespace OMG.Minigames.MazeAdventure
             base.StartGame();
 
             if (!IsHost) return;
-            
-            for (int i = 0; i < playerDatas.Count; ++i)
-                CreatePlayer(i);
 
             taggerSpawner.enabled = true;
             taggerSpawner.StartSpawn();
