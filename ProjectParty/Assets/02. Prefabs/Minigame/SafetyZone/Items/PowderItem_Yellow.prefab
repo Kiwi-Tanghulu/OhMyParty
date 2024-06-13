@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 5034476270153168733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.8, y: 8, z: 0.415}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -58,6 +58,9 @@ MonoBehaviour:
   OnActiveEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnSpawnedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   inversionDuration: 3
 --- !u!114 &9008767715636369344
 MonoBehaviour:
@@ -71,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 523824773
+  GlobalObjectIdHash: 1338279004
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -234,9 +237,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.4918909
-  m_Height: 1.1077833
+  m_Height: 1.1032925
   m_Direction: 1
-  m_Center: {x: -0.010577202, y: 0.5542159, z: 0}
+  m_Center: {x: -0.010577202, y: 0.19718112, z: 0}
 --- !u!1001 &7124287672723795020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,12 +271,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d570cfa55fbdb194d9380b9a5c647aa0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d570cfa55fbdb194d9380b9a5c647aa0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d570cfa55fbdb194d9380b9a5c647aa0,
         type: 3}
