@@ -61,4 +61,9 @@ public class PlayerManager : MonoBehaviour
 
         return playerVisual;
     }
+
+    public RenderTargetPlayerVisual GetPlayerRenderTargetVisual(ulong id)
+    {
+        return renderTargetPlayerDic[id];
+    }
 }

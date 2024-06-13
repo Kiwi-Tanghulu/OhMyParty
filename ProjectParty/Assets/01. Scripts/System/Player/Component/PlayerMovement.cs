@@ -32,8 +32,8 @@ namespace OMG.Player
         {
             base.UpdateCompo();
 
-            ChangeIsGroundParam(IsGround);
-            ChangeMoveSpeedParam(MoveDir);
+            //ChangeIsGroundParam(IsGround);
+            //ChangeMoveSpeedParam(MoveDir);
         }
 
         private void OnEnable()
@@ -65,7 +65,7 @@ namespace OMG.Player
 
         private void ChangeMoveSpeedParam(Vector3 moveDir)
         {
-            anim.SetFloat(moveSpeedHash, moveDir.sqrMagnitude, true, animParamLerpTime);
+            anim.SetFloat(moveSpeedHash, moveDir.sqrMagnitude);
         }
     }
 }
