@@ -32,6 +32,10 @@ namespace OMG.Minigames
             minigameUI = DEFINE.MinigameCanvas.GetComponent<MinigameUI>();
         }
 
+        // protected virtual void Start()
+        // {
+        // }
+
         public override void OnNetworkSpawn()
         {
             MinigameManager.Instance.CurrentMinigame = this;
@@ -78,6 +82,7 @@ namespace OMG.Minigames
         public virtual void StartGame()
         { 
             InputManager.ChangeInputMap(InputMapType.Play);
+            minigameUI.PlayerPanel?.Init(this);
             OnStartedEvent?.Invoke();
         }
 
