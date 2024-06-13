@@ -32,7 +32,7 @@ namespace OMG.Minigames
             minigame.PlayerDatas.ForEach((minigameData, index) => {
                 int score = minigame.CalculateScore(minigameData.score);
                 Debug.Log($"[Minigame] Player {minigameData.clientID} Score : {score}");
-                minigame.MinigameUI.ResultPanel[index].SetResult($"Player {minigameData.clientID}", score);
+                minigame.MinigamePanel.ResultPanel[index].SetResult($"Player {minigameData.clientID}", score);
 
                 if(IsHost)
                 {
@@ -43,7 +43,7 @@ namespace OMG.Minigames
                 }
             });
 
-            minigame.MinigameUI.ResultPanel.Display(true);
+            minigame.MinigamePanel.ResultPanel.Display(true);
 
             StartCoroutine(this.DelayCoroutine(minigame.MinigameData.ResultPostponeTime, () =>
             {

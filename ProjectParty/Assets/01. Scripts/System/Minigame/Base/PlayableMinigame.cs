@@ -23,11 +23,6 @@ namespace OMG.Minigames
             players = new NetworkList<NetworkObjectReference>();
         }
 
-        protected virtual void Start()
-        {
-            minigameUI.PlayerPanel?.Init(this);
-        }
-
         public override void Init(params ulong[] playerIDs)
         {
             base.Init(playerIDs);
