@@ -2,6 +2,7 @@ using OMG.Inputs;
 using OMG.Items;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,7 +23,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         private ItemType currentItemType;
         public void Init(Transform playerTrm)
         {
-            currentItemType = ItemType.Invisibility;
+            currentItemType = ItemType.None;
             playerItemDictionary = new Dictionary<ItemType, MazeAdventureItem>();
             foreach(Transform itemTrm in transform)
             {
@@ -40,7 +41,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         {
             if(currentItemType == ItemType.None) { return; }
             playerItemDictionary[currentItemType].Active();
-            //currentItemType = ItemType.None;
+            currentItemType = ItemType.None;
         }
 
         private void ChangeItem(ItemType newItem)
@@ -48,21 +49,22 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
             currentItemType = newItem;
         }
 
-        private void OnControllerColliderHit(ControllerColliderHit hit)
+        //private void OnControllerColliderHit(ControllerColliderHit hit)
+        //{
+        //    if(hit.transform.TryGetComponent(out ItemBox itemBox))
+        //    {
+        //        ChangeItem(itemBox.ItemType);
+        //        Destroy(itemBox.gameObject);
+        //    }
+        //}
+        public void OnCollision(ControllerColliderHit hitInfo)
         {
-            if(hit.transform.TryGetComponent(out ItemBox itemBox))
+            if (hitInfo.transform.TryGetComponent(out ItemBox itemBox))
             {
+                Instantiate(itemHitParticle, hitInfo.point,Quaternion.identity);
                 ChangeItem(itemBox.ItemType);
-                Destroy(itemBox.gameObject);
-            }
-        }
-        public void OnCollision(HitInfo hitInfo)
-        {
-            if (hitInfo.collider.transform.TryGetComponent(out ItemBox itemBox))
-            {
-                ParticleSystem particle = Instantiate(itemHitParticle, hitInfo.hitPoint,Quaternion.identity);
-                ChangeItem(itemBox.ItemType);
-                Destroy(itemBox.gameObject);
+
+                itemBox.transform.GetComponent<NetworkObject>().Despawn(true);
             }
         }
     }

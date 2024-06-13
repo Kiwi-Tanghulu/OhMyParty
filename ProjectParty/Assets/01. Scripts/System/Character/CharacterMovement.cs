@@ -50,7 +50,7 @@ namespace OMG
         private NetworkTransform networkTrm;
         private UnityEngine.CharacterController cc;
 
-        public UnityEvent<Collider> OnColliderHit;
+        public UnityEvent<ControllerColliderHit> OnColliderHit;
 
         public override void Init(CharacterController controller)
         {
@@ -117,6 +117,7 @@ namespace OMG
 
         public void SetMoveSpeed(float value)
         {
+            currentMoveSpeed = value; //jiseong
             //characterStatSO.MaxMoveSpeed = value;
         }
 
@@ -232,7 +233,7 @@ namespace OMG
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            OnColliderHit?.Invoke(hit.collider);
+            OnColliderHit?.Invoke(hit);
         }
 
 #if UNITY_EDITOR

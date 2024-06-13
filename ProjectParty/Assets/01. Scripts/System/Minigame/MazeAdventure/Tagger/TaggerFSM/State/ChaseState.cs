@@ -12,6 +12,7 @@ namespace OMG.Minigames.MazeAdventure
     {
         [SerializeField] private FSMState nextStateIdle;
         [SerializeField] private FSMState nextStateFind;
+        [SerializeField] private CapsuleCollider chaseCol;
         private DetectTargetParams targetParam = null;
         private MoveTargetParams moveParam = null;
         private NavMeshAgent navMeshAgent;
@@ -24,6 +25,7 @@ namespace OMG.Minigames.MazeAdventure
             moveParam = brain.GetFSMParam<MoveTargetParams>();
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
             cycle = brain.GetComponent<Tagger>().Cycle;
+            chaseCol.enabled = true;
         }
         protected override void OwnerEnterState()
         {
@@ -46,6 +48,7 @@ namespace OMG.Minigames.MazeAdventure
             if (other.CompareTag("Player"))
             {
                 MazeAdventurePlayerController player = other.GetComponent<MazeAdventurePlayerController>();
+                if (player.IsInvisibil) return;
                 player.PlayerDead();
                 cycle.HandlePlayerDead(player.OwnerClientId);
                 brain.ChangeState(nextStateIdle);

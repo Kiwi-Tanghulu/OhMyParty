@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -14,9 +15,15 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private Vector3 mapCenterPos;
         [SerializeField] private float range;
 
+        private List<NetworkObject> currentItemList = null;
         public void StartSpawn()
         {
+            currentItemList = new List<NetworkObject>();
             StartCoroutine(SpawnCycle());
+        }
+        public void StopSpawn()
+        {
+            StopAllCoroutines();
         }
 
         private void SpawnItem()
@@ -38,6 +45,15 @@ namespace OMG.Minigames.MazeAdventure
             ItemBox itemBox = obj.GetComponent<ItemBox>();
             itemBox.NetworkObject.SpawnWithOwnership(0, true);
             itemBox.NetworkObject.TrySetParent(gameObject, true);
+            currentItemList.Add(itemBox.NetworkObject);
+        }
+
+        public void ClearItemBoxList()
+        {
+            foreach (var itemBox in currentItemList)
+            {
+                MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(itemBox, true);
+            }
         }
 
         private IEnumerator SpawnCycle()

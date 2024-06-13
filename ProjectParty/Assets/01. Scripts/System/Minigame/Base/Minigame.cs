@@ -102,5 +102,20 @@ namespace OMG.Minigames
         }
 
         public virtual int CalculateScore(int origin) => origin;
+
+        public void DespawnMinigameObject(NetworkObject target, bool ignoreOwnership = false)
+        {
+            if (ignoreOwnership)
+                DespawnObjectServerRpc(target);
+            else
+                target.Despawn();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DespawnObjectServerRpc(NetworkObjectReference targetReference)
+        {
+            if (targetReference.TryGet(out NetworkObject target))
+                target.Despawn();
+        }
     }
 }

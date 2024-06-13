@@ -29,9 +29,11 @@ namespace OMG.Minigames.MazeAdventure
         public void PlayerDead()
         {
             dieEvent?.Invoke();
+            GetComponent<CharacterMovement>().SetMoveSpeed(0f);
             StateMachine.ChangeState(dieState);
         }
 
+        #region Invisibil
         [ServerRpc]
         public void EnterInvisibilServerRpc()
         {
@@ -82,5 +84,7 @@ namespace OMG.Minigames.MazeAdventure
                 ExitInvisibilServerRpc();
             }
         }
+
+        #endregion
     }
 }

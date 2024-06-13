@@ -60,6 +60,9 @@ MonoBehaviour:
   OnActiveEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnSpawnedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   itemType: 1
   wallPrefab: {fileID: 8985352915662661471, guid: 7eb1d84d14d30a1478930292869da62a,
     type: 3}
@@ -5099,7 +5102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animBoolName: Die
-  animator: {fileID: 0}
+  animator: {fileID: 7846786873627369661}
 --- !u!1 &2516424163411614844
 GameObject:
   m_ObjectHideFlags: 0
@@ -14841,8 +14844,10 @@ MonoBehaviour:
     type: 3}
   multipleParticle: 0
   multipleSetting:
+    Settings: []
+  randomPosition: 0
+  positionSetting:
     Radius: 10
-    Count: 10
     X: 0
     Y: 0
     Z: 0
@@ -19804,6 +19809,9 @@ MonoBehaviour:
   OnActiveEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnSpawnedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   itemType: 2
   invisibilityTime: 5
 --- !u!1001 &5578800621233249971
@@ -19887,7 +19895,7 @@ PrefabInstance:
     - target: {fileID: 4260335872563373893, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 992900555
+      value: 1503285153
       objectReference: {fileID: 0}
     - target: {fileID: 5062687372235613388, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
@@ -20037,6 +20045,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f04b13fa9f237646b452fa169bbd751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnSpawnedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   itemSystem: {fileID: 3878486720323711876}
   dieState: {fileID: 5558648300610355026}
   dieEvent:
@@ -20074,3 +20085,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c568a1270264d48a121bb7bf734768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7846786873627369661 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2418013592375262734, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
