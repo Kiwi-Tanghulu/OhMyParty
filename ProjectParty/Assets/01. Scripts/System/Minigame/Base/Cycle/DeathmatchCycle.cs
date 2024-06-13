@@ -22,11 +22,6 @@ namespace OMG.Minigames
             playerPanel = minigame.MinigameUI.PlayerPanel as DeathmatchPlayerPanel;
         }
 
-        protected virtual void Start()
-        {
-            playerPanel.Init();
-        }
-
         public virtual void HandlePlayerDead(ulong clientID)
         {
             if(IsHost)

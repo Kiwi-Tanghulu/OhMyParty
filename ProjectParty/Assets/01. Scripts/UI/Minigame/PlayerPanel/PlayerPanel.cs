@@ -1,5 +1,6 @@
 using OMG.Extensions;
 using OMG.Minigames;
+using OMG.Test;
 using UnityEngine;
 
 namespace OMG.UI.Minigames
@@ -13,14 +14,20 @@ namespace OMG.UI.Minigames
             playerSlots = transform.GetComponentsInChildren<PlayerSlot>();
         }
 
-        public virtual void Init()
+        public virtual void Init(Minigame minigame)
         {
             // 플레이어 이미지 삽입
             playerSlots.ForEach((i, index) => {
                 bool actived = MinigameManager.Instance.CurrentMinigame.PlayerDatas.Count > index;
-
                 i.Display(actived);
-                i.Init(null);
+
+                if (!actived)
+                    return;
+
+                ulong id = minigame.PlayerDatas[index].clientID;
+                RenderTexture playerRenderTexture = PlayerManager.Instance.GetPlayerRenderTargetVisual(id).RenderTexture;
+
+                i.Init(playerRenderTexture);
             });
         }
     }
