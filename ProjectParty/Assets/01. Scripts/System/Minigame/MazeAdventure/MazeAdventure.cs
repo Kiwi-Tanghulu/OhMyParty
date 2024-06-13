@@ -23,9 +23,6 @@ namespace OMG.Minigames.MazeAdventure
         {
             base.Init(playerIDs);
 
-            for (int i = 0; i < playerDatas.Count; ++i)
-                CreatePlayer(i);
-
             deathmatchCycle = cycle as DeathmatchCycle;
 
             taggerSpawner = GetComponent<TaggerSpawner>();
@@ -49,6 +46,7 @@ namespace OMG.Minigames.MazeAdventure
             itemSpawner.enabled = false;
 
             if (!IsHost) return;
+
             taggerSpawner.enabled = true;
             itemSpawner.enabled = true;
             taggerSpawner.StartSpawn();
