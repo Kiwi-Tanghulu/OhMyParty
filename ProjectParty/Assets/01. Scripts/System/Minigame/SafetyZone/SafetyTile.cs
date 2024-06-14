@@ -40,26 +40,19 @@ namespace OMG.Minigames.SafetyZone
 
         public void SetActive(bool active)
         {
-            
+            SetSafety(IsSafetyZone());
+            includePlayers.Clear();
+
+            ToggleBlock(IsSafetyZone());
 
             if(active)
             {
                 gameObject.SetActive(active);
-                tileVisual.Appear(() => {
-                    SetSafety(IsSafetyZone());
-                    includePlayers.Clear();
-
-                    ToggleBlock(IsSafetyZone());
-                });
+                tileVisual.Appear();
             }
             else
-            {
-                SetSafety(IsSafetyZone());
-                includePlayers.Clear();
-
-                ToggleBlock(IsSafetyZone());
-                tileVisual.Disappear(() => gameObject.SetActive(active));
-            }
+                gameObject.SetActive(false);
+                // tileVisual.Disappear(() => gameObject.SetActive(active));
         }
 
         public void ToggleBlock(bool active)
