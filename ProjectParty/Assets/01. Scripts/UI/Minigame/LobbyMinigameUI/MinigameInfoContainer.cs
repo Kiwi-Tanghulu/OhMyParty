@@ -10,7 +10,7 @@ using UnityEngine.Video;
 
 namespace OMG.UI
 {
-    public class MinigameReadyUI : MonoBehaviour
+    public class MinigameInfoContainer : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI gameNameText;
         [SerializeField] private TextMeshProUGUI gameDescriptionText;
@@ -27,9 +27,6 @@ namespace OMG.UI
         private Dictionary<ulong, PlayerReadyCheckBox> readyCheckBoxDictionary;
 
         [Space]
-        [SerializeField] private CinemachineVirtualCamera focusCam;
-
-        [Space]
         [SerializeField] MinigameListSO minigameList = null;
 
         private MinigameSO minigameSO;
@@ -44,34 +41,30 @@ namespace OMG.UI
         private void Start()
         {
             LobbyMinigameComponent lobbyMinigame = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
-            lobbyMinigame.OnMinigameSelectingEvent += LobbyMinigame_OnMinigameSelectingEvent;
             lobbyMinigame.OnMinigameRouletteChangeEvent += MinigameInfoUI_OnMinigameRouletteChangeEventEvent;
             lobbyMinigame.OnMinigameStartedEvent += LobbyMinigame_OnMinigameStartEvent;
 
             LobbyReadyComponent lobbyReady = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
 
-            //LobbyCutSceneComponent lobbyCutScene = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
-            //lobbyCutScene.CutSceneEvents[LobbyCutSceneState.StartFinish] += LobbyCutScene_OnStartFinish;
-
             Hide();
         }
 
-        public void Display()
+        public void Show()
         {
             if (minigameSO == null)
                 return;
 
             SetPlayerUI();
 
-            container.SetActive(true);
+            gameObject.SetActive(true);
 
             videoPlayer.Play(minigameSO.Video, 1f);
         }
 
         public void Hide()
         {
-            container.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         private void SetMinigameInfo(MinigameSO minigameSO)
@@ -129,13 +122,6 @@ namespace OMG.UI
                     readyCheckBoxDictionary[id].SetCheck(true);
                 }
             }
-        }
-
-        private void LobbyMinigame_OnMinigameSelectingEvent()
-        {
-            CameraManager.Instance.ChangeCamera(focusCam);
-
-            Display();
         }
     }
 }
