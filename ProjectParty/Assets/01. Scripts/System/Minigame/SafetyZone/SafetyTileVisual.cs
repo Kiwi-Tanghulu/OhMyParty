@@ -14,6 +14,7 @@ namespace OMG.Minigames.SafetyZone
         private void Awake()
         {
             numberText = transform.Find("NumberText").GetComponent<TMP_Text>();
+            animator = GetComponent<Animator>();
         }
 
         public void SetNumberText(int number)

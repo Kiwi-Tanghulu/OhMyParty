@@ -35,7 +35,7 @@ namespace OMG.Minigames
             
             if(IsHost == false)
                 return;
-
+            Debug.Log("Player Create");
             for (int i = 0; i < playerDatas.Count; ++i)
                 CreatePlayer(i);
         }

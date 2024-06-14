@@ -47,7 +47,7 @@ namespace OMG.Minigames.MazeAdventure
 
         private IEnumerator SpawnCycle()
         {
-            float time = 0;
+            float time = taggerSpawnTime;
             while (true)
             {
                 time += Time.deltaTime;
