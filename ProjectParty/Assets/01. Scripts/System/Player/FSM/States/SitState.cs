@@ -43,8 +43,6 @@ namespace OMG.Player.FSM
             {
                 usingChair.SetUseWhetherChair(sitPoint, true);
                 movement.Teleport(sitPoint.position, sitPoint.rotation);
-
-                Debug.Log(234);
             }
         }
 

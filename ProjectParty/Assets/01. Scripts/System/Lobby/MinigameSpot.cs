@@ -63,6 +63,8 @@ namespace OMG.Lobbies
             if(player == null)
                 return false;
 
+            FocusSpot(true);
+
             if (performer.TryGetComponent<PlayerController>(out PlayerController playerController))
             {
                 currentClientID = player.OwnerClientId;
@@ -85,7 +87,8 @@ namespace OMG.Lobbies
                         minigameComponent.StartMinigameSelecting();
 
                     input.OnSpaceEvent += HandleSpaceInput;
-                    FocusSpot(true);
+
+                    //FocusSpot(true);//move interact
                     break;
                 case LobbyState.MinigameSelected: // 미니게임 선택된 상태일 때 레디가 되면 미니게임 시작
                     StartMinigame();
@@ -148,7 +151,7 @@ namespace OMG.Lobbies
                 resultComponent.DisplayWinner();   
         }
 
-        private void FocusSpot(bool focus)
+        public void FocusSpot(bool focus)
         {
             InputManager.ChangeInputMap(focus ? InputMapType.UI : InputMapType.Play);
 

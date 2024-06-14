@@ -44,16 +44,70 @@ namespace OMG.UI
         private void Start()
         {
             LobbyMinigameComponent lobbyMinigame = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
-            lobbyMinigame.OnMinigameSelectedEvent += MinigameInfoUI_OnMinigameSelectedEvent;
+            lobbyMinigame.OnMinigameSelectingEvent += LobbyMinigame_OnMinigameSelectingEvent;
+            lobbyMinigame.OnMinigameRouletteChangeEvent += MinigameInfoUI_OnMinigameRouletteChangeEventEvent;
             lobbyMinigame.OnMinigameStartedEvent += LobbyMinigame_OnMinigameStartEvent;
 
             LobbyReadyComponent lobbyReady = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
 
-            LobbyCutSceneComponent lobbyCutScene = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
-            lobbyCutScene.CutSceneEvents[LobbyCutSceneState.StartFinish] += LobbyCutScene_OnStartFinish;
+            //LobbyCutSceneComponent lobbyCutScene = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
+            //lobbyCutScene.CutSceneEvents[LobbyCutSceneState.StartFinish] += LobbyCutScene_OnStartFinish;
 
             Hide();
+        }
+
+        public void Display()
+        {
+            if (minigameSO == null)
+                return;
+
+            SetPlayerUI();
+
+            container.SetActive(true);
+
+            videoPlayer.Play(minigameSO.Video, 1f);
+        }
+
+        public void Hide()
+        {
+            container.SetActive(false);
+        }
+
+        private void SetMinigameInfo(MinigameSO minigameSO)
+        {
+            this.minigameSO = minigameSO;
+
+            foreach (Transform controlKey in controlKeyInfoContainer)
+                Destroy(controlKey.gameObject);
+
+            gameNameText.text = minigameSO.MinigameName;
+            gameDescriptionText.text = minigameSO.MinigameDescription;
+
+            foreach (ControlKeyInfo keyInfo in minigameSO.ControlKeyInfoList)
+            {
+                ControlKeyInfoUI controlKey = Instantiate(controlKeyInfoPrefab, controlKeyInfoContainer);
+
+                controlKey.DisplayKeyInfo(keyInfo);
+            }
+
+            Debug.Log("set minigame info");
+        }
+
+        private void SetPlayerUI()
+        {
+            foreach (var keyValuePair in readyCheckBoxDictionary)
+                Destroy(keyValuePair.Value.gameObject);
+            readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
+
+            foreach (PlayerController player in Lobby.Current.PlayerContainer.PlayerList)
+            {
+                PlayerReadyCheckBox checkBox = Instantiate(readyCheckBoxPrefab, readyCheckBoxContainer);
+                checkBox.SetPlayerImage(
+                    PlayerManager.Instance.RenderTargetPlayerDic[player.OwnerClientId].RenderTexture);
+                checkBox.SetNameText(player.name); //
+                readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
+            }
         }
 
         private void LobbyMinigame_OnMinigameStartEvent()
@@ -61,7 +115,7 @@ namespace OMG.UI
             Hide();
         }
 
-        private void MinigameInfoUI_OnMinigameSelectedEvent(int index)
+        private void MinigameInfoUI_OnMinigameRouletteChangeEventEvent(int index)
         {
             SetMinigameInfo(minigameList[index]);
         }
@@ -77,56 +131,11 @@ namespace OMG.UI
             }
         }
 
-        private void LobbyCutScene_OnStartFinish()
+        private void LobbyMinigame_OnMinigameSelectingEvent()
         {
             CameraManager.Instance.ChangeCamera(focusCam);
 
             Display();
-        }
-
-        public void SetMinigameInfo(MinigameSO minigameSO)
-        {
-            this.minigameSO = minigameSO;
-        }
-
-        public void Display()
-        {
-            if (minigameSO == null)
-                return;
-
-            foreach (Transform controlKey in controlKeyInfoContainer)
-                Destroy(controlKey.gameObject);
-            foreach (var keyValuePair in readyCheckBoxDictionary)
-                Destroy(keyValuePair.Value.gameObject);
-            readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
-
-            gameNameText.text = minigameSO.MinigameName;
-            gameDescriptionText.text = minigameSO.MinigameDescription;
-
-            foreach (ControlKeyInfo keyInfo in minigameSO.ControlKeyInfoList)
-            {
-                ControlKeyInfoUI controlKey = Instantiate(controlKeyInfoPrefab, controlKeyInfoContainer);
-
-                controlKey.DisplayKeyInfo(keyInfo);
-            }
-
-            foreach(PlayerController player in Lobby.Current.PlayerContainer.PlayerList)
-            {
-                PlayerReadyCheckBox checkBox = Instantiate(readyCheckBoxPrefab, readyCheckBoxContainer);
-                checkBox.SetPlayerImage(
-                    PlayerManager.Instance.RenderTargetPlayerDic[player.OwnerClientId].RenderTexture);
-                checkBox.SetNameText(player.name); //
-                readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
-            }
-
-            container.SetActive(true);
-
-            videoPlayer.Play(minigameSO.Video, 1f);
-        }
-
-        public void Hide()
-        {
-            container.SetActive(false);
         }
     }
 }
