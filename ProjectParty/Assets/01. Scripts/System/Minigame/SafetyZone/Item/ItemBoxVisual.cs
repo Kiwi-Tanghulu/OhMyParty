@@ -11,6 +11,7 @@ namespace OMG.Minigames.SafetyZone
         public GameObject CurrentObject => itemBox.gameObject;
 
         private ItemBoxPanel itemBoxPanel = null;
+        private Outline outline = null;
         private Timer timer = null;
         
         private void Awake()
@@ -18,6 +19,12 @@ namespace OMG.Minigames.SafetyZone
             itemBox = transform.parent.GetComponent<ItemBox>();
             itemBoxPanel = itemBox.ItemBoxPanel;
             timer = itemBox.GetComponent<Timer>();
+            outline = GetComponent<Outline>();
+        }
+
+        public void Init()
+        {
+            outline.enabled = true;
         }
 
         public void OnFocusBegin(Vector3 point)

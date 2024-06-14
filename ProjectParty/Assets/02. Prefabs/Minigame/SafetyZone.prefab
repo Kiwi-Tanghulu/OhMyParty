@@ -3542,9 +3542,11 @@ Transform:
   m_Children:
   - {fileID: 17320226053128649}
   - {fileID: 3374847241237825165}
+  - {fileID: 8551053367656135606}
+  - {fileID: 6477493825662365032}
+  - {fileID: 6559006055901936333}
   - {fileID: 6867594693288639097}
   - {fileID: 6616085031953957311}
-  - {fileID: 6477493825662365032}
   - {fileID: 2512275156273398784}
   - {fileID: 4488269768459502896}
   - {fileID: 3651992078064499539}
@@ -3553,7 +3555,6 @@ Transform:
   - {fileID: 6957033315370143588}
   - {fileID: 8036388049083664997}
   - {fileID: 7862056190485139390}
-  - {fileID: 8551053367656135606}
   - {fileID: 112023706602043329}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3569,7 +3570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2573400525
+  GlobalObjectIdHash: 742203353
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -3592,7 +3593,55 @@ MonoBehaviour:
   minigameData: {fileID: 11400000, guid: 3cfaf355f097ae34e83c56b453e66221, type: 2}
   OnStartedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1842304457282414842}
+        m_TargetAssemblyTypeName: OMG.Minigames.SafetyZone.ItemBoxVisual, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3094343558359092830}
+        m_TargetAssemblyTypeName: OMG.Minigames.SafetyZone.ItemBoxVisual, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4232908353634549925}
+        m_TargetAssemblyTypeName: OMG.Minigames.SafetyZone.ItemBoxVisual, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7817032501424463917}
+        m_TargetAssemblyTypeName: OMG.Minigames.SafetyZone.ItemBoxVisual, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -8218,16 +8267,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5266628800318939551}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.70710695, z: -0, w: -0.7071066}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4251030038705061487}
   - {fileID: 693218419866818763}
   - {fileID: 1860497712915650096}
   - {fileID: 5698235281493128888}
-  m_Father: {fileID: 6616085031953957311}
+  m_Father: {fileID: 5516039600290121629}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5309962166093628295
 GameObject:
@@ -13982,7 +14031,6 @@ Transform:
   - {fileID: 8274871792869560081}
   - {fileID: 5616758174374194724}
   - {fileID: 7923176781507607961}
-  - {fileID: 6559006055901936333}
   m_Father: {fileID: 5516039600290121629}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!95 &5267661171760269001
@@ -16922,6 +16970,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b63eb682c9170946bacc616ec8a8c63, type: 3}
+--- !u!114 &1842304457282414842 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 390131108489827749, guid: 9b63eb682c9170946bacc616ec8a8c63,
+    type: 3}
+  m_PrefabInstance: {fileID: 2088306873503743327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78df83238bc4d140a85c8baaeb3d0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4251030038705061487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2739764472568988464, guid: 9b63eb682c9170946bacc616ec8a8c63,
@@ -17389,6 +17449,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2327964200393154496}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4232908353634549925 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1941289636930871141, guid: d5175add213b2df4294a68059fa966b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2327964200393154496}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78df83238bc4d140a85c8baaeb3d0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2823886168564829364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18030,6 +18102,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3430431471286787067}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3094343558359092830 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 390131108489827749, guid: c20719c7111d1f34e9209504fa877122,
+    type: 3}
+  m_PrefabInstance: {fileID: 3430431471286787067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78df83238bc4d140a85c8baaeb3d0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3442235539423397511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21957,6 +22041,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7901677678125460476}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7817032501424463917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 131669126540921809, guid: 9f412144e2d6cb34e82a0071a4795873,
+    type: 3}
+  m_PrefabInstance: {fileID: 7901677678125460476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78df83238bc4d140a85c8baaeb3d0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7916329673087987183
 PrefabInstance:
   m_ObjectHideFlags: 0

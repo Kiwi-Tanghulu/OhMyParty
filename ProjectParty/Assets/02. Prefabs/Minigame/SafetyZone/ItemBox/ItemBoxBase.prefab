@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef216e7619e41fe418b57ede38755dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 0}
+  itemIcon: {fileID: 0}
   cooltime: 3
   prefabs: []
 --- !u!114 &4350909347886019270
@@ -77,6 +79,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8294464520552994989}
   - component: {fileID: 5518401665101757697}
+  - component: {fileID: 5947878961458127057}
   - component: {fileID: 319125751051938659}
   m_Layer: 8
   m_Name: Visual
@@ -112,7 +115,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78df83238bc4d140a85c8baaeb3d0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
+--- !u!114 &5947878961458127057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8669441538630353431}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.8851317, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 1
+  bakeKeys: []
+  bakeValues: []
 --- !u!65 &319125751051938659
 BoxCollider:
   m_ObjectHideFlags: 0
