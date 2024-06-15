@@ -1,3 +1,6 @@
+using DG.Tweening;
+using OMG.Inputs;
+using OMG.Lobbies;
 using OMG.Minigames;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,48 +8,113 @@ using UnityEngine;
 
 namespace OMG.UI
 {
-    public class MinigameRouletteContainer : MonoBehaviour
+    public class MinigameRouletteContainer : UIObject
     {
         [SerializeField] private MinigameListSO minigameListSO;
 
         [Space]
-        [SerializeField] private Transform slotContainerTrm;
+        [SerializeField] private RectTransform slotContainerRect;
         [SerializeField] private MinigameSlot slotPrefab;
         [SerializeField] private float padding;
         [SerializeField] private float moveSpeed;
 
+        [Space]
+        [SerializeField] private float readyTime;
+        [SerializeField] private float readyMoveValue;
+
+        private List<MinigameSlot> slotList;
+
+        private Vector2 slotStartPos;
+        private Vector2 slotEndPos;
+        private float slotSpawnPosOffset;
+        private float slotSpawnStartXPos;
+
+        private bool isRouletteMove;
+
+        private MinigameSO selectedMinigame;
+        public MinigameSO SelectedMinigame => selectedMinigame;
+
+        public override void Init()
+        {
+            base.Init();
+
+            slotList = new();
+
+            slotStartPos = new Vector2(Rect.rect.width / 2f + slotPrefab.Rect.rect.width / 2f, 0f);
+            slotEndPos = -slotStartPos;
+            slotSpawnPosOffset = slotPrefab.Rect.rect.width + padding;
+            slotSpawnStartXPos = -slotContainerRect.rect.width / 2f + padding;
+        }
+
         private void Update()
         {
-            if(gameObject.activeSelf)
+            if(isRouletteMove)
             {
-                foreach(Transform slotTrm in slotContainerTrm)
+                foreach(MinigameSlot slot in slotList)
                 {
-                    slotTrm.localPosition += -Vector3.right * moveSpeed;
+                    //move
+                    slot.Rect.anchoredPosition += -Vector2.right * moveSpeed;
+
+                    //teleport slot
+                    if (slot.Rect.anchoredPosition.x < slotEndPos.x)
+                        slot.Rect.anchoredPosition = slotStartPos;
                 }
             }
         }
 
-        public void Show()
+        public override void Show()
         {
-            foreach(Transform slot in slotContainerTrm)
+            base.Show();
+
+            foreach(MinigameSlot slot in slotList)
             {
+                slotList.Remove(slot);
                 Destroy(slot.gameObject);
             }
 
-            for(int i = 0; i < minigameListSO.Count; i++)
+            for (int i = 0; i < minigameListSO.Count; i++)
             {
-                Vector3 spawnPos = slotContainerTrm.position + slotContainerTrm.right * padding * i;
-                MinigameSlot slot = Instantiate(slotPrefab, slotContainerTrm);
-                slot.transform.position = spawnPos;
-                //slot.transform.localRotation = transform.rotation;
+                Vector2 spawnPos = new Vector2(slotSpawnStartXPos + (slotSpawnPosOffset * i), 0);
+                
+                MinigameSlot slot = Instantiate(slotPrefab, slotContainerRect);
+                slot.Init();
+                slot.SetMinigameSO(minigameListSO[i]);
+                slot.Rect.anchoredPosition = spawnPos;
+
+                slotList.Add(slot);
             }
 
-            gameObject.SetActive(true);
+            StartCoroutine(MoveReady());
         }
 
-        public void Hide()
+        private IEnumerator MoveReady()
         {
-            gameObject.SetActive(false);
+            InputManager.SetInputEnable(false);
+
+            foreach(MinigameSlot slot in slotList)
+            {
+                slot.Rect.DOAnchorPosX(slot.Rect.anchoredPosition.x + readyMoveValue, readyTime);
+            }
+
+            yield return new WaitForSeconds(readyTime);
+
+            isRouletteMove = true;
+            InputManager.SetInputEnable(true);
+        }
+
+        public void StopRoulette()
+        {
+            isRouletteMove = false;
+
+            float minDist = Mathf.Infinity;
+            MinigameSlot currentSlot = null;
+
+            for(int i = 0; i < slotList.Count; i++)
+            {
+                if (Mathf.Abs(slotList[i].Rect.anchoredPosition.x - slotContainerRect.anchoredPosition.x) < minDist)
+                    currentSlot = slotList[i];
+            }
+            selectedMinigame = currentSlot.MinigameSO;
         }
     }
 }

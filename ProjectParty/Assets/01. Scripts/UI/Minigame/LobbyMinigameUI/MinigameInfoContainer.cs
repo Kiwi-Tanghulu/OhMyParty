@@ -10,7 +10,7 @@ using UnityEngine.Video;
 
 namespace OMG.UI
 {
-    public class MinigameInfoContainer : MonoBehaviour
+    public class MinigameInfoContainer : UIObject
     {
         [SerializeField] private TextMeshProUGUI gameNameText;
         [SerializeField] private TextMeshProUGUI gameDescriptionText;
@@ -19,7 +19,6 @@ namespace OMG.UI
         [Space]
         [SerializeField] private Transform controlKeyInfoContainer;
         [SerializeField] private ControlKeyInfoUI controlKeyInfoPrefab;
-        private GameObject container;
 
         [Space]
         [SerializeField] private Transform readyCheckBoxContainer;
@@ -31,46 +30,39 @@ namespace OMG.UI
 
         private MinigameSO minigameSO;
 
-        private void Awake()
+        public override void Init()
         {
+            base.Init();
+
             readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
-
-            container = transform.Find("Container").gameObject;
-        }
-
-        private void Start()
-        {
             LobbyMinigameComponent lobbyMinigame = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
-            lobbyMinigame.OnMinigameRouletteChangeEvent += MinigameInfoUI_OnMinigameRouletteChangeEventEvent;
+            lobbyMinigame.OnMinigameSelectedEvent += MinigameInfoUI_OnMinigameSelecteEvent;
             lobbyMinigame.OnMinigameStartedEvent += LobbyMinigame_OnMinigameStartEvent;
 
             LobbyReadyComponent lobbyReady = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
-
-            Hide();
         }
 
-        public void Show()
+        public override void Show()
         {
             if (minigameSO == null)
                 return;
 
-            SetPlayerUI();
+            base.Show();
 
-            gameObject.SetActive(true);
+            SetMinigameUI();
+            SetPlayerUI();
 
             videoPlayer.Play(minigameSO.Video, 1f);
         }
 
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-
-        private void SetMinigameInfo(MinigameSO minigameSO)
+        public void SetMinigameSO(MinigameSO minigameSO)
         {
             this.minigameSO = minigameSO;
+        }
 
+        private void SetMinigameUI()
+        {
             foreach (Transform controlKey in controlKeyInfoContainer)
                 Destroy(controlKey.gameObject);
 
@@ -83,8 +75,6 @@ namespace OMG.UI
 
                 controlKey.DisplayKeyInfo(keyInfo);
             }
-
-            Debug.Log("set minigame info");
         }
 
         private void SetPlayerUI()
@@ -108,9 +98,10 @@ namespace OMG.UI
             Hide();
         }
 
-        private void MinigameInfoUI_OnMinigameRouletteChangeEventEvent(int index)
+        private void MinigameInfoUI_OnMinigameSelecteEvent(int index)
         {
-            SetMinigameInfo(minigameList[index]);
+            SetMinigameSO(minigameList[index]);
+            Show();
         }
 
         private void MinigameInfoUI_OnPlayerReadyEvent(ulong id)

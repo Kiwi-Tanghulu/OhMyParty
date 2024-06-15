@@ -20,12 +20,10 @@ namespace OMG.Lobbies
         /// ( MinigameData, True if Minigame Cycle Finished. False if Minigame Remaining )
         /// </summary>
         public event Action<Minigame, bool> OnMinigameFinishedEvent = null;
-        public event Action<int> OnMinigameRouletteChangeEvent = null;
         public event Action OnMinigameSelectingEvent = null;
         public event Action<int> OnMinigameSelectedEvent = null;
         public event Action OnMinigameStartedEvent = null;
         private MinigameSO currentMinigame = null;
-        private int currentMinigameIndex;
 
         public override void Init(Lobby lobby)
         {
@@ -43,22 +41,19 @@ namespace OMG.Lobbies
                 return;
 
             Lobby.ChangeLobbyState(LobbyState.MinigameSelecting);
-
-            StartCoroutine(MinigameRoulette());
             
             BroadcastMinigameSelectingClientRpc();
         }
 
-        public void SelectMinigame()
+        public void SelectMinigame(MinigameSO minigame)
         {
             if (IsHost == false)
                 return;
 
-            StopAllCoroutines();
-
+            currentMinigame = minigame;
             Lobby.ChangeLobbyState(LobbyState.MinigameSelected);
 
-            BroadcastMinigameSelectedClientRpc(currentMinigameIndex);
+            BroadcastMinigameSelectedClientRpc(minigameList.GetIndex(currentMinigame));
 
             currentMinigame.OnMinigameFinishedEvent += HandleMinigameFinished;
 
@@ -93,32 +88,10 @@ namespace OMG.Lobbies
             minigame.MinigameData.OnMinigameFinishedEvent -= HandleMinigameFinished;
         }
 
-        private IEnumerator MinigameRoulette()
-        {
-            currentMinigameIndex = 0;
-
-            while (true)
-            {
-                currentMinigame = minigameList[currentMinigameIndex];
-
-                BroadcastMinigameRouletteClientRpc(currentMinigameIndex);
-
-                currentMinigameIndex = (currentMinigameIndex + 1) % minigameList.Count;
-
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
-
         [ClientRpc]
         private void BroadcastMinigameStartedClientRpc()
         {
             OnMinigameStartedEvent?.Invoke();
-        }
-
-        [ClientRpc]
-        private void BroadcastMinigameRouletteClientRpc(int index)
-        {
-            OnMinigameRouletteChangeEvent?.Invoke(index);
         }
 
         [ClientRpc]

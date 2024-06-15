@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using OMG.Minigames;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MinigameSlot : MonoBehaviour
+namespace OMG.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MinigameSlot : UIObject
     {
-        
-    }
+        private MinigameSO minigameSO;
+        public MinigameSO MinigameSO => minigameSO;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] private TextMeshProUGUI titleText;
+        [SerializeField] private Image minigameImage;
+
+        public void SetMinigameSO(MinigameSO minigameSO)
+        {
+            this.minigameSO = minigameSO;
+
+            titleText.text = minigameSO.MinigameName;
+            //minigameImage.sprite = minigameSO.MinigameImage;
+        }
     }
 }

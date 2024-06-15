@@ -1,12 +1,11 @@
 using Cinemachine;
+using OMG.Extensions;
 using OMG.Lobbies;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace OMG.UI
 {
-    public class MinigameLobbyUI : MonoBehaviour
+    public class MinigameLobbyUI : UIObject
     {
         [SerializeField] private MinigameRouletteContainer roulette;
         [SerializeField] private MinigameInfoContainer info;
@@ -14,17 +13,38 @@ namespace OMG.UI
         [Space]
         [SerializeField] private CinemachineVirtualCamera focusCam;
 
-        private void Start()
+        public override void Init()
         {
+            base.Init();
+
             LobbyMinigameComponent lobbyMinigame = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
             lobbyMinigame.OnMinigameSelectingEvent += LobbyMinigame_OnMinigameSelectingEvent;
+            lobbyMinigame.OnMinigameSelectedEvent += LobbyMinigame_OnMinigameSelectedEvent;
+
+            Hide();
         }
 
         private void LobbyMinigame_OnMinigameSelectingEvent()
         {
-            CameraManager.Instance.ChangeCamera(focusCam);
+            Show();
 
-            roulette.Show();
+            this.DelayCoroutine(2f, () =>
+            {
+                roulette.Show();
+                //CameraManager.Instance.ChangeCamera(focusCam, 2f, null, () => roulette.Show());
+            });
+            CameraManager.Instance.ChangeCamera(focusCam, 2f, null, () => roulette.Show());
+
+        }
+
+        private void LobbyMinigame_OnMinigameSelectedEvent(int obj)
+        {
+            roulette.Hide();
+        }
+
+        public override void Show()
+        {
+            gameObject.SetActive(true);
         }
     }
 }

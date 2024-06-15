@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 namespace OMG.Minigames
@@ -10,5 +11,6 @@ namespace OMG.Minigames
 
         public MinigameSO this[int index] => minigameList[index];
         public int Count => minigameList.Count;
+        public int GetIndex(MinigameSO minigame) => minigameList.IndexOf(minigame);
     }
 }

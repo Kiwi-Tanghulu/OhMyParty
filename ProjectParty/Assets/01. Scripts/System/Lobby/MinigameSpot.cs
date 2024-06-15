@@ -31,6 +31,9 @@ namespace OMG.Lobbies
 
         public UnityEvent OnInteractEvent;
 
+        [Space]
+        [SerializeField] private MinigameRouletteContainer roulette;
+
         private void Awake()
         {
             focusVCam = transform.Find("FocusVCam").GetComponent<CinemachineVirtualCamera>();
@@ -115,7 +118,8 @@ namespace OMG.Lobbies
             if(IsHost == false) // Check Authority Later
                 return;
 
-            minigameComponent.SelectMinigame();
+            roulette.StopRoulette();
+            minigameComponent.SelectMinigame(roulette.SelectedMinigame);
             input.OnSpaceEvent -= HandleSpaceInput;
         }
 
@@ -124,7 +128,7 @@ namespace OMG.Lobbies
             if(IsHost)
                 readyComponent.ClearLobbyReady();
             input.OnInteractEvent += HandleInteractInput;
-            cutSceneComponent.PlayCutscene(true);
+            cutSceneComponent.PlayCutscene(true);//here
 
             DisplayMinigameInfo(minigameList[index]);
         }
@@ -154,7 +158,7 @@ namespace OMG.Lobbies
         public void FocusSpot(bool focus)
         {
             InputManager.ChangeInputMap(focus ? InputMapType.UI : InputMapType.Play);
-
+            Debug.Log("spot");
             if (focus)
                 CameraManager.Instance.ChangeCamera(focusVCam);
             else
