@@ -1,10 +1,11 @@
 using DG.Tweening;
 using OMG.Inputs;
-using OMG.Lobbies;
 using OMG.Minigames;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.UI
 {
@@ -16,7 +17,9 @@ namespace OMG.UI
         [SerializeField] private RectTransform slotContainerRect;
         [SerializeField] private MinigameSlot slotPrefab;
         [SerializeField] private float padding;
-        [SerializeField] private float moveSpeed;
+        [SerializeField] private float maxMoveSpeed;
+        [SerializeField] private float stopTime;
+        private float moveSpeed;
 
         [Space]
         [SerializeField] private float readyTime;
@@ -26,39 +29,66 @@ namespace OMG.UI
 
         private Vector2 slotStartPos;
         private Vector2 slotEndPos;
-        private float slotSpawnPosOffset;
-        private float slotSpawnStartXPos;
+        private Vector2 slotSpawnPosOffset;
+        private Vector2 slotSpawnStartXPos;
 
         private bool isRouletteMove;
 
-        private MinigameSO selectedMinigame;
-        public MinigameSO SelectedMinigame => selectedMinigame;
+        private MinigameSlot selctedSlot;
+        public MinigameSO SelectedMinigame => selctedSlot?.MinigameSO;
+
+        public UnityEvent OnStartMoveEvent;
+        public UnityEvent OnStartStopMoveEvent;
 
         public override void Init()
         {
             base.Init();
 
-            slotList = new();
 
             slotStartPos = new Vector2(Rect.rect.width / 2f + slotPrefab.Rect.rect.width / 2f, 0f);
             slotEndPos = -slotStartPos;
-            slotSpawnPosOffset = slotPrefab.Rect.rect.width + padding;
-            slotSpawnStartXPos = -slotContainerRect.rect.width / 2f + padding;
+            slotSpawnPosOffset = new Vector2(slotPrefab.Rect.rect.width + padding, 0f);
+            slotSpawnStartXPos = new Vector2(-slotContainerRect.rect.width / 2f + padding, 0f);
+
+            //make slot
+            slotList = new();
+            for (int i = 0; i < minigameListSO.Count; i++)
+            {
+                Vector2 spawnPos = slotSpawnStartXPos + slotSpawnPosOffset * i;
+
+                MinigameSlot slot = Instantiate(slotPrefab, slotContainerRect);
+                slot.Init();
+                slot.SetMinigameSO(minigameListSO[i]);
+                slot.Rect.anchoredPosition = spawnPos;
+
+                slotList.Add(slot);
+            }
         }
 
         private void Update()
         {
-            if(isRouletteMove)
+            //roulette move
+            for(int i = 0; i < slotList.Count; i++)
             {
-                foreach(MinigameSlot slot in slotList)
-                {
-                    //move
-                    slot.Rect.anchoredPosition += -Vector2.right * moveSpeed;
+                slotList[i].Rect.anchoredPosition += Time.deltaTime * -Vector2.right * moveSpeed;
 
-                    //teleport slot
-                    if (slot.Rect.anchoredPosition.x < slotEndPos.x)
-                        slot.Rect.anchoredPosition = slotStartPos;
+                //teleport slot
+                if (slotList[i].Rect.anchoredPosition.x < slotEndPos.x)
+                {
+                    int frontIndex = i == 0 ? slotList.Count - 1 : i - 1;
+                    slotList[i].Rect.anchoredPosition = 
+                        slotList[frontIndex].Rect.anchoredPosition + slotSpawnPosOffset;
                 }
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.TryGetComponent<MinigameSlot>(out MinigameSlot slot))
+            {
+                selctedSlot?.Deselected();
+                selctedSlot = slot;
+                slot.Selected();
             }
         }
 
@@ -66,22 +96,12 @@ namespace OMG.UI
         {
             base.Show();
 
-            foreach(MinigameSlot slot in slotList)
+            //repositioning
+            for (int i = 0; i < slotList.Count; i++)
             {
-                slotList.Remove(slot);
-                Destroy(slot.gameObject);
-            }
+                Vector2 pos = slotSpawnStartXPos + slotSpawnPosOffset * i;
 
-            for (int i = 0; i < minigameListSO.Count; i++)
-            {
-                Vector2 spawnPos = new Vector2(slotSpawnStartXPos + (slotSpawnPosOffset * i), 0);
-                
-                MinigameSlot slot = Instantiate(slotPrefab, slotContainerRect);
-                slot.Init();
-                slot.SetMinigameSO(minigameListSO[i]);
-                slot.Rect.anchoredPosition = spawnPos;
-
-                slotList.Add(slot);
+                slotList[i].Rect.anchoredPosition = pos;
             }
 
             StartCoroutine(MoveReady());
@@ -91,30 +111,32 @@ namespace OMG.UI
         {
             InputManager.SetInputEnable(false);
 
+            //move ready
             foreach(MinigameSlot slot in slotList)
             {
                 slot.Rect.DOAnchorPosX(slot.Rect.anchoredPosition.x + readyMoveValue, readyTime);
             }
 
             yield return new WaitForSeconds(readyTime);
+            
+            //start delay
+            yield return new WaitForSeconds(0.2f);
 
             isRouletteMove = true;
+            moveSpeed = maxMoveSpeed;
             InputManager.SetInputEnable(true);
+
+            OnStartMoveEvent?.Invoke();
         }
 
-        public void StopRoulette()
+        public void StopRoulette(Action onStopAction)
         {
             isRouletteMove = false;
 
-            float minDist = Mathf.Infinity;
-            MinigameSlot currentSlot = null;
+            DOTween.To(() => moveSpeed, x => moveSpeed = x, 0f, stopTime)
+                .OnComplete(() => onStopAction?.Invoke());
 
-            for(int i = 0; i < slotList.Count; i++)
-            {
-                if (Mathf.Abs(slotList[i].Rect.anchoredPosition.x - slotContainerRect.anchoredPosition.x) < minDist)
-                    currentSlot = slotList[i];
-            }
-            selectedMinigame = currentSlot.MinigameSO;
+            OnStartStopMoveEvent?.Invoke();
         }
     }
 }

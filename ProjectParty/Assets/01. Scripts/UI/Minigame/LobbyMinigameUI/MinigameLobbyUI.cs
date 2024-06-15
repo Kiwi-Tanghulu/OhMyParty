@@ -1,5 +1,6 @@
 using Cinemachine;
 using OMG.Extensions;
+using OMG.Inputs;
 using OMG.Lobbies;
 using UnityEngine;
 
@@ -28,13 +29,11 @@ namespace OMG.UI
         {
             Show();
 
-            this.DelayCoroutine(2f, () =>
-            {
-                roulette.Show();
-                //CameraManager.Instance.ChangeCamera(focusCam, 2f, null, () => roulette.Show());
-            });
+            //should make delay
             CameraManager.Instance.ChangeCamera(focusCam, 2f, null, () => roulette.Show());
 
+            InputManager.ChangeInputMap(InputMapType.UI);
+            InputManager.SetInputEnable(false);
         }
 
         private void LobbyMinigame_OnMinigameSelectedEvent(int obj)

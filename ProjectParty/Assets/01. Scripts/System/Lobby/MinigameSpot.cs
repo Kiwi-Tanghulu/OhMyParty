@@ -118,9 +118,11 @@ namespace OMG.Lobbies
             if(IsHost == false) // Check Authority Later
                 return;
 
-            roulette.StopRoulette();
-            minigameComponent.SelectMinigame(roulette.SelectedMinigame);
-            input.OnSpaceEvent -= HandleSpaceInput;
+            roulette.StopRoulette(() =>
+            {
+                minigameComponent.SelectMinigame(roulette.SelectedMinigame);
+                input.OnSpaceEvent -= HandleSpaceInput;
+            });
         }
 
         private void HandleMinigameSelected(int index)
@@ -157,8 +159,10 @@ namespace OMG.Lobbies
 
         public void FocusSpot(bool focus)
         {
-            InputManager.ChangeInputMap(focus ? InputMapType.UI : InputMapType.Play);
-            Debug.Log("spot");
+            //InputManager.ChangeInputMap(focus ? InputMapType.UI : InputMapType.Play);
+            if (focus == false)
+                InputManager.ChangeInputMap(InputMapType.Play);
+
             if (focus)
                 CameraManager.Instance.ChangeCamera(focusVCam);
             else
