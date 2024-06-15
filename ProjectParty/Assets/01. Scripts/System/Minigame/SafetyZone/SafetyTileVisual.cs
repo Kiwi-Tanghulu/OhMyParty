@@ -14,6 +14,7 @@ namespace OMG.Minigames.SafetyZone
         private void Awake()
         {
             numberText = transform.Find("NumberText").GetComponent<TMP_Text>();
+            animator = GetComponent<Animator>();
         }
 
         public void SetNumberText(int number)
@@ -26,18 +27,26 @@ namespace OMG.Minigames.SafetyZone
 
         public void Appear(Action callback = null)
         {
-            animator.SetTrigger("Appear");
+            animator.SetBool("Appear", true);
             callbackCache = callback;
         }
 
         public void Disappear(Action callback = null)
         {
-            animator.SetTrigger("Disappear");
+            animator.SetBool("Disappear", true);
             callbackCache = callback;
+        }
+
+        private void ClearAnimation()
+        {
+            animator.SetBool("Disappear", false);
+            animator.SetBool("Appear", false);
         }
 
         public void OnAnimationEvent()
         {
+            ClearAnimation();
+
             Action callback = callbackCache;
             callbackCache = null;
             callback?.Invoke();

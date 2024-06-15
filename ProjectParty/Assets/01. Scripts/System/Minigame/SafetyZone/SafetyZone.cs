@@ -16,9 +16,6 @@ namespace OMG.Minigames.SafetyZone
             base.Init(playerIDs);
             safetyZoneCycle = cycle as SafetyZoneCycle;
 
-            for(int i = 0; i < playerDatas.Count; ++i)
-                CreatePlayer(i);
-
             tiles.Init();
             StartIntro();
         }

@@ -19,7 +19,7 @@ namespace OMG.Minigames
         protected override void Awake()
         {
             base.Awake();
-            playerPanel = minigame.MinigameUI.PlayerPanel as DeathmatchPlayerPanel;
+            playerPanel = minigame.MinigamePanel.PlayerPanel as DeathmatchPlayerPanel;
         }
 
         public virtual void HandlePlayerDead(ulong clientID)

@@ -20,8 +20,8 @@ namespace OMG.Minigames
         protected NetworkList<PlayerData> playerDatas = null;
         public NetworkList<PlayerData> PlayerDatas => playerDatas;
 
-        protected MinigameUI minigameUI = null;
-        public MinigameUI MinigameUI => minigameUI;
+        protected MinigamePanel minigamePanel = null;
+        public MinigamePanel MinigamePanel => minigamePanel;
 
         protected MinigameCycle cycle = null;
 
@@ -29,8 +29,12 @@ namespace OMG.Minigames
         {
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
-            minigameUI = DEFINE.MinigameCanvas.GetComponent<MinigameUI>();
+            minigamePanel = DEFINE.MinigameCanvas.Find("MinigamePanel").GetComponent<MinigamePanel>();
         }
+
+        // protected virtual void Start()
+        // {
+        // }
 
         public override void OnNetworkSpawn()
         {
@@ -78,6 +82,8 @@ namespace OMG.Minigames
         public virtual void StartGame()
         { 
             InputManager.ChangeInputMap(InputMapType.Play);
+            minigamePanel.Init(this);
+            minigamePanel.Display(true);
             OnStartedEvent?.Invoke();
         }
 
@@ -102,5 +108,20 @@ namespace OMG.Minigames
         }
 
         public virtual int CalculateScore(int origin) => origin;
+
+        public void DespawnMinigameObject(NetworkObject target, bool ignoreOwnership = false)
+        {
+            if (ignoreOwnership)
+                DespawnObjectServerRpc(target);
+            else
+                target.Despawn();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DespawnObjectServerRpc(NetworkObjectReference targetReference)
+        {
+            if (targetReference.TryGet(out NetworkObject target))
+                target.Despawn();
+        }
     }
 }

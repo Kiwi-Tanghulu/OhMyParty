@@ -21,10 +21,7 @@ namespace OMG.Minigames.RockFestival
                 if(i >= PlayerDatas.Count)
                     scoreAreas[i].Init(0, false);
                 else
-                {
                     scoreAreas[i].Init(PlayerDatas[i].clientID, true);
-                    CreatePlayer(i);
-                }
             }
 
             spawner = GetComponent<RockSpawner>();

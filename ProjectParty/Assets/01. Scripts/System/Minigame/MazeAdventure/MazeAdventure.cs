@@ -23,9 +23,6 @@ namespace OMG.Minigames.MazeAdventure
         {
             base.Init(playerIDs);
 
-            for (int i = 0; i < playerDatas.Count; ++i)
-                CreatePlayer(i);
-
             deathmatchCycle = cycle as DeathmatchCycle;
 
             taggerSpawner = GetComponent<TaggerSpawner>();
@@ -33,19 +30,27 @@ namespace OMG.Minigames.MazeAdventure
 
             StartIntro();
             SettingTaggerMoveTargetSO();
+        }
 
+        protected override void Awake()
+        {
+            base.Awake();
             RenderSettings.skybox = mazeAdventureSkyBoxMaterial;
         }
 
         public override void StartGame()
         {
             base.StartGame();
+            InputManager.ChangeInputMap(InputMapType.Play);
+            taggerSpawner.enabled = false;
+            itemSpawner.enabled = false;
 
             if (!IsHost) return;
+
             taggerSpawner.enabled = true;
+            itemSpawner.enabled = true;
             taggerSpawner.StartSpawn();
             itemSpawner.StartSpawn();
-            InputManager.ChangeInputMap(InputMapType.Play);
         }
 
         private void SettingTaggerMoveTargetSO()

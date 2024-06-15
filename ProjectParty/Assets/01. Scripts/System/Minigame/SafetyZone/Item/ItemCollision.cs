@@ -45,7 +45,7 @@ namespace OMG.Minigames.SafetyZone
         {
             rigidbody.useGravity = active;
             if(active)
-                rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+                rigidbody.constraints = RigidbodyConstraints.None;
             else
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Minigames.MazeAdventure
@@ -11,10 +12,13 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private GameObject taggerObj;
 
         private DeathmatchCycle cycle = null;
+        private List<NetworkObject> taggerList = null;
 
         private void Awake()
         {
+            taggerList = new List<NetworkObject>();
             cycle = GetComponent<DeathmatchCycle>();
+            
         }
         private void SpawnTagger()
         {
@@ -23,10 +27,22 @@ namespace OMG.Minigames.MazeAdventure
             tagger.Init(cycle);
             tagger.NetworkObject.SpawnWithOwnership(0, true);
             tagger.NetworkObject.TrySetParent(gameObject, false);
+            taggerList.Add(tagger.NetworkObject);
         }
         public void StartSpawn()
         {
             StartCoroutine(SpawnCycle());
+        }
+        public void StopSpawn()
+        {
+            StopAllCoroutines();
+        }
+        public void ClearTaggerList()
+        {
+            foreach(var tagger in taggerList)
+            {
+                MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(tagger, true);
+            }
         }
 
         private IEnumerator SpawnCycle()

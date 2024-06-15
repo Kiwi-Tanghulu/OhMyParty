@@ -51,6 +51,7 @@ namespace OMG.Minigames.SafetyZone
                 tileVisual.Appear();
             }
             else
+                // gameObject.SetActive(false);
                 tileVisual.Disappear(() => gameObject.SetActive(active));
         }
 

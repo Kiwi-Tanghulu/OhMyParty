@@ -1,6 +1,5 @@
 using OMG.Extensions;
 using OMG.Minigames;
-using OMG.Test;
 using UnityEngine;
 
 namespace OMG.UI.Minigames
