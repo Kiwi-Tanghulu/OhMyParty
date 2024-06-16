@@ -1,8 +1,5 @@
-using OMG.Extensions;
 using OMG.Lobbies;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using OMG.Extensions;
 
 namespace OMG.Player
 {
@@ -10,11 +7,13 @@ namespace OMG.Player
     {
         public void SetNameTag(ulong ownerID)
         {
-            //Lobby.Current.PlayerDatas.Find(out PlayerData data, data => data.clientID == ownerID);
+#if STEAMWORKS
+            Lobby.Current.PlayerDatas.Find(out PlayerData data, data => data.clientID == ownerID);
 
-            //SetNameTag(data.name);
-
+            SetNameTag(data.Name);
+#else
             SetNameTag(transform.parent.name);
+#endif
         }
     }
 }
