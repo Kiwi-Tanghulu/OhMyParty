@@ -1,5 +1,6 @@
 using System;
 using Unity.Netcode;
+using Steamworks;
 
 namespace OMG.Lobbies
 {
@@ -8,12 +9,28 @@ namespace OMG.Lobbies
         public ulong clientID;
         public bool isReady;
         public int score;
+        public Friend steamClient;
+        public string Name {
+            get {
+                #if STEAMWORKS
+                return steamClient.Name;
+                #else
+                return null;
+                #endif
+            }
+        }
+
+        public PlayerData(ulong clientID, SteamId steamID)
+        {
+            this.clientID = clientID;
+            steamClient = new Friend(steamID);
+            isReady = false;
+            score = 0;
+        }
 
         public PlayerData(ulong clientID)
         {
-            this.clientID = clientID;
-            isReady = false;
-            score = 0;
+            this = new PlayerData(clientID, new SteamId());
         }
 
         public bool Equals(PlayerData other)

@@ -1,3 +1,5 @@
+#define STEAMWORKS
+
 using UnityEngine;
 
 namespace OMG
