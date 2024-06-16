@@ -40,6 +40,9 @@ namespace OMG
 
         public void DODissolve(float start, float end, float time)
         {
+            if (mat == null)
+                return;
+
             mat.SetFloat(propertyID, start);
             mat.DOFloat(end, propertyID, time);
         }
