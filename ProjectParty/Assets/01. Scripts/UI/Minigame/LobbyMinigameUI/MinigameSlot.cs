@@ -22,7 +22,8 @@ namespace OMG.UI
             this.minigameSO = minigameSO;
 
             titleText.text = minigameSO.MinigameName;
-            //minigameImage.sprite = minigameSO.MinigameImage;
+            if(minigameSO.MinigameImage != null)
+                minigameImage.sprite = minigameSO.MinigameImage;
         }
 
         public void Selected()
