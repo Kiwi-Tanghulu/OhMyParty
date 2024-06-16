@@ -65,7 +65,7 @@ AnimatorStateTransition:
     m_ConditionEvent: recovery
     m_EventTreshold: 0
   - m_ConditionMode: 6
-    m_ConditionEvent: recoveryDir
+    m_ConditionEvent: fallen_dir
     m_EventTreshold: -1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3329508282849053271}
@@ -237,7 +237,7 @@ AnimatorStateTransition:
     m_ConditionEvent: recovery
     m_EventTreshold: 0
   - m_ConditionMode: 6
-    m_ConditionEvent: recoveryDir
+    m_ConditionEvent: fallen_dir
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7769248333705438282}
@@ -376,43 +376,43 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: recoveryDir
+    m_Controller: {fileID: 0}
+  - m_Name: fallen_dir
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 1
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: recovery
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: action
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: moveSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Die
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: jump
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -627,7 +627,7 @@ AnimatorStateTransition:
     m_ConditionEvent: recovery
     m_EventTreshold: 0
   - m_ConditionMode: 6
-    m_ConditionEvent: recoveryDir
+    m_ConditionEvent: fallen_dir
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7031245921865914801}
@@ -806,7 +806,7 @@ AnimatorStateTransition:
     m_ConditionEvent: recovery
     m_EventTreshold: 0
   - m_ConditionMode: 6
-    m_ConditionEvent: recoveryDir
+    m_ConditionEvent: fallen_dir
     m_EventTreshold: -1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7968886747646294500}
