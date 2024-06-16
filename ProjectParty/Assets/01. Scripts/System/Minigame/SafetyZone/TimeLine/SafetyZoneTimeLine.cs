@@ -10,10 +10,10 @@ public class SafetyZoneTimeLine : MonoBehaviour
 
     public void DissolveWall()
     {
-        foreach (var wall in wall) 
-        {
-            wall.ShowDissolve(0.3f);
-        }
+        //foreach (var wall in wall) 
+        //{
+        //    wall.ShowDissolve(0.3f);
+        //}
     }
     public void DisableTimeLineObject()
     {
