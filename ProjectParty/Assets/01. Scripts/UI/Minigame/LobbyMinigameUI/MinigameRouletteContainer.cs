@@ -39,6 +39,7 @@ namespace OMG.UI
 
         public UnityEvent OnStartMoveEvent;
         public UnityEvent OnStartStopMoveEvent;
+        public UnityEvent OnSlotChangedEvent;
 
         public override void Init()
         {
@@ -89,6 +90,8 @@ namespace OMG.UI
                 selctedSlot?.Deselected();
                 selctedSlot = slot;
                 slot.Selected();
+
+                OnSlotChangedEvent?.Invoke();
             }
         }
 
