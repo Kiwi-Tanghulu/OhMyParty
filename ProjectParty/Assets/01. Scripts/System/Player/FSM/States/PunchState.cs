@@ -21,33 +21,21 @@ namespace OMG.Player.FSM
         {
             base.DoAction();
 
-            //RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position + player.transform.forward * distance,
-            //    radius, player.transform.forward, 0f);
-            
+            if (!player.IsServer)
+                return;
+
             if (Physics.SphereCast(eyeTrm.position, radius, player.transform.forward, out RaycastHit hit, distance))
             {
                 //if (hit.transform == player.transform)
                 //    return;
+                Debug.Log(2);
 
                 if (hit.collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                 {
+                    Debug.Log(hit.transform.name);
                     damageable.OnDamaged(150f, player.transform, hit.point);
                 }
             }
-
-            //if (hits.Length > 0)
-            //{
-            //    for(int i = 0; i < hits.Length; i++)
-            //    {
-            //        if (hits[i].transform == player.transform)
-            //            continue;
-
-            //        if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
-            //        {
-            //            damageable.OnDamaged(150f, player.transform, hits[i].point);
-            //        }
-            //    }
-            //}
         }
 
 #if UNITY_EDITOR

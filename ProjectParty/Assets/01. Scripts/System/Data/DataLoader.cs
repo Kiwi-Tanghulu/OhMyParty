@@ -29,5 +29,12 @@ namespace OMG.Datas
         {
             DataManager.SaveData();    
         }
+
+        [ContextMenu("ClearData")]
+        public void ClearData()
+        {
+            DataManager.ClearData();
+            DataManager.LoadData();
+        }
     }
 }

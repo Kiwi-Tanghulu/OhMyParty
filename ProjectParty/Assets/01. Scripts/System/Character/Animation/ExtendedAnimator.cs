@@ -113,5 +113,10 @@ namespace OMG
             }
             animator.SetLayerWeight(layer, end);
         }
+
+        public AnimatorClipInfo GetCurrentClip()
+        {
+            return animator.GetCurrentAnimatorClipInfo(0)[0];
+        }
     }
 }

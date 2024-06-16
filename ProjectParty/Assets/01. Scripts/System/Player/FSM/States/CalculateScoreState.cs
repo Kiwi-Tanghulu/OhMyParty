@@ -12,6 +12,8 @@ namespace OMG.Player
         [SerializeField] private ScoreText scoreText;
         private CharacterMovement movement;
 
+        private Transform standingTrm;
+
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
@@ -28,11 +30,17 @@ namespace OMG.Player
         {
             base.OwnerEnterState();
 
-            Transform standingPoint =
+
+            standingTrm =
                 Lobby.Current.GetLobbyComponent<LobbySkinComponent>().
                 Skin.PlayerCalcScoreStandingPoint.GetStandingPoint(player.OwnerClientId);
+        }
 
-            movement.Teleport(standingPoint.position, standingPoint.rotation);
+        protected override void OwnerUpdateState()
+        {
+            base.OwnerUpdateState();
+
+            movement.Teleport(standingTrm.position, standingTrm.rotation);
         }
 
         private void LobbyCutSscene_OnEndFinish()

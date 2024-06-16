@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Player;
+using Steamworks;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -44,14 +45,18 @@ namespace OMG.Lobbies
         {
             InputManager.ChangeInputMap(InputMapType.Play);
 
+            #if STEAMWORKS
             // 모든 처리가 끝난 후 로비씬을 들어오게 되기 때문에 스타트에서 해줘도 됨
-            PlayerJoinServerRpc();
+            PlayerJoinServerRpc(SteamClient.SteamId);
+            #else
+            PlayerJoinServerRpc(0);
+            #endif
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void PlayerJoinServerRpc(ServerRpcParams rpcParams = default)
+        private void PlayerJoinServerRpc(ulong steamId, ServerRpcParams rpcParams = default)
         {
-            PlayerData playerData = new PlayerData(rpcParams.Receive.SenderClientId);
+            PlayerData playerData = new PlayerData(rpcParams.Receive.SenderClientId, steamId);
             if(players.Contains(playerData))
                 return;
 

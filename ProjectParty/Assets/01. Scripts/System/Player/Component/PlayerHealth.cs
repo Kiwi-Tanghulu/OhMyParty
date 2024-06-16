@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using OMG.FSM;
+using OMG.Player.FSM;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace OMG.Player
 {
-    public class PlayerHealth : MonoBehaviour, IDamageable
+    public class PlayerHealth : NetworkBehaviour, IDamageable
     {
         private Transform attacker;
         private float damage;
@@ -14,25 +15,44 @@ namespace OMG.Player
 
         public UnityEvent<Vector3 /*hit point*/> OnDamagedEvent;
 
+        private FSMBrain fsm;
+
         public Transform Attacker => attacker;
         public float Damage => damage;
         public Vector3 HitDir => hitDir;
         public Vector3 HitPoint => hitPoint;
 
-        private void Update()
+        private void Awake()
         {
-            if (Input.GetKeyDown(KeyCode.X))
-                OnDamaged(10f, transform, transform.position);
+            fsm = GetComponent<FSMBrain>();
         }
 
         public void OnDamaged(float damage, Transform attacker, Vector3 point, Vector3 normal = default)
         {
             this.attacker = attacker;
-            this.damage = damage;
             hitDir = (transform.position - attacker.position).normalized;
+            OnDamagedClientRpc(damage, point, hitDir);
+
+            //this.damage = damage;
+            //hitPoint = point;
+
+            //OnDamagedEvent?.Invoke(point);
+
+            //if (IsServer)
+            //    fsm.ChangeState(typeof(StunState));
+        }
+
+        [ClientRpc]
+        public void OnDamagedClientRpc(float damage, Vector3 point, Vector3 hitDir)
+        {
+            this.damage = damage;
+            this.hitDir = hitDir;
             hitPoint = point;
 
             OnDamagedEvent?.Invoke(point);
+
+            if (IsServer)
+                fsm.ChangeState(typeof(StunState));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace OMG.Player
         [SerializeField] private float animParamLerpTime;
 
         private int isGroundHash = Animator.StringToHash("isGround");
-        private int moveSpeedHash = Animator.StringToHash("moveSpeed");
+        private int isMoveHash = Animator.StringToHash("is_move");
 
         private bool isInit;
 
@@ -57,7 +57,7 @@ namespace OMG.Player
 
         private void ChangeMoveSpeedParam(Vector3 moveDir)
         {
-            anim.SetFloat(moveSpeedHash, moveDir.sqrMagnitude);
+            anim.SetBool(isMoveHash, moveDir.sqrMagnitude > 0);
         }
     }
 }

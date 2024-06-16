@@ -25,7 +25,7 @@ namespace OMG.Timers
         public float Ratio => 1f - timer / time;
         public bool Finished => timer <= 0f;
 
-        private void Update()
+        protected virtual void Update()
         {
             if(Finished)
                 return;
