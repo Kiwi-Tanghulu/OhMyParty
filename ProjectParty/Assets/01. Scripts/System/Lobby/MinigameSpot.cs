@@ -31,6 +31,9 @@ namespace OMG.Lobbies
 
         public UnityEvent OnInteractEvent;
 
+        [Space]
+        [SerializeField] private MinigameRouletteContainer roulette;
+
         private void Awake()
         {
             focusVCam = transform.Find("FocusVCam").GetComponent<CinemachineVirtualCamera>();
@@ -63,6 +66,8 @@ namespace OMG.Lobbies
             if(player == null)
                 return false;
 
+            FocusSpot(true);
+
             if (performer.TryGetComponent<PlayerController>(out PlayerController playerController))
             {
                 currentClientID = player.OwnerClientId;
@@ -85,7 +90,8 @@ namespace OMG.Lobbies
                         minigameComponent.StartMinigameSelecting();
 
                     input.OnSpaceEvent += HandleSpaceInput;
-                    FocusSpot(true);
+
+                    //FocusSpot(true);//move interact
                     break;
                 case LobbyState.MinigameSelected: // 미니게임 선택된 상태일 때 레디가 되면 미니게임 시작
                     StartMinigame();
@@ -112,8 +118,11 @@ namespace OMG.Lobbies
             if(IsHost == false) // Check Authority Later
                 return;
 
-            minigameComponent.SelectMinigame();
-            input.OnSpaceEvent -= HandleSpaceInput;
+            roulette.StopRoulette(() =>
+            {
+                minigameComponent.SelectMinigame(roulette.SelectedMinigame);
+                input.OnSpaceEvent -= HandleSpaceInput;
+            });
         }
 
         private void HandleMinigameSelected(int index)
@@ -121,7 +130,7 @@ namespace OMG.Lobbies
             if(IsHost)
                 readyComponent.ClearLobbyReady();
             input.OnInteractEvent += HandleInteractInput;
-            cutSceneComponent.PlayCutscene(true);
+            cutSceneComponent.PlayCutscene(true);//here
 
             DisplayMinigameInfo(minigameList[index]);
         }
@@ -148,9 +157,11 @@ namespace OMG.Lobbies
                 resultComponent.DisplayWinner();   
         }
 
-        private void FocusSpot(bool focus)
+        public void FocusSpot(bool focus)
         {
-            InputManager.ChangeInputMap(focus ? InputMapType.UI : InputMapType.Play);
+            //InputManager.ChangeInputMap(focus ? InputMapType.UI : InputMapType.Play);
+            if (focus == false)
+                InputManager.ChangeInputMap(InputMapType.Play);
 
             if (focus)
                 CameraManager.Instance.ChangeCamera(focusVCam);

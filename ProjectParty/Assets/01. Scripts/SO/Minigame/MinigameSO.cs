@@ -23,6 +23,7 @@ namespace OMG.Minigames
         public float ResultPostponeTime = 1f;
 
         [Space(15f)]
+        public Sprite MinigameImage;
         public string MinigameName;
         [TextArea] public string MinigameDescription;
         public VideoClip Video;

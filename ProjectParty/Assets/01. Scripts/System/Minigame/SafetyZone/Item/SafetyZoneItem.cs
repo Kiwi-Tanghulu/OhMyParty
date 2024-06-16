@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using OMG.Items;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ namespace OMG.Minigames.SafetyZone
 {
     public abstract class SafetyZoneItem : HoldableItem
     {
+        [SerializeField] float destroyPostpone = 3f;
         protected ItemCollision collision = null;
 
         protected override void Awake()
@@ -41,7 +43,8 @@ namespace OMG.Minigames.SafetyZone
         public abstract void OnCollisionPlayer(SafetyZonePlayerController player, Collision other);
         public virtual void OnCollision(Collision other) 
         {
-            Destroy(gameObject);
+            collision.SetActiveCollisionOther(false);
+            StartCoroutine(this.DelayCoroutine(destroyPostpone, () => Destroy(gameObject)));
         }
     }
 }

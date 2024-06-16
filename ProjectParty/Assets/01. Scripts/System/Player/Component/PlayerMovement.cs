@@ -28,14 +28,6 @@ namespace OMG.Player
             isInit = true;
         }
 
-        public override void UpdateCompo()
-        {
-            base.UpdateCompo();
-
-            //ChangeIsGroundParam(IsGround);
-            //ChangeMoveSpeedParam(MoveDir);
-        }
-
         private void OnEnable()
         {
             if(isInit)
