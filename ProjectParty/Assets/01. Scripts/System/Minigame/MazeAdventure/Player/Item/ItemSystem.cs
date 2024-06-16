@@ -25,6 +25,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         private ItemType currentItemType;
 
         public event Action<ItemType> OnItemChange;
+        public UnityEvent OnGetItme;
         public void Init(Transform playerTrm)
         {
             playerItemDictionary = new Dictionary<ItemType, MazeAdventureItem>();
@@ -64,7 +65,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
             {
                 OnhitItemBox?.Invoke(hitInfo.point);
                 ChangeItem(itemBox.ItemType);
-
+                OnGetItme?.Invoke();
                 MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(itemBox.transform.GetComponent<NetworkObject>(), true);
             }
         }
