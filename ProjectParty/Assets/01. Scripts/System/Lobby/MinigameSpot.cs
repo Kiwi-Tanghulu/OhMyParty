@@ -118,10 +118,19 @@ namespace OMG.Lobbies
             if(IsHost == false) // Check Authority Later
                 return;
 
+            OnSpaceInputClientRpc();
+        }
+
+        [ClientRpc]
+        private void OnSpaceInputClientRpc()
+        {
             roulette.StopRoulette(() =>
             {
-                minigameComponent.SelectMinigame(roulette.SelectedMinigame);
-                input.OnSpaceEvent -= HandleSpaceInput;
+                if(IsServer)
+                {
+                    minigameComponent.SelectMinigame(roulette.SelectedMinigame);
+                    input.OnSpaceEvent -= HandleSpaceInput;
+                }
             });
         }
 
