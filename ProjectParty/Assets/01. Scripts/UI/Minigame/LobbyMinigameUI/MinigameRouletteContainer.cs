@@ -25,6 +25,9 @@ namespace OMG.UI
         [SerializeField] private float readyTime;
         [SerializeField] private float readyMoveValue;
 
+        [Space]
+        [SerializeField] private float selectedGameShowTime = 2f;
+
         private List<MinigameSlot> slotList;
 
         private Vector2 slotStartPos;
@@ -40,6 +43,7 @@ namespace OMG.UI
         public UnityEvent OnStartMoveEvent;
         public UnityEvent OnStartStopMoveEvent;
         public UnityEvent OnSlotChangedEvent;
+        public UnityEvent OnRouletteStopEvent;
 
         public override void Init()
         {
@@ -136,10 +140,14 @@ namespace OMG.UI
         {
             isRouletteMove = false;
 
-            DOTween.To(() => moveSpeed, x => moveSpeed = x, 0f, stopTime)
-                .OnComplete(() => onStopAction?.Invoke());
-
             OnStartStopMoveEvent?.Invoke();
+
+            Sequence seq = DOTween.Sequence();
+            seq.Append(DOTween.To(() => moveSpeed, x => moveSpeed = x, 0f, stopTime));
+            seq.AppendCallback(() => OnRouletteStopEvent?.Invoke());
+            seq.AppendInterval(selectedGameShowTime);
+            seq.AppendCallback(() => onStopAction?.Invoke());
+            seq.Play();
         }
     }
 }
