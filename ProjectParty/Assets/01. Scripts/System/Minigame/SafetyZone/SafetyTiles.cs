@@ -79,7 +79,7 @@ namespace OMG.Minigames.SafetyZone
 
         public void Init()
         {
-            tiles.ForEach(i => i.Init());
+            InitClientRpc();
         }
 
         [ClientRpc]
@@ -119,6 +119,12 @@ namespace OMG.Minigames.SafetyZone
 
             // groundCollider.SetActive(true);
             onResetEvent?.Invoke();
+        }
+    
+        [ClientRpc]
+        public void InitClientRpc()
+        {
+            tiles.ForEach(i => i.Init());
         }
     }
 }
