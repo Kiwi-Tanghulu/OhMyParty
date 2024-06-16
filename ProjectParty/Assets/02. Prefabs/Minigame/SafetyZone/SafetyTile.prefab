@@ -273,6 +273,105 @@ MonoBehaviour:
   - {fileID: 5044488863794765204}
   - {fileID: 1324733261455145484}
   - {fileID: 4603602554046746408}
+  OnActiveChangedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3070704427852868834}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5044488863794765204}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1324733261455145484}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4603602554046746408}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4905713863741361024}
+        m_TargetAssemblyTypeName: OMG.Dissolve, Assembly-CSharp
+        m_MethodName: ActiveDissolve
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4765648242168178951}
+        m_TargetAssemblyTypeName: OMG.Dissolve, Assembly-CSharp
+        m_MethodName: ActiveDissolve
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5067771858261859238}
+        m_TargetAssemblyTypeName: OMG.Dissolve, Assembly-CSharp
+        m_MethodName: ActiveDissolve
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8341459100554195381}
+        m_TargetAssemblyTypeName: OMG.Dissolve, Assembly-CSharp
+        m_MethodName: ActiveDissolve
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1096555413379151411
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +460,7 @@ GameObject:
   - component: {fileID: 1134486809360412590}
   - component: {fileID: 6553432144014657312}
   - component: {fileID: 4635895735784792935}
+  - component: {fileID: 8341459100554195381}
   m_Layer: 0
   m_Name: Visual (1)
   m_TagString: Untagged
@@ -433,6 +533,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8341459100554195381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740931557829994120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c419b07707f623c4d88c62e09159ee5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDissolveTime: 0.3
 --- !u!1 &2117602383579588587
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,6 +941,7 @@ GameObject:
   - component: {fileID: 8907362546293085844}
   - component: {fileID: 7651343421180097407}
   - component: {fileID: 804104606360182}
+  - component: {fileID: 4765648242168178951}
   m_Layer: 0
   m_Name: Visual (1)
   m_TagString: Untagged
@@ -900,6 +1014,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4765648242168178951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3595636329532165219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c419b07707f623c4d88c62e09159ee5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDissolveTime: 0.3
 --- !u!1 &3844063279830504082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,6 +1585,7 @@ GameObject:
   - component: {fileID: 235714361235551632}
   - component: {fileID: 7351666993293041370}
   - component: {fileID: 5924766469542583252}
+  - component: {fileID: 4905713863741361024}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -1530,6 +1658,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4905713863741361024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488926610222906579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c419b07707f623c4d88c62e09159ee5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDissolveTime: 0.3
 --- !u!1 &8096131140767700201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,6 +1682,7 @@ GameObject:
   - component: {fileID: 2135805634604221322}
   - component: {fileID: 3912876204921132689}
   - component: {fileID: 6267083590396313236}
+  - component: {fileID: 5067771858261859238}
   m_Layer: 0
   m_Name: Visual (1)
   m_TagString: Untagged
@@ -1613,6 +1755,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5067771858261859238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8096131140767700201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c419b07707f623c4d88c62e09159ee5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDissolveTime: 0.3
 --- !u!1 &8442256023001264004
 GameObject:
   m_ObjectHideFlags: 0

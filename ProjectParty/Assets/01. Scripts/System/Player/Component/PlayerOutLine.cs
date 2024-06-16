@@ -15,6 +15,7 @@ public class PlayerOutLine : MonoBehaviour
     {
         outLine.OutlineMode = Outline.Mode.OutlineAll;
         outLine.OutlineColor = PlayerManager.Instance.GetPlayerColor(colorIndex);
+        Debug.Log("플레이어 색 : " + colorIndex);
         outLine.OutlineWidth = 2.5f;
     }
 }

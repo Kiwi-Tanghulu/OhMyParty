@@ -50,9 +50,10 @@ namespace OMG.Minigames.MazeAdventure
 
         public void ClearItemBoxList()
         {
-            foreach (var itemBox in currentItemList)
+            for (int i = 0; i < currentItemList.Count; i++)
             {
-                MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(itemBox, true);
+                if (currentItemList[i] == null) return;
+                MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(currentItemList[i], true);
             }
         }
 

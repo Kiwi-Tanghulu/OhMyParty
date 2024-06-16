@@ -7,6 +7,4 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance {  get; private set; }
 
     [SerializeField] private RenderTexture[] playerRenderTextures;
-
-
 }

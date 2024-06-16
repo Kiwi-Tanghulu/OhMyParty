@@ -1,9 +1,11 @@
 using OMG.Inputs;
 using OMG.Items;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 
@@ -18,12 +20,13 @@ namespace OMG.Minigames.MazeAdventure
 public class ItemSystem : MonoBehaviour, IPlayerCollision
     {
         [SerializeField] private PlayInputSO input;
-        [SerializeField] private ParticleSystem itemHitParticle;
+        [SerializeField] private UnityEvent<Vector3> OnhitItemBox;
         private Dictionary<ItemType, MazeAdventureItem> playerItemDictionary = null;
         private ItemType currentItemType;
+
+        public event Action<ItemType> OnItemChange;
         public void Init(Transform playerTrm)
         {
-            currentItemType = ItemType.None;
             playerItemDictionary = new Dictionary<ItemType, MazeAdventureItem>();
             foreach(Transform itemTrm in transform)
             {
@@ -35,36 +38,34 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
             }
 
             input.OnActiveEvent += UseItem;
+
+            MazeAdventureItemUI itemUI = MinigameManager.Instance.CurrentMinigame.transform.Find("MinigameCanvas").Find("MinigamePanel").Find("ItemUI").GetComponent<MazeAdventureItemUI>();
+            
+            OnItemChange += itemUI.ChangeIcon;
+
+            ChangeItem(ItemType.None);
         }
 
         private void UseItem()
         {
             if(currentItemType == ItemType.None) { return; }
             playerItemDictionary[currentItemType].Active();
-            currentItemType = ItemType.None;
+            ChangeItem(ItemType.None);
         }
 
         private void ChangeItem(ItemType newItem)
         {
             currentItemType = newItem;
+            OnItemChange?.Invoke(newItem);
         }
-
-        //private void OnControllerColliderHit(ControllerColliderHit hit)
-        //{
-        //    if(hit.transform.TryGetComponent(out ItemBox itemBox))
-        //    {
-        //        ChangeItem(itemBox.ItemType);
-        //        Destroy(itemBox.gameObject);
-        //    }
-        //}
         public void OnCollision(ControllerColliderHit hitInfo)
         {
             if (hitInfo.transform.TryGetComponent(out ItemBox itemBox))
             {
-                Instantiate(itemHitParticle, hitInfo.point,Quaternion.identity);
+                OnhitItemBox?.Invoke(hitInfo.point);
                 ChangeItem(itemBox.ItemType);
 
-                itemBox.transform.GetComponent<NetworkObject>().Despawn(true);
+                MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(itemBox.transform.GetComponent<NetworkObject>(), true);
             }
         }
     }

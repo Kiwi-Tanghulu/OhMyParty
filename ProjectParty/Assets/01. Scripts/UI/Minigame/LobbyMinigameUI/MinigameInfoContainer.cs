@@ -10,7 +10,7 @@ using UnityEngine.Video;
 
 namespace OMG.UI
 {
-    public class MinigameReadyUI : MonoBehaviour
+    public class MinigameInfoContainer : UIObject
     {
         [SerializeField] private TextMeshProUGUI gameNameText;
         [SerializeField] private TextMeshProUGUI gameDescriptionText;
@@ -19,7 +19,6 @@ namespace OMG.UI
         [Space]
         [SerializeField] private Transform controlKeyInfoContainer;
         [SerializeField] private ControlKeyInfoUI controlKeyInfoPrefab;
-        private GameObject container;
 
         [Space]
         [SerializeField] private Transform readyCheckBoxContainer;
@@ -27,33 +26,71 @@ namespace OMG.UI
         private Dictionary<ulong, PlayerReadyCheckBox> readyCheckBoxDictionary;
 
         [Space]
-        [SerializeField] private CinemachineVirtualCamera focusCam;
-
-        [Space]
         [SerializeField] MinigameListSO minigameList = null;
 
         private MinigameSO minigameSO;
 
-        private void Awake()
+        public override void Init()
         {
+            base.Init();
+
             readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
-
-            container = transform.Find("Container").gameObject;
-        }
-
-        private void Start()
-        {
             LobbyMinigameComponent lobbyMinigame = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
-            lobbyMinigame.OnMinigameSelectedEvent += MinigameInfoUI_OnMinigameSelectedEvent;
+            lobbyMinigame.OnMinigameSelectedEvent += MinigameInfoUI_OnMinigameSelecteEvent;
             lobbyMinigame.OnMinigameStartedEvent += LobbyMinigame_OnMinigameStartEvent;
 
             LobbyReadyComponent lobbyReady = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             lobbyReady.OnPlayerReadyEvent += MinigameInfoUI_OnPlayerReadyEvent;
+        }
 
-            LobbyCutSceneComponent lobbyCutScene = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
-            lobbyCutScene.CutSceneEvents[LobbyCutSceneState.StartFinish] += LobbyCutScene_OnStartFinish;
+        public override void Show()
+        {
+            if (minigameSO == null)
+                return;
 
-            Hide();
+            base.Show();
+
+            SetMinigameUI();
+            SetPlayerUI();
+
+            videoPlayer.Play(minigameSO.Video, 1f);
+        }
+
+        public void SetMinigameSO(MinigameSO minigameSO)
+        {
+            this.minigameSO = minigameSO;
+        }
+
+        private void SetMinigameUI()
+        {
+            foreach (Transform controlKey in controlKeyInfoContainer)
+                Destroy(controlKey.gameObject);
+
+            gameNameText.text = minigameSO.MinigameName;
+            gameDescriptionText.text = minigameSO.MinigameDescription;
+
+            foreach (ControlKeyInfo keyInfo in minigameSO.ControlKeyInfoList)
+            {
+                ControlKeyInfoUI controlKey = Instantiate(controlKeyInfoPrefab, controlKeyInfoContainer);
+
+                controlKey.DisplayKeyInfo(keyInfo);
+            }
+        }
+
+        private void SetPlayerUI()
+        {
+            foreach (var keyValuePair in readyCheckBoxDictionary)
+                Destroy(keyValuePair.Value.gameObject);
+            readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
+
+            foreach (PlayerController player in Lobby.Current.PlayerContainer.PlayerList)
+            {
+                PlayerReadyCheckBox checkBox = Instantiate(readyCheckBoxPrefab, readyCheckBoxContainer);
+                checkBox.SetPlayerImage(
+                    PlayerManager.Instance.RenderTargetPlayerDic[player.OwnerClientId].RenderTexture);
+                checkBox.SetNameText(player.name); //
+                readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
+            }
         }
 
         private void LobbyMinigame_OnMinigameStartEvent()
@@ -61,9 +98,10 @@ namespace OMG.UI
             Hide();
         }
 
-        private void MinigameInfoUI_OnMinigameSelectedEvent(int index)
+        private void MinigameInfoUI_OnMinigameSelecteEvent(int index)
         {
-            SetMinigameInfo(minigameList[index]);
+            SetMinigameSO(minigameList[index]);
+            Show();
         }
 
         private void MinigameInfoUI_OnPlayerReadyEvent(ulong id)
@@ -75,58 +113,6 @@ namespace OMG.UI
                     readyCheckBoxDictionary[id].SetCheck(true);
                 }
             }
-        }
-
-        private void LobbyCutScene_OnStartFinish()
-        {
-            CameraManager.Instance.ChangeCamera(focusCam);
-
-            Display();
-        }
-
-        public void SetMinigameInfo(MinigameSO minigameSO)
-        {
-            this.minigameSO = minigameSO;
-        }
-
-        public void Display()
-        {
-            if (minigameSO == null)
-                return;
-
-            foreach (Transform controlKey in controlKeyInfoContainer)
-                Destroy(controlKey.gameObject);
-            foreach (var keyValuePair in readyCheckBoxDictionary)
-                Destroy(keyValuePair.Value.gameObject);
-            readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
-
-            gameNameText.text = minigameSO.MinigameName;
-            gameDescriptionText.text = minigameSO.MinigameDescription;
-
-            foreach (ControlKeyInfo keyInfo in minigameSO.ControlKeyInfoList)
-            {
-                ControlKeyInfoUI controlKey = Instantiate(controlKeyInfoPrefab, controlKeyInfoContainer);
-
-                controlKey.DisplayKeyInfo(keyInfo);
-            }
-
-            foreach(PlayerController player in Lobby.Current.PlayerContainer.PlayerList)
-            {
-                PlayerReadyCheckBox checkBox = Instantiate(readyCheckBoxPrefab, readyCheckBoxContainer);
-                checkBox.SetPlayerImage(
-                    PlayerManager.Instance.RenderTargetPlayerDic[player.OwnerClientId].RenderTexture);
-                checkBox.SetNameText(player.name); //
-                readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
-            }
-
-            container.SetActive(true);
-
-            videoPlayer.Play(minigameSO.Video, 1f);
-        }
-
-        public void Hide()
-        {
-            container.SetActive(false);
         }
     }
 }
