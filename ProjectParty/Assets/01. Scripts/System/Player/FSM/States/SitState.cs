@@ -29,6 +29,8 @@ namespace OMG.Player.FSM
         {
             base.OwnerEnterState();
 
+            Debug.Log(2);
+
             if (focuser.FocusedObject.CurrentObject.TryGetComponent<Chair>(out Chair chair))
             {
                 usingChair = chair;
