@@ -39,9 +39,10 @@ namespace OMG.Minigames.MazeAdventure
         }
         public void ClearTaggerList()
         {
-            foreach(var tagger in taggerList)
+            for(int i = 0; i < taggerList.Count; i++) 
             {
-                MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(tagger, true);
+                if (taggerList[i] == null) continue;
+                MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(taggerList[i], true);
             }
         }
 

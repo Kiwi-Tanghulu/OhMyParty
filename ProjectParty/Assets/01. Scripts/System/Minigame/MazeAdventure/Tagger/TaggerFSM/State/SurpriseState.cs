@@ -28,7 +28,7 @@ namespace OMG.Minigames.MazeAdventure
         public override void EnterState()
         {
             base.EnterState();
-            taggerTextEffect.MakeTextEffect('!');
+            taggerTextEffect.MakeTextEffectClientRPC('!');
         }
         protected override void OwnerExitState()
         {

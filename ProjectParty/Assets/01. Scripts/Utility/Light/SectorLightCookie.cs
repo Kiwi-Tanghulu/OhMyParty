@@ -26,6 +26,9 @@ namespace OMG.Lightings
 
         private void Awake()
         {
+            if (target == null)
+                target = GetComponent<Light>();
+            UpdateCookie();
             Destroy(this);
         }
 
