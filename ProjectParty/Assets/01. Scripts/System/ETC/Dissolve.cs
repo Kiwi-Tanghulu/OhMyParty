@@ -10,12 +10,22 @@ namespace OMG
         private Material mat;
         private readonly string propertyID = "_Dissolve_Value";
 
+        [SerializeField] private float defaultDissolveTime = 0.3f;
+
         private void Start()
         {
             Renderer render = GetComponent<Renderer>();
             Material sharedMat = render.sharedMaterial;
             mat = new Material(sharedMat);
             render.material = mat;
+        }
+        
+        public void ActiveDissolve(bool value)
+        {
+            if (value)
+                ShowDissolve(defaultDissolveTime);
+            else
+                HideDissolve(defaultDissolveTime);
         }
 
         public void ShowDissolve(float time)
