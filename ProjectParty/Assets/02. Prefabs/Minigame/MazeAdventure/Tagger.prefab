@@ -551,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 121938952
+  GlobalObjectIdHash: 654628317
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -879,19 +879,7 @@ MonoBehaviour:
         m_CallState: 2
   OnStateExitEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5230548173733889382}
-        m_TargetAssemblyTypeName: OMG.Minigames.MazeAdventure.TaggerVisual, Assembly-CSharp
-        m_MethodName: ChangeMaterialClientRpc
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   nextStateIdle: {fileID: 5095827988795727332}
   nextStateFind: {fileID: 5619389038734092719}
   chaseCol: {fileID: 7676892332527622559}
@@ -932,6 +920,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animBoolName: Move
   animator: {fileID: 974429536051564042}
+--- !u!1 &3185565141826891954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8979330843377629225}
+  - component: {fileID: 5341267025299065235}
+  - component: {fileID: 3582319471898098203}
+  m_Layer: 0
+  m_Name: TransChase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8979330843377629225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3185565141826891954}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5469118480561444412}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5341267025299065235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3185565141826891954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21fd1112d2f94544a90e74a20add80d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextState: {fileID: 3848308343217400436}
+--- !u!114 &3582319471898098203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3185565141826891954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80dc3cf665b49354d8f888449447846c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invert: 0
+  productValue: 0
 --- !u!1 &3212998961905252804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,7 +1291,7 @@ GameObject:
   - component: {fileID: 1572671019505955018}
   - component: {fileID: 5891970812020778584}
   m_Layer: 0
-  m_Name: TransMove
+  m_Name: TransChaseMove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1276,7 +1324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fd1112d2f94544a90e74a20add80d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextState: {fileID: 7219522139378989907}
+  nextState: {fileID: 7794603514283392623}
 --- !u!114 &5891970812020778584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1419,6 +1467,85 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!1 &5471761490875313899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5469118480561444412}
+  - component: {fileID: 7794603514283392623}
+  - component: {fileID: 3765516003850837441}
+  m_Layer: 0
+  m_Name: ChaseMoveState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5469118480561444412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471761490875313899}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8979330843377629225}
+  m_Father: {fileID: 7072122144132019585}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7794603514283392623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471761490875313899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7534d7c6b1ef5864f8926b35eae67b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStateExitEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5230548173733889382}
+        m_TargetAssemblyTypeName: OMG.Minigames.MazeAdventure.TaggerVisual, Assembly-CSharp
+        m_MethodName: ChangeMaterialClientRpc
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  nextState: {fileID: 5095827988795727332}
+--- !u!114 &3765516003850837441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471761490875313899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2406c5bf3080e084cb19a2bc43d42525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animBoolName: Move
+  animator: {fileID: 974429536051564042}
 --- !u!1 &5490250385573712192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1900,6 +2027,7 @@ Transform:
   - {fileID: 990546477908738588}
   - {fileID: 1910929646292370359}
   - {fileID: 5092389109391311776}
+  - {fileID: 5469118480561444412}
   m_Father: {fileID: 7958560352743738096}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9184809482130230925
