@@ -6,15 +6,14 @@ using UnityEngine;
 
 public class SafetyZoneTimeLine : MonoBehaviour
 {
-    [SerializeField] private GameObject comicHitEffect;
     [SerializeField] private Dissolve[] wall;
 
     public void DissolveWall()
     {
-        foreach (var wall in wall) 
-        {
-            wall.ShowDissolve(0.3f);
-        }
+        //foreach (var wall in wall) 
+        //{
+        //    wall.ShowDissolve(0.3f);
+        //}
     }
     public void DisableTimeLineObject()
     {
