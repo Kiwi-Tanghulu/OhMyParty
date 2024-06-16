@@ -21,6 +21,7 @@ namespace OMG.UI
             LobbyMinigameComponent lobbyMinigame = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
             lobbyMinigame.OnMinigameSelectingEvent += LobbyMinigame_OnMinigameSelectingEvent;
             lobbyMinigame.OnMinigameSelectedEvent += LobbyMinigame_OnMinigameSelectedEvent;
+            lobbyMinigame.OnMinigameStartedEvent += LobbyMinigame_OnMinigameStartedEvent;
 
             Hide();
         }
@@ -40,6 +41,11 @@ namespace OMG.UI
         {
             roulette.Hide();
         }
+        private void LobbyMinigame_OnMinigameStartedEvent()
+        {
+            Hide();
+        }
+
 
         public override void Show()
         {
