@@ -7,6 +7,7 @@ namespace OMG.Skins
         public override void Init()
         {
             base.Init();
+            gameObject.name = "Skin";
         }
 
         public override void Release()

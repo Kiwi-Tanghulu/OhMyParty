@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using OMG.Ragdoll;
+using OMG.Skins;
+using JetBrains.Annotations;
 
 namespace OMG.Player
 {
@@ -13,24 +15,36 @@ namespace OMG.Player
         private PlayerRagdollController ragdoll;
         public PlayerRagdollController Ragdoll => ragdoll;
 
-        private SkinnedMeshRenderer skin;
+        //private SkinnedMeshRenderer skin;
 
-        private void Awake()
-        {
-            skin = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
-            ragdoll = GetComponent<PlayerRagdollController>();
-        }
+        //private void Awake()
+        //{
+        //    skin = transform.Find("Skin").GetComponent<SkinnedMeshRenderer>();
+        //    ragdoll = GetComponent<PlayerRagdollController>();
+        //}
 
         protected virtual void Start()
         {
-            SetVisual(visualType);//test
+            SetSkin(visualType);
         }
 
-        public void SetVisual(PlayerVisualType newVisualType)
-        {
-            visualType = newVisualType;
+        //public void SetVisual(PlayerVisualType newVisualType)
+        //{
+        //    visualType = newVisualType;
 
-            skin.sharedMesh = PlayerManager.Instance.PlayerVisualList[visualType].VisualMesh;
+        //    skin.sharedMesh = PlayerManager.Instance.PlayerVisualList[visualType].VisualMesh;
+        //}
+
+        private SkinSelector skinSelector;
+
+        private void Awake()
+        {
+            skinSelector = GetComponent<SkinSelector>();
+        }
+
+        public void SetSkin(PlayerVisualType type)
+        {
+            //skinSelector.SetSkin((int)type);
         }
     }
 }
