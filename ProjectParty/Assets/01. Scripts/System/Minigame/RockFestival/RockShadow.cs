@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -5,6 +6,7 @@ namespace OMG.Minigames.RockFestival
 {
     public class RockShadow : MonoBehaviour
     {
+        [SerializeField] float shadowLifeTime = 2f;
         [SerializeField] AnimationCurve scaleCurve = null;
         [SerializeField] float maxDistance = 10f;
         [SerializeField] float depth = 12f;
@@ -16,6 +18,11 @@ namespace OMG.Minigames.RockFestival
         private void Awake()
         {
             decalRenderer = transform.Find("DropShadow").GetComponent<DecalProjector>();
+        }
+
+        private void Start()
+        {
+            StartCoroutine(this.DelayCoroutine(shadowLifeTime, () => Display(false)));
         }
 
         private void Update()

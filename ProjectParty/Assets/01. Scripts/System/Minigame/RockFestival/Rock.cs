@@ -33,6 +33,9 @@ namespace OMG.Minigames.RockFestival
 
         public override void OnActive()
         {
+            if(IsOwner == false)
+                return;
+
             Vector3 direction = currentHolder.HoldingParent.forward + Vector3.up * 0.5f;
             rockCollision.SetActiveCollisionOther(true);
             rockCollision.AddForce(direction, 12.5f);
