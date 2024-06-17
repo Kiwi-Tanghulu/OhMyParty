@@ -15,7 +15,6 @@ namespace OMG.Items
         protected OwnershipController ownershipController = null;
 
         public event Action<bool> OnHoldEvent = null;
-        public ulong HolderID { get; private set; } = ulong.MaxValue;
 
         protected override void Awake()
         {
@@ -27,9 +26,6 @@ namespace OMG.Items
 
         public virtual bool Hold(IHolder holder, Vector3 point = default)
         {
-            if (HolderID != ulong.MaxValue)
-                return false;
-
             if(holder.IsEmpty == false)
                 return false;
 
@@ -44,7 +40,6 @@ namespace OMG.Items
             });
 
             OnHold();
-            HoldServerRpc(holderObject.OwnerClientId);
             OnHoldEvent?.Invoke(true);
 
             return true;
@@ -58,7 +53,6 @@ namespace OMG.Items
             transformController.SetParent(null);
             
             OnRelease();
-            HoldServerRpc(ulong.MaxValue);
             OnHoldEvent?.Invoke(false);
 
             return prevHolder;
@@ -66,20 +60,5 @@ namespace OMG.Items
 
         public abstract void OnHold();
         public abstract void OnRelease();
-
-        [ServerRpc(RequireOwnership = false)]
-        private void HoldServerRpc(ulong holderID, ServerRpcParams param = default)
-        {
-            if(HolderID != ulong.MaxValue && param.Receive.SenderClientId != HolderID)
-                return;
-
-            HoldClientRpc(holderID);
-        }
-
-        [ClientRpc]
-        private void HoldClientRpc(ulong holderID)
-        {
-            HolderID = holderID;
-        }
     }
 }

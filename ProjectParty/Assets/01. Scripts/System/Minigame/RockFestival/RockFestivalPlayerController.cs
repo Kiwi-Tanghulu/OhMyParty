@@ -33,11 +33,11 @@ namespace OMG.Minigames.RockFestival
             if(holder == null || holder.IsEmpty)
                 return;
             
-            HoldableItem item = holder.HoldingObject as HoldableItem;
-            if(item == null)
+            Rock rock = holder.HoldingObject as Rock;
+            if(rock == null)
                 return;
             
-            if(item.HolderID != OwnerClientId)
+            if(rock.HolderID != OwnerClientId)
                 holder.Release();
         }
 
