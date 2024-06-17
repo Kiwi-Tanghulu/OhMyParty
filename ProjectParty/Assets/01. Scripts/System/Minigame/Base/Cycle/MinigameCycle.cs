@@ -31,8 +31,12 @@ namespace OMG.Minigames
         {
             minigame.PlayerDatas.ForEach((minigameData, index) => {
                 int score = minigame.CalculateScore(minigameData.score);
+                Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data,
+                    data => data.ClientID == minigameData.clientID);
+                string name = data.Nickname;
+            
                 Debug.Log($"[Minigame] Player {minigameData.clientID} Score : {score}");
-                minigame.MinigamePanel.ResultPanel[index].SetResult($"Player {minigameData.clientID}", score);
+                minigame.MinigamePanel.ResultPanel[index].SetResult($"{name}", score);
 
                 if(IsHost)
                 {

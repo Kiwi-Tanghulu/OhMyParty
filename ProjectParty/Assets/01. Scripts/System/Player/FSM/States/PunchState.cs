@@ -24,16 +24,21 @@ namespace OMG.Player.FSM
             if (!player.IsServer)
                 return;
 
-            if (Physics.SphereCast(eyeTrm.position, radius, player.transform.forward, out RaycastHit hit, distance))
-            {
-                //if (hit.transform == player.transform)
-                //    return;
-                Debug.Log(2);
+            RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position - (eyeTrm.forward * radius * 2),
+                radius, player.transform.forward, (radius * 2) + distance);
 
-                if (hit.collider.TryGetComponent<IDamageable>(out IDamageable damageable))
+            if (hits.Length > 0)
+            {
+                for(int i = 0; i < hits.Length; i++)
                 {
-                    Debug.Log(hit.transform.name);
-                    damageable.OnDamaged(5f, player.transform, hit.point);
+                    if (hits[i].transform == player.transform)
+                        continue;
+
+                    if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
+                    {
+                        Debug.Log(hits[i].transform.name);
+                        damageable.OnDamaged(5f, player.transform, hits[i].point);
+                    }
                 }
             }
         }
