@@ -30,7 +30,6 @@ namespace OMG.Minigames.SafetyZone
         {
             safetyNumber = number;
             tileVisual.SetNumberText(safetyNumber);
-            ToggleBlock(IsSafetyZone());
         }
 
         public bool IsSafetyZone()
@@ -38,34 +37,23 @@ namespace OMG.Minigames.SafetyZone
             return includePlayers.Count == safetyNumber;
         }
 
-        public void SetActive(bool active)
+        public void ActiveTile()
         {
+            gameObject.SetActive(true);
+
+            tileVisual.Appear();
             SetSafety(IsSafetyZone());
-            includePlayers.Clear();
-
-            ToggleBlock(IsSafetyZone());
-
-            if(active)
-            {
-                gameObject.SetActive(active);
-                tileVisual.Appear();
-            }
-            else
-                // gameObject.SetActive(false);
-                tileVisual.Disappear(() => gameObject.SetActive(active));
         }
 
-        public void ToggleBlock(bool active)
+        public void InactiveTile()
         {
-            block.SetActive(active);
+            SetSafety(false);
+            tileVisual.Disappear(() => gameObject.SetActive(false));
         }
 
         public void Init()
         {
-            safetyNumber = 100;
-            tileVisual.SetNumberText(-1);
-
-            ToggleBlock(false);
+            Reset();
             gameObject.SetActive(false);
         }
 
@@ -73,16 +61,16 @@ namespace OMG.Minigames.SafetyZone
         {
             safetyNumber = 100;
             tileVisual.SetNumberText(-1);
-
-            ToggleBlock(false);
-            SetActive(false);
+            includePlayers.Clear();
         }
 
         private void SetSafety(bool safety)
         {
             foreach(SafetyZonePlayerController p in includePlayers)
                 p.IsSafety = safety;
-            ToggleBlock(safety);
+            if(safety)
+                Debug.Log(gameObject.activeInHierarchy);
+            block.SetActive(safety);
         }
 
         private void HandlePlayerEnter(SafetyZonePlayerController player)

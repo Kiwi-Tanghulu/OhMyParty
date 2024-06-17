@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Player;
+using OMG.Skins;
 using Steamworks;
 using Unity.Collections;
 using Unity.Netcode;
@@ -28,6 +29,8 @@ namespace OMG.Lobbies
 
         public event Action<LobbyState> OnLobbyStateChangedEvent = null;
 
+        [SerializeField] private SkinLibrarySO characterSkinLib;
+
         private void Awake()
         {
             LobbyComponent[] components = GetComponents<LobbyComponent>();
@@ -48,15 +51,15 @@ namespace OMG.Lobbies
 
             // 모든 처리가 끝난 후 로비씬을 들어오게 되기 때문에 스타트에서 해줘도 됨
             if(SteamClient.IsValid)
-                PlayerJoinServerRpc(SteamClient.SteamId);
+                PlayerJoinServerRpc(SteamClient.SteamId, characterSkinLib.CurrentIndex);
             else
-                PlayerJoinServerRpc(0);
+                PlayerJoinServerRpc(0, characterSkinLib.CurrentIndex);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void PlayerJoinServerRpc(ulong steamID, ServerRpcParams rpcParams = default)
+        private void PlayerJoinServerRpc(ulong steamID, int visualType, ServerRpcParams rpcParams = default)
         {
-            PlayerData playerData = new PlayerData(rpcParams.Receive.SenderClientId, steamID);
+            PlayerData playerData = new PlayerData(rpcParams.Receive.SenderClientId, steamID, visualType);
             if(players.Contains(playerData))
                 return;
 
