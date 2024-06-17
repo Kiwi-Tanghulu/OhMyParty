@@ -1,5 +1,6 @@
 using OMG.Inputs;
 using OMG.Interacting;
+using OMG.Items;
 using OMG.Player;
 using UnityEngine;
 
@@ -23,6 +24,23 @@ namespace OMG.Minigames.RockFestival
             focuser = GetComponent<PlayerFocuser>();
 
             input.OnInteractEvent += HandleInteract;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+
+            if(holder.IsEmpty)
+                return;
+            
+            HoldableItem item = holder.HoldingObject as HoldableItem;
+            if(item == null)
+                return;
+            
+            if(item.HolderID != OwnerClientId)
+            {
+                
+            }
         }
 
         public override void OnNetworkDespawn()
