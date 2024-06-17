@@ -6,6 +6,7 @@ namespace OMG.Lobbies
     public class LobbySkinComponent : LobbyComponent
     {
         private SkinSelector skinSelector = null;
+        private SkinSO skinData = null;
 
         public LobbySkin Skin => skinSelector.CurrentSkin as LobbySkin;
 
@@ -22,13 +23,15 @@ namespace OMG.Lobbies
             else
                 LoadSkinData();
 
-            skinSelector.SetSkin();
+            skinSelector.SetSkin(skinData);
         }
 
         private void SetSkinData()
         {
             string lobbySkin = skinSelector.SkinLibrary.CurrentIndex.ToString();
             ClientManager.Instance.CurrentLobby?.SetData("LobbySkin", lobbySkin);
+
+            skinData = skinSelector.SkinLibrary.CurrentSkin;
         }
 
         private void LoadSkinData()
@@ -37,7 +40,7 @@ namespace OMG.Lobbies
                 return;
 
             string lobbySkin = ClientManager.Instance.CurrentLobby?.GetData("LobbySkin");
-            skinSelector.SkinLibrary.CurrentIndex = int.Parse(lobbySkin);
+            skinData = skinSelector.SkinLibrary.GetSkin(int.Parse(lobbySkin));
         }
     }
 }
