@@ -20168,6 +20168,18 @@ CharacterController:
     type: 3}
   m_PrefabInstance: {fileID: 5578800621233249971}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2072824396306975350 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5886142406603183301, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d9a68111d371840ad1b3f66eac7c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3853981177553999867 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8653656707965372744, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -20188,7 +20200,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnSpawnedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2072824396306975350}
+        m_TargetAssemblyTypeName: OMG.Player.PlayerNameTag, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7119032095840545891}
+        m_TargetAssemblyTypeName: OMG.Player.PlayerVisual, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   itemSystem: {fileID: 3878486720323711876}
   dieState: {fileID: 8035489800191201014}
   dieEvent:
@@ -20236,6 +20272,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5578800621233249971}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7119032095840545891 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3431743338648711888, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137641500970407398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa64ebabd2eec44f998fd720f3ca7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7147626766116933153 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3340150539314745490, guid: fcf90dc6047265e4db4c32e1eba10505,
