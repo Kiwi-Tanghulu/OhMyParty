@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode.Components;
 using UnityEngine;
 
-namespace OMG.Clinet
+namespace OMG.Client
 {
     public class ClientNetworkRigidbody : NetworkRigidbody
     {

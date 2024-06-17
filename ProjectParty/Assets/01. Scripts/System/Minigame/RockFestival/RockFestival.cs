@@ -27,8 +27,6 @@ namespace OMG.Minigames.RockFestival
             spawner = GetComponent<RockSpawner>();
             timeAttackCycle = cycle as TimeAttackCycle;
 
-            timeAttackCycle.SetPlayTime(playTime);
-
             StartIntro();
         }
 
@@ -55,7 +53,7 @@ namespace OMG.Minigames.RockFestival
                 return;
 
             spawner.SetActive(true);
-            timeAttackCycle.StartCycle();
+            timeAttackCycle.StartCycle(playTime);
         }
 
         public override void FinishGame()

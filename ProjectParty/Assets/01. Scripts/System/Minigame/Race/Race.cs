@@ -43,7 +43,7 @@ namespace OMG.Minigames.Race
             }
 
             raceCycle = cycle as RaceCycle;
-            raceCycle.SetPlayTime(playTime);
+            // raceCycle.SetPlayTime(playTime);
             
             goalCount = 0;
 
@@ -65,7 +65,7 @@ namespace OMG.Minigames.Race
             if (!IsHost)
                 return;
 
-            raceCycle.StartCycle();
+            // raceCycle.StartCycle();
             OnStartGame?.Invoke();
         }
 
