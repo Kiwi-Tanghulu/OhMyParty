@@ -23,9 +23,9 @@ namespace OMG.Minigames.MazeAdventure
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            playerOutLine = Visual.SkinSelector.CurrentSkin.GetComponent<PlayerOutLine>();
-            int index = MinigameManager.Instance.CurrentMinigame.PlayerDatas.Find(out PlayerData foundPlayer, x => x.clientID == OwnerClientId);
-            playerOutLine.SettingOutLine(index);
+            //playerOutLine = Visual.SkinSelector.CurrentSkin.GetComponent<PlayerOutLine>();
+            //int index = MinigameManager.Instance.CurrentMinigame.PlayerDatas.Find(out PlayerData foundPlayer, x => x.clientID == OwnerClientId);
+            //playerOutLine.SettingOutLine(index);
             itemSystem.Init(transform);
             isInvisibil = false;
         }

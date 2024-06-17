@@ -33,9 +33,12 @@ namespace OMG.Player
         public void Init(ulong ownerID)
         {
             this.ownerID = ownerID;
+            visualSetted = false;
 
             TrySetVisual();
-            Lobby.Current.PlayerDatas.OnListChanged += HandlePlayerDatasChanged;
+
+            if(!visualSetted)
+                Lobby.Current.PlayerDatas.OnListChanged += HandlePlayerDatasChanged;
         }
 
         private void TrySetVisual()
@@ -46,6 +49,8 @@ namespace OMG.Player
 
             visualSetted = true;
             SetSkin((PlayerVisualType)data.VisualType);
+
+            skinSelector.CurrentSkin.GetComponent<PlayerOutLine>()?.SettingOutLine(index);
         }
 
         private void HandlePlayerDatasChanged(NetworkListEvent<PlayerData> listEvent)
