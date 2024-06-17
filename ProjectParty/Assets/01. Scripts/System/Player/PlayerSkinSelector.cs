@@ -7,6 +7,8 @@ namespace OMG.Player
 {
     public class PlayerSkinSelector : SkinSelector
     {
+        [SerializeField] private SkinnedMeshRenderer refRenderer;
+
         [SerializeField] private bool useOutline;
 
         public override void SetSkin(SkinSO skin)
@@ -15,6 +17,8 @@ namespace OMG.Player
 
             if(CurrentSkin != null)
             {
+                (CurrentSkin as CharacterSkin).SkinnedMesh.bones = refRenderer.bones;
+
                 if (useOutline)
                     CurrentSkin.gameObject.AddComponent<PlayerOutLine>();
             }
