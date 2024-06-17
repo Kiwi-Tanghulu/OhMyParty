@@ -10,7 +10,7 @@ namespace OMG.Player
 #if STEAMWORKS
             Lobby.Current.PlayerDatas.Find(out PlayerData data, data => data.ClientID == ownerID);
 
-            SetNameTag(data.Nickname.ToString());
+            SetNameTag(data.Name);
 #else
             SetNameTag(transform.parent.name);
 #endif

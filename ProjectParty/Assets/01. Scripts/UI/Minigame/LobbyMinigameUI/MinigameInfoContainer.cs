@@ -92,7 +92,7 @@ namespace OMG.UI
 #if STEAMWORKS
                 Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data, data => data.ClientID == player.OwnerClientId);
 
-                checkBox.SetNameText(data.Nickname.ToString());
+                checkBox.SetNameText(data.Name);
 #else
                 checkBox.SetNameText(player.name);
 #endif
