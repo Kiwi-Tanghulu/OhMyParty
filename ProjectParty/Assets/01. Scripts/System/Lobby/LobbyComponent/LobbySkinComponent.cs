@@ -37,7 +37,10 @@ namespace OMG.Lobbies
         private void LoadSkinData()
         {
             if (ClientManager.Instance.CurrentLobby == null)
+            {
+                skinData = skinSelector.SkinLibrary.CurrentSkin;
                 return;
+            }
 
             string lobbySkin = ClientManager.Instance.CurrentLobby?.GetData("LobbySkin");
             skinData = skinSelector.SkinLibrary.GetSkin(int.Parse(lobbySkin));
