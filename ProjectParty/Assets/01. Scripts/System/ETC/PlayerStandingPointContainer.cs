@@ -11,7 +11,7 @@ namespace OMG
         public Transform GetStandingPoint(ulong clientID)
         {
             int index = Lobby.Current.PlayerDatas.
-                Find(out Lobbies.PlayerData foundPlayer, x => x.clientID == clientID);
+                Find(out Lobbies.PlayerData foundPlayer, x => x.ClientID == clientID);
 
             return calculatePlayerScorePoints[index];
         }

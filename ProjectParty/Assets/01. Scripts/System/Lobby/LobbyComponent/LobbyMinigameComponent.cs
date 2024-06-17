@@ -68,7 +68,7 @@ namespace OMG.Lobbies
         public void StartMinigame()
         {
             ulong[] joinedPlayers = new ulong[Lobby.PlayerDatas.Count];
-            Lobby.PlayerDatas.ForEach((i, index) => joinedPlayers[index] = i.clientID);
+            Lobby.PlayerDatas.ForEach((i, index) => joinedPlayers[index] = i.ClientID);
             MinigameManager.Instance.StartMinigame(currentMinigame, joinedPlayers);
             BroadcastMinigameStartedClientRpc();
 
