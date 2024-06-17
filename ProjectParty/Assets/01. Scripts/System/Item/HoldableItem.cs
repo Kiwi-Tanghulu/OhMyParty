@@ -68,9 +68,9 @@ namespace OMG.Items
         public abstract void OnRelease();
 
         [ServerRpc(RequireOwnership = false)]
-        private void HoldServerRpc(ulong holderID)
+        private void HoldServerRpc(ulong holderID, ServerRpcParams param = default)
         {
-            if(HolderID != ulong.MaxValue && holderID != HolderID)
+            if(HolderID != ulong.MaxValue && param.Receive.SenderClientId != HolderID)
                 return;
 
             HoldClientRpc(holderID);
