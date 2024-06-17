@@ -12,17 +12,12 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private ParticleSystem invisiblityParticle;
         private Renderer skinRenderer;
         private Material playerVisualMat;
-        
-
-        private void Awake()
-        {
-            playerVisualMat = skinRenderer.material;
-        }
 
         private void Start()
         {
             playerVisualTrm = transform.Find("Skin").GetComponent<Transform>();
             skinRenderer = playerVisualTrm.GetComponent<Renderer>();
+            playerVisualMat = skinRenderer.material;
         }
 
         public void ChangeColorInvisibility()
