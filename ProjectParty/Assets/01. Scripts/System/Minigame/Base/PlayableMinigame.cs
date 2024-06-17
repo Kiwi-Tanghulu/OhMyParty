@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Player;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 namespace OMG.Minigames
@@ -52,16 +53,17 @@ namespace OMG.Minigames
         protected PlayerController CreatePlayer(int index)
         {
             PlayerController player = Instantiate(playerPrefab, spawnPositions[index].position, Quaternion.identity);
-            RegisterPlayer(player.NetworkObject, playerDatas[index].clientID);
+            RegisterPlayer(player.NetworkObject, spawnPositions[index].position, playerDatas[index].clientID);
             playerDictionary.Add(playerDatas[index].clientID, player);
 
             return player;
         }
 
-        public void RegisterPlayer(NetworkObject player, ulong clientID)
+        public void RegisterPlayer(NetworkObject player, Vector3 position, ulong clientID)
         {
             player.SpawnWithOwnership(clientID, true);
             player.TrySetParent(NetworkObject);
+            player.GetComponent<CharacterMovement>().Teleport(position, Quaternion.identity);
             players.Add(player);
         }
     }
