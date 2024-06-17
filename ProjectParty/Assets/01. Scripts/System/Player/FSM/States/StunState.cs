@@ -34,6 +34,8 @@ namespace OMG.Player.FSM
 
             ragdoll.SetActive(true);
             ragdoll.AddForce(health.Damage * health.HitDir, ForceMode.Impulse);
+
+            movement.SetMoveDirection(Vector3.zero, false);
         }
 
         protected override void OwnerExitState()
