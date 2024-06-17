@@ -52,7 +52,12 @@ namespace OMG.Player
             OnDamagedEvent?.Invoke(point);
 
             if (IsServer)
-                fsm.ChangeState(typeof(StunState));
+            {
+                if (damage == -1)
+                    fsm.ChangeState(typeof(DieState));
+                else
+                    fsm.ChangeState(typeof(StunState));
+            }
         }
     }
 }
