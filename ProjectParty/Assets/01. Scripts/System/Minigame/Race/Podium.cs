@@ -28,7 +28,7 @@ namespace OMG.Minigames.Race
             {
                 if (race.Players[race.Rank[i]].TryGet(out NetworkObject networkObject))
                 {
-                    visuals[i].SetVisual(networkObject.GetComponent<PlayerController>().Visual.VisualType);
+                    visuals[i].SetSkin(networkObject.GetComponent<PlayerController>().Visual.VisualType);
                 }
             }
         }

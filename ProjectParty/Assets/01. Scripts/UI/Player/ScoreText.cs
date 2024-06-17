@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.UI
 {
@@ -12,6 +13,9 @@ namespace OMG.UI
         [SerializeField] private TextMeshPro additiveScoreText;
         [SerializeField] private int textChangeSpeed;
         [SerializeField] private float hideDelay;
+
+        public UnityEvent OnStartCalcEvent;
+        public UnityEvent OnStopCalcEvent;
 
         private WaitForSeconds wfs;
 
@@ -45,6 +49,9 @@ namespace OMG.UI
             additiveScoreText.text = $"+{(currentScore - prevScore)}";
 
             anim.Play("Show", 0, 0f);
+
+            OnStartCalcEvent?.Invoke();
+
             StartCoroutine(TextChangeCo());
         }
 
@@ -68,6 +75,8 @@ namespace OMG.UI
             }
 
             fullScoreText.text = $"{(int)currentScore}";
+
+            OnStopCalcEvent?.Invoke();
 
             yield return wfs;
 

@@ -459,6 +459,7 @@ GameObject:
   - component: {fileID: 3108155902965447678}
   - component: {fileID: 2303322183020315692}
   - component: {fileID: -2779087323168497110}
+  - component: {fileID: 5864362931493435817}
   m_Layer: 0
   m_Name: RenderTargetPlayerVisual
   m_TagString: Untagged
@@ -517,8 +518,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75edff348e642f84a89369c84e11bacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skinLibrarySO: {fileID: 0}
   visualType: 0
+  skinSelector: {fileID: 0}
   renderCamera: {fileID: 4451787929236999342}
+--- !u!114 &5864362931493435817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2335595793533739332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50d6d55c36dc5cd4f93e0bab5f032c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinContainer: {fileID: 3108155902965447678}
+  skinLibrary: {fileID: 11400000, guid: 23b96e375aec98748b642413a323e75d, type: 2}
 --- !u!1 &2408965019153053026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,7 +1132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &706157383129528324
 Transform:
   m_ObjectHideFlags: 0

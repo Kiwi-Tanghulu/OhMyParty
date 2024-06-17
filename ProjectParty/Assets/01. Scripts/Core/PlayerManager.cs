@@ -54,10 +54,12 @@ public class PlayerManager : MonoBehaviour
             Quaternion.identity,
             transform);
 
-        playerVisual.SetVisual(player.Visual.VisualType);
+        playerVisual.SetSkin(player.Visual.VisualType);
         playerVisual.SetOwenrID(player.OwnerClientId);
 
         renderTargetPlayerDic.Add(player.OwnerClientId, playerVisual);
+
+        player.Visual.OnSkinChangedEvent += playerVisual.SetSkin;
 
         return playerVisual;
     }

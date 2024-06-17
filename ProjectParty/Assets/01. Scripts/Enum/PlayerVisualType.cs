@@ -1,5 +1,5 @@
 public enum PlayerVisualType
 {
-    BoxHead,
-    Mime
+    BoxHead = 0,
+    Boxer,
 }

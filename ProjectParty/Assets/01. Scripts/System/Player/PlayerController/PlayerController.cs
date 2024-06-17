@@ -41,6 +41,9 @@ namespace OMG.Player
             base.Update();
 
             stateMachine.UpdateFSM();
+
+            if (Input.GetKeyDown(KeyCode.V))
+                visual.SetSkin(PlayerVisualType.Boxer);
         }
     }
 }
