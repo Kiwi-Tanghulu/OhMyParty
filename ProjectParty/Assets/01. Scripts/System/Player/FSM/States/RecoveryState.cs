@@ -35,6 +35,9 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
+            if(playerSkin == null)
+                playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
+
             float twinkleTweenTime = playerHitableDelayTime / 4f;
             twinkleTween = DOTween.Sequence();
             twinkleTween.Append(playerSkin.Mat.DOFade(0f, twinkleTweenTime));
