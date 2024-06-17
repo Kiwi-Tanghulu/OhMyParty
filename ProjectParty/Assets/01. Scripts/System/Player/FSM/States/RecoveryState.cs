@@ -29,6 +29,8 @@ namespace OMG.Player.FSM
 
         public override void ExitState()
         {
+            base.ExitState();
+
             anim.AnimEvent.OnEndEvent -= AnimEvent_OnEndEvent;
         }
 
