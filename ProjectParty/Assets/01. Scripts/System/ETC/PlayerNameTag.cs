@@ -2,6 +2,7 @@ using OMG.Lobbies;
 using OMG.Extensions;
 using System.Collections;
 using UnityEngine;
+using Unity.Netcode;
 
 namespace OMG.Player
 {
@@ -14,8 +15,10 @@ namespace OMG.Player
         public void Init(ulong ownerID)
         {
             this.ownerID = ownerID;
+
             TrySetNameTag();
-            StartCoroutine(NameTagUpdateRoutine());
+            Lobby.Current.PlayerDatas.OnListChanged += HandlePlayerDatasChanged;
+            // StartCoroutine(NameTagUpdateRoutine());
         }
 
         private void TrySetNameTag()
@@ -32,14 +35,23 @@ namespace OMG.Player
             SetNameTag(nickname);
         }
 
-        private IEnumerator NameTagUpdateRoutine()
+        private void HandlePlayerDatasChanged(NetworkListEvent<PlayerData> listEvent)
         {
-            YieldInstruction delay = new WaitForSeconds(updateDelay);
-            while(nameSetted == false)
-            {
-                yield return delay;
-                TrySetNameTag();
-            }
+            TrySetNameTag();
+
+            if(nameSetted)
+                Lobby.Current.PlayerDatas.OnListChanged -= HandlePlayerDatasChanged;
         }
+
+        // private IEnumerator NameTagUpdateRoutine()
+        // {
+        //     Debug.Log("ASd");
+        //     YieldInstruction delay = new WaitForSeconds(updateDelay);
+        //     while(nameSetted == false)
+        //     {
+        //         yield return delay;
+        //         TrySetNameTag();
+        //     }
+        // }
     }
 }
