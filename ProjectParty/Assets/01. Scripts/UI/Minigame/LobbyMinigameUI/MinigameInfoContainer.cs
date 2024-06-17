@@ -1,4 +1,5 @@
 using Cinemachine;
+using OMG.Extensions;
 using OMG.Lobbies;
 using OMG.Minigames;
 using OMG.Player;
@@ -88,7 +89,14 @@ namespace OMG.UI
                 PlayerReadyCheckBox checkBox = Instantiate(readyCheckBoxPrefab, readyCheckBoxContainer);
                 checkBox.SetPlayerImage(
                     PlayerManager.Instance.RenderTargetPlayerDic[player.OwnerClientId].RenderTexture);
-                checkBox.SetNameText(player.name); //
+#if STEAMWORKS
+                Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data, data => data.clientID == player.OwnerClientId);
+
+                checkBox.SetNameText(data.Name);
+#else
+                checkBox.SetNameText(player.name);
+#endif
+
                 readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
             }
         }

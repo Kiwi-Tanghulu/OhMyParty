@@ -15,6 +15,7 @@ namespace OMG.Items
         protected OwnershipController ownershipController = null;
 
         public event Action<bool> OnHoldEvent = null;
+        public bool IsHolded { get; private set; }
 
         protected override void Awake()
         {
@@ -26,6 +27,9 @@ namespace OMG.Items
 
         public virtual bool Hold(IHolder holder, Vector3 point = default)
         {
+            if (IsHolded)
+                return false;
+
             if(holder.IsEmpty == false)
                 return false;
 
@@ -40,6 +44,7 @@ namespace OMG.Items
             });
 
             OnHold();
+            HoldServerRpc(true);
             OnHoldEvent?.Invoke(true);
 
             return true;
@@ -53,6 +58,7 @@ namespace OMG.Items
             transformController.SetParent(null);
             
             OnRelease();
+            HoldServerRpc(false);
             OnHoldEvent?.Invoke(false);
 
             return prevHolder;
@@ -60,5 +66,17 @@ namespace OMG.Items
 
         public abstract void OnHold();
         public abstract void OnRelease();
+
+        [ServerRpc(RequireOwnership = false)]
+        private void HoldServerRpc(bool hold)
+        {
+            HoldClientRpc(hold);
+        }
+
+        [ClientRpc]
+        private void HoldClientRpc(bool hold)
+        {
+            IsHolded = hold;
+        }
     }
 }

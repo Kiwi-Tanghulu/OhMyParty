@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using OMG.Extensions;
 using Unity.Netcode;
+using OMG.Player.FSM;
+
 namespace OMG.Minigames.MazeAdventure
 {
     public class MazeAdventurePlayerController : PlayerController, IInvisibility
@@ -31,7 +33,8 @@ namespace OMG.Minigames.MazeAdventure
         {
             dieEvent?.Invoke();
             GetComponent<CharacterMovement>().SetMoveSpeed(0f);
-            StateMachine.ChangeState(dieState);
+            StateMachine.ChangeState(typeof(DieState));
+            //StateMachine.ChangeState(dieState);
         }
 
         #region Invisibil
