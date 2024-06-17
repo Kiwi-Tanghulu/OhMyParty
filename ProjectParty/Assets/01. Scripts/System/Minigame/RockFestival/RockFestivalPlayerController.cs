@@ -30,7 +30,7 @@ namespace OMG.Minigames.RockFestival
         {
             base.Update();
 
-            if(holder.IsEmpty)
+            if(holder == null || holder.IsEmpty)
                 return;
             
             HoldableItem item = holder.HoldingObject as HoldableItem;
@@ -38,9 +38,7 @@ namespace OMG.Minigames.RockFestival
                 return;
             
             if(item.HolderID != OwnerClientId)
-            {
-                
-            }
+                holder.Release();
         }
 
         public override void OnNetworkDespawn()
