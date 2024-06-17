@@ -1,4 +1,5 @@
 using DG.Tweening;
+using OMG.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,9 +16,10 @@ namespace OMG
         private void Start()
         {
             Renderer render = GetComponent<Renderer>();
-            Material sharedMat = render.sharedMaterial;
-            mat = new Material(sharedMat);
-            render.material = mat;
+            // Material sharedMat = render.sharedMaterial;
+            // mat = new Material(sharedMat);
+            // render.material = mat;
+            mat = render.material;
         }
         
         public void ActiveDissolve(bool value)
@@ -42,9 +44,31 @@ namespace OMG
         {
             if (mat == null)
                 return;
+            Debug.Log("Dissolve Begin");
+            StartCoroutine(this.PostponeFrameCoroutine(() => {
+                mat.SetFloat(propertyID, start);
+                mat.DOFloat(end, propertyID, time);
+            }));
+            Debug.Log("Dissolve End");
+            // StopAllCoroutines();
+            // StartCoroutine(DissolveRoutine(start, end, time));
+        }
 
+        private IEnumerator DissolveRoutine(float start, float end, float time)
+        {
             mat.SetFloat(propertyID, start);
-            mat.DOFloat(end, propertyID, time);
+            float timer = 0f;
+
+            while(timer < time)
+            {
+                mat.SetFloat(propertyID, Mathf.Lerp(start, end, timer / time));
+                Debug.Log(timer / time);
+                
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            mat.SetFloat(propertyID, end);
         }
     }
 }
