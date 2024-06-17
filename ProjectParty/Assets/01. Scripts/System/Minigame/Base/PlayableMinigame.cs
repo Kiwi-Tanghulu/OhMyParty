@@ -63,7 +63,7 @@ namespace OMG.Minigames
         {
             player.SpawnWithOwnership(clientID, true);
             player.TrySetParent(NetworkObject);
-            player.GetComponent<CharacterMovement>().Teleport(position, Quaternion.identity);
+            //player.GetComponent<CharacterMovement>().Teleport(position, Quaternion.identity);
             players.Add(player);
         }
     }
