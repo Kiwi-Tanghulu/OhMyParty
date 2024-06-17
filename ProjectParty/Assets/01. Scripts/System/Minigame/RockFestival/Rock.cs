@@ -1,5 +1,6 @@
 using OMG.Interacting;
 using OMG.Items;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,6 +17,9 @@ namespace OMG.Minigames.RockFestival
 
         private RockTransform rockTransform = null;
         private RockCollision rockCollision = null;
+        private RockBehaviour rockBehaviour = null;
+
+        public ulong HolderID => rockBehaviour.HolderID;
 
         protected override void Awake()
         {
@@ -23,6 +27,7 @@ namespace OMG.Minigames.RockFestival
 
             rockCollision = GetComponent<RockCollision>();
             rockTransform = transformController as RockTransform;
+            rockBehaviour = itemBehaviour as RockBehaviour;
         }
 
         public override void Init()
@@ -44,26 +49,30 @@ namespace OMG.Minigames.RockFestival
             onThrowEvent?.Invoke();
         }
 
+        public override bool Hold(IHolder holder, Vector3 point = default)
+        {
+            if (rockBehaviour.HolderID != ulong.MaxValue)
+                return false;
+
+            return base.Hold(holder, point);
+        }
+
         public override void OnHold()
         {
+            rockBehaviour.Hold(currentHolder.HolderObject.GetComponent<NetworkObject>().OwnerClientId);
             rockCollision.SetActiveRigidbody(false);
         }
 
         public override void OnRelease()
         {
+            rockBehaviour.Hold(ulong.MaxValue);
             if(rockCollision.ActiveCollisionOther == false)
                 rockTransform.FitToGround();
             rockCollision.SetActiveRigidbody(true);
         }
 
-        public void OnFocusBegin(Vector3 point)
-        {
-            
-        }
+        public void OnFocusBegin(Vector3 point) { }
 
-        public void OnFocusEnd()
-        {
-            
-        }
+        public void OnFocusEnd() { }
     }
 }
