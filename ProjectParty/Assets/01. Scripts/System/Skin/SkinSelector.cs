@@ -11,8 +11,6 @@ namespace OMG.Skins
         private Skin currentSkin = null;
         public Skin CurrentSkin => currentSkin;
 
-        [SerializeField] private bool useOutline;
-
         public void SetSkinLibrary(SkinLibrarySO library)
         {
             skinLibrary = library;
@@ -24,7 +22,7 @@ namespace OMG.Skins
             SetSkin(skinLibrary.CurrentSkin);
         }
 
-        public void SetSkin(SkinSO skin)
+        public virtual void SetSkin(SkinSO skin)
         {
             if(currentSkin != null)
                 ReleaseSkin();
@@ -32,9 +30,6 @@ namespace OMG.Skins
             if(skin.SkinPrefab != null)
             {
                 currentSkin = Instantiate(skin.SkinPrefab, skinContainer);
-
-                if (useOutline)
-                    currentSkin.gameObject.AddComponent<PlayerOutLine>();
 
                 currentSkin.Init();
             }
