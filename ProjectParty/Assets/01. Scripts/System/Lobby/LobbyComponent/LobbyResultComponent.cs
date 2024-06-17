@@ -20,7 +20,7 @@ namespace OMG.Lobbies
         public void DisplayResult()
         {
             Lobby.PlayerDatas.ForEach(i => {
-                Debug.Log($"[Lobby] Player {i.clientID} Score : {i.score}");
+                Debug.Log($"[Lobby] Player {i.ClientID} Score : {i.Score}");
             });
         }
 
@@ -28,11 +28,11 @@ namespace OMG.Lobbies
         {
             PlayerData winner = new PlayerData(0);
             Lobby.PlayerDatas.ForEach(i => {
-                if(i.score >= winner.score)
+                if(i.Score >= winner.Score)
                     winner = i;
             });
 
-            Debug.Log($"[Lobby] The Winner is Player {winner.clientID}");
+            Debug.Log($"[Lobby] The Winner is Player {winner.ClientID}");
         }
 
         public void SpawnCushione()

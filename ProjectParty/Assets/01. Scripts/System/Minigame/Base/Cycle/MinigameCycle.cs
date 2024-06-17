@@ -36,8 +36,8 @@ namespace OMG.Minigames
 
                 if(IsHost)
                 {
-                    Lobby.Current.PlayerDatas.ChangeData(j => j.clientID == minigameData.clientID, lobbyData => {
-                        lobbyData.score += score;
+                    Lobby.Current.PlayerDatas.ChangeData(j => j.ClientID == minigameData.clientID, lobbyData => {
+                        lobbyData.Score += score;
                         return lobbyData;
                     });
                 }

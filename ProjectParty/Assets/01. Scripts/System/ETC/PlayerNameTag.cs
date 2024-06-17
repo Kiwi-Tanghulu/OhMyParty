@@ -8,9 +8,9 @@ namespace OMG.Player
         public void SetNameTag(ulong ownerID)
         {
 #if STEAMWORKS
-            Lobby.Current.PlayerDatas.Find(out PlayerData data, data => data.clientID == ownerID);
+            Lobby.Current.PlayerDatas.Find(out PlayerData data, data => data.ClientID == ownerID);
 
-            SetNameTag(data.Name);
+            SetNameTag(data.Nickname.ToString());
 #else
             SetNameTag(transform.parent.name);
 #endif

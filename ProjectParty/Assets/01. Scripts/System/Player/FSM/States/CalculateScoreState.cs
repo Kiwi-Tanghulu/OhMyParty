@@ -45,7 +45,7 @@ namespace OMG.Player
 
         private void LobbyCutSscene_OnEndFinish()
         {
-            scoreText.SetScore(Lobby.Current.PlayerDatas[(int)player.OwnerClientId].score);
+            scoreText.SetScore(Lobby.Current.PlayerDatas[(int)player.OwnerClientId].Score);
             scoreText.Show();
         }
 

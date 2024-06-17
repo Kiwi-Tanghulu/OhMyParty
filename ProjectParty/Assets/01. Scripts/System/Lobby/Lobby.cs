@@ -4,6 +4,7 @@ using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Player;
 using Steamworks;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -47,28 +48,28 @@ namespace OMG.Lobbies
 
             #if STEAMWORKS
             // 모든 처리가 끝난 후 로비씬을 들어오게 되기 때문에 스타트에서 해줘도 됨
-            PlayerJoinServerRpc(SteamClient.SteamId);
+            PlayerJoinServerRpc(SteamClient.Name);
             #else
             PlayerJoinServerRpc(0);
             #endif
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void PlayerJoinServerRpc(ulong steamId, ServerRpcParams rpcParams = default)
+        private void PlayerJoinServerRpc(FixedString32Bytes nickname, ServerRpcParams rpcParams = default)
         {
-            PlayerData playerData = new PlayerData(rpcParams.Receive.SenderClientId, steamId);
+            PlayerData playerData = new PlayerData(rpcParams.Receive.SenderClientId, nickname);
             if(players.Contains(playerData))
                 return;
 
             CreatePlayer(playerData);
-            Debug.Log($"[Lobby] Player Created ID : {playerData.clientID}");
+            Debug.Log($"[Lobby] Player Created ID : {playerData.ClientID}");
         }
 
         private void CreatePlayer(PlayerData playerData)
         {
             players.Add(playerData);
             PlayerController player = Instantiate(playerPrefab, spawnPosition.position, Quaternion.identity, transform);
-            player.NetworkObject.SpawnWithOwnership(playerData.clientID, true);
+            player.NetworkObject.SpawnWithOwnership(playerData.ClientID, true);
             player.NetworkObject.TrySetParent(NetworkObject);
             // something
         }
