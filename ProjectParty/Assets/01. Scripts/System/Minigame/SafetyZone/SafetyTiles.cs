@@ -19,7 +19,7 @@ namespace OMG.Minigames.SafetyZone
         private SafetyTile[] tiles = null;
         private HashSet<int> safetyTiles = new HashSet<int>();
 
-        public int SafetyTileCount = 3;
+        public int SafetyTileCount = 1;
 
         private void Awake()
         {
@@ -30,7 +30,6 @@ namespace OMG.Minigames.SafetyZone
 
         public void RerollTiles()
         {
-            Debug.Log("Reroll");
             for(int i = 0; i < SafetyTileCount; ++i)
             {
                 int safetyTile;
@@ -39,7 +38,6 @@ namespace OMG.Minigames.SafetyZone
                 while(safetyTiles.Contains(safetyTile) == true);
 
                 int safetyNumber = Random.Range(0, 2);
-                safetyTiles.Add(safetyTile);
                 UpdateSafetyNumberClientRpc(safetyTile, safetyNumber);
             }
 
@@ -48,13 +46,12 @@ namespace OMG.Minigames.SafetyZone
 
         public void DecisionSafetyZone()
         {
-            Debug.Log("Decision");
             foreach(int i in safetyTiles)
             {
                 SafetyTile tile = tiles[i];
                 if(tile.IsSafetyZone())
                     continue;
-                TileActiveClientRpc(i);
+                TileInactiveClientRpc(i);
             }
 
             minigame.PlayerDatas.ForEach(i => {
@@ -72,7 +69,6 @@ namespace OMG.Minigames.SafetyZone
 
         public void ResetTiles()
         {
-            Debug.Log("Reset");
             ResetTilesClientRpc();
             safetyTiles.Clear();
         }
@@ -80,6 +76,13 @@ namespace OMG.Minigames.SafetyZone
         public void Init()
         {
             InitClientRpc();
+        }
+
+        #region Cycle
+        [ClientRpc]
+        public void InitClientRpc()
+        {
+            tiles.ForEach(i => i.Init());
         }
 
         [ClientRpc]
@@ -91,40 +94,38 @@ namespace OMG.Minigames.SafetyZone
         [ClientRpc]
         private void DecisionSafetyZoneClientRpc()
         {
-            // StartCoroutine(this.DelayCoroutine(fallingPostpone, () => groundCollider.SetActive(false)));
             onDecisionEvent?.Invoke();
-        }
-
-        [ClientRpc]
-        private void UpdateSafetyNumberClientRpc(int index, int number)
-        {
-            tiles[index].SetSafetyNumber(number);
-            tiles[index].SetActive(true);
-        }
-
-        [ClientRpc]
-        private void TileActiveClientRpc(int index)
-        {
-            tiles[index].SetActive(false);
         }
 
         [ClientRpc]
         private void ResetTilesClientRpc()
         {
             foreach(int i in safetyTiles)
-            {
-                tiles[i].Reset();
-                tiles[i].SetActive(false);    
-            }
+                InactiveTile(i);
 
-            // groundCollider.SetActive(true);
             onResetEvent?.Invoke();
         }
-    
+        #endregion
+
         [ClientRpc]
-        public void InitClientRpc()
+        private void UpdateSafetyNumberClientRpc(int index, int number)
         {
-            tiles.ForEach(i => i.Init());
+            safetyTiles.Add(index);
+
+            tiles[index].SetSafetyNumber(number);
+            tiles[index].ActiveTile();
+        }
+
+        [ClientRpc]
+        private void TileInactiveClientRpc(int index)
+        {
+            InactiveTile(index);
+        }
+
+        private void InactiveTile(int index)
+        {
+            tiles[index].InactiveTile();
+            tiles[index].Reset();
         }
     }
 }
