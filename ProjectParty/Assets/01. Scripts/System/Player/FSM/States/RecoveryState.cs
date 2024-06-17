@@ -29,6 +29,11 @@ namespace OMG.Player.FSM
             playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
 
             wfs = new WaitForSeconds(playerHitableDelayTime);
+        }
+
+        public override void EnterState()
+        {
+            base.EnterState();
 
             float twinkleTweenTime = playerHitableDelayTime / 4f;
             twinkleTween = DOTween.Sequence();
@@ -36,12 +41,6 @@ namespace OMG.Player.FSM
             twinkleTween.Append(playerSkin.Mat.DOFade(1f, twinkleTweenTime));
             twinkleTween.Append(playerSkin.Mat.DOFade(0f, twinkleTweenTime));
             twinkleTween.Append(playerSkin.Mat.DOFade(1f, twinkleTweenTime));
-            twinkleTween.SetAutoKill(false);
-        }
-
-        public override void EnterState()
-        {
-            base.EnterState();
 
             anim.AnimEvent.OnEndEvent += AnimEvent_OnEndEvent;
 

@@ -7,7 +7,7 @@ namespace OMG.Skins
         private Material mat;
         public Material Mat => mat;
 
-        private SkinnedMeshRenderer skinnedMesh;
+        [SerializeField] private SkinnedMeshRenderer skinnedMesh;
         public SkinnedMeshRenderer SkinnedMesh => skinnedMesh;
 
         public override void Init()
@@ -16,11 +16,8 @@ namespace OMG.Skins
 
             gameObject.name = "Skin";
 
-            Renderer render = GetComponent<Renderer>();
-            mat = new Material(render.sharedMaterial);
-            render.material = mat;
-
-            skinnedMesh = GetComponent<SkinnedMeshRenderer>();
+            mat = new Material(skinnedMesh.sharedMaterial);
+            skinnedMesh.material = mat;
         }
 
         public override void Release()

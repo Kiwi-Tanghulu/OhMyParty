@@ -10,6 +10,7 @@ namespace OMG.Lobbies
         public bool IsReady;
         public int Score;
         public ulong SteamID;
+        public int VisualType;
 
         public string Nickname {
             get {
@@ -20,17 +21,18 @@ namespace OMG.Lobbies
             }
         }
 
-        public PlayerData(ulong clientID, ulong steamID)
+        public PlayerData(ulong clientID, ulong steamID, int visualType)
         {
             ClientID = clientID;
             SteamID = steamID;
             IsReady = false;
             Score = 0;
+            VisualType = visualType;
         }
 
         public PlayerData(ulong clientID)
         {
-            this = new PlayerData(clientID, 0);
+            this = new PlayerData(clientID, 0, 0);
         }
 
         public bool Equals(PlayerData other)
@@ -45,6 +47,7 @@ namespace OMG.Lobbies
             serializer.SerializeValue(ref IsReady);
             serializer.SerializeValue(ref Score);
             serializer.SerializeValue(ref SteamID);
+            serializer.SerializeValue(ref VisualType);
         }
     }
 }
