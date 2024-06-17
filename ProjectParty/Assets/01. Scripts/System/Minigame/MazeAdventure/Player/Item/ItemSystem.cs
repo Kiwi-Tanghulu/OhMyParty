@@ -25,6 +25,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         private ItemType currentItemType;
 
         public event Action<ItemType> OnItemChange;
+        public event Action OnUseItem;
         public UnityEvent OnGetItme;
         public void Init(Transform playerTrm)
         {
@@ -43,6 +44,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
             MazeAdventureItemUI itemUI = MinigameManager.Instance.CurrentMinigame.transform.Find("MinigameCanvas").Find("MinigamePanel").Find("ItemUI").GetComponent<MazeAdventureItemUI>();
             
             OnItemChange += itemUI.ChangeIcon;
+            OnUseItem += itemUI.UseItemEffect;
 
             ChangeItem(ItemType.None);
         }
@@ -52,6 +54,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
             if(currentItemType == ItemType.None) { return; }
             playerItemDictionary[currentItemType].Active();
             ChangeItem(ItemType.None);
+            OnUseItem?.Invoke();
         }
 
         private void ChangeItem(ItemType newItem)

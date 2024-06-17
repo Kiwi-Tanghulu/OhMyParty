@@ -28,20 +28,26 @@ namespace OMG.Minigames.SafetyZone
                 Stat.StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
             }
 
+            // 슬로우 시작
             Stat.StatSO[CharacterStatType.MaxMoveSpeed].AddModifier(slow);
             slowCoroutine = StartCoroutine(this.DelayCoroutine(duration, () => {
                 Stat.StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
+                // 슬로우 종료
             }));
         }
 
         private Coroutine inversionCoroutine = null;
         public void InvertInput(float duration)
         {
+            // 입력반전 시작
             input.MoveInputInversion = true;
 
             if(inversionCoroutine != null)
                 StopCoroutine(inversionCoroutine);
-            inversionCoroutine = StartCoroutine(this.DelayCoroutine(duration, () => input.MoveInputInversion = true));
+            inversionCoroutine = StartCoroutine(this.DelayCoroutine(duration, () => {
+                input.MoveInputInversion = true;
+                // 입력반전 종료
+            }));
         }
     }
 }
