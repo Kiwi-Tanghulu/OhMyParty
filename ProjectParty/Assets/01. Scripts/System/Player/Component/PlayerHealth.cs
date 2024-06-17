@@ -28,24 +28,35 @@ namespace OMG.Player
         private void Awake()
         {
             fsm = GetComponent<FSMBrain>();
+
+            Hitable = true;
+            PlayerHitable = true;
         }
 
         public void OnDamaged(float damage, Transform attacker, Vector3 point, Vector3 normal = default)
         {
-            if (!Hitable)
-                return;
-
-            if (!PlayerHitable)
+            if(damage != -1)
             {
-                if (attacker.TryGetComponent<PlayerController>(out PlayerController player))
-                {
+                if (!Hitable)
                     return;
-                }
-            }
 
-            this.attacker = attacker;
-            hitDir = (transform.position - attacker.position).normalized;
-            OnDamagedClientRpc(damage, point, hitDir);
+                if (!PlayerHitable)
+                {
+                    if (attacker.TryGetComponent<PlayerController>(out PlayerController player))
+                    {
+                        return;
+                    }
+                }
+
+                this.attacker = attacker;
+                hitDir = (transform.position - attacker.position).normalized;
+                OnDamagedClientRpc(damage, point, hitDir);
+            }
+            else
+            {
+                OnDamagedClientRpc(-1, Vector3.zero, Vector3.zero);
+            }
+            
 
             //this.damage = damage;
             //hitPoint = point;

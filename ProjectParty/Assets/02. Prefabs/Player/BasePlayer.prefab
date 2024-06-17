@@ -1427,6 +1427,7 @@ MonoBehaviour:
   OnStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  playerHitableDelayTime: 1.5
 --- !u!114 &6463859716102333337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2403,6 +2404,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  Hitable: 0
+  PlayerHitable: 0
 --- !u!114 &6705504672991681046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3016,6 +3019,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SkinnedMeshRef
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468235806627256891, guid: 3185d771f47aa69468dbf7ee7a18a2fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970499233928892283, guid: 3185d771f47aa69468dbf7ee7a18a2fa,
         type: 3}

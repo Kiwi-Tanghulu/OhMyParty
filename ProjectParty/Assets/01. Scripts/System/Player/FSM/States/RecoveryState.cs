@@ -1,12 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using OMG.Client.Component;
 using OMG.FSM;
-using OMG.Player;
-using OMG.Ragdoll;
-using OMG.Extensions;
+using OMG.Skins;
+using DG.Tweening;
 
 namespace OMG.Player.FSM
 {
@@ -17,12 +13,30 @@ namespace OMG.Player.FSM
 
         [SerializeField] private float playerHitableDelayTime = 1f;
 
+        private WaitForSeconds wfs;
+
+        private CharacterSkin playerSkin;
+        private readonly string matColorID = "_BaseColor";
+
+        private Sequence twinkleTween;
+
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
 
             anim = player.Animator;
             health = player.GetComponent<PlayerHealth>();
+            playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
+
+            wfs = new WaitForSeconds(playerHitableDelayTime);
+
+            float twinkleTweenTime = playerHitableDelayTime / 4f;
+            twinkleTween = DOTween.Sequence();
+            twinkleTween.Append(playerSkin.Mat.DOFade(0f, twinkleTweenTime));
+            twinkleTween.Append(playerSkin.Mat.DOFade(1f, twinkleTweenTime));
+            twinkleTween.Append(playerSkin.Mat.DOFade(0f, twinkleTweenTime));
+            twinkleTween.Append(playerSkin.Mat.DOFade(1f, twinkleTweenTime));
+            twinkleTween.SetAutoKill(false);
         }
 
         public override void EnterState()
@@ -42,7 +56,9 @@ namespace OMG.Player.FSM
             anim.AnimEvent.OnEndEvent -= AnimEvent_OnEndEvent;
 
             health.Hitable = true;
-            this.DelayCoroutine(playerHitableDelayTime, () => health.PlayerHitable = true);
+            player.StartCoroutine(HitableDelayCo());
+
+            twinkleTween.Restart();
         }
 
         private void AnimEvent_OnEndEvent()
@@ -56,6 +72,13 @@ namespace OMG.Player.FSM
             {
                 brain.ChangeState(brain.DefaultState);
             }
+        }
+
+        private IEnumerator HitableDelayCo()
+        {
+            yield return wfs;
+
+            health.PlayerHitable = true;
         }
     }
 }
