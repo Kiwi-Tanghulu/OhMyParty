@@ -18,10 +18,8 @@ namespace OMG.Player
 
         private Dictionary<RenderTargetPlayerPoseType, int> PoseHashDic;
 
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
-
             anim = GetComponent<Animator>();
 
             CreateRenderTexture();

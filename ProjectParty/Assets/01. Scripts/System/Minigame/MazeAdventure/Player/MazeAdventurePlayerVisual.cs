@@ -7,15 +7,15 @@ namespace OMG.Minigames.MazeAdventure
     {
         [Range(0, 255)]
         [SerializeField] private int invisibilityAlpha;
-        [SerializeField] private Transform playerVisualTrm;
+        private Transform playerVisualTrm;
         [SerializeField] private Material invisibilityMat;
         [SerializeField] private ParticleSystem invisiblityParticle;
         private Renderer skinRenderer;
         private Material playerVisualMat;
-        
 
-        private void Awake()
+        private void Start()
         {
+            playerVisualTrm = transform.Find("Skin").GetComponent<Transform>();
             skinRenderer = playerVisualTrm.GetComponent<Renderer>();
             playerVisualMat = skinRenderer.material;
         }

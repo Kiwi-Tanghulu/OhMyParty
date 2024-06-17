@@ -15,6 +15,7 @@ namespace OMG.Player
         public PlayerVisualType VisualType => visualType;
         [SerializeField] private Vector3 skinPos;
         private SkinSelector skinSelector;
+        public SkinSelector SkinSelector => skinSelector;
         private SkinnedMeshRenderer skinnedMeshRef;
 
         private PlayerRagdollController ragdoll;
@@ -22,15 +23,12 @@ namespace OMG.Player
 
         public Action<PlayerVisualType/*new skin type*/> OnSkinChangedEvent;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             skinSelector = GetComponent<SkinSelector>();
             ragdoll = GetComponent<PlayerRagdollController>();
             skinnedMeshRef = transform.Find("SkinnedMeshRef").GetComponent<SkinnedMeshRenderer>();
-        }
 
-        protected virtual void Start()
-        {
             SetSkin(visualType);
         }
 
