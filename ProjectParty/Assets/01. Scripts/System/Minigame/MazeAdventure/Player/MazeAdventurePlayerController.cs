@@ -14,6 +14,7 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private PlayerOutLine playerOutLine;
         [SerializeField] private MazeAdventurePlayerVisual mazeAdventurePlayerVisual;
         private bool isInvisibil;
+        public UnityEvent OnInvisibil;
         public bool IsInvisibil => isInvisibil;
 
 
@@ -44,6 +45,7 @@ namespace OMG.Minigames.MazeAdventure
         private void EnterInvisibilClientRpc()
         {
             isInvisibil = true;
+            OnInvisibil?.Invoke();
             mazeAdventurePlayerVisual.ChangeColorInvisibility();
         }
 

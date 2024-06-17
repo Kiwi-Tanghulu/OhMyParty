@@ -34,5 +34,7 @@ namespace OMG.Skins
             this.skinData = skinData;
             currentIndex = skinData.CurrentIndex;
         }
+
+        public SkinSO GetSkin(int index) => skins[index];
     }
 }

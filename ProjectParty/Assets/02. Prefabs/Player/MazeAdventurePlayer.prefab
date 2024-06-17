@@ -5039,6 +5039,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnGetItme:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2271066169551589665}
+        m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayOneShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Maze_GetItem
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1580025535127199384
 GameObject:
   m_ObjectHideFlags: 0
@@ -20103,6 +20118,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5275389935828522059}
+    - targetCorrespondingSourceObject: {fileID: 8653656707965372744, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2271066169551589665}
     - targetCorrespondingSourceObject: {fileID: 5513217023626660693, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       insertIndex: -1
@@ -20174,6 +20193,34 @@ MonoBehaviour:
       m_Calls: []
   playerOutLine: {fileID: 8304864388738980539}
   mazeAdventurePlayerVisual: {fileID: 7734326310850369387}
+  OnInvisibil:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2271066169551589665}
+        m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayOneShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Maze_Invisible
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2271066169551589665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3853981177553999867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ced6c6c5b00e2488bee562bebdbbfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioLibrary: {fileID: 11400000, guid: fc89eb56e4f86ca41aa4b533d033ba5c, type: 2}
 --- !u!4 &6578611427595972520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,

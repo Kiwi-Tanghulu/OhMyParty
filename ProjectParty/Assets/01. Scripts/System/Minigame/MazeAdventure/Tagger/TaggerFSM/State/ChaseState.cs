@@ -30,6 +30,7 @@ namespace OMG.Minigames.MazeAdventure
         protected override void OwnerEnterState()
         {
             base.OwnerEnterState();
+            Debug.Log("유령 상태 : 추격");
         }
         protected override void OwnerUpdateState()
         {

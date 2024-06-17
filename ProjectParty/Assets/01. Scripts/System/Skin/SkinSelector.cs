@@ -19,12 +19,17 @@ namespace OMG.Skins
         // 호스트만 Lobby의 초기화 부분에서 실행해주면 됨
         public void SetSkin() 
         {
+            SetSkin(skinLibrary.CurrentSkin);
+        }
+
+        public void SetSkin(SkinSO skin)
+        {
             if(currentSkin != null)
                 ReleaseSkin();
 
-            if(skinLibrary.CurrentSkin.SkinPrefab != null)
+            if(skin.SkinPrefab != null)
             {
-                currentSkin = Instantiate(skinLibrary.CurrentSkin.SkinPrefab, skinContainer);
+                currentSkin = Instantiate(skin.SkinPrefab, skinContainer);
                 currentSkin.Init();
             }
         }
