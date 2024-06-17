@@ -18,7 +18,6 @@ namespace OMG.Player
 
             TrySetNameTag();
             Lobby.Current.PlayerDatas.OnListChanged += HandlePlayerDatasChanged;
-            // StartCoroutine(NameTagUpdateRoutine());
         }
 
         private void TrySetNameTag()
@@ -42,16 +41,5 @@ namespace OMG.Player
             if(nameSetted)
                 Lobby.Current.PlayerDatas.OnListChanged -= HandlePlayerDatasChanged;
         }
-
-        // private IEnumerator NameTagUpdateRoutine()
-        // {
-        //     Debug.Log("ASd");
-        //     YieldInstruction delay = new WaitForSeconds(updateDelay);
-        //     while(nameSetted == false)
-        //     {
-        //         yield return delay;
-        //         TrySetNameTag();
-        //     }
-        // }
     }
 }
