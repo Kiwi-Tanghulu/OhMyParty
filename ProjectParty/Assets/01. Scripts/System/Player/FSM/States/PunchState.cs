@@ -24,7 +24,7 @@ namespace OMG.Player.FSM
             if (!player.IsServer)
                 return;
 
-            if (Physics.SphereCast(eyeTrm.position, radius, player.transform.forward, out RaycastHit hit, distance))
+            if (Physics.SphereCast(eyeTrm.position - (eyeTrm.forward * radius * 2), radius, player.transform.forward, out RaycastHit hit, (radius * 2) + distance))
             {
                 //if (hit.transform == player.transform)
                 //    return;
