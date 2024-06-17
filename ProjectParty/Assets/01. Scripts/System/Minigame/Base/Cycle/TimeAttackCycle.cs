@@ -1,38 +1,27 @@
+using OMG.Timers;
 using UnityEngine;
 
 namespace OMG.Minigames
 {
+    [RequireComponent(typeof(NetworkTimer))]
     public class TimeAttackCycle : MinigameCycle
     {
-        private float playTime = 60f;
-        private float timer = 0f;
+        private NetworkTimer timer = null;
 
-        private bool isPlaying = false;
-
-        private void Update()
+        protected override void Awake()
         {
-            if(isPlaying == false)
-                return;
-
-            timer += Time.deltaTime;
-            if(timer >= playTime)
-                FinishCycle();
+            base.Awake();
+            timer = GetComponent<NetworkTimer>();
         }
 
-        public void SetPlayTime(float playTime)
+        public void StartCycle(float playTime)
         {
-            this.playTime = playTime;
-        }
-
-        public void StartCycle()
-        {
-            timer = 0f;
-            isPlaying = true;
+            timer.SetTimer(playTime);
+            timer.OnTimerFinishedEvent.AddListener(FinishCycle);
         }
 
         protected void FinishCycle()
         {
-            isPlaying = false;
             minigame.FinishGame();
         }
     }
