@@ -56,15 +56,6 @@ namespace OMG.Player
             {
                 OnDamagedClientRpc(-1, Vector3.zero, Vector3.zero);
             }
-            
-
-            //this.damage = damage;
-            //hitPoint = point;
-
-            //OnDamagedEvent?.Invoke(point);
-
-            //if (IsServer)
-            //    fsm.ChangeState(typeof(StunState));
         }
 
         [ClientRpc]
