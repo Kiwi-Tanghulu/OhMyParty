@@ -46,12 +46,11 @@ namespace OMG.Lobbies
         {
             InputManager.ChangeInputMap(InputMapType.Play);
 
-            #if STEAMWORKS
             // 모든 처리가 끝난 후 로비씬을 들어오게 되기 때문에 스타트에서 해줘도 됨
-            PlayerJoinServerRpc(SteamClient.SteamId);
-            #else
-            PlayerJoinServerRpc(0);
-            #endif
+            if(SteamClient.IsValid)
+                PlayerJoinServerRpc(SteamClient.SteamId);
+            else
+                PlayerJoinServerRpc(0);
         }
 
         [ServerRpc(RequireOwnership = false)]

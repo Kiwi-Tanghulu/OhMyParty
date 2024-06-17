@@ -10,15 +10,13 @@ namespace OMG.Lobbies
         public bool IsReady;
         public int Score;
         public ulong SteamID;
-        public string Name
-        {
-            get
-            {
-#if STEAMWORKS
-                return new Friend(SteamID).Name;
-#else
-                return null;
-#endif
+
+        public string Nickname {
+            get {
+                if(SteamClient.IsValid)
+                    return new Friend(SteamID).Name;
+                else
+                    return null;
             }
         }
 
