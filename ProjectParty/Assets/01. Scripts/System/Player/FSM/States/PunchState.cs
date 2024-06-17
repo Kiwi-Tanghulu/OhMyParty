@@ -33,7 +33,7 @@ namespace OMG.Player.FSM
                 if (hit.collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                 {
                     Debug.Log(hit.transform.name);
-                    damageable.OnDamaged(150f, player.transform, hit.point);
+                    damageable.OnDamaged(5f, player.transform, hit.point);
                 }
             }
         }
