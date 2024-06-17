@@ -90,13 +90,9 @@ namespace OMG.UI
                 checkBox.SetPlayerImage(
                     PlayerManager.Instance.RenderTargetPlayerDic[player.OwnerClientId].RenderTexture);
 
-                if(SteamClient.IsValid)
-                {
-                    Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data, data => data.ClientID == player.OwnerClientId);
-                    checkBox.SetNameText(data.Nickname.ToString());
-                }
-                else
-                    checkBox.SetNameText(player.name);
+                Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data, data => data.ClientID == player.OwnerClientId);
+                string nickname = data.Nickname;
+                checkBox.SetNameText(string.IsNullOrEmpty(nickname) ? player.name : nickname);
 
                 readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
             }
