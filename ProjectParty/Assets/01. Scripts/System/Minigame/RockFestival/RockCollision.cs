@@ -54,6 +54,9 @@ namespace OMG.Minigames.RockFestival
                 return;
 
             OwnershipController otherRockOwner = attacker.GetComponent<OwnershipController>();
+            if (otherRockOwner == null)
+                return;
+
             otherRockOwner.SetOwner(OwnerClientId, 
             () => { // Owner Action
                 normal = attacker.position - transform.position;

@@ -6,7 +6,7 @@ namespace OMG.UI
 {
     public class MinigameCanvas : MonoBehaviour
     {
-        private void Awake()
+        public void ChangeRenderType()
         {
             Canvas canvas = GetComponent<Canvas>();
             canvas.worldCamera = Camera.main;

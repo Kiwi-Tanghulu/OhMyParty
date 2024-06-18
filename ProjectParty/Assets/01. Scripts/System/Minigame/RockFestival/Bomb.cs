@@ -58,7 +58,12 @@ namespace OMG.Minigames.RockFestival
 
             CurrentHolder?.Release();
             onExplosionEvent?.Invoke();
-            NetworkObject.Despawn(true);
+        }
+
+        public void DespawnObject()
+        {
+            if(IsHost)
+                NetworkObject.Despawn(true);
         }
 
         private void BombScalingLoop()
