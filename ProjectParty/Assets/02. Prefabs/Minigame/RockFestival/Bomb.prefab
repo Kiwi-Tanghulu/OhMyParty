@@ -4885,7 +4885,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 4749696804568003674, guid: 284bbd9bf395ffc4dad93ec9bcb531df,
     type: 3}
-  autoDestroyTime: 1
+  multipleParticle: 0
+  multipleSetting:
+    Settings: []
+  randomPosition: 0
+  positionSetting:
+    Radius: 10
+    X: 0
+    Y: 0
+    Z: 0
+  randomSize: 0
+  range: {x: 0.5, y: 1}
 --- !u!1 &2290179287031670767
 GameObject:
   m_ObjectHideFlags: 0
@@ -20121,6 +20131,91 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].EventName
+      value: OnExplosionEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 729202436534140659}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3525217018462959871}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayOneShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: OMG.Audio.AudioPlayer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 3040799145890903163}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: BOMB_EXPLOSION
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Transform, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+        type: 3}
+      propertyPath: itemEvents.Array.data[3].Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2991031573949161822, guid: 33712da99e4b2c645816989178444d57,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -20195,6 +20290,18 @@ PrefabInstance:
       insertIndex: 3
       addedObject: {fileID: 4353749180901159595}
   m_SourcePrefab: {fileID: 100100000, guid: 33712da99e4b2c645816989178444d57, type: 3}
+--- !u!114 &1849501600119148868 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2658478225626232164, guid: 33712da99e4b2c645816989178444d57,
+    type: 3}
+  m_PrefabInstance: {fileID: 4417591685736932384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6284338363354223072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e332070dcf3145746959c099d5399402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3040799145890903163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1692621794146701403, guid: 33712da99e4b2c645816989178444d57,
@@ -20231,73 +20338,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289d408f4801e954bb32d5fa6649e584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnActiveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSpawnedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  point: 1
   onThrowEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8114574726772029398}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 3040799145890903163}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onSpawnedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8114574726772029398}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 3040799145890903163}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3525217018462959871}
-        m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
-        m_MethodName: PlayAudio
+      - m_Target: {fileID: 1849501600119148868}
+        m_TargetAssemblyTypeName: OMG.Items.NetworkItemBehaviour, Assembly-CSharp
+        m_MethodName: BroadcastEvent
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: BOMB_FUSE
+          m_StringArgument: OnThrowEvent
           m_BoolArgument: 0
         m_CallState: 2
   onExplosionEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 729202436534140659}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 3040799145890903163}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3525217018462959871}
-        m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
-        m_MethodName: PlayOneShot
+      - m_Target: {fileID: 1849501600119148868}
+        m_TargetAssemblyTypeName: OMG.Items.NetworkItemBehaviour, Assembly-CSharp
+        m_MethodName: BroadcastEvent
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: BOMB_EXPLOSION
+          m_StringArgument: OnExplosionEvent
           m_BoolArgument: 0
         m_CallState: 2
   explosionLatency: 5
@@ -20308,15 +20383,3 @@ MonoBehaviour:
   explosionDamage: 25
   explosionOffset: {x: 0, y: -0.4, z: 0}
   bombScalingTween: {fileID: 11400000, guid: 4d288a9cda528ed4e93920375b3dc4f8, type: 2}
---- !u!114 &8114574726772029398 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5607740761933763574, guid: 33712da99e4b2c645816989178444d57,
-    type: 3}
-  m_PrefabInstance: {fileID: 4417591685736932384}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ff74ee7f302fd4bbb736c514227138, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

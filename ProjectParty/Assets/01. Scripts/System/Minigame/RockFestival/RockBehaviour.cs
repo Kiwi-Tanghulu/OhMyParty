@@ -1,5 +1,7 @@
 using OMG.Items;
 using Unity.Netcode;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Minigames.RockFestival
 {

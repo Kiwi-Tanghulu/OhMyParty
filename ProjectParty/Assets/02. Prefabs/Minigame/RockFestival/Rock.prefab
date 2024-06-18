@@ -493,8 +493,8 @@ GameObject:
   - component: {fileID: 1352007759704261647}
   - component: {fileID: 7641377265664178548}
   - component: {fileID: 7431377744765993101}
-  - component: {fileID: 5958910936145491723}
   - component: {fileID: 3190665807818232660}
+  - component: {fileID: 2658478225626232164}
   m_Layer: 12
   m_Name: Rock
   m_TagString: Point
@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2962138991
+  GlobalObjectIdHash: 23024967
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -567,28 +567,16 @@ MonoBehaviour:
   onThrowEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5607740761933763574}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1692621794146701403}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 982459857472117983}
-        m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
-        m_MethodName: PlayOneShot
+      - m_Target: {fileID: 2658478225626232164}
+        m_TargetAssemblyTypeName: OMG.Items.NetworkItemBehaviour, Assembly-CSharp
+        m_MethodName: BroadcastEvent
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ROCK_THROW
+          m_StringArgument: OnThrowEvent
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &956316481232755839
@@ -606,55 +594,31 @@ MonoBehaviour:
   onCollisionEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6484922525317105252}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1692621794146701403}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 982459857472117983}
-        m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
-        m_MethodName: PlayOneShot
+      - m_Target: {fileID: 2658478225626232164}
+        m_TargetAssemblyTypeName: OMG.Items.NetworkItemBehaviour, Assembly-CSharp
+        m_MethodName: BroadcastEvent
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ROCK_COLLISION
+          m_StringArgument: OnCollisionEvent
           m_BoolArgument: 0
         m_CallState: 2
   onDamagedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3794561823819173626}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 5252876203237504413}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 982459857472117983}
-        m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
-        m_MethodName: PlayOneShot
+      - m_Target: {fileID: 2658478225626232164}
+        m_TargetAssemblyTypeName: OMG.Items.NetworkItemBehaviour, Assembly-CSharp
+        m_MethodName: BroadcastEvent
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ROCK_HIT
+          m_StringArgument: OnDamagedEvent
           m_BoolArgument: 0
         m_CallState: 2
   hitPoint: {fileID: 5252876203237504413}
@@ -928,18 +892,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5958910936145491723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7671886679003051456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5cf23b197b1b604c98d2fc40895d304, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3190665807818232660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,6 +904,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e61dc9c3ee2eb141bac6c50e08baf43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2658478225626232164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671886679003051456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e332070dcf3145746959c099d5399402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemEvents:
+  - EventName: OnDamagedEvent
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3794561823819173626}
+          m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 5252876203237504413}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 982459857472117983}
+          m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayOneShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ROCK_HIT
+            m_BoolArgument: 0
+          m_CallState: 2
+  - EventName: OnCollisionEvent
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6484922525317105252}
+          m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1692621794146701403}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 982459857472117983}
+          m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayOneShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ROCK_COLLISION
+            m_BoolArgument: 0
+          m_CallState: 2
+  - EventName: OnThrowEvent
+    Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5607740761933763574}
+          m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1692621794146701403}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 982459857472117983}
+          m_TargetAssemblyTypeName: OMG.Audio.AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayOneShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ROCK_THROW
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7672205694196191077
 GameObject:
   m_ObjectHideFlags: 0
