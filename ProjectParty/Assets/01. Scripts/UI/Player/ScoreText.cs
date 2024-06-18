@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,7 +9,7 @@ namespace OMG.UI
     {
         [SerializeField] private TextMeshPro fullScoreText;
         [SerializeField] private TextMeshPro additiveScoreText;
-        [SerializeField] private int textChangeSpeed;
+        [SerializeField] private int textChangeTime;
         [SerializeField] private float hideDelay;
 
         public UnityEvent OnStartCalcEvent;
@@ -62,12 +60,14 @@ namespace OMG.UI
 
         private IEnumerator TextChangeCo()
         {
-            float score = prevScore;
+            float percent = 0f;
+            float score = 0f;
 
-            while (score < currentScore)
+            while(percent < 1f)
             {
-                score += Time.deltaTime * textChangeSpeed;
-                score = Mathf.Min(score, currentScore);
+                percent += Time.deltaTime / textChangeTime;
+
+                score = Mathf.Lerp(prevScore, currentScore, percent);
 
                 fullScoreText.text = $"{(int)score}";
 
