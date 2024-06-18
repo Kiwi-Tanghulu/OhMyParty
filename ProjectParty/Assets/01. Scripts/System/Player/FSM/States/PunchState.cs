@@ -26,12 +26,14 @@ namespace OMG.Player.FSM
 
             RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position - (eyeTrm.forward * radius * 2),
                 radius, player.transform.forward, (radius * 2) + distance);
-
+            
             if (hits.Length > 0)
             {
                 for(int i = 0; i < hits.Length; i++)
                 {
                     if (hits[i].transform == player.transform)
+                        continue;
+                    if (hits[i].point == Vector3.zero)
                         continue;
 
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
