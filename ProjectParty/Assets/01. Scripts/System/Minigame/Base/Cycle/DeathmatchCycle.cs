@@ -24,7 +24,12 @@ namespace OMG.Minigames
 
         public virtual void HandlePlayerDead(ulong clientID)
         {
-            if(IsHost)
+            minigame.PlayerDatas.ForEach((i, index) => {
+                if (i.clientID == clientID)
+                    playerPanel.SetDead(index);
+            });
+
+            if (IsHost)
             {
                 deadPlayerCount++;
                 
@@ -38,11 +43,6 @@ namespace OMG.Minigames
                 if ((minigame.PlayerDatas.Count - deadPlayerCount) <= 1)
                     FinishCycle();
             }
-
-            minigame.PlayerDatas.ForEach((i, index) => {
-                if(i.clientID == clientID)
-                    playerPanel.SetDead(index);
-            });
 
             OnPlayerDeadEvent?.Invoke(clientID);
         }
