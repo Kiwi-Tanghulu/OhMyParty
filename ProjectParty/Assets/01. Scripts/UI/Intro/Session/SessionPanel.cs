@@ -14,6 +14,7 @@ namespace OMG.UI.Sessions
 
         private void Start()
         {
+            ClearSlots();
             Display(false);
         }
 
@@ -34,7 +35,10 @@ namespace OMG.UI.Sessions
         {
             Lobby[] lobbies = await ClientManager.Instance.GetLobbyListAsync(owner);
             if(lobbies == null)
+            {
+                ClearSlots();
                 return;
+            }
 
             ClearSlots();
             foreach(Lobby lobby in lobbies)
