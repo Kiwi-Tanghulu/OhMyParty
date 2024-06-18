@@ -32,7 +32,7 @@ namespace OMG
 
         public void ShowDissolve(float time)
         {
-            if (mat.GetFloat(propertyID) == 0f)
+            if (mat.GetFloat(propertyID) == 1.2f)
                 return;
 
             DODissolve(0f, 1.2f, time);
@@ -40,7 +40,7 @@ namespace OMG
 
         public void HideDissolve(float time)
         {
-            if (mat.GetFloat(propertyID) == 1.2f)
+            if (mat.GetFloat(propertyID) == 0f)
                 return;
 
             DODissolve(1.2f, 0f, time);
