@@ -23,12 +23,14 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         [SerializeField] private UnityEvent<Vector3> OnhitItemBox;
         private Dictionary<ItemType, MazeAdventureItem> playerItemDictionary = null;
         private ItemType currentItemType;
+        private NetworkObject networkObject = null;
 
         public event Action<ItemType> OnItemChange;
         public event Action OnUseItem;
         public UnityEvent OnGetItme;
         public void Init(Transform playerTrm)
         {
+            networkObject = GetComponent<NetworkObject>();
             playerItemDictionary = new Dictionary<ItemType, MazeAdventureItem>();
             foreach(Transform itemTrm in transform)
             {
@@ -64,6 +66,9 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         }
         public void OnCollision(ControllerColliderHit hitInfo)
         {
+            if(networkObject.IsOwner == false)
+                return;
+
             if (hitInfo.transform.TryGetComponent(out ItemBox itemBox))
             {
                 OnhitItemBox?.Invoke(hitInfo.point);
