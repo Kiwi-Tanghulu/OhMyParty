@@ -45,7 +45,7 @@ namespace OMG.Minigames.MazeAdventure
             BroadcastDeadClientRpc(clientID);
         }
 
-        [ServerRpc]
+        [ClientRpc]
         private void BroadcastDeadClientRpc(ulong clientID)
         {
             (MinigameManager.Instance.CurrentMinigame.Cycle as DeathmatchCycle).HandlePlayerDead(clientID);
