@@ -16,18 +16,22 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private float range;
 
         private List<NetworkObject> currentItemList = null;
+        private bool canSpawn;
         public void StartSpawn()
         {
+            canSpawn = true;
             currentItemList = new List<NetworkObject>();
             StartCoroutine(SpawnCycle());
         }
         public void StopSpawn()
         {
+            canSpawn = false;
             StopAllCoroutines();
         }
 
         private void SpawnItem()
         {
+            if (!canSpawn) return;
             Vector3 spawnPos;
             Vector3 randomPoint = (transform.position + mapCenterPos) + Random.insideUnitSphere * range;
             NavMeshHit hit;

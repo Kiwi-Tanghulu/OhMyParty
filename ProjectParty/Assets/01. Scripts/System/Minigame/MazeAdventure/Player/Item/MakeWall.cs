@@ -5,22 +5,24 @@ namespace OMG.Minigames.MazeAdventure
 {
     public class MakeWall : MazeAdventureItem
     {
-        [SerializeField] private GameObject wallPrefab;
         [SerializeField] private float makeLength;
         [SerializeField] private float makeHeight;
+
+        private MakeWallItemBehaviour makeWallItemBehaviour;
+
+        public override void Init(Transform playerTrm)
+        {
+            base.Init(playerTrm);
+            makeWallItemBehaviour = itemBehaviour as MakeWallItemBehaviour;
+        }
         public override void OnActive()
         {
-            Vector3 makePos = playerTrm.position + playerTrm.forward * makeLength + playerTrm.up * makeHeight;
-            Vector3 lookDirection = playerTrm.forward;
-            Quaternion lookRotation = Quaternion.identity;
-            lookDirection.y = 0; // y축 방향 제거
-            if (lookDirection != Vector3.zero)
+            if (IsOwner)
             {
-                lookRotation  = Quaternion.LookRotation(lookDirection);
+                Vector3 makePos = playerTrm.position + playerTrm.forward * makeLength + playerTrm.up * makeHeight;
+                Vector3 lookDirection = playerTrm.forward;
+                makeWallItemBehaviour.MakeWallServerRPC(makePos, lookDirection);
             }
-            ItemWall wall = Instantiate(wallPrefab, makePos, lookRotation).GetComponent<ItemWall>();
-            wall.transform.SetParent(MinigameManager.Instance.CurrentMinigame.transform);
-            wall.StartCycle();
         }
     }
 }

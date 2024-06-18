@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -50,6 +51,17 @@ namespace OMG.Items
         {
             item.OnActive();
             item.OnActiveEvent?.Invoke();
+        }
+
+        public void Spawn()
+        {
+            SpawnServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SpawnServerRpc()
+        {
+            NetworkObject.Spawn(true);
         }
     }
 }

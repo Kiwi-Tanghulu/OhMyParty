@@ -65,9 +65,11 @@ namespace OMG.Minigames.MazeAdventure
             while(time <= dissolveTime)
             {
                 time += Time.deltaTime;
-                material.SetFloat("_Split_Value", 1.2f * (time/dissolveTime));
+                material.SetFloat("_Split_Value", 1.5f * (time/dissolveTime));
                 yield return null;
             }
+
+            material.SetFloat("_Split_Value", 1.5f);
         }
     }
 }

@@ -21,23 +21,12 @@ namespace OMG.Items
 
         public virtual void Init()
         {
-            Spawn();
+            itemBehaviour.Spawn();
         }
 
         public override void Active()
         {
             itemBehaviour.ActiveItem();
-        }
-
-        public void Spawn()
-        {
-            SpawnServerRpc();
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void SpawnServerRpc()
-        {
-            NetworkObject.Spawn(true);
         }
     }
 }
