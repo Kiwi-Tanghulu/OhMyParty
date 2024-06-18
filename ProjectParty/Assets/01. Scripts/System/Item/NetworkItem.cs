@@ -21,7 +21,6 @@ namespace OMG.Items
 
         public virtual void Init()
         {
-            itemBehaviour.Spawn();
         }
 
         public override void Active()

@@ -36,6 +36,7 @@ namespace OMG.Minigames.RockFestival
             GameObject instance = base.SpawnObject();
             Rock rock = instance.GetComponent<Rock>();
             rock.Init();
+            rock.NetworkObject.Spawn();
             rock.NetworkObject.TrySetParent(gameObject, false);
 
             rocks.Add(rock);
