@@ -20,6 +20,7 @@ namespace OMG.Lobbies
         /// ( MinigameData, True if Minigame Cycle Finished. False if Minigame Remaining )
         /// </summary>
         public event Action<Minigame, bool> OnMinigameFinishedEvent = null;
+        public event Action OnMinigameCycleStartedEvent = null;
         public event Action OnMinigameSelectingEvent = null;
         public event Action<int> OnMinigameSelectedEvent = null;
         public event Action OnMinigameStartedEvent = null;
@@ -33,6 +34,12 @@ namespace OMG.Lobbies
         public void ClearMinigameCycle()
         {
             currentCycleCount = 0;
+        }
+
+        public void StartMinigameCycle()
+        {
+            ClearMinigameCycle();
+            BroadcastMinigameCycleStartedClientRpc();
         }
 
         public void StartMinigameSelecting()
@@ -86,6 +93,12 @@ namespace OMG.Lobbies
             Debug.Log($"Display Result");
 
             minigame.MinigameData.OnMinigameFinishedEvent -= HandleMinigameFinished;
+        }
+
+        [ClientRpc]
+        private void BroadcastMinigameCycleStartedClientRpc()
+        {
+            OnMinigameCycleStartedEvent?.Invoke();
         }
 
         [ClientRpc]

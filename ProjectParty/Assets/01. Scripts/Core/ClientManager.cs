@@ -43,6 +43,7 @@ namespace OMG.Network
         {
             LobbyQuery query = SteamMatchmaking.LobbyList
                 .WithKeyValue("private", "false")
+                .WithKeyValue("closed", "false")
                 .WithSlotsAvailable(1)
                 .WithMaxResults(count);
 
