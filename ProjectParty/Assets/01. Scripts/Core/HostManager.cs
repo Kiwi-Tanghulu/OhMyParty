@@ -62,12 +62,14 @@ namespace OMG.Network
         public void OpenLobby()
         {
             closed = false;
+            ClientManager.Instance.CurrentLobby?.SetJoinable(true);
             ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "false");
         }
 
         public void CloseLobby()
         {
             closed = true;
+            ClientManager.Instance.CurrentLobby?.SetJoinable(false);
             ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "true");
         }
 
@@ -80,12 +82,12 @@ namespace OMG.Network
 
         private void HandleConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
         {
-            if(closed)
-            {
-                response.Reason = "tlqkf dho dkseho";
-                response.Approved = false;
-            }
-            else
+            // if(closed)
+            // {
+            //     response.Reason = "tlqkf dho dkseho";
+            //     response.Approved = false;
+            // }
+            // else
                 response.Approved = true;
 
             response.CreatePlayerObject = false;
