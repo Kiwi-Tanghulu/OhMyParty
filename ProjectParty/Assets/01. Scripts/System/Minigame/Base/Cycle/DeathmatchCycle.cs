@@ -50,8 +50,8 @@ namespace OMG.Minigames
         public virtual void FinishCycle()
         {
             minigame.PlayerDatas.ChangeData(i => i.isDead == false, data => {
-                    data.score = scoreWeight[deadPlayerCount];
-                    return data;
+                data.score = scoreWeight[deadPlayerCount];
+                return data;
             });
             minigame.FinishGame();
         }
