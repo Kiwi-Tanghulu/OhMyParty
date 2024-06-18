@@ -29,7 +29,8 @@ namespace OMG.Minigames.SafetyZone
         private readonly string propertyID = "_Dissolve_Value";
 
         [SerializeField] private float defaultDissolveTime = 0.3f;
-        
+        private bool active = false;
+
         public void ActiveDissolve(bool value)
         {
             if (value)
@@ -40,12 +41,18 @@ namespace OMG.Minigames.SafetyZone
 
         public void ShowDissolve(float time)
         {
+            if (active) return;
+
             DODissolve(0f, 1.2f, time);
+            active = true;
         }
 
         public void HideDissolve(float time)
         {
+            if (!active) return;
+
             DODissolve(1.2f, 0f, time);
+            active = false;
         }
 
         public void DODissolve(float start, float end, float time)
