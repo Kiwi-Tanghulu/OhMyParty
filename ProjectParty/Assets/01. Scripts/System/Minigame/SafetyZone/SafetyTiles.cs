@@ -19,7 +19,11 @@ namespace OMG.Minigames.SafetyZone
         private SafetyTile[] tiles = null;
         private HashSet<int> safetyTiles = new HashSet<int>();
 
-        public int SafetyTileCount = 1;
+        [SerializeField] int tileMin = 2;
+        [SerializeField] int tileMax = 5;
+        [SerializeField] int numberMin = 3;
+        [SerializeField] int numberMax = 8;
+        [SerializeField] int safetyLimit = 4;
 
         private void Awake()
         {
@@ -30,16 +34,25 @@ namespace OMG.Minigames.SafetyZone
 
         public void RerollTiles()
         {
-            for(int i = 0; i < SafetyTileCount; ++i)
+            int tileCount = Random.Range(tileMin, tileMax + 1);
+            int numberTotal = Random.Range(numberMin, numberMax + 1);
+            int safetyTile = 0;
+            int safetyNumber = 0;
+            for (int i = 0; i < tileCount - 1; ++i)
             {
-                int safetyTile;
                 do
                     safetyTile = Random.Range(0, tiles.Length);
                 while(safetyTiles.Contains(safetyTile) == true);
 
-                int safetyNumber = Random.Range(0, 2);
+                safetyNumber = Random.Range(0, Mathf.Min(safetyLimit, numberTotal));
+                numberTotal -= safetyNumber;
                 UpdateSafetyNumberClientRpc(safetyTile, safetyNumber);
             }
+
+            do
+                safetyTile = Random.Range(0, tiles.Length);
+            while (safetyTiles.Contains(safetyTile) == true);
+            UpdateSafetyNumberClientRpc(safetyTile, numberTotal);
 
             RerollTilesClientRpc();
         }
