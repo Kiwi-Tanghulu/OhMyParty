@@ -11,7 +11,7 @@ namespace OMG.Minigames.MazeAdventure
     public class DetectTargetDecision : FSMDecision
     {
         [SerializeField] private float detectAngle;
-        [SerializeField] private LayerMask groundLayer;
+        [SerializeField] private LayerMask triggerLayer;
         private DetectTargetParams targetParam = null;
 
         private float checkDistance;
@@ -35,7 +35,7 @@ namespace OMG.Minigames.MazeAdventure
                     float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
                     if (degree < detectAngle / 2f)
                     {
-                        if (!Physics.Raycast(transform.position, ((hit.transform.position + Vector3.up) - transform.position).normalized, checkDistance, groundLayer))
+                        if (!Physics.Raycast(transform.position, ((hit.transform.position + Vector3.up) - transform.position).normalized, checkDistance, triggerLayer))
                         {
                             if (!hit.transform.GetComponent<IInvisibility>().IsInvisibil)
                             {
