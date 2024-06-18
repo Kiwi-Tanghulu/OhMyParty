@@ -13,6 +13,8 @@ namespace OMG
 
         [SerializeField] private float defaultDissolveTime = 0.3f;
 
+        private bool active;
+
         private void Start()
         {
             Renderer render = GetComponent<Renderer>();
@@ -20,6 +22,7 @@ namespace OMG
             // mat = new Material(sharedMat);
             // render.material = mat;
             mat = render.material;
+            active = false;
         }
         
         public void ActiveDissolve(bool value)
@@ -32,12 +35,18 @@ namespace OMG
 
         public void ShowDissolve(float time)
         {
+            if (active) return;
+
             DODissolve(0f, 1.2f, time);
+            active = true;
         }
 
         public void HideDissolve(float time)
         {
+            if(!active) return;
+
             DODissolve(1.2f, 0f, time);
+            active = false;
         }
 
         public void DODissolve(float start, float end, float time)

@@ -43,7 +43,7 @@ namespace OMG.Network
         {
             LobbyQuery query = SteamMatchmaking.LobbyList
                 .WithKeyValue("private", "false")
-                .WithKeyValue("closed", "false")
+                .WithKeyValue(DEFINE.LOBBY_CLOSED, "false")
                 .WithSlotsAvailable(1)
                 .WithMaxResults(count);
 
@@ -55,6 +55,10 @@ namespace OMG.Network
 
         public async void JoinLobbyAsync(Lobby lobby)
         {
+            // string closed = lobby.GetData(DEFINE.LOBBY_CLOSED);
+            // if(closed == "true")
+            //     return;
+
             // 참가 요청에 대한 응답 받기
             RoomEnter reqResult = await lobby.Join();
             if(reqResult != RoomEnter.Success)

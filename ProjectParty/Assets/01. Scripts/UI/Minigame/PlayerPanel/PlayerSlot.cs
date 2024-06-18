@@ -5,11 +5,11 @@ namespace OMG.UI.Minigames
 {
     public class PlayerSlot : MonoBehaviour
     {
-        private RawImage playerImage = null;
+        [SerializeField] private RawImage playerImage = null;
 
         protected virtual void Awake()
         {
-            playerImage = transform.Find("PlayerImage").GetComponent<RawImage>();
+            //playerImage = transform.Find("PlayerImage").GetComponent<RawImage>();
         }
 
         public virtual void Init(RenderTexture playerIcon)

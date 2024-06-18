@@ -135,6 +135,9 @@ namespace OMG.FSM
 
         private void ChangeState(int stateIndex)
         {
+            if (stateIndex >= states.Count)
+                return;
+
             FSMState nextState = states[stateIndex];
 
             if (currentState == nextState)

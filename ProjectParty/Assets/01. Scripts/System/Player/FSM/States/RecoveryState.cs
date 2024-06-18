@@ -35,12 +35,15 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
+            if(playerSkin == null)
+                playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
+
             float twinkleTweenTime = playerHitableDelayTime / 4f;
             twinkleTween = DOTween.Sequence();
             twinkleTween.Append(playerSkin.Mat.DOFade(0f, twinkleTweenTime));
             twinkleTween.Append(playerSkin.Mat.DOFade(1f, twinkleTweenTime));
-            twinkleTween.Append(playerSkin.Mat.DOFade(0f, twinkleTweenTime));
-            twinkleTween.Append(playerSkin.Mat.DOFade(1f, twinkleTweenTime));
+            twinkleTween.SetLoops(-1);
+            twinkleTween.Play();
 
             anim.AnimEvent.OnEndEvent += AnimEvent_OnEndEvent;
 
@@ -56,8 +59,6 @@ namespace OMG.Player.FSM
 
             health.Hitable = true;
             player.StartCoroutine(HitableDelayCo());
-
-            twinkleTween.Restart();
         }
 
         private void AnimEvent_OnEndEvent()
@@ -78,6 +79,10 @@ namespace OMG.Player.FSM
             yield return wfs;
 
             health.PlayerHitable = true;
+            twinkleTween.Pause();
+            twinkleTween.Kill();
+
+            playerSkin.Mat.DOFade(1f, 0f);
         }
     }
 }
