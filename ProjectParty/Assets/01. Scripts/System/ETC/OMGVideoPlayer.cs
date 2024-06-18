@@ -59,8 +59,16 @@ namespace OMG
             videoPlayer.Stop();
         }
 
+        private void OnDisable()
+        {
+            videoPlayer.Stop();
+        }
+
         public void Play(VideoClip video, float delay = 0f)
         {
+            if (!gameObject.activeInHierarchy)
+                return;
+
             StartCoroutine(this.DelayCoroutine(delay, () =>
             {
                 videoPlayer.clip = video;
@@ -78,6 +86,9 @@ namespace OMG
 
         public void Stop(float delay = 0f)
         {
+            if (!gameObject.activeInHierarchy)
+                return;
+
             StartCoroutine(this.DelayCoroutine(delay, () =>
             {
                 playImage.gameObject.SetActive(false);
