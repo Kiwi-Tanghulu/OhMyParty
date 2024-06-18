@@ -32,12 +32,11 @@ namespace OMG.UI.Sessions
 
         public async void FillSlots(string owner)
         {
-            ClearSlots();
-
             Lobby[] lobbies = await ClientManager.Instance.GetLobbyListAsync(owner);
             if(lobbies == null)
                 return;
 
+            ClearSlots();
             foreach(Lobby lobby in lobbies)
                 CreateSlot(lobby);
         }
