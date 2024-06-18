@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 namespace OMG.Minigames.MazeAdventure
 {
-    public class ItemSpawner : MonoBehaviour
+    public class ItemSpawner : NetworkBehaviour
     {
         [SerializeField] private GameObject ItemBoxPrefab;
         [SerializeField] private float itemSpawnTime;

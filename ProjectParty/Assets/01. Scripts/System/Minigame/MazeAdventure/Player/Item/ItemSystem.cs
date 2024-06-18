@@ -28,9 +28,10 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         public event Action<ItemType> OnItemChange;
         public event Action OnUseItem;
         public UnityEvent OnGetItme;
+
         public void Init(Transform playerTrm)
-        {
-            networkObject = GetComponent<NetworkObject>();
+        {    
+            networkObject = playerTrm.GetComponent<NetworkObject>();
             playerItemDictionary = new Dictionary<ItemType, MazeAdventureItem>();
             foreach(Transform itemTrm in transform)
             {
@@ -66,14 +67,18 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         }
         public void OnCollision(ControllerColliderHit hitInfo)
         {
-            if(networkObject.IsOwner == false)
+            if(networkObject == null || networkObject.IsOwner == false)
                 return;
 
             if (hitInfo.transform.TryGetComponent(out ItemBox itemBox))
             {
+                if(itemBox.Alive == false)
+                    return;
+
                 OnhitItemBox?.Invoke(hitInfo.point);
                 ChangeItem(itemBox.ItemType);
                 OnGetItme?.Invoke();
+                itemBox.Alive = false;
                 MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(itemBox.NetworkObject, true);
             }
         }

@@ -12,6 +12,7 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private float floatDuration = 2f;
         private NetworkVariable<ItemType> itemType = new NetworkVariable<ItemType>();
         public ItemType ItemType => itemType.Value;
+        public bool Alive = true;
 
         [SerializeField] private float dissolveTime;
         private Material material;
