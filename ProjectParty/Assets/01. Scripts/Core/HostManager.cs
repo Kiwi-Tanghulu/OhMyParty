@@ -80,9 +80,9 @@ namespace OMG.Network
 
         private void HandleConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
         {
-            if(closed)
-                response.Approved = false;
-            else
+            // if(closed)
+            //     response.Approved = false;
+            // else
                 response.Approved = true;
 
             response.CreatePlayerObject = false;

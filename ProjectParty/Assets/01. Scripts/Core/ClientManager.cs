@@ -55,10 +55,9 @@ namespace OMG.Network
 
         public async void JoinLobbyAsync(Lobby lobby)
         {
-            string closed = lobby.GetData(DEFINE.LOBBY_CLOSED);
-            Debug.Log(closed);
-            if(closed == "true")
-                return;
+            // string closed = lobby.GetData(DEFINE.LOBBY_CLOSED);
+            // if(closed == "true")
+            //     return;
 
             // 참가 요청에 대한 응답 받기
             RoomEnter reqResult = await lobby.Join();
