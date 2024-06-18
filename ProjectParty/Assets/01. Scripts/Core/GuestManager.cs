@@ -75,7 +75,7 @@ namespace OMG.Network
 
         private void HandleClientDisconnect(ulong obj)
         {
-            
+            Debug.Log(NetworkManager.Singleton.DisconnectReason);
         }
 
         #endregion
