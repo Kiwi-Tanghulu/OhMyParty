@@ -4,12 +4,12 @@ namespace OMG.UI.Minigames
 {
     public class DeathmatchPlayerSlot : PlayerSlot
     {
-        private GameObject deadCheck = null;
+        [SerializeField] private GameObject deadCheck = null;
 
         protected override void Awake()
         {
             base.Awake();
-            deadCheck = transform.Find("DeadCheck").gameObject;
+            //deadCheck = transform.Find("DeadCheck").gameObject;
         }
 
         public override void Init(RenderTexture playerIcon)
