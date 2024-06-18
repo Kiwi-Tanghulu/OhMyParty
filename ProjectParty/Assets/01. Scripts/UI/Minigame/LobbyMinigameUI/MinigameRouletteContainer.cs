@@ -81,18 +81,20 @@ namespace OMG.UI
             if (!isRouletteMove) return;
 
             //roulette move
+            List<int> temps = new List<int>();
             for(int i = 0; i < slotList.Count; i++)
             {
-                slotList[i].Rect.anchoredPosition += Time.deltaTime * -Vector2.right * moveSpeed;
-
                 //teleport slot
-                if (slotList[i].Rect.anchoredPosition.x < slotEndPos.x)
-                {
-                    int frontIndex = i == 0 ? slotList.Count - 1 : i - 1;
-                    slotList[i].Rect.anchoredPosition = 
-                        slotList[frontIndex].Rect.anchoredPosition + slotSpawnPosOffset;
-                }
+                slotList[i].Rect.anchoredPosition += Time.deltaTime * -Vector2.right * moveSpeed;
+                if (slotList[i].Rect.anchoredPosition.x <= slotEndPos.x)
+                    temps.Add(i);
             }
+
+            temps.ForEach(i => {
+                int frontIndex = (i - 1 + slotList.Count) % slotList.Count;
+                slotList[i].Rect.anchoredPosition =
+                    slotList[frontIndex].Rect.anchoredPosition + slotSpawnPosOffset;
+            });
         }
 
         private void OnTriggerEnter(Collider other)
