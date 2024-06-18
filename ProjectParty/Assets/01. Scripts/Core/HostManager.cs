@@ -40,7 +40,7 @@ namespace OMG.Network
 
             ClientManager.Instance.CurrentLobby = await SteamMatchmaking.CreateLobbyAsync(maxMember);
             ClientManager.Instance.CurrentLobby?.SetData("private", "false");
-            ClientManager.Instance.CurrentLobby?.SetData("closed", "false");
+            ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "false");
             ClientManager.Instance.CurrentLobby?.SetData("owner", SteamClient.Name);
             onHostStarted?.Invoke();
         }
@@ -62,13 +62,13 @@ namespace OMG.Network
         public void OpenLobby()
         {
             closed = false;
-            ClientManager.Instance.CurrentLobby?.SetData("closed", "false");
+            ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "false");
         }
 
         public void CloseLobby()
         {
             closed = true;
-            ClientManager.Instance.CurrentLobby?.SetData("closed", "true");
+            ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "true");
         }
 
         #region Netcode Callback
