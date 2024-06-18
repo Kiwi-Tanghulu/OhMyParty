@@ -29,8 +29,6 @@ namespace OMG.Player.FSM
         {
             base.OwnerEnterState();
 
-            Debug.Log(2);
-
             if (focuser.FocusedObject.CurrentObject.TryGetComponent<Chair>(out Chair chair))
             {
                 usingChair = chair;
@@ -44,8 +42,15 @@ namespace OMG.Player.FSM
             else
             {
                 usingChair.SetUseWhetherChair(sitPoint, true);
-                movement.Teleport(sitPoint.position, sitPoint.rotation);
             }
+        }
+
+        protected override void OwnerUpdateState()
+        {
+            base.OwnerUpdateState();
+
+            if(sitPoint != null)
+                movement.Teleport(sitPoint.position, sitPoint.rotation);
         }
 
         protected override void OwnerExitState()

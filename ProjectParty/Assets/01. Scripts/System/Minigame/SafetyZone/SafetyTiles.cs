@@ -68,8 +68,11 @@ namespace OMG.Minigames.SafetyZone
             }
 
             minigame.PlayerDatas.ForEach(i => {
+                if(minigame.PlayerDictionary.ContainsKey(i.clientID) == false)
+                    return;
+
                 SafetyZonePlayerController player = minigame.PlayerDictionary[i.clientID] as SafetyZonePlayerController;
-                if (player.IsDead == false && player.IsSafety == false)
+                if (player?.IsDead == false && player?.IsSafety == false)
                 {
                     player.Health.OnDamaged(-1f, transform, transform.position);
                     player.IsDead = true;
