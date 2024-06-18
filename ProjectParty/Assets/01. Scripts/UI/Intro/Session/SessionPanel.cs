@@ -17,11 +17,6 @@ namespace OMG.UI.Sessions
             Display(false);
         }
 
-        private void OnEnable()
-        {
-            StartCoroutine(UpdateRoutine());
-        }
-
         private void OnDisable()
         {
             StopAllCoroutines();    
@@ -29,10 +24,10 @@ namespace OMG.UI.Sessions
 
         public void Display(bool active)
         {
-            if(active)
-                FillSlots(null);
-
             gameObject.SetActive(active);
+
+            if(active)
+                StartCoroutine(UpdateRoutine());
         }
 
         public async void FillSlots(string owner)
