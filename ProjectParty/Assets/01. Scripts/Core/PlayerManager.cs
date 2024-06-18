@@ -55,7 +55,8 @@ public class PlayerManager : MonoBehaviour
             transform);
 
         //playerVisual.SetSkin(player.Visual.VisualType);
-        player.OnSpawnedEvent.AddListener(playerVisual.Init);
+        //player.OnSpawnedEvent.AddListener(playerVisual.Init);
+        playerVisual.Init(player.OwnerClientId);
         //playerVisual.SetOwenrID(player.OwnerClientId);
 
         renderTargetPlayerDic.Add(player.OwnerClientId, playerVisual);
