@@ -69,7 +69,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
                 OnhitItemBox?.Invoke(hitInfo.point);
                 ChangeItem(itemBox.ItemType);
                 OnGetItme?.Invoke();
-                MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(itemBox.transform.GetComponent<NetworkObject>(), true);
+                MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(itemBox.NetworkObject, true);
             }
         }
     }
