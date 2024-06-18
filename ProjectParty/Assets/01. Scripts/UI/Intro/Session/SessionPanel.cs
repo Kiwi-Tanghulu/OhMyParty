@@ -1,3 +1,4 @@
+using System.Collections;
 using OMG.Network;
 using Steamworks.Data;
 using UnityEngine;
@@ -9,9 +10,21 @@ namespace OMG.UI.Sessions
         [SerializeField] SessionSlot slotPrefab = null;
         [SerializeField] Transform container = null;
 
+        [SerializeField] float updateDelay = 1f;
+
         private void Start()
         {
             Display(false);
+        }
+
+        private void OnEnable()
+        {
+            StartCoroutine(UpdateRoutine());
+        }
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();    
         }
 
         public void Display(bool active)
@@ -44,6 +57,17 @@ namespace OMG.UI.Sessions
         {
             SessionSlot slot = Instantiate(slotPrefab, container);
             slot.Init(lobby);
+        }
+
+        private IEnumerator UpdateRoutine()
+        {
+            YieldInstruction delay = new WaitForSeconds(updateDelay);
+            
+            while(gameObject.activeInHierarchy)
+            {
+                FillSlots(null);
+                yield return delay;
+            }
         }
     }
 }
