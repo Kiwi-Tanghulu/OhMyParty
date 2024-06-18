@@ -4,6 +4,7 @@ using Cinemachine;
 using OMG.Inputs;
 using OMG.Interacting;
 using OMG.Minigames;
+using OMG.Network;
 using OMG.Player;
 using OMG.Player.FSM;
 using OMG.UI;
@@ -85,12 +86,18 @@ namespace OMG.Lobbies
             switch(Lobby.Current.LobbyState)
             {
                 case LobbyState.Community: // 커뮤니티 상태일 때 레디가 되면 미니게임 선택 시작
+                    if(IsHost)
+                    {
+                        minigameComponent.StartMinigameCycle();
+                        minigameComponent.StartMinigameSelecting();
+                    }
+
+                    input.OnSpaceEvent += HandleSpaceInput;
+                    break;
                 case LobbyState.MinigameFinished: // 그 전 미니게임이 끝난 상태일 때도 마찬가지
                     if(IsHost)
                         minigameComponent.StartMinigameSelecting();
-
-                    input.OnSpaceEvent += HandleSpaceInput;
-
+                    
                     //FocusSpot(true);//move interact
                     break;
                 case LobbyState.MinigameSelected: // 미니게임 선택된 상태일 때 레디가 되면 미니게임 시작
