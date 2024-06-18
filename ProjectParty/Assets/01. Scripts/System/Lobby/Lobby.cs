@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Inputs;
+using OMG.Network;
 using OMG.Player;
 using OMG.Skins;
 using Steamworks;
@@ -56,6 +57,15 @@ namespace OMG.Lobbies
                 PlayerJoinServerRpc(0, characterSkinLib.CurrentIndex);
         }
 
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            if(IsHost == false)
+                return;
+
+            HostManager.Instance.OnClientDisconnectedEvent += RemovePlayer;
+        }
+
         [ServerRpc(RequireOwnership = false)]
         private void PlayerJoinServerRpc(ulong steamID, int visualType, ServerRpcParams rpcParams = default)
         {
@@ -65,6 +75,13 @@ namespace OMG.Lobbies
 
             CreatePlayer(playerData);
             Debug.Log($"[Lobby] Player Created ID : {playerData.ClientID}");
+        }
+
+        private void RemovePlayer(ulong clientID)
+        {
+            int index = players.Find(out PlayerData playerData, i => i.ClientID == clientID);
+            if(index != -1)
+                players.Remove(playerData);
         }
 
         private void CreatePlayer(PlayerData playerData)
