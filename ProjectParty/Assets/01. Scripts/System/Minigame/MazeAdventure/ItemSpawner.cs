@@ -56,7 +56,7 @@ namespace OMG.Minigames.MazeAdventure
         {
             for (int i = 0; i < currentItemList.Count; i++)
             {
-                if (currentItemList[i] == null) return;
+                if (currentItemList[i] == null) continue;
                 MinigameManager.Instance.CurrentMinigame.DespawnMinigameObject(currentItemList[i], true);
             }
         }
