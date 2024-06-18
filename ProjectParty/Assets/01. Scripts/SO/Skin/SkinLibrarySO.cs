@@ -13,7 +13,7 @@ namespace OMG.Skins
         public SkinSO this[int index] => skins[index];
         public int Count => skins.Count;
         
-        private SkinData skinData = null;
+        private SkinData skinData = new SkinData();
         public SkinData SkinData => skinData;
 
         private int currentIndex = 0;
