@@ -24,6 +24,7 @@ namespace OMG.Minigames
         public MinigamePanel MinigamePanel => minigamePanel;
 
         protected MinigameCycle cycle = null;
+        public MinigameCycle Cycle => cycle;
 
         protected virtual void Awake()
         {

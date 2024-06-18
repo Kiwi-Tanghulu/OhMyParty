@@ -32,10 +32,23 @@ namespace OMG.Minigames.MazeAdventure
 
         public void PlayerDead()
         {
+            BroadcastDeadServerRpc(OwnerClientId);
             dieEvent?.Invoke();
             GetComponent<CharacterMovement>().SetMoveSpeed(0f);
             StateMachine.ChangeState(typeof(DieState));
             //StateMachine.ChangeState(dieState);
+        }
+
+        [ServerRpc]
+        private void BroadcastDeadServerRpc(ulong clientID)
+        {
+            BroadcastDeadClientRpc(clientID);
+        }
+
+        [ServerRpc]
+        private void BroadcastDeadClientRpc(ulong clientID)
+        {
+            (MinigameManager.Instance.CurrentMinigame.Cycle as DeathmatchCycle).HandlePlayerDead(clientID);
         }
 
         #region Invisibil
