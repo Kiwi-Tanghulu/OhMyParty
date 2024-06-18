@@ -11,6 +11,8 @@ namespace OMG.Network
         public static HostManager Instance = null;
         // private bool closed = false;
 
+        public event Action<ulong> OnClientDisconnectedEvent;
+
         public HostManager()
         {
             // 로비를 생성했을 때 발행되는 이벤트
@@ -25,7 +27,10 @@ namespace OMG.Network
                 return;
 
             NetworkManager.Singleton.OnServerStarted -= HandleServerStarted;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
             NetworkManager.Singleton.ConnectionApprovalCallback -= HandleConnectionApproval;
+            
+            OnClientDisconnectedEvent = null;
         }
 
         /// <summary>
@@ -35,6 +40,7 @@ namespace OMG.Network
         {
             NetworkManager networkManager = NetworkManager.Singleton;
             networkManager.OnServerStarted += HandleServerStarted;
+            networkManager.OnClientDisconnectCallback += HandleClientDisconnect;
             networkManager.ConnectionApprovalCallback += HandleConnectionApproval;
             networkManager.StartHost();
 
@@ -78,6 +84,14 @@ namespace OMG.Network
         private void HandleServerStarted()
         {
             Debug.Log($"[Netcode] Host Started");
+        }
+
+        private void HandleClientDisconnect(ulong clientID)
+        {
+            if(NetworkManager.Singleton == null || NetworkManager.Singleton.IsHost == false)
+                return;
+
+            OnClientDisconnectedEvent?.Invoke(clientID);
         }
 
         private void HandleConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
