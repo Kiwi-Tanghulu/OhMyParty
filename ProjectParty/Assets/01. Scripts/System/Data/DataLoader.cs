@@ -23,7 +23,21 @@ namespace OMG.Datas
             #if UNITY_EDITOR
             UserData = DataManager.UserData;
             #endif
-        }   
+        }
+
+        private void Update()
+        {
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    if (Input.GetKeyDown(KeyCode.R))
+                    {
+                        ClearData();
+                    }
+                }
+            }
+        }
 
         private void OnDestroy()
         {
