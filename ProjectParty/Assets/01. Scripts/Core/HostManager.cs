@@ -9,7 +9,7 @@ namespace OMG.Network
     public class HostManager
     {
         public static HostManager Instance = null;
-        private bool closed = false;
+        // private bool closed = false;
 
         public HostManager()
         {
@@ -40,7 +40,7 @@ namespace OMG.Network
 
             ClientManager.Instance.CurrentLobby = await SteamMatchmaking.CreateLobbyAsync(maxMember);
             ClientManager.Instance.CurrentLobby?.SetData("private", "false");
-            ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "false");
+            // ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "false");
             ClientManager.Instance.CurrentLobby?.SetData("owner", SteamClient.Name);
             onHostStarted?.Invoke();
         }
@@ -61,14 +61,16 @@ namespace OMG.Network
 
         public void OpenLobby()
         {
-            closed = false;
-            ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "false");
+            // closed = false;
+            ClientManager.Instance.CurrentLobby?.SetJoinable(true);
+            // ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "false");
         }
 
         public void CloseLobby()
         {
-            closed = true;
-            ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "true");
+            // closed = true;
+            ClientManager.Instance.CurrentLobby?.SetJoinable(false);
+            // ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "true");
         }
 
         #region Netcode Callback
@@ -80,11 +82,7 @@ namespace OMG.Network
 
         private void HandleConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
         {
-            // if(closed)
-            //     response.Approved = false;
-            // else
-                response.Approved = true;
-
+            response.Approved = true;
             response.CreatePlayerObject = false;
         }
 

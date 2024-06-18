@@ -22,7 +22,7 @@ namespace OMG.Player
         public Action<PlayerVisualType/*new skin type*/> OnSkinChangedEvent;
 
         private bool visualSetted;
-        private ulong ownerID = 0;
+        protected ulong ownerID = 0;
 
         protected virtual void Awake()
         {
