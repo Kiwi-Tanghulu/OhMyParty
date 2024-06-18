@@ -41,11 +41,11 @@ namespace OMG.UI
         {
             roulette.Hide();
         }
+
         private void LobbyMinigame_OnMinigameStartedEvent()
         {
             Hide();
         }
-
 
         public override void Show()
         {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -801,6 +801,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7311492864360713156}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1417106544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4499482223983885906, guid: 9738d92ae77066048a99bb0a4aa49d92,
+    type: 3}
+  m_PrefabInstance: {fileID: 1780388284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1417106545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417106544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd35fc345c9e194f86aa53c6c330671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rouletteUI: {fileID: 38582060}
+  stopDelay: 2
 --- !u!1 &1571565900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,6 +1257,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 578422526}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4499482223983885906, guid: 9738d92ae77066048a99bb0a4aa49d92,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1417106545}
     - targetCorrespondingSourceObject: {fileID: 2804003284475927919, guid: 9738d92ae77066048a99bb0a4aa49d92,
         type: 3}
       insertIndex: -1
@@ -1607,7 +1631,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 30
+  far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
@@ -1634,8 +1658,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000431613}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.38268337, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 9.99183, y: 4.3149605, z: 2.090509}
+  m_LocalRotation: {x: 0.16042998, y: 0.37686962, z: -0.06645227, w: 0.9098437}
+  m_LocalPosition: {x: -0.84852815, y: 4.5, z: -8.626704}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -25,6 +25,7 @@ namespace OMG.Lobbies
         private LobbyResultComponent resultComponent = null;
         private LobbyReadyComponent readyComponent = null;
         private LobbyCutSceneComponent cutSceneComponent = null;
+        private LobbyRouletteComponent rouletteComponent = null;
 
         private NetworkList<ulong> playerIdList;
 
@@ -47,6 +48,7 @@ namespace OMG.Lobbies
             resultComponent = Lobby.Current.GetLobbyComponent<LobbyResultComponent>();
             readyComponent = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             cutSceneComponent = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
+            rouletteComponent = Lobby.Current.GetLobbyComponent<LobbyRouletteComponent>();
 
             minigameComponent.OnMinigameSelectedEvent += HandleMinigameSelected;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
@@ -133,7 +135,7 @@ namespace OMG.Lobbies
         [ClientRpc]
         private void OnSpaceInputClientRpc()
         {
-            roulette.StopRoulette(() =>
+            rouletteComponent.Stop(() =>
             {
                 if(IsServer)
                 {

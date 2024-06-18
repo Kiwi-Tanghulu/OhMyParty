@@ -4,6 +4,7 @@ using OMG.Minigames;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -29,26 +30,29 @@ namespace OMG.UI
         [SerializeField] private float selectedGameShowTime = 2f;
 
         private List<MinigameSlot> slotList;
+        public List<MinigameSlot> SlotList => slotList;
 
         private Vector2 slotStartPos;
         private Vector2 slotEndPos;
         private Vector2 slotSpawnPosOffset;
         private Vector2 slotSpawnStartXPos;
 
-        private bool isRouletteMove;
-
-        private MinigameSlot selctedSlot;
-        public MinigameSO SelectedMinigame => selctedSlot?.MinigameSO;
+        private MinigameSlot selectedSlot;
+        public MinigameSlot SelectedSlot => selectedSlot;
+        public MinigameSO SelectedMinigame => selectedSlot?.MinigameSO;
 
         public UnityEvent OnStartMoveEvent;
         public UnityEvent OnStartStopMoveEvent;
         public UnityEvent OnSlotChangedEvent;
         public UnityEvent OnRouletteStopEvent;
 
+        private Action onRouletteStopAction;
+
+        private bool isRouletteMove;
+
         public override void Init()
         {
             base.Init();
-
 
             slotStartPos = new Vector2(Rect.rect.width / 2f + slotPrefab.Rect.rect.width / 2f, 0f);
             slotEndPos = -slotStartPos;
@@ -68,10 +72,14 @@ namespace OMG.UI
 
                 slotList.Add(slot);
             }
+
+            isRouletteMove = false;
         }
 
         private void Update()
         {
+            if (!isRouletteMove) return;
+
             //roulette move
             for(int i = 0; i < slotList.Count; i++)
             {
@@ -91,8 +99,8 @@ namespace OMG.UI
         {
             if(other.TryGetComponent<MinigameSlot>(out MinigameSlot slot))
             {
-                selctedSlot?.Deselected();
-                selctedSlot = slot;
+                selectedSlot?.Deselected();
+                selectedSlot = slot;
                 slot.Selected();
 
                 OnSlotChangedEvent?.Invoke();
@@ -129,25 +137,50 @@ namespace OMG.UI
             //start delay
             yield return new WaitForSeconds(0.2f);
 
-            isRouletteMove = true;
             moveSpeed = maxMoveSpeed;
             InputManager.SetInputEnable(true);
 
             OnStartMoveEvent?.Invoke();
+
+            isRouletteMove = true;
         }
 
-        public void StopRoulette(Action onStopAction)
+        public void StopRoulette(/*Action onStopAction*/)
         {
-            isRouletteMove = false;
-
             OnStartStopMoveEvent?.Invoke();
+            //onRouletteStopAction = onStopAction;
 
             Sequence seq = DOTween.Sequence();
             seq.Append(DOTween.To(() => moveSpeed, x => moveSpeed = x, 0f, stopTime));
-            seq.AppendCallback(() => OnRouletteStopEvent?.Invoke());
-            seq.AppendInterval(selectedGameShowTime);
-            seq.AppendCallback(() => onStopAction?.Invoke());
+            seq.AppendCallback(() =>
+            {
+                isRouletteMove = false;
+                OnRouletteStopEvent?.Invoke();
+                //AlignSlotClientRpc(slotList.IndexOf(selectedSlot));
+            });
+            //seq.AppendInterval(selectedGameShowTime);
+            //seq.AppendCallback(() => onStopAction?.Invoke());
             seq.Play();
+        }
+
+        public Sequence AlignSlotTween(int focusSlotIndex)
+        {
+            Sequence seq = DOTween.Sequence();
+
+            seq.AppendCallback(() =>
+            {
+                //align
+                foreach (MinigameSlot slot in slotList)
+                {
+                    MinigameSlot focusSlot = slotList[focusSlotIndex];
+                    slot.Rect.DOAnchorPosX(slot.Rect.anchoredPosition.x - focusSlot.Rect.anchoredPosition.x, readyTime);
+                }
+            });
+
+            return seq;
+            //seq.AppendInterval(selectedGameShowTime);
+            //seq.AppendCallback(() => onRouletteStopAction?.Invoke());
+            //return seq.Play();
         }
     }
 }
