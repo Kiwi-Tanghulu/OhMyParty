@@ -9,6 +9,7 @@ namespace OMG.Inputs
         public static Controls controls { get; private set; }
         private static Dictionary<InputMapType, InputActionMap> inputMapDic;
         private static InputMapType currentInputMapType;
+        public static InputMapType CurrentInputMapType => currentInputMapType;
 
         static InputManager()
         {

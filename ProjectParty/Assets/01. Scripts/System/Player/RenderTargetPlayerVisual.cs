@@ -1,4 +1,3 @@
-using OMG.Lobbies;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +6,6 @@ namespace OMG.Player
 {
     public class RenderTargetPlayerVisual : PlayerVisual
     {
-        private ulong ownerID;
-
         private Animator anim;
 
         private RenderTexture renderTexture;
