@@ -60,7 +60,7 @@ namespace OMG.Minigames.SafetyZone
                 {
                     player.Health.OnDamaged(-1f, transform, transform.position);
                     player.IsDead = true;
-                    cycle.HandlePlayerDead(i.clientID);
+                    BroadcastPlayerDeadClientRpc(i.clientID);
                 }
             });
 
@@ -76,6 +76,12 @@ namespace OMG.Minigames.SafetyZone
         public void Init()
         {
             InitClientRpc();
+        }
+
+        [ClientRpc]
+        private void BroadcastPlayerDeadClientRpc(ulong clientID)
+        {
+            cycle.HandlePlayerDead(clientID);
         }
 
         #region Cycle
