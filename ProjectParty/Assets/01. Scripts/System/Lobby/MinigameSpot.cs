@@ -97,7 +97,8 @@ namespace OMG.Lobbies
                 case LobbyState.MinigameFinished: // 그 전 미니게임이 끝난 상태일 때도 마찬가지
                     if(IsHost)
                         minigameComponent.StartMinigameSelecting();
-                    
+                    input.OnSpaceEvent += HandleSpaceInput;
+
                     //FocusSpot(true);//move interact
                     break;
                 case LobbyState.MinigameSelected: // 미니게임 선택된 상태일 때 레디가 되면 미니게임 시작
@@ -126,6 +127,7 @@ namespace OMG.Lobbies
                 return;
 
             OnSpaceInputClientRpc();
+            input.OnSpaceEvent -= HandleSpaceInput;
         }
 
         [ClientRpc]
@@ -136,7 +138,6 @@ namespace OMG.Lobbies
                 if(IsServer)
                 {
                     minigameComponent.SelectMinigame(roulette.SelectedMinigame);
-                    input.OnSpaceEvent -= HandleSpaceInput;
                 }
             });
         }
