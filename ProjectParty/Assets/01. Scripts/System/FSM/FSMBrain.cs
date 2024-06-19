@@ -135,6 +135,8 @@ namespace OMG.FSM
 
         private void ChangeState(int stateIndex)
         {
+            if (states == null)
+                return;
             if (stateIndex >= states.Count)
                 return;
 
