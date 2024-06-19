@@ -56,6 +56,11 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
             ChangeItem(ItemType.None);
         }
 
+        private void OnDestroy()
+        {
+            input.OnActiveEvent -= UseItem;
+        }
+
         private void UseItem()
         {
             if(currentItemType == ItemType.None) { return; }
