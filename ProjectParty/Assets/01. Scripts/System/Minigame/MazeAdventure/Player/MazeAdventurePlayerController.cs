@@ -95,7 +95,10 @@ namespace OMG.Minigames.MazeAdventure
             }
             else
             {
-                ExitInvisibilServerRpc();
+                if(IsOwner)
+                {
+                    ExitInvisibilServerRpc();
+                }
             }
         }
 
