@@ -32,6 +32,7 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
         public void Init(Transform playerTrm)
         {    
             networkObject = playerTrm.GetComponent<NetworkObject>();
+
             playerItemDictionary = new Dictionary<ItemType, MazeAdventureItem>();
             foreach(Transform itemTrm in transform)
             {
@@ -41,6 +42,9 @@ public class ItemSystem : MonoBehaviour, IPlayerCollision
                     playerItemDictionary.Add(item.ItemType, item);
                 }
             }
+
+            if (networkObject.IsOwner == false)
+                return;
 
             input.OnActiveEvent += UseItem;
 
