@@ -40,7 +40,7 @@ namespace OMG.Minigames.MazeAdventure
 
         public void IncreaseMoveSpeed()
         {
-            navMeshAgent.speed += 0.5f;
+            navMeshAgent.speed += 0.7f;
         }
     }
 }
