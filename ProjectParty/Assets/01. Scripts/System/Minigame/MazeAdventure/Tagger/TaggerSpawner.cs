@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -10,6 +11,8 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private List<Transform> taggerSpawnTrms;
         [SerializeField] private float taggerSpawnTime;
         [SerializeField] private GameObject taggerObj;
+        [SerializeField] private int maxSpawnCount;
+        public event Action OnOverSpawnEvent;
 
         private DeathmatchCycle cycle = null;
         private List<NetworkObject> taggerList = null;
@@ -22,13 +25,15 @@ namespace OMG.Minigames.MazeAdventure
         }
         private void SpawnTagger()
         {
-            GameObject obj = Instantiate(taggerObj, taggerSpawnTrms[Random.Range(0,taggerSpawnTrms.Count)].position, Quaternion.identity);
+            GameObject obj = Instantiate(taggerObj, taggerSpawnTrms[UnityEngine.Random.Range(0,taggerSpawnTrms.Count)].position, Quaternion.identity);
             Tagger tagger = obj.GetComponent<Tagger>();
             tagger.Init(cycle);
             tagger.NetworkObject.SpawnWithOwnership(0, true);
             tagger.NetworkObject.TrySetParent(gameObject, false);
             taggerList.Add(tagger.NetworkObject);
+            OnOverSpawnEvent += tagger.IncreaseMoveSpeed;
         }
+
         public void StartSpawn()
         {
             StartCoroutine(SpawnCycle());
@@ -54,8 +59,16 @@ namespace OMG.Minigames.MazeAdventure
                 time += Time.deltaTime;
                 if(time >= taggerSpawnTime)
                 {
-                    SpawnTagger();
                     time = 0;
+
+                    if(taggerList.Count < maxSpawnCount)
+                    {
+                        SpawnTagger();
+                    }
+                    else
+                    {
+                        OnOverSpawnEvent?.Invoke();
+                    }
                 }
                 yield return null;
             }
