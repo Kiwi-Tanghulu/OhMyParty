@@ -23,6 +23,9 @@ namespace OMG.FSM
 
         public void Init()
         {
+            if (!isInit || !IsOwner)
+                return;
+
             //param
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
             fsmParams.ForEach(i => {
@@ -50,8 +53,7 @@ namespace OMG.FSM
             }
             else
             {
-                if (IsOwner)
-                    ChangeState(defaultState);
+                ChangeState(defaultState);
             }
 
             isInit = true;
@@ -59,7 +61,7 @@ namespace OMG.FSM
 
         public void UpdateFSM()
         {
-            if (!isInit)
+            if (!isInit || !IsOwner)
                 return;
                 
             currentState?.UpdateState();
@@ -67,11 +69,17 @@ namespace OMG.FSM
 
         private void OnEnable()
         {
+            if (!isInit || !IsOwner)
+                return;
+
             currentState?.EnterState();
         }
 
         private void OnDisable()
         {
+            if (!isInit || !IsOwner)
+                return;
+
             currentState?.ExitState();   
         }
 
@@ -80,7 +88,6 @@ namespace OMG.FSM
             return fsmParamDictionary[typeof(T)] as T;
         }
 
-        #region Change State
         public void ChangeState(string stateName)
         {
             FSMState state = states.Find(x => x.gameObject.name == stateName);
@@ -91,6 +98,7 @@ namespace OMG.FSM
         public void ChangeState(Type type)
         {
             FSMState state = states.Find(x => x.GetType() == type);
+
             if (state != null)
                 ChangeState(state);
         }
@@ -103,38 +111,16 @@ namespace OMG.FSM
                 return;
             }
 
-            if (currentState == state)
-                return;
-
-            //Debug.Log($"player {state}");
-
             int index = states.IndexOf(state);
 
-            //if(IsOwner)
-            //{
-            //    ChangeState(index);
-            //}
-
-            ChangeStateServerRpc(index);
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void ChangeStateServerRpc(int stateIndex)
-        {
-            ChangeStateClientRpc(stateIndex);
-        }
-
-        [ClientRpc]
-        private void ChangeStateClientRpc(int stateIndex)
-        {
-            //if (IsOwner)
-            //    return;
-
-            ChangeState(stateIndex);
+            ChangeState(index);
         }
 
         private void ChangeState(int stateIndex)
         {
+            if (!isInit || !IsOwner)
+                return;
+
             if (states == null)
                 return;
             if (stateIndex >= states.Count)
@@ -149,6 +135,5 @@ namespace OMG.FSM
             currentState = states[stateIndex];
             currentState.EnterState();
         }
-        #endregion
     }
 }

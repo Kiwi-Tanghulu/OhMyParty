@@ -26,19 +26,13 @@ namespace OMG.Player
             scoreText.GetComponent<AnimationEvent>().OnEndEvent += CalculateScoreState_OnEndEvent;
         }
 
-        protected override void OwnerEnterState()
+        public override void EnterState()
         {
-            base.OwnerEnterState();
-
+            base.EnterState();
 
             standingTrm =
                 Lobby.Current.GetLobbyComponent<LobbySkinComponent>().
                 Skin.PlayerCalcScoreStandingPoint.GetStandingPoint(player.OwnerClientId);
-        }
-
-        protected override void OwnerUpdateState()
-        {
-            base.OwnerUpdateState();
 
             movement.Teleport(standingTrm.position, standingTrm.rotation);
         }

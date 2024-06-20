@@ -28,12 +28,7 @@ namespace OMG.Player.FSM
             base.EnterState();
 
             anim.AnimEvent.OnPlayingEvent += DoAction;
-        }
 
-        protected override void OwnerEnterState()
-        {
-            base.OwnerEnterState();
-            
             anim.SetLayerWeight(AnimatorLayerType.Upper, 1, true, 0.1f);
         }
 
@@ -42,11 +37,6 @@ namespace OMG.Player.FSM
             base.ExitState();
 
             anim.AnimEvent.OnPlayingEvent -= DoAction;
-        }
-
-        protected override void OwnerExitState()
-        {
-            base.OwnerExitState();
 
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
         }

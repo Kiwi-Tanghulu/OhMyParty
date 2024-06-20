@@ -25,9 +25,9 @@ namespace OMG.Player.FSM
             focuser = player.GetComponent<PlayerFocuser>();
         }
 
-        protected override void OwnerEnterState()
+        public override void EnterState()
         {
-            base.OwnerEnterState();
+            base.EnterState();
 
             if (focuser.FocusedObject.CurrentObject.TryGetComponent<Chair>(out Chair chair))
             {
@@ -45,17 +45,17 @@ namespace OMG.Player.FSM
             }
         }
 
-        protected override void OwnerUpdateState()
+        public override void UpdateState()
         {
-            base.OwnerUpdateState();
+            base.UpdateState();
 
             if(sitPoint != null)
                 movement.Teleport(sitPoint.position, sitPoint.rotation);
         }
 
-        protected override void OwnerExitState()
+        public override void ExitState()
         {
-            base.OwnerExitState();
+            base.ExitState();
             
             usingChair?.SetUseWhetherChair(sitPoint, false);
         }

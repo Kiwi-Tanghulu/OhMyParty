@@ -38,9 +38,9 @@ namespace OMG.Player.FSM
             movement.SetMoveDirection(Vector3.zero, false);
         }
 
-        protected override void OwnerExitState()
+        public override void ExitState()
         {
-            base.OwnerExitState();
+            base.ExitState();
 
             player.Visual.Ragdoll.SetActive(false);
 
@@ -52,11 +52,6 @@ namespace OMG.Player.FSM
 
             int recoDir = ragdoll.HipRb.transform.forward.y > 0f ? 1 : -1;
             anim.SetInt(fallenDirHash, recoDir);
-        }
-
-        public override void ExitState()
-        {
-            base.ExitState();
 
             ragdoll.SetActive(false);
         }
