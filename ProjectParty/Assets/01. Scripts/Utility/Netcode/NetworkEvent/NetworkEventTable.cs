@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Collections;
 
@@ -5,19 +6,28 @@ namespace OMG.NetworkEvents
 {
     internal static class NetworkEventTable
     {
-        private static Dictionary<ulong, Dictionary<FixedString128Bytes, INetworkEvent>> eventTable;
+        private static Dictionary<ulong, Dictionary<ulong, INetworkEvent>> eventTable;
+        private static Dictionary<FixedString128Bytes, Func<byte[], NetworkEventParams>> paramsFactories;
 
         static NetworkEventTable()
         {
-            eventTable = new Dictionary<ulong, Dictionary<FixedString128Bytes, INetworkEvent>>();
+            eventTable = new Dictionary<ulong, Dictionary<ulong, INetworkEvent>>();
+            paramsFactories = new Dictionary<FixedString128Bytes, Func<byte[], NetworkEventParams>>();
+
+            RegisterParamsFactory<IntParams>();
+            RegisterParamsFactory<UlongParams>();
+            RegisterParamsFactory<BoolParams>();
+            RegisterParamsFactory<Vector3Params>();
         }
 
-        public static INetworkEvent GetEvent(ulong instanceID, FixedString128Bytes eventID) => eventTable[instanceID][eventID];
+        public static void RegisterParamsFactory<T>() where T : NetworkEventParams, new() => paramsFactories.Add(typeof(T).ToString(), ParamsFactory<T>);
+        public static INetworkEvent GetEvent(ulong instanceID, ulong eventID) => eventTable[instanceID][eventID];
+        public static NetworkEventParams GetEventParams(FixedString128Bytes paramsID, byte[] buffer) => paramsFactories[paramsID]?.Invoke(buffer);
 
         public static void RegisterEvent(ulong instanceID, INetworkEvent networkEvent)
         {
             if(eventTable.ContainsKey(instanceID) == false)
-                eventTable.Add(instanceID, new Dictionary<FixedString128Bytes, INetworkEvent>());
+                eventTable.Add(instanceID, new Dictionary<ulong, INetworkEvent>());
 
             eventTable[instanceID][networkEvent.EventID] = networkEvent;
         }
@@ -28,6 +38,30 @@ namespace OMG.NetworkEvents
                 return;
 
             eventTable[instanceID].Remove(networkEvent.EventID);
+        }
+
+        public static NetworkEventParams ParamsFactory<T>(byte[] buffer) where T : NetworkEventParams, new()
+        {
+            T eventParams = new T();
+            eventParams.Deserialize(buffer);
+
+            return eventParams;
+        }
+
+        public static ulong StringToHash(string key)
+        {
+            const ulong FNV_offset_basis = 14695981039346656037UL;
+            const ulong FNV_prime = 1099511628211UL;
+
+            ulong hash = FNV_offset_basis;
+
+            foreach (char c in key)
+            {
+                hash ^= c;
+                hash *= FNV_prime;
+            }
+
+            return hash;
         }
     }
 }

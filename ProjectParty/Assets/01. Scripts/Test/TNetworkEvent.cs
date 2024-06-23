@@ -1,3 +1,4 @@
+using System;
 using OMG.NetworkEvents;
 using Unity.Netcode;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace OMG.Test
 {
     public class TNetworkEvent : NetworkBehaviour
     {
-        [SerializeField] NetworkEvent<StringParams> testEvent = new NetworkEvent<StringParams>("TestEvent");
+        [SerializeField] NetworkEvent<IntParams> testEvent = new NetworkEvent<IntParams>("TestEvent");
 
         public override void OnNetworkSpawn()
         {
@@ -19,14 +20,33 @@ namespace OMG.Test
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                StringParams param = new StringParams("Hi");
-                testEvent.Broadcast(param);
+                IntParams asd = new IntParams();
+                asd.Value = DateTime.Now.Millisecond;
+                testEvent.Broadcast(asd);
             }
+            
+            // if(Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     BroadcastServerRpc(DateTime.Now.Millisecond);
+            // }   
         }
 
-        public void HandleTestEvent(StringParams eventParams)
+        public void HandleTestEvent(IntParams eventParams)
         {
-            Debug.Log(eventParams.Value);
+            Debug.Log($"ping : {DateTime.Now.Millisecond - eventParams.Value}ms");
+            // Debug.Log(eventParams.Value);
+        }
+
+        [ServerRpc]
+        private void BroadcastServerRpc(int value)
+        {
+            BroadcastClientRpc(value);
+        }
+
+        [ClientRpc]
+        private void BroadcastClientRpc(int value)
+        {
+            Debug.Log($"ping : {DateTime.Now.Millisecond - value}ms");
         }
     }
 }

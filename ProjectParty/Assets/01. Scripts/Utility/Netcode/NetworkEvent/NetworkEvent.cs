@@ -1,4 +1,3 @@
-using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,7 +12,9 @@ namespace OMG.NetworkEvents
 
         public override void Broadcast(NetworkEventParams eventParams = null)
         {
-            base.Broadcast(new NetworkEventParams());
+            // if(eventParams == null)
+            //     eventParams = new NetworkEventParams();
+            base.Broadcast(eventParams);
         }
     }
 
@@ -22,14 +23,14 @@ namespace OMG.NetworkEvents
     {
         private NetworkObject instance = null;
 
-        private FixedString128Bytes eventID = "";
-        FixedString128Bytes INetworkEvent.EventID => eventID;
+        private ulong eventID = 0;
+        ulong INetworkEvent.EventID => eventID;
 
         public NetworkEvent() : base() {}
 
-        public NetworkEvent(string eventID) : base()
+        public NetworkEvent(string key) : base()
         {
-            this.eventID = eventID;
+            this.eventID = NetworkEventTable.StringToHash(key);
         }
 
         ~NetworkEvent()
@@ -62,7 +63,13 @@ namespace OMG.NetworkEvents
                 return;
             }
 
-            NetworkEventManager.Instance.BroadcastEvent(instance.NetworkObjectId, (this as INetworkEvent).EventID, eventParams);
+            NetworkEventPacket packet = new NetworkEventPacket(
+                instance.NetworkObjectId, 
+                (this as INetworkEvent).EventID, 
+                eventParams.GetType().ToString(),
+                eventParams.Serialize()
+            );
+            NetworkEventManager.Instance.BroadcastEvent(packet);
         }
 
         void INetworkEvent.Invoke(NetworkEventParams eventParams) => Invoke(eventParams as T);

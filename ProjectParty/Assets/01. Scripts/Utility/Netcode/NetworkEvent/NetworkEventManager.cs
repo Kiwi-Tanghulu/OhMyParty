@@ -1,4 +1,3 @@
-using Unity.Collections;
 using Unity.Netcode;
 
 namespace OMG.NetworkEvents
@@ -20,21 +19,22 @@ namespace OMG.NetworkEvents
             DontDestroyOnLoad(gameObject);
         }
 
-        public void BroadcastEvent(ulong instanceID, FixedString128Bytes eventID, NetworkEventParams eventParams)
+        public void BroadcastEvent(NetworkEventPacket packet)
         {
-            BroadcastEventServerRpc(instanceID, eventID, eventParams);
+            BroadcastEventServerRpc(packet);
         }
 
         [ServerRpc]
-        private void BroadcastEventServerRpc(ulong instanceID, FixedString128Bytes eventID, NetworkEventParams eventParams)
+        private void BroadcastEventServerRpc(NetworkEventPacket packet)
         {
-            BroadcastEventClientRpc(instanceID, eventID, eventParams);
+            BroadcastEventClientRpc(packet);
         }
 
         [ClientRpc]
-        private void BroadcastEventClientRpc(ulong instanceID, FixedString128Bytes eventID, NetworkEventParams eventParams)
+        private void BroadcastEventClientRpc(NetworkEventPacket packet)
         {
-            NetworkEventTable.GetEvent(instanceID, eventID).Invoke(eventParams);
+            NetworkEventParams eventParams = NetworkEventTable.GetEventParams(packet.ParamsID, packet.Buffer);
+            NetworkEventTable.GetEvent(packet.InstanceID, packet.EventID).Invoke(eventParams);
         }
     }
 }
