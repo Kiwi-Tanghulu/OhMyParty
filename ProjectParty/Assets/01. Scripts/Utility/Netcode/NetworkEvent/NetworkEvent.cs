@@ -48,7 +48,7 @@ namespace OMG.NetworkEvents
             NetworkEventTable.UnregisterEvent(instance.NetworkObjectId, this);
         }
 
-        public virtual void Broadcast(T eventParams)
+        public virtual void Broadcast(T eventParams, bool requireOwnership = true)
         {
             if(instance.IsSpawned == false)
             {
@@ -56,7 +56,7 @@ namespace OMG.NetworkEvents
                 return;
             }
 
-            if(instance.IsOwner == false)
+            if(requireOwnership && instance.IsOwner == false)
             {
                 Debug.LogError("Only Owner Can Broadcast Network Event");
                 return;
