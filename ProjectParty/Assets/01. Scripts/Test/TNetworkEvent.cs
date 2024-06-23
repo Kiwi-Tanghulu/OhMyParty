@@ -7,7 +7,7 @@ namespace OMG.Test
 {
     public class TNetworkEvent : NetworkBehaviour
     {
-        [SerializeField] NetworkEvent<IntParams> testEvent = new NetworkEvent<IntParams>("TestEvent");
+        [SerializeField] NetworkEvents.NetworkEvent testEvent = new NetworkEvents.NetworkEvent("TestEvent");
 
         public override void OnNetworkSpawn()
         {
@@ -20,9 +20,7 @@ namespace OMG.Test
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                IntParams asd = new IntParams();
-                asd.Value = DateTime.Now.Millisecond;
-                testEvent.Broadcast(asd);
+                testEvent.Broadcast();
             }
             
             // if(Input.GetKeyDown(KeyCode.Space))
@@ -31,10 +29,11 @@ namespace OMG.Test
             // }   
         }
 
-        public void HandleTestEvent(IntParams eventParams)
+        public void HandleTestEvent()
         {
-            Debug.Log($"ping : {DateTime.Now.Millisecond - eventParams.Value}ms");
+            // Debug.Log($"ping : {DateTime.Now.Millisecond - eventParams.Value}ms");
             // Debug.Log(eventParams.Value);
+            Debug.Log("Handle Test Event");
         }
 
         [ServerRpc]

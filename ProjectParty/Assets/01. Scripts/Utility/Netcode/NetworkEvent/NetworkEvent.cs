@@ -5,16 +5,15 @@ using UnityEngine.Events;
 namespace OMG.NetworkEvents
 {
     [System.Serializable]
-    public class NetworkEvent : NetworkEvent<NetworkEventParams>
+    public class NetworkEvent : NetworkEvent<NoneParams>
     {
         public NetworkEvent() : base() {}
         public NetworkEvent(string eventID) : base(eventID) { }
 
-        public override void Broadcast(NetworkEventParams eventParams = null)
+        public void Broadcast()
         {
-            // if(eventParams == null)
-            //     eventParams = new NetworkEventParams();
-            base.Broadcast(eventParams);
+            NoneParams eventParams = new NoneParams();
+            Broadcast(eventParams);
         }
     }
 
@@ -30,7 +29,7 @@ namespace OMG.NetworkEvents
 
         public NetworkEvent(string key) : base()
         {
-            this.eventID = NetworkEventTable.StringToHash(key);
+            eventID = NetworkEventTable.StringToHash(key);
         }
 
         ~NetworkEvent()

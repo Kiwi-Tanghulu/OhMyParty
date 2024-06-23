@@ -14,6 +14,7 @@ namespace OMG.NetworkEvents
             eventTable = new Dictionary<ulong, Dictionary<ulong, INetworkEvent>>();
             paramsFactories = new Dictionary<FixedString128Bytes, Func<byte[], NetworkEventParams>>();
 
+            RegisterParamsFactory<NoneParams>();
             RegisterParamsFactory<IntParams>();
             RegisterParamsFactory<UlongParams>();
             RegisterParamsFactory<BoolParams>();

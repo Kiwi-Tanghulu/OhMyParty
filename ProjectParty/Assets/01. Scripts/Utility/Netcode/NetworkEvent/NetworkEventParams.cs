@@ -56,6 +56,13 @@ namespace OMG.NetworkEvents
         protected abstract void Serialize(FastBufferWriter writer);
     }
 
+    public class NoneParams : NetworkEventParams
+    {
+        protected override ushort Size => 0;
+        protected override void Deserialize(FastBufferReader reader) { }
+        protected override void Serialize(FastBufferWriter writer) { }
+    }
+
     public class IntParams : NetworkEventParams
     {
         protected override ushort Size => sizeof(int);
