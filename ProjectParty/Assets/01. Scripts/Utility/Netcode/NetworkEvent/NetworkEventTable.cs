@@ -39,6 +39,8 @@ namespace OMG.NetworkEvents
                 return;
 
             eventTable[instanceID].Remove(networkEvent.EventID);
+            if(eventTable[instanceID].Count <= 0)
+                eventTable.Remove(instanceID);
         }
 
         public static NetworkEventParams ParamsFactory<T>(byte[] buffer) where T : NetworkEventParams, new()
