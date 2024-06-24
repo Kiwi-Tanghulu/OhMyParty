@@ -79,6 +79,22 @@ namespace OMG.NetworkEvents
         }
     }
 
+    public class FloatParams : NetworkEventParams
+    {
+        protected override ushort Size => sizeof(float);
+        public float Value;
+
+        protected override void Deserialize(FastBufferReader reader)
+        {
+            reader.ReadValue(out Value);
+        }
+
+        protected override void Serialize(FastBufferWriter writer)
+        {
+            writer.WriteValue(Value);
+        }
+    }
+
     public class UlongParams : NetworkEventParams
     {
         protected override ushort Size => sizeof(ulong);

@@ -16,6 +16,7 @@ namespace OMG.NetworkEvents
 
             RegisterParamsFactory<NoneParams>();
             RegisterParamsFactory<IntParams>();
+            RegisterParamsFactory<FloatParams>();
             RegisterParamsFactory<UlongParams>();
             RegisterParamsFactory<BoolParams>();
             RegisterParamsFactory<Vector3Params>();
