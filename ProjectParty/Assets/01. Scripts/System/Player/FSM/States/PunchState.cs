@@ -18,7 +18,7 @@ namespace OMG.Player.FSM
         [Space]
         [SerializeField] private bool DrawGizmo;
 
-        protected override void DoAction()
+        public override void DoAction()
         {
             base.DoAction();
 
@@ -40,8 +40,6 @@ namespace OMG.Player.FSM
                     }
                 }
             }
-
-            Debug.Log("attack");
         }
 
 #if UNITY_EDITOR

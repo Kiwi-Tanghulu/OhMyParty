@@ -3,6 +3,10 @@ using UnityEngine;
 using OMG.FSM;
 using OMG.Skins;
 using DG.Tweening;
+using OMG.NetworkEvents;
+using Unity.Netcode;
+
+using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 
 namespace OMG.Player.FSM
 {
@@ -20,6 +24,9 @@ namespace OMG.Player.FSM
 
         private Sequence twinkleTween;
 
+        private NetworkEvent onStartRecoveryEvent = new NetworkEvent("__");
+        private NetworkEvent onEndRecoveryEvent = new NetworkEvent("__________");
+
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
@@ -29,26 +36,24 @@ namespace OMG.Player.FSM
             playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
 
             wfs = new WaitForSeconds(playerHitableDelayTime);
+
+            onStartRecoveryEvent.AddListener(OnStartRecovery);
+            onEndRecoveryEvent.AddListener(OnEndRecovery);
+
+            onStartRecoveryEvent.Register(player.GetComponent<NetworkObject>());
+            onEndRecoveryEvent.Register(player.GetComponent<NetworkObject>());
         }
 
         public override void EnterState()
         {
             base.EnterState();
 
-            if(playerSkin == null)
-                playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
-
-            float twinkleTweenTime = playerHitableDelayTime / 4f;
-            twinkleTween = DOTween.Sequence();
-            twinkleTween.Append(playerSkin.Mat.DOFade(0f, twinkleTweenTime));
-            twinkleTween.Append(playerSkin.Mat.DOFade(1f, twinkleTweenTime));
-            twinkleTween.SetLoops(-1);
-            twinkleTween.Play();
-
             anim.AnimEvent.OnEndEvent += AnimEvent_OnEndEvent;
 
             health.Hitable = false;
             health.PlayerHitable = false;
+
+            onStartRecoveryEvent.Broadcast();
         }
 
         public override void ExitState()
@@ -58,7 +63,8 @@ namespace OMG.Player.FSM
             anim.AnimEvent.OnEndEvent -= AnimEvent_OnEndEvent;
 
             health.Hitable = true;
-            player.StartCoroutine(HitableDelayCo());
+
+            onEndRecoveryEvent.Broadcast();
         }
 
         private void AnimEvent_OnEndEvent()
@@ -83,6 +89,24 @@ namespace OMG.Player.FSM
             twinkleTween.Kill();
 
             playerSkin.Mat.DOFade(1f, 0f);
+        }
+
+        private void OnStartRecovery(NoneParams param)
+        {
+            if (playerSkin == null)
+                playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
+
+            float twinkleTweenTime = playerHitableDelayTime / 4f;
+            twinkleTween = DOTween.Sequence();
+            twinkleTween.Append(playerSkin.Mat.DOFade(0f, twinkleTweenTime));
+            twinkleTween.Append(playerSkin.Mat.DOFade(1f, twinkleTweenTime));
+            twinkleTween.SetLoops(-1);
+            twinkleTween.Play();
+        }
+
+        private void OnEndRecovery(NoneParams param)
+        {
+            player.StartCoroutine(HitableDelayCo());
         }
     }
 }

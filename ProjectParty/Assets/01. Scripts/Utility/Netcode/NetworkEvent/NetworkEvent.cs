@@ -7,7 +7,7 @@ namespace OMG.NetworkEvents
     [System.Serializable]
     public class NetworkEvent : NetworkEvent<NoneParams>
     {
-        public NetworkEvent() : base() {}
+        public NetworkEvent() : base() { }
         public NetworkEvent(string eventID) : base(eventID) { }
 
         public void Alert(bool requireOwnership = true)
@@ -33,7 +33,7 @@ namespace OMG.NetworkEvents
 
         protected bool alive = false;
 
-        public NetworkEvent() : base() {}
+        public NetworkEvent() : base() { }
 
         public NetworkEvent(string key) : base()
         {
@@ -47,7 +47,7 @@ namespace OMG.NetworkEvents
 
         public void Register(NetworkObject instance)
         {
-            if(alive)
+            if (alive)
                 return;
             alive = true;
 
@@ -57,7 +57,7 @@ namespace OMG.NetworkEvents
 
         public void Unregister()
         {
-            if(alive == false)
+            if (alive == false)
                 return;
             alive = false;
 
@@ -66,7 +66,7 @@ namespace OMG.NetworkEvents
 
         public virtual void Alert(T eventParams, bool requireOwnership = true)
         {
-            if(Middleware(requireOwnership) == false)
+            if (Middleware(requireOwnership) == false)
                 return;
 
             NetworkEventPacket packet = CreatePacket(eventParams);
@@ -75,7 +75,7 @@ namespace OMG.NetworkEvents
 
         public virtual void Broadcast(T eventParams, bool requireOwnership = true)
         {
-            if(Middleware(requireOwnership) == false)
+            if (Middleware(requireOwnership) == false)
                 return;
 
             NetworkEventPacket packet = CreatePacket(eventParams);
@@ -84,13 +84,13 @@ namespace OMG.NetworkEvents
 
         private bool Middleware(bool requireOwnership)
         {
-            if(instance.IsSpawned == false)
+            if (instance.IsSpawned == false)
             {
                 Debug.LogError("Network Object Instance Does Not Spawned");
                 return false;
             }
 
-            if(requireOwnership && instance.IsOwner == false)
+            if (requireOwnership && instance.IsOwner == false)
             {
                 Debug.LogError("Only Owner Can Broadcast Network Event");
                 return false;
@@ -102,8 +102,8 @@ namespace OMG.NetworkEvents
         private NetworkEventPacket CreatePacket(T eventParams)
         {
             NetworkEventPacket packet = new NetworkEventPacket(
-                instance.NetworkObjectId, 
-                (this as INetworkEvent).EventID, 
+                instance.NetworkObjectId,
+                (this as INetworkEvent).EventID,
                 eventParams.GetType().ToString(),
                 eventParams.Serialize()
             );
@@ -111,6 +111,10 @@ namespace OMG.NetworkEvents
             return packet;
         }
 
-        void INetworkEvent.Invoke(NetworkEventParams eventParams) => Invoke(eventParams as T);
+        void INetworkEvent.Invoke(NetworkEventParams eventParams)
+        {
+            Invoke(eventParams as T);
+        }
     }
+
 }

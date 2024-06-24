@@ -1,6 +1,10 @@
 using OMG.FSM;
 using UnityEngine.Events;
 using Unity.Netcode;
+using UnityEngine;
+using OMG.NetworkEvents;
+
+using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 
 namespace OMG.Player.FSM
 {
@@ -10,11 +14,17 @@ namespace OMG.Player.FSM
 
         private ExtendedAnimator anim;
 
+        private NetworkEvent onAttackNetworkEvent = new NetworkEvent("DoActionEvent");
+
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
 
             anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
+
+            onAttackNetworkEvent.AddListener(DoAction);
+
+            onAttackNetworkEvent.Register(player.GetComponent<NetworkObject>());
         }
 
         public override void EnterState()
@@ -35,13 +45,18 @@ namespace OMG.Player.FSM
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
         }
 
-        [ServerRpc]
+
         private void DoActionServerRpc()
+        {
+            onAttackNetworkEvent.Alert();
+        }
+
+        private void DoAction(NoneParams param)
         {
             DoAction();
         }
 
-        protected virtual void DoAction()
+        public virtual void DoAction()
         {
             OnActionEvent?.Invoke();
         }

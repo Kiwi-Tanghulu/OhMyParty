@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEngine;
 
 namespace OMG.NetworkEvents
 {
@@ -15,6 +16,7 @@ namespace OMG.NetworkEvents
                 return;
             }
 
+            //NetworkEventTable;
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -22,14 +24,14 @@ namespace OMG.NetworkEvents
         #region Alert
         public void AlertEvent(NetworkEventPacket packet) => AlertEventServerRpc(packet);
 
-        [ServerRpc]
+        [ServerRpc (RequireOwnership = false)]
         private void AlertEventServerRpc(NetworkEventPacket packet) => CallEvent(packet);
         #endregion
 
         #region Broadcast
         public void BroadcastEvent(NetworkEventPacket packet) => BroadcastEventServerRpc(packet);
         
-        [ServerRpc]
+        [ServerRpc (RequireOwnership = false)]
         private void BroadcastEventServerRpc(NetworkEventPacket packet) => BroadcastEventClientRpc(packet);
         
         [ClientRpc]
