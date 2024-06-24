@@ -1,6 +1,7 @@
 using OMG.Player.FSM;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 using static UnityEngine.UI.Image;
@@ -21,9 +22,6 @@ namespace OMG.Player.FSM
         {
             base.DoAction();
 
-            if (!player.IsServer)
-                return;
-
             RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position - (eyeTrm.forward * radius * 2),
                 radius, player.transform.forward, (radius * 2) + distance);
             
@@ -38,11 +36,12 @@ namespace OMG.Player.FSM
 
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
-                        Debug.Log(hits[i].transform.name);
                         damageable.OnDamaged(5f, player.transform, hits[i].point);
                     }
                 }
             }
+
+            Debug.Log("attack");
         }
 
 #if UNITY_EDITOR

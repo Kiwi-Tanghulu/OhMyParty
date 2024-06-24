@@ -23,8 +23,8 @@ namespace OMG.FSM
 
         public void Init()
         {
-            if (!isInit || !IsOwner)
-                return;
+            //if (!IsOwner)
+            //    return;
 
             //param
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
@@ -47,6 +47,8 @@ namespace OMG.FSM
                 }
             }
 
+            isInit = true;
+
             if (defaultState == null)
             {
                 Debug.LogError("not set start state");
@@ -55,8 +57,6 @@ namespace OMG.FSM
             {
                 ChangeState(defaultState);
             }
-
-            isInit = true;
         }
 
         public void UpdateFSM()
@@ -107,7 +107,7 @@ namespace OMG.FSM
         {
             if (!states.Find(x => x == state))
             {
-                Debug.Log($"not exist : {state}");
+                Debug.LogError($"not exist : {state}");
                 return;
             }
 

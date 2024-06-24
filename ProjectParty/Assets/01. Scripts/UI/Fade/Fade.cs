@@ -35,6 +35,9 @@ namespace OMG.UI
             else
                 Destroy(gameObject);
 
+            GameObject go = new GameObject();
+            Debug.LogError(go.GetInstanceID());
+
             timelineHolder = GetComponent<PlayableDirector>();
 
             FadingEvents = new Dictionary<FadeStateType, Action>();

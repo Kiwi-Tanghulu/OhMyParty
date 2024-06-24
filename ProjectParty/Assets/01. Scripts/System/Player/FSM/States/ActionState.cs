@@ -1,12 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Windows;
 using OMG.FSM;
-using OMG.Inputs;
-using OMG.Player;
-using Unity.XR.OpenVR;
 using UnityEngine.Events;
+using Unity.Netcode;
 
 namespace OMG.Player.FSM
 {
@@ -27,7 +21,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            anim.AnimEvent.OnPlayingEvent += DoAction;
+            anim.AnimEvent.OnPlayingEvent += DoActionServerRpc;
 
             anim.SetLayerWeight(AnimatorLayerType.Upper, 1, true, 0.1f);
         }
@@ -36,9 +30,15 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            anim.AnimEvent.OnPlayingEvent -= DoAction;
+            anim.AnimEvent.OnPlayingEvent -= DoActionServerRpc;
 
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
+        }
+
+        [ServerRpc]
+        private void DoActionServerRpc()
+        {
+            DoAction();
         }
 
         protected virtual void DoAction()
