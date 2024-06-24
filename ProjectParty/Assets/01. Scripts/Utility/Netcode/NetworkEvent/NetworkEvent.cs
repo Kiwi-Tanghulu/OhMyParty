@@ -31,6 +31,8 @@ namespace OMG.NetworkEvents
         private ulong eventID = 0;
         ulong INetworkEvent.EventID => eventID;
 
+        protected bool alive = false;
+
         public NetworkEvent() : base() {}
 
         public NetworkEvent(string key) : base()
@@ -45,12 +47,20 @@ namespace OMG.NetworkEvents
 
         public void Register(NetworkObject instance)
         {
+            if(alive)
+                return;
+            alive = true;
+
             this.instance = instance;
             NetworkEventTable.RegisterEvent(instance.NetworkObjectId, this);
         }
 
         public void Unregister()
         {
+            if(alive == false)
+                return;
+            alive = false;
+
             NetworkEventTable.UnregisterEvent(instance.NetworkObjectId, this);
         }
 

@@ -18,7 +18,6 @@ namespace OMG.NetworkEvents
             RegisterParamsFactory<IntParams>();
             RegisterParamsFactory<UlongParams>();
             RegisterParamsFactory<BoolParams>();
-            RegisterParamsFactory<Vector3Params>();
         }
 
         public static void RegisterParamsFactory<T>() where T : NetworkEventParams, new() => paramsFactories.Add(typeof(T).ToString(), ParamsFactory<T>);
