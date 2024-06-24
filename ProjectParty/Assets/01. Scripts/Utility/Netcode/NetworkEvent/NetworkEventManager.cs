@@ -19,19 +19,24 @@ namespace OMG.NetworkEvents
             DontDestroyOnLoad(gameObject);
         }
 
-        public void BroadcastEvent(NetworkEventPacket packet)
-        {
-            BroadcastEventServerRpc(packet);
-        }
+        #region Alert
+        public void AlertEvent(NetworkEventPacket packet) => AlertEventServerRpc(packet);
 
         [ServerRpc]
-        private void BroadcastEventServerRpc(NetworkEventPacket packet)
-        {
-            BroadcastEventClientRpc(packet);
-        }
+        private void AlertEventServerRpc(NetworkEventPacket packet) => CallEvent(packet);
+        #endregion
 
+        #region Broadcast
+        public void BroadcastEvent(NetworkEventPacket packet) => BroadcastEventServerRpc(packet);
+        
+        [ServerRpc]
+        private void BroadcastEventServerRpc(NetworkEventPacket packet) => BroadcastEventClientRpc(packet);
+        
         [ClientRpc]
-        private void BroadcastEventClientRpc(NetworkEventPacket packet)
+        private void BroadcastEventClientRpc(NetworkEventPacket packet) => CallEvent(packet);
+        #endregion
+
+        private void CallEvent(NetworkEventPacket packet)
         {
             NetworkEventParams eventParams = NetworkEventTable.GetEventParams(packet.ParamsID, packet.Buffer);
             NetworkEventTable.GetEvent(packet.InstanceID, packet.EventID).Invoke(eventParams);
