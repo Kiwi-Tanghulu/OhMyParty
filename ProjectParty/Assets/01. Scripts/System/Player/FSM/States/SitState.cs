@@ -32,7 +32,6 @@ namespace OMG.Player.FSM
             if (focuser.FocusedObject.CurrentObject.TryGetComponent<Chair>(out Chair chair))
             {
                 usingChair = chair;
-                sitPoint = usingChair.GetUseableSitPoint();
             }
 
             if (usingChair == null)
@@ -41,16 +40,10 @@ namespace OMG.Player.FSM
             }
             else
             {
+                sitPoint = usingChair.GetUseableSitPoint();
                 usingChair.SetUseWhetherChair(sitPoint, true);
-            }
-        }
-
-        public override void UpdateState()
-        {
-            base.UpdateState();
-
-            if(sitPoint != null)
                 movement.Teleport(sitPoint.position, sitPoint.rotation);
+            }
         }
 
         public override void ExitState()

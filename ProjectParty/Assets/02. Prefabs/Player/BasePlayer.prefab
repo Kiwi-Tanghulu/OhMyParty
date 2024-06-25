@@ -567,6 +567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 580159978518624087}
   - component: {fileID: 2515307658907340869}
+  - component: {fileID: 4037587327798905607}
   m_Layer: 0
   m_Name: DieState
   m_TagString: Untagged
@@ -607,6 +608,20 @@ MonoBehaviour:
   OnStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4037587327798905607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739916349079918533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe5e3aca4fa8d74e9eabc8e86fb85eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter: 1
+  onExit: 0
 --- !u!1 &2863165001993870500
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,6 +878,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8845059258682955619}
   - component: {fileID: 8005766580219673517}
+  - component: {fileID: 2332357929911715494}
   m_Layer: 0
   m_Name: StunState
   m_TagString: Untagged
@@ -907,6 +923,20 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 897
+--- !u!114 &2332357929911715494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350771476895139529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe5e3aca4fa8d74e9eabc8e86fb85eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter: 1
+  onExit: 0
 --- !u!1 &4451966627816460295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,6 +1733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5196460124808086205}
   - component: {fileID: 318231267551883930}
+  - component: {fileID: 3099131657128479480}
   - component: {fileID: 7780427928678120987}
   - component: {fileID: 4330298169415756643}
   m_Layer: 0
@@ -1748,6 +1779,20 @@ MonoBehaviour:
   OnStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3099131657128479480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7569269787013309519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe5e3aca4fa8d74e9eabc8e86fb85eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter: 1
+  onExit: 0
 --- !u!114 &7780427928678120987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1958,21 +2003,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1594289276793188635}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  attackNetworkEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5960801111510940813}
-        m_TargetAssemblyTypeName: OMG.Player.FSM.PunchState, Assembly-CSharp
-        m_MethodName: DoAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2426,21 +2456,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDeadEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8760751646201899724}
-        m_TargetAssemblyTypeName: OMG.FSM.FSMBrain, Assembly-CSharp
-        m_MethodName: ChangeState
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2515307658907340869}
-          m_ObjectArgumentAssemblyTypeName: OMG.FSM.FSMState, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
