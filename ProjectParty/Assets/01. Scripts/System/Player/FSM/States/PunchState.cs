@@ -13,7 +13,6 @@ namespace OMG.Player.FSM
         [SerializeField] private Transform eyeTrm;
         [SerializeField] private float distance = 1f;
         [SerializeField] private float radius = 0.5f;
-        [SerializeField] private LayerMask layer;
 
         [Space]
         [SerializeField] private bool DrawGizmo;
@@ -37,6 +36,7 @@ namespace OMG.Player.FSM
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
                         damageable.OnDamaged(5f, player.transform, hits[i].point);
+                        Debug.Log(hits[i].transform.name);
                     }
                 }
             }
