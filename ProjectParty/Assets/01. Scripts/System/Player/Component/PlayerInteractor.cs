@@ -14,6 +14,8 @@ namespace OMG.Player
         private IFocusable lastFocusedTarget = null;
         private IInteractable currentTarget = null;
 
+        private bool active;
+
         public override void OnNetworkSpawn()
         {
             if(IsOwner == false)
@@ -45,11 +47,20 @@ namespace OMG.Player
                 return;
             }
 
+            if(active == false)
+            {
+                return;
+            }
+
             if (lastFocusedTarget != focuser.FocusedObject)
                 currentTarget = focuser.FocusedObject.CurrentObject.GetComponent<IInteractable>();
             Debug.Log(currentTarget);
             currentTarget?.Interact(this, actived, focuser.FocusedPoint);
         }
-    }
 
+        public void SetActive(bool value)
+        {
+            active = value;
+        }
+    }
 }

@@ -3,20 +3,15 @@ using UnityEngine;
 
 namespace OMG
 {
-    public class ComicHitEffect : MonoBehaviour
+    public class ComicHitEffect : AnimationEffect
     {
         private TextMeshPro tmp;
 
-        private void Awake()
+        public override void Awake()
         {
+            base.Awake();
+
             tmp = GetComponent<TextMeshPro>();
-
-            GetComponent<OMG.AnimationEvent>().OnEndEvent += AnimationEvent_OnEndEvent;
-        }
-
-        private void AnimationEvent_OnEndEvent()
-        {
-            Destroy(gameObject);
         }
 
         public void SetText(string text)
