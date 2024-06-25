@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ComicHitEffect : MonoBehaviour
+namespace OMG
 {
-    private TextMeshPro tmp;
+    public class ComicHitEffect : MonoBehaviour
+    {
+        private TextMeshPro tmp;
 
-    private void Awake()
-    {
-        tmp = GetComponent<TextMeshPro>();
-    }
-    public void SetText(string text)
-    {
-        tmp.text = text;
+        private void Awake()
+        {
+            tmp = GetComponent<TextMeshPro>();
+
+            GetComponent<OMG.AnimationEvent>().OnEndEvent += AnimationEvent_OnEndEvent;
+        }
+
+        private void AnimationEvent_OnEndEvent()
+        {
+            Destroy(gameObject);
+        }
+
+        public void SetText(string text)
+        {
+            tmp.text = text;
+        }
     }
 }
