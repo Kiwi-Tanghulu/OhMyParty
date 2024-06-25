@@ -469,7 +469,7 @@ namespace TinyGiantStudio.Text
             progressBar.localScale = scale;
 
             Vector3 pos = progressBar.localPosition;
-            pos.x = -backgroundSize / 2;
+            pos.x = -(backgroundSize - scale.x) / 2;
             progressBar.localPosition = pos;
         }
 
