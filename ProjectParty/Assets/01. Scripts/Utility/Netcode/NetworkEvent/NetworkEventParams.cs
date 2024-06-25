@@ -142,4 +142,23 @@ namespace OMG.NetworkEvents
             writer.WriteValue(Value);
         }
     }
+
+    public class TransformParams : NetworkEventParams
+    {
+        protected override ushort Size => sizeof(float) * 6;
+        public Vector3 Position;
+        public Vector3 Rotation;
+
+        protected override void Deserialize(FastBufferReader reader)
+        {
+            reader.ReadValue(out Position);
+            reader.ReadValue(out Rotation);
+        }
+
+        protected override void Serialize(FastBufferWriter writer)
+        {
+            writer.WriteValue(Position);
+            writer.WriteValue(Rotation);
+        }
+    }
 }
