@@ -63,7 +63,7 @@ namespace TinyGiantStudio.Text
         public float keyStep = 150;
 
         public bool useEvents = true;
-        public UnityEvent onValueChanged = null;
+        public UnityEvent<float> onValueChanged = null;
         [Tooltip("Mouse/touch dragging the slider ended")]
         public UnityEvent sliderDragEnded = null;
 
@@ -330,7 +330,7 @@ namespace TinyGiantStudio.Text
         public void ValueChanged()
         {
             if (useEvents)
-                onValueChanged.Invoke();
+                onValueChanged.Invoke(CurrentValue);
             if (useValueRangeEvents)
                 ValueRangeEvents();
         }

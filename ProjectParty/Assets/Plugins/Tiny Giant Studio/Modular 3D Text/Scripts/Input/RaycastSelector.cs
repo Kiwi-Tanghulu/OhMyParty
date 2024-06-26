@@ -189,7 +189,7 @@ namespace TinyGiantStudio.Text
             Vector3 localPosition = hit.parent.InverseTransformPoint(cursorPosition); //used to be hit.inverseTransformPoint
 
             //Remove Y Z position from handle
-            localPosition = new Vector3(localPosition.x, 0, 0);
+            localPosition = new Vector3(localPosition.x, hit.localPosition.y, hit.localPosition.z);
 
             float size = sliderHandle.slider.backgroundSize;
             localPosition.x = Mathf.Clamp(localPosition.x, -size / 2, size / 2);
