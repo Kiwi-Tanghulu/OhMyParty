@@ -68,15 +68,13 @@ namespace OMG.NetworkEvents
         protected override ushort Size => sizeof(int);
         public int Value;
 
-        protected override void Deserialize(FastBufferReader reader)
-        {
-            reader.ReadValue(out Value);
-        }
+        public IntParams() { }
+        public IntParams(int value) { Value = value; }
+        protected override void Deserialize(FastBufferReader reader) { reader.ReadValue(out Value); }
+        protected override void Serialize(FastBufferWriter writer) { writer.WriteValue(Value); }
 
-        protected override void Serialize(FastBufferWriter writer)
-        {
-            writer.WriteValue(Value);
-        }
+        public static implicit operator int(IntParams left) => left.Value;
+        public static implicit operator IntParams(int left) => new IntParams(left);
     }
 
     public class FloatParams : NetworkEventParams
@@ -84,15 +82,13 @@ namespace OMG.NetworkEvents
         protected override ushort Size => sizeof(float);
         public float Value;
 
-        protected override void Deserialize(FastBufferReader reader)
-        {
-            reader.ReadValue(out Value);
-        }
+        public FloatParams() { }
+        public FloatParams(float value) { Value = value; }
+        protected override void Deserialize(FastBufferReader reader) { reader.ReadValue(out Value); }
+        protected override void Serialize(FastBufferWriter writer) { writer.WriteValue(Value); }
 
-        protected override void Serialize(FastBufferWriter writer)
-        {
-            writer.WriteValue(Value);
-        }
+        public static implicit operator float(FloatParams left) => left.Value;
+        public static implicit operator FloatParams(float left) => new FloatParams(left);
     }
 
     public class UlongParams : NetworkEventParams
@@ -100,15 +96,13 @@ namespace OMG.NetworkEvents
         protected override ushort Size => sizeof(ulong);
         public ulong Value;
 
-        protected override void Deserialize(FastBufferReader reader)
-        {
-            reader.ReadValue(out Value);
-        }
+        public UlongParams() { }
+        public UlongParams(ulong value) { Value = value; }
+        protected override void Deserialize(FastBufferReader reader) { reader.ReadValue(out Value); }
+        protected override void Serialize(FastBufferWriter writer) { writer.WriteValue(Value); }
 
-        protected override void Serialize(FastBufferWriter writer)
-        {
-            writer.WriteValue(Value);
-        }
+        public static implicit operator ulong(UlongParams left) => left.Value;
+        public static implicit operator UlongParams(ulong left) => new UlongParams(left);
     }
 
     public class BoolParams : NetworkEventParams
@@ -116,15 +110,13 @@ namespace OMG.NetworkEvents
         protected override ushort Size => sizeof(bool);
         public bool Value;
 
-        protected override void Deserialize(FastBufferReader reader)
-        {
-            reader.ReadValue(out Value);
-        }
+        public BoolParams() { }
+        public BoolParams(bool value) { Value = value; }
+        protected override void Deserialize(FastBufferReader reader) { reader.ReadValue(out Value); }
+        protected override void Serialize(FastBufferWriter writer) { writer.WriteValue(Value); }
 
-        protected override void Serialize(FastBufferWriter writer)
-        {
-            writer.WriteValue(Value);
-        }
+        public static implicit operator bool(BoolParams left) => left.Value;
+        public static implicit operator BoolParams(bool left) => new BoolParams(left);
     }
 
     public class Vector3Params : NetworkEventParams
@@ -132,15 +124,13 @@ namespace OMG.NetworkEvents
         protected override ushort Size => sizeof(float) * 3;
         public Vector3 Value;
 
-        protected override void Deserialize(FastBufferReader reader)
-        {
-            reader.ReadValue(out Value);
-        }
+        public Vector3Params() { }
+        public Vector3Params(Vector3 value) { Value = value; }
+        protected override void Deserialize(FastBufferReader reader) { reader.ReadValue(out Value); }
+        protected override void Serialize(FastBufferWriter writer) { writer.WriteValue(Value); }
 
-        protected override void Serialize(FastBufferWriter writer)
-        {
-            writer.WriteValue(Value);
-        }
+        public static implicit operator Vector3(Vector3Params left) => left.Value;
+        public static implicit operator Vector3Params(Vector3 left) => new Vector3Params(left);
     }
 
     public class TransformParams : NetworkEventParams
@@ -149,10 +139,17 @@ namespace OMG.NetworkEvents
         public Vector3 Position;
         public Vector3 Rotation;
 
-        protected override void Deserialize(FastBufferReader reader)
-        {
+        public TransformParams() { }
+        public TransformParams(Vector3 position, Vector3 rotation) 
+        { 
+            Position = position; 
+            Rotation = rotation; 
+        }
+
+        protected override void Deserialize(FastBufferReader reader) 
+        { 
             reader.ReadValue(out Position);
-            reader.ReadValue(out Rotation);
+            reader.ReadValue(out Rotation); 
         }
 
         protected override void Serialize(FastBufferWriter writer)
@@ -160,5 +157,7 @@ namespace OMG.NetworkEvents
             writer.WriteValue(Position);
             writer.WriteValue(Rotation);
         }
+
+        public static implicit operator TransformParams(Transform left) => new TransformParams(left.position, left.eulerAngles);
     }
 }
