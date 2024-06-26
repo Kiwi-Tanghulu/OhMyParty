@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace OMG.Network
 {
+    //이녀석은 인터페이스로 설계하는게 좋아보임. 
+    //그래야 스팀 구현체와 UGS구현체중에 번갈아 끼워도 정상적으로 동작할테니까
+    //지금 코드는 Steam에 의존적인 것으로 보임.   
     public class ClientManager
     {
         public static ClientManager Instance = null;
