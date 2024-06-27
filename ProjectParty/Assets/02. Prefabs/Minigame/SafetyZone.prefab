@@ -3534,6 +3534,7 @@ GameObject:
   - component: {fileID: 6507773061826596351}
   - component: {fileID: 2517067444738299336}
   - component: {fileID: 149086246433576000}
+  - component: {fileID: 2475357020856729168}
   m_Layer: 0
   m_Name: SafetyZone
   m_TagString: Untagged
@@ -3990,6 +3991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cycleText: {fileID: 7722869860100226367}
   timelineOption:
     PositiveOption: {fileID: 11400000, guid: 2b320ed9d320f48498e05f173913bdb2, type: 2}
     NegativeOption: {fileID: 11400000, guid: bafda0b900d4f174e8e751e7503c5b18, type: 2}
@@ -4118,6 +4120,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2475357020856729168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872781912382508777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2febe366b3f5ac1428f4d92cf06eebf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: 8dc5359aaadc1a24ca098e29e95e8269, type: 2}
 --- !u!1 &1886799971837245865
 GameObject:
   m_ObjectHideFlags: 0
@@ -15460,12 +15475,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
         type: 3}
+      propertyPath: GoEventOption.NegativeOption.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+        type: 3}
+      propertyPath: GoEventOption.NegativeOption.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+        type: 3}
       propertyPath: OnDisplayGo.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: OMG.Minigames.SafetyZone.SafetyZone, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
         type: 3}
+      propertyPath: GoEventOption.NegativeOption.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8251762917063486533}
+    - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+        type: 3}
+      propertyPath: GoEventOption.NegativeOption.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+        type: 3}
+      propertyPath: GoEventOption.NegativeOption.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+        type: 3}
+      propertyPath: GoEventOption.NegativeOption.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OMG.Minigames.SafetyZone.SafetyZone, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+        type: 3}
       propertyPath: OnDisplayGo.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+        type: 3}
+      propertyPath: GoEventOption.NegativeOption.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -15479,6 +15529,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 735178427699371842}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7722869860100226367 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 735178427699371842}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8995392785517024775 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8567516609396574533, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,

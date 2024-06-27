@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using OMG.Player;
 using OMG.FSM;
 using OMG.Ragdoll;
+using OMG.NetworkEvents;
+using Unity.Netcode;
+
+using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 
 namespace OMG.Player.FSM
 {
@@ -18,6 +19,9 @@ namespace OMG.Player.FSM
 
         private readonly int fallenDirHash = Animator.StringToHash("fallen_dir");
 
+        private NetworkEvent onStartStunEvent = new NetworkEvent("StartStunEvent");
+        private NetworkEvent onEndStunEvent = new NetworkEvent("EndStunEvent");
+
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
@@ -26,23 +30,28 @@ namespace OMG.Player.FSM
             health = player.GetComponent<PlayerHealth>();
             anim = player.Animator;
             ragdoll = player.Visual.Ragdoll;
+
+            onStartStunEvent.AddListener(StratStun);
+            onEndStunEvent.AddListener(EndStun);
+
+            onStartStunEvent.Register(player.GetComponent<NetworkObject>());
+            onEndStunEvent.Register(player.GetComponent<NetworkObject>());
         }
 
         public override void EnterState()
         {
             base.EnterState();
 
-            ragdoll.SetActive(true);
-            ragdoll.AddForce(health.Damage * health.HitDir, ForceMode.Impulse);
+            onStartStunEvent.Broadcast();
 
             movement.SetMoveDirection(Vector3.zero, false);
         }
 
-        protected override void OwnerExitState()
+        public override void ExitState()
         {
-            base.OwnerExitState();
+            base.ExitState();
 
-            player.Visual.Ragdoll.SetActive(false);
+            onEndStunEvent.Broadcast();
 
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position, Vector3.down, 10000f, groundLayer);
             if (hit.Length > 0)
@@ -54,10 +63,15 @@ namespace OMG.Player.FSM
             anim.SetInt(fallenDirHash, recoDir);
         }
 
-        public override void ExitState()
+        private void StratStun(NoneParams param)
         {
-            base.ExitState();
-
+            ragdoll.SetActive(true);
+            ragdoll.AddForce(health.Damage * health.HitDir, ForceMode.Impulse);
+        }
+        
+        private void EndStun(NoneParams param)
+        {
+            player.Visual.Ragdoll.SetActive(false);
             ragdoll.SetActive(false);
         }
     }

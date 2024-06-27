@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System;
+using System.Linq;
+using JetBrains.Annotations;
 
 namespace OMG.Extensions
 {
@@ -23,6 +25,26 @@ namespace OMG.Extensions
                 return default(T);
 
             return source[randomIndex];
+        }
+
+        public static List<T> Shuffle<T>(this List<T> source)
+        {
+            List<T> result = new List<T>();
+            for(int i = 0; i < source.Count; i++)
+            {
+                result.Add(source[i]);
+            }
+
+            for(int i = 0; i < result.Count; i++)
+            {
+                int index = Random.Range(0, source.Count);
+                T temp = result[i];
+
+                result[i] = result[index];
+                result[index] = temp;
+            }
+
+            return result;
         }
 
         public static Dictionary<Type, T> GetDictionaryByType<T>(this T[] source)

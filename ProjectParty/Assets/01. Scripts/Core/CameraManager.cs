@@ -44,7 +44,11 @@ namespace OMG
         public void ChangeCamera(CinemachineVirtualCamera cam, float transitionTime = 0f, Action OnStartEvent = null, Action OnEndEvent = null)
         {
             if (cam == null)
+            {
+                Debug.LogError("camera is null");
+
                 return;
+            }
 
             cinemachineBrain.m_DefaultBlend.m_Time = transitionTime;
             OnStartEvent?.Invoke();

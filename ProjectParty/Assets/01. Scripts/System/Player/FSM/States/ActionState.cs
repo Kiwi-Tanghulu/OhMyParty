@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Windows;
 using OMG.FSM;
-using OMG.Inputs;
-using OMG.Player;
-using Unity.XR.OpenVR;
 using UnityEngine.Events;
+using Unity.Netcode;
+using UnityEngine;
+using OMG.NetworkEvents;
+
+using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 
 namespace OMG.Player.FSM
 {
@@ -16,24 +14,25 @@ namespace OMG.Player.FSM
 
         private ExtendedAnimator anim;
 
+        private NetworkEvent onAttackNetworkEvent = new NetworkEvent("DoActionEvent");
+
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
 
             anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
+
+            onAttackNetworkEvent.AddListener(DoAction);
+
+            onAttackNetworkEvent.Register(player.GetComponent<NetworkObject>());
         }
 
         public override void EnterState()
         {
             base.EnterState();
 
-            anim.AnimEvent.OnPlayingEvent += DoAction;
-        }
+            anim.AnimEvent.OnPlayingEvent += DoActionServerRpc;
 
-        protected override void OwnerEnterState()
-        {
-            base.OwnerEnterState();
-            
             anim.SetLayerWeight(AnimatorLayerType.Upper, 1, true, 0.1f);
         }
 
@@ -41,17 +40,23 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            anim.AnimEvent.OnPlayingEvent -= DoAction;
-        }
-
-        protected override void OwnerExitState()
-        {
-            base.OwnerExitState();
+            anim.AnimEvent.OnPlayingEvent -= DoActionServerRpc;
 
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
         }
 
-        protected virtual void DoAction()
+
+        private void DoActionServerRpc()
+        {
+            onAttackNetworkEvent.Alert();
+        }
+
+        private void DoAction(NoneParams param)
+        {
+            DoAction();
+        }
+
+        public virtual void DoAction()
         {
             OnActionEvent?.Invoke();
         }

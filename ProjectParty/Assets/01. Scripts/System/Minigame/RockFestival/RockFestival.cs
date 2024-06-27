@@ -12,9 +12,12 @@ namespace OMG.Minigames.RockFestival
         private RockSpawner spawner = null;
         private TimeAttackCycle timeAttackCycle = null;
 
-        public override void Init(params ulong[] playerIDs)
+        public override void Init()
         {
-            base.Init(playerIDs);
+            base.Init();
+
+            if(IsHost == false)
+                return;
 
             for(int i = 0; i < scoreAreas.Length; ++i)
             {
@@ -26,8 +29,6 @@ namespace OMG.Minigames.RockFestival
 
             spawner = GetComponent<RockSpawner>();
             timeAttackCycle = cycle as TimeAttackCycle;
-
-            StartIntro();
         }
 
         public override void Release()

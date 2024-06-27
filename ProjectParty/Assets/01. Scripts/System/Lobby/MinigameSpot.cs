@@ -20,6 +20,9 @@ namespace OMG.Lobbies
         [SerializeField] UIInputSO input = null;
         [SerializeField] MinigameListSO minigameList = null;
 
+        [Space]
+        [SerializeField] private CinemachineVirtualCamera tvFocusCam;
+
         private CinemachineVirtualCamera focusVCam = null;
         private LobbyMinigameComponent minigameComponent = null;
         private LobbyResultComponent resultComponent = null;
@@ -34,7 +37,7 @@ namespace OMG.Lobbies
         public UnityEvent OnInteractEvent;
 
         [Space]
-        [SerializeField] private MinigameRouletteContainer roulette;
+        [SerializeField] private MinigameSpotUI spotUI;
 
         private void Awake()
         {
@@ -51,6 +54,8 @@ namespace OMG.Lobbies
             rouletteComponent = Lobby.Current.GetLobbyComponent<LobbyRouletteComponent>();
 
             minigameComponent.OnMinigameSelectedEvent += HandleMinigameSelected;
+            minigameComponent.OnMinigameSelectingEvent += HandleMinigameSelecting;
+            minigameComponent.OnMinigameStartedEvent += HandleMinigameStarted;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
             readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
         }
@@ -139,9 +144,25 @@ namespace OMG.Lobbies
             {
                 if(IsServer)
                 {
-                    minigameComponent.SelectMinigame(roulette.SelectedMinigame);
+                    //minigameComponent.SelectMinigame(roulette.SelectedMinigame);
                 }
             });
+        }
+
+        private void HandleMinigameSelecting()
+        {
+            InputManager.ChangeInputMap(InputMapType.UI);
+            InputManager.SetInputEnable(false);
+
+            CameraManager.Instance.ChangeCamera(tvFocusCam, 2f, null, () =>
+            {
+                spotUI.Show();
+            });
+        }
+
+        private void HandleMinigameStarted()
+        {
+            spotUI.Hide();
         }
 
         private void HandleMinigameSelected(int index)
@@ -150,6 +171,9 @@ namespace OMG.Lobbies
                 readyComponent.ClearLobbyReady();
             input.OnInteractEvent += HandleInteractInput;
             cutSceneComponent.PlayCutscene(true);//here
+
+            spotUI.PickUI.Hide();
+            spotUI.InfoContainer.Show();
 
             DisplayMinigameInfo(minigameList[index]);
         }
@@ -178,7 +202,6 @@ namespace OMG.Lobbies
 
         public void FocusSpot(bool focus)
         {
-            //InputManager.ChangeInputMap(focus ? InputMapType.UI : InputMapType.Play);
             if (focus == false)
                 InputManager.ChangeInputMap(InputMapType.Play);
 
@@ -186,7 +209,6 @@ namespace OMG.Lobbies
                 CameraManager.Instance.ChangeCamera(focusVCam);
             else
                 CameraManager.Instance.ChangeCamera(Lobby.Current.GetLobbyComponent<LobbySkinComponent>().Skin.Cam);
-            //focusVCam.Priority = focus ? DEFINE.FOCUSED_PRIORITY : DEFINE.UNFOCUSED_PRIORITY;
         }
     }
 }

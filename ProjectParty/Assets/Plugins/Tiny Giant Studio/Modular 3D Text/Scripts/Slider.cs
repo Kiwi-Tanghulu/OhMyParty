@@ -63,7 +63,7 @@ namespace TinyGiantStudio.Text
         public float keyStep = 150;
 
         public bool useEvents = true;
-        public UnityEvent onValueChanged = null;
+        public UnityEvent<float> onValueChanged = null;
         [Tooltip("Mouse/touch dragging the slider ended")]
         public UnityEvent sliderDragEnded = null;
 
@@ -330,7 +330,7 @@ namespace TinyGiantStudio.Text
         public void ValueChanged()
         {
             if (useEvents)
-                onValueChanged.Invoke();
+                onValueChanged.Invoke(CurrentValue);
             if (useValueRangeEvents)
                 ValueRangeEvents();
         }
@@ -469,7 +469,7 @@ namespace TinyGiantStudio.Text
             progressBar.localScale = scale;
 
             Vector3 pos = progressBar.localPosition;
-            pos.x = -backgroundSize / 2;
+            pos.x = -(backgroundSize - scale.x) / 2;
             progressBar.localPosition = pos;
         }
 

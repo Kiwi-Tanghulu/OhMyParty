@@ -41,11 +41,6 @@ namespace OMG.Player
             base.Update();
 
             stateMachine.UpdateFSM();
-
-            if (Input.GetKeyDown(KeyCode.V))
-                visual.SetSkin(PlayerVisualType.Boxer);
-            if (Input.GetKeyDown(KeyCode.X))
-                GetComponent<PlayerHealth>().OnDamaged(0f, transform, Vector3.zero);
         }
     }
 }

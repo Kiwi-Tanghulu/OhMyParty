@@ -39,7 +39,6 @@ namespace OMG
         private void InitSingleton()
         {
             SceneManager.Instance = gameObject.AddComponent<SceneManager>();
-            MinigameManager.Instance = gameObject.AddComponent<MinigameManager>();
             CameraManager.CreateSingleton(gameObject);
         }
 

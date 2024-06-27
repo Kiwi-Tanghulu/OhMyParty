@@ -35,7 +35,10 @@ namespace OMG.Player
 
         public void OnDamaged(float damage, Transform attacker, Vector3 point, Vector3 normal = default)
         {
-            if(damage != -1)
+            this.attacker = attacker;
+            hitDir = (transform.position - attacker.position).normalized;
+
+            if (damage != -1)
             {
                 if (!Hitable)
                     return;
@@ -48,13 +51,11 @@ namespace OMG.Player
                     }
                 }
 
-                this.attacker = attacker;
-                hitDir = (transform.position - attacker.position).normalized;
                 OnDamagedClientRpc(damage, point, hitDir);
             }
             else
             {
-                OnDamagedClientRpc(-1, Vector3.zero, Vector3.zero);
+                OnDamagedClientRpc(-1, point, hitDir);
             }
         }
 
@@ -67,7 +68,7 @@ namespace OMG.Player
 
             OnDamagedEvent?.Invoke(point);
 
-            if (IsServer)
+            if(IsOwner)
             {
                 if (damage == -1)
                     fsm.ChangeState(typeof(DieState));

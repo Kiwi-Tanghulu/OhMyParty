@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2516522758564724089}
   - component: {fileID: 4275028242508180877}
+  - component: {fileID: 7143592946070685081}
   m_Layer: 0
   m_Name: CalculateScoreState
   m_TagString: Untagged
@@ -75,6 +76,20 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   scoreText: {fileID: 2971972218068032402}
+--- !u!114 &7143592946070685081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2804863715670402827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe5e3aca4fa8d74e9eabc8e86fb85eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter: 1
+  onExit: 0
 --- !u!1 &7114620835845501679
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6425431155642657591}
   - component: {fileID: 4277991179598907713}
+  - component: {fileID: 81063586914803731}
   - component: {fileID: 707346818418968894}
   - component: {fileID: 7317561979174706836}
   m_Layer: 0
@@ -152,6 +168,20 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   detectChairDistance: 1.5
+--- !u!114 &81063586914803731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7114620835845501679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe5e3aca4fa8d74e9eabc8e86fb85eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter: 1
+  onExit: 0
 --- !u!114 &707346818418968894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,7 +443,7 @@ PrefabInstance:
     - target: {fileID: 4260335872563373893, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3858545754
+      value: 955767639
       objectReference: {fileID: 0}
     - target: {fileID: 5062687372235613388, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}

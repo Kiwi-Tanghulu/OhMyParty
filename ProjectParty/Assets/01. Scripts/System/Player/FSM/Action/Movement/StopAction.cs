@@ -1,0 +1,39 @@
+using OMG.FSM;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace OMG.Player.FSM
+{
+    public class StopAction : PlayerFSMAction
+    {
+        private CharacterMovement movement;
+
+        [SerializeField] private bool onEnter;
+        [SerializeField] private bool onExit;
+
+        public override void Init(FSMBrain brain)
+        {
+            base.Init(brain);
+        
+            movement = player.GetComponent<CharacterMovement>();
+        }
+
+        public override void EnterState()
+        {
+            base.EnterState();
+
+            if (onEnter)
+                movement.SetMoveDirection(Vector3.zero);
+        }
+
+        public override void ExitState()
+        {
+            base.ExitState();
+
+            if (onExit)
+                movement.SetMoveDirection(Vector3.zero);
+        }
+    }
+}
+
