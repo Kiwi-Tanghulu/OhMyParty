@@ -15,8 +15,6 @@ namespace OMG.Player
         {
             base.SetSkin(skin);
 
-            Debug.Log("Error : PlayerSkinSelector");
-
             if(CurrentSkin != null)
             {
                 (CurrentSkin as CharacterSkin).SkinnedMesh.bones = refRenderer.bones;

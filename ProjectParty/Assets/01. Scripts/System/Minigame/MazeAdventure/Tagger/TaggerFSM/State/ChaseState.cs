@@ -25,21 +25,21 @@ namespace OMG.Minigames.MazeAdventure
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
             chaseCol.enabled = true;
         }
-        protected override void OwnerEnterState()
+        public override void EnterState()
         {
-            base.OwnerEnterState();
+            base.EnterState();
             Debug.Log("���� ���� : �߰�");
         }
-        protected override void OwnerUpdateState()
+        public override void UpdateState()
         {
-            base.OwnerUpdateState();
+            base.UpdateState();
             navMeshAgent.SetDestination(targetParam.Target.position);
         }
 
-        protected override void OwnerExitState()
+        public override void ExitState()
         {
             moveParam.movePos = targetParam.Target.position;
-            base.OwnerExitState();
+            base.ExitState();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -53,5 +53,4 @@ namespace OMG.Minigames.MazeAdventure
             }
         }
     }
-
 }

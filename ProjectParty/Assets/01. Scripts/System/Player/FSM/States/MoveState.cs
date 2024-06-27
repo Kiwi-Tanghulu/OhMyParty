@@ -18,16 +18,16 @@ namespace OMG.Player.FSM
             anim = player.Animator;
         }
 
-        protected override void OwnerEnterState()
+        public override void EnterState()
         {
-            base.OwnerEnterState();
+            base.EnterState();
 
             anim.SetFloat(moveSpeedAnimHash, 1f, true, 0.1f);
         }
 
-        protected override void OwnerExitState()
+        public override void ExitState()
         {
-            base.OwnerExitState();
+            base.ExitState();
 
             anim.SetFloat(moveSpeedAnimHash, 0f, true, 0.1f);
         }

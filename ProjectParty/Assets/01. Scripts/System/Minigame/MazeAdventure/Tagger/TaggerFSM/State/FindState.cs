@@ -20,27 +20,26 @@ namespace OMG.Minigames.MazeAdventure
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
+
             taggerTrm = brain.transform;
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
-        }
-
-        protected override void OwnerEnterState()
-        {
-            base.OwnerEnterState();
-            navMeshAgent.ResetPath();
-            navMeshAgent.enabled = false;
-            StartCoroutine(Reconnaissance());
         }
 
         public override void EnterState()
         {
             base.EnterState();
+
+            navMeshAgent.ResetPath();
+            navMeshAgent.enabled = false;
+            StartCoroutine(Reconnaissance());
+
             taggerTextEffect.MakeTextEffectClientRPC('?');
         }
 
-        protected override void OwnerExitState()
+        public override void ExitState()
         {
-            base.OwnerExitState();
+            base.ExitState();
+
             StopAllCoroutines();
             navMeshAgent.enabled = true;
         }

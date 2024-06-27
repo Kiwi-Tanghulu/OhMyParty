@@ -12,5 +12,6 @@ namespace OMG.Minigames
         public MinigameSO this[int index] => minigameList[index];
         public int Count => minigameList.Count;
         public int GetIndex(MinigameSO minigame) => minigameList.IndexOf(minigame);
+        public List<MinigameSO> MinigameList => minigameList;
     }
 }

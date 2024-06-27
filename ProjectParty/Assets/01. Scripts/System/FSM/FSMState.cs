@@ -36,16 +36,7 @@ namespace OMG.FSM
             }
         }
 
-        //all
         public virtual void EnterState()
-        {
-            if (brain.IsOwner)
-                OwnerEnterState();
-
-            OnStateEnterEvent?.Invoke();
-        }
-        //single
-        protected virtual void OwnerEnterState() 
         {
             for (int i = 0; i < transitions.Count; i++)
             {
@@ -56,18 +47,11 @@ namespace OMG.FSM
             {
                 actions[i].EnterState();
             }
+
+            OnStateEnterEvent?.Invoke();
         }
 
-        //all
         public virtual void UpdateState()
-        {
-            if (brain.IsOwner)
-            {
-                OwnerUpdateState();
-            }
-        }
-        //single
-        protected virtual void OwnerUpdateState() 
         {
             for (int i = 0; i < transitions.Count; i++)
             {
@@ -80,15 +64,7 @@ namespace OMG.FSM
             }
         }
 
-        //all
         public virtual void ExitState()
-        {
-            if (brain.IsOwner)
-                OwnerExitState();
-            OnStateExitEvent?.Invoke();
-        }
-        //single
-        protected virtual void OwnerExitState() 
         {
             for (int i = 0; i < transitions.Count; i++)
             {
@@ -99,6 +75,8 @@ namespace OMG.FSM
             {
                 actions[i].ExitState();
             }
+
+            OnStateExitEvent?.Invoke();
         }
     }
 }

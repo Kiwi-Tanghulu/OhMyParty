@@ -9,7 +9,7 @@ namespace OMG.Lobbies
     //rpc ssage
     public class LobbyRouletteComponent : LobbyComponent
     {
-        [SerializeField] private MinigameRouletteContainer rouletteUI;
+        [SerializeField] private MinigamePickUI rouletteUI;
         [SerializeField] private float stopDelay;
         private Action onStopAction;
 
@@ -17,7 +17,7 @@ namespace OMG.Lobbies
         {
             base.Init(lobby);
 
-            rouletteUI.OnRouletteStopEvent.AddListener(RouletteUI_OnRouletteStopEvent);
+            //rouletteUI.OnRouletteStopEvent.AddListener(RouletteUI_OnRouletteStopEvent);
         }
 
         public void Play()
@@ -28,21 +28,21 @@ namespace OMG.Lobbies
         public void Stop(Action onStopAction)
         {
             this.onStopAction = onStopAction;
-            rouletteUI.StopRoulette();
+            //rouletteUI.StopRoulette();
         }
 
         private void RouletteUI_OnRouletteStopEvent()
         {
-            AlignSlotClientRpc(rouletteUI.SlotList.IndexOf(rouletteUI.SelectedSlot));
+            //AlignSlotClientRpc(rouletteUI.SlotList.IndexOf(rouletteUI.SelectedSlot));
         }
 
         [ClientRpc]
         private void AlignSlotClientRpc(int focusSlotIndex)
         {
-            Sequence seq = rouletteUI.AlignSlotTween(focusSlotIndex);
-            seq.AppendInterval(stopDelay);
-            seq.AppendCallback(() => onStopAction?.Invoke());
-            seq.Play();
+            //Sequence seq = rouletteUI.AlignSlotTween(focusSlotIndex);
+            //seq.AppendInterval(stopDelay);
+            //seq.AppendCallback(() => onStopAction?.Invoke());
+            //seq.Play();
         }
     }
 }

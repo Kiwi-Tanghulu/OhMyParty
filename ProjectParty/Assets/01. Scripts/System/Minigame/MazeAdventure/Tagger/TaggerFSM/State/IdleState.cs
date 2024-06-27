@@ -27,6 +27,7 @@ namespace OMG.Minigames.MazeAdventure
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
+
             foreach(var  data in nextStatesData) 
             { 
                 maxWeight += data.weight;
@@ -34,9 +35,10 @@ namespace OMG.Minigames.MazeAdventure
             targetParam = brain.GetFSMParam<MoveTargetParams>();
             findPosList = tagger_mSO.moveTargetList;
         }
-        protected override void OwnerEnterState()
+        public override void EnterState()
         {
-            base.OwnerEnterState();
+            base.EnterState();
+
             int randomValue = Random.Range(0, findPosList.Count);
             targetParam.movePos = findPosList[randomValue];
             StartCoroutine(SetNextState());

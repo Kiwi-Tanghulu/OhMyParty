@@ -26,16 +26,16 @@ namespace OMG.Minigames.MazeAdventure
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
         }
 
-        protected override void OwnerEnterState()
+        public override void EnterState()
         {
-            base.OwnerEnterState();
+            base.EnterState();
             targetPos = targetParam.movePos;
             navMeshAgent.SetDestination(targetPos);
         }
 
-        protected override void OwnerUpdateState()
+        public override void UpdateState()
         {
-            base.OwnerUpdateState();
+            base.UpdateState();
             if (navMeshAgent.remainingDistance < 0.1f)  //FSM can play 2State lol
             {
                 brain.ChangeState(nextState);
