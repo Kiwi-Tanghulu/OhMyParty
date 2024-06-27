@@ -1,3 +1,4 @@
+using OMG.Inputs;
 using OMG.Utility;
 using System;
 using System.Collections;
@@ -65,12 +66,14 @@ namespace OMG.UI
         private IEnumerator Play(float delay, bool option, Action onStartEvent, Action onEndEvents)
         {
             Time.timeScale = 0.0f;
+            InputManager.SetInputEnable(false);
 
             yield return new WaitForSecondsRealtime(delay);
 
             Time.timeScale = 1.0f;
 
             yield return null;
+            InputManager.SetInputEnable(true);
 
             FadingEvents[FadeStateType.Begin] = onStartEvent;
             FadingEvents[FadeStateType.Finish] = onEndEvents;

@@ -9,12 +9,14 @@ namespace OMG.Minigames
         public ulong clientID;
         public int score;
         public bool isDead;
+        public bool isSkipCutscene;
 
         public PlayerData(ulong id)
         {
             clientID = id;
             score = 0;
             isDead = false;
+            isSkipCutscene = false;
         }
 
         public bool Equals(PlayerData other)
@@ -27,6 +29,7 @@ namespace OMG.Minigames
             serializer.SerializeValue(ref clientID);
             serializer.SerializeValue(ref score);
             serializer.SerializeValue(ref isDead);
+            serializer.SerializeValue(ref isSkipCutscene);
         }
     }
 }

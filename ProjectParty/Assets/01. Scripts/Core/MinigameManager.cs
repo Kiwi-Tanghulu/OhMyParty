@@ -1,5 +1,3 @@
-using OMG.UI;
-using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,6 +8,15 @@ namespace OMG.Minigames
         public static MinigameManager Instance = null;
 
         public Minigame CurrentMinigame = null;
+
+        private bool minigamePaused = false;
+        public bool MinigamePaused { 
+            get => minigamePaused;
+            set {
+                minigamePaused = value;
+                Time.timeScale = minigamePaused ? 0 : 1;
+            }
+        }
 
         public void StartMinigame(MinigameSO minigameData, params ulong[] joinedPlayers)
         {
