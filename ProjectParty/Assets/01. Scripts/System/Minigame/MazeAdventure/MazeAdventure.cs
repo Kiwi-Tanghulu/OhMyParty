@@ -20,16 +20,18 @@ namespace OMG.Minigames.MazeAdventure
         private ItemSpawner itemSpawner = null;
         [SerializeField] private MazeAdventureMapManager mapManager;
         public MazeAdventureMapManager MapManager => mapManager;
-        public override void Init(params ulong[] playerIDs)
+        public override void Init()
         {
-            base.Init(playerIDs);
+            base.Init();
+
+            if(IsHost == false)
+                return;
 
             deathmatchCycle = cycle as DeathmatchCycle;
 
             taggerSpawner = GetComponent<TaggerSpawner>();
             itemSpawner = GetComponent<ItemSpawner>();
 
-            StartIntro();
             SettingTaggerMoveTargetSO();
         }
 

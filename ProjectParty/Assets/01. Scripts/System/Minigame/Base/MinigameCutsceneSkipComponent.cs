@@ -1,15 +1,18 @@
 using OMG.Extensions;
 using OMG.Inputs;
 using OMG.NetworkEvents;
+using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 using Unity.Netcode;
 using UnityEngine;
+using System;
 
 namespace OMG.Minigames
 {
     public class MinigameCutsceneSkipComponent : NetworkBehaviour
     {
         [SerializeField] UIInputSO input = null;
-        private NetworkEvent<UlongParams> onSkipEvent = new NetworkEvent<UlongParams>("SkipEvent");
+        private NetworkEvent<UlongParams> onSkipReadyEvent = new NetworkEvent<UlongParams>("SkipReady");
+        private NetworkEvent onSkipEvent = new NetworkEvent("Skip");
 
         private Minigame minigame = null;
         private MinigameCutscene cutscene = null;
@@ -25,18 +28,21 @@ namespace OMG.Minigames
         private void Start()
         {
             input.OnSpaceEvent += HandleSkipInput;
+            onSkipReadyEvent.AddListener(HandleSkipReady);
             onSkipEvent.AddListener(HandleSkip);
         }
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            onSkipReadyEvent.Register(NetworkObject);
             onSkipEvent.Register(NetworkObject);
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
+            onSkipReadyEvent.Unregister();
             onSkipEvent.Unregister();
         }
 
@@ -55,12 +61,12 @@ namespace OMG.Minigames
                 return;
 
             skipCutscene = true;
-            onSkipEvent?.Broadcast(NetworkManager.Singleton.LocalClientId);
+            onSkipReadyEvent?.Broadcast(NetworkManager.Singleton.LocalClientId, false);
         }
 
-        private void HandleSkip(UlongParams clientID)
+        private void HandleSkipReady(UlongParams clientID)
         {
-            Debug.Log($"Client {clientID} has been skip");
+            minigame.CutscenePanel.SetSkip(clientID);
 
             if(IsHost == false)
                 return;
@@ -73,6 +79,12 @@ namespace OMG.Minigames
             TrySkip();
         }
 
+        private void HandleSkip(NoneParams unused)
+        {
+            cutscene.SkipCutscene();
+            input.OnSpaceEvent -= HandleSkipInput;
+        }
+
         private void TrySkip()
         {
             bool skip = true;
@@ -83,8 +95,7 @@ namespace OMG.Minigames
                     return;
             }
 
-            cutscene.SkipCutscene();
-            input.OnSpaceEvent -= HandleSkipInput;
+            onSkipEvent?.Broadcast();
         }
     }
 }

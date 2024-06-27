@@ -11,13 +11,15 @@ namespace OMG.Minigames.SafetyZone
             tiles = GetComponent<SafetyTiles>();
         }
 
-        public override void Init(params ulong[] playerIDs)
+        public override void Init()
         {
-            base.Init(playerIDs);
-            safetyZoneCycle = cycle as SafetyZoneCycle;
+            base.Init();
 
+            if(IsHost == false)
+                return;
+
+            safetyZoneCycle = cycle as SafetyZoneCycle;
             tiles.Init();
-            StartIntro();
         }
 
         public override void StartGame()

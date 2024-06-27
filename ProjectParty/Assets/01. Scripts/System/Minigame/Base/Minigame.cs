@@ -23,6 +23,9 @@ namespace OMG.Minigames
         protected MinigamePanel minigamePanel = null;
         public MinigamePanel MinigamePanel => minigamePanel;
 
+        protected CutscenePanel cutscenePanel = null;
+        public CutscenePanel CutscenePanel => cutscenePanel;
+
         protected MinigameCycle cycle = null;
         public MinigameCycle Cycle => cycle;
 
@@ -30,31 +33,37 @@ namespace OMG.Minigames
         {
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
+
+            cutscenePanel = DEFINE.MinigameCanvas.Find("CutscenePanel").GetComponent<CutscenePanel>();
             minigamePanel = DEFINE.MinigameCanvas.Find("MinigamePanel").GetComponent<MinigamePanel>();
         }
 
-        // protected virtual void Start()
-        // {
-        // }
-
         public override void OnNetworkSpawn()
         {
+            base.OnNetworkSpawn();
             MinigameManager.Instance.CurrentMinigame = this;
-
-            Fade.Instance.FadeIn(
-                3f, 
-                () => MinigameManager.Instance.MinigamePaused = true, 
-                () => MinigameManager.Instance.MinigamePaused = false
-            );
         }
 
         /// <summary>
         /// Only Host Could Call this Method
         /// </summary>  
-        public virtual void Init(params ulong[] playerIDs)
+        public virtual void SetPlayerDatas(params ulong[] playerIDs)
         {
             for (int i = 0; i < playerIDs.Length; ++i)
                 playerDatas.Add(new PlayerData(playerIDs[i]));
+        }
+
+        public virtual void Init()
+        {
+            cutscenePanel.Init(this);
+
+            Fade.Instance.FadeIn(
+                3f,
+                () => MinigameManager.Instance.MinigamePaused = true,
+                () => MinigameManager.Instance.MinigamePaused = false
+            );
+
+            StartIntro();
         }
 
         /// <summary>
