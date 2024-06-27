@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Interacting;
 using OMG.Minigames;
@@ -22,7 +23,7 @@ namespace OMG.Lobbies
 
         [Space]
         [SerializeField] private CinemachineVirtualCamera tvFocusCam;
-
+        
         private CinemachineVirtualCamera focusVCam = null;
         private LobbyMinigameComponent minigameComponent = null;
         private LobbyResultComponent resultComponent = null;
@@ -38,6 +39,9 @@ namespace OMG.Lobbies
 
         [Space]
         [SerializeField] private MinigameSpotUI spotUI;
+
+        [Space]
+        [SerializeField] private MinigameSpotTV spotTV;
 
         private void Awake()
         {
@@ -58,6 +62,8 @@ namespace OMG.Lobbies
             minigameComponent.OnMinigameStartedEvent += HandleMinigameStarted;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
             readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
+
+            spotTV.SetRoundCountValue(minigameComponent.MinigameCycleCount);
         }
 
         public override void OnNetworkSpawn()
@@ -156,7 +162,10 @@ namespace OMG.Lobbies
 
             CameraManager.Instance.ChangeCamera(tvFocusCam, 2f, null, () =>
             {
-                spotUI.Show();
+                spotTV.SetScreenActive(true);
+                spotTV.SetRoundCountText(minigameComponent.CurrentCycleCount + 1);
+
+                StartCoroutine(this.DelayCoroutine(2f, () => spotUI.Show()));
             });
         }
 

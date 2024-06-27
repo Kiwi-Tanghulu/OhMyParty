@@ -15,6 +15,7 @@ namespace OMG.Lobbies
 
         public int MinigameCycleCount = 3;
         private int currentCycleCount = 0;
+        public int CurrentCycleCount => currentCycleCount;
 
         /// <summary>
         /// ( MinigameData, True if Minigame Cycle Finished. False if Minigame Remaining )
