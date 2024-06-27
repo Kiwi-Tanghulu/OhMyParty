@@ -41,13 +41,11 @@ namespace OMG.Minigames
         {
             MinigameManager.Instance.CurrentMinigame = this;
 
-            Fade.Instance.FadeIn(3f, () =>
-            {
-                Time.timeScale = 0f;
-            }, () =>
-            {
-                Time.timeScale = 1.0f;
-            });
+            Fade.Instance.FadeIn(
+                3f, 
+                () => MinigameManager.Instance.MinigamePaused = true, 
+                () => MinigameManager.Instance.MinigamePaused = false
+            );
         }
 
         /// <summary>
@@ -99,13 +97,11 @@ namespace OMG.Minigames
         {
             base.OnNetworkDespawn();
 
-            Fade.Instance.FadeIn(3f, () =>
-            {
-                Time.timeScale = 0f;
-            }, () =>
-            {
-                Time.timeScale = 1.0f;
-            });
+            Fade.Instance.FadeIn(
+                3f, 
+                () => MinigameManager.Instance.MinigamePaused = true, 
+                () => MinigameManager.Instance.MinigamePaused = false
+            );
         }
 
         public virtual int CalculateScore(int origin) => origin;

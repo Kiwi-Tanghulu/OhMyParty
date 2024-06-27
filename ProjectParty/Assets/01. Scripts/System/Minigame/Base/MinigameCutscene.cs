@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
-using OMG.Editors;
-using OMG.Player;
+using OMG.Extensions;
+using OMG.Inputs;
+using OMG.NetworkEvents;
+using OMG.UI;
 using OMG.Utility;
 using Unity.Netcode;
 using UnityEngine;
@@ -15,6 +15,7 @@ namespace OMG.Minigames
     [RequireComponent(typeof(SignalReceiver))]
     public class MinigameCutscene : NetworkBehaviour
     {
+        [SerializeField] GameCycleText cycleText = null;
         [SerializeField] OptOption<TimelineAsset> timelineOption = null;
         protected PlayableDirector timelineHolder = null;
         protected Minigame minigame = null;
@@ -43,6 +44,12 @@ namespace OMG.Minigames
                     timelineHolder.SetGenericBinding(binding.sourceObject, Camera.main.GetComponent<CinemachineBrain>());
                 }
             }
+        }
+
+        public void SkipCutscene()
+        {
+            timelineHolder.Stop();
+            cycleText.PlayRaedyGo();
         }
     }
 }

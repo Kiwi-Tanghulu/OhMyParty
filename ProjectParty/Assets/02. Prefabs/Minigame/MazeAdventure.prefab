@@ -681,7 +681,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602459083815236514}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.017067619, y: 0.35575175, z: -0.006498097, w: 0.93440205}
+  m_LocalRotation: {x: 0.017067619, y: 0.35575175, z: -0.006498098, w: 0.93440205}
   m_LocalPosition: {x: 0.65695655, y: 1.6504421, z: 6.404312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4253,7 +4253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7330741087844613482
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9047,6 +9047,7 @@ GameObject:
   - component: {fileID: 295371961209531498}
   - component: {fileID: 6542811692836762078}
   - component: {fileID: 4611675550806679816}
+  - component: {fileID: -3560100266816356186}
   m_Layer: 0
   m_Name: MazeAdventure
   m_TagString: Untagged
@@ -9098,7 +9099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1901883747
+  GlobalObjectIdHash: 745960351
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -9390,9 +9391,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cycleText: {fileID: 1098981393455013273}
   timelineOption:
     PositiveOption: {fileID: 11400000, guid: 581a9b94aede28948bec006aa30d1255, type: 2}
     NegativeOption: {fileID: 11400000, guid: 51aab00a0a921454a9002b1990da0877, type: 2}
+--- !u!114 &-3560100266816356186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004020425414398961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2febe366b3f5ac1428f4d92cf06eebf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: 8dc5359aaadc1a24ca098e29e95e8269, type: 2}
 --- !u!1 &7011349736176456842
 GameObject:
   m_ObjectHideFlags: 0
@@ -10482,7 +10497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7915224531920546394}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.016921896, y: -0.7617367, z: 0.0199117, w: 0.64735955}
+  m_LocalRotation: {x: 0.016921896, y: -0.7617367, z: 0.019911703, w: 0.64735955}
   m_LocalPosition: {x: 0.65695655, y: 1.6504421, z: 6.404312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41834,6 +41849,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d5c0337e854fc74a9287e5d63cbcc8e, type: 3}
+--- !u!114 &1098981393455013273 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7952961237337472996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1782148839875344033 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8567516609396574533, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
