@@ -1,17 +1,11 @@
-using Cinemachine;
 using DG.Tweening;
 using OMG.Extensions;
-using OMG.Inputs;
 using OMG.Lobbies;
 using OMG.Minigames;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 namespace OMG.UI
 {
