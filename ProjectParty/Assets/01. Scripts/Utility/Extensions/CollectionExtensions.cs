@@ -29,7 +29,11 @@ namespace OMG.Extensions
 
         public static List<T> Shuffle<T>(this List<T> source)
         {
-            List<T> result = source.ToList();
+            List<T> result = new List<T>();
+            for(int i = 0; i < source.Count; i++)
+            {
+                result.Add(source[i]);
+            }
 
             for(int i = 0; i < result.Count; i++)
             {

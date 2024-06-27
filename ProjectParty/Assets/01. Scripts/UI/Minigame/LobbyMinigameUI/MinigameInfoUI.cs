@@ -11,7 +11,7 @@ using UnityEngine.Video;
 
 namespace OMG.UI
 {
-    public class MinigameInfoContainer : UIObject
+    public class MinigameInfoUI : UIObject
     {
         [SerializeField] private TextMeshProUGUI gameNameText;
         [SerializeField] private TextMeshProUGUI gameDescriptionText;

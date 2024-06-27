@@ -23,6 +23,8 @@ namespace OMG.Player
 
             input.OnInteractEvent += HandleInteract;
             focuser = GetComponent<PlayerFocuser>();
+
+            SetActive(true);
         }
 
         public override void OnNetworkDespawn()
