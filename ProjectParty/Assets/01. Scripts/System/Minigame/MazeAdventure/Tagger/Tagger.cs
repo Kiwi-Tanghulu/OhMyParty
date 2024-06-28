@@ -37,10 +37,5 @@ namespace OMG.Minigames.MazeAdventure
                 brain.Init();
             }
         }
-
-        public void IncreaseMoveSpeed()
-        {
-            navMeshAgent.speed += 0.7f;
-        }
     }
 }
