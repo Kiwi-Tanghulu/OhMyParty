@@ -1,6 +1,9 @@
 using DG.Tweening;
 using OMG.Inputs;
+using OMG.Lobbies;
 using OMG.Minigames;
+using OMG.NetworkEvents;
+using OMG.Player.FSM;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +29,9 @@ namespace OMG.UI
         [SerializeField] private float readyMoveValue;
 
         [Space]
+        [SerializeField] private float alignTime;
+
+        [Space]
         [SerializeField] private float selectedGameShowTime = 2f;
 
         private List<MinigameSlot> slotList;
@@ -44,13 +50,19 @@ namespace OMG.UI
         public UnityEvent OnSlotChangedEvent;
         public UnityEvent OnRouletteStopEvent;
 
-        private Action onRouletteStopAction;
+        private NetworkEvent<IntParams> OnRouletteStopAlignEvent;
+
+        private Action onStopAction;
 
         private bool isRouletteMove;
 
         public override void Init()
         {
             base.Init();
+
+            OnRouletteStopAlignEvent = new NetworkEvent<IntParams>("OnRouletteStopAlignEvent");
+            OnRouletteStopAlignEvent.AddListener(OnRouletteStopAlign);
+            OnRouletteStopAlignEvent.Register(Lobby.Current.NetworkObject);
 
             slotStartPos = new Vector2(Rect.rect.width / 2f + slotPrefab.Rect.rect.width / 2f, 0f);
             slotEndPos = -slotStartPos;
@@ -82,12 +94,13 @@ namespace OMG.UI
             List<int> temps = new List<int>();
             for (int i = 0; i < slotList.Count; i++)
             {
-                //teleport slot
+                
                 slotList[i].Rect.anchoredPosition += Time.deltaTime * -Vector2.right * moveSpeed;
                 if (slotList[i].Rect.anchoredPosition.x <= slotEndPos.x)
                     temps.Add(i);
             }
 
+            //teleport slot
             temps.ForEach(i =>
             {
                 int frontIndex = (i - 1 + slotList.Count) % slotList.Count;
@@ -98,9 +111,7 @@ namespace OMG.UI
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!isRouletteMove)
-                return;
-
+            //hover slot
             if (other.TryGetComponent<MinigameSlot>(out MinigameSlot slot))
             {
                 selectedSlot?.Unhover();
@@ -152,26 +163,24 @@ namespace OMG.UI
         public void StopRoulette(Action onStopAction)
         {
             OnStartStopMoveEvent?.Invoke();
-            onRouletteStopAction = onStopAction;
+            this.onStopAction = onStopAction;
 
             Sequence seq = DOTween.Sequence();
             seq.Append(DOTween.To(() => moveSpeed, x => moveSpeed = x, 0f, stopTime));
             seq.AppendCallback(() =>
             {
                 isRouletteMove = false;
-                OnRouletteStopEvent?.Invoke();
-                //AlignSlotClientRpc(slotList.IndexOf(selectedSlot));
+
+                if(Lobby.Current.IsServer)
+                {
+                    OnRouletteStopAlignEvent?.Broadcast(new IntParams(slotList.IndexOf(selectedSlot)));
+                }
             });
-            seq.AppendCallback(() =>
-            {
-                AlignSlotTween(slotList.IndexOf(selectedSlot));
-            });
-            seq.AppendInterval(selectedGameShowTime);
-            seq.AppendCallback(() => onStopAction?.Invoke());
             seq.Play();
         }
 
-        public Sequence AlignSlotTween(int focusSlotIndex)
+        public Sequence AlignSlotTween(int focusSlotIndex, float alignedElemShowTime
+            , Action onAlignEndEvent, Action onShowEndEvent)
         {
             Sequence seq = DOTween.Sequence();
 
@@ -181,11 +190,22 @@ namespace OMG.UI
                 foreach (MinigameSlot slot in slotList)
                 {
                     MinigameSlot focusSlot = slotList[focusSlotIndex];
-                    slot.Rect.DOAnchorPosX(slot.Rect.anchoredPosition.x - focusSlot.Rect.anchoredPosition.x, readyTime);
+                    slot.Rect.DOAnchorPosX(slot.Rect.anchoredPosition.x - focusSlot.Rect.anchoredPosition.x, alignTime);
                 }
             });
+            seq.AppendInterval(alignTime);
+            seq.AppendCallback(() => onAlignEndEvent?.Invoke());
+            seq.AppendInterval(alignedElemShowTime);
+            seq.AppendCallback(() => onShowEndEvent?.Invoke());
 
             return seq.Play();
+        }
+
+        private void OnRouletteStopAlign(IntParams param)
+        {
+            AlignSlotTween(param.Value, selectedGameShowTime, 
+                () => OnRouletteStopEvent?.Invoke(), 
+                () => onStopAction?.Invoke());
         }
     }
 } 
