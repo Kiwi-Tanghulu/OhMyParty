@@ -7,6 +7,7 @@ using OMG.Player.FSM;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -33,6 +34,11 @@ namespace OMG.UI
 
         [Space]
         [SerializeField] private float selectedGameShowTime = 2f;
+
+        [Space]
+        [SerializeField] private TextMeshProUGUI noticeText;
+        [SerializeField] private string hostText;
+        [SerializeField] private string clientText;
 
         private List<MinigameSlot> slotList;
         public List<MinigameSlot> SlotList => slotList;
@@ -154,6 +160,9 @@ namespace OMG.UI
 
             moveSpeed = maxMoveSpeed;
             InputManager.SetInputEnable(true);
+
+            //set notice text
+            noticeText.text = Lobby.Current.IsHost ? hostText : clientText;
 
             OnStartMoveEvent?.Invoke();
 
