@@ -1,9 +1,11 @@
 using DG.Tweening;
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace OMG.UI
 {
@@ -21,11 +23,14 @@ namespace OMG.UI
         private int minCount;
         private int maxCount;
         private int currentCount = 0;
+        private int prevCount = 0;
 
         private Vector2 currentTextOriginPos;
 
-        private void Awake()
+        public override void Init()
         {
+            base.Init();
+
             currentTextOriginPos = currentCountText.rectTransform.anchoredPosition;
         }
 
@@ -44,9 +49,14 @@ namespace OMG.UI
 
         public void SetCount(int value)
         {
+            prevCount = currentCount;
             value = Mathf.Clamp(value, minCount, maxCount);
-            currentCountText.text = $"{currentCount}/";
             currentCount = value;
+        }
+
+        public void PlayAnim(float delay, Action onStart, Action onEnd)
+        {
+            currentCountText.text = $"{prevCount}/";
             nextCountText.text = $"{currentCount}/";
 
             currentCountTextContainer.DOKill();
@@ -55,7 +65,10 @@ namespace OMG.UI
             nextCountText.rectTransform.anchoredPosition = currentTextOriginPos + Vector2.up * -moveAmount;
             currentCountTextContainer.anchoredPosition = Vector2.zero;
 
-            currentCountTextContainer.DOAnchorPosY(moveAmount, textChangeTime).SetEase(Ease.Linear);
+            currentCountTextContainer.DOAnchorPosY(moveAmount, textChangeTime).SetEase(Ease.Linear)
+                .OnStart(() => onStart?.Invoke())
+                .OnComplete(() => onEnd?.Invoke())
+                .SetDelay(delay);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace OMG.Lobbies
         [SerializeField] private MinigameSpotUI spotUI;
 
         [Space]
-        [SerializeField] private MinigameSpotTV spotTV;
+        [SerializeField] private MinigameSpotTVUI spotTVUI;
 
         private void Awake()
         {
@@ -62,8 +62,6 @@ namespace OMG.Lobbies
             minigameComponent.OnMinigameStartedEvent += HandleMinigameStarted;
             minigameComponent.OnMinigameFinishedEvent += HandleMinigameFinished;
             readyComponent.OnLobbyReadyEvent += HandleLobbyReady;
-
-            spotTV.SetRoundCountValue(minigameComponent.MinigameCycleCount);
         }
 
         public override void OnNetworkSpawn()
@@ -162,10 +160,17 @@ namespace OMG.Lobbies
 
             CameraManager.Instance.ChangeCamera(tvFocusCam, 2f, null, () =>
             {
-                spotTV.SetScreenActive(true);
-                spotTV.SetRoundCountText(minigameComponent.CurrentCycleCount + 1);
-
-                StartCoroutine(this.DelayCoroutine(2f, () => spotUI.Show()));
+                if(!spotTVUI.IsInit)
+                {
+                    spotTVUI.Init();
+                    spotTVUI.SetRoundCountValue(minigameComponent.MinigameCycleCount);
+                    spotTVUI.Show();
+                }
+                spotTVUI.SetRoundCountText(minigameComponent.CurrentCycleCount + 1);
+                spotTVUI.PlayRoundTextChangeAnim(1f, null, () =>
+                {
+                    StartCoroutine(this.DelayCoroutine(1f, () => spotUI.Show()));
+                });
             });
         }
 
@@ -204,6 +209,10 @@ namespace OMG.Lobbies
 
             resultComponent.DisplayResult();
             cutSceneComponent.PlayCutscene(false);
+            foreach(PlayerData data in Lobby.Current.PlayerDatas)
+            {
+                spotTVUI.SetPlayerGraphScore(data);
+            }
             
             if(cycleFinished)
                 resultComponent.DisplayWinner();   
