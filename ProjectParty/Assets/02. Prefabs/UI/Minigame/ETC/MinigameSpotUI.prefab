@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8663090072074522145
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1515,7 +1515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -400}
+  m_AnchoredPosition: {x: 0, y: -450}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2016026162841002452
@@ -2078,7 +2078,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -374360402432104875, guid: a6cec48dfdb18d04abdbe5ef5082f024,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: c6188727d69c8464191566fb6580fce9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5a0d63aa7fb4e0242b46d3a1b8bbae6b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2181,15 +2181,73 @@ MonoBehaviour:
   slotContainerRect: {fileID: 9099858903670929837}
   slotPrefab: {fileID: 9187100058852153427, guid: cc378589a4066214aaab1e379a19724d,
     type: 3}
-  padding: 40
-  createSlotDelay: 1
-  waitSlotShowTime: 1
-  waitHideSlotContentTime: 1
-  alignSlotTime: 1
-  slotShuffleTime: 1
-  showInfoUIDelayTime: 1
-  noticeText: {fileID: 9157261009860252510}
-  slotCount: 3
+  padding: 50
+  maxMoveSpeed: 7000
+  stopTime: 4
+  readyTime: 0.5
+  readyMoveValue: 150
+  alignTime: 1
+  selectedGameShowTime: 1
+  OnStartMoveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4180579831809992878}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnStartStopMoveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4180579831809992878}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnSlotChangedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2030029971354095481}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRouletteStopEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1022371559761272816}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6559866089190306047
 GameObject:
   m_ObjectHideFlags: 0
