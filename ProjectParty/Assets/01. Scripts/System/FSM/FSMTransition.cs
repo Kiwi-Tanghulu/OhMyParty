@@ -9,7 +9,7 @@ namespace OMG.FSM
 
         [SerializeField] private FSMState nextState;
         private FSMDecision[] decisions;
-        private bool result;
+        protected bool result;
 
         public virtual void Init(FSMBrain brain)
         {

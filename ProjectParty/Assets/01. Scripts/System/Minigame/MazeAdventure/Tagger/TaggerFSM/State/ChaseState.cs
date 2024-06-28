@@ -2,6 +2,7 @@ using OMG.FSM;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,7 +17,6 @@ namespace OMG.Minigames.MazeAdventure
         private DetectTargetParams targetParam = null;
         private MoveTargetParams moveParam = null;
         private NavMeshAgent navMeshAgent;
-
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
@@ -24,11 +24,6 @@ namespace OMG.Minigames.MazeAdventure
             moveParam = brain.GetFSMParam<MoveTargetParams>();
             navMeshAgent = brain.GetComponent<NavMeshAgent>();
             chaseCol.enabled = true;
-        }
-        public override void EnterState()
-        {
-            base.EnterState();
-            Debug.Log("���� ���� : �߰�");
         }
         public override void UpdateState()
         {
@@ -41,7 +36,6 @@ namespace OMG.Minigames.MazeAdventure
             moveParam.movePos = targetParam.Target.position;
             base.ExitState();
         }
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
