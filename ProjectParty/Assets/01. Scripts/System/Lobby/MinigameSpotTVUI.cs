@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
+using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace OMG.Lobbies
         [SerializeField] private PlayerGraph graphPrefab;
         private Transform playerGraphContainer;
         private List<PlayerGraph> graphList;
+        private TextMeshProUGUI noticeText;
 
         public override void Init()
         {
@@ -27,7 +29,17 @@ namespace OMG.Lobbies
             playerGraphContainer = transform.Find("PlayerGraphContainer");
             graphList = new List<PlayerGraph>();
 
+            noticeText = transform.Find("NoticeText").GetComponent<TextMeshProUGUI>();
+
+            Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>().OnMinigameFinishedEvent += MinigameSpotTVUI_OnMinigameFinishedEvent;
+
             CreatePlayerGraph();
+        }
+
+        private void MinigameSpotTVUI_OnMinigameFinishedEvent(Minigames.Minigame arg1, bool arg2)
+        {
+            noticeText.gameObject.SetActive(false);
+            playerGraphContainer.gameObject.SetActive(true);
         }
 
         #region count text
