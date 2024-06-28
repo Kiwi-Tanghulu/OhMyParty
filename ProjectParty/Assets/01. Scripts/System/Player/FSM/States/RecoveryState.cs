@@ -20,12 +20,12 @@ namespace OMG.Player.FSM
         private WaitForSeconds wfs;
 
         private CharacterSkin playerSkin;
-        private readonly string matColorID = "_BaseColor";
+        //private readonly string matColorID = "_BaseColor";
 
         private Sequence twinkleTween;
 
-        private NetworkEvent onStartRecoveryEvent = new NetworkEvent("__");
-        private NetworkEvent onEndRecoveryEvent = new NetworkEvent("__________");
+        private NetworkEvent onStartRecoveryEvent = new NetworkEvent("onStartRecoveryEvent");
+        private NetworkEvent onEndRecoveryEvent = new NetworkEvent("onEndRecoveryEvent");
 
         public override void InitState(FSMBrain brain)
         {
@@ -107,6 +107,12 @@ namespace OMG.Player.FSM
         private void OnEndRecovery(NoneParams param)
         {
             player.StartCoroutine(HitableDelayCo());
+        }
+
+        private void OnDestroy()
+        {
+            onStartRecoveryEvent.Unregister();
+            onEndRecoveryEvent.Unregister();
         }
     }
 }

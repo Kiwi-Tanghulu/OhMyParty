@@ -10,7 +10,7 @@ namespace OMG.Player.FSM
 {
     public class SitState : PlayerFSMState
     {
-        [SerializeField] private float detectChairDistance = 1.5f;
+        //[SerializeField] private float detectChairDistance = 1.5f;
         private Chair usingChair;
         private Transform sitPoint;
 
