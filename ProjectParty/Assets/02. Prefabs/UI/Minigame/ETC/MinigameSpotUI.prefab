@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8663090072074522145
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2182,14 +2182,23 @@ MonoBehaviour:
   slotPrefab: {fileID: 9187100058852153427, guid: cc378589a4066214aaab1e379a19724d,
     type: 3}
   padding: 40
-  createSlotDelay: 1
-  waitSlotShowTime: 1
-  waitHideSlotContentTime: 1
-  alignSlotTime: 1
-  slotShuffleTime: 1
-  showInfoUIDelayTime: 1
-  noticeText: {fileID: 9157261009860252510}
-  slotCount: 3
+  maxMoveSpeed: 500
+  stopTime: 3
+  readyTime: 2
+  readyMoveValue: 200
+  selectedGameShowTime: 2
+  OnStartMoveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartStopMoveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlotChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRouletteStopEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6559866089190306047
 GameObject:
   m_ObjectHideFlags: 0

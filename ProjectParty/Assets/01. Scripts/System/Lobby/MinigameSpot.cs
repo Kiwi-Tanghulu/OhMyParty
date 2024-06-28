@@ -144,11 +144,11 @@ namespace OMG.Lobbies
         [ClientRpc]
         private void OnSpaceInputClientRpc()
         {
-            rouletteComponent.Stop(() =>
+            spotUI.PickUI.StopRoulette(() =>
             {
                 if(IsServer)
                 {
-                    //minigameComponent.SelectMinigame(roulette.SelectedMinigame);
+                    minigameComponent.SelectMinigame(spotUI.PickUI.SelectedSlot.MinigameSO);
                 }
             });
         }
