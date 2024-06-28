@@ -98,6 +98,9 @@ namespace OMG.UI
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!isRouletteMove)
+                return;
+
             if (other.TryGetComponent<MinigameSlot>(out MinigameSlot slot))
             {
                 selectedSlot?.Unhover();
@@ -159,9 +162,12 @@ namespace OMG.UI
                 OnRouletteStopEvent?.Invoke();
                 //AlignSlotClientRpc(slotList.IndexOf(selectedSlot));
             });
-            seq.Append(AlignSlotTween(slotList.IndexOf(selectedSlot)));
-            //seq.AppendInterval(selectedGameShowTime);
-            //seq.AppendCallback(() => onStopAction?.Invoke());
+            seq.AppendCallback(() =>
+            {
+                AlignSlotTween(slotList.IndexOf(selectedSlot));
+            });
+            seq.AppendInterval(selectedGameShowTime);
+            seq.AppendCallback(() => onStopAction?.Invoke());
             seq.Play();
         }
 
@@ -172,17 +178,14 @@ namespace OMG.UI
             seq.AppendCallback(() =>
             {
                 //align
-                MinigameSlot focusSlot = slotList[focusSlotIndex];
-                float moveAmount = slotContainerRect.anchoredPosition.x - focusSlot.Rect.anchoredPosition.x;
                 foreach (MinigameSlot slot in slotList)
                 {
-                    slot.Rect.DOAnchorPosX(moveAmount, readyTime);
+                    MinigameSlot focusSlot = slotList[focusSlotIndex];
+                    slot.Rect.DOAnchorPosX(slot.Rect.anchoredPosition.x - focusSlot.Rect.anchoredPosition.x, readyTime);
                 }
             });
 
-            seq.AppendInterval(selectedGameShowTime);
-            seq.AppendCallback(() => onRouletteStopAction?.Invoke());
-            return seq;
+            return seq.Play();
         }
     }
-}
+} 
