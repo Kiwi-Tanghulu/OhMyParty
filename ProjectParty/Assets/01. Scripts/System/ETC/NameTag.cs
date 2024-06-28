@@ -3,14 +3,13 @@ using UnityEngine;
 
 namespace OMG
 {
-    [RequireComponent(typeof(TextMeshPro))]
     public class NameTag : MonoBehaviour
     {
-        private TextMeshPro nameTagText;
+        private TMP_Text nameTagText;
 
         private void Awake()
         {
-            nameTagText = GetComponent<TextMeshPro>();
+            nameTagText = GetComponent<TMP_Text>();
         }
 
         public void SetNameTag(string name)

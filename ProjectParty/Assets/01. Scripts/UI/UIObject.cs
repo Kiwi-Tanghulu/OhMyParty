@@ -22,6 +22,8 @@ namespace OMG.UI
         private List<UIObject> childUI;
 
         [SerializeField] private bool initOnStart;
+        private bool isInit;
+        public bool IsInit => isInit;
 
         private void Start()
         {
@@ -37,6 +39,8 @@ namespace OMG.UI
             {
                 childUI[i].Init();
             }
+
+            isInit = true;
         }
 
         public virtual void Show()

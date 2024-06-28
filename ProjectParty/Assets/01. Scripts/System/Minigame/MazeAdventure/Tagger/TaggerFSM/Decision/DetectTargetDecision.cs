@@ -50,11 +50,11 @@ namespace OMG.Minigames.MazeAdventure
         }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, 30, 9);
-            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -30, 9);
-        }
+        //private void OnDrawGizmos()
+        //{
+        //    Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, 30, 9);
+        //    Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -30, 9);
+        //}
 #endif
     }
 }

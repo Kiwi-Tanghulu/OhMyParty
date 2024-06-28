@@ -10,7 +10,7 @@ namespace OMG.UI
     {
         [SerializeField] private GameObject fillImage;
         [SerializeField] private RawImage playerImage;
-        [SerializeField] private TextMeshProUGUI nameText;
+        [SerializeField] private TMP_Text nameText;
 
         public void SetPlayerImage(Texture texture)
         {

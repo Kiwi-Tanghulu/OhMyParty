@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Interacting;
 using OMG.Minigames;
@@ -22,7 +23,7 @@ namespace OMG.Lobbies
 
         [Space]
         [SerializeField] private CinemachineVirtualCamera tvFocusCam;
-
+        
         private CinemachineVirtualCamera focusVCam = null;
         private LobbyMinigameComponent minigameComponent = null;
         private LobbyResultComponent resultComponent = null;
@@ -38,6 +39,9 @@ namespace OMG.Lobbies
 
         [Space]
         [SerializeField] private MinigameSpotUI spotUI;
+
+        [Space]
+        [SerializeField] private MinigameSpotTVUI spotTVUI;
 
         private void Awake()
         {
@@ -156,7 +160,17 @@ namespace OMG.Lobbies
 
             CameraManager.Instance.ChangeCamera(tvFocusCam, 2f, null, () =>
             {
-                spotUI.Show();
+                if(!spotTVUI.IsInit)
+                {
+                    spotTVUI.Init();
+                    spotTVUI.SetRoundCountValue(minigameComponent.MinigameCycleCount);
+                    spotTVUI.Show();
+                }
+                spotTVUI.SetRoundCountText(minigameComponent.CurrentCycleCount + 1);
+                spotTVUI.PlayRoundTextChangeAnim(1f, null, () =>
+                {
+                    StartCoroutine(this.DelayCoroutine(1f, () => spotUI.Show()));
+                });
             });
         }
 
@@ -195,6 +209,10 @@ namespace OMG.Lobbies
 
             resultComponent.DisplayResult();
             cutSceneComponent.PlayCutscene(false);
+            foreach(PlayerData data in Lobby.Current.PlayerDatas)
+            {
+                spotTVUI.SetPlayerGraphScore(data);
+            }
             
             if(cycleFinished)
                 resultComponent.DisplayWinner();   

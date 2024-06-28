@@ -8,7 +8,6 @@ namespace OMG.Player
 {
     public class PlayerNameTag : NameTag
     {
-        [SerializeField] float updateDelay = 0.5f;
         private bool nameSetted;
         private ulong ownerID = 0;
 

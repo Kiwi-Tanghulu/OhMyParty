@@ -12,7 +12,6 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private float taggerSpawnTime;
         [SerializeField] private GameObject taggerObj;
         [SerializeField] private int maxSpawnCount;
-        public event Action OnOverSpawnEvent;
 
         private DeathmatchCycle cycle = null;
         private List<NetworkObject> taggerList = null;
@@ -31,7 +30,6 @@ namespace OMG.Minigames.MazeAdventure
             tagger.NetworkObject.SpawnWithOwnership(0, true);
             tagger.NetworkObject.TrySetParent(gameObject, false);
             taggerList.Add(tagger.NetworkObject);
-            OnOverSpawnEvent += tagger.IncreaseMoveSpeed;
         }
 
         public void StartSpawn()
@@ -60,15 +58,7 @@ namespace OMG.Minigames.MazeAdventure
                 if(time >= taggerSpawnTime)
                 {
                     time = 0;
-
-                    if(taggerList.Count < maxSpawnCount)
-                    {
-                        SpawnTagger();
-                    }
-                    else
-                    {
-                        OnOverSpawnEvent?.Invoke();
-                    }
+                    SpawnTagger();
                 }
                 yield return null;
             }
