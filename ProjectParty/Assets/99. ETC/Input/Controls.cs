@@ -234,6 +234,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ActiveUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""c4b6d992-e38b-4109-aec2-b67533a480e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -278,6 +287,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""698127b7-80ce-40e2-baf7-7423e117783c"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ActiveUI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -410,6 +430,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_UI_Interact = m_UI.FindAction("Interact", throwIfNotFound: true);
         m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
         m_UI_MousePosition = m_UI.FindAction("MousePosition", throwIfNotFound: true);
+        m_UI_ActiveUI = m_UI.FindAction("ActiveUI", throwIfNotFound: true);
         // Interior
         m_Interior = asset.FindActionMap("Interior", throwIfNotFound: true);
         m_Interior_PlacePosition = m_Interior.FindAction("PlacePosition", throwIfNotFound: true);
@@ -567,6 +588,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Interact;
     private readonly InputAction m_UI_LeftClick;
     private readonly InputAction m_UI_MousePosition;
+    private readonly InputAction m_UI_ActiveUI;
     public struct UIActions
     {
         private @Controls m_Wrapper;
@@ -575,6 +597,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_UI_Interact;
         public InputAction @LeftClick => m_Wrapper.m_UI_LeftClick;
         public InputAction @MousePosition => m_Wrapper.m_UI_MousePosition;
+        public InputAction @ActiveUI => m_Wrapper.m_UI_ActiveUI;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -596,6 +619,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
+            @ActiveUI.started += instance.OnActiveUI;
+            @ActiveUI.performed += instance.OnActiveUI;
+            @ActiveUI.canceled += instance.OnActiveUI;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -612,6 +638,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
+            @ActiveUI.started -= instance.OnActiveUI;
+            @ActiveUI.performed -= instance.OnActiveUI;
+            @ActiveUI.canceled -= instance.OnActiveUI;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -714,6 +743,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnActiveUI(InputAction.CallbackContext context);
     }
     public interface IInteriorActions
     {

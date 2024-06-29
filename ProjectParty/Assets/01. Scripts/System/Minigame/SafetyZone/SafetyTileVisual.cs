@@ -19,6 +19,7 @@ namespace OMG.Minigames.SafetyZone
 
         public void SetNumberText(int number)
         {
+            Awake();
             if(number == -1)
                 numberText.text = "-";
             else
@@ -27,18 +28,21 @@ namespace OMG.Minigames.SafetyZone
 
         public void Appear(Action callback = null)
         {
+            Awake();
             animator.SetBool("Appear", true);
             callbackCache = callback;
         }
 
         public void Disappear(Action callback = null)
         {
+            Awake();
             animator.SetBool("Disappear", true);
             callbackCache = callback;
         }
 
         private void ClearAnimation()
         {
+            Awake();
             animator.SetBool("Disappear", false);
             animator.SetBool("Appear", false);
         }

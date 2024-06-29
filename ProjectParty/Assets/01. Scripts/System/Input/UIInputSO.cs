@@ -11,6 +11,7 @@ namespace OMG.Inputs
         public event Action OnSpaceEvent = null;
         public event Action OnInteractEvent = null;
         public event Action<bool> OnLeftClickEvent = null;
+        public event Action<bool> OnActiveUIEvent = null;
 
         public Vector3 MousePosition { get; private set; }
 
@@ -46,6 +47,14 @@ namespace OMG.Inputs
         public void OnMousePosition(InputAction.CallbackContext context)
         {
             MousePosition = context.ReadValue<Vector2>();
+        }
+
+        public void OnActiveUI(InputAction.CallbackContext context)
+        {
+            if(context.performed)
+                OnActiveUIEvent?.Invoke(true);
+            else if(context.canceled) 
+                OnActiveUIEvent?.Invoke(false);
         }
     }
 }
