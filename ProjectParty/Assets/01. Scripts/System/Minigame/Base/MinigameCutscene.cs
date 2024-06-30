@@ -48,6 +48,8 @@ namespace OMG.Minigames
 
         public void SkipCutscene()
         {
+            timelineHolder.time = timelineHolder.playableAsset.duration;
+            timelineHolder.Evaluate();
             timelineHolder.Stop();
             cycleText.PlayRaedyGo();
         }
