@@ -1,7 +1,5 @@
-using System;
 using OMG.Minigames;
 using OMG.Network;
-using UnityEngine;
 
 namespace OMG.Lobbies
 {
