@@ -1,7 +1,4 @@
 using Cinemachine;
-using OMG.Extensions;
-using OMG.Inputs;
-using OMG.NetworkEvents;
 using OMG.UI;
 using OMG.Utility;
 using Unity.Netcode;
