@@ -1,5 +1,4 @@
 using Unity.Netcode;
-using UnityEngine;
 
 namespace OMG.NetworkEvents
 {
@@ -16,7 +15,6 @@ namespace OMG.NetworkEvents
                 return;
             }
 
-            //NetworkEventTable;
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
