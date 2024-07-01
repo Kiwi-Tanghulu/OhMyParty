@@ -15,9 +15,9 @@ namespace OMG.Player
 
         private Dictionary<RenderTargetPlayerPoseType, int> PoseHashDic;
 
-        protected override void Awake()
+        public override void Init(ulong ownerID)
         {
-            base.Awake();
+            base.Init(ownerID);
 
             anim = GetComponent<Animator>();
 

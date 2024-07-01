@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG
 {
@@ -15,14 +16,16 @@ namespace OMG
 
         private List<CharacterComponent> compoList;
 
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
+        public UnityEvent<ulong/*owner id*/> OnSpawnedEvent;
 
+        public virtual void Awake()
+        {
             compoList = new List<CharacterComponent>();
 
             stat = InitCompo(GetComponent<CharacterStat>());
             movement = InitCompo(GetComponent<CharacterMovement>());
+
+            OnSpawnedEvent?.Invoke(OwnerClientId);
         }
 
         protected virtual void Update()

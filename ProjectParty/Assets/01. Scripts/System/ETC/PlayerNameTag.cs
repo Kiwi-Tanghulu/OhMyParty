@@ -15,8 +15,15 @@ namespace OMG.Player
         {
             this.ownerID = ownerID;
 
-            TrySetNameTag();
-            Lobby.Current.PlayerDatas.OnListChanged += HandlePlayerDatasChanged;
+            if (Lobby.Current == null)
+            {
+                SetNameTag("Name Tag");
+            }
+            else
+            {
+                TrySetNameTag();
+                Lobby.Current.PlayerDatas.OnListChanged += HandlePlayerDatasChanged;
+            }
         }
 
         private void TrySetNameTag()

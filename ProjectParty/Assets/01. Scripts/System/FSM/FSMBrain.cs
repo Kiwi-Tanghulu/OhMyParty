@@ -46,7 +46,6 @@ namespace OMG.FSM
                     state.InitState(this);
                 }
             }
-
             isInit = true;
 
             if (defaultState == null)
@@ -61,7 +60,7 @@ namespace OMG.FSM
 
         public void UpdateFSM()
         {
-            if (!isInit || !IsOwner)
+            if (!isInit || (!IsOwner && IsServer))
                 return;
                 
             currentState?.UpdateState();
@@ -69,7 +68,7 @@ namespace OMG.FSM
 
         private void OnEnable()
         {
-            if (!isInit || !IsOwner)
+            if (!isInit || (!IsOwner && IsServer))
                 return;
 
             currentState?.EnterState();
@@ -77,7 +76,7 @@ namespace OMG.FSM
 
         private void OnDisable()
         {
-            if (!isInit || !IsOwner)
+            if (!isInit || (!IsOwner && IsServer))
                 return;
 
             currentState?.ExitState();   
@@ -118,7 +117,7 @@ namespace OMG.FSM
 
         private void ChangeState(int stateIndex)
         {
-            if (!isInit || !IsOwner)
+            if (!isInit || (!IsOwner && IsServer))
                 return;
 
             if (states == null)

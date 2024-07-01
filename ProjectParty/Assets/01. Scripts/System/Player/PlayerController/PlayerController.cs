@@ -21,19 +21,15 @@ namespace OMG.Player
         private FSMBrain stateMachine;
         public FSMBrain StateMachine => stateMachine;
 
-        public UnityEvent<ulong/*owner id*/> OnSpawnedEvent;
-
-        public override void OnNetworkSpawn()
+        public override void Awake()
         {
             visual = transform.Find("Visual").GetComponent<PlayerVisual>();
             animator = visual.GetComponent<ExtendedAnimator>();
 
-            base.OnNetworkSpawn();
-
+            base.Awake();
+            
             stateMachine = GetComponent<FSMBrain>();
             stateMachine.Init();
-
-            OnSpawnedEvent?.Invoke(OwnerClientId);
         }
 
         protected override void Update()
