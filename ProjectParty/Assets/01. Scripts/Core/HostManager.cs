@@ -69,16 +69,12 @@ namespace OMG.Network
 
         public void OpenLobby()
         {
-            // closed = false;
             ClientManager.Instance.CurrentLobby?.SetJoinable(true);
-            // ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "false");
         }
 
         public void CloseLobby()
         {
-            // closed = true;
             ClientManager.Instance.CurrentLobby?.SetJoinable(false);
-            // ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "true");
         }
 
         #region Netcode Callback
