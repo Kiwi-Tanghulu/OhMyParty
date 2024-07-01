@@ -2,7 +2,6 @@ using OMG.Extensions;
 using OMG.Inputs;
 using OMG.UI;
 using OMG.UI.Minigames;
-using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;

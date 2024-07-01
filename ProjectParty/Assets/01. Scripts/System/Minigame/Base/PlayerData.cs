@@ -1,6 +1,5 @@
 using System;
 using Unity.Netcode;
-using UnityEngine;
 
 namespace OMG.Minigames
 {
@@ -8,15 +7,16 @@ namespace OMG.Minigames
     {
         public ulong clientID;
         public int score;
-        public bool isDead;
+        public int lifeCount;
         public bool isSkipCutscene;
+        public bool IsDead => lifeCount <= 0;
 
         public PlayerData(ulong id)
         {
             clientID = id;
             score = 0;
-            isDead = false;
             isSkipCutscene = false;
+            lifeCount = 1;
         }
 
         public bool Equals(PlayerData other)
@@ -28,7 +28,7 @@ namespace OMG.Minigames
         {
             serializer.SerializeValue(ref clientID);
             serializer.SerializeValue(ref score);
-            serializer.SerializeValue(ref isDead);
+            serializer.SerializeValue(ref lifeCount);
             serializer.SerializeValue(ref isSkipCutscene);
         }
     }
