@@ -4,7 +4,8 @@ namespace OMG
 {
     public static class DEFINE
     {
-        public const string LOBBY_CLOSED = "closed";
+        public const string INTRO_SCENE = "IntroScene";
+        public const string LOBBY_SCENE = "LobbyScene";
 
         public const int FOCUSED_PRIORITY = 20;
         public const int UNFOCUSED_PRIORITY = 1;

@@ -12,6 +12,7 @@ namespace OMG.Minigames
         [Space(15f)]
         [SerializeField] UnityEvent<ulong> OnPlayerDeadEvent = null;
         private DeathmatchPlayerPanel playerPanel = null;
+        private PlayableMinigame playableMinigame = null;
 
         private int deadPlayerCount = 0;
         public int DeadPlayerCount => deadPlayerCount;
@@ -20,40 +21,55 @@ namespace OMG.Minigames
         {
             base.Awake();
             playerPanel = minigame.MinigamePanel.PlayerPanel as DeathmatchPlayerPanel;
+            playableMinigame = minigame as PlayableMinigame;
         }
 
         public virtual void HandlePlayerDead(ulong clientID)
         {
-            minigame.PlayerDatas.ForEach((i, index) => {
-                if (i.clientID == clientID)
+            int score = scoreWeight[deadPlayerCount];
+            minigame.PlayerDatas.ForEach((data, index) => {
+                if (data.clientID != clientID)
+                    return;
+
+                bool isDead = data.lifeCount <= 1;
+                if(isDead)
                     playerPanel.SetDead(index);
+
+                if(IsHost)
+                {
+                    data.lifeCount -= 0;
+
+                    if(isDead)
+                    {
+                        data.score = score;
+                        deadPlayerCount++;
+
+                        Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Dead Player Count : {deadPlayerCount}");
+                        if ((minigame.PlayerDatas.Count - deadPlayerCount) <= 1)
+                            FinishCycle();
+                    }
+                    else
+                        Respawn(clientID);
+                    
+                    minigame.PlayerDatas[index] = data;
+                }
             });
-
-            if (IsHost)
-            {
-                deadPlayerCount++;
-                
-                minigame.PlayerDatas.ChangeData(i => i.clientID == clientID, data => {
-                    data.isDead = true;
-                    data.score = scoreWeight[deadPlayerCount - 1];
-                    return data;
-                });
-
-                Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Dead Player Count : {deadPlayerCount}");
-                if ((minigame.PlayerDatas.Count - deadPlayerCount) <= 1)
-                    FinishCycle();
-            }
 
             OnPlayerDeadEvent?.Invoke(clientID);
         }
 
         public virtual void FinishCycle()
         {
-            minigame.PlayerDatas.ChangeData(i => i.isDead == false, data => {
+            minigame.PlayerDatas.ChangeData(i => i.IsDead == false, data => {
                 data.score = scoreWeight[deadPlayerCount];
                 return data;
             });
             minigame.FinishGame();
+        }
+
+        public void Respawn(ulong clientID)
+        {
+            playableMinigame.RespawnPlayer(clientID);
         }
     }
 }

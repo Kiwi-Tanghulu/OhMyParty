@@ -1,4 +1,3 @@
-using System.Collections;
 using Netcode.Transports.Facepunch;
 using Steamworks;
 using Steamworks.Data;
@@ -21,11 +20,11 @@ namespace OMG.Network
             SteamMatchmaking.OnLobbyEntered += HandleLobbyEntered;
         }
 
-        ~GuestManager()
+        public void Release()
         {
             SteamMatchmaking.OnLobbyEntered -= HandleLobbyEntered;
 
-            if(NetworkManager.Singleton == null)
+            if (NetworkManager.Singleton == null)
                 return;
             NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;

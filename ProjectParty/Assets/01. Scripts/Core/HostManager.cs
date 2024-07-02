@@ -11,7 +11,7 @@ namespace OMG.Network
         public static HostManager Instance = null;
         // private bool closed = false;
 
-        public event Action<ulong> OnClientDisconnectedEvent;
+        public event Action<ulong> OnClientDisconnectedEvent = null;
 
         public HostManager()
         {
@@ -19,19 +19,17 @@ namespace OMG.Network
             SteamMatchmaking.OnLobbyCreated += HandleLobbyCreated;
         }
 
-        ~HostManager()
+        public void Release()
         {
-            //파괴자 쓰지말고 IDispose 구현해서 명시적으로 사용해
-            //C#은 파괴자가 즉시 실행되지 않아서 이 로직은 좀 위험해...
             SteamMatchmaking.OnLobbyCreated -= HandleLobbyCreated;
 
-            if(NetworkManager.Singleton == null)
+            if (NetworkManager.Singleton == null)
                 return;
 
             NetworkManager.Singleton.OnServerStarted -= HandleServerStarted;
             NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
             NetworkManager.Singleton.ConnectionApprovalCallback -= HandleConnectionApproval;
-            
+
             OnClientDisconnectedEvent = null;
         }
 
@@ -62,6 +60,7 @@ namespace OMG.Network
                 return;
 
             NetworkManager.Singleton.OnServerStarted -= HandleServerStarted;
+            NetworkManager.Singleton.ConnectionApprovalCallback = null;
             NetworkManager.Singleton.Shutdown();
 
             Debug.Log("[Network] Host Disconnected");

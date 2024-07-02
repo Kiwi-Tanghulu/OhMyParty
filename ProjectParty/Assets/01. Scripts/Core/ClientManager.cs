@@ -1,6 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using Steamworks;
 using Steamworks.Data;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Network
@@ -12,6 +14,7 @@ namespace OMG.Network
     {
         public static ClientManager Instance = null;
 
+        public event Action OnDisconnectEvent = null;
         public Lobby? CurrentLobby = null;
 
         public ClientManager()
@@ -30,7 +33,7 @@ namespace OMG.Network
             SteamFriends.OnGameLobbyJoinRequested += HandleLobbyJoinRequested;
         }
 
-        ~ClientManager()
+        public void Release()
         {
             SteamMatchmaking.OnLobbyMemberJoined -= HandleLobbyMemberJoined;
             SteamMatchmaking.OnLobbyMemberLeave -= HandleLobbyMemberLeave;
@@ -40,6 +43,21 @@ namespace OMG.Network
             SteamMatchmaking.OnLobbyGameCreated -= HandleLobbyGameCreated;
 
             SteamFriends.OnGameLobbyJoinRequested -= HandleLobbyJoinRequested;
+
+            OnDisconnectEvent = null;
+        }
+
+        public void Disconnect()
+        {
+            if(NetworkManager.Singleton == null)
+                return;
+            
+            if(NetworkManager.Singleton.IsHost)
+                HostManager.Instance.Disconnect();
+            else
+                GuestManager.Instance.Disconnect();
+
+            OnDisconnectEvent?.Invoke();
         }
 
         public async Task<Lobby[]> GetLobbyListAsync(string owner = null, int count = 5)
