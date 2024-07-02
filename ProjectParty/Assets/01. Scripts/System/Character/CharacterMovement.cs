@@ -142,6 +142,9 @@ namespace OMG
         #region Turn
         private void Turn(Vector3 lookVector)
         {
+            if (!gameObject.activeSelf)
+                return;
+
             lookVector.Normalize();
 
             if (lookVector != Vector3.zero)
