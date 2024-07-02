@@ -47,7 +47,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            if (brain.UseInNetwork)
+            if (brain.IsNetworkInit)
             {
                 onStartStunEvent.Broadcast();
             }
@@ -63,7 +63,7 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            if (brain.UseInNetwork)
+            if (brain.IsNetworkInit)
             {
                 onEndStunEvent.Broadcast();
             }

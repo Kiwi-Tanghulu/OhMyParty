@@ -23,8 +23,9 @@ namespace OMG.FSM
         public bool IsInit => isInit;
         public bool IsNetworkInit => isNetworkInit;
 
+#if UNITY_EDITOR
         [SerializeField] private bool useInNetwork;
-        public bool UseInNetwork => useInNetwork;
+#endif
 
         public void Init()
         {
@@ -51,6 +52,7 @@ namespace OMG.FSM
 
             isInit = true;
 
+#if UNITY_EDITOR
             if (!useInNetwork)
             {
                 if (defaultState == null)
@@ -62,6 +64,7 @@ namespace OMG.FSM
                     ChangeState(defaultState);
                 }
             }
+#endif
         }
 
         public override void OnNetworkSpawn()
@@ -75,21 +78,19 @@ namespace OMG.FSM
                 state.NetworkInit();
             }
 
-            if (useInNetwork)
+            if (defaultState == null)
             {
-                if (defaultState == null)
-                {
-                    Debug.LogError("not set start state");
-                }
-                else
-                {
-                    ChangeState(defaultState);
-                }
+                Debug.LogError("not set start state");
+            }
+            else
+            {
+                ChangeState(defaultState);
             }
         }
 
         public void UpdateFSM()
         {
+#if UNITY_EDITOR
             if(useInNetwork)
             {
                 if (!isNetworkInit || !IsOwner)
@@ -100,12 +101,17 @@ namespace OMG.FSM
                 if (!isInit)
                     return;
             }
+#else
+            if (!isNetworkInit || !IsOwner)
+                    return;
+#endif
 
             currentState?.UpdateState();
         }
 
         private void OnEnable()
         {
+#if UNITY_EDITOR
             if (useInNetwork)
             {
                 if (!isNetworkInit || !IsOwner)
@@ -116,12 +122,17 @@ namespace OMG.FSM
                 if (!isInit)
                     return;
             }
+#else
+            if (!isNetworkInit || !IsOwner)
+                    return;
+#endif
 
             currentState?.EnterState();
         }
 
         private void OnDisable()
         {
+#if UNITY_EDITOR
             if (useInNetwork)
             {
                 if (!isNetworkInit || !IsOwner)
@@ -132,6 +143,10 @@ namespace OMG.FSM
                 if (!isInit)
                     return;
             }
+#else
+            if (!isNetworkInit || !IsOwner)
+                    return;
+#endif
 
             currentState?.ExitState();   
         }
@@ -171,6 +186,7 @@ namespace OMG.FSM
 
         private void ChangeState(int stateIndex)
         {
+#if UNITY_EDITOR
             if (useInNetwork)
             {
                 if (!isNetworkInit || !IsOwner)
@@ -181,6 +197,10 @@ namespace OMG.FSM
                 if (!isInit)
                     return;
             }
+#else
+            if (!isNetworkInit || !IsOwner)
+                    return;
+#endif
 
             if (states == null)
                 return;

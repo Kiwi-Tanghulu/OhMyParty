@@ -54,7 +54,7 @@ namespace OMG.Player.FSM
 
         private void InvokeDoAction()
         {
-            if(brain.UseInNetwork)
+            if(brain.IsNetworkInit)
             {
                 onAttackNetworkEvent.Alert();
             }

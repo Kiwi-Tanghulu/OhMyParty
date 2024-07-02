@@ -58,7 +58,7 @@ namespace OMG.Player.FSM
             health.Hitable = false;
             health.PlayerHitable = false;
 
-            if(brain.UseInNetwork)
+            if(brain.IsNetworkInit)
             {
                 onStartRecoveryEvent.Broadcast();
             }
@@ -76,7 +76,7 @@ namespace OMG.Player.FSM
 
             health.Hitable = true;
 
-            if (brain.UseInNetwork)
+            if (brain.IsNetworkInit)
             {
                 onEndRecoveryEvent.Broadcast();
             }
