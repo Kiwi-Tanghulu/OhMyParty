@@ -18,7 +18,7 @@ namespace OMG
 
         public UnityEvent<ulong/*owner id*/> OnSpawnedEvent;
 
-        public virtual void Awake()
+        protected virtual void Awake()
         {
             compoList = new List<CharacterComponent>();
 

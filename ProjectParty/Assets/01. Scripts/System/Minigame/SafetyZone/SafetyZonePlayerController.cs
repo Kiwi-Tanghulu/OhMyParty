@@ -18,8 +18,10 @@ namespace OMG.Minigames.SafetyZone
         [SerializeField] private StarEffect starEffect;
         [SerializeField] private ParticleSystem slowEffect;
         [SerializeField] private ParticleSystem hitParticle;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             Health = GetComponent<PlayerHealth>();
         }
 

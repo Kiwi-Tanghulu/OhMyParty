@@ -21,7 +21,7 @@ namespace OMG.Player
         private FSMBrain stateMachine;
         public FSMBrain StateMachine => stateMachine;
 
-        public override void Awake()
+        protected override void Awake()
         {
             visual = transform.Find("Visual").GetComponent<PlayerVisual>();
             animator = visual.GetComponent<ExtendedAnimator>();
@@ -33,6 +33,8 @@ namespace OMG.Player
                 stateMachine = GetComponent<FSMBrain>();
                 stateMachine.Init();
             }
+
+            Debug.Log("awake");
         }
 
         public override void OnNetworkSpawn()
@@ -45,6 +47,8 @@ namespace OMG.Player
                 stateMachine.Init();
                 stateMachine.NetworkInit();
             }
+
+            Debug.Log("spawn");
         }
 
         protected override void Update()
