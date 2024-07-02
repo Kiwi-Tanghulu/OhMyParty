@@ -1,35 +1,53 @@
-using OMG.Minigames;
+using OMG.Inputs;
 using OMG.Network;
+using OMG.UI.Lobbies;
+using UnityEngine;
 
 namespace OMG.Lobbies
 {
     public class LobbyAccessComponent : LobbyComponent
     {
-        private LobbyMinigameComponent minigameComponent = null;
-
+        [SerializeField] PlayInputSO input = null;
+        [SerializeField] ExitPanel exitPanel = null;
+ 
         public override void Init(Lobby lobby)
         {
             base.Init(lobby);
 
-            minigameComponent = lobby.GetLobbyComponent<LobbyMinigameComponent>();
-            minigameComponent.OnMinigameCycleStartedEvent += HandleMinigameCycleStarted;
-            minigameComponent.OnMinigameFinishedEvent += HandleMingameFinished;
+            Lobby.OnLobbyStateChangedEvent += HandleLobbyAccess;
+            Lobby.OnLobbyStateChangedEvent += HandleExitPanel;
+            input.OnEscapeEvent += HandleEscape;            
         }
 
-        private void HandleMinigameCycleStarted()
+        public override void OnDestroy()
         {
-            if (IsHost == false)
-                return;
-            HostManager.Instance.CloseLobby();
+            base.OnDestroy();
+            input.OnEscapeEvent -= HandleEscape;
         }
 
-        private void HandleMingameFinished(Minigame minigame, bool cycleFinished)
+        private void HandleEscape()
         {
-            if (IsHost == false)
+            if(Lobby.LobbyState != LobbyState.Community)
                 return;
 
-            if (cycleFinished)
+            exitPanel.Display(true);
+        }
+
+        private void HandleLobbyAccess(LobbyState state)
+        {
+            if(IsHost == false)
+                return;
+
+            if(state == LobbyState.Community)
                 HostManager.Instance.OpenLobby();
+            else
+                HostManager.Instance.CloseLobby();
+        }
+
+        private void HandleExitPanel(LobbyState state)
+        {
+            if(state != LobbyState.Community)
+                exitPanel.Display(false);
         }
     }
 }

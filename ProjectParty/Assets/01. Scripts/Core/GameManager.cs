@@ -3,6 +3,7 @@ using UnityEngine;
 using OMG.Network;
 using Unity.Netcode;
 using OMG.Minigames;
+using System;
 
 namespace OMG
 {
@@ -32,8 +33,11 @@ namespace OMG
 
         private void OnApplicationQuit()
         {
-            GuestManager.Instance?.Disconnect();
-            HostManager.Instance?.Disconnect();    
+            ClientManager.Instance?.Disconnect();
+
+            GuestManager.Instance?.Release();
+            HostManager.Instance?.Release();
+            ClientManager.Instance?.Release();
         }
 
         private void InitSingleton()
@@ -47,6 +51,13 @@ namespace OMG
             ClientManager.Instance = new ClientManager();
             HostManager.Instance = new HostManager();
             GuestManager.Instance = new GuestManager(NetworkManager.Singleton.GetComponent<FacepunchTransport>());
+
+            ClientManager.Instance.OnDisconnectEvent += HandleDisconnect;
+        }
+
+        private void HandleDisconnect()
+        {
+            SceneManager.Instance.LoadScene(SceneType.IntroScene);
         }
     }
 }

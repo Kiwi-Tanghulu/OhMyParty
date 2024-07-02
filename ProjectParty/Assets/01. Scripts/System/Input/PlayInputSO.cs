@@ -14,6 +14,7 @@ namespace OMG.Inputs
         public Action OnActionEvent;
         public Action OnActiveEvent;
         public Action OnJumpEvent;
+        public Action OnEscapeEvent;
 
         public bool MoveInputInversion = false;
 
@@ -66,6 +67,12 @@ namespace OMG.Inputs
         {
             if (context.started)
                 OnJumpEvent?.Invoke();
+        }
+
+        public void OnEscape(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                OnEscapeEvent?.Invoke();
         }
     }
 }
