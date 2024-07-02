@@ -32,6 +32,13 @@ namespace OMG.Player
             stateMachine.Init();
         }
 
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            stateMachine.NetworkInit();
+        }
+
         protected override void Update()
         {
             base.Update();

@@ -5,6 +5,7 @@ using OMG.NetworkEvents;
 using Unity.Netcode;
 
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
+using UnityEditor.Timeline;
 
 namespace OMG.Player.FSM
 {
@@ -30,6 +31,11 @@ namespace OMG.Player.FSM
             health = player.GetComponent<PlayerHealth>();
             anim = player.Animator;
             ragdoll = player.Visual.Ragdoll;
+        }
+
+        public override void NetworkInit()
+        {
+            base.NetworkInit();
 
             onStartStunEvent.AddListener(StratStun);
             onEndStunEvent.AddListener(EndStun);
@@ -42,8 +48,15 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            onStartStunEvent.Broadcast();
-
+            if (brain.IsNetworkInit)
+            {
+                onStartStunEvent.Broadcast();
+            }
+            else
+            {
+                StratStun(new NoneParams());
+            }
+            
             movement.SetMoveDirection(Vector3.zero, false);
         }
 
@@ -51,7 +64,14 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            onEndStunEvent.Broadcast();
+            if (brain.IsNetworkInit)
+            {
+                onEndStunEvent.Broadcast();
+            }
+            else
+            {
+                EndStun(new NoneParams());
+            }
 
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position, Vector3.down, 10000f, groundLayer);
             if (hit.Length > 0)

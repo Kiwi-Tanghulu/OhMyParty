@@ -20,7 +20,10 @@ namespace OMG.FSM
         private Dictionary<Type, FSMParamSO> fsmParamDictionary = null;
 
         private bool isInit;
+        private bool isNetworkInit;
 
+        public bool IsInit => isInit;
+        public bool IsNetworkInit => isNetworkInit;
         public void Init()
         {
             //if (!IsOwner)
@@ -56,6 +59,16 @@ namespace OMG.FSM
             {
                 ChangeState(defaultState);
             }
+        }
+
+        public void NetworkInit()
+        {
+            foreach (FSMState state in states)
+            {
+                state.NetworkInit();
+            }
+
+            isNetworkInit = true;
         }
 
         public void UpdateFSM()
