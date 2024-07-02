@@ -1,4 +1,5 @@
 using DG.Tweening;
+using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Lobbies;
 using OMG.Minigames;
@@ -40,6 +41,9 @@ namespace OMG.UI
         [SerializeField] private string hostText;
         [SerializeField] private string clientText;
 
+        [Space]
+        [SerializeField] private int minSlotCount;
+        [SerializeField] private int maxMinigameCount;
         private List<MinigameSlot> slotList;
         public List<MinigameSlot> SlotList => slotList;
 
@@ -62,9 +66,13 @@ namespace OMG.UI
 
         private bool isRouletteMove;
 
+        private LobbyMinigameComponent minigameComp;
+
         public override void Init()
         {
             base.Init();
+
+            minigameComp = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
 
             OnRouletteStopAlignEvent = new NetworkEvent<IntParams>("OnRouletteStopAlignEvent");
             OnRouletteStopAlignEvent.AddListener(OnRouletteStopAlign);
@@ -77,17 +85,7 @@ namespace OMG.UI
 
             //make slot
             slotList = new();
-            for (int i = 0; i < minigameListSO.Count; i++)
-            {
-                Vector2 spawnPos = slotSpawnStartXPos + slotSpawnPosOffset * i;
-
-                MinigameSlot slot = Instantiate(slotPrefab, slotContainerRect);
-                slot.Init();
-                slot.SetMinigameSO(minigameListSO[i]);
-                slot.Rect.anchoredPosition = spawnPos;
-
-                slotList.Add(slot);
-            }
+            MakeSlot();
 
             isRouletteMove = false;
         }
@@ -132,6 +130,8 @@ namespace OMG.UI
         {
             base.Show();
 
+            SetSlotMinigameSO();
+
             //repositioning
             for (int i = 0; i < slotList.Count; i++)
             {
@@ -143,6 +143,7 @@ namespace OMG.UI
             StartCoroutine(MoveReady());
         }
 
+        #region roulette
         private IEnumerator MoveReady()
         {
             InputManager.SetInputEnable(false);
@@ -216,5 +217,36 @@ namespace OMG.UI
                 () => OnRouletteStopEvent?.Invoke(), 
                 () => onStopAction?.Invoke());
         }
+        #endregion
+
+        #region slot
+        private void MakeSlot()
+        {
+            for (int i = 0; i < minSlotCount; i++)
+            {
+                Vector2 spawnPos = slotSpawnStartXPos + slotSpawnPosOffset * i;
+
+                MinigameSlot slot = Instantiate(slotPrefab, slotContainerRect);
+                slot.Init();
+                slot.Rect.anchoredPosition = spawnPos;
+
+                slotList.Add(slot);
+            }
+        }
+
+        private void SetSlotMinigameSO()
+        {
+            List<MinigameSO> randMinigameList = minigameComp.NotPlayedMinigameList.Shuffle();
+            int minigameCount = Mathf.Min(maxMinigameCount, randMinigameList.Count);
+
+            //make slot
+            for (int i = 0; i < minSlotCount; i++)
+            {
+                int index = i % minigameCount;
+
+                slotList[i].SetMinigameSO(randMinigameList[index]);
+            }
+        }
+        #endregion
     }
 } 

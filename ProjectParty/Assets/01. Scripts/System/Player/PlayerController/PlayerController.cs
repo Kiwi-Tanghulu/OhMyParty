@@ -28,15 +28,23 @@ namespace OMG.Player
 
             base.Awake();
             
-            stateMachine = GetComponent<FSMBrain>();
-            stateMachine.Init();
+            if(stateMachine == null)
+            {
+                stateMachine = GetComponent<FSMBrain>();
+                stateMachine.Init();
+            }
         }
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
-            stateMachine.NetworkInit();
+            if(stateMachine == null)
+            {
+                stateMachine = GetComponent<FSMBrain>();
+                stateMachine.Init();
+                stateMachine.NetworkInit();
+            }
         }
 
         protected override void Update()
