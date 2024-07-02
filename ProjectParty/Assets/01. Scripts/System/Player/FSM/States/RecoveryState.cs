@@ -20,7 +20,6 @@ namespace OMG.Player.FSM
         private WaitForSeconds wfs;
 
         private CharacterSkin playerSkin;
-        //private readonly string matColorID = "_BaseColor";
 
         private Sequence twinkleTween;
 
@@ -59,7 +58,7 @@ namespace OMG.Player.FSM
             health.Hitable = false;
             health.PlayerHitable = false;
 
-            if(brain.IsNetworkInit)
+            if(brain.UseInNetwork)
             {
                 onStartRecoveryEvent.Broadcast();
             }
@@ -77,7 +76,7 @@ namespace OMG.Player.FSM
 
             health.Hitable = true;
 
-            if (brain.IsNetworkInit)
+            if (brain.UseInNetwork)
             {
                 onEndRecoveryEvent.Broadcast();
             }

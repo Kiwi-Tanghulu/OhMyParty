@@ -16,6 +16,7 @@ namespace OMG.Minigames
     public class MinigameSO : ScriptableObject
     {
         public Minigame MinigamePrefab;
+        public MinigameType Type;
         
         [Space(15f)]
         public float IntroPostponeTime = 1f;

@@ -5,7 +5,6 @@ using OMG.NetworkEvents;
 using Unity.Netcode;
 
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
-using UnityEditor.Timeline;
 
 namespace OMG.Player.FSM
 {
@@ -48,7 +47,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            if (brain.IsNetworkInit)
+            if (brain.UseInNetwork)
             {
                 onStartStunEvent.Broadcast();
             }
@@ -64,7 +63,7 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            if (brain.IsNetworkInit)
+            if (brain.UseInNetwork)
             {
                 onEndStunEvent.Broadcast();
             }

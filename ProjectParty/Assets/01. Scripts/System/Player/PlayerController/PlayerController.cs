@@ -27,28 +27,9 @@ namespace OMG.Player
             animator = visual.GetComponent<ExtendedAnimator>();
 
             base.Awake();
-            
-            if(stateMachine == null)
-            {
-                stateMachine = GetComponent<FSMBrain>();
-                stateMachine.Init();
-            }
 
-            Debug.Log("awake");
-        }
-
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-
-            if(stateMachine == null)
-            {
-                stateMachine = GetComponent<FSMBrain>();
-                stateMachine.Init();
-                stateMachine.NetworkInit();
-            }
-
-            Debug.Log("spawn");
+            stateMachine = GetComponent<FSMBrain>();
+            stateMachine.Init();
         }
 
         protected override void Update()

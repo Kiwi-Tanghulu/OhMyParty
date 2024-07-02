@@ -1,6 +1,4 @@
-using OMG.Minigames.MazeAdventure;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -24,11 +22,12 @@ namespace OMG.FSM
 
         public bool IsInit => isInit;
         public bool IsNetworkInit => isNetworkInit;
+
+        [SerializeField] private bool useInNetwork;
+        public bool UseInNetwork => useInNetwork;
+
         public void Init()
         {
-            //if (!IsOwner)
-            //    return;
-
             //param
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
             fsmParams.ForEach(i => {
@@ -49,48 +48,90 @@ namespace OMG.FSM
                     state.InitState(this);
                 }
             }
+
             isInit = true;
 
-            if (defaultState == null)
+            if (!useInNetwork)
             {
-                Debug.LogError("not set start state");
-            }
-            else
-            {
-                ChangeState(defaultState);
+                if (defaultState == null)
+                {
+                    Debug.LogError("not set start state");
+                }
+                else
+                {
+                    ChangeState(defaultState);
+                }
             }
         }
 
-        public void NetworkInit()
+        public override void OnNetworkSpawn()
         {
+            base.OnNetworkSpawn();
+
+            isNetworkInit = true;
+
             foreach (FSMState state in states)
             {
                 state.NetworkInit();
             }
 
-            isNetworkInit = true;
+            if (useInNetwork)
+            {
+                if (defaultState == null)
+                {
+                    Debug.LogError("not set start state");
+                }
+                else
+                {
+                    ChangeState(defaultState);
+                }
+            }
         }
 
         public void UpdateFSM()
         {
-            if (!isInit || (!IsOwner && IsServer))
-                return;
-                
+            if(useInNetwork)
+            {
+                if (!isNetworkInit || !IsOwner)
+                    return;
+            }
+            else
+            {
+                if (!isInit)
+                    return;
+            }
+
             currentState?.UpdateState();
         }
 
         private void OnEnable()
         {
-            if (!isInit || (!IsOwner && IsServer))
-                return;
+            if (useInNetwork)
+            {
+                if (!isNetworkInit || !IsOwner)
+                    return;
+            }
+            else
+            {
+                if (!isInit)
+                    return;
+            }
 
             currentState?.EnterState();
         }
 
         private void OnDisable()
         {
-            if (!isInit || (!IsOwner && IsServer))
-                return;
+            if (useInNetwork)
+            {
+                if (!isNetworkInit || !IsOwner)
+                    return;
+            }
+            else
+            {
+                if (!isInit)
+                    return;
+            }
 
             currentState?.ExitState();   
         }
@@ -130,8 +171,16 @@ namespace OMG.FSM
 
         private void ChangeState(int stateIndex)
         {
-            if (!isInit || (!IsOwner && IsServer))
-                return;
+            if (useInNetwork)
+            {
+                if (!isNetworkInit || !IsOwner)
+                    return;
+            }
+            else
+            {
+                if (!isInit)
+                    return;
+            }
 
             if (states == null)
                 return;

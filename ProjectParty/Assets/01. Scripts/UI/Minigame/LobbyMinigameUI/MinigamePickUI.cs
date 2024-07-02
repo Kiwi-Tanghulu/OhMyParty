@@ -4,7 +4,6 @@ using OMG.Inputs;
 using OMG.Lobbies;
 using OMG.Minigames;
 using OMG.NetworkEvents;
-using OMG.Player.FSM;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,7 +59,8 @@ namespace OMG.UI
         public UnityEvent OnSlotChangedEvent;
         public UnityEvent OnRouletteStopEvent;
 
-        private NetworkEvent<IntParams> OnRouletteStopAlignEvent;
+        private NetworkEvent<IntParams> onRouletteStopAlignEvent = new NetworkEvent<IntParams>("OnRouletteStopAlignEvent");
+        private NetworkEvent<Vector3Params> onSetSlotMinigameSOEvent = new NetworkEvent<Vector3Params>("SetSlotMinigameSOEvent");
 
         private Action onStopAction;
 
@@ -74,9 +74,11 @@ namespace OMG.UI
 
             minigameComp = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
 
-            OnRouletteStopAlignEvent = new NetworkEvent<IntParams>("OnRouletteStopAlignEvent");
-            OnRouletteStopAlignEvent.AddListener(OnRouletteStopAlign);
-            OnRouletteStopAlignEvent.Register(Lobby.Current.NetworkObject);
+            onRouletteStopAlignEvent.AddListener(OnRouletteStopAlign);
+            onRouletteStopAlignEvent.Register(Lobby.Current.NetworkObject);
+
+            onSetSlotMinigameSOEvent.AddListener(SetSlotMinigameSOEvent);
+            onSetSlotMinigameSOEvent.Register(Lobby.Current.NetworkObject);
 
             slotStartPos = new Vector2(Rect.rect.width / 2f + slotPrefab.Rect.rect.width / 2f, 0f);
             slotEndPos = -slotStartPos;
@@ -130,7 +132,7 @@ namespace OMG.UI
         {
             base.Show();
 
-            SetSlotMinigameSO();
+            SetSlotsMinigameSO();
 
             //repositioning
             for (int i = 0; i < slotList.Count; i++)
@@ -183,7 +185,7 @@ namespace OMG.UI
 
                 if(Lobby.Current.IsServer)
                 {
-                    OnRouletteStopAlignEvent?.Broadcast(new IntParams(slotList.IndexOf(selectedSlot)));
+                    onRouletteStopAlignEvent?.Broadcast(new IntParams(slotList.IndexOf(selectedSlot)));
                 }
             });
             seq.Play();
@@ -234,7 +236,7 @@ namespace OMG.UI
             }
         }
 
-        private void SetSlotMinigameSO()
+        private void SetSlotsMinigameSO()
         {
             List<MinigameSO> randMinigameList = minigameComp.NotPlayedMinigameList.Shuffle();
             int minigameCount = Mathf.Min(maxMinigameCount, randMinigameList.Count);
@@ -244,8 +246,26 @@ namespace OMG.UI
             {
                 int index = i % minigameCount;
 
-                slotList[i].SetMinigameSO(randMinigameList[index]);
+                //slotList[i].SetMinigameSO(randMinigameList[index]);
+                onSetSlotMinigameSOEvent?.Broadcast(new Vector3Params(new Vector3(i, (float)randMinigameList[index].Type)));
             }
+        }
+
+        private void SetSlotMinigameSOEvent(Vector3Params param)
+        {
+            int slotIndex = (int)param.Value.x;
+            MinigameType type = (MinigameType)param.Value.y;
+            MinigameSO minigameSO = minigameListSO.MinigameList.Find(x => x.Type == type);
+            
+            if(minigameSO)
+            {
+                slotList[slotIndex].SetMinigameSO(minigameSO);
+            }
+            else
+            {
+                Debug.Log($"not set minigame {type}");
+            }
+           
         }
         #endregion
     }
