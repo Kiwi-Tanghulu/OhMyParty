@@ -26,17 +26,14 @@ namespace OMG.Player
 
         protected virtual void Awake()
         {
-            
+            skinSelector = GetComponent<PlayerSkinSelector>();
+            ragdoll = GetComponent<PlayerRagdollController>();
         }
 
         public virtual void Init(ulong ownerID)
         {
             this.ownerID = ownerID;
             visualSetted = false;
-
-            skinSelector = GetComponent<PlayerSkinSelector>();
-            ragdoll = GetComponent<PlayerRagdollController>();
-
             if (Lobby.Current != null)
             {
                 TrySetVisual();

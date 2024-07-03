@@ -90,9 +90,8 @@ namespace OMG.UI
                 checkBox.SetPlayerImage(
                     PlayerManager.Instance.RenderTargetPlayerDic[player.OwnerClientId].RenderTexture);
 
-                Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data, data => data.ClientID == player.OwnerClientId);
-                string nickname = data.Nickname;
-                checkBox.SetNameText(string.IsNullOrEmpty(nickname) ? player.name : nickname);
+                Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data, (data) => data.ClientID == player.OwnerClientId);
+                checkBox.SetNameText(data.Nickname);
 
                 readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
             }

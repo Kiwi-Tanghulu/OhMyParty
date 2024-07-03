@@ -32,7 +32,7 @@ namespace OMG.Player.FSM
 
             anim = player.Animator;
             health = player.GetComponent<PlayerHealth>();
-
+            
             playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
             
             wfs = new WaitForSeconds(playerHitableDelayTime);

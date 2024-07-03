@@ -1,7 +1,6 @@
-using System.Collections;
+using OMG.Lobbies;
 using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace OMG
@@ -24,9 +23,23 @@ namespace OMG
 
             stat = InitCompo(GetComponent<CharacterStat>());
             movement = InitCompo(GetComponent<CharacterMovement>());
+        }
+
+        protected virtual void Start()
+        {
+#if UNITY_EDITOR
+            if (Lobby.Current == null)
+                OnSpawnedEvent?.Invoke(OwnerClientId);
+#endif
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
 
             OnSpawnedEvent?.Invoke(OwnerClientId);
         }
+
 
         protected virtual void Update()
         {
