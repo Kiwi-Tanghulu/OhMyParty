@@ -1,4 +1,6 @@
+using System;
 using OMG.Extensions;
+using OMG.NetworkEvents;
 using OMG.UI.Minigames;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,7 +12,7 @@ namespace OMG.Minigames
         [SerializeField] int[] scoreWeight = { 50, 100, 500, 1000 };
 
         [Space(15f)]
-        [SerializeField] UnityEvent<ulong> OnPlayerDeadEvent = null;
+        [SerializeField] NetworkEvent<UlongParams> onPlayerDeadEvent = new NetworkEvent<UlongParams>("PlayerDead");
         private DeathmatchPlayerPanel playerPanel = null;
         private PlayableMinigame playableMinigame = null;
 
@@ -24,7 +26,20 @@ namespace OMG.Minigames
             playableMinigame = minigame as PlayableMinigame;
         }
 
-        public virtual void HandlePlayerDead(ulong clientID)
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            onPlayerDeadEvent.AddListener(HandlePlayerDead);
+            onPlayerDeadEvent.Register(NetworkObject);
+        }
+
+        public virtual void SetPlayerDead(ulong clientID)
+        {
+            onPlayerDeadEvent?.Broadcast(clientID);
+        }
+
+        private void HandlePlayerDead(UlongParams clientID)
         {
             int score = scoreWeight[deadPlayerCount];
             minigame.PlayerDatas.ForEach((data, index) => {
@@ -37,7 +52,7 @@ namespace OMG.Minigames
 
                 if(IsHost)
                 {
-                    data.lifeCount -= 0;
+                    data.lifeCount--;
 
                     if(isDead)
                     {
@@ -54,8 +69,6 @@ namespace OMG.Minigames
                     minigame.PlayerDatas[index] = data;
                 }
             });
-
-            OnPlayerDeadEvent?.Invoke(clientID);
         }
 
         public virtual void FinishCycle()
