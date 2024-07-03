@@ -83,6 +83,7 @@ namespace OMG.Lobbies
                 currentClientID = player.OwnerClientId;
                 readyComponent.Ready(currentClientID);
                 playerController.StateMachine.ChangeState(typeof(SitState));
+                Debug.Log("sit");
             }
 
             OnInteractEvent?.Invoke();
@@ -197,8 +198,9 @@ namespace OMG.Lobbies
 
         private void HandleInteractInput()
         {
-            readyComponent.Ready(currentClientID);
+            Debug.Log(12);
             input.OnInteractEvent -= HandleInteractInput;
+            readyComponent.Ready(currentClientID);
         }
 
         private void HandleMinigameFinished(Minigame minigame, bool cycleFinished)

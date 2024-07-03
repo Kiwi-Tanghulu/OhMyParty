@@ -26,7 +26,6 @@ namespace OMG.Player
         protected override void Start()
         {
             base.Start();
-            Debug.Log("start");
 #if UNITY_EDITOR
             if (Lobby.Current == null)
             {
@@ -41,7 +40,6 @@ namespace OMG.Player
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            Debug.Log("spawn");
             stateMachine = GetComponent<FSMBrain>();
             stateMachine.Init();
             stateMachine.NetworkInit();

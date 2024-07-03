@@ -5,10 +5,10 @@ namespace OMG.Lobbies
     public enum LobbyState
     {
         None,
-        Community,
-        MinigameSelecting,
-        MinigameSelected,
-        MinigamePlaying,
-        MinigameFinished
+        Community, // Play
+        MinigameSelecting, // UI
+        MinigameSelected, // UI
+        MinigamePlaying, // Play
+        MinigameFinished // Play
     }
 }

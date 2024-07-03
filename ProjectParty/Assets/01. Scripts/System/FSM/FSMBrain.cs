@@ -29,7 +29,6 @@ namespace OMG.FSM
 
         public void Init()
         {
-            Debug.Log(1);
             //param
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
             fsmParams.ForEach(i => {
