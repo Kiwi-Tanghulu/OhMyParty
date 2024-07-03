@@ -4,6 +4,7 @@ using OMG.Network;
 using Unity.Netcode;
 using OMG.Minigames;
 using System;
+using Steamworks;
 
 namespace OMG
 {
@@ -57,7 +58,8 @@ namespace OMG
 
         private void HandleDisconnect()
         {
-            SceneManager.Instance.LoadScene(SceneType.IntroScene);
+            SceneType scene = SteamClient.IsValid ? SceneType.IntroScene_Steam : SceneType.IntroScene;
+            SceneManager.Instance.LoadScene(scene);
         }
     }
 }

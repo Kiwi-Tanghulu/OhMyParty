@@ -29,6 +29,7 @@ namespace OMG.Inputs
         {
             if (inputMapDic.ContainsKey(currentInputMapType))
                 inputMapDic[currentInputMapType]?.Disable();
+            prevInputMapType = currentInputMapType;
             currentInputMapType = inputMapType;
             if (inputMapDic.ContainsKey(currentInputMapType))
                 inputMapDic[currentInputMapType]?.Enable();
