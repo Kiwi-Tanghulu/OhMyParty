@@ -59,7 +59,11 @@ namespace OMG.Minigames
             Fade.Instance.FadeIn(
                 3f,
                 () => MinigameManager.Instance.MinigamePaused = true,
-                () => MinigameManager.Instance.MinigamePaused = false
+                () =>
+                {
+                    MinigameManager.Instance.MinigamePaused = false;
+                    InputManager.SetInputEnable(true);
+                }
             );
 
             StartIntro();
@@ -97,6 +101,7 @@ namespace OMG.Minigames
         public virtual void FinishGame() 
         {
             InputManager.ChangeInputMap(InputMapType.UI);
+            Debug.Log("1");
             OnFinishedEvent?.Invoke();
             StartOutro();
         }
@@ -108,7 +113,11 @@ namespace OMG.Minigames
             Fade.Instance.FadeIn(
                 3f, 
                 () => MinigameManager.Instance.MinigamePaused = true, 
-                () => MinigameManager.Instance.MinigamePaused = false
+                () =>
+                {
+                    MinigameManager.Instance.MinigamePaused = false;
+                    InputManager.SetInputEnable(true);
+                }
             );
         }
 

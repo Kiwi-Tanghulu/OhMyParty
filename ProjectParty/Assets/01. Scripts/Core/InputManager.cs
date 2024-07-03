@@ -13,6 +13,8 @@ namespace OMG.Inputs
         public static InputMapType CurrentInputMapType => currentInputMapType;
         private static InputMapType prevInputMapType;
 
+        private static bool enable = true;
+
         static InputManager()
         {
             controls = new Controls();
@@ -33,7 +35,10 @@ namespace OMG.Inputs
             currentInputMapType = inputMapType;
             if (inputMapDic.ContainsKey(currentInputMapType))
                 inputMapDic[currentInputMapType]?.Enable();
-            Debug.Log("change input map");
+
+            SetInputEnable(enable);
+
+            Debug.Log($"change input map : {currentInputMapType}");
         }
 
         public static void UndoChangeInputMap()
@@ -47,6 +52,8 @@ namespace OMG.Inputs
                 inputMapDic[currentInputMapType]?.Enable();
             else
                 inputMapDic[currentInputMapType]?.Disable();
+
+            enable = value;
         }
     }
 

@@ -83,7 +83,6 @@ namespace OMG.Lobbies
                 currentClientID = player.OwnerClientId;
                 readyComponent.Ready(currentClientID);
                 playerController.StateMachine.ChangeState(typeof(SitState));
-                Debug.Log("sit");
             }
 
             OnInteractEvent?.Invoke();
@@ -120,7 +119,10 @@ namespace OMG.Lobbies
         public void StartMinigame() //이거 호출하면 미니게임 시작
         {
             Debug.Log("start game");
-            Fade.Instance.FadeOut(0f, null, () =>
+            Fade.Instance.FadeOut(0f, () =>
+            {
+                InputManager.SetInputEnable(false);
+            }, () =>
             {
                 if (IsHost)
                 {
@@ -155,6 +157,7 @@ namespace OMG.Lobbies
         private void HandleMinigameSelecting()
         {
             InputManager.ChangeInputMap(InputMapType.UI);
+            Debug.Log("1");
             InputManager.SetInputEnable(false);
 
             CameraManager.Instance.ChangeCamera(tvFocusCam, 2f, null, () =>
@@ -198,7 +201,6 @@ namespace OMG.Lobbies
 
         private void HandleInteractInput()
         {
-            Debug.Log(12);
             input.OnInteractEvent -= HandleInteractInput;
             readyComponent.Ready(currentClientID);
         }

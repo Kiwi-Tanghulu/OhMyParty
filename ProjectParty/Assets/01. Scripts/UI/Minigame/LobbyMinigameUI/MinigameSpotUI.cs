@@ -27,7 +27,7 @@ namespace OMG.UI
         {
             gameObject.SetActive(true);
 
-            //CameraManager.Instance.ChangeCamera(focusCam);
+            CameraManager.Instance.ChangeCamera(focusCam);
             pick.Show();
         }
     }
