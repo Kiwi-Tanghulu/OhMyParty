@@ -14,6 +14,9 @@ namespace OMG
 
         public void SetNameTag(string name)
         {
+            if(nameTagText == null)
+                nameTagText = GetComponent<TMP_Text>();
+
             nameTagText.text = name;
         }
     }

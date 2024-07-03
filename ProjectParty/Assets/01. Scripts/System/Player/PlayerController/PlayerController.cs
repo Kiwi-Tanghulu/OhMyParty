@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using Unity.Netcode;
-using UnityEngine;
 using OMG.FSM;
-using OMG.Inputs;
-using OMG.Player.FSM;
-using UnityEngine.Events;
-using OMG.Extensions;
+using OMG.Lobbies;
+using UnityEngine;
 
 namespace OMG.Player
 {
@@ -27,9 +21,30 @@ namespace OMG.Player
             animator = visual.GetComponent<ExtendedAnimator>();
 
             base.Awake();
+        }
 
+        protected override void Start()
+        {
+            base.Start();
+            Debug.Log("start");
+#if UNITY_EDITOR
+            if (Lobby.Current == null)
+            {
+                
+                OnSpawnedEvent?.Invoke(OwnerClientId);
+                stateMachine = GetComponent<FSMBrain>();
+                stateMachine.Init();
+            }
+#endif
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            Debug.Log("spawn");
             stateMachine = GetComponent<FSMBrain>();
             stateMachine.Init();
+            stateMachine.NetworkInit();
         }
 
         protected override void Update()

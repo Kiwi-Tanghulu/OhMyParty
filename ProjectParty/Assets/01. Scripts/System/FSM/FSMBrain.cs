@@ -29,6 +29,7 @@ namespace OMG.FSM
 
         public void Init()
         {
+            Debug.Log(1);
             //param
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
             fsmParams.ForEach(i => {
@@ -67,10 +68,8 @@ namespace OMG.FSM
 #endif
         }
 
-        public override void OnNetworkSpawn()
+        public void NetworkInit()
         {
-            base.OnNetworkSpawn();
-
             isNetworkInit = true;
 
             foreach (FSMState state in states)
@@ -86,6 +85,13 @@ namespace OMG.FSM
             {
                 ChangeState(defaultState);
             }
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            
         }
 
         public void UpdateFSM()
