@@ -92,6 +92,14 @@ namespace OMG.Lobbies
             BroadcastMinigameStartedClientRpc();
 
             notPlayedMinigameList.Remove(currentMinigame);
+            if(notPlayedMinigameList.Count <= 0)
+            {
+                notPlayedMinigameList = new List<MinigameSO>();
+                for (int i = 0; i < minigameList.Count; i++)
+                {
+                    notPlayedMinigameList.Add(minigameList.MinigameList[i]);
+                }
+            }
 
             Lobby.ChangeLobbyState(LobbyState.MinigamePlaying);
             Lobby.SetActive(false);
