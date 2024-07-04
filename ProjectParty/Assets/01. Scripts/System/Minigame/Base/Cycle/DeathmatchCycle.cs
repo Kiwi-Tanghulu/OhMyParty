@@ -89,7 +89,7 @@ namespace OMG.Minigames
 
         private int GetScore()
         {
-            if(lastDecisionTime - Time.time < 0.25f)
+            if(Time.time - lastDecisionTime < 0.25f)
                 return lastScore;
 
             lastDecisionTime = Time.time;
