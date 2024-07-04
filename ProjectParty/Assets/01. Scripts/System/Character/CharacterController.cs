@@ -51,9 +51,7 @@ namespace OMG
 
             compoList = new List<CharacterComponent>();
 
-            stat = InitCompo(GetComponent<CharacterStat>());
-            movement = InitCompo(GetComponent<CharacterMovement>());
-            fsm = InitCompo(GetComponent<CharacterFSM>());
+            InitCompos();
 
             OnInitEvent?.Invoke(OwnerClientId);
 
@@ -76,10 +74,24 @@ namespace OMG
 
         protected T InitCompo<T>(T compo) where T : CharacterComponent
         {
+            if(compo == null)
+            {
+                Debug.LogError($"{typeof(T)} is null");
+
+                return null;
+            }
+
             compo.Init(this);
             compoList.Add(compo);
 
             return compo;
+        }
+
+        protected virtual void InitCompos()
+        {
+            stat = InitCompo(GetComponent<CharacterStat>());
+            movement = InitCompo(GetComponent<CharacterMovement>());
+            fsm = InitCompo(GetComponent<CharacterFSM>());
         }
     }
 }

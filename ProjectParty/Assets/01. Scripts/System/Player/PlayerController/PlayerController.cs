@@ -10,16 +10,11 @@ namespace OMG.Player
         private PlayerVisual visual;
         public PlayerVisual Visual => visual;
 
-        protected override bool Init()
+        protected override void InitCompos()
         {
-            bool result = base.Init();
+            visual = InitCompo(transform.Find("Visual").GetComponent<PlayerVisual>());
 
-            if(result)
-            {
-                visual = InitCompo(transform.Find("Visual").GetComponent<PlayerVisual>());
-            }
-
-            return result;
+            base.InitCompos();
         }
     }
 }

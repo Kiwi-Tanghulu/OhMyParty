@@ -32,7 +32,10 @@ namespace OMG.Player
             {
                 case LobbyState.MinigameFinished:
                     renderTargetPlayerVisual.SetPose(RenderTargetPlayerPoseType.Idle);
-                    FSM.ChangeState(typeof(CalculateScoreState));
+
+                    if(IsOwner)
+                        FSM.ChangeState(typeof(CalculateScoreState));
+
                     break;
             }
         }

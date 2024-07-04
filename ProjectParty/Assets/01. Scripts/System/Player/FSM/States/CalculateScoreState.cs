@@ -45,7 +45,8 @@ namespace OMG.Player
 
         private void CalculateScoreState_OnEndEvent()
         {
-            brain.ChangeState(brain.DefaultState);
+            if(player.IsOwner)
+                brain.ChangeState(brain.DefaultState);
         }
 
         private void OnDestroy()

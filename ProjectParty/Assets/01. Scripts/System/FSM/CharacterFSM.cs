@@ -52,12 +52,15 @@ namespace OMG.FSM
             }
             else
             {
-                ChangeState(defaultState);
+                if(controller.IsOwner)
+                    ChangeState(defaultState);
             }
         }
 
-        public void UpdateFSM()
+        public override void UpdateCompo()
         {
+            base.UpdateCompo();
+
             if (!isInit)
                 return;
 
