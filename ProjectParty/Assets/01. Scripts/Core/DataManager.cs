@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace OMG.Datas
 {
@@ -26,7 +27,9 @@ namespace OMG.Datas
                         }
                     }
 
-                    UserData = JsonUtility.FromJson<UserData>(dataToLoad);
+                    UserData = JsonConvert.DeserializeObject<UserData>(dataToLoad);
+                    if(UserData == null)
+                        CreateData();
                 }
                 catch (Exception err)
                 {
@@ -34,10 +37,7 @@ namespace OMG.Datas
                 }
             }
             else
-            {
-                UserData = new UserData();
-                UserData.CreateData();
-            }
+                CreateData();
         }
 
         public static void SaveData()
@@ -45,7 +45,7 @@ namespace OMG.Datas
             try
             {
                 Directory.CreateDirectory(Application.persistentDataPath);
-                string dataToStore = JsonUtility.ToJson(UserData, true);
+                string dataToStore = JsonConvert.SerializeObject(UserData);
 
                 using (FileStream writeStream = new FileStream(fullPath, FileMode.Create))
                 {
@@ -74,6 +74,12 @@ namespace OMG.Datas
                     Debug.Log($"errror with deleting data file : {err.Message}");
                 }
             }
+        }
+
+        private static void CreateData()
+        {
+            UserData = new UserData();
+            UserData.CreateData();
         }
     }
 }
