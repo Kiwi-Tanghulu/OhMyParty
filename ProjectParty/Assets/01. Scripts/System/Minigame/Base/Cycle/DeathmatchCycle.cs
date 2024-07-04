@@ -58,15 +58,14 @@ namespace OMG.Minigames
                     {
                         data.score = score;
                         deadPlayerCount++;
-
                         Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Dead Player Count : {deadPlayerCount}");
-                        if ((minigame.PlayerDatas.Count - deadPlayerCount) <= 1)
-                            FinishCycle();
                     }
                     else
                         Respawn(clientID);
-                    
+
                     minigame.PlayerDatas[index] = data;
+                    if ((minigame.PlayerDatas.Count - deadPlayerCount) <= 1)
+                            FinishCycle();
                 }
             });
         }
@@ -75,6 +74,7 @@ namespace OMG.Minigames
         {
             minigame.PlayerDatas.ChangeData(i => i.IsDead == false, data => {
                 data.score = scoreWeight[deadPlayerCount];
+                Debug.Log($"Standing Player : {data.clientID} / score : {data.score}");
                 return data;
             });
             minigame.FinishGame();
