@@ -14,7 +14,7 @@ namespace OMG.Player.FSM
 
         private NetworkEvent playerDieEvent = new NetworkEvent("PlayerDieEvent");
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 

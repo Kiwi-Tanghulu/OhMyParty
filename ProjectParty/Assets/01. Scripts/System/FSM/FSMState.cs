@@ -6,7 +6,7 @@ namespace OMG.FSM
 {
     public class FSMState : MonoBehaviour
     {
-        protected FSMBrain brain;
+        protected CharacterFSM brain;
 
         public UnityEvent OnStateEnterEvent;
         public UnityEvent OnStateExitEvent;
@@ -14,7 +14,7 @@ namespace OMG.FSM
         private List<FSMTransition> transitions;
         private List<FSMAction> actions;
 
-        public virtual void InitState(FSMBrain brain)
+        public virtual void InitState(CharacterFSM brain)
         {
             this.brain = brain;
 

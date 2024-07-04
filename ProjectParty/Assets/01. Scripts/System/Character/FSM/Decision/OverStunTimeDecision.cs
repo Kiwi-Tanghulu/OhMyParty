@@ -9,7 +9,7 @@ namespace OMG.FSM
     {
         private CharacterStatSO characterStatSO;
 
-        public override void Init(FSMBrain brain)
+        public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
 

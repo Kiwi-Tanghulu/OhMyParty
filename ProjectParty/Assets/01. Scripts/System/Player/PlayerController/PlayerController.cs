@@ -1,5 +1,6 @@
 using OMG.FSM;
 using OMG.Lobbies;
+using Steamworks;
 using UnityEngine;
 
 namespace OMG.Player
@@ -12,44 +13,25 @@ namespace OMG.Player
         private ExtendedAnimator animator;
         public ExtendedAnimator Animator => animator;
 
-        private FSMBrain stateMachine;
-        public FSMBrain StateMachine => stateMachine;
-
-        protected override void Awake()
+        public override bool Init(ulong ownerID)
         {
-            visual = transform.Find("Visual").GetComponent<PlayerVisual>();
-            animator = visual.GetComponent<ExtendedAnimator>();
+            bool result = base.Init(ownerID);
 
-            base.Awake();
-        }
-
-        protected override void Start()
-        {
-            base.Start();
-#if UNITY_EDITOR
-            if (Lobby.Current == null)
+            if(result)
             {
-                
-                OnSpawnedEvent?.Invoke(OwnerClientId);
-                stateMachine = GetComponent<FSMBrain>();
-                stateMachine.Init();
+                visual = transform.Find("Visual").GetComponent<PlayerVisual>();
+                animator = visual.GetComponent<ExtendedAnimator>();
             }
-#endif
+
+            return result;
         }
 
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-            stateMachine = GetComponent<FSMBrain>();
-            stateMachine.Init();
-            stateMachine.NetworkInit();
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-
-            stateMachine.UpdateFSM();
-        }
+        //public override void OnNetworkSpawn()
+        //{
+        //    base.OnNetworkSpawn();
+        //    stateMachine = GetComponent<FSMBrain>();
+        //    stateMachine.Init();
+        //    stateMachine.NetworkInit();
+        //}
     }
 }

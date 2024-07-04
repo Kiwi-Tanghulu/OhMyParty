@@ -14,7 +14,7 @@ namespace OMG.Player.FSM
 
         protected ExtendedAnimator anim;
 
-        public override void Init(FSMBrain brain)
+        public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
 

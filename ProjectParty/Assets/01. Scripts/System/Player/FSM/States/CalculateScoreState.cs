@@ -14,7 +14,7 @@ namespace OMG.Player
 
         private Transform standingTrm;
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 

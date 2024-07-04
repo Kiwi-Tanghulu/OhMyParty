@@ -13,7 +13,7 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private float shortRadius;
         private DetectTargetParams targetParam = null;
 
-        public override void Init(FSMBrain brain)
+        public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
             targetParam = brain.GetFSMParam<DetectTargetParams>();

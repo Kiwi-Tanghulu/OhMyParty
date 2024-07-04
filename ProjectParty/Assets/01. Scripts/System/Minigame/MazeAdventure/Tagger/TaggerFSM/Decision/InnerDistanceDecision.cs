@@ -10,7 +10,7 @@ namespace OMG.Minigames.MazeAdventure
         [SerializeField] private float productValue;
         private DetectTargetParams targetParam = null;
         private float maxDistance;
-        public override void Init(FSMBrain brain)
+        public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
             targetParam = brain.GetFSMParam<DetectTargetParams>();

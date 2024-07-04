@@ -17,7 +17,7 @@ namespace OMG.Player.FSM
 
         private NetworkEvent onAttackNetworkEvent = new NetworkEvent("DoActionEvent");
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 

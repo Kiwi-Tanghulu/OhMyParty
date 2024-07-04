@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace OMG.FSM
 {
-    public class FSMBrain : NetworkBehaviour
+    public class CharacterFSM : CharacterComponent
     {
         private List<FSMState> states;
 

@@ -22,7 +22,7 @@ namespace OMG.Player.FSM
         private NetworkEvent onStartStunEvent = new NetworkEvent("StartStunEvent");
         private NetworkEvent onEndStunEvent = new NetworkEvent("EndStunEvent");
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 
