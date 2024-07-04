@@ -547,16 +547,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
-      propertyPath: OnHitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 7359544870668281047}
-    - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
-        type: 3}
-      propertyPath: OnHitEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 7359544870668281047}
-    - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
-        type: 3}
       propertyPath: OnHitEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -654,18 +644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d9a68111d371840ad1b3f66eac7c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7359544870668281047 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8760751646201899724, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 2285060201787903515}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7467492412324087635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697309a2258a4f1418469513740ca90a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7467492412324087635 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8653656707965372744, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -698,21 +676,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554a56cda7cd446499482e7a2596d01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSpawnedEvent:
+  OnInitEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5627790277805693662}
-        m_TargetAssemblyTypeName: OMG.Player.PlayerNameTag, Assembly-CSharp
-        m_MethodName: Init
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 3465003451858779339}
         m_TargetAssemblyTypeName: OMG.Player.PlayerVisual, Assembly-CSharp
         m_MethodName: Init
@@ -725,6 +691,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5627790277805693662}
+        m_TargetAssemblyTypeName: OMG.Player.PlayerNameTag, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  useInNetwork: 1
   input: {fileID: 11400000, guid: 2bad7e2a336d0ff45a57c72358fa1002, type: 2}
 --- !u!114 &8118891081474291126 stripped
 MonoBehaviour:

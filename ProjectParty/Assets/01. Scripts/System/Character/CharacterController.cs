@@ -23,7 +23,7 @@ namespace OMG
         public UnityEvent<ulong/*owner id*/> OnInitEvent;
         protected bool isInit = false;
 #if UNITY_EDITOR
-        [SerializeField] private bool useInNetwork = false;
+        [SerializeField] private bool useInNetwork = true;
 #endif
 
         protected virtual void Awake()

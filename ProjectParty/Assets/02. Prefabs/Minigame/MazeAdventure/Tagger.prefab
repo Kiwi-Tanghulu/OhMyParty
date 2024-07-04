@@ -434,8 +434,8 @@ GameObject:
   - component: {fileID: 7958560352743738096}
   - component: {fileID: 510216630314857792}
   - component: {fileID: 974429536051564042}
-  - component: {fileID: 3534363699486696859}
   - component: {fileID: 8013292153526764225}
+  - component: {fileID: 4041928198204287302}
   - component: {fileID: 5372254269900039298}
   - component: {fileID: 3489920535450377111}
   - component: {fileID: 4912859411163040777}
@@ -508,24 +508,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3534363699486696859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1993988503407102008}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697309a2258a4f1418469513740ca90a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultState: {fileID: 5095827988795727332}
-  currentState: {fileID: 0}
-  fsmParams:
-  - {fileID: 11400000, guid: 598a228f49f76804bbc7149b2386fc8d, type: 2}
-  - {fileID: 11400000, guid: 7b2958f06093b2745bf4c7c3211ba0bd, type: 2}
-  useInNetwork: 1
 --- !u!114 &8013292153526764225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,7 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99cae27881a794b418549360fc282658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSpawnedEvent:
+  OnInitEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5230548173733889382}
@@ -553,6 +535,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  useInNetwork: 1
+--- !u!114 &4041928198204287302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993988503407102008}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a65e1756ec6b942a026f00a3c6d22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultState: {fileID: 5095827988795727332}
+  currentState: {fileID: 0}
+  fsmParams:
+  - {fileID: 11400000, guid: 598a228f49f76804bbc7149b2386fc8d, type: 2}
+  - {fileID: 11400000, guid: 7b2958f06093b2745bf4c7c3211ba0bd, type: 2}
 --- !u!195 &5372254269900039298
 NavMeshAgent:
   m_ObjectHideFlags: 0

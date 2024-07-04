@@ -12,7 +12,6 @@ namespace OMG.Minigames.MazeAdventure
 {
     public class Tagger : CharacterController
     {
-        [SerializeField] private UnityEvent onSpawnedEvent = null;
         private CharacterFSM brain = null;
         private NavMeshAgent navMeshAgent = null;
         public DeathmatchCycle Cycle { get; private set; }
@@ -24,8 +23,6 @@ namespace OMG.Minigames.MazeAdventure
             if (result)
             {
                 navMeshAgent = GetComponent<NavMeshAgent>();
-
-                onSpawnedEvent?.Invoke();
 
                 if (IsHost)
                 {
