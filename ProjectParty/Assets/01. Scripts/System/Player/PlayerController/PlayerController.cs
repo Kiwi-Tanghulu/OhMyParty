@@ -10,17 +10,13 @@ namespace OMG.Player
         private PlayerVisual visual;
         public PlayerVisual Visual => visual;
 
-        private ExtendedAnimator animator;
-        public ExtendedAnimator Animator => animator;
-
         protected override bool Init()
         {
             bool result = base.Init();
 
             if(result)
             {
-                visual = transform.Find("Visual").GetComponent<PlayerVisual>();
-                animator = visual.GetComponent<ExtendedAnimator>();
+                visual = InitCompo(transform.Find("Visual").GetComponent<PlayerVisual>());
             }
 
             return result;

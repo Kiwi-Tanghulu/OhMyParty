@@ -30,7 +30,7 @@ namespace OMG.Player.FSM
         {
             base.InitState(brain);
 
-            anim = player.Animator;
+            anim = player.Visual.Anim;
             health = player.GetComponent<PlayerHealth>();
             
             playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;

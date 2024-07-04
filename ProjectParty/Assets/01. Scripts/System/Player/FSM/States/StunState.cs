@@ -28,7 +28,7 @@ namespace OMG.Player.FSM
 
             movement = player.GetComponent<CharacterMovement>();
             health = player.GetComponent<PlayerHealth>();
-            anim = player.Animator;
+            anim = player.Visual.Anim;
             ragdoll = player.Visual.Ragdoll;
 
             if(brain.Controller.IsSpawned)

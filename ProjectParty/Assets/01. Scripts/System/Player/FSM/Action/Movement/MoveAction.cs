@@ -25,7 +25,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            player.Animator.AnimEvent.OnPlayingSubEvent += AnimEvent_OnPlayingSubEvent;
+            player.Visual.Anim.AnimEvent.OnPlayingSubEvent += AnimEvent_OnPlayingSubEvent;
         }
 
         public override void UpdateState()
@@ -39,7 +39,7 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            player.Animator.AnimEvent.OnPlayingSubEvent -= AnimEvent_OnPlayingSubEvent;
+            player.Visual.Anim.AnimEvent.OnPlayingSubEvent -= AnimEvent_OnPlayingSubEvent;
         }
 
         private void AnimEvent_OnPlayingSubEvent()
