@@ -58,8 +58,8 @@ namespace OMG.Minigames
 
                     if(isDead)
                     {
-                        data.score = GetScore();
                         deadPlayerCount++;
+                        data.score = GetScore();
                         Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Dead Player Count : {deadPlayerCount}");
                     }
                     else
