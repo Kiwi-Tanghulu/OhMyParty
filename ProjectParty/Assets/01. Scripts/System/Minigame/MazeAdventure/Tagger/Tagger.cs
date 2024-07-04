@@ -26,7 +26,7 @@ namespace OMG.Minigames.MazeAdventure
 
                 if (IsHost)
                 {
-                    FSM.enabled = true;
+                    GetCompo<CharacterFSM>().enabled = true;
                     navMeshAgent.enabled = true;
                 }
             }

@@ -31,14 +31,14 @@ namespace OMG.Minigames.SafetyZone
             if(slowCoroutine != null)
             {
                 StopCoroutine(slowCoroutine);
-                Stat.StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
+                GetCompo<CharacterStat>().StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
             }
 
             // 슬로우 시작
             SlowEffectServerRPC(true);
-            Stat.StatSO[CharacterStatType.MaxMoveSpeed].AddModifier(slow);
+            GetCompo<CharacterStat>().StatSO[CharacterStatType.MaxMoveSpeed].AddModifier(slow);
             slowCoroutine = StartCoroutine(this.DelayCoroutine(duration, () => {
-                Stat.StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
+                GetCompo<CharacterStat>().StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
                 // 슬로우 종료
                 SlowEffectServerRPC(false);
             }));

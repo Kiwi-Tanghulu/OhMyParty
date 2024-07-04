@@ -1,3 +1,4 @@
+using OMG.FSM;
 using OMG.Lobbies;
 
 namespace OMG.Player
@@ -34,7 +35,7 @@ namespace OMG.Player
                     renderTargetPlayerVisual.SetPose(RenderTargetPlayerPoseType.Idle);
 
                     if(IsOwner)
-                        FSM.ChangeState(typeof(CalculateScoreState));
+                        GetCompo<CharacterFSM>().ChangeState(typeof(CalculateScoreState));
 
                     break;
             }

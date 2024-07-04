@@ -42,6 +42,7 @@ namespace OMG.Minigames.MazeAdventure
             {
                 MazeAdventurePlayerController player = other.GetComponent<MazeAdventurePlayerController>();
                 if (player.IsInvisibil) return;
+                if (!player.IsOwner) return;
                 player.PlayerDead();
                 brain.ChangeState(nextStateIdle);
             }

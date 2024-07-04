@@ -30,10 +30,10 @@ namespace OMG.Player.FSM
         {
             base.InitState(brain);
 
-            anim = player.Visual.Anim;
+            anim = player.GetCompo<PlayerVisual>().Anim;
             health = player.GetComponent<PlayerHealth>();
             
-            playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
+            playerSkin = player.GetCompo<PlayerVisual>().SkinSelector.CurrentSkin as CharacterSkin;
             
             wfs = new WaitForSeconds(playerHitableDelayTime);
 
@@ -111,7 +111,7 @@ namespace OMG.Player.FSM
         private void OnStartRecovery(NoneParams param)
         {
             if (playerSkin == null)
-                playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
+                playerSkin = player.GetCompo<PlayerVisual>().SkinSelector.CurrentSkin as CharacterSkin;
 
             float twinkleTweenTime = playerHitableDelayTime / 4f;
             twinkleTween = DOTween.Sequence();

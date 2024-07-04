@@ -35,7 +35,7 @@ namespace OMG.Minigames.MazeAdventure
                 return;
 
             GetComponent<CharacterMovement>().SetMoveSpeed(0f);
-            FSM.ChangeState(typeof(DieState));
+            GetCompo<CharacterFSM>().ChangeState(typeof(DieState));
             PlayerDeadServerRpc();
         }
 
