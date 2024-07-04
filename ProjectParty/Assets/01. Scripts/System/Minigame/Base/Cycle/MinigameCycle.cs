@@ -55,6 +55,8 @@ namespace OMG.Minigames
                 Fade.Instance.FadeOut(0f, () =>
                 {
                     InputManager.SetInputEnable(false);
+                    DEFINE.MinigameCanvas.ChangeRenderTypea();
+                    Debug.Log(123);
                 }, () =>
                 {
                     if (IsHost)

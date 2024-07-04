@@ -30,11 +30,14 @@ namespace OMG.Minigames.MazeAdventure
         public override void OnNetworkSpawn()
         {
             onSpawnedEvent?.Invoke();
+
+            brain.Init();
+            brain.NetworkInit();
+
             if (IsHost)
             {
                 brain.enabled = true;
                 navMeshAgent.enabled = true;
-                brain.Init();
             }
         }
     }

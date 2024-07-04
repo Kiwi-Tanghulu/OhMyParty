@@ -1,3 +1,4 @@
+using OMG.UI;
 using UnityEngine;
 
 namespace OMG
@@ -21,11 +22,11 @@ namespace OMG
             }
         }
 
-        private static Transform minigameCanvas = null;
-        public static Transform MinigameCanvas {
+        private static MinigameCanvas minigameCanvas = null;
+        public static MinigameCanvas MinigameCanvas {
             get {
                 if(minigameCanvas == null)
-                    minigameCanvas = GameObject.Find("MinigameCanvas")?.transform;
+                    minigameCanvas = GameObject.Find("MinigameCanvas")?.GetComponent<MinigameCanvas>();
                 return minigameCanvas;
             }
         }
