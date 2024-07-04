@@ -238,10 +238,8 @@ namespace OMG.UI
 
         private void SetSlotsMinigameSO()
         {
-            if(minigameComp.NotPlayedMinigameList.Count == minigameListSO.Count)
-            {
-
-            }
+            if (!Lobby.Current.IsServer)
+                return;
 
             List<MinigameSO> randMinigameList = minigameComp.NotPlayedMinigameList.Shuffle();
             int minigameCount = Mathf.Min(maxMinigameCount, randMinigameList.Count);
