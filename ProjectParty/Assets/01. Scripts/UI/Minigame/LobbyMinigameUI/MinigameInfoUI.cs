@@ -80,6 +80,7 @@ namespace OMG.UI
 
         private void SetPlayerUI()
         {
+            Debug.Log("set player ui");
             foreach (var keyValuePair in readyCheckBoxDictionary)
                 Destroy(keyValuePair.Value.gameObject);
             readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();

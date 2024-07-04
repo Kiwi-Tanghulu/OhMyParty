@@ -107,9 +107,9 @@ namespace OMG.Lobbies
 
         private void HandleMinigameFinished(Minigame minigame)
         {
-            currentCycleCount++;
             Lobby.SetActive(true);
 
+            currentCycleCount++;
             bool cycleFinished = currentCycleCount >= MinigameCycleCount;
             Lobby.ChangeLobbyState(cycleFinished ? LobbyState.Community : LobbyState.MinigameFinished);
             BroadcastMinigameFinishedClientRpc(cycleFinished);
@@ -146,6 +146,9 @@ namespace OMG.Lobbies
         private void BroadcastMinigameFinishedClientRpc(bool cycleFinished)
         {
             OnMinigameFinishedEvent?.Invoke(MinigameManager.Instance.CurrentMinigame, cycleFinished);
+
+            if(!IsHost)
+                currentCycleCount++;
         }
     }
 }

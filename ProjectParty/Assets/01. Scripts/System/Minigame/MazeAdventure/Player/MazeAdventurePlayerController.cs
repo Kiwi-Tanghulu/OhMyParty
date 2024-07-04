@@ -11,7 +11,6 @@ namespace OMG.Minigames.MazeAdventure
     public class MazeAdventurePlayerController : PlayerController, IInvisibility
     {
         [SerializeField] private ItemSystem itemSystem;
-        [SerializeField] private FSMState dieState;
         [SerializeField] private UnityEvent dieEvent;
         [SerializeField] private PlayerOutLine playerOutLine;
         [SerializeField] private MazeAdventurePlayerVisual mazeAdventurePlayerVisual;
@@ -32,13 +31,20 @@ namespace OMG.Minigames.MazeAdventure
 
         public void PlayerDead()
         {
-            DeathmatchCycle cycle = MinigameManager.Instance.CurrentMinigame.Cycle as DeathmatchCycle;;
-            cycle.SetPlayerDead(OwnerClientId);
+            if (!IsOwner)
+                return;
 
-            dieEvent?.Invoke();
             GetComponent<CharacterMovement>().SetMoveSpeed(0f);
             StateMachine.ChangeState(typeof(DieState));
-            //StateMachine.ChangeState(dieState);
+            PlayerDeadServerRpc();
+        }
+
+        [ServerRpc]
+        private void PlayerDeadServerRpc()
+        {
+            DeathmatchCycle cycle = MinigameManager.Instance.CurrentMinigame.Cycle as DeathmatchCycle; ;
+            cycle.SetPlayerDead(OwnerClientId);
+            dieEvent?.Invoke();
         }
 
         #region Invisibil

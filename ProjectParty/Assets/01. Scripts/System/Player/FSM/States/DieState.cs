@@ -1,4 +1,5 @@
 using OMG.FSM;
+using OMG.NetworkEvents;
 using OMG.Ragdoll;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace OMG.Player.FSM
         private RagdollController ragdoll;
         private PlayerHealth health;
 
+        private NetworkEvent playerDieEvent = new NetworkEvent("PlayerDieEvent");
+
         public override void InitState(FSMBrain brain)
         {
             base.InitState(brain);
@@ -19,10 +22,23 @@ namespace OMG.Player.FSM
             ragdoll = player.Visual.Ragdoll;
         }
 
+        public override void NetworkInit()
+        {
+            base.NetworkInit();
+
+            playerDieEvent.AddListener(Die);
+            playerDieEvent.Register(player.NetworkObject);
+        }
+
         public override void EnterState()
         {
             base.EnterState();
 
+            playerDieEvent?.Broadcast();
+        }
+
+        private void Die(NoneParams param)
+        {
             ragdoll.SetActive(true);
             ragdoll.AddForce(0f * health.HitDir, ForceMode.Impulse);
         }
