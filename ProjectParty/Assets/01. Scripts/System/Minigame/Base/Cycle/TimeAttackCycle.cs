@@ -6,6 +6,7 @@ namespace OMG.Minigames
     [RequireComponent(typeof(NetworkTimer))]
     public class TimeAttackCycle : MinigameCycle
     {
+        [SerializeField] float playTime = 30f;
         private NetworkTimer timer = null;
 
         protected override void Awake()
@@ -14,7 +15,7 @@ namespace OMG.Minigames
             timer = GetComponent<NetworkTimer>();
         }
 
-        public void StartCycle(float playTime)
+        public void StartCycle()
         {
             timer.SetTimer(playTime);
             timer.OnTimerFinishedEvent.AddListener(FinishCycle);

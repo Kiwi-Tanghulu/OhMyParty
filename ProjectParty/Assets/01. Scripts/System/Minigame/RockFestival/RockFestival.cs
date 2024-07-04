@@ -6,9 +6,6 @@ namespace OMG.Minigames.RockFestival
     {
         [SerializeField] ScoreArea[] scoreAreas = null;
 
-        [Space(15f)]
-        [SerializeField] float playTime = 60f;
-
         private RockSpawner spawner = null;
         private TimeAttackCycle timeAttackCycle = null;
 
@@ -54,7 +51,7 @@ namespace OMG.Minigames.RockFestival
                 return;
 
             spawner.SetActive(true);
-            timeAttackCycle.StartCycle(playTime);
+            timeAttackCycle.StartCycle();
         }
 
         public override void FinishGame()
