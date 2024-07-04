@@ -20,14 +20,12 @@ namespace OMG.Player.FSM
 
             health = player.GetComponent<PlayerHealth>();
             ragdoll = player.Visual.Ragdoll;
-        }
 
-        public override void NetworkInit()
-        {
-            base.NetworkInit();
-
-            playerDieEvent.AddListener(Die);
-            playerDieEvent.Register(player.NetworkObject);
+            if(brain.Controller.IsSpawned)
+            {
+                playerDieEvent.AddListener(Die);
+                playerDieEvent.Register(player.NetworkObject);
+            }
         }
 
         public override void EnterState()

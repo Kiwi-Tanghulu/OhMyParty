@@ -36,17 +36,15 @@ namespace OMG.Player.FSM
             playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
             
             wfs = new WaitForSeconds(playerHitableDelayTime);
-        }
 
-        public override void NetworkInit()
-        {
-            base.NetworkInit();
+            if(brain.Controller.IsSpawned)
+            {
+                onStartRecoveryEvent.AddListener(OnStartRecovery);
+                onEndRecoveryEvent.AddListener(OnEndRecovery);
 
-            onStartRecoveryEvent.AddListener(OnStartRecovery);
-            onEndRecoveryEvent.AddListener(OnEndRecovery);
-
-            onStartRecoveryEvent.Register(player.GetComponent<NetworkObject>());
-            onEndRecoveryEvent.Register(player.GetComponent<NetworkObject>());
+                onStartRecoveryEvent.Register(player.GetComponent<NetworkObject>());
+                onEndRecoveryEvent.Register(player.GetComponent<NetworkObject>());
+            }
         }
 
         public override void EnterState()
@@ -58,7 +56,7 @@ namespace OMG.Player.FSM
             health.Hitable = false;
             health.PlayerHitable = false;
 
-            if(brain.IsNetworkInit)
+            if(brain.Controller.IsSpawned)
             {
                 onStartRecoveryEvent.Broadcast();
             }
@@ -76,7 +74,7 @@ namespace OMG.Player.FSM
 
             health.Hitable = true;
 
-            if (brain.IsNetworkInit)
+            if (brain.Controller.IsSpawned)
             {
                 onEndRecoveryEvent.Broadcast();
             }

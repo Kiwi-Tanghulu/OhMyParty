@@ -6,7 +6,8 @@ namespace OMG
 {
     public class CharacterComponent : MonoBehaviour
     {
-        protected OMG.CharacterController controller;
+        private OMG.CharacterController controller;
+        public OMG.CharacterController Controller;
 
         public virtual void Init(OMG.CharacterController controller)
         {

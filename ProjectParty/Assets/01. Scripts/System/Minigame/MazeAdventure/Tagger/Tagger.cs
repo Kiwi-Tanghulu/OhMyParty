@@ -1,4 +1,6 @@
 using OMG.FSM;
+using OMG.Player;
+using Steamworks.Data;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -8,37 +10,36 @@ using UnityEngine.Events;
 
 namespace OMG.Minigames.MazeAdventure
 {
-    public class Tagger : NetworkBehaviour
+    public class Tagger : CharacterController
     {
         [SerializeField] private UnityEvent onSpawnedEvent = null;
         private CharacterFSM brain = null;
         private NavMeshAgent navMeshAgent = null;
         public DeathmatchCycle Cycle { get; private set; }
-        private void Awake()
+
+        protected override bool Init()
         {
-            brain = GetComponent<CharacterFSM>();
-            navMeshAgent = GetComponent<NavMeshAgent>();
+            bool result = base.Init();
+
+            if (result)
+            {
+                navMeshAgent = GetComponent<NavMeshAgent>();
+
+                onSpawnedEvent?.Invoke();
+
+                if (IsHost)
+                {
+                    FSM.enabled = true;
+                    navMeshAgent.enabled = true;
+                }
+            }
+
+            return result;
         }
-        public void Init(DeathmatchCycle cycle)
+
+        public void SetCycle(DeathmatchCycle cycle)
         {
             Cycle = cycle;
-        }
-        private void Update()
-        {
-            brain.UpdateFSM();
-        }
-        public override void OnNetworkSpawn()
-        {
-            onSpawnedEvent?.Invoke();
-
-            brain.Init();
-            brain.NetworkInit();
-
-            if (IsHost)
-            {
-                brain.enabled = true;
-                navMeshAgent.enabled = true;
-            }
         }
     }
 }

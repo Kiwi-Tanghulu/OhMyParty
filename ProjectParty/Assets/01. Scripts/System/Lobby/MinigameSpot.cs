@@ -82,7 +82,7 @@ namespace OMG.Lobbies
             {
                 currentClientID = player.OwnerClientId;
                 readyComponent.Ready(currentClientID);
-                playerController.StateMachine.ChangeState(typeof(SitState));
+                playerController.FSM.ChangeState(typeof(SitState));
             }
 
             OnInteractEvent?.Invoke();

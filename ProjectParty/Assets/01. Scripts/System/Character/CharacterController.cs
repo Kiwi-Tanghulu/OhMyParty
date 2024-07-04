@@ -29,12 +29,20 @@ namespace OMG
         protected virtual void Awake()
         {
 #if UNITY_EDITOR
-            if (useInNetwork)
-                Init(0);
+            if (!useInNetwork)
+                Init();
 #endif
         }
 
-        public virtual bool Init(ulong ownerID)
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            Init();
+        }
+
+        // call when spawned
+        protected virtual bool Init()
         {
             if (isInit)
                 return false;
@@ -47,7 +55,7 @@ namespace OMG
             movement = InitCompo(GetComponent<CharacterMovement>());
             fsm = InitCompo(GetComponent<CharacterFSM>());
 
-            OnInitEvent?.Invoke(ownerID);
+            OnInitEvent?.Invoke(OwnerClientId);
 
             return true;
         }

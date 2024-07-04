@@ -13,7 +13,6 @@ namespace OMG.FSM
             this.brain = brain;
         }
 
-        public virtual void NetworkInit() { }
         public virtual void EnterState() { }
         public virtual void UpdateState() { }
         public virtual void ExitState() { }

@@ -13,9 +13,9 @@ namespace OMG.Player
         private ExtendedAnimator animator;
         public ExtendedAnimator Animator => animator;
 
-        public override bool Init(ulong ownerID)
+        protected override bool Init()
         {
-            bool result = base.Init(ownerID);
+            bool result = base.Init();
 
             if(result)
             {
@@ -25,13 +25,5 @@ namespace OMG.Player
 
             return result;
         }
-
-        //public override void OnNetworkSpawn()
-        //{
-        //    base.OnNetworkSpawn();
-        //    stateMachine = GetComponent<FSMBrain>();
-        //    stateMachine.Init();
-        //    stateMachine.NetworkInit();
-        //}
     }
 }

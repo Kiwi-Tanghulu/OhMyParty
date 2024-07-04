@@ -30,24 +30,22 @@ namespace OMG.Player.FSM
             health = player.GetComponent<PlayerHealth>();
             anim = player.Animator;
             ragdoll = player.Visual.Ragdoll;
-        }
 
-        public override void NetworkInit()
-        {
-            base.NetworkInit();
+            if(brain.Controller.IsSpawned)
+            {
+                onStartStunEvent.AddListener(StratStun);
+                onEndStunEvent.AddListener(EndStun);
 
-            onStartStunEvent.AddListener(StratStun);
-            onEndStunEvent.AddListener(EndStun);
-
-            onStartStunEvent.Register(player.GetComponent<NetworkObject>());
-            onEndStunEvent.Register(player.GetComponent<NetworkObject>());
+                onStartStunEvent.Register(player.GetComponent<NetworkObject>());
+                onEndStunEvent.Register(player.GetComponent<NetworkObject>());
+            }
         }
 
         public override void EnterState()
         {
             base.EnterState();
 
-            if (brain.IsNetworkInit)
+            if (brain.Controller.IsSpawned)
             {
                 onStartStunEvent.Broadcast();
             }
@@ -63,7 +61,7 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            if (brain.IsNetworkInit)
+            if (brain.Controller.IsSpawned)
             {
                 onEndStunEvent.Broadcast();
             }

@@ -35,14 +35,6 @@ namespace OMG.FSM
                 }   
             }
         }
-        
-        public virtual void NetworkInit() 
-        {
-            for (int i = 0; i < actions.Count; i++)
-            {
-                actions[i].NetworkInit();
-            }
-        }
 
         public virtual void EnterState()
         {
