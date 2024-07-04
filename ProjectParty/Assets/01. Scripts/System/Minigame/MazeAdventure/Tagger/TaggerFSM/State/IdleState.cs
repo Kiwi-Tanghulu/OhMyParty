@@ -24,7 +24,7 @@ namespace OMG.Minigames.MazeAdventure
         private float randomValue;
         private float cumulativeWeight;
         private MoveTargetParams targetParam = null;
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 

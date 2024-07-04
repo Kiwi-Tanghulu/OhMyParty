@@ -9,7 +9,7 @@ namespace OMG.Minigames.MazeAdventure
     {
         private DetectTargetParams targetParam = null;
         private IInvisibility invisibility = null;
-        public override void Init(FSMBrain brain)
+        public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
             targetParam = brain.GetFSMParam<DetectTargetParams>();

@@ -10,7 +10,7 @@ public class AnimatorAction : FSMAction
     private int animBoolHash;
     [SerializeField] private Animator animator;
 
-    public override void Init(FSMBrain brain)
+    public override void Init(CharacterFSM brain)
     {
         base.Init(brain);
         animBoolHash = Animator.StringToHash(animBoolName);

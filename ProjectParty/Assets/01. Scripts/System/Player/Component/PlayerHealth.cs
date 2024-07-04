@@ -15,7 +15,7 @@ namespace OMG.Player
 
         public UnityEvent<Vector3 /*hit point*/> OnDamagedEvent;
 
-        private FSMBrain fsm;
+        private CharacterFSM fsm;
 
         public Transform Attacker => attacker;
         public float Damage => damage;
@@ -27,7 +27,7 @@ namespace OMG.Player
 
         private void Awake()
         {
-            fsm = GetComponent<FSMBrain>();
+            fsm = GetComponent<CharacterFSM>();
 
             Hitable = true;
             PlayerHitable = true;

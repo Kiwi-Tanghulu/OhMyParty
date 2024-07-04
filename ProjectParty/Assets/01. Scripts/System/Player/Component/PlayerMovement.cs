@@ -20,7 +20,7 @@ namespace OMG.Player
         {
             base.Init(controller);
 
-            anim = GetComponent<PlayerController>().Animator;
+            anim = controller.GetCompo<PlayerVisual>().Anim;
 
             OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
             OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);

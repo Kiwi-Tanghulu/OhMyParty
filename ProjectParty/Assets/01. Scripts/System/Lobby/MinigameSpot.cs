@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cinemachine;
 using OMG.Extensions;
+using OMG.FSM;
 using OMG.Inputs;
 using OMG.Interacting;
 using OMG.Minigames;
@@ -82,7 +83,7 @@ namespace OMG.Lobbies
             {
                 currentClientID = player.OwnerClientId;
                 readyComponent.Ready(currentClientID);
-                playerController.StateMachine.ChangeState(typeof(SitState));
+                playerController.GetCompo<CharacterFSM>().ChangeState(typeof(SitState));
             }
 
             OnInteractEvent?.Invoke();

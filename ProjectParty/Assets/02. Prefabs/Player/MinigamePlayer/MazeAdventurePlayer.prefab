@@ -20080,7 +20080,7 @@ PrefabInstance:
     - target: {fileID: 4260335872563373893, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1503285153
+      value: 41031881
       objectReference: {fileID: 0}
     - target: {fileID: 5062687372235613388, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
@@ -20218,6 +20218,18 @@ MonoBehaviour:
   invisibilityAlpha: 40
   invisibilityMat: {fileID: 2100000, guid: d1b75cb3c2a15b84bbc9afe5bc356d12, type: 2}
   invisiblityParticle: {fileID: 7010408142175554307}
+--- !u!114 &1181453154826454181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6705504672991681046, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3853981177553999867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d361d0b6a78f0947ac7bb116e02e2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &1399364974354547511 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 6773531061483789700, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -20234,6 +20246,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53d9a68111d371840ad1b3f66eac7c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2273631166532021542 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3853981177553999867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a70684cc2d1ac1459a8cab6d5e110e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3853981177553999867 stripped
@@ -20254,7 +20278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f04b13fa9f237646b452fa169bbd751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSpawnedEvent:
+  compoList:
+  - {fileID: 7119032095840545891}
+  - {fileID: 1181453154826454181}
+  - {fileID: 2273631166532021542}
+  - {fileID: 5507490061066551089}
+  OnInitEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2072824396306975350}
@@ -20269,20 +20298,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7119032095840545891}
-        m_TargetAssemblyTypeName: OMG.Player.PlayerVisual, Assembly-CSharp
-        m_MethodName: Init
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  useInNetwork: 1
   itemSystem: {fileID: 3878486720323711876}
-  dieState: {fileID: 8035489800191201014}
   dieEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -20316,6 +20333,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioLibrary: {fileID: 11400000, guid: fc89eb56e4f86ca41aa4b533d033ba5c, type: 2}
+--- !u!114 &5507490061066551089 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 73579990839173506, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5578800621233249971}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3853981177553999867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a65e1756ec6b942a026f00a3c6d22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6578611427595972520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -20370,15 +20399,3 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 5578800621233249971}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8035489800191201014 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2515307658907340869, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 5578800621233249971}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62b225cb0b0b2d645839894d70963332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

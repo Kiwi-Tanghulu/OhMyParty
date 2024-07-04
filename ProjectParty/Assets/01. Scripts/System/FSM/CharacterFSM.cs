@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace OMG.FSM
 {
-    public class FSMBrain : NetworkBehaviour
+    public class CharacterFSM : CharacterComponent
     {
         private List<FSMState> states;
 
@@ -18,17 +18,11 @@ namespace OMG.FSM
         private Dictionary<Type, FSMParamSO> fsmParamDictionary = null;
 
         private bool isInit;
-        private bool isNetworkInit;
 
-        public bool IsInit => isInit;
-        public bool IsNetworkInit => isNetworkInit;
-
-#if UNITY_EDITOR
-        [SerializeField] private bool useInNetwork;
-#endif
-
-        public void Init()
+        public override void Init(OMG.CharacterController controller)
         {
+            base.Init(controller);
+
             //param
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
             fsmParams.ForEach(i => {
@@ -52,107 +46,34 @@ namespace OMG.FSM
 
             isInit = true;
 
-#if UNITY_EDITOR
-            if (!useInNetwork)
-            {
-                if (defaultState == null)
-                {
-                    Debug.LogError("not set start state");
-                }
-                else
-                {
-                    ChangeState(defaultState);
-                }
-            }
-#endif
-        }
-
-        public void NetworkInit()
-        {
-            isNetworkInit = true;
-
-            foreach (FSMState state in states)
-            {
-                state.NetworkInit();
-            }
-
             if (defaultState == null)
             {
                 Debug.LogError("not set start state");
             }
             else
             {
-                ChangeState(defaultState);
+                if(controller.IsOwner)
+                    ChangeState(defaultState);
             }
         }
 
-        public override void OnNetworkSpawn()
+        public override void UpdateCompo()
         {
-            base.OnNetworkSpawn();
+            base.UpdateCompo();
 
-            
-        }
-
-        public void UpdateFSM()
-        {
-#if UNITY_EDITOR
-            if(useInNetwork)
-            {
-                if (!isNetworkInit || !IsOwner)
-                    return;
-            }
-            else
-            {
-                if (!isInit)
-                    return;
-            }
-#else
-            if (!isNetworkInit || !IsOwner)
-                    return;
-#endif
+            if (!isInit)
+                return;
 
             currentState?.UpdateState();
         }
 
         private void OnEnable()
         {
-#if UNITY_EDITOR
-            if (useInNetwork)
-            {
-                if (!isNetworkInit || !IsOwner)
-                    return;
-            }
-            else
-            {
-                if (!isInit)
-                    return;
-            }
-#else
-            if (!isNetworkInit || !IsOwner)
-                    return;
-#endif
-
             currentState?.EnterState();
         }
 
         private void OnDisable()
         {
-#if UNITY_EDITOR
-            if (useInNetwork)
-            {
-                if (!isNetworkInit || !IsOwner)
-                    return;
-            }
-            else
-            {
-                if (!isInit)
-                    return;
-            }
-#else
-            if (!isNetworkInit || !IsOwner)
-                    return;
-#endif
-
             currentState?.ExitState();   
         }
 
@@ -191,22 +112,11 @@ namespace OMG.FSM
 
         private void ChangeState(int stateIndex)
         {
-#if UNITY_EDITOR
-            if (useInNetwork)
+            if (!Controller.IsOwner)
             {
-                if (!isNetworkInit || !IsOwner)
-                    return;
+                Debug.LogError("only can call change state in owner");
+                return;
             }
-            else
-            {
-                if (!isInit)
-                    return;
-            }
-#else
-            if (!isNetworkInit || !IsOwner)
-                    return;
-#endif
-
             if (states == null)
                 return;
             if (stateIndex >= states.Count)

@@ -2241,13 +2241,13 @@ GameObject:
   - component: {fileID: 4260335872563373893}
   - component: {fileID: 8441183456195435575}
   - component: {fileID: 807048018500501385}
-  - component: {fileID: 8760751646201899724}
   - component: {fileID: 5973583883872236437}
   - component: {fileID: 6773531061483789700}
   - component: {fileID: 7852917561015819019}
   - component: {fileID: 2227828243156353326}
   - component: {fileID: 8679296315069631493}
   - component: {fileID: 6705504672991681046}
+  - component: {fileID: 73579990839173506}
   m_Layer: 9
   m_Name: BasePlayer
   m_TagString: Player
@@ -2338,7 +2338,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37be99de5f10964db6f861954fa6fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSpawnedEvent:
+  compoList:
+  - {fileID: 3431743338648711888}
+  - {fileID: 6705504672991681046}
+  - {fileID: 5973583883872236437}
+  - {fileID: 73579990839173506}
+  OnInitEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5886142406603183301}
@@ -2353,34 +2358,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3431743338648711888}
-        m_TargetAssemblyTypeName: OMG.Player.PlayerVisual, Assembly-CSharp
-        m_MethodName: Init
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8760751646201899724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8653656707965372744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697309a2258a4f1418469513740ca90a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultState: {fileID: 318231267551883930}
-  currentState: {fileID: 0}
-  fsmParams: []
-  useInNetwork: 1
+  useInNetwork: 0
 --- !u!114 &5973583883872236437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2522,6 +2500,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statSORef: {fileID: 11400000, guid: 6158b9effabe2f048a0397e1df8effc3, type: 2}
+--- !u!114 &73579990839173506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653656707965372744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a65e1756ec6b942a026f00a3c6d22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultState: {fileID: 318231267551883930}
+  currentState: {fileID: 0}
+  fsmParams: []
 --- !u!1 &8662157353629703026
 GameObject:
   m_ObjectHideFlags: 0

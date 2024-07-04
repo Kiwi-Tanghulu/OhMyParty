@@ -10,11 +10,11 @@ namespace OMG.Player.FSM
     {
         private ExtendedAnimator anim;
 
-        public override void Init(FSMBrain brain)
+        public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
 
-            anim = player.Animator;
+            anim = player.GetCompo<PlayerVisual>().Anim;
         }
 
         public override void EnterState()

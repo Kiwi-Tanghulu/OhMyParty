@@ -17,7 +17,7 @@ namespace OMG.Minigames.MazeAdventure
 
         private Transform taggerTrm;
         private NavMeshAgent navMeshAgent;
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 

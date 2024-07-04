@@ -1,35 +1,31 @@
+using OMG.FSM;
 using OMG.Lobbies;
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace OMG
 {
     public class CharacterController : NetworkBehaviour
     {
-        private CharacterStat stat;
-        public CharacterStat Stat => stat;
+        [SerializeField] private List<CharacterComponent> compoList;
+        private Dictionary<Type, CharacterComponent> compoDictionary;
 
-        private CharacterMovement movement;
-        public CharacterMovement Movement => movement;
+        [Space]
+        public UnityEvent<ulong/*owner id*/> OnInitEvent;
+        protected bool isInit = false;
 
-        private List<CharacterComponent> compoList;
-
-        public UnityEvent<ulong/*owner id*/> OnSpawnedEvent;
+#if UNITY_EDITOR
+        [SerializeField] private bool useInNetwork = true;
+#endif
 
         protected virtual void Awake()
         {
-            compoList = new List<CharacterComponent>();
-
-            stat = InitCompo(GetComponent<CharacterStat>());
-            movement = InitCompo(GetComponent<CharacterMovement>());
-        }
-
-        protected virtual void Start()
-        {
 #if UNITY_EDITOR
-            if (Lobby.Current == null)
-                OnSpawnedEvent?.Invoke(OwnerClientId);
+            if (!useInNetwork)
+                Init();
 #endif
         }
 
@@ -37,22 +33,73 @@ namespace OMG
         {
             base.OnNetworkSpawn();
 
-            OnSpawnedEvent?.Invoke(OwnerClientId);
+            Init();
         }
 
+        // call when spawned
+        protected virtual bool Init()
+        {
+            if (isInit)
+                return false;
+
+            isInit = true;
+
+            InitCompos();
+
+            OnInitEvent?.Invoke(OwnerClientId);
+
+            return true;
+        }
 
         protected virtual void Update()
+        {
+            if (!isInit)
+                return;
+
+            UpdateController();
+        }
+
+        protected virtual void UpdateController()
         {
             for (int i = 0; i < compoList.Count; i++)
                 compoList[i].UpdateCompo();
         }
 
-        protected T InitCompo<T>(T compo) where T : CharacterComponent
+        private T InitCompo<T>(T compo) where T : CharacterComponent
         {
+            if(compo == null)
+            {
+                Debug.LogError($"{typeof(T)} is null");
+
+                return null;
+            }
+
+            compoDictionary.Add(compo.GetType(), compo);
+
             compo.Init(this);
-            compoList.Add(compo);
 
             return compo;
+        }
+
+        private void InitCompos()
+        {
+            compoDictionary = new Dictionary<Type, CharacterComponent>();
+
+            foreach (CharacterComponent compo in compoList)
+            {
+                InitCompo(compo);
+            }
+        }
+
+        public T GetCompo<T>() where T : CharacterComponent
+        {
+            if(!compoDictionary.ContainsKey(typeof(T)))
+            {
+                Debug.LogError($"not exsist compo : {typeof(T)}");
+                return null;
+            }
+
+            return compoDictionary[typeof(T)] as T;
         }
     }
 }

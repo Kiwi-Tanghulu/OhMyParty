@@ -11,11 +11,11 @@ namespace OMG.Player.FSM
 
         private readonly int moveSpeedAnimHash = Animator.StringToHash("moveSpeed");
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 
-            anim = player.Animator;
+            anim = player.GetCompo<PlayerVisual>().Anim;
         }
 
         public override void EnterState()

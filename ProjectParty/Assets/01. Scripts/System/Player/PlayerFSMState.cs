@@ -10,7 +10,7 @@ namespace OMG.Player.FSM
     {
         protected PlayerController player;
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 

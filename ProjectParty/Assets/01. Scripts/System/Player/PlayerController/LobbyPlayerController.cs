@@ -1,3 +1,4 @@
+using OMG.FSM;
 using OMG.Lobbies;
 
 namespace OMG.Player
@@ -32,7 +33,10 @@ namespace OMG.Player
             {
                 case LobbyState.MinigameFinished:
                     renderTargetPlayerVisual.SetPose(RenderTargetPlayerPoseType.Idle);
-                    StateMachine.ChangeState(typeof(CalculateScoreState));
+
+                    if(IsOwner)
+                        GetCompo<CharacterFSM>().ChangeState(typeof(CalculateScoreState));
+
                     break;
             }
         }

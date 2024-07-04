@@ -14,20 +14,18 @@ namespace OMG.Player.FSM
 
         private NetworkEvent playerDieEvent = new NetworkEvent("PlayerDieEvent");
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 
             health = player.GetComponent<PlayerHealth>();
-            ragdoll = player.Visual.Ragdoll;
-        }
+            ragdoll = player.GetCompo<PlayerVisual>().Ragdoll;
 
-        public override void NetworkInit()
-        {
-            base.NetworkInit();
-
-            playerDieEvent.AddListener(Die);
-            playerDieEvent.Register(player.NetworkObject);
+            if(brain.Controller.IsSpawned)
+            {
+                playerDieEvent.AddListener(Die);
+                playerDieEvent.Register(player.NetworkObject);
+            }
         }
 
         public override void EnterState()
