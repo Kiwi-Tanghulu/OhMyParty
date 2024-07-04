@@ -81,8 +81,15 @@ namespace OMG.UI
         private void SetPlayerUI()
         {
             Debug.Log("set player ui");
-            foreach (var keyValuePair in readyCheckBoxDictionary)
-                Destroy(keyValuePair.Value.gameObject);
+            foreach(Transform checkboxTrm in readyCheckBoxContainer)
+            {
+                if(checkboxTrm.TryGetComponent<PlayerReadyCheckBox>(out PlayerReadyCheckBox checkBox))
+                {
+                    Destroy(checkBox.gameObject);
+                }
+            }
+            //foreach (var keyValuePair in readyCheckBoxDictionary)
+            //    Destroy(keyValuePair.Value.gameObject);
             readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
 
             foreach (PlayerController player in Lobby.Current.PlayerContainer.PlayerList)
