@@ -50,6 +50,9 @@ namespace OMG.Player
 
         private void OnDestroy()
         {
+            if(Lobby.Current == null)
+                return;
+
             Lobby.Current.PlayerDatas.OnListChanged -= HandlePlayerDatasChanged;
         }
     }

@@ -33,8 +33,8 @@ namespace OMG.Minigames
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
 
-            cutscenePanel = DEFINE.MinigameCanvas.transform.Find("CutscenePanel").GetComponent<CutscenePanel>();
-            minigamePanel = DEFINE.MinigameCanvas.transform.Find("MinigamePanel").GetComponent<MinigamePanel>();
+            cutscenePanel = DEFINE.MinigameCanvas?.transform.Find("CutscenePanel").GetComponent<CutscenePanel>();
+            minigamePanel = DEFINE.MinigameCanvas?.transform.Find("MinigamePanel").GetComponent<MinigamePanel>();
         }
 
         public override void OnNetworkSpawn()
