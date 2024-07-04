@@ -9,6 +9,7 @@ namespace OMG.UI
         public void ChangeRenderType()
         {
             Canvas canvas = GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
             canvas.worldCamera = Camera.main;
             canvas.planeDistance = 0.5f;
         }
