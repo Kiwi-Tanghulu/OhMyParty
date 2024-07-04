@@ -19,6 +19,9 @@ namespace OMG.Minigames
         private int deadPlayerCount = 0;
         public int DeadPlayerCount => deadPlayerCount;
 
+        private float lastDecisionTime = 0f;
+        private int lastScore = 0;
+
         protected override void Awake()
         {
             base.Awake();
@@ -41,7 +44,6 @@ namespace OMG.Minigames
 
         private void HandlePlayerDead(UlongParams clientID)
         {
-            int score = scoreWeight[deadPlayerCount];
             minigame.PlayerDatas.ForEach((data, index) => {
                 if (data.clientID != clientID)
                     return;
@@ -56,7 +58,7 @@ namespace OMG.Minigames
 
                     if(isDead)
                     {
-                        data.score = score;
+                        data.score = GetScore();
                         deadPlayerCount++;
                         Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Dead Player Count : {deadPlayerCount}");
                     }
@@ -83,6 +85,16 @@ namespace OMG.Minigames
         public void Respawn(ulong clientID)
         {
             playableMinigame.RespawnPlayer(clientID);
+        }
+
+        private int GetScore()
+        {
+            if(lastDecisionTime - Time.time < 0.25f)
+                return lastScore;
+
+            lastDecisionTime = Time.time;
+            lastScore = scoreWeight[deadPlayerCount];
+            return lastScore;
         }
     }
 }
