@@ -8,7 +8,7 @@ namespace OMG.Minigames.OhMySword
 {
     public class OhMySwordPlayerController : PlayerController
     {
-        [SerializeField] Collider playerCollider = null;
+        // [SerializeField] Collider playerCollider = null;
         [SerializeField] Sword sword = null;
 
         private Minigame minigame = null;
@@ -22,7 +22,7 @@ namespace OMG.Minigames.OhMySword
         protected override void Awake()
         {
             base.Awake();
-            minigame = MinigameManager.Instance.CurrentMinigame;
+            minigame = MinigameManager.Instance?.CurrentMinigame;
         }
 
         public override void OnNetworkSpawn()
@@ -31,7 +31,7 @@ namespace OMG.Minigames.OhMySword
 
             onUpdateXPEvent.AddListener(HandleXP);
             onUpdateXPEvent.Register(NetworkObject);
-            playerCollider.enabled = IsOwner;
+            // playerCollider.enabled = IsOwner;
 
             SetActive(true);
         }

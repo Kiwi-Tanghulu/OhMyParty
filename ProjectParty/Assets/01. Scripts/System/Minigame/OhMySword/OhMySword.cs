@@ -1,4 +1,5 @@
 using OMG.Inputs;
+using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
 {
@@ -13,6 +14,10 @@ namespace OMG.Minigames.OhMySword
         {
             base.Awake();
             InputManager.ChangeInputMap(InputMapType.Play);
+            // GameManager.Instance.CursorActive = false;
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         #endregion

@@ -30,6 +30,9 @@ namespace OMG.Minigames.OhMySword
             if(other.TryGetComponent<OhMySwordPlayerController>(out OhMySwordPlayerController player) == false)
                 return;
 
+            if(player.IsOwner == false)
+                return;
+
             player.GetXP(xpAmount);
             onCollectedEvent?.Broadcast();
         }

@@ -2,8 +2,6 @@ using Netcode.Transports.Facepunch;
 using UnityEngine;
 using OMG.Network;
 using Unity.Netcode;
-using OMG.Minigames;
-using System;
 using Steamworks;
 
 namespace OMG
@@ -11,6 +9,14 @@ namespace OMG
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; } = null;
+
+        public bool CursorActive {
+            get => Cursor.visible;
+            set {
+                Cursor.visible = value;
+                Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
+            }
+        }
 
         private void Awake()
         {
