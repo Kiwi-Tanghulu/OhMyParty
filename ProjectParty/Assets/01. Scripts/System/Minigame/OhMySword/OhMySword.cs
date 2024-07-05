@@ -1,5 +1,4 @@
 using OMG.Inputs;
-using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
 {
@@ -26,6 +25,11 @@ namespace OMG.Minigames.OhMySword
                 return;
 
             timeAttackCycle = cycle as TimeAttackCycle;
+        }
+
+        public override void StartGame()
+        {
+            base.StartGame();
         }
     }
 }
