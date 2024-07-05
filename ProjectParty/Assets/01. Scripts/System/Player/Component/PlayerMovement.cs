@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace OMG.Player
@@ -14,13 +15,16 @@ namespace OMG.Player
         private int isGroundHash = Animator.StringToHash("isGround");
         private int isMoveHash = Animator.StringToHash("is_move");
 
+        [Space]
+        [SerializeField] private PlayerMoveType moveType;
+
         private bool isInit;
 
         public override void Init(CharacterController controller)
         {
             base.Init(controller);
 
-            anim = controller.GetCompo<PlayerVisual>().Anim;
+            anim = controller.GetCharacterComponent<PlayerVisual>().Anim;
 
             OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
             OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
@@ -38,6 +42,36 @@ namespace OMG.Player
         {
             OnIsGroundChagend.RemoveListener(PlayerMovement_OnIsGroundChagend);
             OnMoveDirectionChanged.RemoveListener(PlayerMovement_OnMoveDirectionChanged);
+        }
+
+        public override void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
+        {
+            if (!isInit)
+                return;
+
+            Vector3 moveDir = value;
+
+            switch(moveType)
+            {
+                case PlayerMoveType.TopDown:
+                    break;
+                case PlayerMoveType.TPS:
+                    {
+                        TPSPlayerCamera tpsCamera = Controller.GetCharacterComponent<TPSPlayerCamera>();
+                        if (tpsCamera == null)
+                            break;
+
+                        moveDir = tpsCamera.Forward * moveDir;
+                    }
+                break;
+            }
+            
+            base.SetMoveDirection(moveDir, lookMoveDir);
+        }
+
+        public void SetMoveType(PlayerMoveType type)
+        {
+            moveType = type;
         }
 
         private void PlayerMovement_OnIsGroundChagend(bool isGround)

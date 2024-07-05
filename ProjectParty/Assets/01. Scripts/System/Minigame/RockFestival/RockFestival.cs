@@ -47,7 +47,7 @@ namespace OMG.Minigames.RockFestival
                 scoreAreas[i].SetActive(true, IsHost);
                 #region 지워야 됨
                 if(IsHost)
-                    PlayerDictionary[playerDatas[i].clientID].GetCompo<PlayerVisual>().transform.localPosition = Vector3.zero;
+                    PlayerDictionary[playerDatas[i].clientID].GetCharacterComponent<PlayerVisual>().transform.localPosition = Vector3.zero;
                 #endregion
             }
 

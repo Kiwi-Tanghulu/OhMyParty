@@ -11,11 +11,16 @@ namespace OMG.Player
 
         [SerializeField] private bool useOutline;
 
+        private void Awake()
+        {
+            refRenderer.gameObject.SetActive(false);
+        }
+
         public override void SetSkin(SkinSO skin)
         {
             base.SetSkin(skin);
 
-            if(CurrentSkin != null)
+            if (CurrentSkin != null)
             {
                 (CurrentSkin as CharacterSkin).SkinnedMesh.bones = refRenderer.bones;
 

@@ -1,18 +1,12 @@
-using OMG;
-using OMG.Feedbacks;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
+#if UNITY_EDITOR
+using OMG.Inputs;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TJunsung : MonoBehaviour
 {
-    public FeedbackPlayer p;
-
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            p.Play(transform.position);
+        InputManager.ChangeInputMap(InputMapType.Play);
     }
 }
+#endif

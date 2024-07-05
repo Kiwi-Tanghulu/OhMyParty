@@ -1,5 +1,3 @@
-using OMG.FSM;
-using OMG.Lobbies;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -19,6 +17,7 @@ namespace OMG
 
 #if UNITY_EDITOR
         [SerializeField] private bool useInNetwork = true;
+        public bool UseInNetwork => useInNetwork;
 #endif
 
         protected virtual void Awake()
@@ -91,7 +90,7 @@ namespace OMG
             }
         }
 
-        public T GetCompo<T>() where T : CharacterComponent
+        public T GetCharacterComponent<T>() where T : CharacterComponent
         {
             if(!compoDictionary.ContainsKey(typeof(T)))
             {

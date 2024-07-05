@@ -19,7 +19,7 @@ namespace OMG.Player.FSM
             base.InitState(brain);
 
             health = player.GetComponent<PlayerHealth>();
-            ragdoll = player.GetCompo<PlayerVisual>().Ragdoll;
+            ragdoll = player.GetCharacterComponent<PlayerVisual>().Ragdoll;
 
             if(brain.Controller.IsSpawned)
             {

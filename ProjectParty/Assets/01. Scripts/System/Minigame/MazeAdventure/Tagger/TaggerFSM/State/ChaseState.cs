@@ -36,6 +36,7 @@ namespace OMG.Minigames.MazeAdventure
             moveParam.movePos = targetParam.Target.position;
             base.ExitState();
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
