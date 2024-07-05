@@ -69,11 +69,6 @@ namespace OMG.Player
             base.SetMoveDirection(moveDir, lookMoveDir);
         }
 
-        public void SetMoveType(PlayerMoveType type)
-        {
-            moveType = type;
-        }
-
         private void PlayerMovement_OnIsGroundChagend(bool isGround)
         {
             ChangeIsGroundParam(isGround);
