@@ -18,7 +18,7 @@ namespace OMG.Player.FSM
         {
             base.Init(brain);
 
-            anim = player.GetCompo<PlayerVisual>().Anim;
+            anim = player.GetCharacterComponent<PlayerVisual>().Anim;
             hash = Animator.StringToHash(proertyName);
         }
     }

@@ -28,8 +28,8 @@ namespace OMG.Player.FSM
 
             movement = player.GetComponent<CharacterMovement>();
             health = player.GetComponent<PlayerHealth>();
-            anim = player.GetCompo<PlayerVisual>().Anim;
-            ragdoll = player.GetCompo<PlayerVisual>().Ragdoll;
+            anim = player.GetCharacterComponent<PlayerVisual>().Anim;
+            ragdoll = player.GetCharacterComponent<PlayerVisual>().Ragdoll;
 
             if(brain.Controller.IsSpawned)
             {
@@ -88,7 +88,7 @@ namespace OMG.Player.FSM
         
         private void EndStun(NoneParams param)
         {
-            player.GetCompo<PlayerVisual>().Ragdoll.SetActive(false);
+            player.GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false);
             ragdoll.SetActive(false);
         }
     }

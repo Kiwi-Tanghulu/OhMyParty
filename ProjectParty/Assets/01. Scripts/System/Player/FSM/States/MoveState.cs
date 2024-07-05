@@ -15,7 +15,7 @@ namespace OMG.Player.FSM
         {
             base.InitState(brain);
 
-            anim = player.GetCompo<PlayerVisual>().Anim;
+            anim = player.GetCharacterComponent<PlayerVisual>().Anim;
         }
 
         public override void EnterState()

@@ -122,7 +122,7 @@ namespace OMG
             //characterStatSO.MaxMoveSpeed = value;
         }
 
-        public void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
+        public virtual void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
         {
             prevMoveDir = moveDir;
             moveDir = value;

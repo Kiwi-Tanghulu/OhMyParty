@@ -35,7 +35,7 @@ namespace OMG.Player
                     renderTargetPlayerVisual.SetPose(RenderTargetPlayerPoseType.Idle);
 
                     if(IsOwner)
-                        GetCompo<CharacterFSM>().ChangeState(typeof(CalculateScoreState));
+                        GetCharacterComponent<CharacterFSM>().ChangeState(typeof(CalculateScoreState));
 
                     break;
             }

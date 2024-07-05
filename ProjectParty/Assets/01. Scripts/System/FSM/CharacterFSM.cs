@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace OMG.FSM
@@ -22,7 +23,7 @@ namespace OMG.FSM
         public override void Init(OMG.CharacterController controller)
         {
             base.Init(controller);
-
+            
             //param
             fsmParamDictionary = new Dictionary<Type, FSMParamSO>();
             fsmParams.ForEach(i => {
@@ -45,6 +46,24 @@ namespace OMG.FSM
             }
 
             isInit = true;
+
+            #region !use in network
+#if UNITY_EDITOR
+            if (!Controller.UseInNetwork)
+            {
+                if (defaultState == null)
+                {
+                    Debug.LogError("not set start state");
+                }
+                else
+                {
+                    ChangeState(defaultState);
+                }
+
+                return;
+            }
+#endif
+            #endregion
 
             if (defaultState == null)
             {
@@ -112,6 +131,31 @@ namespace OMG.FSM
 
         private void ChangeState(int stateIndex)
         {
+            FSMState nextState = null;
+
+            #region !use in network
+#if UNITY_EDITOR
+            if (!Controller.UseInNetwork)
+            {
+                if (states == null)
+                    return;
+                if (stateIndex >= states.Count)
+                    return;
+
+                nextState = states[stateIndex];
+
+                if (currentState == nextState)
+                    return;
+
+                currentState?.ExitState();
+                currentState = states[stateIndex];
+                currentState.EnterState();
+
+                return;
+            }
+#endif
+            #endregion
+
             if (!Controller.IsOwner)
             {
                 Debug.LogError("only can call change state in owner");
@@ -122,7 +166,7 @@ namespace OMG.FSM
             if (stateIndex >= states.Count)
                 return;
 
-            FSMState nextState = states[stateIndex];
+            nextState = states[stateIndex];
 
             if (currentState == nextState)
                 return;
