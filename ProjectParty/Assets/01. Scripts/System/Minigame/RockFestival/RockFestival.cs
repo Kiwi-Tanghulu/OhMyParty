@@ -40,13 +40,13 @@ namespace OMG.Minigames.RockFestival
             base.StartGame();
 
             for(int i = 0; i < PlayerDatas.Count; ++i)
-            {
                 scoreAreas[i].SetActive(true, IsHost);
-                #region 지워야 됨
-                if(IsHost)
-                    PlayerDictionary[playerDatas[i].clientID].GetCharacterComponent<PlayerVisual>().transform.localPosition = Vector3.zero;
-                #endregion
-            }
+            // {
+            //     #region 지워야 됨
+            //     if(IsHost)
+            //         PlayerDictionary[playerDatas[i].clientID].GetCharacterComponent<PlayerVisual>().transform.localPosition = Vector3.zero;
+            //     #endregion
+            // }
 
             if(IsHost == false)
                 return;

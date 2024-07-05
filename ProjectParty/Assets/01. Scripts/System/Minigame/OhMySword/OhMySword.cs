@@ -5,6 +5,7 @@ namespace OMG.Minigames.OhMySword
 {
     public class OhMySword : PlayableMinigame
     {
+        [SerializeField] Material skyboxMaterial = null;
         private TimeAttackCycle timeAttackCycle = null;
         protected override bool ShufflePosition => true;
 
@@ -13,11 +14,12 @@ namespace OMG.Minigames.OhMySword
         protected override void Awake()
         {
             base.Awake();
-            InputManager.ChangeInputMap(InputMapType.Play);
-            // GameManager.Instance.CursorActive = false;
+            RenderSettings.skybox = skyboxMaterial;
+            // InputManager.ChangeInputMap(InputMapType.Play);
+            // // GameManager.Instance.CursorActive = false;
 
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            // Cursor.visible = false;
+            // Cursor.lockState = CursorLockMode.Locked;
         }
 
         #endregion
@@ -35,6 +37,11 @@ namespace OMG.Minigames.OhMySword
         public override void StartGame()
         {
             base.StartGame();
+
+            if(IsHost == false)
+                return;
+
+            timeAttackCycle.StartCycle();
         }
     }
 }
