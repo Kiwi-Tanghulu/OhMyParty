@@ -1,41 +1,22 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
-using UnityEngine;
-using OMG;
 
 namespace OMG.Player
 {
-    public class PlayerCamera : NetworkBehaviour
+    public class PlayerCamera : CharacterComponent
     {
-        [SerializeField] private CinemachineVirtualCamera camPrefab;
         protected CinemachineVirtualCamera cam;
 
-        [SerializeField] private bool setFollow;
-        [SerializeField] private bool setLook;
-
-        public override void OnNetworkSpawn()
+        public override void Init(OMG.CharacterController controller)
         {
-          
-            cam = Instantiate(camPrefab);
+            base.Init(controller);
 
-            if (IsOwner)
+            cam = transform.Find("PlayerVCam").GetComponent<CinemachineVirtualCamera>();
+            cam.LookAt = controller.transform;
+
+            if (controller.IsOwner)
                 cam.Priority = DEFINE.FOCUSED_PRIORITY;
             else
                 cam.Priority = DEFINE.UNFOCUSED_PRIORITY;
-
-            if (setFollow)
-                cam.Follow = transform;
-            if (setLook)
-                cam.LookAt = transform;
-        }
-
-        public override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            Destroy(cam);
         }
     }
 }

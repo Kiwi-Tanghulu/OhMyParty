@@ -25,7 +25,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            player.GetCompo<PlayerVisual>().Anim.AnimEvent.OnPlayingSubEvent += AnimEvent_OnPlayingSubEvent;
+            player.GetCharacterComponent<PlayerVisual>().Anim.AnimEvent.OnPlayingSubEvent += AnimEvent_OnPlayingSubEvent;
         }
 
         public override void UpdateState()
@@ -39,7 +39,7 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            player.GetCompo<PlayerVisual>().Anim.AnimEvent.OnPlayingSubEvent -= AnimEvent_OnPlayingSubEvent;
+            player.GetCharacterComponent<PlayerVisual>().Anim.AnimEvent.OnPlayingSubEvent -= AnimEvent_OnPlayingSubEvent;
         }
 
         private void AnimEvent_OnPlayingSubEvent()
