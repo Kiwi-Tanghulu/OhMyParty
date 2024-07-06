@@ -37,6 +37,12 @@ namespace OMG.Minigames.OhMySword
             onCollectedEvent?.Broadcast();
         }
 
+        public void Init(Vector3 position)
+        {
+            // bounce to position
+            transform.position = position;
+        }
+
         private void HandleCollected(NetworkEvents.NoneParams unused)
         {
             if(IsHost)

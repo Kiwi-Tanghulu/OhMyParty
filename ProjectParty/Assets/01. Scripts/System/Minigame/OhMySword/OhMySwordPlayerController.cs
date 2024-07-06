@@ -55,7 +55,7 @@ namespace OMG.Minigames.OhMySword
         public void GetXP(int amount)
         {
             xpBuffer += amount;
-            sword.SetLength(amount);
+            sword.SetLength(xpBuffer);
         }
 
         private void HandleXP(IntParams xp)

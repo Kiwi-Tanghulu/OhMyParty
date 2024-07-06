@@ -11,6 +11,7 @@ namespace OMG.Minigames
         public static MinigameManager Instance => instance;
 
         private NetworkEvent onMinigameInitEvent = new NetworkEvent("MinigameInit");
+        private NetworkEvent onMinigameReleaseEvent = new NetworkEvent("MinigameRelease");
         public Minigame CurrentMinigame = null;
 
         private bool minigamePaused = false;
@@ -40,6 +41,9 @@ namespace OMG.Minigames
 
             onMinigameInitEvent.AddListener(HandleMinigameInit);
             onMinigameInitEvent.Register(NetworkObject);
+
+            onMinigameReleaseEvent.AddListener(HandleMinigameRelease);
+            onMinigameReleaseEvent.Register(NetworkObject);
         }
 
         public void StartMinigame(MinigameSO minigameData, params ulong[] joinedPlayers)
@@ -56,7 +60,7 @@ namespace OMG.Minigames
         {
             Debug.Log("finish game");
 
-            CurrentMinigame.Release();
+            onMinigameReleaseEvent?.Broadcast();
 
             CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
             CurrentMinigame.NetworkObject.Despawn(true);
@@ -66,6 +70,11 @@ namespace OMG.Minigames
         private void HandleMinigameInit(NoneParams noneParams)
         {
             CurrentMinigame.Init();
+        }
+
+        private void HandleMinigameRelease(NoneParams noneParams)
+        {
+            CurrentMinigame.Release();
         }
     }
 }

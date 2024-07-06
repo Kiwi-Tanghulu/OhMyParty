@@ -60,6 +60,10 @@ namespace OMG.Minigames
         public override void Release()
         {
             base.Release();
+
+            if(IsHost == false)
+                return;
+
             players.ForEach(i => {
                 if(i.TryGet(out NetworkObject player))
                     player.Despawn();

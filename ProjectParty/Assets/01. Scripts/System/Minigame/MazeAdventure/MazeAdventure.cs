@@ -60,11 +60,6 @@ namespace OMG.Minigames.MazeAdventure
         {
             tagger_mSO.moveTargetList = taggerMoveTrmList.Select(t => t.position).ToList();
         }
-
-        public override void Release()
-        {
-            base.Release();
-        }
     }
 
 }

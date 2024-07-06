@@ -69,9 +69,6 @@ namespace OMG.Minigames
             StartIntro();
         }
 
-        /// <summary>
-        /// Only Host Could Call this Method
-        /// </summary>
         public virtual void Release() 
         {
         }

@@ -32,6 +32,10 @@ namespace OMG.Minigames.RockFestival
         public override void Release()
         {
             base.Release();
+
+            if(IsHost == false)
+                return;
+
             spawner.Release();
         }
 
