@@ -315,6 +315,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2418013592375262734, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 34f3a7f5b8fc60e4d86c30fa84cf9c29,
+        type: 2}
+    - target: {fileID: 2511487015637874706, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: TransitionStateInfoList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2515307658907340869, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: playerDieEvent.m_PersistentCalls.m_Calls.Array.size
@@ -367,6 +378,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
+      propertyPath: MoveType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
       propertyPath: moveType
       value: 1
       objectReference: {fileID: 0}
@@ -378,7 +394,7 @@ PrefabInstance:
     - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
@@ -492,7 +508,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   useInNetwork: 1
-  sword: {fileID: 0}
+  sword: {fileID: 707024077074953883}
 --- !u!114 &3816489287258390350 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -603,6 +619,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 481780b96f0d5f74cb8c083f0e656a60, type: 3}
+--- !u!114 &707024077074953883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5125444016134785089, guid: 481780b96f0d5f74cb8c083f0e656a60,
+    type: 3}
+  m_PrefabInstance: {fileID: 5687736867184639706}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f14af203e8250f4b8c7d8e095e14720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7368444124978864041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2931595348302569843, guid: 481780b96f0d5f74cb8c083f0e656a60,

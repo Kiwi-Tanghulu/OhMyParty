@@ -55,7 +55,7 @@ namespace OMG.Minigames.OhMySword
                 return;
 
             player.GetXP(xpAmount);
-            onCollectedEvent?.Broadcast();
+            onCollectedEvent?.Broadcast(false);
         }
 
         public void Init(Vector3 position)
