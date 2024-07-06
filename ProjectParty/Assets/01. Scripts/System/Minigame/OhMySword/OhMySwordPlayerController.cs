@@ -2,6 +2,7 @@ using System.Collections;
 using OMG.Extensions;
 using OMG.NetworkEvents;
 using OMG.Player;
+using OMG.UI.Minigames;
 using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
@@ -11,7 +12,9 @@ namespace OMG.Minigames.OhMySword
         // [SerializeField] Collider playerCollider = null;
         [SerializeField] Sword sword = null;
 
+        private ScorePlayerPanel playerPanel = null;
         private OhMySword minigame = null;
+        private int playerIndex = 0;
 
         private Coroutine xpUpdateRoutine = null;
         private int xpBuffer = 0;
@@ -23,6 +26,8 @@ namespace OMG.Minigames.OhMySword
         {
             base.Awake();
             minigame = MinigameManager.Instance?.CurrentMinigame as OhMySword;
+            playerPanel = minigame.MinigamePanel.PlayerPanel as ScorePlayerPanel;
+            playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
         }
 
         public override void OnNetworkSpawn()
@@ -31,7 +36,6 @@ namespace OMG.Minigames.OhMySword
 
             onUpdateXPEvent.AddListener(HandleXP);
             onUpdateXPEvent.Register(NetworkObject);
-            // playerCollider.enabled = IsOwner;
 
             SetActive(true);
         }
@@ -62,13 +66,16 @@ namespace OMG.Minigames.OhMySword
         {
             xpBuffer += amount;
             sword.SetLength(xpBuffer);
+            playerPanel.SetScore(playerIndex, xpBuffer);
         }
 
         private void HandleXP(IntParams xp)
         {
-            // Display UI
             if(IsOwner == false)
+            {
                 sword.SetLength(xp);
+                playerPanel.SetScore(playerIndex, xp);
+            }
 
             if(IsHost == false)
                 return;

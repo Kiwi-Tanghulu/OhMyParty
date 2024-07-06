@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using OMG.UI.Minigames;
 using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
@@ -12,20 +13,11 @@ namespace OMG.Minigames.OhMySword
         private TimeAttackCycle timeAttackCycle = null;
         protected override bool ShufflePosition => true;
 
-        #region Test
-
         protected override void Awake()
         {
             base.Awake();
             RenderSettings.skybox = skyboxMaterial;
-            // InputManager.ChangeInputMap(InputMapType.Play);
-            // // GameManager.Instance.CursorActive = false;
-
-            // Cursor.visible = false;
-            // Cursor.lockState = CursorLockMode.Locked;
         }
-
-        #endregion
 
         public override void Init()
         {
