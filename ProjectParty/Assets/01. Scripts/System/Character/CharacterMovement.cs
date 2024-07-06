@@ -145,7 +145,7 @@ namespace OMG
         private IEnumerator WaitCompleteTelerport(Vector3 pos)
         {
             cc.enabled = false;
-            yield return new WaitUntil(() =>0.1f >= Vector3.Distance(transform.position, pos));
+            yield return new WaitUntil(() => transform.position == pos);
             cc.enabled = true;
         }
         #endregion
