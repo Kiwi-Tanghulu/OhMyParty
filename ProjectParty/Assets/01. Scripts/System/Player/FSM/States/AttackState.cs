@@ -1,14 +1,8 @@
-using OMG.Player.FSM;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Events;
-using static UnityEngine.UI.Image;
 
 namespace OMG.Player.FSM
 {
-    public class PunchState : ActionState
+    public class AttackState : ActionState
     {
         [SerializeField] private Transform eyeTrm;
         [SerializeField] private float distance = 1f;
