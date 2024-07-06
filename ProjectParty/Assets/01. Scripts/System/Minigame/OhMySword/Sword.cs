@@ -7,6 +7,7 @@ namespace OMG.Minigames.OhMySword
     {
         [SerializeField] Transform bladeTransform = null;
         [SerializeField] Vector3 bladeDirection = Vector3.up;
+        [SerializeField] float scaleFactor = 0.02f;
         [SerializeField] float growDuration = 1f;
 
         private bool activeCollision = false;
@@ -25,7 +26,7 @@ namespace OMG.Minigames.OhMySword
         public void SetLength(float length)
         {
             bladeTransform.DOKill();
-            bladeTransform.DOScale(Vector3.one + bladeDirection * length, growDuration);
+            bladeTransform.DOScale(Vector3.one + bladeDirection * (length * scaleFactor), growDuration);
         }
 
         /// <summary>
