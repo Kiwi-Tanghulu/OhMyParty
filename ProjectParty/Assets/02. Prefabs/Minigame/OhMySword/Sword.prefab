@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2931595348302569843}
   - component: {fileID: 5125444016134785089}
   - component: {fileID: 3737331925916680573}
+  - component: {fileID: 7311991750068488614}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -49,7 +50,7 @@ MonoBehaviour:
   bladeTransform: {fileID: 4139316682795416748}
   bladeDirection: {x: 0, y: 1, z: 0}
   scaleFactor: 0.005
-  growDuration: 1
+  growSpeed: 0.75
 --- !u!54 &3737331925916680573
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -77,6 +78,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &7311991750068488614
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001298860481740486}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 1.5, z: 0.65}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &1014250339887593443
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +143,6 @@ GameObject:
   - component: {fileID: 5478484173658688139}
   - component: {fileID: 3104236501496292706}
   - component: {fileID: 8378689563020651903}
-  - component: {fileID: 319584930634142761}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -194,27 +215,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &319584930634142761
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8511421019335838551}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0175, y: 0.015, z: 0.11654072}
-  m_Center: {x: 0.00060771883, y: 0.0000011844093, z: 0.058272365}
 --- !u!1 &8792237139716459170
 GameObject:
   m_ObjectHideFlags: 0

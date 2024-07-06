@@ -37,18 +37,19 @@ namespace OMG.Minigames.OhMySword
             onUpdateXPEvent.AddListener(HandleXP);
             onUpdateXPEvent.Register(NetworkObject);
 
-            SetActive(true);
+            SetActiveUpdateRoutine(true);
+            sword.Init(IsOwner);
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
 
-            SetActive(false);
+            SetActiveUpdateRoutine(false);
             onUpdateXPEvent?.Unregister();
         }
 
-        private void SetActive(bool active)
+        private void SetActiveUpdateRoutine(bool active)
         {
             if(active)
                 xpUpdateRoutine = StartCoroutine(XPUpdateRoutine());
