@@ -6,7 +6,7 @@ namespace OMG.Extensions
 public static class MathExtensions 
 {
     /// <summary>
-    /// callback?.Invoke(digit, number, index_total);
+    /// callback?.Invoke(digit(1, 10, 100), digit_number(523 => 3, 2, 5), index_total);
     /// </summary>
 	public static void ForEachDigit(this int source, Action<int, int, int> callback)
     {
@@ -25,7 +25,7 @@ public static class MathExtensions
     }
 
     /// <summary>
-    /// callback?.Invoke(digit, number, index_total);
+    /// callback?.Invoke(digit(1, 10, 100), digit_number(523 => 3, 2, 5), index_total);
     /// </summary>
 	public static void ForEachDigit(this ushort source, Action<ushort, ushort, int> callback)
     {
