@@ -12,7 +12,7 @@ namespace OMG.Player.FSM
         private RagdollController ragdoll;
         private PlayerHealth health;
 
-        private NetworkEvent playerDieEvent = new NetworkEvent("PlayerDieEvent");
+        public NetworkEvent playerDieEvent = new NetworkEvent("PlayerDieEvent");
 
         public override void InitState(CharacterFSM brain)
         {
