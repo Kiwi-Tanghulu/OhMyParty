@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.Netcode.Components;
 using UnityEngine;
@@ -122,9 +123,9 @@ namespace OMG
             //characterStatSO.MaxMoveSpeed = value;
         }
 
-        public virtual void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
+        public virtual void SetMoveDirection(Vector3 value, bool lookMoveDir = true, bool forceSet = false)
         {
-            prevMoveDir = moveDir;
+            prevMoveDir = forceSet ? value : moveDir;
             moveDir = value;
 
             OnMoveDirectionChanged?.Invoke(moveDir);
@@ -250,6 +251,38 @@ namespace OMG
             Gizmos.DrawWireSphere(transform.position + checkGroundOffset, checkGroundRadius);
         }
 #endif
+        #endregion
+
+        #region ETC
+        public void Knockback(Vector3 direction, float power, float time, Action onEndEvent)
+        {
+            SetMoveDirection(direction, false, true);
+
+            StopAllCoroutines();
+
+            StartCoroutine(KnockbackCo(power, time, onEndEvent));
+        }
+
+        private IEnumerator KnockbackCo(float power, float time, Action onEndEvent)
+        {
+            SetMoveSpeed(power);
+
+            float currentTime = 0f;
+
+            while(currentTime < time)
+            {
+                currentTime += Time.deltaTime;
+
+                SetMoveSpeed(Mathf.Lerp(power, 0f, currentTime / time));
+
+                yield return null;
+            }
+            SetMoveSpeed(0f);
+
+            onEndEvent?.Invoke();
+
+            SetMoveSpeed(characterStatSO[CharacterStatType.MaxMoveSpeed].Value);
+        }
         #endregion
     }
 }

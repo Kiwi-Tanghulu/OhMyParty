@@ -35,7 +35,7 @@ namespace OMG.Player.FSM
 
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
-                        damageable.OnDamaged(5f, player.transform, hits[i].point);
+                        damageable.OnDamaged(5f, player.transform, hits[i].point, HitEffectType.Stun);
                     }
                 }
             }
