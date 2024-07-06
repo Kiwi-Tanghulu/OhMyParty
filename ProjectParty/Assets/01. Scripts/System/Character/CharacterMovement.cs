@@ -79,6 +79,8 @@ namespace OMG
         {
             if (!enableMove)
                 return;
+            if (!cc.enabled)
+                return;
 
             CalcMoveVector();
 
@@ -137,6 +139,14 @@ namespace OMG
         public void Teleport(Vector3 pos, Quaternion rot)
         {
             networkTrm.Teleport(pos, rot, transform.localScale);
+            StartCoroutine(WaitCompleteTelerport(pos));
+        }
+
+        private IEnumerator WaitCompleteTelerport(Vector3 pos)
+        {
+            cc.enabled = false;
+            yield return new WaitUntil(() =>0.1f >= Vector3.Distance(transform.position, pos));
+            cc.enabled = true;
         }
         #endregion
 
