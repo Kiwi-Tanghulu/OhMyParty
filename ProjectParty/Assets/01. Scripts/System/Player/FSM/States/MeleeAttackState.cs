@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace OMG.Player.FSM
 {
-    public class AttackState : ActionState
+    public class MeleeAttackState : ActionState
     {
         [SerializeField] private Transform eyeTrm;
         [SerializeField] private float distance = 1f;
