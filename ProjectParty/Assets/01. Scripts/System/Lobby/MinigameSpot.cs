@@ -231,5 +231,10 @@ namespace OMG.Lobbies
             else
                 CameraManager.Instance.ChangeCamera(Lobby.Current.GetLobbyComponent<LobbySkinComponent>().Skin.Cam);
         }
+
+        private void OnDisable()
+        {
+            spotUI.Hide();
+        }
     }
 }

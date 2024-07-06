@@ -69,9 +69,6 @@ namespace OMG.Minigames
             StartIntro();
         }
 
-        /// <summary>
-        /// Only Host Could Call this Method
-        /// </summary>
         public virtual void Release() 
         {
         }
@@ -93,6 +90,7 @@ namespace OMG.Minigames
         public virtual void StartGame()
         { 
             InputManager.ChangeInputMap(InputMapType.Play);
+            GameManager.Instance.CursorActive = false;
             minigamePanel.Init(this);
             minigamePanel.Display(true);
             OnStartedEvent?.Invoke();
@@ -101,6 +99,7 @@ namespace OMG.Minigames
         public virtual void FinishGame() 
         {
             InputManager.ChangeInputMap(InputMapType.UI);
+            GameManager.Instance.CursorActive = true;
             Debug.Log("1");
             OnFinishedEvent?.Invoke();
             StartOutro();

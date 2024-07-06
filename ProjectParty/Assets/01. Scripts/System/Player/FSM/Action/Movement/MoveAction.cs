@@ -32,7 +32,7 @@ namespace OMG.Player.FSM
         {
             base.UpdateState();
 
-            movement.Move();
+            //movement.Move();
         }
 
         public override void ExitState()
