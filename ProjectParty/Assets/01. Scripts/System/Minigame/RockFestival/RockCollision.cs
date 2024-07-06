@@ -44,10 +44,11 @@ namespace OMG.Minigames.RockFestival
             if(other.rigidbody.TryGetComponent<IDamageable>(out IDamageable damageable) == false)
                 return;
 
-            damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].point, other.contacts[0].normal);
+            damageable?.OnDamaged(rigidbody.velocity.magnitude, transform, other.contacts[0].point, HitEffectType.None, other.contacts[0].normal);
         }
 
-        public void OnDamaged(float damage, Transform attacker, Vector3 point, Vector3 normal = default)
+        public void OnDamaged(float damage, Transform attacker, Vector3 point,
+        HitEffectType effectType, Vector3 normal = default)
         {
             // Calc Normal Vector
             if(ActiveCollisionOther)

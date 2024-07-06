@@ -52,7 +52,7 @@ namespace OMG.Minigames.RockFestival
                     Vector3 normal = transform.position - other.transform.position;
                     float factor = explosionRadius / (normal.magnitude + explosionRadius);
 
-                    id.OnDamaged(explosionDamage * factor, transform, normal.normalized + explosionOffset);
+                    id.OnDamaged(explosionDamage * factor, transform, normal.normalized + explosionOffset, HitEffectType.Stun);
                 }
             }
 

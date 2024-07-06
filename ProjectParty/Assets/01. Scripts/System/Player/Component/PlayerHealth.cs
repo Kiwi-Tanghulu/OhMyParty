@@ -1,12 +1,14 @@
 using OMG.FSM;
 using OMG.Player.FSM;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using OMG.NetworkEvents;
+using Steamworks;
+using UnityEngine.InputSystem.XR;
 
 namespace OMG.Player
 {
-    public class PlayerHealth : NetworkBehaviour, IDamageable
+    public class PlayerHealth : CharacterComponent, IDamageable
     {
         private Transform attacker;
         private float damage;
@@ -14,8 +16,6 @@ namespace OMG.Player
         private Vector3 hitPoint;
 
         public UnityEvent<Vector3 /*hit point*/> OnDamagedEvent;
-
-        private CharacterFSM fsm;
 
         public Transform Attacker => attacker;
         public float Damage => damage;
@@ -25,20 +25,88 @@ namespace OMG.Player
         public bool Hitable;
         public bool PlayerHitable;
 
-        private void Awake()
+        private NetworkEvent<Vector3Params> hitEvent = new NetworkEvent<Vector3Params>("hitEvent");
+
+        public override void Init(CharacterController controller)
         {
-            fsm = GetComponent<CharacterFSM>();
+            base.Init(controller);
 
             Hitable = true;
             PlayerHitable = true;
+
+            hitEvent.AddListener(BroadcastOnDamagedEvent);
+            hitEvent.Register(controller.NetworkObject);
         }
 
-        public void OnDamaged(float damage, Transform attacker, Vector3 point, Vector3 normal = default)
+        public override void UpdateCompo()
+        {
+            base.UpdateCompo();
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                OnDamaged(100f, transform, Vector3.zero, HitEffectType.Knockback);
+            }
+        }
+
+        public void OnDamaged(float damage, Transform attacker, Vector3 point,
+            HitEffectType effectType, Vector3 normal = default)
         {
             this.attacker = attacker;
+            this.damage = damage;
             hitDir = (transform.position - attacker.position).normalized;
+            hitPoint = point;
 
-            if (damage != -1)
+            hitDir = -transform.forward; //test
+
+            #region !use in network
+#if UNITY_EDITOR
+            if(!Controller.UseInNetwork)
+            {
+                if (effectType == HitEffectType.Die)
+                {
+                    Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(DieState));
+
+                    OnDamagedEvent?.Invoke(new Vector3Params(HitPoint));
+                }
+                else
+                {
+                    if (!Hitable)
+                        return;
+
+                    if (!PlayerHitable)
+                    {
+                        if (attacker.TryGetComponent<PlayerController>(out PlayerController player))
+                        {
+                            return;
+                        }
+                    }
+
+                    switch (effectType)
+                    {
+                        case HitEffectType.None:
+                            break;
+                        case HitEffectType.Stun:
+                            Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(StunState));
+                            break;
+                        case HitEffectType.Knockback:
+                            Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(KnockbackState));
+                            break;
+                    }
+
+                    OnDamagedEvent?.Invoke(new Vector3Params(HitPoint));
+                }
+                return;
+            }
+#endif
+            #endregion
+
+            if (effectType == HitEffectType.Die)
+            {
+                Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(DieState));
+
+                hitEvent?.Broadcast(new Vector3Params(HitPoint));
+            }
+            else
             {
                 if (!Hitable)
                     return;
@@ -51,30 +119,25 @@ namespace OMG.Player
                     }
                 }
 
-                OnDamagedClientRpc(damage, point, hitDir);
-            }
-            else
-            {
-                OnDamagedClientRpc(-1, point, hitDir);
+                switch (effectType)
+                {
+                    case HitEffectType.None:
+                        break;
+                    case HitEffectType.Stun:
+                        Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(StunState));
+                        break;
+                    case HitEffectType.Knockback:
+                        Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(KnockbackState));
+                        break;
+                }
+
+                hitEvent?.Broadcast(new Vector3Params(HitPoint));
             }
         }
 
-        [ClientRpc]
-        public void OnDamagedClientRpc(float damage, Vector3 point, Vector3 hitDir)
+        public void BroadcastOnDamagedEvent(Vector3Params param)
         {
-            this.damage = damage;
-            this.hitDir = hitDir;
-            hitPoint = point;
-
-            OnDamagedEvent?.Invoke(point);
-
-            if(IsOwner)
-            {
-                if (damage == -1)
-                    fsm.ChangeState(typeof(DieState));
-                else
-                    fsm.ChangeState(typeof(StunState));
-            }
+            OnDamagedEvent?.Invoke(param.Value);
         }
     }
 }

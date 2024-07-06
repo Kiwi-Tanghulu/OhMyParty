@@ -16,7 +16,7 @@ namespace OMG.Player
         private int isMoveHash = Animator.StringToHash("is_move");
 
         [Space]
-        [SerializeField] private PlayerMoveType moveType;
+        public PlayerMoveType MoveType;
 
         private bool isInit;
 
@@ -44,14 +44,14 @@ namespace OMG.Player
             OnMoveDirectionChanged.RemoveListener(PlayerMovement_OnMoveDirectionChanged);
         }
 
-        public override void SetMoveDirection(Vector3 value, bool lookMoveDir = true)
+        public override void SetMoveDirection(Vector3 value, bool lookMoveDir = true, bool forceSet = false)
         {
             if (!isInit)
                 return;
 
             Vector3 moveDir = value;
 
-            switch(moveType)
+            switch(MoveType)
             {
                 case PlayerMoveType.TopDown:
                     break;
@@ -66,7 +66,7 @@ namespace OMG.Player
                 break;
             }
             
-            base.SetMoveDirection(moveDir, lookMoveDir);
+            base.SetMoveDirection(moveDir, lookMoveDir, forceSet);
         }
 
         private void PlayerMovement_OnIsGroundChagend(bool isGround)

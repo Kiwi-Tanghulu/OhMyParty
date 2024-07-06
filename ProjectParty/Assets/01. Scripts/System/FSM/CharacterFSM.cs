@@ -144,9 +144,6 @@ namespace OMG.FSM
 
                 nextState = states[stateIndex];
 
-                if (currentState == nextState)
-                    return;
-
                 currentState?.ExitState();
                 currentState = states[stateIndex];
                 currentState.EnterState();
@@ -158,7 +155,7 @@ namespace OMG.FSM
 
             if (!Controller.IsOwner)
             {
-                Debug.LogError("only can call change state in owner");
+                Debug.LogError("only can change state in owner");
                 return;
             }
             if (states == null)
@@ -167,9 +164,6 @@ namespace OMG.FSM
                 return;
 
             nextState = states[stateIndex];
-
-            if (currentState == nextState)
-                return;
 
             currentState?.ExitState();
             currentState = states[stateIndex];
