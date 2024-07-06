@@ -20,7 +20,7 @@ namespace OMG.Minigames.OhMySword
             if(other.TryGetComponent<IDamageable>(out IDamageable id) == false)
                 return;
 
-            id?.OnDamaged(100, transform, other.transform.position);
+            id?.OnDamaged(100, transform, other.transform.position, HitEffectType.Die);
         }
 
         public void SetLength(float length)

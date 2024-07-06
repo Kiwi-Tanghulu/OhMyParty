@@ -11,7 +11,7 @@ namespace OMG.Minigames.OhMySword
         // [SerializeField] Collider playerCollider = null;
         [SerializeField] Sword sword = null;
 
-        private Minigame minigame = null;
+        private OhMySword minigame = null;
 
         private Coroutine xpUpdateRoutine = null;
         private int xpBuffer = 0;
@@ -22,7 +22,7 @@ namespace OMG.Minigames.OhMySword
         protected override void Awake()
         {
             base.Awake();
-            minigame = MinigameManager.Instance?.CurrentMinigame;
+            minigame = MinigameManager.Instance?.CurrentMinigame as OhMySword;
         }
 
         public override void OnNetworkSpawn()
@@ -50,6 +50,12 @@ namespace OMG.Minigames.OhMySword
                 xpUpdateRoutine = StartCoroutine(XPUpdateRoutine());
             else
                 StopCoroutine(xpUpdateRoutine);
+        }
+
+        public void Respawn()
+        {
+            if(IsHost)
+                minigame.RespawnPlayer(OwnerClientId);
         }
 
         public void GetXP(int amount)

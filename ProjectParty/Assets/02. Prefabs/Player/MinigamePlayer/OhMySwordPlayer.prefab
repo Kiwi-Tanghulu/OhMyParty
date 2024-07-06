@@ -137,12 +137,12 @@ PrefabInstance:
     - target: {fileID: 6885894302394138821, guid: 5ad278c9f0bdc434aaee4260e23bf2bf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20
+      value: 19.999998
       objectReference: {fileID: 0}
     - target: {fileID: 6885894302394138821, guid: 5ad278c9f0bdc434aaee4260e23bf2bf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.025251
+      value: 11.02525
       objectReference: {fileID: 0}
     - target: {fileID: 6885894302394138821, guid: 5ad278c9f0bdc434aaee4260e23bf2bf,
         type: 3}
@@ -340,6 +340,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: OhMySwordPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3788121192657353219}
+    - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: OnDamagedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 807048018500501385, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
     m_RemovedGameObjects: []
@@ -421,12 +451,24 @@ MonoBehaviour:
   - {fileID: 1264198900830415197}
   - {fileID: 2189739178449191134}
   - {fileID: 293459987045137541}
+  - {fileID: 3816489287258390350}
   - {fileID: 5584606845437219529}
   OnInitEvent:
     m_PersistentCalls:
       m_Calls: []
   useInNetwork: 1
-  sword: {fileID: 707024077074953883}
+--- !u!114 &3816489287258390350 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5514071475311326027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3788121192657353219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 421cb8e3e022ceb4799bc9908c6e6e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5584606845437219529 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 73579990839173506, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -525,18 +567,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 481780b96f0d5f74cb8c083f0e656a60, type: 3}
---- !u!114 &707024077074953883 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5125444016134785089, guid: 481780b96f0d5f74cb8c083f0e656a60,
-    type: 3}
-  m_PrefabInstance: {fileID: 5687736867184639706}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f14af203e8250f4b8c7d8e095e14720, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7368444124978864041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2931595348302569843, guid: 481780b96f0d5f74cb8c083f0e656a60,
