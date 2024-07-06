@@ -38,16 +38,6 @@ namespace OMG.Player
             hitEvent.Register(controller.NetworkObject);
         }
 
-        public override void UpdateCompo()
-        {
-            base.UpdateCompo();
-
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                OnDamaged(100f, transform, Vector3.zero, HitEffectType.Knockback);
-            }
-        }
-
         public void OnDamaged(float damage, Transform attacker, Vector3 point,
             HitEffectType effectType, Vector3 normal = default)
         {
