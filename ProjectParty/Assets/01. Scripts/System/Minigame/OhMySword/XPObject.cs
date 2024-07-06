@@ -60,15 +60,11 @@ namespace OMG.Minigames.OhMySword
 
         public void Init(Vector3 position)
         {
-            Debug.Log("Init");
             onInitEvent?.Broadcast(position);
         }
 
         private void HandleInit(Vector3Params position)
         {
-            Debug.Log("Init Broadcasted");
-            // bound to position
-            // on callback => active = true;
             float factor = 1f + (Mathf.Log10(xpAmount) + 1) * 0.5f;
             transform.DOJump(position, jumpPower * factor, 1, jumpDuration)
                 .SetEase(easeCurve)

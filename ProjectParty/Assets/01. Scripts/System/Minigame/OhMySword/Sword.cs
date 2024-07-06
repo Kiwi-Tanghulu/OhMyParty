@@ -10,11 +10,11 @@ namespace OMG.Minigames.OhMySword
         [SerializeField] float scaleFactor = 0.02f;
         [SerializeField] float growDuration = 1f;
 
-        private bool activeCollision = false;
+        private bool collisionActive = false;
 
         private void OnTriggerEnter(Collider other)
         {
-            if(activeCollision == false)
+            if(collisionActive == false)
                 return;
 
             if(other.TryGetComponent<IDamageable>(out IDamageable id) == false)
@@ -34,7 +34,12 @@ namespace OMG.Minigames.OhMySword
         /// </summary>
         public void ActiveCollision(bool active)
         {
-            activeCollision = active;
+            collisionActive = active;
+        }
+
+        public void ToggleCollisionActive()
+        {
+            ActiveCollision(!collisionActive);
         }
     }
 }
