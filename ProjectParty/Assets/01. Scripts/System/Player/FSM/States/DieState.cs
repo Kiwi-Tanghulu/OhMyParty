@@ -38,7 +38,7 @@ namespace OMG.Player.FSM
         private void Die(NoneParams param)
         {
             ragdoll.SetActive(true);
-            ragdoll.AddForce(0f * health.HitDir, ForceMode.Impulse);
+            ragdoll.AddForce(health.Damage, health.HitDir, ForceMode.Impulse);
         }
     }
 }
