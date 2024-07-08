@@ -608,6 +608,9 @@ MonoBehaviour:
   OnStateExitEvent:
     m_PersistentCalls:
       m_Calls: []
+  playerDieEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4037587327798905607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2041,6 +2044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4627032491227810194}
   - component: {fileID: 5960801111510940813}
+  - component: {fileID: 2302576672021761360}
   - component: {fileID: 5000397531534581130}
   - component: {fileID: 8587812786356330153}
   - component: {fileID: 7872607311490483816}
@@ -2125,9 +2129,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  damageCaster: {fileID: 2302576672021761360}
+--- !u!114 &2302576672021761360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8214692700734619765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01390c1fea4f1fc48a181944225f4a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   eyeTrm: {fileID: 6326937418745788325}
+  hitEffectType: 1
   distance: 1
-  radius: 0.75
+  radius: 0.5
+  damage: 20
   DrawGizmo: 0
 --- !u!114 &5000397531534581130
 MonoBehaviour:
