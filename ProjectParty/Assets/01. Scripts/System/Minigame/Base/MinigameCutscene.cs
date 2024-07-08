@@ -1,7 +1,4 @@
 using Cinemachine;
-using OMG.Extensions;
-using OMG.Inputs;
-using OMG.NetworkEvents;
 using OMG.UI;
 using OMG.Utility;
 using Unity.Netcode;
@@ -48,6 +45,8 @@ namespace OMG.Minigames
 
         public void SkipCutscene()
         {
+            timelineHolder.time = timelineHolder.playableAsset.duration;
+            timelineHolder.Evaluate();
             timelineHolder.Stop();
             cycleText.PlayRaedyGo();
         }

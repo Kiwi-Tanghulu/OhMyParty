@@ -5,6 +5,7 @@ using UnityEngine;
 using OMG.NetworkEvents;
 
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
+using OMG.Lobbies;
 
 namespace OMG.Player.FSM
 {
@@ -16,22 +17,25 @@ namespace OMG.Player.FSM
 
         private NetworkEvent onAttackNetworkEvent = new NetworkEvent("DoActionEvent");
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 
             anim = player.transform.Find("Visual").GetComponent<ExtendedAnimator>();
 
-            onAttackNetworkEvent.AddListener(DoAction);
+            if(brain.Controller.IsSpawned)
+            {
+                onAttackNetworkEvent.AddListener(DoActionNetworkEvent);
 
-            onAttackNetworkEvent.Register(player.GetComponent<NetworkObject>());
+                onAttackNetworkEvent.Register(player.GetComponent<NetworkObject>());
+            }
         }
 
         public override void EnterState()
         {
             base.EnterState();
 
-            anim.AnimEvent.OnPlayingEvent += DoActionServerRpc;
+            anim.AnimEvent.OnPlayingEvent += InvokeDoAction;
 
             anim.SetLayerWeight(AnimatorLayerType.Upper, 1, true, 0.1f);
         }
@@ -40,18 +44,25 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            anim.AnimEvent.OnPlayingEvent -= DoActionServerRpc;
+            anim.AnimEvent.OnPlayingEvent -= InvokeDoAction;
 
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
         }
 
 
-        private void DoActionServerRpc()
+        private void InvokeDoAction()
         {
-            onAttackNetworkEvent.Alert();
+            if(brain.Controller.IsSpawned)
+            {
+                onAttackNetworkEvent.Alert();
+            }
+            else
+            {
+                DoAction();
+            }
         }
 
-        private void DoAction(NoneParams param)
+        private void DoActionNetworkEvent(NoneParams param)
         {
             DoAction();
         }

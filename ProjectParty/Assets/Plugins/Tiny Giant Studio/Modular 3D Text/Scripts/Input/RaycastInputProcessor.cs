@@ -103,6 +103,12 @@ namespace TinyGiantStudio.Text
 
         void Dragging()
         {
+            if(currentTarget == null)
+            {
+                dragging = false;
+                return;
+            }
+        
             Vector3 screenPoint = myCamera.WorldToScreenPoint(currentTarget.position);
 
 #if ENABLE_INPUT_SYSTEM

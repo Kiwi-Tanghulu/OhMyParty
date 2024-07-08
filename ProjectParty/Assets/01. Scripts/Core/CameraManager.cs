@@ -62,6 +62,8 @@ namespace OMG
 
             StopAllCoroutines();
             StartCoroutine(DelayAction(transitionTime, OnEndEvent));
+
+            Debug.Log($"changae camera : {cam.name}");
         }
 
         public void ChangePrevCam(float transitionTime = 0f, Action OnStartEvent = null, Action OnEndEvent = null)

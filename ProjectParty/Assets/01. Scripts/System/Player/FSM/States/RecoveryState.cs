@@ -20,28 +20,31 @@ namespace OMG.Player.FSM
         private WaitForSeconds wfs;
 
         private CharacterSkin playerSkin;
-        private readonly string matColorID = "_BaseColor";
 
         private Sequence twinkleTween;
 
-        private NetworkEvent onStartRecoveryEvent = new NetworkEvent("__");
-        private NetworkEvent onEndRecoveryEvent = new NetworkEvent("__________");
+        private NetworkEvent onStartRecoveryEvent = new NetworkEvent("onStartRecoveryEvent");
+        private NetworkEvent onEndRecoveryEvent = new NetworkEvent("onEndRecoveryEvent");
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 
-            anim = player.Animator;
+            anim = player.GetCharacterComponent<PlayerVisual>().Anim;
             health = player.GetComponent<PlayerHealth>();
-            playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
-
+            
+            playerSkin = player.GetCharacterComponent<PlayerVisual>().SkinSelector.CurrentSkin as CharacterSkin;
+            
             wfs = new WaitForSeconds(playerHitableDelayTime);
 
-            onStartRecoveryEvent.AddListener(OnStartRecovery);
-            onEndRecoveryEvent.AddListener(OnEndRecovery);
+            if(brain.Controller.IsSpawned)
+            {
+                onStartRecoveryEvent.AddListener(OnStartRecovery);
+                onEndRecoveryEvent.AddListener(OnEndRecovery);
 
-            onStartRecoveryEvent.Register(player.GetComponent<NetworkObject>());
-            onEndRecoveryEvent.Register(player.GetComponent<NetworkObject>());
+                onStartRecoveryEvent.Register(player.GetComponent<NetworkObject>());
+                onEndRecoveryEvent.Register(player.GetComponent<NetworkObject>());
+            }
         }
 
         public override void EnterState()
@@ -53,7 +56,14 @@ namespace OMG.Player.FSM
             health.Hitable = false;
             health.PlayerHitable = false;
 
-            onStartRecoveryEvent.Broadcast();
+            if(brain.Controller.IsSpawned)
+            {
+                onStartRecoveryEvent.Broadcast();
+            }
+            else
+            {
+                OnStartRecovery(new NoneParams());
+            }
         }
 
         public override void ExitState()
@@ -64,7 +74,14 @@ namespace OMG.Player.FSM
 
             health.Hitable = true;
 
-            onEndRecoveryEvent.Broadcast();
+            if (brain.Controller.IsSpawned)
+            {
+                onEndRecoveryEvent.Broadcast();
+            }
+            else
+            {
+                OnEndRecovery(new NoneParams());
+            }
         }
 
         private void AnimEvent_OnEndEvent()
@@ -94,7 +111,7 @@ namespace OMG.Player.FSM
         private void OnStartRecovery(NoneParams param)
         {
             if (playerSkin == null)
-                playerSkin = player.Visual.SkinSelector.CurrentSkin as CharacterSkin;
+                playerSkin = player.GetCharacterComponent<PlayerVisual>().SkinSelector.CurrentSkin as CharacterSkin;
 
             float twinkleTweenTime = playerHitableDelayTime / 4f;
             twinkleTween = DOTween.Sequence();
@@ -107,6 +124,12 @@ namespace OMG.Player.FSM
         private void OnEndRecovery(NoneParams param)
         {
             player.StartCoroutine(HitableDelayCo());
+        }
+
+        private void OnDestroy()
+        {
+            onStartRecoveryEvent.Unregister();
+            onEndRecoveryEvent.Unregister();
         }
     }
 }

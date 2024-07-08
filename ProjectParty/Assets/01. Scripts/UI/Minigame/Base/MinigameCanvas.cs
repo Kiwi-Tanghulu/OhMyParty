@@ -6,11 +6,13 @@ namespace OMG.UI
 {
     public class MinigameCanvas : MonoBehaviour
     {
-        public void ChangeRenderType()
+        public void ChangeRenderTypea()
         {
             Canvas canvas = GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
             canvas.worldCamera = Camera.main;
             canvas.planeDistance = 0.5f;
+            Debug.Log("change render mode");
         }
     }
 }

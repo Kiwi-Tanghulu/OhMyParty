@@ -56,24 +56,26 @@ namespace OMG.UI
         public void FadeIn(float delay = 0f, Action onStartEvent = null, Action onEndEvent = null)
         {
             StartCoroutine(Play(delay, true, onStartEvent, onEndEvent));
+            Debug.Log("in");
         }
 
         public void FadeOut(float delay = 0f, Action onStartEvent = null, Action onEndEvent = null)
         {
             StartCoroutine(Play(delay, false, onStartEvent, onEndEvent));
+            Debug.Log("out");
         }
 
         private IEnumerator Play(float delay, bool option, Action onStartEvent, Action onEndEvents)
         {
             Time.timeScale = 0.0f;
-            InputManager.SetInputEnable(false);
-
+            //InputManager.SetInputEnable(false);
+            
             yield return new WaitForSecondsRealtime(delay);
-
+            
             Time.timeScale = 1.0f;
 
             yield return null;
-            InputManager.SetInputEnable(true);
+            //InputManager.SetInputEnable(true);
 
             FadingEvents[FadeStateType.Begin] = onStartEvent;
             FadingEvents[FadeStateType.Finish] = onEndEvents;

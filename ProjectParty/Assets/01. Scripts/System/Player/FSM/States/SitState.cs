@@ -10,14 +10,13 @@ namespace OMG.Player.FSM
 {
     public class SitState : PlayerFSMState
     {
-        [SerializeField] private float detectChairDistance = 1.5f;
         private Chair usingChair;
         private Transform sitPoint;
 
         private CharacterMovement movement;
         private PlayerFocuser focuser;
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 

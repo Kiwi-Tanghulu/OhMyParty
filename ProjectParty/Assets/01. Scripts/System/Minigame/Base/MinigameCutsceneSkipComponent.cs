@@ -4,7 +4,6 @@ using OMG.NetworkEvents;
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 using Unity.Netcode;
 using UnityEngine;
-using System;
 
 namespace OMG.Minigames
 {

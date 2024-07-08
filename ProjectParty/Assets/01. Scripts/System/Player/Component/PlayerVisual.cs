@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace OMG.Player
 {
-    public class PlayerVisual : NetworkBehaviour
+    public class PlayerVisual : CharacterComponent
     {
         [SerializeField] private SkinLibrarySO skinLibrarySO;
         [SerializeField] private PlayerVisualType visualType;
@@ -19,26 +19,32 @@ namespace OMG.Player
         private PlayerRagdollController ragdoll;
         public PlayerRagdollController Ragdoll => ragdoll;
 
+        private ExtendedAnimator anim;
+        public ExtendedAnimator Anim => anim;
+
         public Action<PlayerVisualType/*new skin type*/> OnSkinChangedEvent;
 
         private bool visualSetted;
         protected ulong ownerID = 0;
 
-        protected virtual void Awake()
+        public override void Init(OMG.CharacterController controller)
         {
             skinSelector = GetComponent<PlayerSkinSelector>();
             ragdoll = GetComponent<PlayerRagdollController>();
-        }
+            anim = GetComponent<ExtendedAnimator>();
 
-        public void Init(ulong ownerID)
-        {
-            this.ownerID = ownerID;
             visualSetted = false;
+            if (Lobby.Current != null)
+            {
+                TrySetVisual();
 
-            TrySetVisual();
-
-            if(!visualSetted)
-                Lobby.Current.PlayerDatas.OnListChanged += HandlePlayerDatasChanged;
+                if (!visualSetted)
+                    Lobby.Current.PlayerDatas.OnListChanged += HandlePlayerDatasChanged;
+            }
+            else
+            {
+                SetSkin(visualType);
+            }
         }
 
         private void TrySetVisual()

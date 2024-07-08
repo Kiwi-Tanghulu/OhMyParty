@@ -80,8 +80,16 @@ namespace OMG.UI
 
         private void SetPlayerUI()
         {
-            foreach (var keyValuePair in readyCheckBoxDictionary)
-                Destroy(keyValuePair.Value.gameObject);
+            Debug.Log("set player ui");
+            foreach(Transform checkboxTrm in readyCheckBoxContainer)
+            {
+                if(checkboxTrm.TryGetComponent<PlayerReadyCheckBox>(out PlayerReadyCheckBox checkBox))
+                {
+                    Destroy(checkBox.gameObject);
+                }
+            }
+            //foreach (var keyValuePair in readyCheckBoxDictionary)
+            //    Destroy(keyValuePair.Value.gameObject);
             readyCheckBoxDictionary = new Dictionary<ulong, PlayerReadyCheckBox>();
 
             foreach (PlayerController player in Lobby.Current.PlayerContainer.PlayerList)
@@ -90,9 +98,8 @@ namespace OMG.UI
                 checkBox.SetPlayerImage(
                     PlayerManager.Instance.RenderTargetPlayerDic[player.OwnerClientId].RenderTexture);
 
-                Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data, data => data.ClientID == player.OwnerClientId);
-                string nickname = data.Nickname;
-                checkBox.SetNameText(string.IsNullOrEmpty(nickname) ? player.name : nickname);
+                Lobby.Current.PlayerDatas.Find(out OMG.Lobbies.PlayerData data, (data) => data.ClientID == player.OwnerClientId);
+                checkBox.SetNameText(data.Nickname);
 
                 readyCheckBoxDictionary.Add(player.OwnerClientId, checkBox);
             }

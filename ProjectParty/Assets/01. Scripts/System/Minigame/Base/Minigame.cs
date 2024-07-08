@@ -2,7 +2,6 @@ using OMG.Extensions;
 using OMG.Inputs;
 using OMG.UI;
 using OMG.UI.Minigames;
-using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -34,8 +33,8 @@ namespace OMG.Minigames
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
 
-            cutscenePanel = DEFINE.MinigameCanvas.Find("CutscenePanel").GetComponent<CutscenePanel>();
-            minigamePanel = DEFINE.MinigameCanvas.Find("MinigamePanel").GetComponent<MinigamePanel>();
+            cutscenePanel = DEFINE.MinigameCanvas?.transform.Find("CutscenePanel").GetComponent<CutscenePanel>();
+            minigamePanel = DEFINE.MinigameCanvas?.transform.Find("MinigamePanel").GetComponent<MinigamePanel>();
         }
 
         public override void OnNetworkSpawn()
@@ -60,15 +59,16 @@ namespace OMG.Minigames
             Fade.Instance.FadeIn(
                 3f,
                 () => MinigameManager.Instance.MinigamePaused = true,
-                () => MinigameManager.Instance.MinigamePaused = false
+                () =>
+                {
+                    MinigameManager.Instance.MinigamePaused = false;
+                    InputManager.SetInputEnable(true);
+                }
             );
 
             StartIntro();
         }
 
-        /// <summary>
-        /// Only Host Could Call this Method
-        /// </summary>
         public virtual void Release() 
         {
         }
@@ -90,6 +90,7 @@ namespace OMG.Minigames
         public virtual void StartGame()
         { 
             InputManager.ChangeInputMap(InputMapType.Play);
+            GameManager.Instance.CursorActive = false;
             minigamePanel.Init(this);
             minigamePanel.Display(true);
             OnStartedEvent?.Invoke();
@@ -98,6 +99,8 @@ namespace OMG.Minigames
         public virtual void FinishGame() 
         {
             InputManager.ChangeInputMap(InputMapType.UI);
+            GameManager.Instance.CursorActive = true;
+            Debug.Log("1");
             OnFinishedEvent?.Invoke();
             StartOutro();
         }
@@ -109,7 +112,11 @@ namespace OMG.Minigames
             Fade.Instance.FadeIn(
                 3f, 
                 () => MinigameManager.Instance.MinigamePaused = true, 
-                () => MinigameManager.Instance.MinigamePaused = false
+                () =>
+                {
+                    MinigameManager.Instance.MinigamePaused = false;
+                    InputManager.SetInputEnable(true);
+                }
             );
         }
 

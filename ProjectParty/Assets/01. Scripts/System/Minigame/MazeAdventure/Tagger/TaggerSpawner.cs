@@ -26,7 +26,7 @@ namespace OMG.Minigames.MazeAdventure
         {
             GameObject obj = Instantiate(taggerObj, taggerSpawnTrms[UnityEngine.Random.Range(0,taggerSpawnTrms.Count)].position, Quaternion.identity);
             Tagger tagger = obj.GetComponent<Tagger>();
-            tagger.Init(cycle);
+            tagger.SetCycle(cycle);
             tagger.NetworkObject.SpawnWithOwnership(0, true);
             tagger.NetworkObject.TrySetParent(gameObject, false);
             taggerList.Add(tagger.NetworkObject);

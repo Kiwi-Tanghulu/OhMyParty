@@ -6,12 +6,12 @@ namespace OMG.FSM
 {
     public abstract class FSMDecision : MonoBehaviour
     {
-        protected FSMBrain brain;
+        protected CharacterFSM brain;
 
         [SerializeField] private bool invert;
         protected bool result;
 
-        public virtual void Init(FSMBrain brain)
+        public virtual void Init(CharacterFSM brain)
         {
             this.brain = brain;
         }

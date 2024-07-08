@@ -2,13 +2,21 @@ using Netcode.Transports.Facepunch;
 using UnityEngine;
 using OMG.Network;
 using Unity.Netcode;
-using OMG.Minigames;
+using Steamworks;
 
 namespace OMG
 {
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; } = null;
+
+        public bool CursorActive {
+            get => Cursor.visible;
+            set {
+                Cursor.visible = value;
+                Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
+            }
+        }
 
         private void Awake()
         {
@@ -32,8 +40,11 @@ namespace OMG
 
         private void OnApplicationQuit()
         {
-            GuestManager.Instance?.Disconnect();
-            HostManager.Instance?.Disconnect();    
+            ClientManager.Instance?.Disconnect();
+
+            GuestManager.Instance?.Release();
+            HostManager.Instance?.Release();
+            ClientManager.Instance?.Release();
         }
 
         private void InitSingleton()
@@ -47,6 +58,14 @@ namespace OMG
             ClientManager.Instance = new ClientManager();
             HostManager.Instance = new HostManager();
             GuestManager.Instance = new GuestManager(NetworkManager.Singleton.GetComponent<FacepunchTransport>());
+
+            ClientManager.Instance.OnDisconnectEvent += HandleDisconnect;
+        }
+
+        private void HandleDisconnect()
+        {
+            SceneType scene = SteamClient.IsValid ? SceneType.IntroScene_Steam : SceneType.IntroScene;
+            SceneManager.Instance.LoadScene(scene);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace OMG.Player
 
         private Transform standingTrm;
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 
@@ -45,7 +45,8 @@ namespace OMG.Player
 
         private void CalculateScoreState_OnEndEvent()
         {
-            brain.ChangeState(brain.DefaultState);
+            if(player.IsOwner)
+                brain.ChangeState(brain.DefaultState);
         }
 
         private void OnDestroy()

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cinemachine;
 using OMG.Extensions;
+using OMG.FSM;
 using OMG.Inputs;
 using OMG.Interacting;
 using OMG.Minigames;
@@ -29,7 +30,6 @@ namespace OMG.Lobbies
         private LobbyResultComponent resultComponent = null;
         private LobbyReadyComponent readyComponent = null;
         private LobbyCutSceneComponent cutSceneComponent = null;
-        private LobbyRouletteComponent rouletteComponent = null;
 
         private NetworkList<ulong> playerIdList;
 
@@ -55,7 +55,6 @@ namespace OMG.Lobbies
             resultComponent = Lobby.Current.GetLobbyComponent<LobbyResultComponent>();
             readyComponent = Lobby.Current.GetLobbyComponent<LobbyReadyComponent>();
             cutSceneComponent = Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>();
-            rouletteComponent = Lobby.Current.GetLobbyComponent<LobbyRouletteComponent>();
 
             minigameComponent.OnMinigameSelectedEvent += HandleMinigameSelected;
             minigameComponent.OnMinigameSelectingEvent += HandleMinigameSelecting;
@@ -84,7 +83,7 @@ namespace OMG.Lobbies
             {
                 currentClientID = player.OwnerClientId;
                 readyComponent.Ready(currentClientID);
-                playerController.StateMachine.ChangeState(typeof(SitState));
+                playerController.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(SitState));
             }
 
             OnInteractEvent?.Invoke();
@@ -121,7 +120,10 @@ namespace OMG.Lobbies
         public void StartMinigame() //이거 호출하면 미니게임 시작
         {
             Debug.Log("start game");
-            Fade.Instance.FadeOut(0f, null, () =>
+            Fade.Instance.FadeOut(0f, () =>
+            {
+                InputManager.SetInputEnable(false);
+            }, () =>
             {
                 if (IsHost)
                 {
@@ -144,11 +146,11 @@ namespace OMG.Lobbies
         [ClientRpc]
         private void OnSpaceInputClientRpc()
         {
-            rouletteComponent.Stop(() =>
+            spotUI.PickUI.StopRoulette(() =>
             {
                 if(IsServer)
                 {
-                    //minigameComponent.SelectMinigame(roulette.SelectedMinigame);
+                    minigameComponent.SelectMinigame(spotUI.PickUI.SelectedSlot.MinigameSO);
                 }
             });
         }
@@ -156,6 +158,7 @@ namespace OMG.Lobbies
         private void HandleMinigameSelecting()
         {
             InputManager.ChangeInputMap(InputMapType.UI);
+            Debug.Log("1");
             InputManager.SetInputEnable(false);
 
             CameraManager.Instance.ChangeCamera(tvFocusCam, 2f, null, () =>
@@ -199,8 +202,8 @@ namespace OMG.Lobbies
 
         private void HandleInteractInput()
         {
-            readyComponent.Ready(currentClientID);
             input.OnInteractEvent -= HandleInteractInput;
+            readyComponent.Ready(currentClientID);
         }
 
         private void HandleMinigameFinished(Minigame minigame, bool cycleFinished)
@@ -227,6 +230,11 @@ namespace OMG.Lobbies
                 CameraManager.Instance.ChangeCamera(focusVCam);
             else
                 CameraManager.Instance.ChangeCamera(Lobby.Current.GetLobbyComponent<LobbySkinComponent>().Skin.Cam);
+        }
+
+        private void OnDisable()
+        {
+            spotUI.Hide();
         }
     }
 }

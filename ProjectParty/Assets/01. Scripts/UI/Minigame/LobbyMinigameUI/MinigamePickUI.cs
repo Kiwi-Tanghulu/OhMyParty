@@ -1,11 +1,15 @@
 using DG.Tweening;
 using OMG.Extensions;
+using OMG.Inputs;
 using OMG.Lobbies;
 using OMG.Minigames;
+using OMG.NetworkEvents;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.UI
 {
@@ -17,143 +21,255 @@ namespace OMG.UI
         [SerializeField] private RectTransform slotContainerRect;
         [SerializeField] private MinigameSlot slotPrefab;
         [SerializeField] private float padding;
+        [SerializeField] private float maxMoveSpeed;
+        [SerializeField] private float stopTime;
+        private float moveSpeed;
 
         [Space]
-        [SerializeField] private float createSlotDelay;
-        [SerializeField] private float waitSlotShowTime;
-        [SerializeField] private float waitHideSlotContentTime;
-        [SerializeField] private float alignSlotTime;
-        [SerializeField] private float slotShuffleTime;
-        [SerializeField] private float showInfoUIDelayTime;
-        private Vector2 slotSpawnPosOffset;
+        [SerializeField] private float readyTime;
+        [SerializeField] private float readyMoveValue;
+
+        [Space]
+        [SerializeField] private float alignTime;
+
+        [Space]
+        [SerializeField] private float selectedGameShowTime = 2f;
 
         [Space]
         [SerializeField] private TextMeshProUGUI noticeText;
+        [SerializeField] private string hostText;
+        [SerializeField] private string clientText;
 
         [Space]
-        [SerializeField] private int slotCount = 3;
-
+        [SerializeField] private int minSlotCount;
+        [SerializeField] private int maxMinigameCount;
         private List<MinigameSlot> slotList;
         public List<MinigameSlot> SlotList => slotList;
 
-        private MinigameSO selectedMinigame;
+        private Vector2 slotStartPos;
+        private Vector2 slotEndPos;
+        private Vector2 slotSpawnPosOffset;
+        private Vector2 slotSpawnStartXPos;
 
-        private LobbyMinigameComponent lobbyMinigameComponent;
+        private MinigameSlot selectedSlot;
+        public MinigameSlot SelectedSlot => selectedSlot;
+
+        public UnityEvent OnStartMoveEvent;
+        public UnityEvent OnStartStopMoveEvent;
+        public UnityEvent OnSlotChangedEvent;
+        public UnityEvent OnRouletteStopEvent;
+
+        private NetworkEvent<IntParams> onRouletteStopAlignEvent = new NetworkEvent<IntParams>("OnRouletteStopAlignEvent");
+        private NetworkEvent<Vector3Params> onSetSlotMinigameSOEvent = new NetworkEvent<Vector3Params>("SetSlotMinigameSOEvent");
+
+        private Action onStopAction;
+
+        private bool isRouletteMove;
+
+        private LobbyMinigameComponent minigameComp;
 
         public override void Init()
         {
             base.Init();
 
-            slotSpawnPosOffset = new Vector2(slotPrefab.Rect.rect.width + padding, 0f);
-            slotList = new List<MinigameSlot>();
+            minigameComp = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
 
-            lobbyMinigameComponent = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
+            onRouletteStopAlignEvent.AddListener(OnRouletteStopAlign);
+            onRouletteStopAlignEvent.Register(Lobby.Current.NetworkObject);
+
+            onSetSlotMinigameSOEvent.AddListener(SetSlotMinigameSOEvent);
+            onSetSlotMinigameSOEvent.Register(Lobby.Current.NetworkObject);
+
+            slotStartPos = new Vector2(Rect.rect.width / 2f + slotPrefab.Rect.rect.width / 2f, 0f);
+            slotEndPos = -slotStartPos;
+            slotSpawnPosOffset = new Vector2(slotPrefab.Rect.rect.width + padding, 0f);
+            slotSpawnStartXPos = new Vector2(-slotContainerRect.rect.width / 2f + padding, 0f);
+
+            //make slot
+            slotList = new();
+            MakeSlot();
+
+            isRouletteMove = false;
+        }
+
+        private void Update()
+        {
+            if (!isRouletteMove) return;
+
+            //roulette move
+            List<int> temps = new List<int>();
+            for (int i = 0; i < slotList.Count; i++)
+            {
+                
+                slotList[i].Rect.anchoredPosition += Time.deltaTime * -Vector2.right * moveSpeed;
+                if (slotList[i].Rect.anchoredPosition.x <= slotEndPos.x)
+                    temps.Add(i);
+            }
+
+            //teleport slot
+            temps.ForEach(i =>
+            {
+                int frontIndex = (i - 1 + slotList.Count) % slotList.Count;
+                slotList[i].Rect.anchoredPosition =
+                    slotList[frontIndex].Rect.anchoredPosition + slotSpawnPosOffset;
+            });
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            //hover slot
+            if (other.TryGetComponent<MinigameSlot>(out MinigameSlot slot))
+            {
+                selectedSlot?.Unhover();
+                selectedSlot = slot;
+                slot.Hover();
+
+                OnSlotChangedEvent?.Invoke();
+            }
         }
 
         public override void Show()
         {
             base.Show();
 
-            StartCoroutine(CreaetSlotSequence());
-        }
+            SetSlotsMinigameSO();
 
-        public override void Hide()
-        {
-            StopAllCoroutines();
-
-            base.Hide();
-        }
-
-        private IEnumerator CreaetSlotSequence()
-        {
-            yield return StartCoroutine(CreateSlot());
-
-            yield return new WaitForSeconds(waitSlotShowTime);
-
-            yield return StartCoroutine(HideSlotContent());
-
-            yield return new WaitForSeconds(waitHideSlotContentTime);
-
-            CollectSlot();
-            yield return new WaitForSeconds(alignSlotTime);
-
-            yield return new WaitForSeconds(slotShuffleTime);
-
-            AlignSlot();
-
-            yield return new WaitForSeconds(alignSlotTime);
-
-            for (int i = 0; i < slotCount; i++)
-                slotList[i].IsSelectable = true;
-
-            noticeText.gameObject.SetActive(true);
-        }
-
-        private IEnumerator CreateSlot()
-        {
-            List<MinigameSO> shuffledMinigameList = minigameListSO.MinigameList.Shuffle();
-
-            for(int i = slotList.Count - 1; i >= 0; i--)
+            //repositioning
+            for (int i = 0; i < slotList.Count; i++)
             {
-                Destroy(slotList[i]?.gameObject);
-                slotList.RemoveAt(i);
+                Vector2 pos = slotSpawnStartXPos + slotSpawnPosOffset * i;
+
+                slotList[i].Rect.anchoredPosition = pos;
             }
 
-            for (int i = 0; i < slotCount; i++)
+            StartCoroutine(MoveReady());
+        }
+
+        #region roulette
+        private IEnumerator MoveReady()
+        {
+            InputManager.SetInputEnable(false);
+
+            //move ready
+            foreach (MinigameSlot slot in slotList)
             {
-                Vector2 spawnPos = slotContainerRect.anchoredPosition + slotSpawnPosOffset * (i - slotCount / 2);
+                slot.Rect.DOAnchorPosX(slot.Rect.anchoredPosition.x + readyMoveValue, readyTime);
+            }
+
+            yield return new WaitForSeconds(readyTime);
+
+            //start delay
+            yield return new WaitForSeconds(0.2f);
+
+            moveSpeed = maxMoveSpeed;
+            InputManager.SetInputEnable(true);
+
+            //set notice text
+            noticeText.text = Lobby.Current.IsHost ? hostText : clientText;
+
+            OnStartMoveEvent?.Invoke();
+
+            isRouletteMove = true;
+        }
+
+        public void StopRoulette(Action onStopAction)
+        {
+            OnStartStopMoveEvent?.Invoke();
+            this.onStopAction = onStopAction;
+
+            Sequence seq = DOTween.Sequence();
+            seq.Append(DOTween.To(() => moveSpeed, x => moveSpeed = x, 0f, stopTime));
+            seq.AppendCallback(() =>
+            {
+                isRouletteMove = false;
+
+                if(Lobby.Current.IsServer)
+                {
+                    onRouletteStopAlignEvent?.Broadcast(new IntParams(slotList.IndexOf(selectedSlot)));
+                }
+            });
+            seq.Play();
+        }
+
+        public Sequence AlignSlotTween(int focusSlotIndex, float alignedElemShowTime
+            , Action onAlignEndEvent, Action onShowEndEvent)
+        {
+            Sequence seq = DOTween.Sequence();
+
+            seq.AppendCallback(() =>
+            {
+                //align
+                foreach (MinigameSlot slot in slotList)
+                {
+                    MinigameSlot focusSlot = slotList[focusSlotIndex];
+                    slot.Rect.DOAnchorPosX(slot.Rect.anchoredPosition.x - focusSlot.Rect.anchoredPosition.x, alignTime);
+                }
+            });
+            seq.AppendInterval(alignTime);
+            seq.AppendCallback(() => onAlignEndEvent?.Invoke());
+            seq.AppendInterval(alignedElemShowTime);
+            seq.AppendCallback(() => onShowEndEvent?.Invoke());
+
+            return seq.Play();
+        }
+
+        private void OnRouletteStopAlign(IntParams param)
+        {
+            AlignSlotTween(param.Value, selectedGameShowTime, 
+                () => OnRouletteStopEvent?.Invoke(), 
+                () => onStopAction?.Invoke());
+        }
+        #endregion
+
+        #region slot
+        private void MakeSlot()
+        {
+            for (int i = 0; i < minSlotCount; i++)
+            {
+                Vector2 spawnPos = slotSpawnStartXPos + slotSpawnPosOffset * i;
 
                 MinigameSlot slot = Instantiate(slotPrefab, slotContainerRect);
                 slot.Init();
-                slot.SetMinigameSO(shuffledMinigameList[i]);
-                slot.OnSelectedEvent.AddListener(MinigameSlot_OnSelected);
                 slot.Rect.anchoredPosition = spawnPos;
-                slot.IsSelectable = false;
-                slot.Show();
 
                 slotList.Add(slot);
-
-                yield return new WaitForSeconds(createSlotDelay);
             }
         }
 
-        private IEnumerator HideSlotContent()
+        private void SetSlotsMinigameSO()
         {
-            for (int i = 0; i < slotCount; i++)
+            if (!Lobby.Current.IsServer)
+                return;
+
+            List<MinigameSO> randMinigameList = minigameComp.NotPlayedMinigameList.Shuffle();
+            int minigameCount = Mathf.Min(maxMinigameCount, randMinigameList.Count);
+
+            //make slot
+            for (int i = 0; i < minSlotCount; i++)
             {
-                slotList[i].ShowContent(false);
+                int index = i % minigameCount;
 
-                yield return new WaitForSeconds(createSlotDelay);
+                //slotList[i].SetMinigameSO(randMinigameList[index]);
+                onSetSlotMinigameSOEvent?.Broadcast(new Vector3Params(new Vector3(i, (float)randMinigameList[index].Type)));
             }
         }
 
-        private void CollectSlot()
+        private void SetSlotMinigameSOEvent(Vector3Params param)
         {
-            for (int i = 0; i < slotCount; i++)
-            {
-                slotList[i].Rect.DOAnchorPos(slotContainerRect.anchoredPosition, alignSlotTime);
-            }
-        }
-
-        private void AlignSlot()
-        {
-            for (int i = 0; i < slotCount; i++)
-            {
-                Vector2 alignPos = slotContainerRect.anchoredPosition + slotSpawnPosOffset * (i - slotCount / 2);
-
-                slotList[i].Rect.DOAnchorPos(alignPos, alignSlotTime);
-            }
-        }
-
-        private void MinigameSlot_OnSelected(MinigameSlot slot)
-        {
-            slot.SetMinigameSO(slotList[0].MinigameSO);
-
-            slot.ShowContent(true);
-            slot.OnSelectedEvent.RemoveListener(MinigameSlot_OnSelected);
+            int slotIndex = (int)param.Value.x;
+            MinigameType type = (MinigameType)param.Value.y;
+            MinigameSO minigameSO = minigameListSO.MinigameList.Find(x => x.Type == type);
             
-            StartCoroutine(this.DelayCoroutine(showInfoUIDelayTime,
-                () => lobbyMinigameComponent.SelectMinigame(slotList[0].MinigameSO)));
+            if(minigameSO)
+            {
+                slotList[slotIndex].SetMinigameSO(minigameSO);
+            }
+            else
+            {
+                Debug.Log($"not set minigame {type}");
+            }
+           
         }
+        #endregion
     }
-}
+} 

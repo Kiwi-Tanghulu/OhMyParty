@@ -1,3 +1,4 @@
+using OMG.Player;
 using UnityEngine;
 
 namespace OMG.Minigames.RockFestival
@@ -5,9 +6,6 @@ namespace OMG.Minigames.RockFestival
     public class RockFestival : PlayableMinigame
     {
         [SerializeField] ScoreArea[] scoreAreas = null;
-
-        [Space(15f)]
-        [SerializeField] float playTime = 60f;
 
         private RockSpawner spawner = null;
         private TimeAttackCycle timeAttackCycle = null;
@@ -34,6 +32,10 @@ namespace OMG.Minigames.RockFestival
         public override void Release()
         {
             base.Release();
+
+            if(IsHost == false)
+                return;
+
             spawner.Release();
         }
 
@@ -42,19 +44,19 @@ namespace OMG.Minigames.RockFestival
             base.StartGame();
 
             for(int i = 0; i < PlayerDatas.Count; ++i)
-            {
                 scoreAreas[i].SetActive(true, IsHost);
-                #region 지워야 됨
-                if(IsHost)
-                    PlayerDictionary[playerDatas[i].clientID].Visual.transform.localPosition = Vector3.zero;
-                #endregion
-            }
+            // {
+            //     #region 지워야 됨
+            //     if(IsHost)
+            //         PlayerDictionary[playerDatas[i].clientID].GetCharacterComponent<PlayerVisual>().transform.localPosition = Vector3.zero;
+            //     #endregion
+            // }
 
             if(IsHost == false)
                 return;
 
             spawner.SetActive(true);
-            timeAttackCycle.StartCycle(playTime);
+            timeAttackCycle.StartCycle();
         }
 
         public override void FinishGame()

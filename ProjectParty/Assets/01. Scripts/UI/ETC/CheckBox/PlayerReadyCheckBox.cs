@@ -1,3 +1,4 @@
+using OMG.Player;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,7 +11,7 @@ namespace OMG.UI
     {
         [SerializeField] private GameObject fillImage;
         [SerializeField] private RawImage playerImage;
-        [SerializeField] private TMP_Text nameText;
+        [SerializeField] private PlayerNameTag nameTag;
 
         public void SetPlayerImage(Texture texture)
         {
@@ -19,7 +20,7 @@ namespace OMG.UI
 
         public void SetNameText(string name)
         {
-            nameText.text = name;
+            nameTag.SetNameTag(name);
         }
 
         public override void SetCheck(bool value)

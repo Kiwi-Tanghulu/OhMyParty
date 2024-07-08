@@ -6,8 +6,6 @@ namespace OMG.Player
 {
     public class RenderTargetPlayerVisual : PlayerVisual
     {
-        private Animator anim;
-
         private RenderTexture renderTexture;
         public RenderTexture RenderTexture => renderTexture;
 
@@ -15,11 +13,9 @@ namespace OMG.Player
 
         private Dictionary<RenderTargetPlayerPoseType, int> PoseHashDic;
 
-        protected override void Awake()
+        public override void Init(OMG.CharacterController controller)
         {
-            base.Awake();
-
-            anim = GetComponent<Animator>();
+            base.Init(controller);
 
             CreateRenderTexture();
 
@@ -30,14 +26,14 @@ namespace OMG.Player
             }
         }
 
-        public void SetOwenrID(ulong ownerID)
-        {
-            this.ownerID = ownerID;
-        }
+        //public void SetOwenrID(ulong ownerID)
+        //{
+        //    this.ownerID = ownerID;
+        //}
 
         public void SetPose(RenderTargetPlayerPoseType poseType)
         {
-            anim.SetTrigger(PoseHashDic[poseType]);
+            Anim.SetTrigger(PoseHashDic[poseType]);
         }
 
         private void CreateRenderTexture()

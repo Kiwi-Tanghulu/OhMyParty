@@ -14,7 +14,7 @@ namespace OMG.Player.FSM
 
         protected CharacterMovement movement;
 
-        public override void Init(FSMBrain brain)
+        public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
 
@@ -25,21 +25,21 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            player.Animator.AnimEvent.OnPlayingSubEvent += AnimEvent_OnPlayingSubEvent;
+            player.GetCharacterComponent<PlayerVisual>().Anim.AnimEvent.OnPlayingSubEvent += AnimEvent_OnPlayingSubEvent;
         }
 
         public override void UpdateState()
         {
             base.UpdateState();
 
-            movement.Move();
+            //movement.Move();
         }
 
         public override void ExitState()
         {
             base.ExitState();
 
-            player.Animator.AnimEvent.OnPlayingSubEvent -= AnimEvent_OnPlayingSubEvent;
+            player.GetCharacterComponent<PlayerVisual>().Anim.AnimEvent.OnPlayingSubEvent -= AnimEvent_OnPlayingSubEvent;
         }
 
         private void AnimEvent_OnPlayingSubEvent()

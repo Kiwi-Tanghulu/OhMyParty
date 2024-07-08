@@ -18,8 +18,10 @@ namespace OMG.Minigames.SafetyZone
         [SerializeField] private StarEffect starEffect;
         [SerializeField] private ParticleSystem slowEffect;
         [SerializeField] private ParticleSystem hitParticle;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             Health = GetComponent<PlayerHealth>();
         }
 
@@ -29,14 +31,14 @@ namespace OMG.Minigames.SafetyZone
             if(slowCoroutine != null)
             {
                 StopCoroutine(slowCoroutine);
-                Stat.StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
+                GetCharacterComponent<CharacterStat>().StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
             }
 
             // 슬로우 시작
             SlowEffectServerRPC(true);
-            Stat.StatSO[CharacterStatType.MaxMoveSpeed].AddModifier(slow);
+            GetCharacterComponent<CharacterStat>().StatSO[CharacterStatType.MaxMoveSpeed].AddModifier(slow);
             slowCoroutine = StartCoroutine(this.DelayCoroutine(duration, () => {
-                Stat.StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
+                GetCharacterComponent<CharacterStat>().StatSO[CharacterStatType.MaxMoveSpeed].RemoveModifier(slow);
                 // 슬로우 종료
                 SlowEffectServerRPC(false);
             }));

@@ -56,7 +56,7 @@ namespace OMG.Player
 
             if (lastFocusedTarget != focuser.FocusedObject)
                 currentTarget = focuser.FocusedObject.CurrentObject.GetComponent<IInteractable>();
-            Debug.Log(currentTarget);
+            Debug.Log("interact");
             currentTarget?.Interact(this, actived, focuser.FocusedPoint);
         }
 

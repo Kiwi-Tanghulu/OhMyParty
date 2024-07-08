@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using OMG.Editors;
 using OMG.Extensions;
 using OMG.Player;
 using Unity.Netcode;
-using Unity.Netcode.Components;
 using UnityEngine;
 
 namespace OMG.Minigames
@@ -10,7 +10,12 @@ namespace OMG.Minigames
     public abstract class PlayableMinigame : Minigame
     {
         [SerializeField] protected PlayerController playerPrefab = null;
-        [SerializeField] Transform[] spawnPositions = null;
+        [SerializeField] bool useLife = true;
+        [ConditionalField("useLife", true)]
+        [SerializeField] int lifeCount = 3;
+
+        [SerializeField] List<Transform> spawnPositions = null;
+        protected virtual bool ShufflePosition => false;
 
         private Dictionary<ulong, PlayerController> playerDictionary = null;
         public Dictionary<ulong, PlayerController> PlayerDictionary => playerDictionary;
@@ -27,7 +32,15 @@ namespace OMG.Minigames
         public override void SetPlayerDatas(params ulong[] playerIDs)
         {
             base.SetPlayerDatas(playerIDs);
-            playerDictionary = new Dictionary<ulong, PlayerController>();   
+            playerDictionary = new Dictionary<ulong, PlayerController>();
+
+            if(useLife)
+            {
+                playerDatas.ChangeAllData(i => {
+                    i.lifeCount = lifeCount;
+                    return i;
+                });
+            }
         }
 
         public override void StartGame()
@@ -37,20 +50,33 @@ namespace OMG.Minigames
             if(IsHost == false)
                 return;
             Debug.Log("Player Create");
+            
+            if(ShufflePosition)
+                spawnPositions = spawnPositions.Shuffle();
             for (int i = 0; i < playerDatas.Count; ++i)
-                CreatePlayer(i);
+                SpawnPlayer(i);
         }
 
         public override void Release()
         {
             base.Release();
+
+            if(IsHost == false)
+                return;
+
             players.ForEach(i => {
                 if(i.TryGet(out NetworkObject player))
                     player.Despawn();
             });
         }
 
-        protected PlayerController CreatePlayer(int index)
+        public void RespawnPlayer(ulong clientID)
+        {
+            Vector3 position = spawnPositions.PickRandom().position;
+            playerDictionary[clientID].GetComponent<CharacterMovement>().Teleport(position, Quaternion.identity);
+        }
+
+        protected PlayerController SpawnPlayer(int index)
         {
             PlayerController player = Instantiate(playerPrefab, spawnPositions[index].position, Quaternion.identity);
             RegisterPlayer(player.NetworkObject, spawnPositions[index].position, playerDatas[index].clientID);

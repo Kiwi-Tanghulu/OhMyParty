@@ -1,10 +1,12 @@
+using OMG.UI;
 using UnityEngine;
 
 namespace OMG
 {
     public static class DEFINE
     {
-        public const string LOBBY_CLOSED = "closed";
+        public const string INTRO_SCENE = "IntroScene";
+        public const string LOBBY_SCENE = "LobbyScene";
 
         public const int FOCUSED_PRIORITY = 20;
         public const int UNFOCUSED_PRIORITY = 1;
@@ -20,11 +22,11 @@ namespace OMG
             }
         }
 
-        private static Transform minigameCanvas = null;
-        public static Transform MinigameCanvas {
+        private static MinigameCanvas minigameCanvas = null;
+        public static MinigameCanvas MinigameCanvas {
             get {
                 if(minigameCanvas == null)
-                    minigameCanvas = GameObject.Find("MinigameCanvas")?.transform;
+                    minigameCanvas = GameObject.Find("MinigameCanvas")?.GetComponent<MinigameCanvas>();
                 return minigameCanvas;
             }
         }

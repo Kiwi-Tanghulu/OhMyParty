@@ -17,7 +17,7 @@ namespace OMG.Minigames.MazeAdventure
         private DetectTargetParams targetParam = null;
         private MoveTargetParams moveParam = null;
         private NavMeshAgent navMeshAgent;
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
             targetParam = brain.GetFSMParam<DetectTargetParams>();
@@ -36,12 +36,14 @@ namespace OMG.Minigames.MazeAdventure
             moveParam.movePos = targetParam.Target.position;
             base.ExitState();
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 MazeAdventurePlayerController player = other.GetComponent<MazeAdventurePlayerController>();
                 if (player.IsInvisibil) return;
+                if (!player.IsOwner) return;
                 player.PlayerDead();
                 brain.ChangeState(nextStateIdle);
             }

@@ -12,37 +12,54 @@ namespace OMG.Player.FSM
 
         private CharacterMovement movement;
 
-        public override void Init(FSMBrain brain)
+        private Vector3 inputMoveValue;
+
+        public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
 
             movement = brain.GetComponent<CharacterMovement>();
-        }
 
-        public override void EnterState()
-        {
-            base.EnterState();
+            #region !use on network
+#if UNITY_EDITOR
+            if (!brain.Controller.UseInNetwork)
+            {
+                input.OnMoveEvent += SetInputValue;
+                return;
+            }
+#endif
+            #endregion
 
-            input.OnMoveEvent += SetMoveDir;
+            if (brain.Controller.IsOwner)
+                input.OnMoveEvent += SetInputValue;
         }
 
         public override void UpdateState()
         {
             base.UpdateState();
+
+            movement.SetMoveDirection(inputMoveValue);
         }
 
-        public override void ExitState()
+        private void OnDestroy()
         {
-            base.ExitState();
+            #region !use on network
+#if UNITY_EDITOR
+            if (!brain.Controller.UseInNetwork)
+            {
+                input.OnMoveEvent -= SetInputValue;
+                return;
+            }
+#endif
+            #endregion
 
-            input.OnMoveEvent -= SetMoveDir;
+            if (brain.Controller.IsOwner)
+                input.OnMoveEvent -= SetInputValue;
         }
 
-        private void SetMoveDir(Vector2 input)
+        private void SetInputValue(Vector2 input)
         {
-            Vector3 moveDir = new Vector3(input.x, 0f, input.y);
-            
-            movement.SetMoveDirection(moveDir);
+            inputMoveValue = new Vector3(input.x, 0f, input.y);
         }
     }
 }

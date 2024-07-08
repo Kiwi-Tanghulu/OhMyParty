@@ -14,11 +14,11 @@ namespace OMG.Player.FSM
 
         protected ExtendedAnimator anim;
 
-        public override void Init(FSMBrain brain)
+        public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
 
-            anim = player.Visual.GetComponent<ExtendedAnimator>();
+            anim = player.GetCharacterComponent<PlayerVisual>().Anim;
             hash = Animator.StringToHash(proertyName);
         }
     }

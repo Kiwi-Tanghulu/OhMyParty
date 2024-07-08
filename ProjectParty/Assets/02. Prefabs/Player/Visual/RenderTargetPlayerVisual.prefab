@@ -460,6 +460,7 @@ GameObject:
   - component: {fileID: 2303322183020315692}
   - component: {fileID: -2779087323168497110}
   - component: {fileID: 5864362931493435817}
+  - component: {fileID: 8887325464953239807}
   m_Layer: 0
   m_Name: RenderTargetPlayerVisual
   m_TagString: Untagged
@@ -520,7 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinLibrarySO: {fileID: 0}
   visualType: 0
-  skinSelector: {fileID: 0}
+  skinPos: {x: 0, y: 0, z: 0}
   renderCamera: {fileID: 4451787929236999342}
 --- !u!114 &5864362931493435817
 MonoBehaviour:
@@ -536,6 +537,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinContainer: {fileID: 3108155902965447678}
   skinLibrary: {fileID: 11400000, guid: 23b96e375aec98748b642413a323e75d, type: 2}
+--- !u!114 &8887325464953239807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2335595793533739332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ec4ebd510b7644b95a390fa8ad72f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2303322183020315692}
+  AnimEvent: {fileID: 0}
 --- !u!1 &2408965019153053026
 GameObject:
   m_ObjectHideFlags: 0

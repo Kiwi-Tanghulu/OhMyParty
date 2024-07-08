@@ -12,7 +12,7 @@ namespace OMG.Minigames.MazeAdventure
     {
         [SerializeField] private TaggerTextEffect taggerTextEffect;
         private NavMeshAgent navMeshAgent;
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 

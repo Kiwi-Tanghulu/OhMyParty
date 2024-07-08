@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Minigames;
 using Unity.Netcode;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 using Random = UnityEngine.Random;
 
 namespace OMG.Lobbies
@@ -27,9 +29,18 @@ namespace OMG.Lobbies
         public event Action OnMinigameStartedEvent = null;
         private MinigameSO currentMinigame = null;
 
+        private List<MinigameSO> notPlayedMinigameList;
+        public List<MinigameSO> NotPlayedMinigameList => notPlayedMinigameList;
+
         public override void Init(Lobby lobby)
         {
             base.Init(lobby);
+
+            notPlayedMinigameList = new List<MinigameSO>();
+            for (int i = 0; i < minigameList.Count; i++)
+            {
+                notPlayedMinigameList.Add(minigameList.MinigameList[i]);
+            }
         }
 
         public void ClearMinigameCycle()
@@ -80,17 +91,28 @@ namespace OMG.Lobbies
             MinigameManager.Instance.StartMinigame(currentMinigame, joinedPlayers);
             BroadcastMinigameStartedClientRpc();
 
+            notPlayedMinigameList.Remove(currentMinigame);
+            if(notPlayedMinigameList.Count <= 0)
+            {
+                notPlayedMinigameList = new List<MinigameSO>();
+                for (int i = 0; i < minigameList.Count; i++)
+                {
+                    notPlayedMinigameList.Add(minigameList.MinigameList[i]);
+                }
+            }
+
             Lobby.ChangeLobbyState(LobbyState.MinigamePlaying);
             Lobby.SetActive(false);
         }
 
         private void HandleMinigameFinished(Minigame minigame)
         {
-            currentCycleCount++;
             Lobby.SetActive(true);
-            Lobby.ChangeLobbyState(LobbyState.MinigameFinished);
 
-            BroadcastMinigameFinishedClientRpc(currentCycleCount >= MinigameCycleCount);
+            currentCycleCount++;
+            bool cycleFinished = currentCycleCount >= MinigameCycleCount;
+            Lobby.ChangeLobbyState(cycleFinished ? LobbyState.Community : LobbyState.MinigameFinished);
+            BroadcastMinigameFinishedClientRpc(cycleFinished);
             Debug.Log($"Display Result");
 
             minigame.MinigameData.OnMinigameFinishedEvent -= HandleMinigameFinished;
@@ -124,6 +146,9 @@ namespace OMG.Lobbies
         private void BroadcastMinigameFinishedClientRpc(bool cycleFinished)
         {
             OnMinigameFinishedEvent?.Invoke(MinigameManager.Instance.CurrentMinigame, cycleFinished);
+
+            if(!IsHost)
+                currentCycleCount++;
         }
     }
 }

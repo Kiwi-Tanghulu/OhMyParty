@@ -5,13 +5,13 @@ namespace OMG.FSM
 {
     public class FSMTransition : MonoBehaviour
     {
-        private FSMBrain brain;
+        private CharacterFSM brain;
 
         [SerializeField] private FSMState nextState;
         private FSMDecision[] decisions;
         protected bool result;
 
-        public virtual void Init(FSMBrain brain)
+        public virtual void Init(CharacterFSM brain)
         {
             this.brain = brain;
 

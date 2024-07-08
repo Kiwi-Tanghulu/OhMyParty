@@ -74,9 +74,9 @@ namespace OMG.Minigames.SafetyZone
                 SafetyZonePlayerController player = minigame.PlayerDictionary[i.clientID] as SafetyZonePlayerController;
                 if (player?.IsDead == false && player?.IsSafety == false)
                 {
-                    player.Health.OnDamaged(-1f, transform, transform.position);
+                    player.Health.OnDamaged(0f, transform, transform.position, HitEffectType.Die);
                     player.IsDead = true;
-                    BroadcastPlayerDeadClientRpc(i.clientID);
+                    cycle.SetPlayerDead(i.clientID);
                 }
             });
 
@@ -92,12 +92,6 @@ namespace OMG.Minigames.SafetyZone
         public void Init()
         {
             InitClientRpc();
-        }
-
-        [ClientRpc]
-        private void BroadcastPlayerDeadClientRpc(ulong clientID)
-        {
-            cycle.HandlePlayerDead(clientID);
         }
 
         #region Cycle

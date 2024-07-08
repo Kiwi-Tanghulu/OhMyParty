@@ -22,28 +22,38 @@ namespace OMG.Player.FSM
         private NetworkEvent onStartStunEvent = new NetworkEvent("StartStunEvent");
         private NetworkEvent onEndStunEvent = new NetworkEvent("EndStunEvent");
 
-        public override void InitState(FSMBrain brain)
+        public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 
-            movement = player.GetComponent<CharacterMovement>();
-            health = player.GetComponent<PlayerHealth>();
-            anim = player.Animator;
-            ragdoll = player.Visual.Ragdoll;
+            movement = player.GetCharacterComponent<CharacterMovement>();
+            health = player.GetCharacterComponent<PlayerHealth>();
+            anim = player.GetCharacterComponent<PlayerVisual>().Anim;
+            ragdoll = player.GetCharacterComponent<PlayerVisual>().Ragdoll;
 
-            onStartStunEvent.AddListener(StratStun);
-            onEndStunEvent.AddListener(EndStun);
+            if(brain.Controller.IsSpawned)
+            {
+                onStartStunEvent.AddListener(StratStun);
+                onEndStunEvent.AddListener(EndStun);
 
-            onStartStunEvent.Register(player.GetComponent<NetworkObject>());
-            onEndStunEvent.Register(player.GetComponent<NetworkObject>());
+                onStartStunEvent.Register(player.GetComponent<NetworkObject>());
+                onEndStunEvent.Register(player.GetComponent<NetworkObject>());
+            }
         }
 
         public override void EnterState()
         {
             base.EnterState();
 
-            onStartStunEvent.Broadcast();
-
+            if (brain.Controller.IsSpawned)
+            {
+                onStartStunEvent.Broadcast();
+            }
+            else
+            {
+                StratStun(new NoneParams());
+            }
+            
             movement.SetMoveDirection(Vector3.zero, false);
         }
 
@@ -51,7 +61,14 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            onEndStunEvent.Broadcast();
+            if (brain.Controller.IsSpawned)
+            {
+                onEndStunEvent.Broadcast();
+            }
+            else
+            {
+                EndStun(new NoneParams());
+            }
 
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position, Vector3.down, 10000f, groundLayer);
             if (hit.Length > 0)
@@ -66,12 +83,12 @@ namespace OMG.Player.FSM
         private void StratStun(NoneParams param)
         {
             ragdoll.SetActive(true);
-            ragdoll.AddForce(health.Damage * health.HitDir, ForceMode.Impulse);
+            ragdoll.AddForce(health.Damage, health.HitDir, ForceMode.Impulse);
         }
         
         private void EndStun(NoneParams param)
         {
-            player.Visual.Ragdoll.SetActive(false);
+            player.GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false);
             ragdoll.SetActive(false);
         }
     }

@@ -56,12 +56,12 @@ public class PlayerManager : MonoBehaviour
 
         //playerVisual.SetSkin(player.Visual.VisualType);
         //player.OnSpawnedEvent.AddListener(playerVisual.Init);
-        playerVisual.Init(player.OwnerClientId);
+        playerVisual.Init(player);
         //playerVisual.SetOwenrID(player.OwnerClientId);
 
         renderTargetPlayerDic.Add(player.OwnerClientId, playerVisual);
 
-        player.Visual.OnSkinChangedEvent += playerVisual.SetSkin;
+        player.GetCharacterComponent<PlayerVisual>().OnSkinChangedEvent += playerVisual.SetSkin;
 
         return playerVisual;
     }
