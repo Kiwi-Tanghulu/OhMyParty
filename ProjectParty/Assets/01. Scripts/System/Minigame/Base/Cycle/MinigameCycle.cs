@@ -56,7 +56,6 @@ namespace OMG.Minigames
                 {
                     InputManager.SetInputEnable(false);
                     DEFINE.MinigameCanvas.ChangeRenderTypea();
-                    Debug.Log(123);
                 }, () =>
                 {
                     if (IsHost)

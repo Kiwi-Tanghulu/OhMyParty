@@ -14,8 +14,14 @@ namespace OMG.Minigames
         [SerializeField] private Transform mapPartParentTrm;
         [SerializeField] private int spawnMapPartCount;
 
-        private void Awake()
+        private RaceCycle raceCycle;
+
+        public override void Init()
         {
+            base.Init();
+
+            raceCycle = cycle as RaceCycle;
+
             CreateMap();
         }
 
@@ -36,6 +42,11 @@ namespace OMG.Minigames
             }
 
             Instantiate(endMapPart, mapPartParentTrm).SetPosition(prevPart);
+        }
+
+        public void PlayerGoal(ulong playerID)
+        {
+            raceCycle.SetPlayerGoal(playerID);
         }
     }
 }
