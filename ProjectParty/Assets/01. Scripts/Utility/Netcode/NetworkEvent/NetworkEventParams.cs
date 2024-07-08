@@ -160,4 +160,38 @@ namespace OMG.NetworkEvents
 
         public static implicit operator TransformParams(Transform left) => new TransformParams(left.position, left.eulerAngles);
     }
+
+    public class AttackParams : NetworkEventParams
+    {
+        protected override ushort Size => sizeof(ulong) + sizeof(float) + sizeof(float) * 3 * 2;
+        public ulong AttackerID;
+        public float Damage;
+        public Vector3 Point;
+        public Vector3 Normal;
+
+        public AttackParams() { }
+        public AttackParams(ulong attackerID, float damage, Vector3 point, Vector3 normal) 
+        {
+            AttackerID = attackerID;
+            Damage = damage;
+            Point = point;
+            Normal = normal;
+        }
+
+        protected override void Deserialize(FastBufferReader reader) 
+        { 
+            reader.ReadValue(out AttackerID);
+            reader.ReadValue(out Damage);
+            reader.ReadValue(out Point);
+            reader.ReadValue(out Normal);
+        }
+
+        protected override void Serialize(FastBufferWriter writer)
+        {
+            writer.WriteValue(AttackerID);
+            writer.WriteValue(Damage);
+            writer.WriteValue(Point);
+            writer.WriteValue(Normal);
+        }
+    }
 }
