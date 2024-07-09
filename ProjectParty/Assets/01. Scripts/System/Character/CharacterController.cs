@@ -77,6 +77,11 @@ namespace OMG
             {
                 compo.Init(this);
             }
+
+            foreach (CharacterComponent compo in compoList)
+            {
+                compo.PostInitializeComponent();
+            }
         }
 
         public T GetCharacterComponent<T>() where T : CharacterComponent

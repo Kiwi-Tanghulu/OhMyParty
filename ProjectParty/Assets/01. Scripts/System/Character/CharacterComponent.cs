@@ -12,6 +12,8 @@ namespace OMG
             this.controller = controller;
         }
 
+        public virtual void PostInitializeComponent() { }
+
         public virtual void UpdateCompo() { }
     }
 }

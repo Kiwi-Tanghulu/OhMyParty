@@ -1,3 +1,4 @@
+using Steamworks;
 using System;
 using System.Collections;
 using Unity.Netcode.Components;
@@ -18,7 +19,13 @@ namespace OMG
             base.Init(controller);
 
             movement = GetComponent<MovementComponent>();
-            movement.Init(controller.GetCharacterComponent<CharacterStat>().StatSO);
+        }
+
+        public override void PostInitializeComponent()
+        {
+            base.PostInitializeComponent();
+
+            movement.Init(Controller.GetCharacterComponent<CharacterStat>().StatSO);
         }
 
         //override this method fucking jiseong
