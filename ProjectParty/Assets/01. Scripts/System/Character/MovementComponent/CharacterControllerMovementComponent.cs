@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace OMG
 {
+    [RequireComponent(typeof(UnityEngine.CharacterController))]
     public class CharacterControllerMovementComponent : MovementComponent
     {
         protected UnityEngine.CharacterController characterController;
