@@ -100,5 +100,7 @@ namespace OMG
 
             return compoDictionary[typeof(T)] as T;
         }
+        
+        public virtual void Respawn(Transform respawnTrm) { }
     }
 }

@@ -26,8 +26,8 @@ namespace OMG.Player.FSM
         {
             base.InitState(brain);
 
-            movement = player.GetComponent<CharacterMovement>();
-            health = player.GetComponent<PlayerHealth>();
+            movement = player.GetCharacterComponent<CharacterMovement>();
+            health = player.GetCharacterComponent<PlayerHealth>();
             anim = player.GetCharacterComponent<PlayerVisual>().Anim;
             ragdoll = player.GetCharacterComponent<PlayerVisual>().Ragdoll;
 
@@ -83,7 +83,7 @@ namespace OMG.Player.FSM
         private void StratStun(NoneParams param)
         {
             ragdoll.SetActive(true);
-            ragdoll.AddForce(health.Damage * health.HitDir, ForceMode.Impulse);
+            ragdoll.AddForce(health.Damage, health.HitDir, ForceMode.Impulse);
         }
         
         private void EndStun(NoneParams param)

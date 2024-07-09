@@ -13,9 +13,6 @@ namespace OMG.Ragdoll
         public Rigidbody HipRb => hipRb;
 
         [Space]
-        [SerializeField] private float forceMultiplier;
-
-        [Space]
         [SerializeField] protected bool onInitActive;
 
         [Space]
@@ -50,9 +47,17 @@ namespace OMG.Ragdoll
             }
         }
 
-        public void AddForce(Vector3 power, ForceMode mode)
+        public void AddForce(float power, Vector3 dir, ForceMode mode)
         {
-            hipRb.AddForce(power * forceMultiplier, mode);
+            dir.Normalize();
+
+            float angle = Mathf.Acos(Vector3.Dot(dir, new Vector3(dir.x, 0f, dir.z).normalized)) * Mathf.Rad2Deg;
+            if(angle < 30f && angle > 0f)
+            {
+                dir = Quaternion.Euler(0f, 0f, 30f - angle) * dir;
+            }
+
+            hipRb.AddForce(power * dir, mode);
         }
     }
 }

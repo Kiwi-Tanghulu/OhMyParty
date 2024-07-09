@@ -129,6 +129,11 @@ namespace OMG.FSM
             ChangeState(index);
         }
 
+        public void ChangeDefaultState()
+        {
+            ChangeState(defaultState);
+        }
+
         private void ChangeState(int stateIndex)
         {
             FSMState nextState = null;

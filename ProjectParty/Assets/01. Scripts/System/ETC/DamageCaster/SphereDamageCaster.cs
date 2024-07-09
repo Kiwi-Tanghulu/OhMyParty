@@ -1,39 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Player.FSM
+namespace OMG
 {
-    public class MeleeAttackState : ActionState
+    public class SphereDamageCaster : DamageCaster
     {
-        [SerializeField] private Transform eyeTrm;
         [SerializeField] private float distance = 1f;
         [SerializeField] private float radius = 0.5f;
-
+        [SerializeField] private float damage = 20f;
+        
+#if UNITY_EDITOR
         [Space]
         [SerializeField] private bool DrawGizmo;
+#endif
 
-        public override void DoAction()
+        public override RaycastHit[] DamageCast(Transform attacker)
         {
-            base.DoAction();
-
             RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position - (eyeTrm.forward * radius * 2),
-                radius, player.transform.forward, (radius * 2) + distance);
-            
+                radius, eyeTrm.transform.forward, (radius * 2) + distance);
+
             if (hits.Length > 0)
             {
-                for(int i = 0; i < hits.Length; i++)
+                for (int i = 0; i < hits.Length; i++)
                 {
-                    if (hits[i].transform == player.transform)
+                    if (hits[i].transform == attacker.transform)
                         continue;
                     if (hits[i].point == Vector3.zero)
                         continue;
 
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
-                        damageable.OnDamaged(5f, player.transform, hits[i].point, HitEffectType.Stun);
+                        damageable.OnDamaged(damage, attacker.transform, hits[i].point, hitEffectType);
                     }
                 }
             }
+
+            return hits;
         }
+
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
@@ -42,7 +47,7 @@ namespace OMG.Player.FSM
                 return;
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(eyeTrm.position + player.transform.forward * distance, radius);
+            Gizmos.DrawWireSphere(eyeTrm.position + eyeTrm.transform.forward * distance, radius);
         }
 #endif
     }

@@ -27,7 +27,7 @@ public class FOVMesh : MonoBehaviour
     [SerializeField] private LayerMask _obstacleMask;
 
     [SerializeField] private float _meshResolution;
-    [SerializeField] private int _edgeResolveIterations; //3ȸ
+    [SerializeField] private int _edgeResolveIterations;
     [SerializeField] private float _edgeDistanceThreshold;
 
     private MeshFilter _viewMeshFilter;
