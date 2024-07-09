@@ -13,7 +13,7 @@ namespace OMG
         public override void Init(CharacterController controller)
         {
             base.Init(controller);
-
+            
             statSO = ScriptableObject.Instantiate(statSORef);
             statSO.Init();
         }

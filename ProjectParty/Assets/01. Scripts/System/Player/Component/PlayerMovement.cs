@@ -26,22 +26,30 @@ namespace OMG.Player
 
             anim = controller.GetCharacterComponent<PlayerVisual>().Anim;
 
-            OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
-            OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
+            Movement.OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
+            Movement.OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
 
             isInit = true;
+        }
+
+        public override void UpdateCompo()
+        {
+            base.UpdateCompo();
+            
+            Gravity();
+            Movement.CheckGround();
         }
 
         private void OnEnable()
         {
             if(isInit)
-                ChangeIsGroundParam(IsGround);
+                ChangeIsGroundParam(Movement.IsGround);
         }
 
         private void OnDestroy()
         {
-            OnIsGroundChagend.RemoveListener(PlayerMovement_OnIsGroundChagend);
-            OnMoveDirectionChanged.RemoveListener(PlayerMovement_OnMoveDirectionChanged);
+            Movement.OnIsGroundChagend.RemoveListener(PlayerMovement_OnIsGroundChagend);
+            Movement.OnMoveDirectionChanged.RemoveListener(PlayerMovement_OnMoveDirectionChanged);
         }
 
         public override void SetMoveDirection(Vector3 value, bool lookMoveDir = true, bool forceSet = false)

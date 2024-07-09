@@ -2146,7 +2146,6 @@ MonoBehaviour:
   hitEffectType: 1
   distance: 1
   radius: 0.5
-  damage: 20
   DrawGizmo: 0
 --- !u!114 &5000397531534581130
 MonoBehaviour:
@@ -2330,6 +2329,7 @@ GameObject:
   - component: {fileID: 8441183456195435575}
   - component: {fileID: 807048018500501385}
   - component: {fileID: 5973583883872236437}
+  - component: {fileID: 3091952095139358160}
   - component: {fileID: 6773531061483789700}
   - component: {fileID: 7852917561015819019}
   - component: {fileID: 2227828243156353326}
@@ -2376,7 +2376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2619892024
+  GlobalObjectIdHash: 980866778
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -2460,35 +2460,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a70684cc2d1ac1459a8cab6d5e110e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animParamLerpTime: 0.2
+  MoveType: 0
+--- !u!114 &3091952095139358160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653656707965372744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4fcda6f4e7a224f80ce67483eb3993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnableMove: 0
   OnMoveDirectionChanged:
     m_PersistentCalls:
       m_Calls: []
-  checkGroundOffset: {x: 0, y: 0.4, z: 0}
-  checkGroundRadius: 0.6
+  checkGroundOffset: {x: 0, y: 0, z: 0}
+  checkGroundRadius: 0.5
   checkGroundLayer:
     serializedVersion: 2
-    m_Bits: 2147614135
+    m_Bits: 385
   OnIsGroundChagend:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3516167764604369690}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1594289276793188635}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  DrawGizmo: 1
-  OnColliderHit:
-    m_PersistentCalls:
       m_Calls: []
-  animParamLerpTime: 0.2
-  MoveType: 0
+  DrawGizmo: 1
+  EnableGravity: 0
 --- !u!143 &6773531061483789700
 CharacterController:
   m_ObjectHideFlags: 0

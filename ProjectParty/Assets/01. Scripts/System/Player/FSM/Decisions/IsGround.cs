@@ -18,7 +18,7 @@ namespace OMG.Player.FSM
 
         public override bool MakeDecision()
         {
-            result = movement.IsGround;
+            result = movement.Movement.IsGround;
 
             return base.MakeDecision();
         }
