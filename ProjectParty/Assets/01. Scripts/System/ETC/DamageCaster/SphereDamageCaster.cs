@@ -8,14 +8,13 @@ namespace OMG
     {
         [SerializeField] private float distance = 1f;
         [SerializeField] private float radius = 0.5f;
-        [SerializeField] private float damage = 20f;
         
 #if UNITY_EDITOR
         [Space]
         [SerializeField] private bool DrawGizmo;
 #endif
 
-        public override RaycastHit[] DamageCast(Transform attacker)
+        public override RaycastHit[] DamageCast(Transform caster, float damage)
         {
             RaycastHit[] hits = Physics.SphereCastAll(eyeTrm.position - (eyeTrm.forward * radius * 2),
                 radius, eyeTrm.transform.forward, (radius * 2) + distance);
@@ -24,14 +23,14 @@ namespace OMG
             {
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    if (hits[i].transform == attacker.transform)
+                    if (hits[i].transform == caster.transform)
                         continue;
                     if (hits[i].point == Vector3.zero)
                         continue;
 
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
-                        damageable.OnDamaged(damage, attacker.transform, hits[i].point, hitEffectType);
+                        damageable.OnDamaged(damage, caster.transform, hits[i].point, hitEffectType);
                     }
                 }
             }

@@ -26,7 +26,7 @@ namespace OMG.Player.FSM
         {
             base.InitState(brain);
 
-            movement = player.GetCharacterComponent<CharacterMovement>();
+            movement = player.GetCharacterComponent<PlayerMovement>();
             health = player.GetCharacterComponent<PlayerHealth>();
             anim = player.GetCharacterComponent<PlayerVisual>().Anim;
             ragdoll = player.GetCharacterComponent<PlayerVisual>().Ragdoll;

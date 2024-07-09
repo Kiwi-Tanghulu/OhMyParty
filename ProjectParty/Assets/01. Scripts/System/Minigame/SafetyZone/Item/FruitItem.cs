@@ -8,7 +8,8 @@ namespace OMG.Minigames.SafetyZone
         public override void OnCollisionPlayer(SafetyZonePlayerController player, Collision other)
         {
             player.FruitItemHitEffectServerRPC();
-            player.Health.OnDamaged(power, transform, other.contacts[0].point, HitEffectType.None,other.contacts[0].normal);
+            player.Health.OnDamaged(power, transform, other.contacts[0].point,
+                HitEffectType.None,other.contacts[0].normal);
         }
     }
 }

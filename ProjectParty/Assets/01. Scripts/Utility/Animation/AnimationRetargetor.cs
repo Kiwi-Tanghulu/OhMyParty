@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using Newtonsoft.Json;
 using OMG.Datas;
 using System;
@@ -57,4 +58,4 @@ namespace OMG.Utility.Animations
         }
     }
 }
-
+#endif

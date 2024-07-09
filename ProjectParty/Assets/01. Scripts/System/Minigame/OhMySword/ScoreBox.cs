@@ -42,7 +42,8 @@ namespace OMG.Minigames.OhMySword
             this.spawnPositionTable = spawnPositionTable;
         }
 
-        public void OnDamaged(float damage, Transform attacker, Vector3 point, HitEffectType effectType, Vector3 normal = default)
+        public void OnDamaged(float damage, Transform attacker, Vector3 point,
+            HitEffectType effectType, Vector3 normal = default)
         {
             onHitEvent?.Broadcast(damage, false);
         }

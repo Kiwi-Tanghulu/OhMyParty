@@ -11,10 +11,10 @@ namespace OMG.Player.FSM
         public override void DoAction()
         {
             base.DoAction();
-
+            
             if(damageCaster != null)
             {
-                damageCaster.DamageCast(player.transform);
+                damageCaster.DamageCast(player.transform, 20f);
             }
         }
     }

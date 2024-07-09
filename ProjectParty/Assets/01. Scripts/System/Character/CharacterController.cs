@@ -64,29 +64,18 @@ namespace OMG
                 compoList[i].UpdateCompo();
         }
 
-        private T InitCompo<T>(T compo) where T : CharacterComponent
-        {
-            if(compo == null)
-            {
-                Debug.LogError($"{typeof(T)} is null");
-
-                return null;
-            }
-
-            compoDictionary.Add(compo.GetType(), compo);
-
-            compo.Init(this);
-
-            return compo;
-        }
-
         private void InitCompos()
         {
             compoDictionary = new Dictionary<Type, CharacterComponent>();
 
             foreach (CharacterComponent compo in compoList)
             {
-                InitCompo(compo);
+                compoDictionary.Add(compo.GetType(), compo);
+            }
+
+            foreach (CharacterComponent compo in compoList)
+            {
+                compo.Init(this);
             }
         }
 
