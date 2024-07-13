@@ -54,7 +54,8 @@ namespace OMG.UI
             SetMinigameUI();
             SetPlayerUI();
 
-            videoPlayer.Play(minigameSO.Video, 1f);
+            videoPlayer.Play(minigameSO.VideoURL, 1f);
+            Debug.Log("spot : show");
         }
 
         public void SetMinigameSO(MinigameSO minigameSO)
@@ -113,7 +114,9 @@ namespace OMG.UI
         private void MinigameInfoUI_OnMinigameSelecteEvent(int index)
         {
             SetMinigameSO(minigameList[index]);
+            Debug.Log(22222);
             Show();
+            //Debug.Log("spot : selected");
         }
 
         private void MinigameInfoUI_OnPlayerReadyEvent(ulong id)

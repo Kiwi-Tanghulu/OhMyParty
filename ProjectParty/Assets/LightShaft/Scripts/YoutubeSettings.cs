@@ -85,7 +85,8 @@ namespace LightShaft.Scripts
         [Space]
         public bool showThumbnailBeforeVideoLoad = false;
         [DrawIf("showThumbnailBeforeVideoLoad", true)]
-        public Renderer thumbnailObject;
+        public GameObject thumbnailObject;
+        public Material thumbnailMat;
         protected string thumbnailVideoID;
 
         [Space]
@@ -720,9 +721,9 @@ namespace LightShaft.Scripts
             UnityWebRequest request = UnityWebRequestTexture.GetTexture("https://img.youtube.com/vi/" + videoId + "/0.jpg");
             //request.SetRequestHeader("User-Agent", USER_AGENT);
             yield return request.SendWebRequest();
-            EnableThumbnailObject();
             Texture2D thumb = DownloadHandlerTexture.GetContent(request);
-            thumbnailObject.material.mainTexture = thumb;
+            thumbnailMat.mainTexture = thumb;
+            EnableThumbnailObject();
         }
 
         //double lastTimePlayed = Mathf.Infinity;
@@ -1103,7 +1104,7 @@ namespace LightShaft.Scripts
                 youtubeUrlReady = false;
                 //Show loading
                 ShowLoading();
-
+                
                 youtubeUrl = _videoId;
                 //loading for fist time, so it's not a retry
                 isRetry = false;
@@ -1716,8 +1717,8 @@ namespace LightShaft.Scripts
             {
                 if(videoPlayer.renderMode == VideoRenderMode.RenderTexture)
                 {
-                    videoPlayer.targetTexture.width = (int)videoPlayer.width;
-                    videoPlayer.targetTexture.height = (int)videoPlayer.height;
+                    //videoPlayer.targetTexture.width = (int)videoPlayer.width;
+                    //videoPlayer.targetTexture.height = (int)videoPlayer.height;
                 }
             }
 

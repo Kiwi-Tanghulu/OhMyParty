@@ -26,8 +26,8 @@ namespace OMG.Minigames
         [Space(15f)]
         public Sprite MinigameImage;
         public string MinigameName;
+        public string VideoURL;
         [TextArea] public string MinigameDescription;
-        public VideoClip Video;
         public List<ControlKeyInfo> ControlKeyInfoList;
 
         public Action<Minigame> OnMinigameFinishedEvent;
