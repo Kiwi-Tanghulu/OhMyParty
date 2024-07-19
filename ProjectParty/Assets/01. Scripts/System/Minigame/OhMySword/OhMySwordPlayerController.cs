@@ -11,6 +11,8 @@ namespace OMG.Minigames.OhMySword
     {
         // [SerializeField] Collider playerCollider = null;
         [SerializeField] Sword sword = null;
+        private CatchTailPlayer catchTailPlayer = null;
+        private PlayerTail playreTail = null;
 
         private ScorePlayerPanel playerPanel = null;
         private OhMySword minigame = null;
@@ -28,6 +30,9 @@ namespace OMG.Minigames.OhMySword
             minigame = MinigameManager.Instance?.CurrentMinigame as OhMySword;
             playerPanel = minigame.MinigamePanel.PlayerPanel as ScorePlayerPanel;
             playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
+
+            catchTailPlayer = GetComponent<CatchTailPlayer>();
+            playreTail = GetComponent<PlayerTail>();
         }
 
         public override void OnNetworkSpawn()
