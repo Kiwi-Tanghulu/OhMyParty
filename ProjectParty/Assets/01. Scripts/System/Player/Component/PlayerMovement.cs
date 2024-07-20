@@ -71,7 +71,10 @@ namespace OMG.Player
 
                         moveDir = tpsCamera.Forward * moveDir;
                     }
-                break;
+                    break;
+                case PlayerMoveType.SideView:
+                    moveDir.z = 0;
+                    break;
             }
             
             base.SetMoveDirection(moveDir, lookMoveDir, forceSet);

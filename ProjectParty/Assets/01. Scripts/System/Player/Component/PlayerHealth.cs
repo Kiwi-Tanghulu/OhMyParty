@@ -44,7 +44,7 @@ namespace OMG.Player
             onDamagedNetworkEvent.Register(controller.NetworkObject);
         }
 
-        public void OnDamaged(float damage, Transform attacker, Vector3 point,
+        public virtual void OnDamaged(float damage, Transform attacker, Vector3 point,
             HitEffectType effectType, Vector3 normal = default)
         {
             ulong attackerID = ulong.MaxValue;
