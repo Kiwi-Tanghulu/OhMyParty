@@ -64,14 +64,14 @@ namespace OMG
             videoPlayer.Stop();
         }
 
-        public void Play(VideoClip video, float delay = 0f)
+        public void Play(string url, float delay = 0f)
         {
             if (!gameObject.activeInHierarchy)
                 return;
 
             StartCoroutine(this.DelayCoroutine(delay, () =>
             {
-                videoPlayer.clip = video;
+                //videoPlayer.clip = video;
 
                 playImage.gameObject.SetActive(true);
                 stopImage.gameObject.SetActive(false);

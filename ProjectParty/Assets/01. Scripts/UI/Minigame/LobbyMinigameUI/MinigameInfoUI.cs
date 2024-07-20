@@ -54,7 +54,7 @@ namespace OMG.UI
             SetMinigameUI();
             SetPlayerUI();
 
-            videoPlayer.Play(minigameSO.Video, 1f);
+            videoPlayer.Play(minigameSO.VideoURL, 1f);
         }
 
         public void SetMinigameSO(MinigameSO minigameSO)
