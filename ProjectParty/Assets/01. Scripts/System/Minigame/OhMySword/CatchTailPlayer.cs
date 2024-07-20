@@ -1,24 +1,25 @@
 using OMG.NetworkEvents;
+using Unity.Netcode;
 using UnityEngine;
 
 public class CatchTailPlayer : MonoBehaviour
 {
     [SerializeField] NetworkEvent<UlongParams> onTargetSelectedEvent = new NetworkEvent<UlongParams>("TargetSelected");
-    private int targetPlayerID = 0;
+    private ulong targetPlayerID = 0;
 
-    public void Init(NetworkBehaviour owner)
+    public void Init(NetworkObject owner)
     {
         onTargetSelectedEvent?.AddListener(HandleTargetPlayerSelected);
         onTargetSelectedEvent?.Register(owner);
     }
 
-    public void SetTargetPlayerID(int targetID)
+    public void SetTargetPlayerID(ulong targetID)
     {
         targetPlayerID = targetID;
         onTargetSelectedEvent?.Broadcast(targetID);
     }
 
-    public bool IsCorrecTarget(int inputID) => targetPlayerID;
+    public bool IsCorrectTarget(ulong inputID) => inputID == targetPlayerID;
 
     private void HandleTargetPlayerSelected(UlongParams targetID)
     {
