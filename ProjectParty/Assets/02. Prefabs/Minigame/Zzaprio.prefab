@@ -232,12 +232,42 @@ PlayableDirector:
   m_GameObject: {fileID: 1889014791262930011}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 0}
+  m_PlayableAsset: {fileID: 11400000, guid: bf2a50256c9f8164787190cc3d5f8206, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings: []
+  m_SceneBindings:
+  - key: {fileID: 3756770228235237946, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 5374182927220107189, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1328749046880332474, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 2660282719783706248, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -3378775901811290856, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -4754770584993223959, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 7355854904237219257, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1825924967361497884, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -3371639176208967926, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 5335584828457266885, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8226836603998004083, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 2053656950772837535, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 4613964526404073171, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -4289169844063014867, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -6901068567358235819, guid: bf2a50256c9f8164787190cc3d5f8206, type: 2}
+    value: {fileID: 8731371177977188052}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &7621376198277521965
@@ -269,8 +299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cycleText: {fileID: 7986893142125749740}
   timelineOption:
-    PositiveOption: {fileID: 11400000, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
-    NegativeOption: {fileID: 11400000, guid: 66c119e7045751a4b925a4c0a1233bec, type: 2}
+    PositiveOption: {fileID: 11400000, guid: bf2a50256c9f8164787190cc3d5f8206, type: 2}
+    NegativeOption: {fileID: 11400000, guid: bf2a50256c9f8164787190cc3d5f8206, type: 2}
 --- !u!114 &8411050640946700880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1795,7 +1825,7 @@ PrefabInstance:
         type: 3}
       propertyPath: GoEventOption.NegativeOption.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8560751737896351250}
     - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
         type: 3}
       propertyPath: ReadyEventOption.PositiveOption.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1829,7 +1859,7 @@ PrefabInstance:
     - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
         type: 3}
       propertyPath: GoEventOption.NegativeOption.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: OMG.Minigames.SafetyZone.SafetyZone, Assembly-CSharp
+      value: OMG.Minigames.PlayableMinigame, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
         type: 3}
@@ -1872,6 +1902,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8731371177977188052 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8567516609396574533, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1137687934065805201}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1330100719458638652

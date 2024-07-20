@@ -1,4 +1,5 @@
 using Cinemachine;
+using UnityEngine;
 
 namespace OMG.Player
 {
@@ -6,12 +7,21 @@ namespace OMG.Player
     {
         protected CinemachineVirtualCamera cam;
 
+        [SerializeField] private bool nonParent;
+        [SerializeField] private bool lookAt;
+        [SerializeField] private bool follow;
+
         public override void Init(OMG.CharacterController controller)
         {
             base.Init(controller);
 
             cam = transform.Find("PlayerVCam").GetComponent<CinemachineVirtualCamera>();
-            cam.LookAt = controller.transform;
+            if(lookAt)
+                cam.LookAt = controller.transform;
+            if(follow)
+                cam.Follow = controller.transform;
+            if (nonParent)
+                transform.SetParent(null);
 
             if (controller.IsOwner)
                 cam.Priority = DEFINE.FOCUSED_PRIORITY;

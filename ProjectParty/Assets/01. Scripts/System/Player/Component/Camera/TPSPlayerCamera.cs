@@ -31,8 +31,6 @@ namespace OMG.Player
             currentRotation = Vector2.zero;
 
             input.OnMouseDeltaEvent += Turn;
-
-            transform.SetParent(null);
         }
 
         private void Update()
