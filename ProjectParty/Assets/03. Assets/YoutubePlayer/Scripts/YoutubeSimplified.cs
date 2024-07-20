@@ -11,20 +11,18 @@ public class YoutubeSimplified : MonoBehaviour
     public string url;
     public bool autoPlay = true;
     public bool fullscreen = true;
-    private VideoPlayer videoPlayer;
+    [SerializeField] private VideoPlayer videoPlayer;
 
     private void Awake()
     {
-        videoPlayer = GetComponentInChildren<VideoPlayer>();
         player = GetComponentInChildren<YoutubePlayer>();
         player.videoPlayer = videoPlayer;
     }
 
-    private void Start()
-    {
-        player.dontForceFullscreen = true;
-        Play();
-    }
+    //private void Start()
+    //{
+    //    player.dontForceFullscreen = true;
+    //}
 
     public void Play()
     {
@@ -38,7 +36,6 @@ public class YoutubeSimplified : MonoBehaviour
         player.autoPlayOnStart = autoPlay;
         player.videoQuality = YoutubePlayer.YoutubeVideoQuality.STANDARD;
 
-        if(autoPlay)
-            player.Play(url);
+        player.Play(url);
     }
 }

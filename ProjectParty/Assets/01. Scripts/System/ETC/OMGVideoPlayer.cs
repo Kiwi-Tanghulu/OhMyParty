@@ -14,8 +14,8 @@ namespace OMG
     public class OMGVideoPlayer : UIObject
     {
         private VideoPlayer videoPlayer;
-        private YoutubePlayer youtubePlayer;
 
+        [SerializeField] private YoutubeSimplified youtubePlayer;
         [SerializeField] private Image playImage;
         [SerializeField] private Image stopImage;
         [SerializeField] private GameObject blindImage;
@@ -31,14 +31,12 @@ namespace OMG
             base.Init();
 
             videoPlayer = GetComponent<VideoPlayer>();
-            youtubePlayer = GetComponent<YoutubePlayer>();
-            youtubePlayer.videoPlayer = videoPlayer;
 
             Sequence videoPlaySeq = DOTween.Sequence();
             videoPlaySeq.Append(playImage.transform.DOScale(1f, 0f));
             videoPlaySeq.Join(playImage.DOFade(1f, 0f));
             videoPlaySeq.Append(playImage.transform.DOScale(0.75f, 0.2f));
-            videoPlaySeq.AppendCallback(() => blindImage.SetActive(false));
+            //videoPlaySeq.AppendCallback(() => blindImage.SetActive(false));
             videoPlaySeq.Append(playImage.transform.DOScale(3f, 0.2f));
             videoPlaySeq.Join(playImage.DOFade(0f, 0.2f));
             videoPlaySeq.SetAutoKill(false);
@@ -74,18 +72,17 @@ namespace OMG
         public void Play(string url, float delay = 0f)
         {
             if (!gameObject.activeInHierarchy)
-                return;
-            Debug.Log(2);
+                Show();
+            
             StartCoroutine(this.DelayCoroutine(delay, () =>
             {
-                //videoPlayer.clip = video;
-
                 playImage.gameObject.SetActive(true);
                 stopImage.gameObject.SetActive(false);
 
                 videoPlayTween.Restart();
 
-                youtubePlayer.Play(url);
+                youtubePlayer.url = url;
+                youtubePlayer.Play();
 
                 OnPlayEvent?.Invoke();
             }));
