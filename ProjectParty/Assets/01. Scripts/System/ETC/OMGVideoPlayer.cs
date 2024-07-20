@@ -5,13 +5,16 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using OMG.Extensions;
+using LightShaft.Scripts;
+using OMG.UI;
 
 namespace OMG
 {
     [RequireComponent(typeof(VideoPlayer))]
-    public class OMGVideoPlayer : MonoBehaviour
+    public class OMGVideoPlayer : UIObject
     {
         private VideoPlayer videoPlayer;
+        private YoutubePlayer youtubePlayer;
 
         [SerializeField] private Image playImage;
         [SerializeField] private Image stopImage;
@@ -23,9 +26,13 @@ namespace OMG
         public UnityEvent OnPlayEvent;
         public UnityEvent OnStopEvent;
 
-        private void Awake()
+        public override void Init()
         {
+            base.Init();
+
             videoPlayer = GetComponent<VideoPlayer>();
+            youtubePlayer = GetComponent<YoutubePlayer>();
+            youtubePlayer.videoPlayer = videoPlayer;
 
             Sequence videoPlaySeq = DOTween.Sequence();
             videoPlaySeq.Append(playImage.transform.DOScale(1f, 0f));
@@ -68,7 +75,7 @@ namespace OMG
         {
             if (!gameObject.activeInHierarchy)
                 return;
-
+            Debug.Log(2);
             StartCoroutine(this.DelayCoroutine(delay, () =>
             {
                 //videoPlayer.clip = video;
@@ -78,7 +85,7 @@ namespace OMG
 
                 videoPlayTween.Restart();
 
-                videoPlayer.Play();
+                youtubePlayer.Play(url);
 
                 OnPlayEvent?.Invoke();
             }));

@@ -28,7 +28,7 @@ namespace OMG.Player
         public bool PlayerHitable;
 
         private NetworkEvent<AttackParams> onDamaged = new NetworkEvent<AttackParams>("onDamaged");
-        private NetworkEvent<AttackParams> onDamagedNetworkEvent = new NetworkEvent<AttackParams>("onDamagedNetworkEvent");
+        private NetworkEvent<Vector3Params> onDamagedNetworkEvent = new NetworkEvent<Vector3Params>("onDamagedNetworkEvent");
 
         public override void Init(CharacterController controller)
         {
@@ -47,7 +47,7 @@ namespace OMG.Player
         public void OnDamaged(float damage, Transform attacker, Vector3 point,
             HitEffectType effectType, Vector3 normal = default)
         {
-            ulong attackerID = 0;
+            ulong attackerID = ulong.MaxValue;
             if (transform.TryGetComponent<NetworkObject>(out NetworkObject networkObject))
                 attackerID = networkObject.NetworkObjectId;
             int hitEffectType = (int)effectType;
@@ -62,9 +62,7 @@ namespace OMG.Player
             {
                 if (effectType == HitEffectType.Die)
                 {
-                    Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(DieState));
-
-                    OnDamagedEvent?.Invoke(HitPoint);
+                    Hit(effectType);
                 }
                 else
                 {
@@ -79,20 +77,9 @@ namespace OMG.Player
                         }
                     }
 
-                    switch (effectType)
-                    {
-                        case HitEffectType.None:
-                            break;
-                        case HitEffectType.Stun:
-                            Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(StunState));
-                            break;
-                        case HitEffectType.Knockback:
-                            Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(KnockbackState));
-                            break;
-                    }
-
-                    OnDamagedEvent?.Invoke(HitPoint);
+                    Hit(effectType);
                 }
+
                 return;
             }
 #endif
@@ -106,7 +93,8 @@ namespace OMG.Player
             if (!Controller.IsOwner)
                 return;
             
-            attacker = NetworkManager.Singleton.SpawnManager.SpawnedObjects[param.AttackerID].transform;
+            if(param.AttackerID != ulong.MaxValue)
+                attacker = NetworkManager.Singleton.SpawnManager.SpawnedObjects[param.AttackerID].transform;
             damage = param.Damage;
             hitDir = param.Dir;
             hitPoint = param.Point;
@@ -115,9 +103,7 @@ namespace OMG.Player
 
             if (effectType == HitEffectType.Die)
             {
-                Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(DieState));
-
-                onDamagedNetworkEvent?.Broadcast(param);
+                Hit(effectType);
             }
             else
             {
@@ -132,24 +118,33 @@ namespace OMG.Player
                     }
                 }
 
-                switch (effectType)
-                {
-                    case HitEffectType.None:
-                        break;
-                    case HitEffectType.Stun:
-                        Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(StunState));
-                        break;
-                    case HitEffectType.Knockback:
-                        Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(KnockbackState));
-                        break;
-                }
-                
-                onDamagedNetworkEvent?.Broadcast(param);
+                Hit(effectType);
             }
         }
-        public void BroadcastOnDamagedNetworkEvent(AttackParams param)
+
+        protected virtual void Hit(HitEffectType hitEffectType)
         {
-            OnDamagedEvent?.Invoke(param.Point);
+            switch (hitEffectType)
+            {
+                case HitEffectType.None:
+                    break;
+                case HitEffectType.Stun:
+                    Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(StunState));
+                    break;
+                case HitEffectType.Knockback:
+                    Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(KnockbackState));
+                    break;
+                case HitEffectType.Die:
+                    Controller.GetCharacterComponent<CharacterFSM>().ChangeState(typeof(DieState));
+                    break;
+            }
+
+            onDamagedNetworkEvent?.Broadcast(new Vector3Params(HitPoint));
+        }
+
+        public void BroadcastOnDamagedNetworkEvent(Vector3Params param)
+        {
+            OnDamagedEvent?.Invoke(param);
         }
     }
 }
