@@ -21,7 +21,7 @@ namespace OMG.Minigames.OhMySword
         private int xpBuffer = 0;
         private int prevXP = 0;
 
-        private NetworkEvent<IntParams> onUpdateXPEvent = new NetworkEvent<IntParams>("UpdateXP");
+        private NetworkEvent<IntParams, int> onUpdateXPEvent = new NetworkEvent<IntParams, int>("UpdateXP");
 
         protected override void Awake()
         {
@@ -73,7 +73,7 @@ namespace OMG.Minigames.OhMySword
             playerPanel.SetScore(playerIndex, xpBuffer);
         }
 
-        private void HandleXP(IntParams xp)
+        private void HandleXP(int xp)
         {
             if(IsOwner == false)
             {

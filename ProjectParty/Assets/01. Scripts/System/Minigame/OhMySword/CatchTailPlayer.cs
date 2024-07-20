@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CatchTailPlayer : MonoBehaviour
 {
-    [SerializeField] NetworkEvent<UlongParams> onTargetSelectedEvent = new NetworkEvent<UlongParams>("TargetSelected");
+    [SerializeField] NetworkEvent<UlongParams, ulong> onTargetSelectedEvent = new NetworkEvent<UlongParams, ulong>("TargetSelected");
     private ulong targetPlayerID = 0;
 
     public void Init(NetworkObject owner)
@@ -21,7 +21,7 @@ public class CatchTailPlayer : MonoBehaviour
 
     public bool IsCorrectTarget(ulong inputID) => inputID == targetPlayerID;
 
-    private void HandleTargetPlayerSelected(UlongParams targetID)
+    private void HandleTargetPlayerSelected(ulong targetID)
     {
         
     }
