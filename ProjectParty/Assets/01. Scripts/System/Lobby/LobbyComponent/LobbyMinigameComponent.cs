@@ -89,6 +89,7 @@ namespace OMG.Lobbies
             ulong[] joinedPlayers = new ulong[Lobby.PlayerDatas.Count];
             Lobby.PlayerDatas.ForEach((i, index) => joinedPlayers[index] = i.ClientID);
             MinigameManager.Instance.StartMinigame(currentMinigame, joinedPlayers);
+            LightingManager.SetLightingSetting(currentMinigame.LightingSettingSO);
             BroadcastMinigameStartedClientRpc();
 
             notPlayedMinigameList.Remove(currentMinigame);
@@ -146,6 +147,7 @@ namespace OMG.Lobbies
         private void BroadcastMinigameFinishedClientRpc(bool cycleFinished)
         {
             OnMinigameFinishedEvent?.Invoke(MinigameManager.Instance.CurrentMinigame, cycleFinished);
+            Lobby.Current.ApplyLobbyLighting();
 
             if(!IsHost)
                 currentCycleCount++;

@@ -30,6 +30,9 @@ namespace OMG.Minigames
         [TextArea] public string MinigameDescription;
         public List<ControlKeyInfo> ControlKeyInfoList;
 
+        [Space]
+        public LightingSettingSO LightingSettingSO;
+
         public Action<Minigame> OnMinigameFinishedEvent;
     }
 }

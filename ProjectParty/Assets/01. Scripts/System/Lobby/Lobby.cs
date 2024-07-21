@@ -32,6 +32,8 @@ namespace OMG.Lobbies
 
         [SerializeField] private SkinLibrarySO characterSkinLib;
 
+        [SerializeField] private LightingSettingSO lightingSetting;
+
         private void Awake()
         {
             LobbyComponent[] components = GetComponents<LobbyComponent>();
@@ -106,6 +108,11 @@ namespace OMG.Lobbies
         private void HandleLobbyStateChanged(LobbyState previousValue, LobbyState newValue)
         {
             OnLobbyStateChangedEvent?.Invoke(newValue);
+        }
+
+        public void ApplyLobbyLighting()
+        {
+            LightingManager.SetLightingSetting(lightingSetting);
         }
     }
 }
