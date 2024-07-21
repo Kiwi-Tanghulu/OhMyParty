@@ -11,6 +11,7 @@ namespace OMG.Minigames.OhMySword
     {
         // [SerializeField] Collider playerCollider = null;
         [SerializeField] Sword sword = null;
+        private CatchTailPlayer catchTailPlayer = null;
 
         private ScorePlayerPanel playerPanel = null;
         private OhMySword minigame = null;
@@ -20,7 +21,7 @@ namespace OMG.Minigames.OhMySword
         private int xpBuffer = 0;
         private int prevXP = 0;
 
-        private NetworkEvent<IntParams> onUpdateXPEvent = new NetworkEvent<IntParams>("UpdateXP");
+        private NetworkEvent<IntParams, int> onUpdateXPEvent = new NetworkEvent<IntParams, int>("UpdateXP");
 
         protected override void Awake()
         {
@@ -28,6 +29,8 @@ namespace OMG.Minigames.OhMySword
             minigame = MinigameManager.Instance?.CurrentMinigame as OhMySword;
             playerPanel = minigame.MinigamePanel.PlayerPanel as ScorePlayerPanel;
             playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
+
+            catchTailPlayer = GetComponent<CatchTailPlayer>();
         }
 
         public override void OnNetworkSpawn()
@@ -38,7 +41,7 @@ namespace OMG.Minigames.OhMySword
             onUpdateXPEvent.Register(NetworkObject);
 
             SetActiveUpdateRoutine(true);
-            sword.Init(IsOwner);
+            sword.Init(NetworkObject);
         }
 
         public override void OnNetworkDespawn()
@@ -70,7 +73,7 @@ namespace OMG.Minigames.OhMySword
             playerPanel.SetScore(playerIndex, xpBuffer);
         }
 
-        private void HandleXP(IntParams xp)
+        private void HandleXP(int xp)
         {
             if(IsOwner == false)
             {

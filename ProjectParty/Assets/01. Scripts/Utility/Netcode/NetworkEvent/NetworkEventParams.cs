@@ -56,17 +56,23 @@ namespace OMG.NetworkEvents
         protected abstract void Serialize(FastBufferWriter writer);
     }
 
-    public class NoneParams : NetworkEventParams
+    public class NoneParams : NetworkEventParams, IConvertible<NoneParams>
     {
         protected override ushort Size => 0;
+
+        public NoneParams Convert() => this;
+
         protected override void Deserialize(FastBufferReader reader) { }
         protected override void Serialize(FastBufferWriter writer) { }
     }
 
-    public class IntParams : NetworkEventParams
+    public class IntParams : NetworkEventParams, IConvertible<IntParams>, IConvertible<int>
     {
         protected override ushort Size => sizeof(int);
         public int Value;
+
+        IntParams IConvertible<IntParams>.Convert() => this;
+        int IConvertible<int>.Convert() => Value;
 
         public IntParams() { }
         public IntParams(int value) { Value = value; }
@@ -77,10 +83,13 @@ namespace OMG.NetworkEvents
         public static implicit operator IntParams(int left) => new IntParams(left);
     }
 
-    public class FloatParams : NetworkEventParams
+    public class FloatParams : NetworkEventParams, IConvertible<FloatParams>, IConvertible<float>
     {
         protected override ushort Size => sizeof(float);
         public float Value;
+
+        FloatParams IConvertible<FloatParams>.Convert() => this;
+        float IConvertible<float>.Convert() => Value;
 
         public FloatParams() { }
         public FloatParams(float value) { Value = value; }
@@ -91,10 +100,13 @@ namespace OMG.NetworkEvents
         public static implicit operator FloatParams(float left) => new FloatParams(left);
     }
 
-    public class UlongParams : NetworkEventParams
+    public class UlongParams : NetworkEventParams, IConvertible<UlongParams>, IConvertible<ulong>
     {
         protected override ushort Size => sizeof(ulong);
         public ulong Value;
+
+        UlongParams IConvertible<UlongParams>.Convert() => this;
+        ulong IConvertible<ulong>.Convert() => Value;
 
         public UlongParams() { }
         public UlongParams(ulong value) { Value = value; }
@@ -105,10 +117,13 @@ namespace OMG.NetworkEvents
         public static implicit operator UlongParams(ulong left) => new UlongParams(left);
     }
 
-    public class BoolParams : NetworkEventParams
+    public class BoolParams : NetworkEventParams, IConvertible<BoolParams>, IConvertible<bool>
     {
         protected override ushort Size => sizeof(bool);
         public bool Value;
+
+        BoolParams IConvertible<BoolParams>.Convert() => this;
+        bool IConvertible<bool>.Convert() => Value;
 
         public BoolParams() { }
         public BoolParams(bool value) { Value = value; }
@@ -119,10 +134,13 @@ namespace OMG.NetworkEvents
         public static implicit operator BoolParams(bool left) => new BoolParams(left);
     }
 
-    public class Vector3Params : NetworkEventParams
+    public class Vector3Params : NetworkEventParams, IConvertible<Vector3Params>, IConvertible<Vector3>
     {
         protected override ushort Size => sizeof(float) * 3;
         public Vector3 Value;
+
+        Vector3Params IConvertible<Vector3Params>.Convert() => this;
+        Vector3 IConvertible<Vector3>.Convert() => Value;
 
         public Vector3Params() { }
         public Vector3Params(Vector3 value) { Value = value; }
@@ -133,11 +151,13 @@ namespace OMG.NetworkEvents
         public static implicit operator Vector3Params(Vector3 left) => new Vector3Params(left);
     }
 
-    public class TransformParams : NetworkEventParams
+    public class TransformParams : NetworkEventParams, IConvertible<TransformParams>
     {
         protected override ushort Size => sizeof(float) * 6;
         public Vector3 Position;
         public Vector3 Rotation;
+
+        public TransformParams Convert() => this;
 
         public TransformParams() { }
         public TransformParams(Vector3 position, Vector3 rotation) 
@@ -161,7 +181,7 @@ namespace OMG.NetworkEvents
         public static implicit operator TransformParams(Transform left) => new TransformParams(left.position, left.eulerAngles);
     }
 
-    public class AttackParams : NetworkEventParams
+    public class AttackParams : NetworkEventParams, IConvertible<AttackParams>
     {
         protected override ushort Size => sizeof(ulong) + sizeof(float) + sizeof(float) * 3 * 3 + sizeof(int);
         public ulong AttackerID;
@@ -170,6 +190,8 @@ namespace OMG.NetworkEvents
         public Vector3 Point;
         public Vector3 Dir;
         public Vector3 Normal;
+
+        public AttackParams Convert() => this;
 
         public AttackParams() { }
         public AttackParams(ulong attackerID, int effectType, float damage, Vector3 point, Vector3 dir, Vector3 normal) 

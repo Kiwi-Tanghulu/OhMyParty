@@ -8,7 +8,7 @@ namespace OMG.NetworkEvents
     public class NetworkEvent : NetworkEvent<NoneParams>
     {
         public NetworkEvent() : base() { }
-        public NetworkEvent(string eventID) : base(eventID) { }
+        public NetworkEvent(string key) : base(key) { }
 
         public void Alert(bool requireOwnership = true)
         {
@@ -24,7 +24,14 @@ namespace OMG.NetworkEvents
     }
 
     [System.Serializable]
-    public class NetworkEvent<T> : UnityEvent<T>, INetworkEvent where T : NetworkEventParams
+    public class NetworkEvent<T> : NetworkEvent<T, T> where T : NetworkEventParams, IConvertible<T>
+    {
+        public NetworkEvent() : base() { }
+        public NetworkEvent(string key) : base(key) { }
+    }
+
+    [System.Serializable]
+    public class NetworkEvent<T, U> : UnityEvent<U>, INetworkEvent where T : NetworkEventParams, IConvertible<U>
     {
         private NetworkObject instance = null;
 
@@ -113,7 +120,8 @@ namespace OMG.NetworkEvents
 
         void INetworkEvent.Invoke(NetworkEventParams eventParams)
         {
-            Invoke(eventParams as T);
+            U convertedParams = (eventParams as T).Convert();
+            Invoke(convertedParams);
         }
     }
 
