@@ -17,8 +17,6 @@ namespace OMG.Player
         private Vector3 hitDir;
         private Vector3 hitPoint;
 
-        public UnityEvent<Vector3 /*hit point*/> OnDamagedEvent;
-
         public Transform Attacker => attacker;
         public float Damage => damage;
         public Vector3 HitDir => hitDir;
@@ -27,8 +25,8 @@ namespace OMG.Player
         public bool Hitable;
         public bool PlayerHitable;
 
-        private NetworkEvent<AttackParams> onDamaged = new NetworkEvent<AttackParams>("onDamaged");
-        private NetworkEvent<Vector3Params> onDamagedNetworkEvent = new NetworkEvent<Vector3Params>("onDamagedNetworkEvent");
+        private NetworkEvent<AttackParams> onDamagedRpc = new NetworkEvent<AttackParams>("onDamagedRpc");
+        [SerializeField] private NetworkEvent<Vector3Params, Vector3> onDamagedNetworkEvent = new NetworkEvent<Vector3Params, Vector3>("onDamagedNetworkEvent");
 
         public override void Init(CharacterController controller)
         {
@@ -37,10 +35,9 @@ namespace OMG.Player
             Hitable = true;
             PlayerHitable = true;
 
-            onDamaged.AddListener(BroadcastOnDamaged);
-            onDamaged.Register(controller.NetworkObject);
+            onDamagedRpc.AddListener(BroadcastOnDamaged);
+            onDamagedRpc.Register(controller.NetworkObject);
 
-            onDamagedNetworkEvent.AddListener(BroadcastOnDamagedNetworkEvent);
             onDamagedNetworkEvent.Register(controller.NetworkObject);
         }
 
@@ -85,7 +82,7 @@ namespace OMG.Player
 #endif
             #endregion
             
-            onDamaged?.Broadcast(new AttackParams(attackerID, hitEffectType, damage, point, hitDir, normal), false);
+            onDamagedRpc?.Broadcast(new AttackParams(attackerID, hitEffectType, damage, point, hitDir, normal), false);
         }
 
         public void BroadcastOnDamaged(AttackParams param)
@@ -139,12 +136,7 @@ namespace OMG.Player
                     break;
             }
 
-            onDamagedNetworkEvent?.Broadcast(new Vector3Params(HitPoint));
-        }
-
-        public void BroadcastOnDamagedNetworkEvent(Vector3Params param)
-        {
-            OnDamagedEvent?.Invoke(param);
+            onDamagedNetworkEvent?.Broadcast(HitPoint);
         }
     }
 }
