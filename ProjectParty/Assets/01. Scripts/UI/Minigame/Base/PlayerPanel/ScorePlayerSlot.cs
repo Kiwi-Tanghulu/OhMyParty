@@ -1,4 +1,4 @@
-using OMG.Editors;
+using OMG.Attributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;

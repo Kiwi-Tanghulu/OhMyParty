@@ -12,8 +12,6 @@ namespace OMG
             if (lightingSettingSO == null)
                 return;
 
-            Lightmapping.lightingSettings = lightingSettingSO.LightingSettings;
-
             RenderSettings.skybox = lightingSettingSO.SkyboxMat;
 
             switch (lightingSettingSO.Source)

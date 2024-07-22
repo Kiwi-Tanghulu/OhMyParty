@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using OMG.Editors;
+using OMG.Attributes;
 using OMG.Extensions;
 using OMG.Player;
 using Unity.Netcode;

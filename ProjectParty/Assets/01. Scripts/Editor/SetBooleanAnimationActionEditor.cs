@@ -2,7 +2,7 @@ using OMG.Player.FSM;
 using UnityEditor;
 using UnityEngine;
 
-namespace OMG.Editors
+namespace OMG.Attributes
 {
     [CustomEditor(typeof(SetBooleanAnimationAction))]
     public class SetBooleanAnimationActionEditor : UnityEditor.Editor

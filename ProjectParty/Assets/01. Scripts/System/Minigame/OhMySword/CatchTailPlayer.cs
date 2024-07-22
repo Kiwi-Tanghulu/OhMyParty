@@ -16,13 +16,14 @@ public class CatchTailPlayer : MonoBehaviour
     public void SetTargetPlayerID(ulong targetID)
     {
         targetPlayerID = targetID;
-        onTargetSelectedEvent?.Broadcast(targetID);
+        onTargetSelectedEvent?.Broadcast(targetID, false);
     }
 
     public bool IsCorrectTarget(ulong inputID) => inputID == targetPlayerID;
 
     private void HandleTargetPlayerSelected(ulong targetID)
     {
+        targetPlayerID = targetID;
         Debug.Log($"Client {GetComponent<NetworkObject>().OwnerClientId}'s Target is {targetID}");
     }
 }

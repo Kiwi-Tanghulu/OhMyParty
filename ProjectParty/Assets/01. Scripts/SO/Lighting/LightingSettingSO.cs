@@ -1,4 +1,4 @@
-using OMG.Editors;
+using OMG.Attributes;
 using UnityEngine;
 
 namespace OMG
@@ -13,10 +13,6 @@ namespace OMG
     [CreateAssetMenu(menuName = "SO/LightingSetting")]
     public class LightingSettingSO : ScriptableObject
     {
-        [Header("Scene")]
-        public LightingSettings LightingSettings;
-
-        [Space]
         [Header("Environment")]
         public Material SkyboxMat;
         public EnvironmentSourceType Source;
