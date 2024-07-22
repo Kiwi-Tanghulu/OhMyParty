@@ -40,7 +40,7 @@ namespace OMG.Editors
             SerializedProperty conditionProperty = property.serializedObject.FindProperty(conditional.Condition);
 
             if(conditionProperty == null)
-                return -EditorGUI.GetPropertyHeight(property, label);
+                return -EditorGUIUtility.standardVerticalSpacing;
 
             bool condition = false;
             switch(conditional.Type)
@@ -56,7 +56,7 @@ namespace OMG.Editors
             if (condition)
                 return EditorGUI.GetPropertyHeight(property, label);
             else
-                return -EditorGUI.GetPropertyHeight(property, label);
+                return -EditorGUIUtility.standardVerticalSpacing;
         }
     }
 }
