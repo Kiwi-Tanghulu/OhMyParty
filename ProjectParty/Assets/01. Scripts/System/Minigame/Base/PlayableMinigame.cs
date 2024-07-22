@@ -72,8 +72,8 @@ namespace OMG.Minigames
 
         public void RespawnPlayer(ulong clientID)
         {
-            Vector3 position = spawnPositions.PickRandom().position;
-            playerDictionary[clientID].GetComponent<CharacterMovement>().Teleport(position, Quaternion.identity);
+            Transform position = spawnPositions.PickRandom();
+            playerDictionary[clientID].Respawn(position);
         }
 
         protected PlayerController SpawnPlayer(int index)

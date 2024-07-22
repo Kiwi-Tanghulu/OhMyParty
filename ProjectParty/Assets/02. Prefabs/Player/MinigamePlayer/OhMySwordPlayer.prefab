@@ -239,12 +239,12 @@ PrefabInstance:
     - target: {fileID: 6885894302394138821, guid: 5ad278c9f0bdc434aaee4260e23bf2bf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20
+      value: 19.999998
       objectReference: {fileID: 0}
     - target: {fileID: 6885894302394138821, guid: 5ad278c9f0bdc434aaee4260e23bf2bf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.025251
+      value: 11.02525
       objectReference: {fileID: 0}
     - target: {fileID: 6885894302394138821, guid: 5ad278c9f0bdc434aaee4260e23bf2bf,
         type: 3}
@@ -646,6 +646,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 807048018500501385, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
     - {fileID: 2302576672021761360, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
+    - {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -673,6 +674,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 498844775370473616}
+    - targetCorrespondingSourceObject: {fileID: 8653656707965372744, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2181278220266648462}
   m_SourcePrefab: {fileID: 100100000, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
 --- !u!114 &1264198900830415197 stripped
 MonoBehaviour:
@@ -733,7 +738,7 @@ MonoBehaviour:
   - {fileID: 1264198900830415197}
   - {fileID: 2189739178449191134}
   - {fileID: 293459987045137541}
-  - {fileID: 3816489287258390350}
+  - {fileID: 2181278220266648462}
   - {fileID: 5584606845437219529}
   OnInitEvent:
     m_PersistentCalls:
@@ -755,16 +760,48 @@ MonoBehaviour:
   onTargetSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3816489287258390350 stripped
+--- !u!114 &2181278220266648462
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8679296315069631493, guid: fcf90dc6047265e4db4c32e1eba10505,
-    type: 3}
-  m_PrefabInstance: {fileID: 5514071475311326027}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3788121192657353219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421cb8e3e022ceb4799bc9908c6e6e72, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f9cfaf3509a3974eaea8fbb0a6503de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hitable: 0
+  PlayerHitable: 0
+  onDamagedNetworkEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5454387736493728580}
+        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAttackFailedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5454387736493728580 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 519051357584297999, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5514071475311326027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ff74ee7f302fd4bbb736c514227138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5584606845437219529 stripped

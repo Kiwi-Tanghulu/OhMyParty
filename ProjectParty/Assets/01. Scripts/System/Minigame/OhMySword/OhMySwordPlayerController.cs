@@ -11,10 +11,12 @@ namespace OMG.Minigames.OhMySword
     {
         // [SerializeField] Collider playerCollider = null;
         [SerializeField] Sword sword = null;
+        [SerializeField] float respawnDelay = 1f;
         private CatchTailPlayer catchTailPlayer = null;
 
         private ScorePlayerPanel playerPanel = null;
         private OhMySword minigame = null;
+        private OhMySwordCycle cycle = null;
         private int playerIndex = 0;
 
         private Coroutine xpUpdateRoutine = null;
@@ -27,6 +29,8 @@ namespace OMG.Minigames.OhMySword
         {
             base.Awake();
             minigame = MinigameManager.Instance?.CurrentMinigame as OhMySword;
+            cycle = minigame.Cycle as OhMySwordCycle;
+
             playerPanel = minigame.MinigamePanel.PlayerPanel as ScorePlayerPanel;
             playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
 
@@ -62,8 +66,12 @@ namespace OMG.Minigames.OhMySword
 
         public void Respawn()
         {
-            if(IsHost)
-                minigame.RespawnPlayer(OwnerClientId);
+            if(IsHost == false)
+                return;
+            
+            StartCoroutine(this.DelayCoroutine(respawnDelay, () => {
+                cycle.Respawn(OwnerClientId);
+            }));
         }
 
         public void GetXP(int amount)

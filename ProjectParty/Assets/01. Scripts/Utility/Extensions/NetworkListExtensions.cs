@@ -1,5 +1,6 @@
 using System;
 using Unity.Netcode;
+using Random = UnityEngine.Random;
 
 namespace OMG.Extensions
 {
@@ -46,6 +47,16 @@ public static class NetworkListExtensions
         }
 
         return -1;
+    }
+
+    public static T PickRandom<T>(this NetworkList<T> source, Func<T, bool> condition = null) where T : unmanaged, IEquatable<T>
+    {
+        int randIndex = 0;
+        do
+            randIndex = Random.Range(0, source.Count);
+        while (condition != null && condition?.Invoke(source[randIndex]) == false);
+        
+        return source[randIndex];
     }
 }
 }
