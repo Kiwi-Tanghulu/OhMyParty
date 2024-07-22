@@ -5,15 +5,13 @@ using UnityEngine;
 
 namespace OMG.Player
 {
-    public class PlayerController : CharacterController
+    public class PlayerController : CharacterController, IRespawn
     {
-        public override void Respawn(Transform respawnTrm)
+        public void Respawn(Vector3 pos, Vector3 rot)
         {
-            base.Respawn(respawnTrm);
-
             GetCharacterComponent<CharacterFSM>().ChangeDefaultState();
             GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false);
-            GetCharacterComponent<PlayerMovement>().Teleport(respawnTrm.position, respawnTrm.rotation);
+            GetCharacterComponent<PlayerMovement>().Teleport(pos, Quaternion.Euler(rot));
         }
     }
 }
