@@ -1,4 +1,4 @@
-using UnityEditor;
+using OMG.Editors;
 using UnityEngine;
 
 namespace OMG
@@ -21,24 +21,17 @@ namespace OMG
         public Material SkyboxMat;
         public EnvironmentSourceType Source;
 
-        [Space]
-        [Range(0, 8)]
+        [ConditionalField("Source", (int)EnvironmentSourceType.Skybox)] [Range(0, 8)]
         public float IntensityMultiplier = 1;
 
-        [Space]
-        [ColorUsage(false, true)]
+        [ConditionalField("Source", (int)EnvironmentSourceType.Gradient)] [ColorUsage(false, true)]
         public Color SkyColor;
-        [ColorUsage(false, true)]
+        [ConditionalField("Source", (int)EnvironmentSourceType.Gradient)] [ColorUsage(false, true)]
         public Color EquatorColor;
-        [ColorUsage(false, true)]
+        [ConditionalField("Source", (int)EnvironmentSourceType.Gradient)] [ColorUsage(false, true)]
         public Color GroundColor;
 
-        [Space]
-        [ColorUsage(false, true)]
+        [ConditionalField("Source", (int)EnvironmentSourceType.Color)] [ColorUsage(false, true)]
         public Color AmbientColor;
-
-        [Space]
-        [Header("Baked Lightmaps")]
-        public LightingDataAsset LightingDataAsset;
     }
 }

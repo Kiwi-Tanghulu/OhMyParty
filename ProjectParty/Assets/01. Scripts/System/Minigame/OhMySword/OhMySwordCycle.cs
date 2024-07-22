@@ -1,23 +1,37 @@
 using OMG.Extensions;
+using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
 {
     public class OhMySwordCycle : TimeAttackCycle
     {
-        private new PlayableMinigame minigame = null;
+        private PlayableMinigame playableMinigame = null;
 
         protected override void Awake()
         {
             base.Awake();
-            minigame = base.minigame as PlayableMinigame;
+            playableMinigame = minigame as PlayableMinigame;
+        }
+
+        public override void StartCycle()
+        {
+            base.StartCycle();
+            playableMinigame.PlayerDatas.ForEach(i => SetTarget(i.clientID));
         }
 
         public void Respawn(ulong clientID)
         {
-            ulong targetID = minigame.PlayerDatas.PickRandom(i => i.clientID != clientID).clientID;
-            minigame.PlayerDictionary[clientID].GetComponent<CatchTailPlayer>().SetTargetPlayerID(targetID);
+            SetTarget(clientID);
+            playableMinigame.RespawnPlayer(clientID);
+        }
 
-            minigame.RespawnPlayer(clientID);
+        public void SetTarget(ulong clientID)
+        {
+            ulong targetID = clientID;
+            if(minigame.PlayerDatas.Count > 1)
+                targetID = playableMinigame.PlayerDatas.PickRandom(i => i.clientID != clientID).clientID;
+
+            playableMinigame.PlayerDictionary[clientID].GetComponent<CatchTailPlayer>().SetTargetPlayerID(targetID);
         }
     }
 }

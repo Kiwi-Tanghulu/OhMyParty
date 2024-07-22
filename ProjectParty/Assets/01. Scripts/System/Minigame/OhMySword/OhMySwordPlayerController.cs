@@ -46,6 +46,7 @@ namespace OMG.Minigames.OhMySword
 
             SetActiveUpdateRoutine(true);
             sword.Init(NetworkObject);
+            catchTailPlayer.Init(NetworkObject);
         }
 
         public override void OnNetworkDespawn()

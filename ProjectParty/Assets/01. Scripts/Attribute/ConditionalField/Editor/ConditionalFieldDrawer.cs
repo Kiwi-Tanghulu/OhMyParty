@@ -12,12 +12,25 @@ namespace OMG.Editors
             ConditionalFieldAttribute conditional = (ConditionalFieldAttribute)attribute;
             SerializedProperty conditionProperty = property.serializedObject.FindProperty(conditional.Condition);
 
-            if (conditionProperty != null && conditionProperty.boolValue == conditional.Option)
+            if(conditionProperty == null)
+                return;
+
+            bool condition = false;
+            switch(conditional.Type)
             {
-                Rect newPosition = new Rect(position);
-                newPosition.x += 10;
-                newPosition.width -= 10;
-                EditorGUI.PropertyField(newPosition, property, label, true);
+                case ConditionalFieldAttribute.ConditionType.Boolean:
+                    condition = conditionProperty.boolValue == conditional.BoolOption;
+                    break;
+                case ConditionalFieldAttribute.ConditionType.Enum:
+                    condition = conditionProperty.enumValueIndex == conditional.EnumOption;
+                    break;
+            }
+
+            if (condition)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUI.PropertyField(position, property, label, true);
+                EditorGUI.indentLevel--;
             }
         }
 
@@ -26,14 +39,24 @@ namespace OMG.Editors
             ConditionalFieldAttribute conditional = (ConditionalFieldAttribute)attribute;
             SerializedProperty conditionProperty = property.serializedObject.FindProperty(conditional.Condition);
 
-            if (conditionProperty != null && conditionProperty.boolValue == conditional.Option)
+            if(conditionProperty == null)
+                return -EditorGUI.GetPropertyHeight(property, label);
+
+            bool condition = false;
+            switch(conditional.Type)
             {
+                case ConditionalFieldAttribute.ConditionType.Boolean:
+                    condition = conditionProperty.boolValue == conditional.BoolOption;
+                    break;
+                case ConditionalFieldAttribute.ConditionType.Enum:
+                    condition = conditionProperty.enumValueIndex == conditional.EnumOption;
+                    break;
+            }
+
+            if (condition)
                 return EditorGUI.GetPropertyHeight(property, label);
-            }
             else
-            {
-                return -EditorGUIUtility.standardVerticalSpacing;
-            }
+                return -EditorGUI.GetPropertyHeight(property, label);
         }
     }
 }

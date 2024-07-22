@@ -33,8 +33,6 @@ namespace OMG
                     RenderSettings.ambientLight = lightingSettingSO.AmbientColor;
                     break;
             }
-
-            Lightmapping.lightingDataAsset = lightingSettingSO.LightingDataAsset;
         }
     }
 }

@@ -15,13 +15,13 @@ namespace OMG.Minigames
             timer = GetComponent<NetworkTimer>();
         }
 
-        public void StartCycle()
+        public virtual void StartCycle()
         {
             timer.SetTimer(playTime);
             timer.OnTimerFinishedEvent.AddListener(FinishCycle);
         }
 
-        protected void FinishCycle()
+        protected virtual void FinishCycle()
         {
             minigame.FinishGame();
         }
