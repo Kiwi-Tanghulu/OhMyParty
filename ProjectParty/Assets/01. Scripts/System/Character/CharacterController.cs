@@ -70,7 +70,15 @@ namespace OMG
 
             foreach (CharacterComponent compo in compoList)
             {
-                compoDictionary.Add(compo.GetType(), compo);
+                Type type = compo.GetType();
+                while(true)
+                {
+                    compoDictionary.Add(type, compo);
+                    type = type.BaseType;
+
+                    if (type == typeof(CharacterComponent))
+                        break;
+                }
             }
 
             foreach (CharacterComponent compo in compoList)
@@ -86,24 +94,13 @@ namespace OMG
 
         public T GetCharacterComponent<T>() where T : CharacterComponent
         {
-            //if(!compoDictionary.ContainsKey(typeof(T)))
-            //{
-            //    Debug.LogError($"not exsist compo : {typeof(T)}");
-            //    return null;
-            //}
-
-            foreach(KeyValuePair<Type, CharacterComponent> pair in compoDictionary)
+            if (!compoDictionary.ContainsKey(typeof(T)))
             {
-                if(pair.Value is T)
-                {
-                    return pair.Value as T;
-                }
+                Debug.LogError($"not exsist compo : {typeof(T)}");
+                return null;
             }
 
-            Debug.LogError($"not exsist compo : {typeof(T)}");
-            return null;
-
-            //return compoDictionary[typeof(T)] as T;
+            return compoDictionary[typeof(T)] as T;
         }
         
         public virtual void Respawn(Transform respawnTrm) { }
