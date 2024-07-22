@@ -86,13 +86,24 @@ namespace OMG
 
         public T GetCharacterComponent<T>() where T : CharacterComponent
         {
-            if(!compoDictionary.ContainsKey(typeof(T)))
+            //if(!compoDictionary.ContainsKey(typeof(T)))
+            //{
+            //    Debug.LogError($"not exsist compo : {typeof(T)}");
+            //    return null;
+            //}
+
+            foreach(KeyValuePair<Type, CharacterComponent> pair in compoDictionary)
             {
-                Debug.LogError($"not exsist compo : {typeof(T)}");
-                return null;
+                if(pair.Value is T)
+                {
+                    return pair.Value as T;
+                }
             }
 
-            return compoDictionary[typeof(T)] as T;
+            Debug.LogError($"not exsist compo : {typeof(T)}");
+            return null;
+
+            //return compoDictionary[typeof(T)] as T;
         }
         
         public virtual void Respawn(Transform respawnTrm) { }
