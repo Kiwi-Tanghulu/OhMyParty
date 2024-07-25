@@ -1,8 +1,5 @@
 using OMG.NetworkEvents;
 using OMG.Ragdoll;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace OMG.Player
 {
@@ -10,35 +7,29 @@ namespace OMG.Player
     {
         public override void Init(CharacterController controller)
         {
-            onInitActive = true;
+            //onInitActive = true;
 
             base.Init(controller);
 
-            SetActive(false);
+            //SetActive(false);
         }
 
         protected override void SetActive(BoolParams value)
         {
-            for (int i = 0; i < parts.Length; i++)
-            {
-                parts[i].Col.enabled = value;
-                parts[i].Rb.isKinematic = !value;
-            }
+            base.SetActive(value);
 
-            if (value)
-            {
-                for (int i = 0; i < parts.Length; i++)
-                {
-                    parts[i].Rb.velocity = Vector3.zero;
-                    parts[i].Rb.angularVelocity = Vector3.zero;
-                }
+            //if (value)
+            //{
+                
 
-                OnActiveEvent?.Invoke();
-            }
-            else
-            {
-                OnDeactiveEvent?.Invoke();
-            }
+            //    OnActiveEvent?.Invoke();
+            //}
+            //else
+            //{
+            //    OnDeactiveEvent?.Invoke();
+            //}
+
+            //active = value;
         }
     }
 }

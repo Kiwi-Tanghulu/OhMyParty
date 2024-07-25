@@ -14,7 +14,7 @@ namespace OMG.Player.FSM
             
             if(damageCaster != null)
             {
-                damageCaster.DamageCast(player.transform, 20f);
+                damageCaster.DamageCast(player.transform, 200f);
             }
         }
     }
