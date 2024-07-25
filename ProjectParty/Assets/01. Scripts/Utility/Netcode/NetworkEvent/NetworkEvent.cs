@@ -35,6 +35,7 @@ namespace OMG.NetworkEvents
     {
         private NetworkObject instance = null;
 
+        private string eventName = "";
         private ulong eventID = 0;
         ulong INetworkEvent.EventID => eventID;
 
@@ -44,6 +45,7 @@ namespace OMG.NetworkEvents
 
         public NetworkEvent(string key) : base()
         {
+            eventName = key;
             eventID = NetworkEventTable.StringToHash(key);
         }
 
@@ -85,6 +87,7 @@ namespace OMG.NetworkEvents
             if (Middleware(requireOwnership) == false)
                 return;
 
+            Debug.Log($"Instance ID : {instance.NetworkObjectId}, Event ID : {eventID}, Event Name : {eventName}");
             NetworkEventPacket packet = CreatePacket(eventParams);
             NetworkEventManager.Instance.BroadcastEvent(packet);
         }

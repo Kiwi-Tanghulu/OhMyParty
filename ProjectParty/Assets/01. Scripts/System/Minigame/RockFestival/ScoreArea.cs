@@ -26,7 +26,6 @@ namespace OMG.Minigames.RockFestival
         {
             scoreText = transform.Find("ScoreText").GetComponent<TMP_Text>();
             scoreText.text = "-";
-            scoreSlot.Init();
         }
 
         public void Init(ulong ownerID, bool active)

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using OMG.Extensions;
 using OMG.NetworkEvents;
 using OMG.Player;
@@ -9,10 +10,10 @@ namespace OMG.Minigames.OhMySword
 {
     public class OhMySwordPlayerController : PlayerController
     {
-        // [SerializeField] Collider playerCollider = null;
         [SerializeField] Sword sword = null;
         [SerializeField] float respawnDelay = 1f;
         private CatchTailPlayer catchTailPlayer = null;
+        private ScoreContainer scoreContainer = null;
 
         private ScorePlayerPanel playerPanel = null;
         private OhMySword minigame = null;
@@ -35,6 +36,7 @@ namespace OMG.Minigames.OhMySword
             playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
 
             catchTailPlayer = GetComponent<CatchTailPlayer>();
+            scoreContainer = GetComponent<ScoreContainer>();
         }
 
         public override void OnNetworkSpawn()
@@ -70,6 +72,10 @@ namespace OMG.Minigames.OhMySword
             if(IsHost == false)
                 return;
             
+            minigame.PlayerDatas.Find(out PlayerData player, i => i.clientID == OwnerClientId);
+
+            scoreContainer.Init(player.score);
+            scoreContainer.GenerateXP();
             StartCoroutine(this.DelayCoroutine(respawnDelay, () => {
                 cycle.Respawn(OwnerClientId);
             }));
@@ -105,6 +111,9 @@ namespace OMG.Minigames.OhMySword
 
             while(true)
             {
+                if(IsSpawned == false)
+                    yield return delay;
+
                 if(xpBuffer != prevXP)
                 {
                     onUpdateXPEvent?.Broadcast(xpBuffer);

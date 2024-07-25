@@ -70,6 +70,7 @@ namespace OMG.Minigames
             });
         }
 
+        // it should called by host
         public void RespawnPlayer(ulong clientID)
         {
             Transform position = spawnPositions.PickRandom();
