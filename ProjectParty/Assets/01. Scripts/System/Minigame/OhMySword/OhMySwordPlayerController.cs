@@ -65,7 +65,7 @@ namespace OMG.Minigames.OhMySword
                 StopCoroutine(xpUpdateRoutine);
         }
 
-        public void Respawn()
+        public void HandleDead()
         {
             if(IsHost == false)
                 return;

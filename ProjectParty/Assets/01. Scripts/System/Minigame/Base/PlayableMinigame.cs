@@ -73,7 +73,7 @@ namespace OMG.Minigames
         public void RespawnPlayer(ulong clientID)
         {
             Transform position = spawnPositions.PickRandom();
-            playerDictionary[clientID].Respawn(position);
+            playerDictionary[clientID].RespawnFunction.Broadcast(position, false);
         }
 
         protected PlayerController SpawnPlayer(int index)

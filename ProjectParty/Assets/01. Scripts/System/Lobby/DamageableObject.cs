@@ -26,7 +26,7 @@ public class DamageableObject : MonoBehaviour, IDamageable
     {
         Vector3Params param = new Vector3Params { Value = point };
 
-        onHitEvent.Broadcast(param);
+        onHitEvent.Broadcast(param, false);
     }
 
     private void OnDamagedClientRpc(Vector3Params point)

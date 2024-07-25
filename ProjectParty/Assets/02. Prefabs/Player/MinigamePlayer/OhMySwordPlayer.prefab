@@ -451,7 +451,7 @@ PrefabInstance:
     - target: {fileID: 2515307658907340869, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: playerDieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Respawn
+      value: HandleDead
       objectReference: {fileID: 0}
     - target: {fileID: 2515307658907340869, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
@@ -744,7 +744,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   useInNetwork: 1
+  RespawnFunction:
+    m_PersistentCalls:
+      m_Calls: []
   sword: {fileID: 707024077074953883}
+  respawnDelay: 1
 --- !u!114 &498844775370473616
 MonoBehaviour:
   m_ObjectHideFlags: 0
