@@ -27,6 +27,7 @@ namespace OMG.Minigames
 
         protected virtual void FinishCycle()
         {
+            // test
             List<int> scores = new List<int>();
             minigame.PlayerDatas.ForEach(i => scores.Add(i.score));
             scores.Sort();
