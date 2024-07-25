@@ -20,7 +20,8 @@ namespace OMG
         {
             base.Move();
             
-            characterController.Move(moveVector);
+            if(characterController.enabled)
+                characterController.Move(moveVector);
         }
     }
 }

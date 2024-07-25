@@ -32,7 +32,8 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            playerDieEvent?.Broadcast();
+            ragdoll.SetActive(true);
+            //playerDieEvent?.Broadcast();
         }
 
         private void Die(NoneParams param)

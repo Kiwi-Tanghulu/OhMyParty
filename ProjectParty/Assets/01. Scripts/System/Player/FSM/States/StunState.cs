@@ -45,14 +45,6 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            //if (brain.Controller.IsSpawned)
-            //{
-            //    onStartStunEvent.Broadcast();
-            //}
-            //else
-            //{
-            //    StratStun(new NoneParams());
-            //}
             ragdoll.SetActive(true);
 
             movement.SetMoveDirection(Vector3.zero, false);
@@ -62,14 +54,6 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            //if (brain.Controller.IsSpawned)
-            //{
-            //    onEndStunEvent.Broadcast();
-            //}
-            //else
-            //{
-            //    EndStun(new NoneParams());
-            //}
             ragdoll.SetActive(false);
 
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position, Vector3.down, 10000f, groundLayer);
