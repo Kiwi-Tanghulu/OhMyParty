@@ -14,9 +14,9 @@ namespace OMG.UI.Minigames
             SetGoal(false);
         }
 
-        public void SetGoal(bool dead)
+        public void SetGoal(bool goal)
         {
-            goalCheck.SetActive(dead);
+            goalCheck.SetActive(goal);
         }
     }
 }
