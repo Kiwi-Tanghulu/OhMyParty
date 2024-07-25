@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace OMG
@@ -6,6 +7,8 @@ namespace OMG
     {
         private OMG.CharacterController controller;
         public OMG.CharacterController Controller => controller;
+
+        
 
         public virtual void Init(OMG.CharacterController controller)
         {

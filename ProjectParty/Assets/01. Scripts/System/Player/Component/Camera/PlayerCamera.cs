@@ -21,7 +21,10 @@ namespace OMG.Player
             if(follow)
                 cam.Follow = controller.transform;
             if (nonParent)
+            {
                 transform.SetParent(null);
+                controller.OnDestroyEvent += () => Destroy(gameObject);
+            }
 
             if (controller.IsOwner)
                 cam.Priority = DEFINE.FOCUSED_PRIORITY;

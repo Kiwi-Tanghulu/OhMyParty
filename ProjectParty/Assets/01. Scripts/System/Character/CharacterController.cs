@@ -15,6 +15,8 @@ namespace OMG
         public UnityEvent<ulong/*owner id*/> OnInitEvent;
         protected bool isInit = false;
 
+        public Action OnDestroyEvent;
+
 #if UNITY_EDITOR
         [SerializeField] private bool useInNetwork = true;
         public bool UseInNetwork => useInNetwork;
@@ -101,6 +103,13 @@ namespace OMG
             }
 
             return compoDictionary[typeof(T)] as T;
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            OnDestroyEvent?.Invoke();
         }
     }
 }
