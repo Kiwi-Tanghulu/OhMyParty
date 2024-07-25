@@ -45,15 +45,16 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            if (brain.Controller.IsSpawned)
-            {
-                onStartStunEvent.Broadcast();
-            }
-            else
-            {
-                StratStun(new NoneParams());
-            }
-            
+            //if (brain.Controller.IsSpawned)
+            //{
+            //    onStartStunEvent.Broadcast();
+            //}
+            //else
+            //{
+            //    StratStun(new NoneParams());
+            //}
+            ragdoll.SetActive(true);
+
             movement.SetMoveDirection(Vector3.zero, false);
         }
 
@@ -61,14 +62,15 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            if (brain.Controller.IsSpawned)
-            {
-                onEndStunEvent.Broadcast();
-            }
-            else
-            {
-                EndStun(new NoneParams());
-            }
+            //if (brain.Controller.IsSpawned)
+            //{
+            //    onEndStunEvent.Broadcast();
+            //}
+            //else
+            //{
+            //    EndStun(new NoneParams());
+            //}
+            ragdoll.SetActive(false);
 
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position, Vector3.down, 10000f, groundLayer);
             if (hit.Length > 0)
@@ -82,14 +84,15 @@ namespace OMG.Player.FSM
 
         private void StratStun(NoneParams param)
         {
-            ragdoll.SetActive(true);
+            if(player.IsOwner)
+                ragdoll.SetActive(true);
             ragdoll.AddForce(health.Damage, health.HitDir, ForceMode.Impulse);
         }
         
         private void EndStun(NoneParams param)
         {
-            player.GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false);
-            ragdoll.SetActive(false);
+            if (player.IsOwner)
+                ragdoll.SetActive(false);
         }
     }
 }

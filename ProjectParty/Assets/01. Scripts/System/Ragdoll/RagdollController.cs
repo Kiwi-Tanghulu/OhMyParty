@@ -1,10 +1,11 @@
 using OMG.Extensions;
+using OMG.NetworkEvents;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace OMG.Ragdoll
 {
-    public class RagdollController : MonoBehaviour
+    public class RagdollController : CharacterComponent
     {
         [SerializeField] private Transform copyTargetRoot;
 
@@ -19,10 +20,17 @@ namespace OMG.Ragdoll
         public UnityEvent OnActiveEvent;
         public UnityEvent OnDeactiveEvent;
 
+        private NetworkEvent<BoolParams> setActiveRagdollRpc = new NetworkEvent<BoolParams>("SetActiveRagdollRpc");
+
         protected RagdollPart[] parts;
 
-        protected virtual void Awake()
+        public override void Init(CharacterController controller)
         {
+            base.Init(controller);
+
+            setActiveRagdollRpc.Register(controller.NetworkObject);
+            setActiveRagdollRpc.AddListener(SetActive);
+
             parts = GetComponentsInChildren<RagdollPart>();
             for (int i = 0; i < parts.Length; i++)
                 parts[i].Init(copyTargetRoot.FindFromAll(parts[i].gameObject.name));
@@ -30,7 +38,22 @@ namespace OMG.Ragdoll
             gameObject.SetActive(onInitActive);
         }
 
-        public virtual void SetActive(bool value)
+        public void SetActive(bool value)
+        {
+            if (!Controller.IsOwner)
+                return;
+
+#if UNITY_EDITOR
+            if(Controller.UseInNetwork)
+                setActiveRagdollRpc.Broadcast(value);
+            else
+                setActiveRagdollRpc.Invoke(value);
+#else
+            setActiveRagdollRpc.Broadcast(value);
+#endif
+        }
+
+        protected virtual void SetActive(BoolParams value)
         {
             gameObject.SetActive(value);
 

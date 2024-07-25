@@ -2432,6 +2432,7 @@ MonoBehaviour:
   - {fileID: 5973583883872236437}
   - {fileID: 8679296315069631493}
   - {fileID: 73579990839173506}
+  - {fileID: 7999802940590070923}
   OnInitEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2448,6 +2449,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   useInNetwork: 1
+  RespawnFunction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5973583883872236437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2559,21 +2563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421cb8e3e022ceb4799bc9908c6e6e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnDamagedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 519051357584297999}
-        m_TargetAssemblyTypeName: OMG.Feedbacks.FeedbackPlayer, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   Hitable: 0
   PlayerHitable: 0
   onDamagedNetworkEvent:
@@ -3438,6 +3427,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8618010646402140841}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7999802940590070923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1773381852135593506, guid: 3185d771f47aa69468dbf7ee7a18a2fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 8618010646402140841}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671fa8e4c3422e94baa27f612f3ba4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8288274099845626911 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 332297035401918134, guid: 3185d771f47aa69468dbf7ee7a18a2fa,
