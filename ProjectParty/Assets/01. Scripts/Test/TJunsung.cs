@@ -12,6 +12,11 @@ public class TJunsung : MonoBehaviour
         rb.gameObject.SetActive(false);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.transform.name);
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))

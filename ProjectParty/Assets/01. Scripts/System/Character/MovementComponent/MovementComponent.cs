@@ -90,7 +90,7 @@ namespace OMG
 
             moveVec *= moveSpeed;
             
-            moveVector = new Vector3(moveVec.x, verticalVelocity, moveVec.z) * Time.deltaTime;
+            moveVector = new Vector3(moveVec.x, verticalVelocity, moveVec.z);
         }
 
         public void SetMoveSpeed(float value)

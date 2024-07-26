@@ -8,7 +8,6 @@ using UnityEngine.Events;
 
 namespace OMG
 {
-    [RequireComponent(typeof(UnityEngine.CharacterController))]
     public class CharacterMovement : CharacterComponent
     {
         private MovementComponent movement;

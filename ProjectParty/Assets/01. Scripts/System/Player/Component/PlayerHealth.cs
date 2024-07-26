@@ -1,12 +1,8 @@
 using OMG.FSM;
 using OMG.Player.FSM;
 using UnityEngine;
-using UnityEngine.Events;
 using OMG.NetworkEvents;
-using Steamworks;
-using UnityEngine.InputSystem.XR;
 using Unity.Netcode;
-using System.Runtime.CompilerServices;
 
 namespace OMG.Player
 {
@@ -51,7 +47,8 @@ namespace OMG.Player
             this.attacker = attacker;
             this.damage = damage;
             hitPoint = point;
-            hitDir = (transform.position - attacker.position).normalized;
+            hitDir = direction == default ? (transform.position - attacker.position).normalized
+                : direction;
 
             #region !use in network
 #if UNITY_EDITOR

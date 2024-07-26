@@ -23,5 +23,12 @@ namespace OMG
             if(characterController.enabled)
                 characterController.Move(moveVector);
         }
+
+        protected override void CalcMoveVector()
+        {
+            base.CalcMoveVector();
+
+            moveVector *= Time.deltaTime;
+        }
     }
 }

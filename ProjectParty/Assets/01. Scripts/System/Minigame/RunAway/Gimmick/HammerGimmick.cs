@@ -18,68 +18,65 @@ namespace OMG.Minigames
         [SerializeField] private float maxMoveSpeed;
         private int moveDir;
 
-        private List<Collision> contactCollisions;
+        private List<PlayerController> contactTargets;
+        private PlayerController target;
 
         private void Awake()
         {
-            contactCollisions = new List<Collision>();
+            contactTargets = new List<PlayerController>();
         }
 
         private void Update()
         {
             Move();
 
-            for (int i = 0; i < contactCollisions.Count; i++)
+            for (int i = 0; i < contactTargets.Count; i++)
             {
-                //if (IsExecutable(contactCollisions[i]))
-                //{
-                //    Execute(contactCollisions[i]);
-                //}
+                target = contactTargets[i];
+
+                if (IsExecutable())
+                {
+                    Execute();
+                }
             }
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.TryGetComponent<PlayerController>
-                (out PlayerController player))
+            if(collision.gameObject.CompareTag("Player"))
             {
-                contactCollisions.Add(collision);
+                contactTargets.Add(collision.gameObject.GetComponent<PlayerController>());
             }
         }
 
         private void OnCollisionExit(Collision collision)
         {
-            if (collision.gameObject.TryGetComponent<PlayerController>
-                (out PlayerController player))
+            if (collision.gameObject.CompareTag("Player"))
             {
-                contactCollisions.Remove(collision);
+                contactTargets.Remove(collision.gameObject.GetComponent<PlayerController>());
             }
         }
 
-        public override void Execute(Transform target)
+        public override void Execute()
         {
             if(target.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                //damageable.OnDamaged(effectPower, transform,
-                //    target.GetContact(0).point, HitEffectType.Stun);
+                contactTargets.Remove(target);
+
+                damageable.OnDamaged(effectPower, transform,
+                    default, HitEffectType.Stun, default, moveDir * Vector3.right);
             }
         }
 
-        protected override bool IsExecutable(Transform target)
+        protected override bool IsExecutable()
         {
-            if(target.gameObject.TryGetComponent<CharacterMovement>(out CharacterMovement movement))
-            {
-                float targetMoveDir = movement.Movement.MoveDir.x;
+            CharacterMovement movement = target.GetCharacterComponent<CharacterMovement>();
+            float targetMoveDir = movement.Movement.MoveDir.x;
 
-                if (targetMoveDir == 0)
-                    return true;
+            if (targetMoveDir == 0)
+                return true;
 
-                return Mathf.Sign(targetMoveDir) != moveDir;
-            }
-            else
-            {
-                return false;
-            }
+            return Mathf.Sign(targetMoveDir) != moveDir;
         }
 
         private void Move()
