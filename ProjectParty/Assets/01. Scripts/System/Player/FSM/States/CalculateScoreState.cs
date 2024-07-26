@@ -1,6 +1,5 @@
 using OMG.FSM;
 using OMG.Lobbies;
-using OMG.Minigames.MazeAdventure;
 using OMG.Player.FSM;
 using OMG.UI;
 using UnityEngine;

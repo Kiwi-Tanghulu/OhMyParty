@@ -120,13 +120,13 @@ namespace OMG
         {
 #if UNITY_EDITOR
             if (UseInNetwork)
-                networkEvent.Broadcast();
+                networkEvent?.Broadcast();
             else
-                networkEvent.Invoke(new NoneParams());
+                networkEvent?.Invoke(new NoneParams());
 
             return;
 #else
-            networkEvent.Broadcast();
+            networkEvent?.Broadcast();
 #endif
         }
 
@@ -134,13 +134,13 @@ namespace OMG
         {
 #if UNITY_EDITOR
             if (UseInNetwork)
-                networkEvent.Broadcast(param);
+                networkEvent?.Broadcast(param);
             else
-                networkEvent.Invoke(param);
+                networkEvent?.Invoke(param);
 
             return;
 #else
-            networkEvent.Broadcast(param);
+            networkEvent?.Broadcast(param);
 #endif
         }
 
@@ -148,13 +148,13 @@ namespace OMG
         {
 #if UNITY_EDITOR
             if (UseInNetwork)
-                networkEvent.Broadcast(param1);
+                networkEvent?.Broadcast(param1);
             else
-                networkEvent.Invoke(param2);
+                networkEvent?.Invoke(param2);
 
             return;
 #else
-            networkEvent.Broadcast(param1);
+            networkEvent?.Broadcast(param1);
 #endif
         }
         #endregion

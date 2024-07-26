@@ -56,14 +56,7 @@ namespace OMG.Player.FSM
             health.Hitable = false;
             health.PlayerHitable = false;
 
-            if(brain.Controller.IsSpawned)
-            {
-                onStartRecoveryEvent.Broadcast();
-            }
-            else
-            {
-                OnStartRecovery(new NoneParams());
-            }
+            brain.Controller.InvokeNetworkEvent(onStartRecoveryEvent);
         }
 
         public override void ExitState()
@@ -74,14 +67,7 @@ namespace OMG.Player.FSM
 
             health.Hitable = true;
 
-            if (brain.Controller.IsSpawned)
-            {
-                onEndRecoveryEvent.Broadcast();
-            }
-            else
-            {
-                OnEndRecovery(new NoneParams());
-            }
+            brain.Controller.InvokeNetworkEvent(onEndRecoveryEvent);
         }
 
         private void AnimEvent_OnEndEvent()
@@ -128,8 +114,11 @@ namespace OMG.Player.FSM
 
         private void OnDestroy()
         {
-            onStartRecoveryEvent.Unregister();
-            onEndRecoveryEvent.Unregister();
+            if (brain.Controller.IsSpawned)
+            {
+                onStartRecoveryEvent.Unregister();
+                onEndRecoveryEvent.Unregister();
+            }
         }
     }
 }

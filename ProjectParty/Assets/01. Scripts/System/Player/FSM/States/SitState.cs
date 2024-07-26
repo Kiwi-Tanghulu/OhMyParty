@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
-using OMG.Lobbies;
-using OMG.Player;
 using OMG.FSM;
 
 namespace OMG.Player.FSM
