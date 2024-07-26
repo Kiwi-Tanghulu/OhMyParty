@@ -42,7 +42,7 @@ namespace OMG.Player
         }
 
         public virtual void OnDamaged(float damage, Transform attacker, Vector3 point,
-            HitEffectType effectType, Vector3 normal = default)
+            HitEffectType effectType, Vector3 normal = default, Vector3 direction = default)
         {
             ulong attackerID = ulong.MaxValue;
             if (transform.TryGetComponent<NetworkObject>(out NetworkObject networkObject))

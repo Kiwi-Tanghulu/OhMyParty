@@ -14,7 +14,8 @@ namespace OMG.Minigames.OhMySword
             onAttackFailedEvent.Register(controller.NetworkObject);
         }
 
-        public override void OnDamaged(float damage, Transform attacker, Vector3 point, HitEffectType effectType, Vector3 normal = default)
+        public override void OnDamaged(float damage, Transform attacker, Vector3 point,
+            HitEffectType effectType, Vector3 normal = default, Vector3 direction = default)
         {
             if(attacker.TryGetComponent<CatchTailPlayer>(out CatchTailPlayer otherPlayer) == false)
                 return;
