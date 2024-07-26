@@ -69,6 +69,7 @@ namespace OMG.Minigames.OhMySword
 
         public void HandleDead()
         {
+            sword.ResetLength();
             if(IsOwner)
             {
                 StartCoroutine(this.PostponeFrameCoroutine(() => {

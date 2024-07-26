@@ -1,6 +1,7 @@
 using DG.Tweening;
 using OMG.NetworkEvents;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 
@@ -13,6 +14,8 @@ namespace OMG.Minigames.OhMySword
         [Space(10f)]
         [SerializeField] float jumpPower = 1.5f;
         [SerializeField] float jumpDuration = 1f;
+        [SerializeField] float floatDistance = 1f;
+        [SerializeField] LayerMask groundLayer = 1 << 6;
         [SerializeField] AnimationCurve easeCurve;
         [SerializeField] TrailRenderer trail;
 
@@ -65,6 +68,9 @@ namespace OMG.Minigames.OhMySword
 
         private void HandleInit(Vector3Params position)
         {
+            if(Physics.Raycast(position, Vector3.down, out RaycastHit hit, float.MaxValue, groundLayer))
+                position.Value.y = hit.point.y + floatDistance;
+
             float factor = 1f + (Mathf.Log10(xpAmount) + 1) * 0.5f;
             transform.DOJump(position, jumpPower * factor, 1, jumpDuration)
                 .SetEase(easeCurve)

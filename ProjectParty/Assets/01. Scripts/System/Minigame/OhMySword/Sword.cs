@@ -48,7 +48,7 @@ namespace OMG.Minigames.OhMySword
                 return;
             if(collisionActive == false)
                 return;
-            Debug.Log(other.gameObject.name);
+
             if(other.TryGetComponent<IDamageable>(out IDamageable id) == false)
                 return;
 
@@ -58,6 +58,11 @@ namespace OMG.Minigames.OhMySword
         public void SetLength(float length)
         {
             this.length = length * scaleFactor;
+        }
+
+        public void ResetLength()
+        {
+            currentLength = 0;
         }
 
         /// <summary>
