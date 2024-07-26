@@ -13,23 +13,5 @@ namespace OMG.Player
 
             //SetActive(false);
         }
-
-        protected override void SetActive(BoolParams value)
-        {
-            base.SetActive(value);
-
-            //if (value)
-            //{
-                
-
-            //    OnActiveEvent?.Invoke();
-            //}
-            //else
-            //{
-            //    OnDeactiveEvent?.Invoke();
-            //}
-
-            //active = value;
-        }
     }
 }

@@ -14,8 +14,6 @@ namespace OMG.Ragdoll
         [SerializeField] private Rigidbody hipRb;
         public Rigidbody HipRb => hipRb;
 
-        //[Space]
-        //[SerializeField] protected bool onInitActive;
         protected bool active;
 
         [Space]
@@ -48,12 +46,17 @@ namespace OMG.Ragdoll
                 addforceStorage = null;
             });
 
-            SetActive(false);
-            //gameObject.SetActive(onInitActive);
+            SetActive(false, false);
         }
 
-        public void SetActive(bool value)
+        public void SetActive(bool value, bool withSync = true)
         {
+            if(withSync == false)
+            {
+                setActiveRagdollRpc.Invoke(value);
+                return;
+            }
+
             if (!Controller.IsOwner)
             {
                 Debug.LogError("Only Can Call Owenr");
@@ -65,15 +68,15 @@ namespace OMG.Ragdoll
                 setActiveRagdollRpc.Broadcast(value);
             else
                 setActiveRagdollRpc.Invoke(value);
+
+            return;
 #else
             setActiveRagdollRpc.Broadcast(value);
 #endif
         }
 
-        protected virtual void SetActive(BoolParams value)
+        protected void SetActive(BoolParams value)
         {
-            //gameObject.SetActive(value);
-
             for (int i = 0; i < parts.Length; i++)
             {
                 parts[i].Col.enabled = value;
