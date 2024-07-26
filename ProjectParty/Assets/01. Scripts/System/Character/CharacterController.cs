@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using OMG.NetworkEvents;
+
+using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 
 namespace OMG
 {
@@ -111,5 +114,49 @@ namespace OMG
 
             OnDestroyEvent?.Invoke();
         }
+
+        #region invoke network event
+        public void InvokeNetworkEvent(NetworkEvent networkEvent)
+        {
+#if UNITY_EDITOR
+            if (UseInNetwork)
+                networkEvent.Broadcast();
+            else
+                networkEvent.Invoke(new NoneParams());
+
+            return;
+#else
+            networkEvent.Broadcast();
+#endif
+        }
+
+        public void InvokeNetworkEvent<T>(NetworkEvent<T> networkEvent, T param) where T : NetworkEventParams, IConvertible<T>
+        {
+#if UNITY_EDITOR
+            if (UseInNetwork)
+                networkEvent.Broadcast(param);
+            else
+                networkEvent.Invoke(param);
+
+            return;
+#else
+            networkEvent.Broadcast(param);
+#endif
+        }
+
+        public void InvokeNetworkEvent<T, U>(NetworkEvent<T, U> networkEvent, T param1, U param2) where T : NetworkEventParams, IConvertible<U>
+        {
+#if UNITY_EDITOR
+            if (UseInNetwork)
+                networkEvent.Broadcast(param1);
+            else
+                networkEvent.Invoke(param2);
+
+            return;
+#else
+            networkEvent.Broadcast(param1);
+#endif
+        }
+        #endregion
     }
 }
