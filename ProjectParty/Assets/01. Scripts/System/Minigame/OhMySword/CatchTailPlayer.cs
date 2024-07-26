@@ -24,6 +24,5 @@ public class CatchTailPlayer : MonoBehaviour
     private void HandleTargetPlayerSelected(ulong targetID)
     {
         targetPlayerID = targetID;
-        Debug.Log($"Client {GetComponent<NetworkObject>().OwnerClientId}'s Target is {targetID}");
     }
 }

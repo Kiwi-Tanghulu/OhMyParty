@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
+using OMG.ETC;
 using OMG.Extensions;
 using OMG.NetworkEvents;
 using OMG.Player;
@@ -10,6 +11,7 @@ namespace OMG.Minigames.OhMySword
 {
     public class OhMySwordPlayerController : PlayerController
     {
+        [SerializeField] PlayerColorController tail = null;
         [SerializeField] Sword sword = null;
         [SerializeField] float respawnDelay = 1f;
         private CatchTailPlayer catchTailPlayer = null;
@@ -41,7 +43,10 @@ namespace OMG.Minigames.OhMySword
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            
             playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
+            tail.SetIndex(playerIndex);
+            tail.SetColor();
 
             onUpdateXPEvent.AddListener(HandleXP);
             onUpdateXPEvent.Register(NetworkObject);
