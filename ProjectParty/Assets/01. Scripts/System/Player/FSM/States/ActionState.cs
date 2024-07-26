@@ -12,10 +12,10 @@ namespace OMG.Player.FSM
     public class ActionState : PlayerFSMState
     {
         public UnityEvent OnActionEvent;
+        public NetworkEvent OnActionNetworkEvent = new NetworkEvent("OnActionNetworkEvent");
 
         private ExtendedAnimator anim;
 
-        private NetworkEvent onAttackNetworkEvent = new NetworkEvent("DoActionEvent");
 
         public override void InitState(CharacterFSM brain)
         {
@@ -25,9 +25,7 @@ namespace OMG.Player.FSM
 
             if(brain.Controller.IsSpawned)
             {
-                onAttackNetworkEvent.AddListener(DoActionNetworkEvent);
-
-                onAttackNetworkEvent.Register(player.GetComponent<NetworkObject>());
+                OnActionNetworkEvent.Register(player.GetComponent<NetworkObject>());
             }
         }
 
@@ -49,27 +47,10 @@ namespace OMG.Player.FSM
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
         }
 
-
-        private void InvokeDoAction()
-        {
-            if(brain.Controller.IsSpawned)
-            {
-                onAttackNetworkEvent.Alert();
-            }
-            else
-            {
-                DoAction();
-            }
-        }
-
-        private void DoActionNetworkEvent(NoneParams param)
-        {
-            DoAction();
-        }
-
         public virtual void DoAction()
         {
             OnActionEvent?.Invoke();
+            brain.Controller.InvokeNetworkEvent(OnActionNetworkEvent);
         }
     }
 }
