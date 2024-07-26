@@ -28,7 +28,17 @@ namespace OMG.Player.FSM
 
             ragdoll.SetActive(true);
             ragdoll.AddForce(health.Damage, health.HitDir);
+
+#if UNITY_EDOTR
+            if(brain.Controller.UseInNetwork)
+                playerDieEvent?.Broadcast();
+            else
+                playerDieEvent?.Invoke();
+
+            return;
+#else
             playerDieEvent?.Broadcast();
+#endif
         }
     }
 }
