@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace OMG.UI.Minigames.RockFestival
+namespace OMG.UI.Minigames
 {
     public class TimerPanel : MonoBehaviour
     {

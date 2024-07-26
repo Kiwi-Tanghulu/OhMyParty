@@ -5,6 +5,7 @@ using OMG.Extensions;
 using OMG.NetworkEvents;
 using OMG.Player;
 using OMG.UI.Minigames;
+using OMG.UI.Minigames.OhMySword;
 using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
@@ -17,7 +18,7 @@ namespace OMG.Minigames.OhMySword
         private CatchTailPlayer catchTailPlayer = null;
         private ScoreContainer scoreContainer = null;
 
-        private ScorePlayerPanel playerPanel = null;
+        private OhMySwordPlayerPanel playerPanel = null;
         private OhMySword minigame = null;
         private OhMySwordCycle cycle = null;
         private int playerIndex = 0;
@@ -34,7 +35,7 @@ namespace OMG.Minigames.OhMySword
             minigame = MinigameManager.Instance?.CurrentMinigame as OhMySword;
             cycle = minigame.Cycle as OhMySwordCycle;
 
-            playerPanel = minigame.MinigamePanel.PlayerPanel as ScorePlayerPanel;
+            playerPanel = minigame.MinigamePanel.PlayerPanel as OhMySwordPlayerPanel;
 
             catchTailPlayer = GetComponent<CatchTailPlayer>();
             scoreContainer = GetComponent<ScoreContainer>();
@@ -45,8 +46,13 @@ namespace OMG.Minigames.OhMySword
             base.OnNetworkSpawn();
             
             playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
-            tail.SetIndex(playerIndex);
-            tail.SetColor();
+            if(IsOwner)
+                Destroy(tail.gameObject);
+            else
+            {
+                tail.SetIndex(playerIndex);
+                tail.SetColor();
+            }
 
             onUpdateXPEvent.AddListener(HandleXP);
             onUpdateXPEvent.Register(NetworkObject);

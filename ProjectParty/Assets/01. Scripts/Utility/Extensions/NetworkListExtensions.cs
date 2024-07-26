@@ -33,6 +33,15 @@ public static class NetworkListExtensions
         for (int i = 0; i < source.Count; ++i)
             callback.Invoke(source[i], i);
     }
+    
+    public static int FindIndex<T>(this NetworkList<T> source, Func<T, bool> predicator) where T : unmanaged, IEquatable<T>
+    {
+        for(int i = 0; i < source.Count; ++i)
+            if(predicator.Invoke(source[i]))
+                return i;
+
+        return -1;
+    }
 
     public static int Find<T>(this NetworkList<T> source, out T found, Func<T, bool> predicator) where T : unmanaged, IEquatable<T>
     {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07050088, g: 0.35367855, b: 0.9707878, a: 1}
+  m_IndirectSpecularColor: {r: 0.0704793, g: 0.35355854, b: 0.9700146, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9128,6 +9128,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 0}
   spawnPosition: {fileID: 0}
   characterSkinLib: {fileID: 0}
+  lightingSetting: {fileID: 0}
 --- !u!1001 &956556902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14325,18 +14326,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1466208176 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2517872239090747353, guid: b623a7c99770e31479d765b1fa4d2cd2,
-    type: 3}
-  m_PrefabInstance: {fileID: 4277020784174597052}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b34483e73861bd48ba5611bb64ff153, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1473697861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23335,21 +23324,26 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3311458658
       objectReference: {fileID: 0}
+    - target: {fileID: 2408410064527856611, guid: b623a7c99770e31479d765b1fa4d2cd2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408410064527856611, guid: b623a7c99770e31479d765b1fa4d2cd2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408410064527856611, guid: b623a7c99770e31479d765b1fa4d2cd2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7737952931389382130, guid: b623a7c99770e31479d765b1fa4d2cd2,
         type: 3}
       propertyPath: m_Name
       value: OhMySword
       objectReference: {fileID: 0}
-    - target: {fileID: 7845959604332700608, guid: b623a7c99770e31479d765b1fa4d2cd2,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 2310065058
-      objectReference: {fileID: 0}
-    - target: {fileID: 7985839409536593006, guid: b623a7c99770e31479d765b1fa4d2cd2,
-        type: 3}
-      propertyPath: spawnPositionTable
-      value: 
-      objectReference: {fileID: 1466208176}
     - target: {fileID: 8587694055370870276, guid: b623a7c99770e31479d765b1fa4d2cd2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23400,14 +23394,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8644962937558236442, guid: b623a7c99770e31479d765b1fa4d2cd2,
-        type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 1349720106}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 3931165668212715752, guid: b623a7c99770e31479d765b1fa4d2cd2, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b623a7c99770e31479d765b1fa4d2cd2, type: 3}
