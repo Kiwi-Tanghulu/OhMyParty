@@ -9,23 +9,23 @@ namespace OMG.Minigames
 {
     public class RaceCycle : MinigameCycle
     {
-        [SerializeField] int[] scoreWeight = { 1000, 500, 100, 50 };
+        [SerializeField] protected int[] scoreWeight = { 1000, 500, 100, 50 };
 
         [Space(15f)]
         [SerializeField] NetworkEvent<UlongParams> onPlayerGolaEvent = new NetworkEvent<UlongParams>("PlayerGoal");
-        private DeathmatchPlayerPanel playerPanel = null;
+        private RacePlayerPanel playerPanel = null;
         private PlayableMinigame playableMinigame = null;
 
-        private int goalPlayerCount = 0;
+        protected int goalPlayerCount = 0;
         public int GoalPlayerCount => goalPlayerCount;
 
-        private float lastDecisionTime = 0f;
-        private int lastScore = 0;
+        protected float lastDecisionTime = 0f;
+        protected int lastScore = 0;
 
         protected override void Awake()
         {
             base.Awake();
-            playerPanel = minigame.MinigamePanel.PlayerPanel as DeathmatchPlayerPanel;
+            playerPanel = minigame.MinigamePanel.PlayerPanel as RacePlayerPanel;
             playableMinigame = minigame as PlayableMinigame;
         }
 
@@ -39,29 +39,29 @@ namespace OMG.Minigames
 
         public virtual void SetPlayerGoal(ulong clientID)
         {
+            if (!IsHost)
+                return;
+
             onPlayerGolaEvent?.Broadcast(clientID);
         }
 
-        private void HandlePlayerGoal(UlongParams clientID)
+        protected virtual void HandlePlayerGoal(UlongParams clientID)
         {
+            Debug.Log($"Goal Player : {clientID.Value}");
+
             minigame.PlayerDatas.ForEach((data, index) => {
                 if (data.clientID != clientID)
                     return;
 
-                bool isDead = data.lifeCount <= 1;
-                if (isDead)
-                    playerPanel.SetDead(index);
+                playerPanel.SetGoal(index);
 
                 if (IsHost)
                 {
                     data.lifeCount--;
 
-                    if (isDead)
-                    {
-                        data.score = GetScore();
-                        goalPlayerCount++;
-                        Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Dead Player Count : {goalPlayerCount}");
-                    }
+                    data.score = GetScore();
+                    goalPlayerCount++;
+                    Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Goal Player Count : {goalPlayerCount}");
 
                     minigame.PlayerDatas[index] = data;
                     if ((minigame.PlayerDatas.Count - goalPlayerCount) <= 1)
@@ -72,11 +72,11 @@ namespace OMG.Minigames
 
         public virtual void FinishCycle()
         {
-            minigame.PlayerDatas.ChangeData(i => i.IsDead == false, data => {
-                data.score = scoreWeight[goalPlayerCount];
-                Debug.Log($"Standing Player : {data.clientID} / score : {data.score}");
-                return data;
-            });
+            //minigame.PlayerDatas.ChangeData(i => i.IsDead == false, data => {
+            //    data.score = scoreWeight[goalPlayerCount];
+            //    Debug.Log($"Standing Player : {data.clientID} / score : {data.score}");
+            //    return data;
+            //});
             minigame.FinishGame();
         }
 
