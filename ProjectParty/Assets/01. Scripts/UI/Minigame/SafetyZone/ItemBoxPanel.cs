@@ -38,7 +38,7 @@ namespace OMG.UI.Minigames.SafetyZones
             outline.fillAmount = currentTimer.Ratio;
         }
 
-        private void HandleTimerValueChanged(float ratio)
+        private void HandleTimerValueChanged(float ratio, float single)
         {
             outline.fillAmount = currentTimer.Ratio;
             SetOutlineColor();   

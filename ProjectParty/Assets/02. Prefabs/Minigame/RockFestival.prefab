@@ -871,7 +871,6 @@ MonoBehaviour:
   - {fileID: 8908253023137705664}
   - {fileID: 5318087279080908883}
   - {fileID: 8320276729703534590}
-  playTime: 30
 --- !u!114 &1306878885673214518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,6 +899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f18abe4e7b784e4d9e6fdd895bcd577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playTime: 30
+  scoreWeight: 3200000064000000f4010000e8030000
 --- !u!320 &7030191793655762723
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -1034,8 +1035,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6596040297180980775}
-        m_TargetAssemblyTypeName: OMG.UI.Minigames.RockFestival.TimerPanel, Assembly-CSharp
-        m_MethodName: SetText
+        m_TargetAssemblyTypeName: OMG.UI.Minigames.TimerPanel, Assembly-CSharp
+        m_MethodName: SetTimerUI
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1060,7 +1061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0e01d28e5952e41835e0f6d11fbced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  valueType: 1
   OnValueChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2602,6 +2602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20cab770390e3a04ab2d684814e3ac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerImage: {fileID: 0}
   timeText: {fileID: 8662895364715203010}
 --- !u!1 &8291157650939257810
 GameObject:
