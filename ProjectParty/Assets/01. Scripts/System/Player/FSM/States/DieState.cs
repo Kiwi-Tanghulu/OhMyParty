@@ -18,11 +18,8 @@ namespace OMG.Player.FSM
             health = player.GetComponent<PlayerHealth>();
             ragdoll = player.GetCharacterComponent<PlayerVisual>().Ragdoll;
 
-            //if(brain.Controller.IsSpawned)
-            //{
-            //    playerDieEvent.AddListener(Die);
-            //    playerDieEvent.Register(player.NetworkObject);
-            //}
+            if(brain.Controller.IsSpawned)
+               playerDieEvent.Register(player.NetworkObject);
         }
 
         public override void EnterState()
@@ -31,13 +28,7 @@ namespace OMG.Player.FSM
 
             ragdoll.SetActive(true);
             ragdoll.AddForce(health.Damage, health.HitDir);
-            //playerDieEvent?.Broadcast();
+            playerDieEvent?.Broadcast();
         }
-
-        //private void Die(NoneParams param)
-        //{
-        //    ragdoll.SetActive(true);
-        //    ragdoll.AddForce(health.Damage, health.HitDir);
-        //}
     }
 }
