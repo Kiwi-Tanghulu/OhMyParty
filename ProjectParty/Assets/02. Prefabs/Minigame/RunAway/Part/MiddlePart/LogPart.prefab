@@ -24,13 +24,64 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4342672800148009202}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 33.67, y: 15, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+  m_Father: {fileID: 4357342020276674118}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4532720222212578280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4357342020276674118}
+  - component: {fileID: 4223881063217131445}
+  m_Layer: 0
+  m_Name: LogSpawnGimmick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4357342020276674118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4532720222212578280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4540955585302588239}
   m_Father: {fileID: 6954119427174776130}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4223881063217131445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4532720222212578280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc121eeca44cc3468a4f24284948cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnExecuteEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  logPrefab: {fileID: 0}
+  logSpawnPoint: {fileID: 4540955585302588239}
+  logSpawnDelay: 3
 --- !u!1001 &685316877584062503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,7 +151,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7566965294134945125, guid: 1faa7b7b200ea9c418c7efedaaae9ba4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4540955585302588239}
+      addedObject: {fileID: 4357342020276674118}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1faa7b7b200ea9c418c7efedaaae9ba4, type: 3}
 --- !u!4 &6954119427174776130 stripped

@@ -1,5 +1,4 @@
 using OMG.Player;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,16 +6,14 @@ namespace OMG.Minigames
 {
     public class HammerGimmick : Gimmick
     {
-        public struct ContactPlayer
-        {
-            public PlayerController Player;
-            public Vector3 Point;
-        }
-
         [SerializeField] private float effectPower;
-        [SerializeField] private float moveAngle;
+
+        [Space]
+        [SerializeField] private float maxAngle;
         [SerializeField] private float maxMoveSpeed;
+        [SerializeField] private int startMoveDir = -1;
         private int moveDir;
+        private float currentAngle;
 
         private List<PlayerController> contactTargets;
         private PlayerController target;
@@ -24,6 +21,8 @@ namespace OMG.Minigames
         private void Awake()
         {
             contactTargets = new List<PlayerController>();
+
+            moveDir = startMoveDir;
         }
 
         private void Update()
@@ -57,10 +56,12 @@ namespace OMG.Minigames
             }
         }
 
-        public override void Execute()
+        protected override void Execute()
         {
             if(target.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
+                base.Execute();
+
                 contactTargets.Remove(target);
 
                 damageable.OnDamaged(effectPower, transform,
@@ -81,7 +82,11 @@ namespace OMG.Minigames
 
         private void Move()
         {
+            if (Mathf.Abs(currentAngle) >= maxAngle)
+                moveDir *= -1;
+            currentAngle += moveDir * maxMoveSpeed * Time.deltaTime;
 
+            transform.rotation = Quaternion.Euler(0f, 0f, currentAngle);
         }
     }
 }

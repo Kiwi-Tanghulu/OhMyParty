@@ -163,6 +163,17 @@ namespace OMG
             verticalVelocity = statSO[CharacterStatType.JumpPower].Value;
         }
 
+        public virtual void Jump(float power)
+        {
+            if (!EnableGravity)
+            {
+                Debug.LogError("should enable gravity for jump");
+                return;
+            }
+
+            verticalVelocity = power;
+        }
+
         public virtual void Gravity()
         {
             if (!EnableGravity)

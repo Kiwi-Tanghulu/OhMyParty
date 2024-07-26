@@ -60,6 +60,11 @@ namespace OMG
             movement.Jump();
         }
 
+        public void Jump(float power)
+        {
+            movement.Jump(power);
+        }
+
         public void Gravity()
         {
             movement.Gravity();
