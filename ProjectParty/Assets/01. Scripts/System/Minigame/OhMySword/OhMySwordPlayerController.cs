@@ -33,7 +33,6 @@ namespace OMG.Minigames.OhMySword
             cycle = minigame.Cycle as OhMySwordCycle;
 
             playerPanel = minigame.MinigamePanel.PlayerPanel as ScorePlayerPanel;
-            playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
 
             catchTailPlayer = GetComponent<CatchTailPlayer>();
             scoreContainer = GetComponent<ScoreContainer>();
@@ -42,6 +41,7 @@ namespace OMG.Minigames.OhMySword
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
 
             onUpdateXPEvent.AddListener(HandleXP);
             onUpdateXPEvent.Register(NetworkObject);
@@ -69,6 +69,14 @@ namespace OMG.Minigames.OhMySword
 
         public void HandleDead()
         {
+            if(IsOwner)
+            {
+                StartCoroutine(this.PostponeFrameCoroutine(() => {
+                    GetXP(-xpBuffer);
+                    UpdateXP();
+                }));
+            }
+            
             if(IsHost == false)
                 return;
             
@@ -115,13 +123,16 @@ namespace OMG.Minigames.OhMySword
                     yield return delay;
 
                 if(xpBuffer != prevXP)
-                {
-                    onUpdateXPEvent?.Broadcast(xpBuffer);
-                    prevXP = xpBuffer;
-                }
+                    UpdateXP();
 
                 yield return delay;
             }
+        }
+
+        private void UpdateXP()
+        {
+            onUpdateXPEvent?.Broadcast(xpBuffer);
+            prevXP = xpBuffer;
         }
     }
 }

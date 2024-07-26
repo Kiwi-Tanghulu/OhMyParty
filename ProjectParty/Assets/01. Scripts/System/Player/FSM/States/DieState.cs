@@ -18,10 +18,8 @@ namespace OMG.Player.FSM
             health = player.GetComponent<PlayerHealth>();
             ragdoll = player.GetCharacterComponent<PlayerVisual>().Ragdoll;
 
-            if (brain.Controller.IsSpawned)
-            {
-                playerDieEvent.Register(player.NetworkObject);
-            }
+            if(brain.Controller.IsSpawned)
+               playerDieEvent.Register(player.NetworkObject);
         }
 
         public override void EnterState()
