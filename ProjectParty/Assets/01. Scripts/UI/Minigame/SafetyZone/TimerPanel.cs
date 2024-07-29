@@ -22,7 +22,7 @@ namespace OMG.UI.Minigames.SafetyZones
                 explosionTweens[i] = explosionTweens[i].CreateInstance(tweenBody);
         }
 
-        public void SetText(float time)
+        public void SetText(float ratio, float time)
         {
             time = Mathf.Max(0f, time);
             timeText.text = Mathf.FloorToInt(time).ToString();

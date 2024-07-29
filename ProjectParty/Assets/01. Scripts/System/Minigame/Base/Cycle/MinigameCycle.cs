@@ -35,6 +35,8 @@ namespace OMG.Minigames
                 Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data,
                     data => data.ClientID == minigameData.clientID);
                 string name = data.Nickname;
+                if(name == null)
+                    name = $"Player {minigameData.clientID}";
             
                 Debug.Log($"[Minigame] Player {minigameData.clientID} Score : {score}");
                 minigame.MinigamePanel.ResultPanel[index].SetResult($"{name}", score);
