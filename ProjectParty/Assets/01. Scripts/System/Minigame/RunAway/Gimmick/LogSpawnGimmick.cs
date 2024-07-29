@@ -27,7 +27,7 @@ namespace OMG.Minigames
         protected override void Execute()
         {
             base.Execute();
-            Instantiate(logPrefab, logSpawnPoint.position, logSpawnPoint.rotation);
+            Instantiate(logPrefab, logSpawnPoint.position, logSpawnPoint.rotation, transform);
         }
 
         protected override bool IsExecutable()

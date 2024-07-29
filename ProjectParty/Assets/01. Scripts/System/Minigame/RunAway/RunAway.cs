@@ -1,5 +1,7 @@
+using Cinemachine;
 using OMG.Extensions;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 namespace OMG.Minigames
@@ -22,6 +24,23 @@ namespace OMG.Minigames
             raceCycle = cycle as RaceCycle;
 
             CreateMap();
+        }
+
+        public override void StartGame()
+        {
+            base.StartGame();
+
+            Camera.main.orthographic = true;
+            CameraManager.Instance.ChangeUpdateMode(CinemachineBrain.UpdateMethod.FixedUpdate,
+                CinemachineBrain.BrainUpdateMethod.FixedUpdate);
+        }
+
+        public override void FinishGame()
+        {
+            base.FinishGame();
+
+            Camera.main.orthographic = false;
+            CameraManager.Instance.ResetUpdateMode();
         }
 
         private void CreateMap()

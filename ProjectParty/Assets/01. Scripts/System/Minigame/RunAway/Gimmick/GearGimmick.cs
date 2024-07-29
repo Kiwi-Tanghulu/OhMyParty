@@ -5,8 +5,8 @@ namespace OMG.Minigames
 {
     public class GearGimmick : Gimmick
     {
-        [Space]
-        [SerializeField] private Transform gearTrm;
+        //[Space]
+        //[SerializeField] private Transform gearTrm;
 
         [Space]
         [SerializeField] private float effectPower;
@@ -51,20 +51,20 @@ namespace OMG.Minigames
 
         private void Move()
         {
-            if(Mathf.Abs(gearTrm.localPosition.z) >= maxMoveDistance)
+            if(Mathf.Abs(transform.localPosition.z) >= maxMoveDistance)
             {
-                Vector3 pos = gearTrm.localPosition;
-                pos.z = Mathf.Clamp(gearTrm.localPosition.z, -1f, 1f);
-                gearTrm.localPosition = pos;
+                Vector3 pos = transform.localPosition;
+                pos.z = Mathf.Clamp(transform.localPosition.z, -1f, 1f);
+                transform.localPosition = pos;
                 moveDir *= -1;
             }
 
-            gearTrm.position += moveDir * Vector3.right * moveSpeed * Time.deltaTime;
+            transform.position += moveDir * Vector3.right * moveSpeed * Time.deltaTime;
         }
 
         private void Rotate()
         {
-            gearTrm.Rotate(Vector3.right * rotateSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.right * rotateSpeed * Time.deltaTime);
         }
     }
 }

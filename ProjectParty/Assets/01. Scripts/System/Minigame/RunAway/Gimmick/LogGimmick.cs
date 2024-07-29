@@ -37,6 +37,14 @@ namespace OMG.Minigames
             }
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("LogBlocker"))
+            {
+                Destroy(gameObject);
+            }
+        }
+
         protected override void Execute()
         {
             base.Execute();

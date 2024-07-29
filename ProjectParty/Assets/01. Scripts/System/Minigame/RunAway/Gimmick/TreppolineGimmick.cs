@@ -49,17 +49,22 @@ namespace OMG.Minigames
             base.Execute();
 
             target.Jump(effectPower);
+            isReady = false;
             footboardTrm.localPosition = executePos * Vector3.up;
 
-            this.DelayCoroutine(readyDelayTime, () =>
-            {
-                Ready();
-            });
+            StartCoroutine(ReadyDelay());
         }
 
         protected override bool IsExecutable()
         {
             return isReady;
+        }
+
+        private IEnumerator ReadyDelay()
+        {
+            yield return new WaitForSeconds(readyDelayTime);
+
+            Ready();
         }
     }
 }
