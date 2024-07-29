@@ -209,6 +209,10 @@ MonoBehaviour:
   - {fileID: 7862088634673226950, guid: b42d09479e0ac354fa3a950cf288ad6a, type: 3}
   mapPartParentTrm: {fileID: 5224647693583618373}
   spawnMapPartCount: 7
+  monsterPrefab: {fileID: 8831636884560809198, guid: ce923981f3b28db4089dbc85916482f1,
+    type: 3}
+  monsterSpawnPoint: {fileID: 339345215379859476}
+  monsterSpawnDelay: 10
 --- !u!114 &4544960739166213243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +241,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1889014791262930011}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: bf2a50256c9f8164787190cc3d5f8206, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 18f8cc5efe7801448bf232c4c6eba5f2, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -476,6 +480,37 @@ MonoBehaviour:
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2464100726425336209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339345215379859476}
+  m_Layer: 0
+  m_Name: MonsterSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &339345215379859476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2464100726425336209}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 11.71, y: 1.9, z: -2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4966335409901557005}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &3007648449662435561
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +757,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5224647693583618373}
+  - {fileID: 339345215379859476}
   m_Father: {fileID: 1763628212005318706}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4597242587243827754

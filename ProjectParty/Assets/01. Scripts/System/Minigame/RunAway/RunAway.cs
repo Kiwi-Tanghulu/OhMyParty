@@ -1,7 +1,7 @@
 using Cinemachine;
 using OMG.Extensions;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 namespace OMG.Minigames
@@ -15,13 +15,18 @@ namespace OMG.Minigames
         [SerializeField] private Transform mapPartParentTrm;
         [SerializeField] private int spawnMapPartCount;
 
-        private RaceCycle raceCycle;
+        [Space]
+        [SerializeField] private RunAwayMonster monsterPrefab;
+        [SerializeField] private Transform monsterSpawnPoint;
+        [SerializeField] private float monsterSpawnDelay;
+
+        private RunAwayCycle runAwayCycle;
 
         public override void Init()
         {
             base.Init();
 
-            raceCycle = cycle as RaceCycle;
+            runAwayCycle = cycle as RunAwayCycle;
 
             CreateMap();
         }
@@ -33,6 +38,8 @@ namespace OMG.Minigames
             Camera.main.orthographic = true;
             CameraManager.Instance.ChangeUpdateMode(CinemachineBrain.UpdateMethod.FixedUpdate,
                 CinemachineBrain.BrainUpdateMethod.FixedUpdate);
+
+            StartCoroutine(SpawnMonsterDelay());
         }
 
         public override void FinishGame()
@@ -60,6 +67,14 @@ namespace OMG.Minigames
             }
 
             Instantiate(endMapPart, mapPartParentTrm).SetPosition(prevPart);
+        }
+
+        private IEnumerator SpawnMonsterDelay()
+        {
+            yield return new WaitForSeconds(monsterSpawnDelay);
+
+            Instantiate(monsterPrefab, monsterSpawnPoint.position,
+                monsterSpawnPoint.rotation, transform).Init(runAwayCycle);
         }
     }
 }
