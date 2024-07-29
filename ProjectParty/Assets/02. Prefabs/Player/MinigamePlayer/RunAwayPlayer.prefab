@@ -176,7 +176,7 @@ PrefabInstance:
     - target: {fileID: 807048018500501385, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: compoList.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 807048018500501385, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
@@ -193,6 +193,11 @@ PrefabInstance:
       propertyPath: compoList.Array.data[6]
       value: 
       objectReference: {fileID: 2937366864978315402}
+    - target: {fileID: 807048018500501385, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      propertyPath: compoList.Array.data[7]
+      value: 
+      objectReference: {fileID: 4831412458756043274}
     - target: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -306,6 +311,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6880904840064709674}
+    - targetCorrespondingSourceObject: {fileID: 8653656707965372744, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4831412458756043274}
   m_SourcePrefab: {fileID: 100100000, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
 --- !u!114 &1522483986554021780 stripped
 MonoBehaviour:
@@ -413,6 +422,29 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &4831412458756043274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4598574442502020425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b2450cc863d92488f013e47dbe5d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: 2bad7e2a336d0ff45a57c72358fa1002, type: 2}
+  maxItemCount: 2
+  OnGetItemEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUseItemEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnChangeItemEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &5901563088348308762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
