@@ -28,6 +28,8 @@ namespace OMG.Timers
             timer.OnValueChangedEvent.AddListener(HandleValueChanged);
             timer.OnTimerFinishedEvent.AddListener(HandleTimerFinished);
             timerValue.OnValueChanged += BroadcastTimerValueChanged;
+
+            onTimerFinished.Register(NetworkObject);
         }
 
         public override void OnNetworkDespawn()
@@ -36,6 +38,8 @@ namespace OMG.Timers
             timer.OnValueChangedEvent.RemoveListener(HandleValueChanged);
             timer.OnTimerFinishedEvent.RemoveListener(HandleTimerFinished);
             timerValue.OnValueChanged -= BroadcastTimerValueChanged;
+
+            onTimerFinished.Unregister();
         }
 
         private void HandleTimerFinished()

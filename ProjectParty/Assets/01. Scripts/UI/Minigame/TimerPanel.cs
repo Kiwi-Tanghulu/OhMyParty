@@ -7,6 +7,9 @@ namespace OMG.UI.Minigames
     public class TimerPanel : MonoBehaviour
     {
         [SerializeField] Image timerImage = null;
+        [SerializeField] Gradient timerImageGradient = null;
+
+        [Space(15f)]
         [SerializeField] TMP_Text timeText = null;
 
         public void SetTimerUI(float ratio, float time)
@@ -15,7 +18,10 @@ namespace OMG.UI.Minigames
             timeText.text = Mathf.FloorToInt(time).ToString();
 
             if(timerImage != null)
+            {
                 timerImage.fillAmount = ratio;
+                timerImage.color = timerImageGradient.Evaluate(ratio);
+            }
         }
     }
 }
