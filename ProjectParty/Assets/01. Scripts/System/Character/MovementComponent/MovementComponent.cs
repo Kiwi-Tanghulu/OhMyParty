@@ -109,6 +109,11 @@ namespace OMG
                 Turn(moveDir);
         }
 
+        public void Teleport(Vector3 pos)
+        {
+            networkTrm.Teleport(pos, transform.rotation, transform.localScale);
+        }
+
         public void Teleport(Vector3 pos, Quaternion rot)
         {
             networkTrm.Teleport(pos, rot, transform.localScale);

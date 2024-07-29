@@ -44,6 +44,9 @@ namespace OMG.Player
             if (holdingItems.Count >= maxItemCount)
                 return;
 
+            if (item.TryGetComponent<PlayerItem>(out PlayerItem playerItem))
+                playerItem.SetOwnerPlayer(Controller as PlayerController);
+
             holdingItems.Add(item);
             OnGetItemEvent?.Invoke();
         }
@@ -55,6 +58,7 @@ namespace OMG.Player
 
             CurrentItem.Active();
             OnUseItemEvent?.Invoke();
+            RemoveItem(CurrentItem);
         }
 
         public void RemoveItem(Item item)
@@ -65,7 +69,6 @@ namespace OMG.Player
         public void ChangeItem(int index)
         {
             index = (index % maxItemCount + maxItemCount) % maxItemCount;
-            Debug.Log(index);
             currentItemIndex = index;
             OnChangeItemEvent?.Invoke();
         }
