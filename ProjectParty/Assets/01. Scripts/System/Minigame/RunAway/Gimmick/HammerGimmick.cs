@@ -11,6 +11,7 @@ namespace OMG.Minigames
         [Space]
         [SerializeField] private float maxAngle;
         [SerializeField] private float maxMoveSpeed;
+        [SerializeField] private float minMoveSpeed;
         [SerializeField] private int startMoveDir = -1;
         private int moveDir;
         private float currentAngle;
@@ -84,7 +85,8 @@ namespace OMG.Minigames
         {
             if (Mathf.Abs(currentAngle) >= maxAngle)
                 moveDir *= -1;
-            currentAngle += moveDir * maxMoveSpeed * Time.deltaTime;
+            float moveSpeed = Mathf.Lerp(maxMoveSpeed, minMoveSpeed, Mathf.Abs(currentAngle) / maxAngle);
+            currentAngle += moveDir * moveSpeed * Time.deltaTime;
 
             transform.rotation = Quaternion.Euler(0f, 0f, currentAngle);
         }

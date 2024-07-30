@@ -3,6 +3,8 @@ using OMG.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using UnityEngine.UIElements.Experimental;
 
 namespace OMG.Minigames
 {
@@ -11,6 +13,8 @@ namespace OMG.Minigames
         [SerializeField] private Transform footboardTrm;
         [SerializeField] private float readyPos;
         [SerializeField] private float executePos;
+        [SerializeField] private float executeTime;
+        [SerializeField] private float readyTime;
         [SerializeField] private float readyDelayTime;
         private bool isReady;
 
@@ -39,9 +43,11 @@ namespace OMG.Minigames
 
         private void Ready()
         {
-            isReady = true;
-
-            footboardTrm.localPosition = readyPos * Vector3.up;
+            footboardTrm.DOLocalMoveY(readyPos, readyTime).SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    isReady = true;
+                });
         }
 
         protected override void Execute()
@@ -50,7 +56,7 @@ namespace OMG.Minigames
 
             target.Jump(effectPower);
             isReady = false;
-            footboardTrm.localPosition = executePos * Vector3.up;
+            footboardTrm.DOLocalMoveY(executePos, executeTime).SetEase(Ease.Linear);
 
             StartCoroutine(ReadyDelay());
         }
