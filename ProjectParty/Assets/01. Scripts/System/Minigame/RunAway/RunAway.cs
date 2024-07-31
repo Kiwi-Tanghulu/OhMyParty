@@ -39,7 +39,7 @@ namespace OMG.Minigames
             CameraManager.Instance.ChangeUpdateMode(CinemachineBrain.UpdateMethod.FixedUpdate,
                 CinemachineBrain.BrainUpdateMethod.FixedUpdate);
 
-            StartCoroutine(SpawnMonsterDelay());
+            //StartCoroutine(SpawnMonsterDelay());
         }
 
         public override void FinishGame()

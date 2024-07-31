@@ -68,6 +68,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7395070031229389342, guid: bf948d9f5a70fef4ba23029c06405d2e,
+        type: 3}
+      propertyPath: m_DeadZoneHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395070031229389342, guid: bf948d9f5a70fef4ba23029c06405d2e,
+        type: 3}
+      propertyPath: m_SoftZoneHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395070031229389342, guid: bf948d9f5a70fef4ba23029c06405d2e,
+        type: 3}
+      propertyPath: m_TrackedObjectOffset.y
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7528032278676556445, guid: bf948d9f5a70fef4ba23029c06405d2e,
         type: 3}
       propertyPath: m_Name
@@ -81,7 +96,7 @@ PrefabInstance:
     - target: {fileID: 7940563915079921226, guid: bf948d9f5a70fef4ba23029c06405d2e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7940563915079921226, guid: bf948d9f5a70fef4ba23029c06405d2e,
         type: 3}
@@ -362,7 +377,7 @@ MonoBehaviour:
   OnMoveDirectionChanged:
     m_PersistentCalls:
       m_Calls: []
-  checkGroundOffset: {x: 0, y: 0, z: 0}
+  checkGroundOffset: {x: 0, y: 0.3, z: 0}
   checkGroundRadius: 0.5
   checkGroundLayer:
     serializedVersion: 2
