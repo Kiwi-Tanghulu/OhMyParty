@@ -74,6 +74,19 @@ namespace OMG
             ChangeCamera(prevCam, transitionTime, OnStartEvent, OnEndEvent);
         }
 
+        public void ChangeUpdateMode(CinemachineBrain.UpdateMethod update,
+            CinemachineBrain.BrainUpdateMethod blendUpdate)
+        {
+            cinemachineBrain.m_UpdateMethod = update;
+            cinemachineBrain.m_BlendUpdateMethod = blendUpdate;
+        }
+
+        public void ResetUpdateMode()
+        {
+            ChangeUpdateMode(CinemachineBrain.UpdateMethod.SmartUpdate,
+                CinemachineBrain.BrainUpdateMethod.LateUpdate);
+        }
+
         private IEnumerator DelayAction(float delayTime, Action action)
         {
             yield return new WaitForSeconds(delayTime);

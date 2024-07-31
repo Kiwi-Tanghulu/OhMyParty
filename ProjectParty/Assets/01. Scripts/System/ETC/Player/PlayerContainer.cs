@@ -12,6 +12,8 @@ public class PlayerContainer
 
     public int Count => playerList.Count;
 
+    public PlayerController this[int index] => playerList[index];
+
     public PlayerContainer()
     {
         playerList = new List<PlayerController>();

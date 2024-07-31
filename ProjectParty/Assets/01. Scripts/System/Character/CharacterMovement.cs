@@ -8,7 +8,6 @@ using UnityEngine.Events;
 
 namespace OMG
 {
-    [RequireComponent(typeof(UnityEngine.CharacterController))]
     public class CharacterMovement : CharacterComponent
     {
         private MovementComponent movement;
@@ -59,6 +58,11 @@ namespace OMG
         public void Jump()
         {
             movement.Jump();
+        }
+
+        public void Jump(float power)
+        {
+            movement.Jump(power);
         }
 
         public void Gravity()

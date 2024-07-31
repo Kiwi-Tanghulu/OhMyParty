@@ -90,7 +90,7 @@ namespace OMG
 
             moveVec *= moveSpeed;
             
-            moveVector = new Vector3(moveVec.x, verticalVelocity, moveVec.z) * Time.deltaTime;
+            moveVector = new Vector3(moveVec.x, verticalVelocity, moveVec.z);
         }
 
         public void SetMoveSpeed(float value)
@@ -107,6 +107,11 @@ namespace OMG
 
             if (lookMoveDir)
                 Turn(moveDir);
+        }
+
+        public void Teleport(Vector3 pos)
+        {
+            networkTrm.Teleport(pos, transform.rotation, transform.localScale);
         }
 
         public void Teleport(Vector3 pos, Quaternion rot)
@@ -161,6 +166,17 @@ namespace OMG
             }
 
             verticalVelocity = statSO[CharacterStatType.JumpPower].Value;
+        }
+
+        public virtual void Jump(float power)
+        {
+            if (!EnableGravity)
+            {
+                Debug.LogError("should enable gravity for jump");
+                return;
+            }
+
+            verticalVelocity = power;
         }
 
         public virtual void Gravity()
