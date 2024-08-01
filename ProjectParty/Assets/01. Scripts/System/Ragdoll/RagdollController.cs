@@ -47,6 +47,7 @@ namespace OMG.Ragdoll
             });
 
             SetActive(false, false);
+
         }
 
         public void SetActive(bool value, bool withSync = true)
@@ -63,19 +64,10 @@ namespace OMG.Ragdoll
                 return;
             }
 
-#if UNITY_EDITOR
-            if (Controller.UseInNetwork)
-                setActiveRagdollRpc.Broadcast(value);
-            else
-                setActiveRagdollRpc.Invoke(value);
-
-            return;
-#else
-            setActiveRagdollRpc.Broadcast(value);
-#endif
+            Controller.InvokeNetworkEvent<BoolParams>(setActiveRagdollRpc, new BoolParams(value));
         }
 
-        protected void SetActive(BoolParams value)
+        protected virtual void SetActive(BoolParams value)
         {
             for (int i = 0; i < parts.Length; i++)
             {
@@ -114,17 +106,10 @@ namespace OMG.Ragdoll
             param.Damage = power;
             param.Dir = dir;
 
-#if UNITY_EDITOR
-            if (Controller.UseInNetwork)
-                addForceRpc.Broadcast(param);
-            else
-                addForceRpc.Invoke(param);
-#else
-            addForceRpc.Broadcast(param);
-#endif
+            Controller.InvokeNetworkEvent<AttackParams>(addForceRpc, param);
         }
 
-        private void AddForce(AttackParams param)
+        protected virtual void AddForce(AttackParams param)
         {
             Vector3 dir = param.Dir;
             float power = param.Damage;

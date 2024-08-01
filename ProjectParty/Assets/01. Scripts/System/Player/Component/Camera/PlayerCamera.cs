@@ -10,6 +10,8 @@ namespace OMG.Player
         [SerializeField] private bool nonParent;
         [SerializeField] private bool lookAt;
         [SerializeField] private bool follow;
+        public bool LookAt => lookAt;
+        public bool Follow => follow;
 
         [Space]
         [SerializeField] private bool orthographic;
@@ -41,6 +43,16 @@ namespace OMG.Player
             }
             else
                 cam.Priority = DEFINE.UNFOCUSED_PRIORITY;
+        }
+
+        public virtual void SetLookAt(Transform target)
+        {
+            cam.LookAt = target;
+        }
+
+        public virtual void SetFollow(Transform target)
+        {
+            cam.Follow = target;
         }
 
         private void OnDestroy()
