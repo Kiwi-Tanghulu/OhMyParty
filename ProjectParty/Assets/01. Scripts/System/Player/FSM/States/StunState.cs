@@ -4,6 +4,7 @@ using OMG.Ragdoll;
 using Unity.Netcode;
 
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
+using Unity.VideoHelper;
 
 namespace OMG.Player.FSM
 {
@@ -41,6 +42,7 @@ namespace OMG.Player.FSM
 
             ragdoll.SetActive(true);
             ragdoll.AddForce(health.Damage, health.HitDir);
+            movement.Movement.SetCollisionActive(false);
             brain.Controller.InvokeNetworkEvent(OnStunNetworkEvent);
 
             movement.SetMoveDirection(Vector3.zero, false);
@@ -51,6 +53,7 @@ namespace OMG.Player.FSM
             base.ExitState();
 
             ragdoll.SetActive(false);
+            movement.Movement.SetCollisionActive(true);
 
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position, Vector3.down, 10000f, groundLayer);
             if (hit.Length > 0)
