@@ -35,19 +35,7 @@ namespace OMG.Minigames
         {
             base.StartGame();
 
-            Camera.main.orthographic = true;
-            CameraManager.Instance.ChangeUpdateMode(CinemachineBrain.UpdateMethod.FixedUpdate,
-                CinemachineBrain.BrainUpdateMethod.FixedUpdate);
-
             //StartCoroutine(SpawnMonsterDelay());
-        }
-
-        public override void FinishGame()
-        {
-            base.FinishGame();
-
-            Camera.main.orthographic = false;
-            CameraManager.Instance.ResetUpdateMode();
         }
 
         private void CreateMap()
