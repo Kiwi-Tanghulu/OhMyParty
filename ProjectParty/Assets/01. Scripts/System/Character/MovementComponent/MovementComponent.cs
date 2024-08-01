@@ -213,6 +213,8 @@ namespace OMG
             return isGround;
         }
 
+        public virtual void SetCollisionActive(bool active) { }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {

@@ -30,5 +30,10 @@ namespace OMG
 
             moveVector *= Time.deltaTime;
         }
+
+        public override void SetCollisionActive(bool active)
+        {
+            characterController.detectCollisions = active;
+        }
     }
 }
