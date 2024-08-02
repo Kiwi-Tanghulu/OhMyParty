@@ -20,6 +20,7 @@ namespace OMG.Minigames
         [SerializeField] private float rotateSpeed;
 
         private IDamageable target;
+        private Collision targetCollision;
 
         private void Update()
         {
@@ -31,8 +32,11 @@ namespace OMG.Minigames
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                target = collision.gameObject.GetComponent<IDamageable>();
-                Execute();
+                if(collision.gameObject.TryGetComponent<IDamageable>(out target))
+                {
+                    targetCollision = collision;
+                    Execute();
+                }
             }
         }
 
@@ -41,7 +45,7 @@ namespace OMG.Minigames
             base.Execute();
 
             target.OnDamaged(effectPower, transform,
-                default, HitEffectType.Stun, default, Vector3.up);
+                targetCollision.GetContact(0).point, HitEffectType.Stun, default, Vector3.up);
         }
 
         protected override bool IsExecutable()

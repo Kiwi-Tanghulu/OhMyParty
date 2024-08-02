@@ -17,6 +17,7 @@ namespace OMG.Minigames
         [SerializeField] private float moveSpeed;
 
         private IDamageable target;
+        private Collision targetCollision;
 
         private void Start()
         {
@@ -32,8 +33,11 @@ namespace OMG.Minigames
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                target = collision.gameObject.GetComponent<IDamageable>();
-                Execute();
+                if (collision.gameObject.TryGetComponent<IDamageable>(out target))
+                {
+                    targetCollision = collision;
+                    Execute();
+                }
             }
         }
 
@@ -50,7 +54,7 @@ namespace OMG.Minigames
             base.Execute();
 
             target.OnDamaged(effectPower, transform,
-                default, HitEffectType.Stun, default, Vector3.left);
+                targetCollision.GetContact(0).point, HitEffectType.Stun, default, Vector3.left);
 
             Destroy(gameObject);
         }

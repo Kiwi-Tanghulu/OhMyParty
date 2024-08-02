@@ -16,24 +16,25 @@ namespace OMG.Minigames
         private int moveDir;
         private float currentAngle;
 
-        private List<PlayerController> contactTargets;
         private PlayerController target;
+        private Collision targetCollision;
 
         private void Awake()
         {
-            contactTargets = new List<PlayerController>();
-
             moveDir = startMoveDir;
         }
 
         private void Update()
         {
             Move();
+        }
 
-            for (int i = 0; i < contactTargets.Count; i++)
+        private void OnCollisionStay(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Player"))
             {
-                target = contactTargets[i];
-
+                targetCollision = collision;
+                target = targetCollision.gameObject.GetComponent<PlayerController>();
                 if (IsExecutable())
                 {
                     Execute();
@@ -41,44 +42,24 @@ namespace OMG.Minigames
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if(collision.gameObject.CompareTag("Player"))
-            {
-                contactTargets.Add(collision.gameObject.GetComponent<PlayerController>());
-            }
-        }
-
-        private void OnCollisionExit(Collision collision)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                contactTargets.Remove(collision.gameObject.GetComponent<PlayerController>());
-            }
-        }
-
         protected override void Execute()
         {
-            if(target.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
-            {
-                base.Execute();
+            base.Execute();
 
-                contactTargets.Remove(target);
-
-                damageable.OnDamaged(effectPower, transform,
-                    default, HitEffectType.Stun, default, moveDir * Vector3.right);
-            }
+            target.GetComponent<IDamageable>().OnDamaged(effectPower, transform,
+                targetCollision.GetContact(0).point, HitEffectType.Stun, default, moveDir * Vector3.right);
         }
 
         protected override bool IsExecutable()
         {
+            if (target == null)
+                return false;
+
             CharacterMovement movement = target.GetCharacterComponent<CharacterMovement>();
             float targetMoveDir = movement.Movement.MoveDir.x;
 
-            if (targetMoveDir == 0)
-                return true;
-
-            return Mathf.Sign(targetMoveDir) != moveDir;
+            return (Mathf.Sign(targetMoveDir) != moveDir || targetMoveDir == 0) && 
+                target.GetComponent<IDamageable>() != null;
         }
 
         private void Move()
