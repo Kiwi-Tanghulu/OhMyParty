@@ -13,8 +13,8 @@ namespace OMG.Player
         [Space]
         [SerializeField] private int maxItemCount;
         private int currentItemIndex;
-        private List<Item> holdingItems;
-        public Item CurrentItem => holdingItems[currentItemIndex];
+        private List<PlayerItem> holdingItems;
+        public PlayerItem CurrentItem => holdingItems[currentItemIndex];
 
         [Space]
         public UnityEvent OnGetItemEvent;
@@ -25,7 +25,7 @@ namespace OMG.Player
         {
             base.Init(controller);
 
-            holdingItems = new List<Item>(new Item[maxItemCount]);
+            holdingItems = new List<PlayerItem>(new PlayerItem[maxItemCount]);
             currentItemIndex = 0;
 
             input.OnInteractEvent += (value) =>
@@ -39,7 +39,7 @@ namespace OMG.Player
             };
         }
 
-        public void GetItem(Item item)
+        public void GetItem(PlayerItem item)
         {
             if (holdingItems.Count >= maxItemCount)
                 return;
@@ -61,7 +61,7 @@ namespace OMG.Player
             RemoveItem(CurrentItem);
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItem(PlayerItem item)
         {
             holdingItems.Remove(item);
         }
