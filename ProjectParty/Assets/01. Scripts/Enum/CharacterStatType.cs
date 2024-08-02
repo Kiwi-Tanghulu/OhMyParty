@@ -7,6 +7,7 @@ namespace OMG
         GravityScale,
         TurnSpeed,
         JumpPower,
+        RisingJumpSpeed,
         MaxHealth,
         StunTime,
         AttackDelay,

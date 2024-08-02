@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode.Components;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 namespace OMG
@@ -41,6 +42,10 @@ namespace OMG
 
         //gravity
         public bool EnableGravity;
+
+        //jump
+        private Coroutine risingJumpCoroutine;
+        private bool isRisingJumping;
 
         //compo
         private NetworkTransform networkTrm;
@@ -177,6 +182,52 @@ namespace OMG
             }
 
             verticalVelocity = power;
+        }
+
+        public virtual void StartRisingJump(float minHeight, float maxHeight)
+        {
+            if (!EnableGravity)
+            {
+                Debug.LogError("should enable gravity for jump");
+                return;
+            }
+
+            if (risingJumpCoroutine != null)
+                return;
+
+            isRisingJumping = true;
+            risingJumpCoroutine = StartCoroutine(RisingJump(minHeight, maxHeight));
+        }
+
+        public virtual void StopRisingJump()
+        {
+            isRisingJumping = false;
+        }
+
+        private IEnumerator RisingJump(float minHeight, float maxHeight)
+        {
+            float height = 0;
+
+            while (true)
+            {
+                yield return null;
+
+                verticalVelocity = statSO[CharacterStatType.RisingJumpSpeed].Value;
+                height += verticalVelocity * Time.deltaTime;
+
+                if (height >= maxHeight)
+                {
+                    isRisingJumping = false;
+                    break;
+                }
+
+                if (isRisingJumping == false && height >= minHeight)
+                {
+                    break;
+                }
+            }
+
+            risingJumpCoroutine = null; 
         }
 
         public virtual void Gravity()

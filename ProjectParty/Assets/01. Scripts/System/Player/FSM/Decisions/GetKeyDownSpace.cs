@@ -22,9 +22,9 @@ namespace OMG.Player
             input.OnJumpEvent -= SetResult;
         }
 
-        private void SetResult()
+        private void SetResult(bool started)
         {
-            result = true;
+            result = started;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace OMG.Inputs
         public Action<bool> OnInteractEvent;
         public Action OnActionEvent;
         public Action OnActiveEvent;
-        public Action OnJumpEvent;
+        public Action<bool> OnJumpEvent;
         public Action OnEscapeEvent;
         public Action<int> OnScrollEvent;
 
@@ -68,7 +68,9 @@ namespace OMG.Inputs
         public void OnJump(InputAction.CallbackContext context)
         {
             if (context.started)
-                OnJumpEvent?.Invoke();
+                OnJumpEvent?.Invoke(true);
+            if(context.canceled)
+                OnJumpEvent?.Invoke(false);
         }
 
         public void OnEscape(InputAction.CallbackContext context)
