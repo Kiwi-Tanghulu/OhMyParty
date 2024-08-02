@@ -40,6 +40,8 @@ namespace OMG.Player.FSM
         public override void ExitState()
         {
             base.ExitState();
+
+            movement.Movement.StopRisingJumpImmediately();
         }
     }
 }

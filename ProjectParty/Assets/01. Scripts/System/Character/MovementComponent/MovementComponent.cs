@@ -204,6 +204,14 @@ namespace OMG
             isRisingJumping = false;
         }
 
+        public virtual void StopRisingJumpImmediately()
+        {
+            isRisingJumping = false;
+            if(risingJumpCoroutine != null)
+                StopCoroutine(risingJumpCoroutine);
+            risingJumpCoroutine = null;
+        }
+
         private IEnumerator RisingJump(float minHeight, float maxHeight)
         {
             float height = 0;
