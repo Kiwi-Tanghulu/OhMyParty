@@ -9,7 +9,7 @@ namespace OMG.Items
     {
         protected PlayerController ownerPlayer;
 
-        public void SetOwnerPlayer(PlayerController ownerPlayer)
+        public virtual void SetOwnerPlayer(PlayerController ownerPlayer)
         {
             this.ownerPlayer = ownerPlayer;
         }

@@ -35,15 +35,6 @@ namespace OMG.Minigames.RunAway
                     return;
                 }
             }
-
-            NetworkObject.Spawn(true);
-        }
-
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-
-            Debug.Log(123);
         }
 
         private void OnTriggerEnter(Collider other)

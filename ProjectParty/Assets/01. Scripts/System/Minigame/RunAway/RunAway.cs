@@ -44,17 +44,17 @@ namespace OMG.Minigames.RunAway
             MapPart prevPart = null;
 
             prevPart = Instantiate(startMapPart, mapPartParentTrm);
-            prevPart.SetPosition(null);
+            prevPart.Init(null, IsHost);
 
             List<MapPart> shuffledMapPart = middleMapPartList.Shuffle();
             for(int i = 0; i < spawnMapPartCount; i++)
             {
                 part = Instantiate(shuffledMapPart[i], mapPartParentTrm);
-                part.SetPosition(prevPart);
+                part.Init(prevPart, IsHost);
                 prevPart = part;
             }
 
-            Instantiate(endMapPart, mapPartParentTrm).SetPosition(prevPart);
+            Instantiate(endMapPart, mapPartParentTrm).Init(prevPart, IsHost);
         }
 
         private IEnumerator SpawnMonsterDelay()
