@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Minigames
+namespace OMG.Minigames.RunAway
 {
     public class RunAway : PlayableMinigame
     {

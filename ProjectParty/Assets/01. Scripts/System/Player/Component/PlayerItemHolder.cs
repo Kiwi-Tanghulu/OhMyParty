@@ -28,15 +28,13 @@ namespace OMG.Player
             holdingItems = new List<PlayerItem>(new PlayerItem[maxItemCount]);
             currentItemIndex = 0;
 
-            input.OnInteractEvent += (value) =>
-            {
-                if(value)
-                    UseItem();
-            };
-            input.OnScrollEvent += (value) =>
-            {
-                ChangeItem(currentItemIndex + value);
-            };
+
+            input.OnScrollEvent += OnScrollEvent;
+        }
+
+        private void OnDestroy()
+        {
+            input.OnScrollEvent -= OnScrollEvent;
         }
 
         public void GetItem(PlayerItem item)
@@ -44,9 +42,10 @@ namespace OMG.Player
             if (holdingItems.Count >= maxItemCount)
                 return;
 
-            if (item.TryGetComponent<PlayerItem>(out PlayerItem playerItem))
-                playerItem.SetOwnerPlayer(Controller as PlayerController);
-
+            item.transform.position = transform.position;
+            item.transform.SetParent(transform);
+            item.SetOwnerPlayer(Controller as PlayerController);
+            item.Init();
             holdingItems.Add(item);
             OnGetItemEvent?.Invoke();
         }
@@ -71,6 +70,11 @@ namespace OMG.Player
             index = (index % maxItemCount + maxItemCount) % maxItemCount;
             currentItemIndex = index;
             OnChangeItemEvent?.Invoke();
+        }
+
+        private void OnScrollEvent(int value)
+        {
+            ChangeItem(currentItemIndex + value);
         }
     }
 }

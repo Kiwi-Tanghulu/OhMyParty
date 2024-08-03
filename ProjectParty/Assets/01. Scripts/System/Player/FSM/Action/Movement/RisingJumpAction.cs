@@ -30,18 +30,21 @@ namespace OMG.Player.FSM
 
             movement.Movement.StartRisingJump(minHeight, maxHeight);
 
-            input.OnJumpEvent += (started) =>
-            {
-                if (started == false)
-                    movement.Movement.StopRisingJump();
-            };
+            input.OnJumpEvent += OnJumpEvent;
         }
 
         public override void ExitState()
         {
             base.ExitState();
 
+            input.OnJumpEvent -= OnJumpEvent;
             movement.Movement.StopRisingJumpImmediately();
+        }
+
+        private void OnJumpEvent(bool started)
+        {
+            if (started == false)
+                movement.Movement.StopRisingJump();
         }
     }
 }

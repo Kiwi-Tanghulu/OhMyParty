@@ -33,4 +33,9 @@ public class PlayerContainer
     {
         return playerList.IndexOf(player);
     }
+
+    public PlayerController GetPlayerByID(ulong id)
+    {
+        return playerList.Find(x => x.OwnerClientId == id);
+    }
 }

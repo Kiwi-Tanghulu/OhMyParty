@@ -87,7 +87,7 @@ namespace OMG.NetworkEvents
             if (Middleware(requireOwnership) == false)
                 return;
 
-            Debug.Log($"Instance ID : {instance.NetworkObjectId}, Event ID : {eventID}, Event Name : {eventName}");
+            //Debug.Log($"Instance ID : {instance.NetworkObjectId}, Event ID : {eventID}, Event Name : {eventName}");
             NetworkEventPacket packet = CreatePacket(eventParams);
             NetworkEventManager.Instance.BroadcastEvent(packet);
         }

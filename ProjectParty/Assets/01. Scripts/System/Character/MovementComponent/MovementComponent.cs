@@ -170,6 +170,9 @@ namespace OMG
                 return;
             }
 
+            if (!IsGround)
+                return;
+
             verticalVelocity = statSO[CharacterStatType.JumpPower].Value;
         }
 
@@ -181,6 +184,9 @@ namespace OMG
                 return;
             }
 
+            if (!IsGround)
+                return;
+
             verticalVelocity = power;
         }
 
@@ -191,7 +197,10 @@ namespace OMG
                 Debug.LogError("should enable gravity for jump");
                 return;
             }
-
+            
+            if (!IsGround)
+                return;
+            
             if (risingJumpCoroutine != null)
                 return;
 
@@ -218,8 +227,6 @@ namespace OMG
 
             while (true)
             {
-                yield return null;
-
                 verticalVelocity = statSO[CharacterStatType.RisingJumpSpeed].Value;
                 height += verticalVelocity * Time.deltaTime;
 
@@ -233,8 +240,10 @@ namespace OMG
                 {
                     break;
                 }
-            }
 
+                yield return null;
+            }
+            
             risingJumpCoroutine = null; 
         }
 

@@ -1,3 +1,4 @@
+using OMG.Inputs;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 namespace OMG.Player
 {
     public class RunAwayPlayerController : PlayerController
-{
+    {
         public void AlignPos()
         {
             Vector3 pos = transform.position;
