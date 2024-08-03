@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using OMG.Inputs;
 using UnityEngine.Events;
+using UnityEditor.UIElements;
 
 namespace OMG.Player
 {
@@ -39,15 +40,19 @@ namespace OMG.Player
 
         public void GetItem(PlayerItem item)
         {
-            if (holdingItems.Count >= maxItemCount)
-                return;
-
-            item.transform.position = transform.position;
-            item.transform.SetParent(transform);
-            item.SetOwnerPlayer(Controller as PlayerController);
-            item.Init();
-            holdingItems.Add(item);
-            OnGetItemEvent?.Invoke();
+            for(int i = 0; i < maxItemCount; i++)
+            {
+                if (holdingItems[i] == null)
+                {
+                    holdingItems[i] = item;
+                    item.transform.position = transform.position;
+                    item.transform.SetParent(transform);
+                    item.SetOwnerPlayer(Controller as PlayerController);
+                    item.Init();
+                    OnGetItemEvent?.Invoke();
+                    break;
+                }
+            }
         }
 
         public void UseItem()
@@ -62,7 +67,7 @@ namespace OMG.Player
 
         public void RemoveItem(PlayerItem item)
         {
-            holdingItems.Remove(item);
+            holdingItems[holdingItems.IndexOf(item)] = null;
         }
 
         public void ChangeItem(int index)

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Experimental.Rendering;
 
 namespace OMG.Minigames.RunAway
 {
@@ -55,13 +56,15 @@ namespace OMG.Minigames.RunAway
             if(other.TryGetComponent<PlayerController>(out PlayerController player))
             {
                 GetItemClientRpc(player.OwnerClientId, itemList.IndexOf(item));
-                NetworkObject.Despawn(true);
             }
         }
 
         [ClientRpc]
         private void GetItemClientRpc(ulong playerID, int itemIndex)
         {
+            if (NetworkManager.LocalClientId != playerID)
+                return;
+
             PlayableMinigame minigame = MinigameManager.Instance.CurrentMinigame as PlayableMinigame;
             if (minigame == null)
                 return;
@@ -73,8 +76,10 @@ namespace OMG.Minigames.RunAway
             if(player.TryGetComponent<PlayerItemHolder>(out PlayerItemHolder holder))
             {
                 PlayerItem item = Instantiate(itemList[itemIndex]);
+                item.NetworkObject.SpawnWithOwnership(playerID);
                 holder.GetItem(item);
                 OnGetItemEvent?.Invoke();
+                NetworkObject.Despawn(true);
             }
         }
     }
