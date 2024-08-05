@@ -1,4 +1,5 @@
 using OMG.FSM;
+using OMG.Inputs;
 using OMG.NetworkEvents;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace OMG.Player
 
             RespawnFunction.AddListener(Respawn);
             RespawnFunction.Register(NetworkObject);
+
+            InputManager.ChangeInputMap(InputMapType.Play);
             
             return true;
         }
