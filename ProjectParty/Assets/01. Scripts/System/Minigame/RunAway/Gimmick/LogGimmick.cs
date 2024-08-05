@@ -19,6 +19,8 @@ namespace OMG.Minigames
         private IDamageable target;
         private Collision targetCollision;
 
+        private Vector3 moveDir;
+
         private void Start()
         {
             this.DelayCoroutine(destroyDelayTime, () => Destroy(gameObject));
@@ -49,6 +51,11 @@ namespace OMG.Minigames
             }
         }
 
+        public void SetMoveDirection(Vector3 dir)
+        {
+            moveDir = dir;
+        }
+
         protected override void Execute()
         {
             base.Execute();
@@ -66,7 +73,7 @@ namespace OMG.Minigames
 
         private void Move()
         {
-            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+            transform.position += moveDir * moveSpeed * Time.deltaTime;
         }
     }
 }

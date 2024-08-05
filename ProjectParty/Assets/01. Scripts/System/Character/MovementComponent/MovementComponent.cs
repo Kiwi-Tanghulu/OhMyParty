@@ -48,7 +48,7 @@ namespace OMG
         private bool isRisingJumping;
 
         //compo
-        private NetworkTransform networkTrm;
+        protected NetworkTransform networkTrm;
 
         public virtual void Init(CharacterStatSO statSO)
         {
@@ -116,10 +116,10 @@ namespace OMG
 
         public void Teleport(Vector3 pos)
         {
-            networkTrm.Teleport(pos, transform.rotation, transform.localScale);
+            Teleport(pos, transform.rotation);
         }
 
-        public void Teleport(Vector3 pos, Quaternion rot)
+        public virtual void Teleport(Vector3 pos, Quaternion rot)
         {
             networkTrm.Teleport(pos, rot, transform.localScale);
         }

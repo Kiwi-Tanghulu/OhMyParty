@@ -36,10 +36,21 @@ namespace OMG.Minigames.SafetyZone
             base.FinishCycle();
         }
 
-        public override void SetPlayerDead(ulong clientID)
+        // public override void SetPlayerDead(ulong clientID)
+        // {
+        //     safetyZone.PlayerDictionary.Remove(clientID);
+        //     base.SetPlayerDead(clientID);
+        // }
+
+        protected override void OnPlayerDead(ulong clientID)
         {
-            safetyZone.PlayerDictionary.Remove(clientID);
-            base.SetPlayerDead(clientID);
+            base.OnPlayerDead(clientID);
+
+            if(IsHost)
+            {
+                safetyZone.PlayerDictionary.Remove(clientID);
+                Debug.Log($"Remove Player Dictionary Item : {safetyZone.PlayerDictionary.Count}");
+            }
         }
 
         private IEnumerator CycleCoroutine(Action reroll, Action decision, Action reset)

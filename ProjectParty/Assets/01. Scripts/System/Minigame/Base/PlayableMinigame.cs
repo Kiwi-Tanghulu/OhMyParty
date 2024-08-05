@@ -13,6 +13,7 @@ namespace OMG.Minigames
         [SerializeField] bool useLife = true;
         [ConditionalField("useLife", true)]
         [SerializeField] int lifeCount = 3;
+        public int LifeCount => lifeCount;
 
         [SerializeField] List<Transform> spawnPositions = null;
         protected virtual bool ShufflePosition => false;

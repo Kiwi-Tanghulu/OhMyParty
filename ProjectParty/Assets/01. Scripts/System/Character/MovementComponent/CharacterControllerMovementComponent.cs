@@ -35,5 +35,12 @@ namespace OMG
         {
             characterController.detectCollisions = active;
         }
+
+        public override void Teleport(Vector3 pos, Quaternion rot)
+        {
+            characterController.enabled = false;
+            networkTrm.Teleport(pos, rot, transform.localScale);
+            characterController.enabled = true;
+        }
     }
 }
