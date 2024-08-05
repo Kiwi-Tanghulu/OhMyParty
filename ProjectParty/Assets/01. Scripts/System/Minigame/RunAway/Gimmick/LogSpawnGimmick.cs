@@ -7,7 +7,6 @@ namespace OMG.Minigames
     public class LogSpawnGimmick : Gimmick
     {
         [SerializeField] private LogGimmick logPrefab;
-        [SerializeField] private Transform logSpawnPoint;
         [SerializeField] private float logSpawnDelay = 3f;
         private WaitForSeconds wfs;
 
@@ -27,7 +26,8 @@ namespace OMG.Minigames
         protected override void Execute()
         {
             base.Execute();
-            Instantiate(logPrefab, logSpawnPoint.position, logSpawnPoint.rotation, transform);
+            LogGimmick log = Instantiate(logPrefab, transform.position, transform.rotation, transform);
+            log.SetMoveDirection(transform.right);
         }
 
         protected override bool IsExecutable()

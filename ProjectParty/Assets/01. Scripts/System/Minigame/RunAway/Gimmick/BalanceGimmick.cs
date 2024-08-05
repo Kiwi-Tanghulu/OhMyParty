@@ -30,7 +30,7 @@ namespace OMG.Minigames
             for (int i = 0; i < ridingPlayers.Count; i++)
             {
                 rotateSpeed += additiveRotateSpeed *
-                    Mathf.Sign(ridingPlayers[i].position.x - transform.position.x);
+                    Mathf.Sign(ridingPlayers[i].position.z - transform.position.z);
             }
 
             Rotate();
@@ -69,11 +69,12 @@ namespace OMG.Minigames
                 if (ridingPlayers.Count == 0)
                 {
                     transform.rotation = Quaternion.Lerp(transform.rotation,
-                        Quaternion.Euler(0, 90, 0), returnSpeed * Time.deltaTime);
+                        Quaternion.Euler(0, 0, 0), returnSpeed * Time.deltaTime);
+                    return;
                 }
             }
 
-            transform.Rotate(Vector3.right, rotateSpeed * Time.deltaTime);
+            transform.Rotate(transform.right, rotateSpeed * Time.deltaTime);
         }
 
         private IEnumerator ReturnCo()

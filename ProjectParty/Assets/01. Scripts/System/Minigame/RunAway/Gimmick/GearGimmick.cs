@@ -63,7 +63,7 @@ namespace OMG.Minigames
                 moveDir *= -1;
             }
 
-            transform.position += moveDir * Vector3.right * moveSpeed * Time.deltaTime;
+            transform.position += moveDir * transform.parent.forward * moveSpeed * Time.deltaTime;
         }
 
         private void Rotate()
