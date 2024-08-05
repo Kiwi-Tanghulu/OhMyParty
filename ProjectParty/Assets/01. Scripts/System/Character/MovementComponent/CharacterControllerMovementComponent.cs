@@ -23,5 +23,17 @@ namespace OMG
             if(characterController.enabled)
                 characterController.Move(moveVector);
         }
+
+        protected override void CalcMoveVector()
+        {
+            base.CalcMoveVector();
+
+            moveVector *= Time.deltaTime;
+        }
+
+        public override void SetCollisionActive(bool active)
+        {
+            characterController.detectCollisions = active;
+        }
     }
 }

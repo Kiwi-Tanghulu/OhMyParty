@@ -26,7 +26,7 @@ namespace OMG.UI
         public override void Show()
         {
             gameObject.SetActive(true);
-            Debug.Log("spot ui show");
+            
             CameraManager.Instance.ChangeCamera(focusCam);
             info.Hide();
             pick.Show();

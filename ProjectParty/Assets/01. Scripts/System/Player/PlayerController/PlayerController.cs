@@ -28,14 +28,13 @@ namespace OMG.Player
             Respawn(spawnPosition.Position, spawnPosition.Rotation);
         }
 
-        // it should called by owner
-        public void Respawn(Vector3 pos, Vector3 rot)
+        public virtual void Respawn(Vector3 pos, Vector3 rot)
         {
-            if(IsOwner == false)
-            {
-                Debug.LogError($"Respawn should called by owner");
-                return;
-            }
+            //if(IsOwner == false)
+            //{
+            //    Debug.LogError($"Respawn should called by owner");
+            //    return;
+            //}
 
             GetCharacterComponent<CharacterFSM>().ChangeDefaultState();
             GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false);

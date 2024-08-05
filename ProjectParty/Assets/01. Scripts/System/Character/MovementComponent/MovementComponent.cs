@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode.Components;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 namespace OMG
@@ -41,6 +42,10 @@ namespace OMG
 
         //gravity
         public bool EnableGravity;
+
+        //jump
+        private Coroutine risingJumpCoroutine;
+        private bool isRisingJumping;
 
         //compo
         private NetworkTransform networkTrm;
@@ -90,7 +95,7 @@ namespace OMG
 
             moveVec *= moveSpeed;
             
-            moveVector = new Vector3(moveVec.x, verticalVelocity, moveVec.z) * Time.deltaTime;
+            moveVector = new Vector3(moveVec.x, verticalVelocity, moveVec.z);
         }
 
         public void SetMoveSpeed(float value)
@@ -107,6 +112,11 @@ namespace OMG
 
             if (lookMoveDir)
                 Turn(moveDir);
+        }
+
+        public void Teleport(Vector3 pos)
+        {
+            networkTrm.Teleport(pos, transform.rotation, transform.localScale);
         }
 
         public void Teleport(Vector3 pos, Quaternion rot)
@@ -160,7 +170,81 @@ namespace OMG
                 return;
             }
 
+            if (!IsGround)
+                return;
+
             verticalVelocity = statSO[CharacterStatType.JumpPower].Value;
+        }
+
+        public virtual void Jump(float power)
+        {
+            if (!EnableGravity)
+            {
+                Debug.LogError("should enable gravity for jump");
+                return;
+            }
+
+            if (!IsGround)
+                return;
+
+            verticalVelocity = power;
+        }
+
+        public virtual void StartRisingJump(float minHeight, float maxHeight)
+        {
+            if (!EnableGravity)
+            {
+                Debug.LogError("should enable gravity for jump");
+                return;
+            }
+            
+            if (!IsGround)
+                return;
+            
+            if (risingJumpCoroutine != null)
+                return;
+
+            isRisingJumping = true;
+            risingJumpCoroutine = StartCoroutine(RisingJump(minHeight, maxHeight));
+        }
+
+        public virtual void StopRisingJump()
+        {
+            isRisingJumping = false;
+        }
+
+        public virtual void StopRisingJumpImmediately()
+        {
+            isRisingJumping = false;
+            if(risingJumpCoroutine != null)
+                StopCoroutine(risingJumpCoroutine);
+            risingJumpCoroutine = null;
+        }
+
+        private IEnumerator RisingJump(float minHeight, float maxHeight)
+        {
+            float height = 0;
+
+            while (true)
+            {
+                verticalVelocity = statSO[CharacterStatType.RisingJumpSpeed].Value;
+                height += verticalVelocity * Time.deltaTime;
+
+                if (height >= maxHeight)
+                {
+                    isRisingJumping = false;
+                    break;
+                }
+
+                if (isRisingJumping == false && height >= minHeight)
+                {
+                    break;
+                }
+
+                yield return null;
+            }
+            
+            risingJumpCoroutine = null; 
         }
 
         public virtual void Gravity()
@@ -196,6 +280,8 @@ namespace OMG
 
             return isGround;
         }
+
+        public virtual void SetCollisionActive(bool active) { }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()

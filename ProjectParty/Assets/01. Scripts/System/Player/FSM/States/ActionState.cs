@@ -1,11 +1,8 @@
 using OMG.FSM;
 using UnityEngine.Events;
 using Unity.Netcode;
-using UnityEngine;
-using OMG.NetworkEvents;
 
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
-using OMG.Lobbies;
 
 namespace OMG.Player.FSM
 {
@@ -51,6 +48,14 @@ namespace OMG.Player.FSM
         {
             OnActionEvent?.Invoke();
             brain.Controller.InvokeNetworkEvent(OnActionNetworkEvent);
+        }
+
+        private void OnDestroy()
+        {
+            if (brain.Controller.IsSpawned)
+            {
+                OnActionNetworkEvent.Unregister();
+            }
         }
     }
 }

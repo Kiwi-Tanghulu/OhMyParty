@@ -58,11 +58,11 @@ namespace OMG.Lobbies
             else
                 CutSceneEvents[LobbyCutSceneState.EndBegin]?.Invoke();
 
-            InputManager.SetInputEnable(false);
+            //InputManager.SetInputEnable(false);
 
             StartCoroutine(DelayFinish(() =>
             {
-                InputManager.SetInputEnable(true);
+                //InputManager.SetInputEnable(true);
 
                 if (option)
                     CutSceneEvents[LobbyCutSceneState.StartFinish]?.Invoke();

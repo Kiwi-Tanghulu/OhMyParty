@@ -12,6 +12,8 @@ public class PlayerContainer
 
     public int Count => playerList.Count;
 
+    public PlayerController this[int index] => playerList[index];
+
     public PlayerContainer()
     {
         playerList = new List<PlayerController>();
@@ -30,5 +32,10 @@ public class PlayerContainer
     public int GetPlayerIndex(PlayerController player)
     {
         return playerList.IndexOf(player);
+    }
+
+    public PlayerController GetPlayerByID(ulong id)
+    {
+        return playerList.Find(x => x.OwnerClientId == id);
     }
 }

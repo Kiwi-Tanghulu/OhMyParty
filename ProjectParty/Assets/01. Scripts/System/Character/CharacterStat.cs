@@ -23,6 +23,11 @@ namespace OMG
             StartCoroutine(AddModifierCo(type, value, time));
         }
 
+        public Stat GetStat(CharacterStatType type)
+        {
+            return statSO[type];
+        }
+
         private IEnumerator AddModifierCo(CharacterStatType type, float value, float time)
         {
             statSO[type].AddModifier(value);

@@ -9,9 +9,10 @@ public class PlayerFallChecker : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (other.TryGetComponent<PlayerMovement>(out PlayerMovement movement))
+            if (other.TryGetComponent<PlayerController>(out PlayerController player))
             {
-                movement.Teleport(teleportTrm.position, teleportTrm.rotation);
+                player.Respawn(teleportTrm.position, teleportTrm.eulerAngles);
+                //.Teleport(teleportTrm.position, teleportTrm.rotation);
             }
         }
     }

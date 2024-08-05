@@ -1,8 +1,10 @@
+using Cinemachine;
 using OMG.Extensions;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OMG.Minigames
+namespace OMG.Minigames.RunAway
 {
     public class RunAway : PlayableMinigame
     {
@@ -13,15 +15,27 @@ namespace OMG.Minigames
         [SerializeField] private Transform mapPartParentTrm;
         [SerializeField] private int spawnMapPartCount;
 
-        private RaceCycle raceCycle;
+        [Space]
+        [SerializeField] private RunAwayMonster monsterPrefab;
+        [SerializeField] private Transform monsterSpawnPoint;
+        [SerializeField] private float monsterSpawnDelay;
+
+        private RunAwayCycle runAwayCycle;
 
         public override void Init()
         {
             base.Init();
 
-            raceCycle = cycle as RaceCycle;
+            runAwayCycle = cycle as RunAwayCycle;
 
             CreateMap();
+        }
+
+        public override void StartGame()
+        {
+            base.StartGame();
+
+            //StartCoroutine(SpawnMonsterDelay());
         }
 
         private void CreateMap()
@@ -30,17 +44,25 @@ namespace OMG.Minigames
             MapPart prevPart = null;
 
             prevPart = Instantiate(startMapPart, mapPartParentTrm);
-            prevPart.SetPosition(null);
+            prevPart.Init(null, IsHost);
 
             List<MapPart> shuffledMapPart = middleMapPartList.Shuffle();
             for(int i = 0; i < spawnMapPartCount; i++)
             {
                 part = Instantiate(shuffledMapPart[i], mapPartParentTrm);
-                part.SetPosition(prevPart);
+                part.Init(prevPart, IsHost);
                 prevPart = part;
             }
 
-            Instantiate(endMapPart, mapPartParentTrm).SetPosition(prevPart);
+            Instantiate(endMapPart, mapPartParentTrm).Init(prevPart, IsHost);
+        }
+
+        private IEnumerator SpawnMonsterDelay()
+        {
+            yield return new WaitForSeconds(monsterSpawnDelay);
+
+            Instantiate(monsterPrefab, monsterSpawnPoint.position,
+                monsterSpawnPoint.rotation, transform).Init(runAwayCycle);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using static Controls;
 
 namespace OMG.Inputs
@@ -13,8 +14,9 @@ namespace OMG.Inputs
         public Action<bool> OnInteractEvent;
         public Action OnActionEvent;
         public Action OnActiveEvent;
-        public Action OnJumpEvent;
+        public Action<bool> OnJumpEvent;
         public Action OnEscapeEvent;
+        public Action<int> OnScrollEvent;
 
         public bool MoveInputInversion = false;
 
@@ -66,13 +68,28 @@ namespace OMG.Inputs
         public void OnJump(InputAction.CallbackContext context)
         {
             if (context.started)
-                OnJumpEvent?.Invoke();
+                OnJumpEvent?.Invoke(true);
+            if(context.canceled)
+                OnJumpEvent?.Invoke(false);
         }
 
         public void OnEscape(InputAction.CallbackContext context)
         {
             if (context.started)
                 OnEscapeEvent?.Invoke();
+        }
+
+        public void OnScroll(InputAction.CallbackContext context)
+        {
+            if (!context.started)
+                return;
+
+            float value = context.ReadValue<Vector2>().y;
+            if (value == 0)
+                return;
+            value = Mathf.Sign(value);
+
+            OnScrollEvent?.Invoke((int)value);
         }
     }
 }

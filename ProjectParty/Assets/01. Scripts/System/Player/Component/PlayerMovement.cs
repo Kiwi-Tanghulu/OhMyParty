@@ -1,3 +1,4 @@
+using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -24,12 +25,17 @@ namespace OMG.Player
         {
             base.Init(controller);
 
-            anim = controller.GetCharacterComponent<PlayerVisual>().Anim;
+            isInit = true;
+        }
+
+        public override void PostInitializeComponent()
+        {
+            base.PostInitializeComponent();
+
+            anim = Controller.GetCharacterComponent<PlayerVisual>().Anim;
 
             Movement.OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
             Movement.OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
-
-            isInit = true;
         }
 
         public override void UpdateCompo()

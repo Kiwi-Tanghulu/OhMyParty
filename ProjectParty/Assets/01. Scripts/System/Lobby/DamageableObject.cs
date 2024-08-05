@@ -22,7 +22,7 @@ public class DamageableObject : MonoBehaviour, IDamageable
     }
 
     public void OnDamaged(float damage, Transform attacker, Vector3 point,
-        HitEffectType effectType, Vector3 normal = default)
+        HitEffectType effectType, Vector3 normal = default, Vector3 direction = default)
     {
         Vector3Params param = new Vector3Params { Value = point };
 

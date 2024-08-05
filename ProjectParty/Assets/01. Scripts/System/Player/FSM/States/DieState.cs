@@ -29,16 +29,15 @@ namespace OMG.Player.FSM
             ragdoll.SetActive(true);
             ragdoll.AddForce(health.Damage, health.HitDir);
 
-#if UNITY_EDOTR
-            if(brain.Controller.UseInNetwork)
-                playerDieEvent?.Broadcast();
-            else
-                playerDieEvent?.Invoke();
+            brain.Controller.InvokeNetworkEvent(playerDieEvent);
+        }
 
-            return;
-#else
-            playerDieEvent?.Broadcast();
-#endif
+        private void OnDestroy()
+        {
+            if (brain.Controller.IsSpawned)
+            {
+                playerDieEvent.Unregister();
+            }
         }
     }
 }
