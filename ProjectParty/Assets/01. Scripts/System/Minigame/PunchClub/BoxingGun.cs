@@ -1,24 +1,23 @@
-using UnityEngine;
-
 namespace OMG.Minigames.PunchClub
 {
     public class BoxingGun : CharacterComponent
     {
         private DamageCaster damageCaster = null;
-        private Animator animator = null;
+        private BoxingGunAnimator animator = null;
 
         public override void Init(CharacterController controller)
         {
             base.Init(controller);
-            animator = GetComponent<Animator>();
+            animator = transform.Find("Visual").GetComponent<BoxingGunAnimator>();
+            animator.OnAnimationTriggerEvent += HandleAnimationTrigger;
         }
 
         public void Fire()
         {
-            animator.SetTrigger("Fire");
+            animator.SetFire();
         }
 
-        public void TriggerEvent()
+        private void HandleAnimationTrigger()
         {
             if(Controller.IsOwner == false)
                 return;
