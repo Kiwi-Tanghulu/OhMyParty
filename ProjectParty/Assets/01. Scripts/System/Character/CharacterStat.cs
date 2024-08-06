@@ -13,7 +13,7 @@ namespace OMG
         public override void Init(CharacterController controller)
         {
             base.Init(controller);
-
+            
             statSO = ScriptableObject.Instantiate(statSORef);
             statSO.Init();
         }
@@ -21,6 +21,11 @@ namespace OMG
         public void AddModifier(CharacterStatType type, float value, float time)
         {
             StartCoroutine(AddModifierCo(type, value, time));
+        }
+
+        public Stat GetStat(CharacterStatType type)
+        {
+            return statSO[type];
         }
 
         private IEnumerator AddModifierCo(CharacterStatType type, float value, float time)

@@ -89,6 +89,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Scroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""7e4bcb8b-1d35-4324-801f-e695ef838c84"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -210,6 +219,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df716035-cdc5-4bda-9cf0-14d11fecf543"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -425,6 +445,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Play_MouseDelta = m_Play.FindAction("MouseDelta", throwIfNotFound: true);
         m_Play_Jump = m_Play.FindAction("Jump", throwIfNotFound: true);
         m_Play_Escape = m_Play.FindAction("Escape", throwIfNotFound: true);
+        m_Play_Scroll = m_Play.FindAction("Scroll", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Space = m_UI.FindAction("Space", throwIfNotFound: true);
@@ -505,6 +526,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Play_MouseDelta;
     private readonly InputAction m_Play_Jump;
     private readonly InputAction m_Play_Escape;
+    private readonly InputAction m_Play_Scroll;
     public struct PlayActions
     {
         private @Controls m_Wrapper;
@@ -516,6 +538,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @MouseDelta => m_Wrapper.m_Play_MouseDelta;
         public InputAction @Jump => m_Wrapper.m_Play_Jump;
         public InputAction @Escape => m_Wrapper.m_Play_Escape;
+        public InputAction @Scroll => m_Wrapper.m_Play_Scroll;
         public InputActionMap Get() { return m_Wrapper.m_Play; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -546,6 +569,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Escape.started += instance.OnEscape;
             @Escape.performed += instance.OnEscape;
             @Escape.canceled += instance.OnEscape;
+            @Scroll.started += instance.OnScroll;
+            @Scroll.performed += instance.OnScroll;
+            @Scroll.canceled += instance.OnScroll;
         }
 
         private void UnregisterCallbacks(IPlayActions instance)
@@ -571,6 +597,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Escape.started -= instance.OnEscape;
             @Escape.performed -= instance.OnEscape;
             @Escape.canceled -= instance.OnEscape;
+            @Scroll.started -= instance.OnScroll;
+            @Scroll.performed -= instance.OnScroll;
+            @Scroll.canceled -= instance.OnScroll;
         }
 
         public void RemoveCallbacks(IPlayActions instance)
@@ -737,6 +766,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMouseDelta(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+        void OnScroll(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

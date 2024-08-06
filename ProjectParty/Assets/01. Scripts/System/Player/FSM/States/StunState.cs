@@ -1,10 +1,10 @@
 using UnityEngine;
 using OMG.FSM;
 using OMG.Ragdoll;
-using OMG.NetworkEvents;
 using Unity.Netcode;
 
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
+using Unity.VideoHelper;
 
 namespace OMG.Player.FSM
 {
@@ -19,25 +19,20 @@ namespace OMG.Player.FSM
 
         private readonly int fallenDirHash = Animator.StringToHash("fallen_dir");
 
-        private NetworkEvent onStartStunEvent = new NetworkEvent("StartStunEvent");
-        private NetworkEvent onEndStunEvent = new NetworkEvent("EndStunEvent");
+        public NetworkEvent OnStunNetworkEvent = new NetworkEvent("OnStunNetworkEvent");
 
         public override void InitState(CharacterFSM brain)
         {
             base.InitState(brain);
 
-            movement = player.GetCharacterComponent<CharacterMovement>();
+            movement = player.GetCharacterComponent<PlayerMovement>();
             health = player.GetCharacterComponent<PlayerHealth>();
             anim = player.GetCharacterComponent<PlayerVisual>().Anim;
             ragdoll = player.GetCharacterComponent<PlayerVisual>().Ragdoll;
 
-            if(brain.Controller.IsSpawned)
+            if (brain.Controller.IsSpawned)
             {
-                onStartStunEvent.AddListener(StratStun);
-                onEndStunEvent.AddListener(EndStun);
-
-                onStartStunEvent.Register(player.GetComponent<NetworkObject>());
-                onEndStunEvent.Register(player.GetComponent<NetworkObject>());
+                OnStunNetworkEvent.Register(player.GetComponent<NetworkObject>());
             }
         }
 
@@ -45,15 +40,11 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            if (brain.Controller.IsSpawned)
-            {
-                onStartStunEvent.Broadcast();
-            }
-            else
-            {
-                StratStun(new NoneParams());
-            }
-            
+            ragdoll.SetActive(true);
+            ragdoll.AddForce(health.Damage, health.HitDir);
+            movement.Movement.SetCollisionActive(false);
+            brain.Controller.InvokeNetworkEvent(OnStunNetworkEvent);
+
             movement.SetMoveDirection(Vector3.zero, false);
         }
 
@@ -61,14 +52,8 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            if (brain.Controller.IsSpawned)
-            {
-                onEndStunEvent.Broadcast();
-            }
-            else
-            {
-                EndStun(new NoneParams());
-            }
+            ragdoll.SetActive(false);
+            movement.Movement.SetCollisionActive(true);
 
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position, Vector3.down, 10000f, groundLayer);
             if (hit.Length > 0)
@@ -80,16 +65,12 @@ namespace OMG.Player.FSM
             anim.SetInt(fallenDirHash, recoDir);
         }
 
-        private void StratStun(NoneParams param)
+        private void OnDestroy()
         {
-            ragdoll.SetActive(true);
-            ragdoll.AddForce(health.Damage, health.HitDir, ForceMode.Impulse);
-        }
-        
-        private void EndStun(NoneParams param)
-        {
-            player.GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false);
-            ragdoll.SetActive(false);
+            if (brain.Controller.IsSpawned)
+            {
+                OnStunNetworkEvent.Unregister();
+            }
         }
     }
 }

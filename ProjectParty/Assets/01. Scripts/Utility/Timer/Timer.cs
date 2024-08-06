@@ -6,15 +6,10 @@ namespace OMG.Timers
 {
     public class Timer : MonoBehaviour
     {
-        public enum ValueType
-        {
-            Ratio,
-            Single
-        }
-
-        [SerializeField] ValueType valueType = ValueType.Ratio;
-        
-        public UnityEvent<float> OnValueChangedEvent = new UnityEvent<float>();
+        /// <summary>
+        /// (ratio, single)
+        /// </summary> 
+        public UnityEvent<float, float> OnValueChangedEvent = new UnityEvent<float, float>();
         public UnityEvent OnTimerFinishedEvent = new UnityEvent();
 
         private Action callbackCache = null;
@@ -22,7 +17,7 @@ namespace OMG.Timers
         private float timer = 0f;
         private float time = 0f;
 
-        public float Ratio => 1f - timer / time;
+        public float Ratio => timer / time;
         public bool Finished => timer <= 0f;
 
         protected virtual void Update()
@@ -31,7 +26,7 @@ namespace OMG.Timers
                 return;
 
             timer -= Time.deltaTime;
-            OnValueChangedEvent?.Invoke((valueType == ValueType.Ratio) ? Ratio : timer);
+            OnValueChangedEvent?.Invoke(Ratio, timer);
             if(Finished)
             {
                 OnTimerFinishedEvent?.Invoke();

@@ -2,7 +2,7 @@ using OMG.UI;
 using UnityEditor;
 using UnityEngine;
 
-namespace OMG.Editors
+namespace OMG.Attributes
 {
     [CustomEditor(typeof(GameCycleText))]
     public class GameCycleTextEditor : UnityEditor.Editor

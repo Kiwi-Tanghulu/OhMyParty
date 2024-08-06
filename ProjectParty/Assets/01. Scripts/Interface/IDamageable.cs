@@ -6,5 +6,5 @@ using UnityEngine;
 public interface IDamageable
 {
     public void OnDamaged(float damage, Transform attacker, Vector3 point,
-        HitEffectType effectType, Vector3 normal = default);
+        HitEffectType effectType, Vector3 normal = default, Vector3 direction = default);
 }

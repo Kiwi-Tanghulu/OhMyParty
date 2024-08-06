@@ -10,6 +10,6 @@ namespace OMG
         [SerializeField] protected Transform eyeTrm;
         [SerializeField] protected HitEffectType hitEffectType;
 
-        public abstract RaycastHit[] DamageCast(Transform attacker);
+        public abstract RaycastHit[] DamageCast(Transform attacker, float damage);
     }
 }

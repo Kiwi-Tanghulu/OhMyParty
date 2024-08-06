@@ -8,7 +8,7 @@ namespace OMG.NetworkEvents
     public class NetworkEvent : NetworkEvent<NoneParams>
     {
         public NetworkEvent() : base() { }
-        public NetworkEvent(string eventID) : base(eventID) { }
+        public NetworkEvent(string key) : base(key) { }
 
         public void Alert(bool requireOwnership = true)
         {
@@ -24,10 +24,18 @@ namespace OMG.NetworkEvents
     }
 
     [System.Serializable]
-    public class NetworkEvent<T> : UnityEvent<T>, INetworkEvent where T : NetworkEventParams
+    public class NetworkEvent<T> : NetworkEvent<T, T> where T : NetworkEventParams, IConvertible<T>
+    {
+        public NetworkEvent() : base() { }
+        public NetworkEvent(string key) : base(key) { }
+    }
+
+    [System.Serializable]
+    public class NetworkEvent<T, U> : UnityEvent<U>, INetworkEvent where T : NetworkEventParams, IConvertible<U>
     {
         private NetworkObject instance = null;
 
+        private string eventName = "";
         private ulong eventID = 0;
         ulong INetworkEvent.EventID => eventID;
 
@@ -37,6 +45,7 @@ namespace OMG.NetworkEvents
 
         public NetworkEvent(string key) : base()
         {
+            eventName = key;
             eventID = NetworkEventTable.StringToHash(key);
         }
 
@@ -78,6 +87,7 @@ namespace OMG.NetworkEvents
             if (Middleware(requireOwnership) == false)
                 return;
 
+            //Debug.Log($"Instance ID : {instance.NetworkObjectId}, Event ID : {eventID}, Event Name : {eventName}");
             NetworkEventPacket packet = CreatePacket(eventParams);
             NetworkEventManager.Instance.BroadcastEvent(packet);
         }
@@ -113,7 +123,8 @@ namespace OMG.NetworkEvents
 
         void INetworkEvent.Invoke(NetworkEventParams eventParams)
         {
-            Invoke(eventParams as T);
+            U convertedParams = (eventParams as T).Convert();
+            Invoke(convertedParams);
         }
     }
 

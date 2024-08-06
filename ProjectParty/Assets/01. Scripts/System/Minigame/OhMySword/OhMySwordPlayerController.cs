@@ -1,44 +1,65 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
+using OMG.ETC;
 using OMG.Extensions;
 using OMG.NetworkEvents;
 using OMG.Player;
 using OMG.UI.Minigames;
+using OMG.UI.Minigames.OhMySword;
 using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
 {
     public class OhMySwordPlayerController : PlayerController
     {
-        // [SerializeField] Collider playerCollider = null;
+        [SerializeField] PlayerColorController tail = null;
         [SerializeField] Sword sword = null;
+        [SerializeField] float respawnDelay = 1f;
+        private CatchTailPlayer catchTailPlayer = null;
+        private ScoreContainer scoreContainer = null;
 
-        private ScorePlayerPanel playerPanel = null;
+        private OhMySwordPlayerPanel playerPanel = null;
         private OhMySword minigame = null;
+        private OhMySwordCycle cycle = null;
         private int playerIndex = 0;
 
         private Coroutine xpUpdateRoutine = null;
         private int xpBuffer = 0;
         private int prevXP = 0;
 
-        private NetworkEvent<IntParams> onUpdateXPEvent = new NetworkEvent<IntParams>("UpdateXP");
+        private NetworkEvent<IntParams, int> onUpdateXPEvent = new NetworkEvent<IntParams, int>("UpdateXP");
 
         protected override void Awake()
         {
             base.Awake();
             minigame = MinigameManager.Instance?.CurrentMinigame as OhMySword;
-            playerPanel = minigame.MinigamePanel.PlayerPanel as ScorePlayerPanel;
-            playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
+            cycle = minigame.Cycle as OhMySwordCycle;
+
+            playerPanel = minigame.MinigamePanel.PlayerPanel as OhMySwordPlayerPanel;
+
+            catchTailPlayer = GetComponent<CatchTailPlayer>();
+            scoreContainer = GetComponent<ScoreContainer>();
         }
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
+            
+            playerIndex = minigame.PlayerDatas.Find(out PlayerData data, data => data.clientID == OwnerClientId);
+            if(IsOwner)
+                Destroy(tail.gameObject);
+            else
+            {
+                tail.SetIndex(playerIndex);
+                tail.SetColor();
+            }
 
             onUpdateXPEvent.AddListener(HandleXP);
             onUpdateXPEvent.Register(NetworkObject);
 
             SetActiveUpdateRoutine(true);
-            sword.Init(IsOwner);
+            sword.Init(NetworkObject);
+            catchTailPlayer.Init(NetworkObject);
         }
 
         public override void OnNetworkDespawn()
@@ -57,10 +78,27 @@ namespace OMG.Minigames.OhMySword
                 StopCoroutine(xpUpdateRoutine);
         }
 
-        public void Respawn()
+        public void HandleDead()
         {
-            if(IsHost)
-                minigame.RespawnPlayer(OwnerClientId);
+            sword.ResetLength();
+            if(IsOwner)
+            {
+                StartCoroutine(this.PostponeFrameCoroutine(() => {
+                    GetXP(-xpBuffer);
+                    UpdateXP();
+                }));
+            }
+            
+            if(IsHost == false)
+                return;
+            
+            minigame.PlayerDatas.Find(out PlayerData player, i => i.clientID == OwnerClientId);
+
+            scoreContainer.Init(player.score);
+            scoreContainer.GenerateXP();
+            StartCoroutine(this.DelayCoroutine(respawnDelay, () => {
+                cycle.Respawn(OwnerClientId);
+            }));
         }
 
         public void GetXP(int amount)
@@ -70,7 +108,7 @@ namespace OMG.Minigames.OhMySword
             playerPanel.SetScore(playerIndex, xpBuffer);
         }
 
-        private void HandleXP(IntParams xp)
+        private void HandleXP(int xp)
         {
             if(IsOwner == false)
             {
@@ -93,14 +131,20 @@ namespace OMG.Minigames.OhMySword
 
             while(true)
             {
+                if(IsSpawned == false)
+                    yield return delay;
+
                 if(xpBuffer != prevXP)
-                {
-                    onUpdateXPEvent?.Broadcast(xpBuffer);
-                    prevXP = xpBuffer;
-                }
+                    UpdateXP();
 
                 yield return delay;
             }
+        }
+
+        private void UpdateXP()
+        {
+            onUpdateXPEvent?.Broadcast(xpBuffer);
+            prevXP = xpBuffer;
         }
     }
 }

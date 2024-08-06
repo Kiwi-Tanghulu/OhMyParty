@@ -61,10 +61,6 @@ namespace OMG.Minigames
             Debug.Log("finish game");
 
             onMinigameReleaseEvent?.Broadcast();
-
-            CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
-            CurrentMinigame.NetworkObject.Despawn(true);
-            CurrentMinigame = null;
         }
 
         private void HandleMinigameInit(NoneParams noneParams)
@@ -75,6 +71,13 @@ namespace OMG.Minigames
         private void HandleMinigameRelease(NoneParams noneParams)
         {
             CurrentMinigame.Release();
+
+            if(IsHost)
+            {
+                CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
+                CurrentMinigame.NetworkObject.Despawn(true);
+                CurrentMinigame = null;
+            }
         }
     }
 }

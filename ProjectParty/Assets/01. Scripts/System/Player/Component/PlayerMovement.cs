@@ -1,3 +1,4 @@
+using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -24,24 +25,37 @@ namespace OMG.Player
         {
             base.Init(controller);
 
-            anim = controller.GetCharacterComponent<PlayerVisual>().Anim;
-
-            OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
-            OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
-
             isInit = true;
+        }
+
+        public override void PostInitializeComponent()
+        {
+            base.PostInitializeComponent();
+
+            anim = Controller.GetCharacterComponent<PlayerVisual>().Anim;
+
+            Movement.OnIsGroundChagend.AddListener(PlayerMovement_OnIsGroundChagend);
+            Movement.OnMoveDirectionChanged.AddListener(PlayerMovement_OnMoveDirectionChanged);
+        }
+
+        public override void UpdateCompo()
+        {
+            base.UpdateCompo();
+            
+            Gravity();
+            Movement.CheckGround();
         }
 
         private void OnEnable()
         {
             if(isInit)
-                ChangeIsGroundParam(IsGround);
+                ChangeIsGroundParam(Movement.IsGround);
         }
 
         private void OnDestroy()
         {
-            OnIsGroundChagend.RemoveListener(PlayerMovement_OnIsGroundChagend);
-            OnMoveDirectionChanged.RemoveListener(PlayerMovement_OnMoveDirectionChanged);
+            Movement.OnIsGroundChagend.RemoveListener(PlayerMovement_OnIsGroundChagend);
+            Movement.OnMoveDirectionChanged.RemoveListener(PlayerMovement_OnMoveDirectionChanged);
         }
 
         public override void SetMoveDirection(Vector3 value, bool lookMoveDir = true, bool forceSet = false)
@@ -63,7 +77,10 @@ namespace OMG.Player
 
                         moveDir = tpsCamera.Forward * moveDir;
                     }
-                break;
+                    break;
+                case PlayerMoveType.SideView:
+                    moveDir.z = 0;
+                    break;
             }
             
             base.SetMoveDirection(moveDir, lookMoveDir, forceSet);

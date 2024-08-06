@@ -1,5 +1,6 @@
 using System;
 using Unity.Netcode;
+using Random = UnityEngine.Random;
 
 namespace OMG.Extensions
 {
@@ -32,6 +33,15 @@ public static class NetworkListExtensions
         for (int i = 0; i < source.Count; ++i)
             callback.Invoke(source[i], i);
     }
+    
+    public static int FindIndex<T>(this NetworkList<T> source, Func<T, bool> predicator) where T : unmanaged, IEquatable<T>
+    {
+        for(int i = 0; i < source.Count; ++i)
+            if(predicator.Invoke(source[i]))
+                return i;
+
+        return -1;
+    }
 
     public static int Find<T>(this NetworkList<T> source, out T found, Func<T, bool> predicator) where T : unmanaged, IEquatable<T>
     {
@@ -46,6 +56,16 @@ public static class NetworkListExtensions
         }
 
         return -1;
+    }
+
+    public static T PickRandom<T>(this NetworkList<T> source, Func<T, bool> condition = null) where T : unmanaged, IEquatable<T>
+    {
+        int randIndex = 0;
+        do
+            randIndex = Random.Range(0, source.Count);
+        while (condition != null && condition?.Invoke(source[randIndex]) == false);
+        
+        return source[randIndex];
     }
 }
 }

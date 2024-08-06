@@ -62,6 +62,12 @@ namespace OMG.Minigames.SafetyZone
             }));
         }
 
+        public override void Respawn(Vector3 pos, Vector3 rot)
+        {
+            base.Respawn(pos, rot);
+            IsDead = false;
+        }
+
 
         [ServerRpc]
         public void FruitItemHitEffectServerRPC()

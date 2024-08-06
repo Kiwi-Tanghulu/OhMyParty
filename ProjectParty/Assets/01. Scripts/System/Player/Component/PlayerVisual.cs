@@ -33,6 +33,8 @@ namespace OMG.Player
             ragdoll = GetComponent<PlayerRagdollController>();
             anim = GetComponent<ExtendedAnimator>();
 
+            ownerID = controller.OwnerClientId;
+
             visualSetted = false;
             if (Lobby.Current != null)
             {

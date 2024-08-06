@@ -5,14 +5,17 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using OMG.Extensions;
+using LightShaft.Scripts;
+using OMG.UI;
 
 namespace OMG
 {
     [RequireComponent(typeof(VideoPlayer))]
-    public class OMGVideoPlayer : MonoBehaviour
+    public class OMGVideoPlayer : UIObject
     {
         private VideoPlayer videoPlayer;
 
+        [SerializeField] private YoutubeSimplified youtubePlayer;
         [SerializeField] private Image playImage;
         [SerializeField] private Image stopImage;
         [SerializeField] private GameObject blindImage;
@@ -23,15 +26,17 @@ namespace OMG
         public UnityEvent OnPlayEvent;
         public UnityEvent OnStopEvent;
 
-        private void Awake()
+        public override void Init()
         {
+            base.Init();
+
             videoPlayer = GetComponent<VideoPlayer>();
 
             Sequence videoPlaySeq = DOTween.Sequence();
             videoPlaySeq.Append(playImage.transform.DOScale(1f, 0f));
             videoPlaySeq.Join(playImage.DOFade(1f, 0f));
             videoPlaySeq.Append(playImage.transform.DOScale(0.75f, 0.2f));
-            videoPlaySeq.AppendCallback(() => blindImage.SetActive(false));
+            //videoPlaySeq.AppendCallback(() => blindImage.SetActive(false));
             videoPlaySeq.Append(playImage.transform.DOScale(3f, 0.2f));
             videoPlaySeq.Join(playImage.DOFade(0f, 0.2f));
             videoPlaySeq.SetAutoKill(false);
@@ -64,21 +69,20 @@ namespace OMG
             videoPlayer.Stop();
         }
 
-        public void Play(VideoClip video, float delay = 0f)
+        public void Play(string url, float delay = 0f)
         {
             if (!gameObject.activeInHierarchy)
-                return;
-
+                Show();
+            
             StartCoroutine(this.DelayCoroutine(delay, () =>
             {
-                videoPlayer.clip = video;
-
                 playImage.gameObject.SetActive(true);
                 stopImage.gameObject.SetActive(false);
 
                 videoPlayTween.Restart();
 
-                videoPlayer.Play();
+                youtubePlayer.url = url;
+                youtubePlayer.Play();
 
                 OnPlayEvent?.Invoke();
             }));

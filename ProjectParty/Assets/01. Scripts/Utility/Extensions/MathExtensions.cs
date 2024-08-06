@@ -10,9 +10,15 @@ namespace OMG.Extensions
         /// </summary>
         public static void ForEachDigit(this int source, Action<int, int, int> callback)
         {
+            if(source == 0)
+                return;
+
+            source = Mathf.Abs(source);
+
             int i = 0;
             int origin = source;
-            int cursor = (int)MathF.Pow(10, origin.ToString().Length - 1);
+            int length = Mathf.FloorToInt(Mathf.Log10(origin));
+            int cursor = (int)MathF.Pow(10, length);
             while (cursor > 0)
             {
                 int number = origin / cursor;
@@ -29,9 +35,15 @@ namespace OMG.Extensions
         /// </summary>
         public static void ForEachDigit(this ushort source, Action<ushort, ushort, int> callback)
         {
+            if (source == 0)
+                return;
+
+            source = (ushort)Mathf.Abs(source);
+
             int i = 0;
             ushort origin = source;
-            ushort cursor = (ushort)MathF.Pow(10, origin.ToString().Length - 1);
+            int length = Mathf.FloorToInt(Mathf.Log10(origin));
+            ushort cursor = (ushort)MathF.Pow(10, length);
             while (cursor > 0)
             {
                 ushort number = (ushort)(origin / cursor);

@@ -1,3 +1,4 @@
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -32,6 +33,13 @@ namespace OMG.FSM
                     return;
                 fsmParamDictionary.Add(type, ScriptableObject.Instantiate(i));
             });
+
+            
+        }
+
+        public override void PostInitializeComponent()
+        {
+            base.PostInitializeComponent();
 
             //state
             states = new List<FSMState>();
@@ -71,7 +79,7 @@ namespace OMG.FSM
             }
             else
             {
-                if(controller.IsOwner)
+                if (Controller.IsOwner)
                     ChangeState(defaultState);
             }
         }

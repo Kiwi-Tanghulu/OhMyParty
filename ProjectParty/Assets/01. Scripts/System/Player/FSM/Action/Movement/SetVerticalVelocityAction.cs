@@ -26,24 +26,24 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            if(OnEnter)
-                movement.SetVerticalVelocity(verticalVelocity);
+            //if(OnEnter)
+                //movement.SetVerticalVelocity(verticalVelocity);
         }
 
         public override void UpdateState()
         {
             base.UpdateState();
 
-            if(OnUpdate)
-                movement.SetVerticalVelocity(verticalVelocity);
+            //if(OnUpdate)
+                //movement.SetVerticalVelocity(verticalVelocity);
         }
 
         public override void ExitState()
         {
             base.ExitState();
 
-            if(OnExit)
-                movement.SetVerticalVelocity(verticalVelocity);
+            //if(OnExit)
+                //movement.SetVerticalVelocity(verticalVelocity);
         }
     }
 }

@@ -7,10 +7,13 @@ namespace OMG.Timers
     [RequireComponent(typeof(NetworkTimer))]
     public class NetworkTimerBehaviour : NetworkBehaviour
     {
-        [SerializeField] UnityEvent<float> onValueChanged = new UnityEvent<float>();
-        [SerializeField] UnityEvent onTimerFinished = new UnityEvent();
+        /// <summary>
+        /// (ratio, single)
+        /// </summary>
+        [SerializeField] UnityEvent<float, float> onValueChanged = new UnityEvent<float, float>();
+        [SerializeField] NetworkEvents.NetworkEvent onTimerFinished = new NetworkEvents.NetworkEvent("TimerFinished");
 
-        private NetworkVariable<float> timerValue = new NetworkVariable<float>();
+        private NetworkVariable<TimerValue> timerValue = new NetworkVariable<TimerValue>();
 
         private NetworkTimer timer = null;
 
@@ -25,6 +28,8 @@ namespace OMG.Timers
             timer.OnValueChangedEvent.AddListener(HandleValueChanged);
             timer.OnTimerFinishedEvent.AddListener(HandleTimerFinished);
             timerValue.OnValueChanged += BroadcastTimerValueChanged;
+
+            onTimerFinished.Register(NetworkObject);
         }
 
         public override void OnNetworkDespawn()
@@ -33,24 +38,26 @@ namespace OMG.Timers
             timer.OnValueChangedEvent.RemoveListener(HandleValueChanged);
             timer.OnTimerFinishedEvent.RemoveListener(HandleTimerFinished);
             timerValue.OnValueChanged -= BroadcastTimerValueChanged;
+
+            onTimerFinished.Unregister();
         }
 
         private void HandleTimerFinished()
         {
-            onTimerFinished?.Invoke();
+            onTimerFinished?.Broadcast(false);
         }
 
-        private void HandleValueChanged(float value)
+        private void HandleValueChanged(float ratio, float single)
         {
             if(IsHost == false)
                 return;
 
-            timerValue.Value = value;
+            timerValue.Value = new TimerValue(ratio, single);
         }
 
-        private void BroadcastTimerValueChanged(float prevValue, float newValue)
+        private void BroadcastTimerValueChanged(TimerValue prevValue, TimerValue newValue)
         {
-            onValueChanged?.Invoke(newValue);
+            onValueChanged?.Invoke(newValue.ratio, newValue.single);
         }
     }
 }

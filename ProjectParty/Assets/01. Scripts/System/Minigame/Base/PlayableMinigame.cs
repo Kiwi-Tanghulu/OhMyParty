@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using OMG.Editors;
+using OMG.Attributes;
 using OMG.Extensions;
 using OMG.Player;
 using Unity.Netcode;
@@ -13,6 +13,7 @@ namespace OMG.Minigames
         [SerializeField] bool useLife = true;
         [ConditionalField("useLife", true)]
         [SerializeField] int lifeCount = 3;
+        public int LifeCount => lifeCount;
 
         [SerializeField] List<Transform> spawnPositions = null;
         protected virtual bool ShufflePosition => false;
@@ -70,10 +71,11 @@ namespace OMG.Minigames
             });
         }
 
+        // it should called by host
         public void RespawnPlayer(ulong clientID)
         {
-            Vector3 position = spawnPositions.PickRandom().position;
-            playerDictionary[clientID].GetComponent<CharacterMovement>().Teleport(position, Quaternion.identity);
+            Transform position = spawnPositions.PickRandom();
+            playerDictionary[clientID].RespawnFunction.Broadcast(position, false);
         }
 
         protected PlayerController SpawnPlayer(int index)

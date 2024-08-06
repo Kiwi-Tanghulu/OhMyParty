@@ -1,4 +1,4 @@
-using OMG.Editors;
+using OMG.Attributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,7 +17,13 @@ namespace OMG.UI.Minigames
 
         private int score = 0;
 
-        public void Init()
+        protected override void Awake()
+        {
+            base.Awake();
+            Reset();
+        }
+
+        public void Reset()
         {
             scoreText.text = "-";
             score = 0;

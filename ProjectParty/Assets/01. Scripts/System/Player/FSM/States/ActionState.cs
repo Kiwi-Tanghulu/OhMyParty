@@ -1,21 +1,18 @@
 using OMG.FSM;
 using UnityEngine.Events;
 using Unity.Netcode;
-using UnityEngine;
-using OMG.NetworkEvents;
 
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
-using OMG.Lobbies;
 
 namespace OMG.Player.FSM
 {
     public class ActionState : PlayerFSMState
     {
         public UnityEvent OnActionEvent;
+        public NetworkEvent OnActionNetworkEvent = new NetworkEvent("OnActionNetworkEvent");
 
         private ExtendedAnimator anim;
 
-        private NetworkEvent onAttackNetworkEvent = new NetworkEvent("DoActionEvent");
 
         public override void InitState(CharacterFSM brain)
         {
@@ -25,9 +22,7 @@ namespace OMG.Player.FSM
 
             if(brain.Controller.IsSpawned)
             {
-                onAttackNetworkEvent.AddListener(DoActionNetworkEvent);
-
-                onAttackNetworkEvent.Register(player.GetComponent<NetworkObject>());
+                OnActionNetworkEvent.Register(player.GetComponent<NetworkObject>());
             }
         }
 
@@ -35,7 +30,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            anim.AnimEvent.OnPlayingEvent += InvokeDoAction;
+            anim.AnimEvent.OnPlayingEvent += DoAction;
 
             anim.SetLayerWeight(AnimatorLayerType.Upper, 1, true, 0.1f);
         }
@@ -44,32 +39,23 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            anim.AnimEvent.OnPlayingEvent -= InvokeDoAction;
+            anim.AnimEvent.OnPlayingEvent -= DoAction;
 
             anim.SetLayerWeight(AnimatorLayerType.Upper, 0, true, 0.1f);
-        }
-
-
-        private void InvokeDoAction()
-        {
-            if(brain.Controller.IsSpawned)
-            {
-                onAttackNetworkEvent.Alert();
-            }
-            else
-            {
-                DoAction();
-            }
-        }
-
-        private void DoActionNetworkEvent(NoneParams param)
-        {
-            DoAction();
         }
 
         public virtual void DoAction()
         {
             OnActionEvent?.Invoke();
+            brain.Controller.InvokeNetworkEvent(OnActionNetworkEvent);
+        }
+
+        private void OnDestroy()
+        {
+            if (brain.Controller.IsSpawned)
+            {
+                OnActionNetworkEvent.Unregister();
+            }
         }
     }
 }

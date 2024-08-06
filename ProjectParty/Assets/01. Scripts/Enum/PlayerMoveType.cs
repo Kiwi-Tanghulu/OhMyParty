@@ -4,5 +4,6 @@ namespace OMG.Player
     {
         TopDown, 
         TPS,
+        SideView,
     }
 }

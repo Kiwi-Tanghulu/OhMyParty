@@ -50,7 +50,15 @@ namespace OMG.Minigames
 
                 bool isDead = data.lifeCount <= 1;
                 if(isDead)
-                    playerPanel.SetDead(index);
+                {
+                    playerPanel.SetDead(index, true);
+                    playerPanel.SetDead(index, 0);
+                    OnPlayerDead(clientID);
+                }
+                else
+                {
+                    playerPanel.SetDead(index, playableMinigame.LifeCount - data.lifeCount + 1);
+                }
 
                 if(IsHost)
                 {
@@ -66,8 +74,9 @@ namespace OMG.Minigames
                         Respawn(clientID);
 
                     minigame.PlayerDatas[index] = data;
-                    if ((minigame.PlayerDatas.Count - deadPlayerCount) <= 1)
-                            FinishCycle();
+                    int leftPlayerCount = minigame.PlayerDatas.Count - deadPlayerCount;
+                    if (deadPlayerCount > 0 && leftPlayerCount <= 1)
+                        FinishCycle();
                 }
             });
         }
@@ -85,6 +94,11 @@ namespace OMG.Minigames
         public void Respawn(ulong clientID)
         {
             playableMinigame.RespawnPlayer(clientID);
+        }
+
+        protected virtual void OnPlayerDead(ulong clientID)
+        {
+
         }
 
         private int GetScore()

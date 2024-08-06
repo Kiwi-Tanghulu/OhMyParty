@@ -12,9 +12,6 @@ namespace OMG.Minigames.OhMySword
         [SerializeField] NetworkEvent<Vector3Params> onRespawnEvent = new NetworkEvent<Vector3Params>("Respawn");
 
         [Space(15f)]
-        [SerializeField] XPObject[] xpPrefabs = null;
-        [SerializeField] float xpSpawnOutRadius = 3f;
-        [SerializeField] float xpSpawnInRadius = 1.5f;
         private SpawnPositionTable spawnPositionTable = null;
         private SpawnPosition spawnPosition = null;
 
@@ -22,6 +19,13 @@ namespace OMG.Minigames.OhMySword
         [SerializeField] int xpAmount = 100;
         [SerializeField] float maxHP = 10;
         private float currentHP = 0;
+
+        private ScoreContainer scoreContainer = null;
+
+        private void Awake()
+        {
+            scoreContainer = GetComponent<ScoreContainer>();
+        }
 
         public override void OnNetworkSpawn()
         {
@@ -40,9 +44,11 @@ namespace OMG.Minigames.OhMySword
         public void Init(SpawnPositionTable spawnPositionTable)
         {
             this.spawnPositionTable = spawnPositionTable;
+            scoreContainer.Init(xpAmount);
         }
 
-        public void OnDamaged(float damage, Transform attacker, Vector3 point, HitEffectType effectType, Vector3 normal = default)
+        public void OnDamaged(float damage, Transform attacker, Vector3 point,
+            HitEffectType effectType, Vector3 normal = default, Vector3 direction = default)
         {
             onHitEvent?.Broadcast(damage, false);
         }
@@ -54,26 +60,11 @@ namespace OMG.Minigames.OhMySword
                 currentHP -= damage;
                 if(currentHP <= 0f)
                 {
-                    GenerateXP();
+                    scoreContainer.GenerateXP();
                     Respawn();
                     currentHP = maxHP;
                 }
             }
-        }
-
-        private void GenerateXP()
-        {
-            xpAmount.ForEachDigit((digit, number, index) => {
-                float distance = Random.Range(xpSpawnInRadius, xpSpawnOutRadius);
-                Vector2 randomPosition = Random.insideUnitCircle.normalized * distance;
-                Vector3 position = new Vector3(randomPosition.x, 0, randomPosition.y);
-                position += transform.position;
-
-                XPObject xpPrefab = xpPrefabs[(int)Mathf.Log10(digit)];
-                XPObject xp = Instantiate(xpPrefab, transform.position, Quaternion.identity);
-                xp.NetworkObject.Spawn(true);
-                xp.Init(position);
-            });
         }
 
         public void Respawn()

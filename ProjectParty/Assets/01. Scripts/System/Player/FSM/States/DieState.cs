@@ -1,9 +1,6 @@
 using OMG.FSM;
 using OMG.NetworkEvents;
 using OMG.Ragdoll;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace OMG.Player.FSM
 {
@@ -22,23 +19,25 @@ namespace OMG.Player.FSM
             ragdoll = player.GetCharacterComponent<PlayerVisual>().Ragdoll;
 
             if(brain.Controller.IsSpawned)
-            {
-                playerDieEvent.AddListener(Die);
-                playerDieEvent.Register(player.NetworkObject);
-            }
+               playerDieEvent.Register(player.NetworkObject);
         }
 
         public override void EnterState()
         {
             base.EnterState();
 
-            playerDieEvent?.Broadcast();
+            ragdoll.SetActive(true);
+            ragdoll.AddForce(health.Damage, health.HitDir);
+
+            brain.Controller.InvokeNetworkEvent(playerDieEvent);
         }
 
-        private void Die(NoneParams param)
+        private void OnDestroy()
         {
-            ragdoll.SetActive(true);
-            ragdoll.AddForce(health.Damage, health.HitDir, ForceMode.Impulse);
+            if (brain.Controller.IsSpawned)
+            {
+                playerDieEvent.Unregister();
+            }
         }
     }
 }

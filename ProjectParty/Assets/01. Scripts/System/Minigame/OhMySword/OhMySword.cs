@@ -10,7 +10,7 @@ namespace OMG.Minigames.OhMySword
         private List<ScoreBox> scoreBoxes = null;
 
         [SerializeField] Material skyboxMaterial = null;
-        private TimeAttackCycle timeAttackCycle = null;
+        private OhMySwordCycle ohMySwordCycle = null;
         protected override bool ShufflePosition => true;
 
         protected override void Awake()
@@ -40,7 +40,7 @@ namespace OMG.Minigames.OhMySword
                 }
             }
 
-            timeAttackCycle = cycle as TimeAttackCycle;
+            ohMySwordCycle = cycle as OhMySwordCycle;
         }
 
         public override void StartGame()
@@ -50,7 +50,7 @@ namespace OMG.Minigames.OhMySword
             if(IsHost == false)
                 return;
 
-            timeAttackCycle.StartCycle();
+            ohMySwordCycle.StartCycle();
         }
 
         public override void Release()

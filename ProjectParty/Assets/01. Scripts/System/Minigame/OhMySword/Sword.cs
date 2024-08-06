@@ -1,5 +1,6 @@
 using DG.Tweening;
 using OMG.Extensions;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
@@ -11,6 +12,7 @@ namespace OMG.Minigames.OhMySword
         [SerializeField] float scaleFactor = 0.02f;
         [SerializeField] float growSpeed = 3f;
 
+        private NetworkObject owner = null;
         private BoxCollider bladeCollider = null;
         private bool collisionActive = false;
         private float currentLength = 0f;
@@ -22,9 +24,10 @@ namespace OMG.Minigames.OhMySword
             bladeCollider = GetComponent<BoxCollider>();
         }
 
-        public void Init(bool active)
+        public void Init(NetworkObject owner)
         {
-            this.active = active;
+            active = owner.IsOwner;
+            this.owner = owner;
         }
 
         private void FixedUpdate()
@@ -45,16 +48,21 @@ namespace OMG.Minigames.OhMySword
                 return;
             if(collisionActive == false)
                 return;
-            Debug.Log(other.gameObject.name);
+
             if(other.TryGetComponent<IDamageable>(out IDamageable id) == false)
                 return;
 
-            id?.OnDamaged(5000, transform, other.transform.position, HitEffectType.Die);
+            id?.OnDamaged(5000, owner.transform, other.transform.position, HitEffectType.Die);
         }
 
         public void SetLength(float length)
         {
             this.length = length * scaleFactor;
+        }
+
+        public void ResetLength()
+        {
+            currentLength = 0;
         }
 
         /// <summary>

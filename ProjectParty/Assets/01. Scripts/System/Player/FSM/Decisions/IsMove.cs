@@ -19,7 +19,7 @@ namespace OMG.Player.FSM
 
         public override bool MakeDecision()
         {
-            result = movement.MoveDir != Vector3.zero;
+            result = movement.Movement.MoveDir != Vector3.zero;
 
             base.MakeDecision();
             

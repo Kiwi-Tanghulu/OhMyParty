@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using OMG.NetworkEvents;
+
+using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 
 namespace OMG
 {
@@ -14,6 +17,8 @@ namespace OMG
         [Space]
         public UnityEvent<ulong/*owner id*/> OnInitEvent;
         protected bool isInit = false;
+
+        public Action OnDestroyEvent;
 
 #if UNITY_EDITOR
         [SerializeField] private bool useInNetwork = true;
@@ -64,35 +69,37 @@ namespace OMG
                 compoList[i].UpdateCompo();
         }
 
-        private T InitCompo<T>(T compo) where T : CharacterComponent
-        {
-            if(compo == null)
-            {
-                Debug.LogError($"{typeof(T)} is null");
-
-                return null;
-            }
-
-            compoDictionary.Add(compo.GetType(), compo);
-
-            compo.Init(this);
-
-            return compo;
-        }
-
         private void InitCompos()
         {
             compoDictionary = new Dictionary<Type, CharacterComponent>();
 
             foreach (CharacterComponent compo in compoList)
             {
-                InitCompo(compo);
+                Type type = compo.GetType();
+                while(true)
+                {
+                    compoDictionary.Add(type, compo);
+                    type = type.BaseType;
+
+                    if (type == typeof(CharacterComponent))
+                        break;
+                }
+            }
+
+            foreach (CharacterComponent compo in compoList)
+            {
+                compo.Init(this);
+            }
+
+            foreach (CharacterComponent compo in compoList)
+            {
+                compo.PostInitializeComponent();
             }
         }
 
         public T GetCharacterComponent<T>() where T : CharacterComponent
         {
-            if(!compoDictionary.ContainsKey(typeof(T)))
+            if (!compoDictionary.ContainsKey(typeof(T)))
             {
                 Debug.LogError($"not exsist compo : {typeof(T)}");
                 return null;
@@ -100,7 +107,56 @@ namespace OMG
 
             return compoDictionary[typeof(T)] as T;
         }
-        
-        public virtual void Respawn(Transform respawnTrm) { }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            OnDestroyEvent?.Invoke();
+        }
+
+        #region invoke network event
+        public void InvokeNetworkEvent(NetworkEvent networkEvent)
+        {
+#if UNITY_EDITOR
+            if (UseInNetwork)
+                networkEvent?.Broadcast();
+            else
+                networkEvent?.Invoke(new NoneParams());
+
+            return;
+#else
+            networkEvent?.Broadcast();
+#endif
+        }
+
+        public void InvokeNetworkEvent<T>(NetworkEvent<T> networkEvent, T param) where T : NetworkEventParams, IConvertible<T>
+        {
+#if UNITY_EDITOR
+            if (UseInNetwork)
+                networkEvent?.Broadcast(param);
+            else
+                networkEvent?.Invoke(param);
+
+            return;
+#else
+            networkEvent?.Broadcast(param);
+#endif
+        }
+
+        public void InvokeNetworkEvent<T, U>(NetworkEvent<T, U> networkEvent, T param1, U param2) where T : NetworkEventParams, IConvertible<U>
+        {
+#if UNITY_EDITOR
+            if (UseInNetwork)
+                networkEvent?.Broadcast(param1);
+            else
+                networkEvent?.Invoke(param2);
+
+            return;
+#else
+            networkEvent?.Broadcast(param1);
+#endif
+        }
+        #endregion
     }
 }
