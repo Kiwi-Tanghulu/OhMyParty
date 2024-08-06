@@ -1,9 +1,11 @@
 using OMG.Extensions;
+using OMG.Lobbies;
 using OMG.NetworkEvents;
 using OMG.UI.Minigames;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Minigames
 {
@@ -12,7 +14,8 @@ namespace OMG.Minigames
         [SerializeField] protected int[] scoreWeight = { 1000, 500, 100, 50 };
 
         [Space(15f)]
-        [SerializeField] NetworkEvent<UlongParams> onPlayerGolaEvent = new NetworkEvent<UlongParams>("PlayerGoal");
+        NetworkEvent<UlongParams> onPlayerGoalRpc = new NetworkEvent<UlongParams>("PlayerGoal");
+        [SerializeField] UnityEvent<Transform> OnPlayerGoalEvent;
         private RacePlayerPanel playerPanel = null;
         private PlayableMinigame playableMinigame = null;
 
@@ -32,8 +35,8 @@ namespace OMG.Minigames
         {
             base.OnNetworkSpawn(); 
 
-            onPlayerGolaEvent.AddListener(HandlePlayerGoal);
-            onPlayerGolaEvent.Register(NetworkObject);
+            onPlayerGoalRpc.AddListener(HandlePlayerGoal);
+            onPlayerGoalRpc.Register(NetworkObject);
         }
 
         public virtual void SetPlayerGoal(ulong clientID)
@@ -41,7 +44,7 @@ namespace OMG.Minigames
             if (!IsHost)
                 return;
 
-            onPlayerGolaEvent?.Broadcast(clientID);
+            onPlayerGoalRpc?.Broadcast(clientID);
         }
 
         protected virtual void HandlePlayerGoal(UlongParams clientID)
@@ -53,6 +56,7 @@ namespace OMG.Minigames
                     return;
 
                 playerPanel.SetGoal(index);
+                OnPlayerGoalEvent?.Invoke(playableMinigame.PlayerDictionary[clientID].FeedbackPlayPoint);
 
                 if (IsHost)
                 {

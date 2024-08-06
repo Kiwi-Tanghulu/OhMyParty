@@ -8,6 +8,7 @@ namespace OMG.Player
     public class PlayerController : CharacterController, IRespawn
     {
         public NetworkEvent<TransformParams> RespawnFunction = new NetworkEvent<TransformParams>("RespawnFunction");
+        public Transform FeedbackPlayPoint;
 
         protected override bool Init()
         {
