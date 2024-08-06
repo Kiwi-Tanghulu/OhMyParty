@@ -2789,10 +2789,20 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6c2723dd8bb224dc7959fb1f898801d8, type: 2}
+    - target: {fileID: -1255605710908113952, guid: 66e2b8ff3b27a4b6eb97d862e33c6e1b,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 66e2b8ff3b27a4b6eb97d862e33c6e1b,
         type: 3}
       propertyPath: m_Name
       value: Visual
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083501151425157549, guid: 66e2b8ff3b27a4b6eb97d862e33c6e1b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7603786706384944740, guid: 66e2b8ff3b27a4b6eb97d862e33c6e1b,
         type: 3}
@@ -2834,7 +2844,7 @@ Animator:
   m_GameObject: {fileID: 335738984}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8ce6c803e607a4cccb74c4d42326946f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -8760,15 +8770,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288396665}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.64699084, y: 0.7604544, z: -0.034430727, w: -0.043890916}
-  m_LocalPosition: {x: -0.032, y: 0.493, z: -0.073}
+  m_LocalRotation: {x: -0.51824474, y: 0.8497235, z: -0.07213263, w: -0.06472501}
+  m_LocalPosition: {x: 0.05, y: 0.65, z: -0.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 335738983}
   - {fileID: 1440726726}
   m_Father: {fileID: 698563249}
-  m_LocalEulerAnglesHint: {x: 6.267, y: 181.28, z: -80.712}
+  m_LocalEulerAnglesHint: {x: 10.934, y: 182.056, z: -62.561}
 --- !u!114 &1288396667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12099,10 +12109,51 @@ PrefabInstance:
       propertyPath: distance
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2721364775306001857, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
+        type: 3}
+      propertyPath: statSORef
+      value: 
+      objectReference: {fileID: 11400000, guid: aae9590367c704df3918c4448d97a56e,
+        type: 2}
     - target: {fileID: 3039059784914965570, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
         type: 3}
       propertyPath: MoveType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058932772042644314, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
+        type: 3}
+      propertyPath: OnActionEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058932772042644314, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
+        type: 3}
+      propertyPath: OnActionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058932772042644314, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
+        type: 3}
+      propertyPath: OnActionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1288396668}
+    - target: {fileID: 3058932772042644314, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
+        type: 3}
+      propertyPath: OnActionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058932772042644314, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
+        type: 3}
+      propertyPath: OnActionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058932772042644314, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
+        type: 3}
+      propertyPath: OnActionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: OMG.Minigames.PunchClub.BoxingGun, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058932772042644314, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
+        type: 3}
+      propertyPath: OnActionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4887890787515596946, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
         type: 3}
