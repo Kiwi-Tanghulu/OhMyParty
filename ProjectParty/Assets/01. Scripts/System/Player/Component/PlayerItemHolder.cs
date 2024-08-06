@@ -66,7 +66,9 @@ namespace OMG.Player
 
         public void RemoveItem(PlayerItem item)
         {
-            holdingItems[holdingItems.IndexOf(item)] = null;
+            int index = holdingItems.IndexOf(item);
+            item.NetworkObject.Despawn(true);
+            holdingItems[index] = null;
         }
 
         public void ChangeItem(int index)
