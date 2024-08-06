@@ -1,6 +1,7 @@
 using OMG.Player;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Minigames
 {
@@ -15,6 +16,9 @@ namespace OMG.Minigames
         [SerializeField] private int startMoveDir = -1;
         private int moveDir;
         private float currentAngle;
+
+        public UnityEvent OnSwingEvent;
+        private bool isSwinged;
 
         private PlayerController target;
         private Collision targetCollision;
@@ -65,9 +69,18 @@ namespace OMG.Minigames
         private void Move()
         {
             if (Mathf.Abs(currentAngle) >= maxAngle)
+            {
                 moveDir *= -1;
+                isSwinged = false;
+            }
             float moveSpeed = Mathf.Lerp(maxMoveSpeed, minMoveSpeed, Mathf.Abs(currentAngle) / maxAngle);
             currentAngle += moveDir * moveSpeed * Time.deltaTime;
+
+            if (Mathf.Abs(currentAngle) < 0.1f && isSwinged == false)
+            {
+                isSwinged = true;
+                OnSwingEvent?.Invoke();
+            }
 
             transform.rotation = Quaternion.Euler(0f, 0f, currentAngle);
         }
