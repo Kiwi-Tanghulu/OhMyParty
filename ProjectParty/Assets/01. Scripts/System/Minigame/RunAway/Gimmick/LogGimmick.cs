@@ -3,6 +3,7 @@ using OMG.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG.Minigames
 {
@@ -15,6 +16,10 @@ namespace OMG.Minigames
 
         [Space]
         [SerializeField] private float moveSpeed;
+
+        [Space]
+        public UnityEvent OnGroundEvent;
+        public UnityEvent<Vector3> OnBreakEvent;
 
         private IDamageable target;
         private Collision targetCollision;
@@ -41,12 +46,18 @@ namespace OMG.Minigames
                     Execute();
                 }
             }
+            if(collision.gameObject.CompareTag("Ground"))
+            {
+                OnGroundEvent?.Invoke();
+            }
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("LogBlocker"))
             {
+                OnBreakEvent?.Invoke(transform.position);
+
                 Destroy(gameObject);
             }
         }
@@ -62,6 +73,7 @@ namespace OMG.Minigames
 
             target.OnDamaged(effectPower, transform,
                 targetCollision.GetContact(0).point, HitEffectType.Stun, default, Vector3.left);
+            OnBreakEvent?.Invoke(transform.position);
 
             Destroy(gameObject);
         }
