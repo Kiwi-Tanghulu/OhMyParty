@@ -12,7 +12,6 @@ namespace OMG.UI
             canvas.renderMode = RenderMode.ScreenSpaceCamera;
             canvas.worldCamera = Camera.main;
             canvas.planeDistance = 0.5f;
-            Debug.Log("change render mode");
         }
     }
 }

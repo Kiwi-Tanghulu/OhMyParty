@@ -22,16 +22,15 @@ namespace OMG.Minigames
         protected float lastDecisionTime = 0f;
         protected int lastScore = 0;
 
-        protected override void Awake()
+        private void Start()
         {
-            base.Awake();
             playerPanel = minigame.MinigamePanel.PlayerPanel as RacePlayerPanel;
             playableMinigame = minigame as PlayableMinigame;
         }
 
         public override void OnNetworkSpawn()
         {
-            base.OnNetworkSpawn();
+            base.OnNetworkSpawn(); 
 
             onPlayerGolaEvent.AddListener(HandlePlayerGoal);
             onPlayerGolaEvent.Register(NetworkObject);
@@ -64,7 +63,7 @@ namespace OMG.Minigames
                     Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Goal Player Count : {goalPlayerCount}");
 
                     minigame.PlayerDatas[index] = data;
-                    if ((minigame.PlayerDatas.Count - goalPlayerCount) <= 1)
+                    if (minigame.PlayerDatas.Count == GoalPlayerCount)
                         FinishCycle();
                 }
             });
