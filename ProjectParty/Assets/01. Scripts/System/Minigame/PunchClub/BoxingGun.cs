@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace OMG.Minigames.PunchClub
 {
     public class BoxingGun : CharacterComponent
