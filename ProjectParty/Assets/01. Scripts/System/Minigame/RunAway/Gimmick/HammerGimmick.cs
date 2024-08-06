@@ -73,10 +73,10 @@ namespace OMG.Minigames
                 moveDir *= -1;
                 isSwinged = false;
             }
+
             float moveSpeed = Mathf.Lerp(maxMoveSpeed, minMoveSpeed, Mathf.Abs(currentAngle) / maxAngle);
             currentAngle += moveDir * moveSpeed * Time.deltaTime;
-
-            if (Mathf.Abs(currentAngle) < 0.1f && isSwinged == false)
+            if (Mathf.Abs(currentAngle) < 15f && isSwinged == false)
             {
                 isSwinged = true;
                 OnSwingEvent?.Invoke();
