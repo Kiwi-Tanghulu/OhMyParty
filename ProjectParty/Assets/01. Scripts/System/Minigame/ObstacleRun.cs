@@ -10,7 +10,7 @@ namespace OMG.Minigames
         private RaceCycle raceCycle;
 
         [SerializeField] private PlayerItemBox itemBoxPrefab;
-        [SerializeField] private List<Transform> itemBoxSpawnPoints;
+        [SerializeField] private Transform itemBoxSpawnPoints;
 
         public override void Init()
         {
