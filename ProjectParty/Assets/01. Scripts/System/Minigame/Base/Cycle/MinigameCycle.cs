@@ -4,6 +4,7 @@ using OMG.Lobbies;
 using OMG.UI;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace OMG.Minigames
 {
@@ -12,10 +13,10 @@ namespace OMG.Minigames
         protected Minigame minigame = null;
         protected MinigameCutscene cutscene = null;
 
-        protected virtual void Awake()
+        public virtual void Init(Minigame minigame)
         {
+            this.minigame = minigame;
             cutscene = GetComponent<MinigameCutscene>();
-            minigame = GetComponent<Minigame>();
         }
 
         public void PlayIntro()

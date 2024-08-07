@@ -22,9 +22,10 @@ namespace OMG.Minigames
         private float lastDecisionTime = 0f;
         private int lastScore = 0;
 
-        protected override void Awake()
+        public override void Init(Minigame minigame)
         {
-            base.Awake();
+            base.Init(minigame);
+
             playerPanel = minigame.MinigamePanel.PlayerPanel as DeathmatchPlayerPanel;
             playableMinigame = minigame as PlayableMinigame;
         }

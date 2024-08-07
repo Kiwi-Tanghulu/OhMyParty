@@ -30,11 +30,13 @@ namespace OMG.Minigames
 
         protected virtual void Awake()
         {
+            cutscenePanel = DEFINE.MinigameCanvas?.transform.Find("CutscenePanel").GetComponent<CutscenePanel>();
+            minigamePanel = DEFINE.MinigameCanvas?.transform.Find("MinigamePanel").GetComponent<MinigamePanel>();
+
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
 
-            cutscenePanel = DEFINE.MinigameCanvas?.transform.Find("CutscenePanel").GetComponent<CutscenePanel>();
-            minigamePanel = DEFINE.MinigameCanvas?.transform.Find("MinigamePanel").GetComponent<MinigamePanel>();
+            cycle.Init(this);
         }
 
         public override void OnNetworkSpawn()

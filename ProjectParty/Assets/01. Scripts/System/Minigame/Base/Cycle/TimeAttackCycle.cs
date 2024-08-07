@@ -13,9 +13,10 @@ namespace OMG.Minigames
         
         private NetworkTimer timer = null;
 
-        protected override void Awake()
+        public override void Init(Minigame minigame)
         {
-            base.Awake();
+            base.Init(minigame);
+
             timer = GetComponent<NetworkTimer>();
         }
 

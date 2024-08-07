@@ -39,6 +39,8 @@ namespace OMG.Minigames.OhMySword
                 XPObject xp = Instantiate(xpPrefab, transform.position, Quaternion.identity);
                 xp.NetworkObject.Spawn(true);
                 xp.Init(position);
+
+                scores.Add(xp);
             });
         }
     }

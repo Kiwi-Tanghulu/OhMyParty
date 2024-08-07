@@ -7,9 +7,10 @@ namespace OMG.Minigames.OhMySword
     {
         private PlayableMinigame playableMinigame = null;
 
-        protected override void Awake()
+        public override void Init(Minigame minigame)
         {
-            base.Awake();
+            base.Init(minigame);
+
             playableMinigame = minigame as PlayableMinigame;
         }
 

@@ -15,9 +15,10 @@ namespace OMG.Minigames.SafetyZone
         private Coroutine cycle = null;
         private SafetyZone safetyZone = null;
 
-        protected override void Awake()
+        public override void Init(Minigame minigame)
         {
-            base.Awake();
+            base.Init(minigame);
+
             safetyZone = minigame as SafetyZone;
             timer = GetComponent<Timer>();
         }

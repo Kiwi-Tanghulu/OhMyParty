@@ -27,8 +27,10 @@ namespace OMG.Minigames
         protected float lastDecisionTime = 0f;
         protected int lastScore = 0;
 
-        private void Start()
+        public override void Init(Minigame minigame)
         {
+            base.Init(minigame);
+            
             playerPanel = minigame.MinigamePanel.PlayerPanel as RacePlayerPanel;
             playableMinigame = minigame as PlayableMinigame;
         }
