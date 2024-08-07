@@ -22,6 +22,7 @@ namespace OMG.Player.FSM
             base.UpdateState();
 
             movement.Gravity();
+            movement.VerticalMove();
         }
     }
 }

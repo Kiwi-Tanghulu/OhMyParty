@@ -1,9 +1,12 @@
 using OMG.FSM;
+using UnityEngine;
 
 namespace OMG.Player.FSM
 {
     public class KnockbackState : FSMState
     {
+        [SerializeField] private float knockbackTime;
+
         private PlayerMovement movement;
         private PlayerHealth health;
 
@@ -21,7 +24,7 @@ namespace OMG.Player.FSM
 
             PlayerMoveType moveType = movement.MoveType;
             movement.MoveType = PlayerMoveType.TopDown;
-            movement.Knockback(health.HitDir, health.Damage, 1f, () =>
+            movement.Knockback(health.HitDir, health.Damage, knockbackTime, () =>
             {
                 brain.ChangeState(brain.DefaultState);
             });

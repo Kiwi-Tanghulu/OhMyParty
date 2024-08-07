@@ -24,6 +24,14 @@ namespace OMG
                 characterController.Move(moveVector);
         }
 
+        public override void VerticalMove()
+        {
+            base.VerticalMove();
+
+            if (characterController.enabled)
+                characterController.Move(Vector3.up * VerticalVelocity * Time.deltaTime);
+        }
+
         protected override void CalcMoveVector()
         {
             base.CalcMoveVector();
