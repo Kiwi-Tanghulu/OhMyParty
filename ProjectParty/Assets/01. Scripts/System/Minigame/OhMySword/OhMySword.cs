@@ -60,7 +60,10 @@ namespace OMG.Minigames.OhMySword
             if(IsHost == false)
                 return;
 
-            scoreBoxes.ForEach(i => i.NetworkObject.Despawn());
+            scoreBoxes.ForEach(i => {
+                i.Release();
+                i.NetworkObject.Despawn();
+            });
             scoreBoxes.Clear();
         }
     }

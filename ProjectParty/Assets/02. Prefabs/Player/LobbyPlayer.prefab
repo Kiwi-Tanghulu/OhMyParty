@@ -90,6 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnter: 1
   onExit: 0
+  save: 0
 --- !u!1 &7114620835845501679
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnter: 1
   onExit: 0
+  save: 0
 --- !u!114 &707346818418968894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +463,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 807048018500501385, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
+    - {fileID: 8587812786356330153, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
+    - {fileID: 7872607311490483816, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1594289276793188635, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -480,6 +484,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 3
       addedObject: {fileID: 6893667447872586405}
+    - targetCorrespondingSourceObject: {fileID: 8214692700734619765, guid: fcf90dc6047265e4db4c32e1eba10505,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4691694813380317788}
   m_SourcePrefab: {fileID: 100100000, guid: fcf90dc6047265e4db4c32e1eba10505, type: 3}
 --- !u!143 &1186058319287048073 stripped
 CharacterController:
@@ -591,6 +599,28 @@ MonoBehaviour:
   RespawnFunction:
     m_PersistentCalls:
       m_Calls: []
+  FeedbackPlayPoint: {fileID: 0}
+--- !u!1 &4356564281644845688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8214692700734619765, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5653657304672799245}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4691694813380317788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4356564281644845688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe5e3aca4fa8d74e9eabc8e86fb85eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter: 1
+  onExit: 0
+  save: 0
 --- !u!114 &5724281566647757711 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 73579990839173506, guid: fcf90dc6047265e4db4c32e1eba10505,

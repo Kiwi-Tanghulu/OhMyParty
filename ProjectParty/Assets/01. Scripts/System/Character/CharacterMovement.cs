@@ -32,7 +32,7 @@ namespace OMG
         {
             base.UpdateCompo();
 
-            Move();
+            //Move();
         }
 
         public virtual void Move()
@@ -68,6 +68,11 @@ namespace OMG
         public void Gravity()
         {
             movement.Gravity();
+        }
+
+        public void VerticalMove()
+        {
+            movement.VerticalMove();
         }
 
         #region ETC

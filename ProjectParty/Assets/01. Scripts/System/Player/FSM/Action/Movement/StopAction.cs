@@ -12,10 +12,14 @@ namespace OMG.Player.FSM
         [SerializeField] private bool onEnter;
         [SerializeField] private bool onExit;
 
+        [DrawIf("onEnter", true)]
+        [SerializeField] private bool save;
+        private Vector3 saveMoveDir;
+
         public override void Init(CharacterFSM brain)
         {
             base.Init(brain);
-        
+
             movement = player.GetComponent<CharacterMovement>();
         }
 
@@ -24,7 +28,27 @@ namespace OMG.Player.FSM
             base.EnterState();
 
             if (onEnter)
+            {
+                if (save)
+                    saveMoveDir = movement.Movement.MoveDir;
+
                 movement.SetMoveDirection(Vector3.zero);
+                Debug.Log(movement.Movement.MoveDir);
+            }
+        }
+
+        public override void UpdateState()
+        {
+            base.UpdateState();
+
+            if (onEnter)
+            {
+                if (save)
+                    saveMoveDir = movement.Movement.MoveDir;
+
+                movement.SetMoveDirection(Vector3.zero);
+                Debug.Log(movement.Movement.MoveDir);
+            }
         }
 
         public override void ExitState()
@@ -33,7 +57,9 @@ namespace OMG.Player.FSM
 
             if (onExit)
                 movement.SetMoveDirection(Vector3.zero);
+
+            if (save)
+                movement.SetMoveDirection(saveMoveDir);
         }
     }
 }
-

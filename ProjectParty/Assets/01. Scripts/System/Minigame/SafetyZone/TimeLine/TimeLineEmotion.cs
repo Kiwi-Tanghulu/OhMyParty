@@ -8,6 +8,7 @@ namespace OMG.Minigames.SafetyZone
     public class TimeLineEmotion : MonoBehaviour
     {
         private EmotionText emotionText;
+        [SerializeField] private char emotionTextValue = '?';
 
         private void Awake()
         {
@@ -22,7 +23,7 @@ namespace OMG.Minigames.SafetyZone
         public void StartEffect()
         {
             emotionText.gameObject.SetActive(true);
-            emotionText.StartEffect('?');
+            emotionText.StartEffect(emotionTextValue);
         }
     }
 }

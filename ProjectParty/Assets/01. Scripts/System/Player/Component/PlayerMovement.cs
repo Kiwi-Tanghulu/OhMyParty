@@ -18,8 +18,6 @@ namespace OMG.Player
 
         [Space]
         public PlayerMoveType MoveType;
-        [DrawIf("MoveType", PlayerMoveType.TPS)]
-        [SerializeField] private bool showCameraForwardImmediately;
 
         private bool isInit;
 
@@ -43,15 +41,6 @@ namespace OMG.Player
         public override void UpdateCompo()
         {
             base.UpdateCompo();
-
-            if(showCameraForwardImmediately)
-            {
-                TPSPlayerCamera tpsCamera = Controller.GetCharacterComponent<TPSPlayerCamera>();
-                if (tpsCamera != null)
-                {
-                    Controller.transform.rotation = tpsCamera.Forward;
-                }
-            }
             
             Gravity();
             Movement.CheckGround();

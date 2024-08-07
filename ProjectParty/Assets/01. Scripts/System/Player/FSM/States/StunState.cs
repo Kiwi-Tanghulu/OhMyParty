@@ -40,7 +40,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            ragdoll.SetActive(true);
+            ragdoll.SetActive(true, true);
             ragdoll.AddForce(health.Damage, health.HitDir);
             movement.Movement.SetCollisionActive(false);
             brain.Controller.InvokeNetworkEvent(OnStunNetworkEvent);
@@ -52,7 +52,7 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            ragdoll.SetActive(false);
+            ragdoll.SetActive(false, true);
             movement.Movement.SetCollisionActive(true);
 
             RaycastHit[] hit = Physics.RaycastAll(ragdoll.HipRb.transform.position, Vector3.down, 10000f, groundLayer);

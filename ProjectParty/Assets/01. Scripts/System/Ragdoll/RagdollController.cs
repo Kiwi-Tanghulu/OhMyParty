@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using OMG.Extensions;
 using OMG.NetworkEvents;
 using System;
@@ -50,7 +51,7 @@ namespace OMG.Ragdoll
 
         }
 
-        public void SetActive(bool value, bool withSync = true)
+        public void SetActive(bool value, bool withSync)
         {
             if(withSync == false)
             {
@@ -69,13 +70,15 @@ namespace OMG.Ragdoll
 
         protected virtual void SetActive(BoolParams value)
         {
-            for (int i = 0; i < parts.Length; i++)
+			active = value;
+
+			for (int i = 0; i < parts.Length; i++)
             {
-                parts[i].Col.enabled = value;
-                parts[i].Rb.isKinematic = !value;
+                parts[i].Col.enabled = active;
+                parts[i].Rb.isKinematic = !active;
             }
 
-            if (value)
+            if (active)
             {
                 for (int i = 0; i < parts.Length; i++)
                 {
@@ -91,7 +94,7 @@ namespace OMG.Ragdoll
                 OnDeactiveEvent?.Invoke();
             }
 
-            active = value;
+            Debug.Log(active);
         }
 
         public void AddForce(float power, Vector3 dir)
@@ -116,14 +119,17 @@ namespace OMG.Ragdoll
             dir.Normalize();
 
             float angle = Mathf.Acos(Vector3.Dot(dir, new Vector3(dir.x, 0f, dir.z).normalized)) * Mathf.Rad2Deg;
-            if(angle < 30f && angle > 0f)
+            Debug.Log(angle);
+            if(angle < 30f && angle >= 0f)
             {
                 dir = Quaternion.Euler(0f, 0f, 30f - angle) * dir;
             }
 
             if (active)
             {
-                hipRb.AddForce(power * dir, ForceMode.Impulse);
+                Debug.Log(power);
+				Debug.Log(dir);
+				hipRb.AddForce(power * dir, ForceMode.Impulse);
                 addforceStorage = null;
             }
             else
