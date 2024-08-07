@@ -95,7 +95,7 @@ namespace OMG
             {
                 currentTime += Time.deltaTime;
 
-                SetMoveSpeed(Mathf.Lerp(power, 0f, currentTime / time));
+                //SetMoveSpeed(Mathf.Lerp(power, 0f, currentTime / time));
 
                 yield return null;
             }
