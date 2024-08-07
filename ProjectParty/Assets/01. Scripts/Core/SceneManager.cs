@@ -31,7 +31,8 @@ namespace OMG
             if(NetworkManager.Singleton == null || NetworkManager.Singleton.IsClient == false)
             {
                 AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
-                oper.completed += i => HandleLoadEventCompleted(sceneName, LoadSceneMode.Single, null, null);
+                if(oper != null)
+                    oper.completed += i => HandleLoadEventCompleted(sceneName, LoadSceneMode.Single, null, null);
             }
             else
             {

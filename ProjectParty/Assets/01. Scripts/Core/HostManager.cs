@@ -12,6 +12,7 @@ namespace OMG.Network
         // private bool closed = false;
 
         public event Action<ulong> OnClientDisconnectedEvent = null;
+        public bool Alive { get; private set; } = false;
 
         public HostManager()
         {
@@ -49,6 +50,8 @@ namespace OMG.Network
             // ClientManager.Instance.CurrentLobby?.SetData(DEFINE.LOBBY_CLOSED, "false");
             ClientManager.Instance.CurrentLobby?.SetData("owner", SteamClient.Name);
             onHostStarted?.Invoke();
+
+            Alive = true;
         }
 
         /// <summary>
@@ -56,6 +59,8 @@ namespace OMG.Network
         /// </summary>
         public void Disconnect()
         {
+            Alive = false;
+            
             if(NetworkManager.Singleton == null)
                 return;
 

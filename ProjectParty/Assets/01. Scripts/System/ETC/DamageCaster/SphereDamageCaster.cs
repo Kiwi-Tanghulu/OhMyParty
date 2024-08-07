@@ -30,7 +30,7 @@ namespace OMG
 
                     if (hits[i].collider.TryGetComponent<IDamageable>(out IDamageable damageable))
                     {
-                        damageable.OnDamaged(damage, caster.transform, hits[i].point, hitEffectType);
+                        damageable.OnDamaged(damage, caster.transform, hits[i].point, hitEffectType, hits[i].normal);
                     }
                 }
             }
