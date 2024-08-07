@@ -22,7 +22,7 @@ namespace OMG.Player
             Lobby.Current.GetLobbyComponent<LobbyCutSceneComponent>().
                 CutSceneEvents[LobbyCutSceneState.EndFinish] += LobbyCutSscene_OnEndFinish;
 
-            scoreText.GetComponent<AnimationEvent>().OnEndEvent += CalculateScoreState_OnEndEvent;
+            scoreText.GetComponent<AnimationEvent>().OnEndEvent.AddListener(CalculateScoreState_OnEndEvent);
         }
 
         public override void EnterState()
