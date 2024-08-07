@@ -44,7 +44,7 @@ namespace OMG.Player
             //}
 
             GetCharacterComponent<CharacterFSM>().ChangeDefaultState();
-            GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false);
+            GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false, true);
             GetCharacterComponent<PlayerMovement>().Teleport(pos, Quaternion.Euler(rot));
         }
     }

@@ -10,7 +10,8 @@ namespace OMG.Ragdoll
     {
         public void SetActive(bool value)
         {
-            SetActive(value, false);
+            Debug.Log(123);
+            base.SetActive(value);
         }
 
         public void AddForce(float power)

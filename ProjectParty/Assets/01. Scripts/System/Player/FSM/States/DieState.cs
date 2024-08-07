@@ -26,7 +26,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            ragdoll.SetActive(true);
+            ragdoll.SetActive(true, true);
             ragdoll.AddForce(health.Damage, health.HitDir);
 
             brain.Controller.InvokeNetworkEvent(playerDieEvent);
