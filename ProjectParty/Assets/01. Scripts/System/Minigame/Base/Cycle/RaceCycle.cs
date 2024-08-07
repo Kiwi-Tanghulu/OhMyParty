@@ -1,6 +1,8 @@
 using OMG.Extensions;
+using OMG.Inputs;
 using OMG.Lobbies;
 using OMG.NetworkEvents;
+using OMG.Player;
 using OMG.UI.Minigames;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,13 +52,14 @@ namespace OMG.Minigames
         protected virtual void HandlePlayerGoal(UlongParams clientID)
         {
             Debug.Log($"Goal Player : {clientID.Value}");
+            PlayerController player = playableMinigame.PlayerDictionary[clientID];
 
             minigame.PlayerDatas.ForEach((data, index) => {
                 if (data.clientID != clientID)
                     return;
 
                 playerPanel.SetGoal(index);
-                OnPlayerGoalEvent?.Invoke(playableMinigame.PlayerDictionary[clientID].FeedbackPlayPoint);
+                OnPlayerGoalEvent?.Invoke(player.FeedbackPlayPoint);
 
                 if (IsHost)
                 {
@@ -65,6 +68,11 @@ namespace OMG.Minigames
                     data.score = GetScore();
                     goalPlayerCount++;
                     Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Goal Player Count : {goalPlayerCount}");
+
+                    StartCoroutine(this.DelayCoroutine(2f, () =>
+                    {
+                        player.NetworkObject.Despawn(true);
+                    }));
 
                     minigame.PlayerDatas[index] = data;
                     if (minigame.PlayerDatas.Count == GoalPlayerCount)

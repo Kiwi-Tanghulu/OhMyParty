@@ -1,3 +1,4 @@
+using OMG.NetworkEvents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,11 @@ namespace OMG.Ragdoll
 
         public void AddForce(float power)
         {
-            AddForce(power, transform.forward);
+            AddForce(new AttackParams()
+            {
+                Damage = power,
+                Dir = transform.forward,
+            });
         }
     }
 }
