@@ -47,6 +47,6 @@ public class CatchTailPlayer : MonoBehaviour
 
         if(owner.IsOwner)
             playerPanel.SetTargetTailColor(color);
-        playerPanel.SetTargetTailColor(playerIndex, color);
+        // playerPanel.SetTargetTailColor(playerIndex, color);
     }
 }

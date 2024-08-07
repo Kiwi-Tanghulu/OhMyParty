@@ -305,8 +305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2338281872396095181}
-  - component: {fileID: 8236266051368272766}
-  - component: {fileID: 6296341769236877859}
+  - component: {fileID: 5537465113199046927}
   m_Layer: 0
   m_Name: OhMySwordPlayerSlot
   m_TagString: Untagged
@@ -336,7 +335,7 @@ RectTransform:
   m_AnchoredPosition: {x: -700, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8236266051368272766
+--- !u!114 &5537465113199046927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -345,7 +344,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7773260831256526262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5bd875bb80ea47a2a731c7cdeb93bb7, type: 3}
+  m_Script: {fileID: 11500000, guid: edf994c8fdfd80343b3210ecf6a0e2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerImage: {fileID: 5093400091025506339}
@@ -355,25 +354,6 @@ MonoBehaviour:
   OnScoreChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  tailPanel: {fileID: 151657357313732655}
---- !u!114 &6296341769236877859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7773260831256526262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1593b0970cb04ba428787ca2c0f82fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controls:
-  - ColorPropertyName: _FaceColor
-    Graphics:
-    - {fileID: 4016826571713040431}
-  index: 0
-  initOnAwake: 1
 --- !u!1001 &781560425501484797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -386,6 +366,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TailPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 477336862154031937, guid: cae1da06dca494a8dadc6f82847fa8ee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4203358821799896333, guid: cae1da06dca494a8dadc6f82847fa8ee,
         type: 3}
@@ -487,18 +472,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cae1da06dca494a8dadc6f82847fa8ee, type: 3}
---- !u!114 &151657357313732655 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 631175203753727698, guid: cae1da06dca494a8dadc6f82847fa8ee,
-    type: 3}
-  m_PrefabInstance: {fileID: 781560425501484797}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c611b915dd4ab41b0b247e6e6be96ece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5956181546160072753 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6372649135239024332, guid: cae1da06dca494a8dadc6f82847fa8ee,
