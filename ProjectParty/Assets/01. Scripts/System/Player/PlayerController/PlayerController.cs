@@ -8,12 +8,18 @@ namespace OMG.Player
     public class PlayerController : CharacterController, IRespawn
     {
         public NetworkEvent<TransformParams> RespawnFunction = new NetworkEvent<TransformParams>("RespawnFunction");
+        public Transform FeedbackPlayPoint;
 
         protected override bool Init()
         {
             bool baseInit = base.Init();
             if(baseInit == false)
                 return false;
+
+            if (IsOwner)
+                gameObject.tag = "Player";
+            else
+                gameObject.tag = "OtherPlayer";
 
             RespawnFunction.AddListener(Respawn);
             RespawnFunction.Register(NetworkObject);

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace OMG.Minigames.PunchClub
 {
     public class BoxingGun : CharacterComponent
@@ -8,6 +10,7 @@ namespace OMG.Minigames.PunchClub
         public override void Init(CharacterController controller)
         {
             base.Init(controller);
+            damageCaster = GetComponent<DamageCaster>();
             animator = transform.Find("Visual").GetComponent<BoxingGunAnimator>();
             animator.OnAnimationTriggerEvent += HandleAnimationTrigger;
         }
