@@ -12,12 +12,6 @@ namespace OMG.Minigames.PunchClub
         private DeathmatchCycle deathmatchCycle = null;
         protected override bool ShufflePosition => true;
 
-
-        protected override void Awake()
-        {
-            InputManager.ChangeInputMap(InputMapType.Play);
-        }
-
         public override void Init()
         {
             base.Init();
