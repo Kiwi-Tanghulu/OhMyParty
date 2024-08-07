@@ -6,6 +6,7 @@ namespace OMG.Minigames.PunchClub
 {
     public class PunchClub : PlayableMinigame
     {
+        [SerializeField] DeadZone deadZone = null;
         [SerializeField] List<HitableObject> hitableObjects = new List<HitableObject>();
 
         private DeathmatchCycle deathmatchCycle = null;
@@ -36,7 +37,17 @@ namespace OMG.Minigames.PunchClub
         public override void StartGame()
         {
             base.StartGame();
-            Debug.Log("game start");
+
+            if(IsHost)
+                deadZone?.SetActive(true);
+        }
+
+        public override void FinishGame()
+        {
+            base.FinishGame();
+
+            if(IsHost)
+                deadZone?.SetActive(false);
         }
     }
 }
