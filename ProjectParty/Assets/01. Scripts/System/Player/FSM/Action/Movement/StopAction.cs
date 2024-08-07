@@ -47,7 +47,7 @@ namespace OMG.Player.FSM
                     saveMoveDir = movement.Movement.MoveDir;
 
                 movement.SetMoveDirection(Vector3.zero);
-                Debug.Log(movement.Movement.MoveDir);
+//                Debug.Log(movement.Movement.MoveDir);
             }
         }
 
