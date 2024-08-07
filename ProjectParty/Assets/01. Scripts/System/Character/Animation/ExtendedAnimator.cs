@@ -65,7 +65,7 @@ namespace OMG
 
         public void SetLayerWeight(AnimatorLayerType layer, float value, bool lerping = false, float time = 1f)
         {
-            int layerIndex = (int)layer;
+            int layerIndex = animator.GetLayerIndex($"{layer} Layer");
 
             if (lerping)
             {

@@ -17,8 +17,6 @@ namespace OMG.Player
 
             RespawnFunction.AddListener(Respawn);
             RespawnFunction.Register(NetworkObject);
-
-            InputManager.ChangeInputMap(InputMapType.Play);
             
             return true;
         }

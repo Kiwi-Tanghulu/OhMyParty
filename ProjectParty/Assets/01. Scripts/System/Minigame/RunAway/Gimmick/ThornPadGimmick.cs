@@ -25,6 +25,7 @@ namespace OMG.Minigames
         {
             seq = DOTween.Sequence();
             seq.Append(transform.DOLocalMoveY(upYPos, upTime));
+            seq.AppendCallback(() => OnExecuteEvent?.Invoke());
             seq.AppendInterval(executeTime);
             seq.Append(transform.DOLocalMoveY(downYPos, downTime));
             seq.AppendInterval(executeDelayTime);
