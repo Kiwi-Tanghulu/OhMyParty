@@ -31,13 +31,4 @@ public class RagdollSignalHandler : MonoBehaviour
 
 		_currentIdx++;
 	}
-#if UNITY_EDITOR
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.red;
-		Transform t = _ragdollControllers[0].transform;
-		Gizmos.DrawRay(t.position, -t.forward);
-		Gizmos.color = Color.white;
-	}
-#endif
 }
