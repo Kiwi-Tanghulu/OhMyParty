@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OMG.Extensions;
 using UnityEngine;
 
@@ -10,9 +11,19 @@ namespace OMG.Minigames.OhMySword
         [SerializeField] float xpSpawnInRadius = 1.5f;
         private int xpAmount = 0;
 
+        private List<XPObject> scores = new List<XPObject>();
+
         public void Init(int xp)
         {
             xpAmount = xp;
+        }
+
+        public void Release()
+        {
+            scores.ForEach(i => {
+                if(i != null)
+                    i.NetworkObject.Despawn();
+            });
         }
 
         public void GenerateXP()
