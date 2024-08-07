@@ -9,8 +9,8 @@ namespace OMG.Minigames
     {
         private RaceCycle raceCycle;
 
-        [SerializeField] private PlayerItemBox itemBoxPrefab;
-        [SerializeField] private Transform itemBoxSpawnPoints;
+        //[SerializeField] private PlayerItemBox itemBoxPrefab;
+        //[SerializeField] private Transform itemBoxSpawnPoints;
 
         public override void Init()
         {
@@ -23,13 +23,12 @@ namespace OMG.Minigames
         {
             base.OnNetworkSpawn();
 
-
-            foreach(Transform point in itemBoxSpawnPoints)
-            {
-                PlayerItemBox itemBox = Instantiate(itemBoxPrefab, point.position, point.rotation);
-                itemBox.NetworkObject.Spawn();
-                itemBox.NetworkObject.TrySetParent(transform);
-            }
+            //foreach(Transform point in itemBoxSpawnPoints)
+            //{
+            //    PlayerItemBox itemBox = Instantiate(itemBoxPrefab, point.position, point.rotation);
+            //    itemBox.NetworkObject.Spawn();
+            //    itemBox.NetworkObject.TrySetParent(transform);
+            //}
         }
     }
 }

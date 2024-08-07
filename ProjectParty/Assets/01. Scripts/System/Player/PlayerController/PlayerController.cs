@@ -16,6 +16,11 @@ namespace OMG.Player
             if(baseInit == false)
                 return false;
 
+            if (IsOwner)
+                gameObject.tag = "Player";
+            else
+                gameObject.tag = "OtherPlayer";
+
             RespawnFunction.AddListener(Respawn);
             RespawnFunction.Register(NetworkObject);
             

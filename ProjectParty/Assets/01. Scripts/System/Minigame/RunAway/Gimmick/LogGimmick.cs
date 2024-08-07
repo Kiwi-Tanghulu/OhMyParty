@@ -46,7 +46,13 @@ namespace OMG.Minigames
                     Execute();
                 }
             }
-            if(collision.gameObject.CompareTag("Ground"))
+            if (collision.gameObject.CompareTag("OtherPlayer"))
+            {
+                OnBreakEvent?.Invoke(transform.position);
+
+                Destroy(gameObject);
+            }
+            if (collision.gameObject.CompareTag("Ground"))
             {
                 OnGroundEvent?.Invoke();
             }

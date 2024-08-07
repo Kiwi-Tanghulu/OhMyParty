@@ -433,6 +433,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 2bad7e2a336d0ff45a57c72358fa1002, type: 2}
+--- !u!1 &1012921512745397575 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5316502958630533446, guid: fcf90dc6047265e4db4c32e1eba10505,
+    type: 3}
+  m_PrefabInstance: {fileID: 5171994919433540609}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1522483986554021780 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5973583883872236437, guid: fcf90dc6047265e4db4c32e1eba10505,
@@ -524,7 +530,19 @@ MonoBehaviour:
     m_Bits: 385
   OnIsGroundChagend:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1012921512745397575}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   DrawGizmo: 1
   EnableGravity: 0
 --- !u!54 &4969170670301082808
