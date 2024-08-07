@@ -11,10 +11,10 @@ namespace OMG.UI.Minigames.OhMySword
             tailPanel.SetColor(color);
         }
 
-        public void SetTargetTailColor(int index, Color color)
-        {
-            OhMySwordPlayerSlot panel = playerSlots[index] as OhMySwordPlayerSlot;
-            panel.SetTailColor(color);
-        }
+        // public void SetTargetTailColor(int index, Color color)
+        // {
+        //     OhMySwordPlayerSlot panel = playerSlots[index] as OhMySwordPlayerSlot;
+        //     panel.SetTailColor(color);
+        // }
     }
 }
