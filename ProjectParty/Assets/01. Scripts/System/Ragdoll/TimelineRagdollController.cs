@@ -10,7 +10,6 @@ namespace OMG.Ragdoll
     {
         public void SetActive(bool value)
         {
-            Debug.Log(123);
             base.SetActive(value);
         }
 

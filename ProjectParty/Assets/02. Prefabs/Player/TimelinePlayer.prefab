@@ -75,8 +75,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8584659456215736865}
   - component: {fileID: 2321786703674486371}
-  - component: {fileID: 1808273092212012431}
-  - component: {fileID: 5030287930098430026}
   m_Layer: 0
   m_Name: TimelinePlayer
   m_TagString: Untagged
@@ -121,48 +119,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1808273092212012431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383653842776259788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1888662568
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
---- !u!114 &5030287930098430026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383653842776259788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c37be99de5f10964db6f861954fa6fc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  compoList:
-  - {fileID: 6444648181046285927}
-  OnInitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  useInNetwork: 0
-  RespawnFunction:
-    m_PersistentCalls:
-      m_Calls: []
-  FeedbackPlayPoint: {fileID: 0}
 --- !u!1 &505100602913594894
 GameObject:
   m_ObjectHideFlags: 0
@@ -2601,6 +2557,7 @@ MonoBehaviour:
   OnDeactiveEvent:
     m_PersistentCalls:
       m_Calls: []
+  selfInit: 1
 --- !u!1 &7094944504310167569
 GameObject:
   m_ObjectHideFlags: 0
