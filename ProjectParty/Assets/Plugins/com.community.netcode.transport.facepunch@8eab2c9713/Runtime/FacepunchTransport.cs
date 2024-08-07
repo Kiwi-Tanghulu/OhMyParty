@@ -16,7 +16,7 @@ namespace Netcode.Transports.Facepunch
     {
         private ConnectionManager connectionManager;
         private SocketManager socketManager;
-        private Dictionary<ulong, Client> connectedClients;
+        private Dictionary<ulong, Client> connectedClients; 
 
         [Space]
         [Tooltip("The Steam App ID of your game. Technically you're not allowed to use 480, but Valve doesn't do anything about it so it's fine for testing purposes.")]
