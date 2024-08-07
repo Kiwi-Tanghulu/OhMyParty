@@ -11,7 +11,7 @@ namespace OMG.Minigames
         private WaitForSeconds wfs;
 
         [Space]
-        [SerializeField] private ThreeDirectionAudioPlayer audioPlayer;
+        //[SerializeField] private ThreeDirectionAudioPlayer audioPlayer;
         [SerializeField] private AudioClip breakAudioClip;
         [SerializeField] private float maxDistance;
 
@@ -52,9 +52,8 @@ namespace OMG.Minigames
         }
 
         private void PlayLogBreakSound(Vector3 pos)
-        {
-            Debug.Log("play break sound");
-            audioPlayer.PlayOneShot(breakAudioClip, pos, maxDistance);
+        {   
+            //audioPlayer.PlayOneShot(breakAudioClip, pos, maxDistance);
         }
     }
 }
