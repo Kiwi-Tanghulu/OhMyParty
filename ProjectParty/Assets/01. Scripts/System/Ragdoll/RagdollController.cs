@@ -1,4 +1,3 @@
-using Mono.Cecil.Cil;
 using OMG.Extensions;
 using OMG.NetworkEvents;
 using System;
