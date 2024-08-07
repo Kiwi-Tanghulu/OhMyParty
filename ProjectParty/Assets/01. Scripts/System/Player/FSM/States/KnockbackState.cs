@@ -25,7 +25,7 @@ namespace OMG.Player.FSM
 
             PlayerMoveType moveType = movement.MoveType;
             movement.MoveType = PlayerMoveType.TopDown;
-            movement.Knockback(health.HitDir, health.Damage, knockbackTime, () =>
+            movement.Knockback(health.HitDir, health.Damage * powerMultiplier, knockbackTime, () =>
             {
                 brain.ChangeState(brain.DefaultState);
             });
