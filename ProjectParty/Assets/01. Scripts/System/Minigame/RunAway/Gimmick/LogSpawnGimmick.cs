@@ -10,6 +10,11 @@ namespace OMG.Minigames
         [SerializeField] private float logSpawnDelay = 3f;
         private WaitForSeconds wfs;
 
+        [Space]
+        //[SerializeField] private ThreeDirectionAudioPlayer audioPlayer;
+        [SerializeField] private AudioClip breakAudioClip;
+        [SerializeField] private float maxDistance;
+
         private void Awake()
         {
             wfs = new WaitForSeconds(logSpawnDelay);
@@ -28,6 +33,7 @@ namespace OMG.Minigames
             base.Execute();
             LogGimmick log = Instantiate(logPrefab, transform.position, transform.rotation, transform);
             log.SetMoveDirection(transform.right);
+            log.OnBreakEvent.AddListener(PlayLogBreakSound);
         }
 
         protected override bool IsExecutable()
@@ -43,6 +49,11 @@ namespace OMG.Minigames
 
                 Execute();
             }
+        }
+
+        private void PlayLogBreakSound(Vector3 pos)
+        {   
+            //audioPlayer.PlayOneShot(breakAudioClip, pos, maxDistance);
         }
     }
 }
