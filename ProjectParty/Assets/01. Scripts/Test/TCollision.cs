@@ -6,4 +6,9 @@ public class TCollision : MonoBehaviour
     {
         Debug.Log("asd");
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collision");
+    }
 }
