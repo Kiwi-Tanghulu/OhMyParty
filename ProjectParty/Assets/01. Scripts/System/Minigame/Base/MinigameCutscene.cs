@@ -47,7 +47,7 @@ namespace OMG.Minigames
         {
             timelineHolder.time = timelineHolder.playableAsset.duration;
             timelineHolder.Evaluate();
-            //timelineHolder.Stop();
+            timelineHolder.Stop();
             timelineHolder.Pause();
             cycleText.PlayRaedyGo();
         }
