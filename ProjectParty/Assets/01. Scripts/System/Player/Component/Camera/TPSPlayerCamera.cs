@@ -1,5 +1,6 @@
 using Cinemachine;
 using OMG.Inputs;
+using System.Collections;
 using UnityEngine;
 
 namespace OMG.Player
@@ -13,6 +14,13 @@ namespace OMG.Player
 
         [Space]
         [SerializeField] private Vector2 xLimitAngle;
+
+        [Space]
+        [SerializeField] private float dampingWeightMultiplier;
+        private float dampingWeight;
+        private Coroutine dampingClampCo;
+        [SerializeField]private int startClampZeroCount = 0;
+        private int zeroCount = 0;
 
         [Space]
         [SerializeField] private bool invertX;
@@ -30,12 +38,12 @@ namespace OMG.Player
             forward = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
             currentRotation = Vector2.zero;
 
-            input.OnMouseDeltaEvent += Turn;
+            //input.OnMouseDeltaEvent += Turn;
         }
 
         private void Update()
         {
-            transform.eulerAngles = currentRotation;
+            Turn();
         }
 
         private void LateUpdate()
@@ -45,19 +53,62 @@ namespace OMG.Player
 
         private void OnDestroy()
         {
-            input.OnMouseDeltaEvent -= Turn;
+            //input.OnMouseDeltaEvent -= Turn;
         }
 
-        private void Turn(Vector2 mouseDelta)
+        private void Turn()
         {
+            Vector2 mouseDelta = input.MouseDelta;
+
+            if (mouseDelta == Vector2.zero)
+                zeroCount++;
+
             Vector2 rotateAngle = new Vector2(mouseDelta.y, mouseDelta.x) * turnSpeed;
             if (invertX) rotateAngle.y *= -1;
             if (invertY) rotateAngle.x *= -1;
             
             currentRotation += rotateAngle;
-            currentRotation.x = Mathf.Clamp(currentRotation.x, xLimitAngle.x, xLimitAngle.y);
+            
+            if(mouseDelta != Vector2.zero && dampingClampCo != null)
+            {
+                StopCoroutine(dampingClampCo);
+                dampingClampCo = null;
+            }
+
+            float clampedValue = Mathf.Clamp(currentRotation.x, xLimitAngle.x, xLimitAngle.y);
+            if (clampedValue != currentRotation.x)
+            {
+                dampingWeight = Mathf.Max(1f, 
+                    Mathf.Max(clampedValue, currentRotation.x) - Mathf.Min(clampedValue, currentRotation.x));
+
+                currentRotation.x = (currentRotation.x - rotateAngle.x) + (rotateAngle.x * (1f / dampingWeight));
+
+                if (zeroCount > startClampZeroCount && dampingClampCo == null)
+                {
+                    Debug.Log("start clamp");
+                    dampingClampCo = StartCoroutine(DampingClampCo(clampedValue));
+                }
+            }
+
+            transform.eulerAngles = currentRotation;
 
             forward = Quaternion.Euler(0f, currentRotation.y, 0f);
+        }
+
+        private IEnumerator DampingClampCo(float clampedValue)
+        {
+            zeroCount = 0;
+
+            while(true)
+            {
+                dampingWeight = Mathf.Max(clampedValue, currentRotation.x) - Mathf.Min(clampedValue, currentRotation.x);
+
+                currentRotation.x = Mathf.Lerp(currentRotation.x, clampedValue, Time.deltaTime * dampingWeight * dampingWeightMultiplier);
+
+                transform.eulerAngles = currentRotation;
+
+                yield return null;
+            }
         }
     }
 }
