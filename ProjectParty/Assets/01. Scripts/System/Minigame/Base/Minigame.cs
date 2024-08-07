@@ -113,10 +113,10 @@ namespace OMG.Minigames
 
             Fade.Instance.FadeIn(
                 3f, 
-                () => MinigameManager.Instance.MinigamePaused = true, 
+                null,//() => MinigameManager.Instance.MinigamePaused = true, 
                 () =>
                 {
-                    MinigameManager.Instance.MinigamePaused = false;
+                    //MinigameManager.Instance.MinigamePaused = false;
                     InputManager.SetInputEnable(true);
                 }
             );
