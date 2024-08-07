@@ -43,11 +43,6 @@ namespace OMG.Minigames
             }
         }
 
-        private void Update()
-        {
-            Debug.Log(timelineHolder.time);
-        }
-
         public void SkipCutscene()
         {
             timelineHolder.time = timelineHolder.playableAsset.duration;
