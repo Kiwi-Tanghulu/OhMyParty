@@ -6,6 +6,7 @@ namespace OMG.Player.FSM
     public class KnockbackState : FSMState
     {
         [SerializeField] private float knockbackTime;
+        [SerializeField] private float powerMultiplier;
 
         private PlayerMovement movement;
         private PlayerHealth health;
