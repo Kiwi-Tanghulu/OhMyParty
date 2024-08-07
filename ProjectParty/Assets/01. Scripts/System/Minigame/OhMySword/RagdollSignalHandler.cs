@@ -25,7 +25,7 @@ public class RagdollSignalHandler : MonoBehaviour
 		controller.GetComponent<Animator>().enabled = false;
 		controller.transform.parent.GetComponent<Animator>().enabled = false;
 
-		controller.AddForce(_force, -controller.transform.forward, ForceMode.Impulse);
+		controller.AddForce(_force, -controller.transform.forward);
 
 		_currentIdx++;
 	}
