@@ -22,7 +22,21 @@ namespace OMG
         {
             base.Move();
 
-            rb.velocity = moveVector;
+            Vector3 velocity = rb.velocity;
+            velocity.x = moveVector.x;
+            velocity.z = moveVector.z;
+
+            rb.velocity = velocity;
+        }
+
+        public override void VerticalMove()
+        {
+            base.VerticalMove();
+
+            Vector3 velocity = rb.velocity;
+            velocity.y = VerticalVelocity;
+
+            rb.velocity = velocity;
         }
 
         public override void SetCollisionActive(bool active)

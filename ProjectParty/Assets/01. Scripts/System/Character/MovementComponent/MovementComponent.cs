@@ -25,6 +25,7 @@ namespace OMG
 
         //vertical
         private float verticalVelocity;
+        public float VerticalVelocity => verticalVelocity;
 
         //turn
         private Coroutine trunCo;
@@ -62,9 +63,11 @@ namespace OMG
         {
             if (!EnableMove)
                 return;
-            
+
             CalcMoveVector();
         }
+
+        public virtual void VerticalMove() { }
 
         protected virtual void CalcMoveVector()
         {
@@ -95,7 +98,7 @@ namespace OMG
 
             moveVec *= moveSpeed;
             
-            moveVector = new Vector3(moveVec.x, verticalVelocity, moveVec.z);
+            moveVector = new Vector3(moveVec.x, 0f, moveVec.z);
         }
 
         public void SetMoveSpeed(float value)
@@ -106,6 +109,7 @@ namespace OMG
         public virtual void SetMoveDirection(Vector3 value, bool lookMoveDir = true, bool forceSet = false)
         {
             prevMoveDir = forceSet ? value : moveDir;
+            value.y = 0f;
             moveDir = value;
 
             OnMoveDirectionChanged?.Invoke(moveDir);
