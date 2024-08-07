@@ -11,6 +11,7 @@ namespace OMG.Network
         public static GuestManager Instance = null;
 
         private FacepunchTransport transport = null;
+        public bool Alive { get; private set; } = false;
 
         public GuestManager(FacepunchTransport transport)
         {
@@ -45,6 +46,7 @@ namespace OMG.Network
             if(networkManager.StartClient())
             {
                 Debug.Log($"[Netcode] Guest Started");
+                Alive = true;
             }
         }
 
@@ -54,6 +56,7 @@ namespace OMG.Network
         public void Disconnect()
         {
             ClientManager.Instance.CurrentLobby?.Leave();
+            Alive = false;
             
             if(NetworkManager.Singleton == null)
                 return;

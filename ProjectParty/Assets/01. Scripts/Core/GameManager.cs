@@ -65,7 +65,7 @@ namespace OMG
         private void HandleDisconnect()
         {
             SceneType scene = SteamClient.IsValid ? SceneType.IntroScene_Steam : SceneType.IntroScene;
-            SceneManager.Instance.LoadScene(scene);
+            SceneManager.Instance?.LoadScene(scene);
         }
     }
 }

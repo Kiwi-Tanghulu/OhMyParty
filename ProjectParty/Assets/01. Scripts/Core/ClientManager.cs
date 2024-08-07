@@ -52,9 +52,10 @@ namespace OMG.Network
             if(NetworkManager.Singleton == null)
                 return;
             
-            if(NetworkManager.Singleton.IsHost)
+            if(HostManager.Instance.Alive)
                 HostManager.Instance.Disconnect();
-            else
+
+            if(GuestManager.Instance.Alive)
                 GuestManager.Instance.Disconnect();
 
             OnDisconnectEvent?.Invoke();
