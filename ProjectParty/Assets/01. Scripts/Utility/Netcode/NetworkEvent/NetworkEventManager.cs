@@ -39,7 +39,8 @@ namespace OMG.NetworkEvents
         private void CallEvent(NetworkEventPacket packet)
         {
             NetworkEventParams eventParams = NetworkEventTable.GetEventParams(packet.ParamsID, packet.Buffer);
-            NetworkEventTable.GetEvent(packet.InstanceID, packet.EventID).Invoke(eventParams);
+            INetworkEvent networkEvent = NetworkEventTable.GetEvent(packet.InstanceID, packet.EventID);
+            networkEvent?.Invoke(eventParams);
         }
     }
 }
