@@ -11,7 +11,7 @@ namespace OMG.Minigames.SafetyZone
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player") == false)
+            if(other.CompareTag("Player") == false && other.CompareTag("OtherPlayer") == false)
                 return;
             
             if(other.TryGetComponent<SafetyZonePlayerController>(out SafetyZonePlayerController playerObject) == false)
@@ -22,7 +22,7 @@ namespace OMG.Minigames.SafetyZone
 
         private void OnTriggerExit(Collider other)
         {
-            if(other.CompareTag("Player") == false)
+            if(other.CompareTag("Player") == false && other.CompareTag("OtherPlayer") == false)
                 return;
             
             if(other.TryGetComponent<SafetyZonePlayerController>(out SafetyZonePlayerController playerObject) == false)
