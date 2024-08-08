@@ -11,6 +11,7 @@ namespace OMG.Minigames.OhMySword
         [SerializeField] Vector3 bladeDirection = Vector3.up;
         [SerializeField] float scaleFactor = 0.02f;
         [SerializeField] float growSpeed = 3f;
+        [SerializeField] float damage = 200f;
 
         private NetworkObject owner = null;
         private BoxCollider bladeCollider = null;
@@ -52,7 +53,7 @@ namespace OMG.Minigames.OhMySword
             if(other.TryGetComponent<IDamageable>(out IDamageable id) == false)
                 return;
 
-            id?.OnDamaged(5000, owner.transform, other.transform.position, HitEffectType.Die);
+            id?.OnDamaged(damage, owner.transform, other.transform.position, HitEffectType.Die);
         }
 
         public void SetLength(float length)
