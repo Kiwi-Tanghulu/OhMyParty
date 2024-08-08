@@ -11,6 +11,18 @@ namespace OMG
         [SerializeField] private CharacterStatType type;
         public CharacterStatType Type => type;
         [SerializeField] private float baseValue;
+        public float BaseValue
+        {
+            get
+            {
+                return baseValue;
+            }
+            set
+            {
+                baseValue = value;
+                CalculateValue();
+            }
+        }
 
         private float value;
         public float Value => value;
@@ -48,12 +60,6 @@ namespace OMG
         public void RemoveModifier(float modifier)
         {
             modifiers.Remove(modifier);
-            CalculateValue();
-        }
-
-        public void SetBaseValue(float value)
-        {
-            baseValue = value;
             CalculateValue();
         }
     }

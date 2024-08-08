@@ -106,6 +106,15 @@ namespace OMG
             moveSpeed = value;
         }
 
+        public float SetMaxMoveSpeed(float value)
+        {
+            float prev = statSO[CharacterStatType.MaxMoveSpeed].BaseValue;
+
+            statSO[CharacterStatType.MaxMoveSpeed].BaseValue = value;
+
+            return prev;
+        }
+
         public virtual void SetMoveDirection(Vector3 value, bool lookMoveDir = true, bool forceSet = false)
         {
             prevMoveDir = forceSet ? value : moveDir;
