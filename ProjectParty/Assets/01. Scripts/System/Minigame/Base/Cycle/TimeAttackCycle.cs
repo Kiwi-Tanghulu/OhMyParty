@@ -28,6 +28,9 @@ namespace OMG.Minigames
 
         protected virtual void FinishCycle()
         {
+            if(IsHost == false)
+                return;
+
             List<int> scores = new List<int>();
             minigame.PlayerDatas.ForEach(i => scores.Add(i.score));
             scores.Sort();
