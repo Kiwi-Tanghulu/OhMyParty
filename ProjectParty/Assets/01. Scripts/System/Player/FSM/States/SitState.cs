@@ -9,6 +9,7 @@ namespace OMG.Player.FSM
         private Transform sitPoint;
 
         private CharacterMovement movement;
+        private PlayerHealth health;
         private PlayerFocuser focuser;
 
         public override void InitState(CharacterFSM brain)
@@ -17,11 +18,15 @@ namespace OMG.Player.FSM
 
             movement = player.GetComponent<CharacterMovement>();
             focuser = player.GetComponent<PlayerFocuser>();
+            health = player.GetComponent<PlayerHealth>();
         }
 
         public override void EnterState()
         {
             base.EnterState();
+
+            health.Hitable = false;
+            health.PlayerHitable = false;
 
             if (focuser.FocusedObject.CurrentObject.TryGetComponent<Chair>(out Chair chair))
             {
@@ -43,7 +48,10 @@ namespace OMG.Player.FSM
         public override void ExitState()
         {
             base.ExitState();
-            
+
+            health.Hitable = true;
+            health.PlayerHitable = true;
+
             usingChair?.SetUseWhetherChair(sitPoint, false);
         }
     }
