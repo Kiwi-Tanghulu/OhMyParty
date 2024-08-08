@@ -190,7 +190,7 @@ namespace OMG.Lobbies
             cutSceneComponent.PlayCutscene(true);//here
 
             spotUI.PickUI.Hide();
-            spotUI.InfoContainer.Show();
+            //spotUI.InfoContainer.Show();
 
             DisplayMinigameInfo(minigameList[index]);
         }

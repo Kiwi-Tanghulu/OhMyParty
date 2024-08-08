@@ -616,9 +616,10 @@ GameObject:
   - component: {fileID: 5695960091950625962}
   - component: {fileID: 5358410544921687412}
   - component: {fileID: 940263342673999976}
-  - component: {fileID: 7684894010324900439}
-  - component: {fileID: 4285153238848219092}
   - component: {fileID: 1875714787442893404}
+  - component: {fileID: 3483616659789033058}
+  - component: {fileID: 4211044571711471543}
+  - component: {fileID: 7228155315833670307}
   m_Layer: 5
   m_Name: VideoPlayer
   m_TagString: Untagged
@@ -633,7 +634,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8568770061288553874}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -642,6 +643,7 @@ RectTransform:
   - {fileID: 7518103394748210592}
   - {fileID: 6848334246958448281}
   - {fileID: 9073739505694937814}
+  - {fileID: 7031490450816828346}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -684,139 +686,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!328 &7684894010324900439
-VideoPlayer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8568770061288553874}
-  m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: a05855dadf382fe44b6ec13688f39068, type: 3}
-  m_TargetCameraAlpha: 1
-  m_TargetCamera3DLayout: 0
-  m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 8400000, guid: 888c313837cb8864baa1d4b6b32591c5, type: 2}
-  m_TimeReference: 0
-  m_TargetMaterialRenderer: {fileID: 0}
-  m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 2
-  m_AspectRatio: 2
-  m_DataSource: 0
-  m_TimeUpdateMode: 2
-  m_PlaybackSpeed: 1
-  m_AudioOutputMode: 1
-  m_TargetAudioSources:
-  - {fileID: 4285153238848219092}
-  m_DirectAudioVolumes:
-  - 1
-  m_Url: 
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
-  m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 0
-  m_SkipOnDrop: 1
-  m_Looping: 1
-  m_WaitForFirstFrame: 1
-  m_FrameReadyEventEnabled: 0
-  m_VideoShaders: []
---- !u!82 &4285153238848219092
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8568770061288553874}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 7405861958529887818, guid: a6cec48dfdb18d04abdbe5ef5082f024,
-    type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.7
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &1875714787442893404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,9 +698,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf934e2249aff2a4ab9df574f77fc8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initOnStart: 0
+  youtubePlayer: {fileID: 6921090173776138598}
   playImage: {fileID: 7018203748612503473}
   stopImage: {fileID: 3077604706772080533}
   blindImage: {fileID: 3487058971723624655}
+  tex: {fileID: 8400000, guid: 888c313837cb8864baa1d4b6b32591c5, type: 2}
   OnPlayEvent:
     m_PersistentCalls:
       m_Calls:
@@ -862,6 +734,137 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3483616659789033058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8568770061288553874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fff3c7be5a953945843ab394d52e8cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showPlayerControl: 0
+  playbackSlider: {fileID: 0}
+  progressRectangle: {fileID: 0}
+  speedSlider: {fileID: 0}
+  volumeSlider: {fileID: 0}
+  currentTime: {fileID: 0}
+  totalTime: {fileID: 0}
+  loading: {fileID: 0}
+  nextVideoButton: {fileID: 0}
+  previousVideoButton: {fileID: 0}
+  controllerMainUI: {fileID: 0}
+  hideScreenControlTime: 0
+  useSliderToProgressVideo: 1
+--- !u!114 &4211044571711471543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8568770061288553874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b121d95bc3e711f4fad11014675bfd8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnYoutubeUrlAreReady:
+    m_PersistentCalls:
+      m_Calls: []
+  OnVideoReadyToStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnVideoStarted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3487058971723624655}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnVideoResumed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnVideoPaused:
+    m_PersistentCalls:
+      m_Calls: []
+  OnVideoFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  videoTimeEvents: []
+--- !u!114 &7228155315833670307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8568770061288553874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e7418089f4181645b5df8f90e317bf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controller: {fileID: 0}
+  _events: {fileID: 0}
+  youtubeUrl: 
+  videoQuality: 0
+  is360: 0
+  dontForceFullscreen: 0
+  autoPlayOnStart: 0
+  startFromSecond: 0
+  startFromSecondTime: 0
+  showThumbnailBeforeVideoLoad: 0
+  thumbnailObject: {fileID: 0}
+  customPlaylist: 0
+  autoPlayNextVideo: 0
+  youtubeUrls: []
+  videoFormat: 0
+  autoPlayOnEnable: 0
+  playUsingInternalDevicePlayer: 0
+  loadYoutubeUrlsOnly: 0
+  objectsToRenderTheVideoImage: []
+  is3DLayoutVideo: 0
+  layout3d: 0
+  mainCamera: {fileID: 0}
+  videoPlayer: {fileID: 7281075200078265564}
+  audioPlayer: {fileID: 0}
+  debug: 0
+  ignoreTimeout: 0
+  _skipOnDrop: 0
+  videoUrl: 
+  audioUrl: 
+  ForceGetWebServer: 0
+  progressStartDrag: 0
+  skyboxMaterial3D: {fileID: 0}
+  skyboxMaterialNormal: {fileID: 0}
+  skyboxMaterial3DSide: {fileID: 0}
+  forceLocal: 0
+  videoTitle: 
+  EACMaterial: {fileID: 0}
+  Material360: {fileID: 0}
+  audioDelayOffset: 0
+  pauseCalled: 0
+  isSyncing: 0
+  encryptedSignatureVideo: 
+  encryptedSignatureAudio: 
+  decryptedUrlForVideo: 0
+  decryptedUrlForAudio: 0
+  decryptedVideoUrlResult: 
+  decryptedAudioUrlResult: 
+  EncryptUrlForVideo: 
+  EncryptUrlForAudio: 
+  jsonForHtmlVersion: 
+  checkIfSync: 0
 --- !u!1 &9064742899752052034
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,3 +914,151 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ff74ee7f302fd4bbb736c514227138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &7033482648691015216
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5695960091950625962}
+    m_Modifications:
+    - target: {fileID: 1692476032, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: OnVideoStarted.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692476032, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: OnVideoStarted.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692476032, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: OnVideoStarted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3487058971723624655}
+    - target: {fileID: 1692476032, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: OnVideoStarted.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692476032, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: OnVideoStarted.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692476032, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: OnVideoStarted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692476032, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: OnVideoStarted.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1346264473260158, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_Name
+      value: YoutubeSimplified
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -963.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -538.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.757843
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114643942583524530, guid: f49b1865d907dca4a807588585397534,
+        type: 3}
+      propertyPath: videoFormat
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114643942583524530, guid: f49b1865d907dca4a807588585397534,
+        type: 3}
+      propertyPath: showThumbnailBeforeVideoLoad
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114654752377565014, guid: f49b1865d907dca4a807588585397534,
+        type: 3}
+      propertyPath: url
+      value: https://www.youtube.com/watch?v=TVt_dsGnZfw
+      objectReference: {fileID: 0}
+    - target: {fileID: 114654752377565014, guid: f49b1865d907dca4a807588585397534,
+        type: 3}
+      propertyPath: autoPlay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114654752377565014, guid: f49b1865d907dca4a807588585397534,
+        type: 3}
+      propertyPath: fullscreen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 328868761493553900, guid: f49b1865d907dca4a807588585397534,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 328868761493553900, guid: f49b1865d907dca4a807588585397534,
+        type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 888c313837cb8864baa1d4b6b32591c5, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f49b1865d907dca4a807588585397534, type: 3}
+--- !u!114 &6921090173776138598 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114654752377565014, guid: f49b1865d907dca4a807588585397534,
+    type: 3}
+  m_PrefabInstance: {fileID: 7033482648691015216}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fc08d9533c69d4b94db5f4b9e2605b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &7031490450816828346 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4271034587217290, guid: f49b1865d907dca4a807588585397534,
+    type: 3}
+  m_PrefabInstance: {fileID: 7033482648691015216}
+  m_PrefabAsset: {fileID: 0}
+--- !u!328 &7281075200078265564 stripped
+VideoPlayer:
+  m_CorrespondingSourceObject: {fileID: 328868761493553900, guid: f49b1865d907dca4a807588585397534,
+    type: 3}
+  m_PrefabInstance: {fileID: 7033482648691015216}
+  m_PrefabAsset: {fileID: 0}

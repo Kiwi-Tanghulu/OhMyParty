@@ -1,29 +1,19 @@
-#if UNITY_EDITOR
-using OMG.Inputs;
+using OMG;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TJunsung : MonoBehaviour
 {
-    public Rigidbody rb;
-
-    private void Start()
-    {
-        InputManager.ChangeInputMap(InputMapType.Play);
-        rb.gameObject.SetActive(false);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log(collision.transform.name);
-    }
-
+    [SerializeField] private List<string> urls;
+    [SerializeField] private OMGVideoPlayer player;
+    
+    int cnt = 0;
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
-            rb.gameObject.SetActive(true);
+            player.Play(urls[cnt % urls.Count]);
+            cnt++;
         }
     }
 }
-#endif
