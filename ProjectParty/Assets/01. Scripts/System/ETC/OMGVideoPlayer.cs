@@ -74,10 +74,12 @@ namespace OMG
             if (!gameObject.activeInHierarchy)
                 Show();
             
+
             StartCoroutine(this.DelayCoroutine(delay, () =>
             {
                 playImage.gameObject.SetActive(true);
                 stopImage.gameObject.SetActive(false);
+                blindImage.gameObject.SetActive(false);
 
                 videoPlayTween.Restart();
 
@@ -97,6 +99,7 @@ namespace OMG
             {
                 playImage.gameObject.SetActive(false);
                 stopImage.gameObject.SetActive(true);
+                blindImage.gameObject.SetActive(true);
 
                 videoPlayer.Stop();
 
