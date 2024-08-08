@@ -20,10 +20,14 @@ namespace OMG.Minigames.OhMySword
 
         public void Release()
         {
-            scores.ForEach(i => {
-                if(i != null)
-                    i.NetworkObject.Despawn();
-            });
+            for(int i = 0; i < scores.Count; ++i)
+            {
+                if(scores[i] == null || scores[i].NetworkObject?.IsSpawned == false)
+                    continue;
+                scores[i].NetworkObject.Despawn();
+            }
+
+            scores.Clear();
         }
 
         public void GenerateXP()
