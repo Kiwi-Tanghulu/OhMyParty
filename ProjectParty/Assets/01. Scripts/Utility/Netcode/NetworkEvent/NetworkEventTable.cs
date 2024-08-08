@@ -25,7 +25,16 @@ namespace OMG.NetworkEvents
         }
 
         public static void RegisterParamsFactory<T>() where T : NetworkEventParams, new() => paramsFactories.Add(typeof(T).ToString(), ParamsFactory<T>);
-        public static INetworkEvent GetEvent(ulong instanceID, ulong eventID) => eventTable[instanceID][eventID];
+        public static INetworkEvent GetEvent(ulong instanceID, ulong eventID) 
+        {
+            if(eventTable.ContainsKey(instanceID) == false)
+                return null;
+            
+            if(eventTable[instanceID].ContainsKey(eventID) == false)
+                return null;
+
+            return eventTable[instanceID][eventID];
+        }
         public static NetworkEventParams GetEventParams(FixedString128Bytes paramsID, byte[] buffer) => paramsFactories[paramsID]?.Invoke(buffer);
 
         public static void RegisterEvent(ulong instanceID, INetworkEvent networkEvent)
