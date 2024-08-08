@@ -13,6 +13,9 @@ namespace OMG.UI
         [SerializeField] private Image groundImage;
         [SerializeField] private TextMeshProUGUI valueText;
 
+        [SerializeField] private float maxGraphSize = 300f;
+        [SerializeField] private float maxScore = 3000f;
+
         public ulong OwenrID { get; private set; }
 
         public void Init(ulong playerID, float value)
@@ -37,7 +40,7 @@ namespace OMG.UI
 
         public void SetValue(float value)
         {
-            Vector2 size = new Vector2(barRectTrm.rect.width, value);
+            Vector2 size = new Vector2(barRectTrm.rect.width, Mathf.Clamp01(value / maxScore) * maxGraphSize);
             barRectTrm.sizeDelta = size;
             if(valueText != null )
             {
