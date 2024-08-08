@@ -45,6 +45,11 @@ namespace OMG
             movement.SetMoveSpeed(value);
         }
 
+        public virtual float SetMaxMoveSpeed(float value)
+        {
+            return movement.SetMaxMoveSpeed(value);
+        }
+
         public virtual void SetMoveDirection(Vector3 value, bool lookMoveDir = true, bool forceSet = false)
         {
             movement.SetMoveDirection(value, lookMoveDir, forceSet);
@@ -87,6 +92,7 @@ namespace OMG
 
         private IEnumerator KnockbackCo(float power, float time, Action onEndEvent)
         {
+            float maxSpeed = SetMaxMoveSpeed(power);
             SetMoveSpeed(power);
 
             float currentTime = 0f;
@@ -99,6 +105,7 @@ namespace OMG
 
                 yield return null;
             }
+            SetMaxMoveSpeed(maxSpeed);
             SetMoveSpeed(0f);
 
             onEndEvent?.Invoke();

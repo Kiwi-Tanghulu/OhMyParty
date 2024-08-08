@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG
 {
     public class AnimationEvent : MonoBehaviour
     {
-        public event Action OnStartEvent;
-        public event Action OnPlayingEvent;
-        public event Action OnPlayingSubEvent;
-        public event Action OnEndEvent;
+        public UnityEvent OnStartEvent;
+        public UnityEvent OnPlayingEvent;
+        public UnityEvent OnPlayingSubEvent;
+        public UnityEvent OnEndEvent;
 
         public void InvokeStartEvent() => OnStartEvent?.Invoke();
         public void InvokePlayingEvent() => OnPlayingEvent?.Invoke();

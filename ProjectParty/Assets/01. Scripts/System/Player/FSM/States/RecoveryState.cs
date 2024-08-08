@@ -51,7 +51,7 @@ namespace OMG.Player.FSM
         {
             base.EnterState();
 
-            anim.AnimEvent.OnEndEvent += AnimEvent_OnEndEvent;
+            anim.AnimEvent.OnEndEvent.AddListener(AnimEvent_OnEndEvent);
 
             health.Hitable = false;
             health.PlayerHitable = false;
@@ -63,7 +63,7 @@ namespace OMG.Player.FSM
         {
             base.ExitState();
 
-            anim.AnimEvent.OnEndEvent -= AnimEvent_OnEndEvent;
+            anim.AnimEvent.OnEndEvent.RemoveListener(AnimEvent_OnEndEvent);
 
             health.Hitable = true;
 

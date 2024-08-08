@@ -1,4 +1,4 @@
-using OMG.Extensions;
+using OMG.Extensions;   
 using OMG.NetworkEvents;
 using System;
 using UnityEngine;
@@ -27,9 +27,35 @@ namespace OMG.Ragdoll
 
         protected RagdollPart[] parts;
 
+        [SerializeField] private bool selfInit;
+
+        private void Awake()
+        {
+            if(selfInit)
+            {
+                parts = GetComponentsInChildren<RagdollPart>();
+                for (int i = 0; i < parts.Length; i++)
+                    parts[i].Init(copyTargetRoot.FindFromAll(parts[i].gameObject.name));
+
+                OnActiveEvent.AddListener(() =>
+                {
+                    addforceStorage?.Invoke();
+                    addforceStorage = null;
+                });
+
+                SetActive(false, false);
+            }
+        }
+
         public override void Init(CharacterController controller)
         {
             base.Init(controller);
+
+            if(selfInit)
+            {
+                Debug.Log("self inti");
+                return;
+            }
 
             setActiveRagdollRpc.Register(controller.NetworkObject);
             setActiveRagdollRpc.AddListener(SetActive);
@@ -47,7 +73,6 @@ namespace OMG.Ragdoll
             });
 
             SetActive(false, false);
-
         }
 
         public void SetActive(bool value, bool withSync)
@@ -92,8 +117,6 @@ namespace OMG.Ragdoll
             {
                 OnDeactiveEvent?.Invoke();
             }
-
-            Debug.Log(active);
         }
 
         public void AddForce(float power, Vector3 dir)
@@ -118,7 +141,7 @@ namespace OMG.Ragdoll
             dir.Normalize();
 
             float angle = Mathf.Acos(Vector3.Dot(dir, new Vector3(dir.x, 0f, dir.z).normalized)) * Mathf.Rad2Deg;
-            Debug.Log(angle);
+            
             if(angle < 30f && angle >= 0f)
             {
                 dir = Quaternion.Euler(0f, 0f, 30f - angle) * dir;
@@ -126,8 +149,6 @@ namespace OMG.Ragdoll
 
             if (active)
             {
-                Debug.Log(power);
-				Debug.Log(dir);
 				hipRb.AddForce(power * dir, ForceMode.Impulse);
                 addforceStorage = null;
             }

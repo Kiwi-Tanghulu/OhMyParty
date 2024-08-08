@@ -46,6 +46,7 @@ namespace OMG
                 return;
 
             Gizmos.color = Color.red;
+            Gizmos.DrawLine(eyeTrm.position, eyeTrm.position + eyeTrm.forward * distance);
             Gizmos.DrawWireSphere(eyeTrm.position + eyeTrm.transform.forward * distance, radius);
         }
 #endif
