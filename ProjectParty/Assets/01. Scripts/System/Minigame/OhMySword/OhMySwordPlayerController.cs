@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using OMG.ETC;
 using OMG.Extensions;
 using OMG.NetworkEvents;
 using OMG.Player;
-using OMG.UI.Minigames;
 using OMG.UI.Minigames.OhMySword;
 using UnityEngine;
 
@@ -94,7 +92,7 @@ namespace OMG.Minigames.OhMySword
             
             minigame.PlayerDatas.Find(out PlayerData player, i => i.clientID == OwnerClientId);
 
-            scoreContainer.Init(player.score);
+            scoreContainer.Init(player.score, minigame.ScoreContainer);
             scoreContainer.GenerateXP();
             StartCoroutine(this.DelayCoroutine(respawnDelay, () => {
                 cycle.Respawn(OwnerClientId);

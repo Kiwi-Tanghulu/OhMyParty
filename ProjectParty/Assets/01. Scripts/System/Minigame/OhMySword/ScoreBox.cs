@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Minigames.Utility;
 using OMG.NetworkEvents;
@@ -41,15 +42,10 @@ namespace OMG.Minigames.OhMySword
             onRespawnEvent.Register(NetworkObject);
         }
 
-        public void Init(SpawnPositionTable spawnPositionTable)
+        public void Init(SpawnPositionTable spawnPositionTable, LinkedList<XPObject> container)
         {
             this.spawnPositionTable = spawnPositionTable;
-            scoreContainer.Init(xpAmount);
-        }
-
-        public void Release()
-        {
-            scoreContainer.Release();
+            scoreContainer.Init(xpAmount, container);
         }
 
         public void OnDamaged(float damage, Transform attacker, Vector3 point,

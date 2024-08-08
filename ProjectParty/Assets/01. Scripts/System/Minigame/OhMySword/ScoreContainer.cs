@@ -11,23 +11,12 @@ namespace OMG.Minigames.OhMySword
         [SerializeField] float xpSpawnInRadius = 1.5f;
         private int xpAmount = 0;
 
-        private List<XPObject> scores = new List<XPObject>();
+        private LinkedList<XPObject> scoreContainer = null;
 
-        public void Init(int xp)
+        public void Init(int xp, LinkedList<XPObject> container)
         {
             xpAmount = xp;
-        }
-
-        public void Release()
-        {
-            for(int i = 0; i < scores.Count; ++i)
-            {
-                if(scores[i] == null || scores[i].NetworkObject?.IsSpawned == false)
-                    continue;
-                scores[i].NetworkObject.Despawn();
-            }
-
-            scores.Clear();
+            scoreContainer = container;
         }
 
         public void GenerateXP()
@@ -44,7 +33,7 @@ namespace OMG.Minigames.OhMySword
                 xp.NetworkObject.Spawn(true);
                 xp.Init(position);
 
-                scores.Add(xp);
+                scoreContainer.AddLast(xp);
             });
         }
     }

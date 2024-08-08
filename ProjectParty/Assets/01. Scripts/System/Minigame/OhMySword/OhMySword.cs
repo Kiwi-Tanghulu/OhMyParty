@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using OMG.UI.Minigames;
 using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
@@ -7,7 +6,8 @@ namespace OMG.Minigames.OhMySword
     public class OhMySword : PlayableMinigame
     {
         [SerializeField] ScoreBoxTable[] scoreBoxTables = null;
-        private List<ScoreBox> scoreBoxes = null;
+        public LinkedList<XPObject> ScoreContainer = null;
+        public List<ScoreBox> ScoreBoxes = null;
 
         [SerializeField] Material skyboxMaterial = null;
         private OhMySwordCycle ohMySwordCycle = null;
@@ -26,7 +26,8 @@ namespace OMG.Minigames.OhMySword
             if(IsHost == false)
                 return;
 
-            scoreBoxes = new List<ScoreBox>();
+            ScoreBoxes = new List<ScoreBox>();
+            ScoreContainer = new LinkedList<XPObject>();
             for(int i = 0; i < scoreBoxTables.Length; ++i)
             {
                 ScoreBoxTable table = scoreBoxTables[i];
@@ -34,9 +35,9 @@ namespace OMG.Minigames.OhMySword
                 {
                     ScoreBox scoreBox = Instantiate(table.Prefab);
                     scoreBox.NetworkObject.Spawn(true);
-                    scoreBox.Init(table.SpawnPositionTable);
+                    scoreBox.Init(table.SpawnPositionTable, ScoreContainer);
                     scoreBox.Respawn();
-                    scoreBoxes.Add(scoreBox);
+                    ScoreBoxes.Add(scoreBox);
                 }
             }
 
@@ -60,13 +61,18 @@ namespace OMG.Minigames.OhMySword
             if(IsHost == false)
                 return;
 
-            for(int i = 0; i < scoreBoxes.Count; ++i)
+            foreach(XPObject xp in ScoreContainer)
             {
-                scoreBoxes[i].Release();
-                scoreBoxes[i].NetworkObject.Despawn();
+                if(xp == null || xp.NetworkObject.IsSpawned == false)
+                    continue;
+                
+                xp.NetworkObject.Despawn(true);
             }
 
-            scoreBoxes.Clear();
+            for(int i = 0; i < ScoreBoxes.Count; ++i)
+                ScoreBoxes[i].NetworkObject.Despawn();
+
+            ScoreBoxes.Clear();
         }
     }
 }
