@@ -14,6 +14,8 @@ namespace OMG.UI.Lobbies
 
         public void Display(bool active)
         {
+            if (gameObject.activeSelf == active)
+                return;
 
             if (active)
                 InputManager.ChangeInputMap(InputMapType.UI);
