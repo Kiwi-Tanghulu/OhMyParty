@@ -20,11 +20,11 @@ namespace OMG.Minigames.OhMySword
             if(attacker.TryGetComponent<CatchTailPlayer>(out CatchTailPlayer otherPlayer) == false)
                 return;
 
-            if(otherPlayer.IsCorrectTarget(Controller.NetworkObject.OwnerClientId) == false)
-            {
-                onAttackFailedEvent.Broadcast(point);
-                return;
-            }
+            // if(otherPlayer.IsCorrectTarget(Controller.NetworkObject.OwnerClientId) == false)
+            // {
+            //     onAttackFailedEvent.Broadcast(point);
+            //     return;
+            // }
 
             base.OnDamaged(damage, attacker, point, effectType, normal);
         }
