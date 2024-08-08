@@ -45,8 +45,8 @@ public class CatchTailPlayer : MonoBehaviour
         int targetIndex = minigame.PlayerDatas.FindIndex(i => i.clientID == targetID);
         Color color = PlayerManager.Instance.GetPlayerColor(targetIndex);
 
-        if(owner.IsOwner)
-            playerPanel.SetTargetTailColor(color);
+        // if(owner.IsOwner)
+        //     playerPanel.SetTargetTailColor(color);
         // playerPanel.SetTargetTailColor(playerIndex, color);
     }
 }
