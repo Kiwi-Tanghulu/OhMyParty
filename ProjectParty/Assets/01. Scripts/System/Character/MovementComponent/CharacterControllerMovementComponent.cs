@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OMG
 {
@@ -8,7 +9,7 @@ namespace OMG
     public class CharacterControllerMovementComponent : MovementComponent
     {
         protected UnityEngine.CharacterController characterController;
-
+        public UnityEvent<ControllerColliderHit> OnColliderHit;
         public override void Init(CharacterStatSO statSO)
         {
             base.Init(statSO);
@@ -49,6 +50,11 @@ namespace OMG
             characterController.enabled = false;
             networkTrm.Teleport(pos, rot, transform.localScale);
             characterController.enabled = true;
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            OnColliderHit?.Invoke(hit);
         }
     }
 }
