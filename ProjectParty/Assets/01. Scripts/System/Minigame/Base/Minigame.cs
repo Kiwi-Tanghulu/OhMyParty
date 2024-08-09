@@ -28,6 +28,8 @@ namespace OMG.Minigames
         protected MinigameCycle cycle = null;
         public MinigameCycle Cycle => cycle;
 
+        public bool IsPlaying { get; private set; } = false;
+
         protected virtual void Awake()
         {
             cutscenePanel = DEFINE.MinigameCanvas?.transform.Find("CutscenePanel").GetComponent<CutscenePanel>();
@@ -96,6 +98,7 @@ namespace OMG.Minigames
             minigamePanel.Init(this);
             minigamePanel.Display(true);
             OnStartedEvent?.Invoke();
+            IsPlaying = true;
         }
 
         public virtual void FinishGame() 
@@ -105,6 +108,7 @@ namespace OMG.Minigames
             Debug.Log("1");
             OnFinishedEvent?.Invoke();
             StartOutro();
+            IsPlaying = false;
         }
 
         public override void OnNetworkDespawn()

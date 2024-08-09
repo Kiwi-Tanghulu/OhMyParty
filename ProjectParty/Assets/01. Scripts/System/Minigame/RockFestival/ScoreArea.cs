@@ -13,7 +13,7 @@ namespace OMG.Minigames.RockFestival
         [SerializeField] float updateDelay = 1f;
         private TMP_Text scoreText = null;
 
-        private NetworkList<PlayerData> players = null;
+        private Minigame minigame = null;
 
         private bool active = false;
 
@@ -34,7 +34,7 @@ namespace OMG.Minigames.RockFestival
                 return;
 
             this.ownerID = ownerID;
-            players = MinigameManager.Instance.CurrentMinigame.PlayerDatas;
+            minigame = MinigameManager.Instance.CurrentMinigame;
         }
 
         public void SetActive(bool active, bool isHost)
@@ -96,10 +96,13 @@ namespace OMG.Minigames.RockFestival
 
         private void UpdateScore()
         {
+            if (minigame.IsPlaying == false)
+                return;
+
             if (prevPoint != pointBuffer)
             {
                 prevPoint = pointBuffer;
-                players.ChangeData(i => i.clientID == ownerID, data => {
+                minigame.PlayerDatas.ChangeData(i => i.clientID == ownerID, data => {
                     data.score = pointBuffer;
                     return data;
                 });

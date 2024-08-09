@@ -54,9 +54,9 @@ namespace OMG.Minigames.OhMySword
             ohMySwordCycle.StartCycle();
         }
 
-        public override void FinishGame()
+        public override void Release()
         {
-            base.FinishGame();
+            base.Release();
 
             if(IsHost == false)
                 return;
