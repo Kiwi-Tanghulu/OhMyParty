@@ -19,6 +19,7 @@ namespace OMG.UI
             if (controlKey.KeyImage != null)
             {
                 image.sprite = controlKey.KeyImage;
+                image.color = Color.white;
 
                 float ratio = image.sprite.rect.width / image.sprite.rect.height;
                 

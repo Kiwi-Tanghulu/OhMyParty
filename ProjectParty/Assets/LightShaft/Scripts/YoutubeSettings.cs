@@ -1716,8 +1716,8 @@ namespace LightShaft.Scripts
             {
                 if(videoPlayer.renderMode == VideoRenderMode.RenderTexture)
                 {
-                    //videoPlayer.targetTexture.width = (int)videoPlayer.width;
-                    //videoPlayer.targetTexture.height = (int)videoPlayer.height;
+                    videoPlayer.targetTexture.width = (int)videoPlayer.width;
+                    videoPlayer.targetTexture.height = (int)videoPlayer.height;
                 }
             }
 

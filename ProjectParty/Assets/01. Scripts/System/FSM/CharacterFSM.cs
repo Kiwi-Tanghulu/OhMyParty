@@ -180,7 +180,6 @@ namespace OMG.FSM
 
             if (nextState == currentState)
             {
-                Debug.LogError("same state");
                 return;
             }
 

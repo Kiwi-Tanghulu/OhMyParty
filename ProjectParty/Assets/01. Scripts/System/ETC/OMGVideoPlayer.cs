@@ -7,18 +7,20 @@ using UnityEngine.Video;
 using OMG.Extensions;
 using LightShaft.Scripts;
 using OMG.UI;
+using System.Collections.Generic;
 
 namespace OMG
 {
-    [RequireComponent(typeof(VideoPlayer))]
     public class OMGVideoPlayer : UIObject
     {
-        private VideoPlayer videoPlayer;
+        //private VideoPlayer videoPlayer;
 
         [SerializeField] private YoutubeSimplified youtubePlayer;
         [SerializeField] private Image playImage;
         [SerializeField] private Image stopImage;
         [SerializeField] private GameObject blindImage;
+        [SerializeField] private RenderTexture tex;
+        
 
         private Tween videoPlayTween;
         private Tween videoStopTween;
@@ -30,7 +32,7 @@ namespace OMG
         {
             base.Init();
 
-            videoPlayer = GetComponent<VideoPlayer>();
+            //videoPlayer = GetComponent<VideoPlayer>();
 
             Sequence videoPlaySeq = DOTween.Sequence();
             videoPlaySeq.Append(playImage.transform.DOScale(1f, 0f));
@@ -61,25 +63,26 @@ namespace OMG
 
             blindImage.SetActive(true);
 
-            videoPlayer.Stop();
+            //videoPlayer.Stop();
         }
 
         private void OnDisable()
         {
-            videoPlayer.Stop();
+            //videoPlayer.Stop();
         }
 
         public void Play(string url, float delay = 0f)
         {
             if (!gameObject.activeInHierarchy)
                 Show();
-            
+
+            blindImage.SetActive(true);
+            tex.Release();
 
             StartCoroutine(this.DelayCoroutine(delay, () =>
             {
                 playImage.gameObject.SetActive(true);
                 stopImage.gameObject.SetActive(false);
-                blindImage.gameObject.SetActive(false);
 
                 videoPlayTween.Restart();
 
@@ -99,9 +102,8 @@ namespace OMG
             {
                 playImage.gameObject.SetActive(false);
                 stopImage.gameObject.SetActive(true);
-                blindImage.gameObject.SetActive(true);
 
-                videoPlayer.Stop();
+                //videoPlayer.Stop();
 
                 videoStopTween.Restart();
 
