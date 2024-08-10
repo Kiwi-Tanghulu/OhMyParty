@@ -31,13 +31,6 @@ namespace OMG.Minigames.RunAway
             CreateMap();
         }
 
-        public override void StartGame()
-        {
-            base.StartGame();
-
-            //StartCoroutine(SpawnMonsterDelay());
-        }
-
         private void CreateMap()
         {
             MapPart part = null;

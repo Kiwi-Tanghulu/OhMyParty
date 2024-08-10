@@ -44,7 +44,7 @@ namespace OMG.UI
         private void Start()
         {
             Minigame minigame = MinigameManager.Instance.CurrentMinigame;
-            minigame.OnFinishedEvent.AddListener(Minigame_OnFinishGame);
+            minigame.OnFinishEvent.AddListener(Minigame_OnFinishGame);
 
             text = transform.Find("Text").GetComponent<TextMeshProUGUI>();
 

@@ -1,5 +1,6 @@
 using OMG.Inputs;
 using OMG.Minigames;
+using OMG.NetworkEvents;
 using OMG.Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,10 +42,10 @@ namespace OMG.Minigames.MazeAdventure
             RenderSettings.skybox = mazeAdventureSkyBoxMaterial;
         }
 
-        public override void StartGame()
+        protected override void OnGameStart(NoneParams ignore)
         {
-            base.StartGame();
-            InputManager.ChangeInputMap(InputMapType.Play);
+            base.OnGameStart(ignore);
+
             taggerSpawner.enabled = false;
             itemSpawner.enabled = false;
 

@@ -1,3 +1,4 @@
+using OMG.NetworkEvents;
 using OMG.Player;
 using UnityEngine;
 
@@ -39,18 +40,12 @@ namespace OMG.Minigames.RockFestival
             spawner.Release();
         }
 
-        public override void StartGame()
+        protected override void OnGameStart(NoneParams ignore)
         {
-            base.StartGame();
+            base.OnGameStart(ignore);
 
             for(int i = 0; i < PlayerDatas.Count; ++i)
                 scoreAreas[i].SetActive(true, IsHost);
-            // {
-            //     #region 지워야 됨
-            //     if(IsHost)
-            //         PlayerDictionary[playerDatas[i].clientID].GetCharacterComponent<PlayerVisual>().transform.localPosition = Vector3.zero;
-            //     #endregion
-            // }
 
             if(IsHost == false)
                 return;
@@ -59,7 +54,7 @@ namespace OMG.Minigames.RockFestival
             timeAttackCycle.StartCycle();
         }
 
-        public override void FinishGame()
+        protected override void OnGameFinish(NoneParams ignore)
         {
             for (int i = 0; i < PlayerDatas.Count; ++i)
                 scoreAreas[i].SetActive(false, IsHost);
@@ -67,7 +62,7 @@ namespace OMG.Minigames.RockFestival
             if (IsHost)
                 spawner.SetActive(false);
 
-            base.FinishGame();
+            base.OnGameFinish(ignore);
         }
     }
 }

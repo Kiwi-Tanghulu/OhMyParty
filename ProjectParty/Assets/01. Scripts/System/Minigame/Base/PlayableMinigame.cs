@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using OMG.Attributes;
 using OMG.Extensions;
+using OMG.NetworkEvents;
 using OMG.Player;
 using Unity.Netcode;
 using UnityEngine;
@@ -44,16 +45,16 @@ namespace OMG.Minigames
             }
         }
 
-        public override void StartGame()
+        protected override void OnGameStart(NoneParams ignore)
         {
-            base.StartGame();
+            base.OnGameStart(ignore);
             
             if(IsHost == false)
                 return;
-            Debug.Log("Player Create");
             
             if(ShufflePosition)
                 spawnPositions = spawnPositions.Shuffle();
+
             for (int i = 0; i < playerDatas.Count; ++i)
                 SpawnPlayer(i);
         }

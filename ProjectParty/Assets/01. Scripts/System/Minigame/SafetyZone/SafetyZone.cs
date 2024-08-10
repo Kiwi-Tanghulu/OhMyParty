@@ -1,3 +1,5 @@
+using OMG.NetworkEvents;
+
 namespace OMG.Minigames.SafetyZone
 {
     public class SafetyZone : PlayableMinigame
@@ -22,19 +24,14 @@ namespace OMG.Minigames.SafetyZone
             tiles.Init();
         }
 
-        public override void StartGame()
+        protected override void OnGameStart(NoneParams ignore)
         {
-            base.StartGame();
+            base.OnGameStart(ignore);
 
             if (IsHost == false)
                 return;
     
             safetyZoneCycle.StartCycle(tiles.RerollTiles, tiles.DecisionSafetyZone, tiles.ResetTiles);
-        }
-
-        public override void FinishGame()
-        {
-            base.FinishGame();
         }
     }
 }

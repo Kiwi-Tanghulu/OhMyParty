@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using OMG.Inputs;
+using OMG.NetworkEvents;
 using UnityEngine;
 
 namespace OMG.Minigames.PunchClub
@@ -24,20 +24,20 @@ namespace OMG.Minigames.PunchClub
             deathmatchCycle = cycle as DeathmatchCycle;
         }
 
-        public override void StartGame()
+        protected override void OnGameStart(NoneParams ignore)
         {
-            base.StartGame();
+            base.OnGameStart(ignore);
 
             if(IsHost)
                 deadZone?.SetActive(true);
         }
 
-        public override void FinishGame()
+        protected override void OnGameFinish(NoneParams ignore)
         {
-            base.FinishGame();
-
             if(IsHost)
                 deadZone?.SetActive(false);
+
+            base.OnGameFinish(ignore);
         }
     }
 }

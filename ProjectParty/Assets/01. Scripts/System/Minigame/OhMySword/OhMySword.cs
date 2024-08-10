@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using OMG.NetworkEvents;
 using UnityEngine;
 
 namespace OMG.Minigames.OhMySword
@@ -44,9 +45,9 @@ namespace OMG.Minigames.OhMySword
             ohMySwordCycle = cycle as OhMySwordCycle;
         }
 
-        public override void StartGame()
+        protected override void OnGameStart(NoneParams ignore)
         {
-            base.StartGame();
+            base.OnGameStart(ignore);
 
             if(IsHost == false)
                 return;

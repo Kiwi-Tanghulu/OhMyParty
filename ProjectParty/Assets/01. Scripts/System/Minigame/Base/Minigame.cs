@@ -1,10 +1,12 @@
 using OMG.Extensions;
 using OMG.Inputs;
+using OMG.NetworkEvents;
 using OMG.UI;
 using OMG.UI.Minigames;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 
 namespace OMG.Minigames
 {
@@ -13,8 +15,8 @@ namespace OMG.Minigames
         [SerializeField] MinigameSO minigameData = null;
         public MinigameSO MinigameData => minigameData;
 
-        public UnityEvent OnStartedEvent = new UnityEvent();
-        public UnityEvent OnFinishedEvent = new UnityEvent();
+        public NetworkEvent OnStartEvent = new NetworkEvent("MinigameStart");
+        public NetworkEvent OnFinishEvent = new NetworkEvent("MinigameFinish");
 
         protected NetworkList<PlayerData> playerDatas = null;
         public NetworkList<PlayerData> PlayerDatas => playerDatas;
@@ -45,6 +47,12 @@ namespace OMG.Minigames
         {
             base.OnNetworkSpawn();
             MinigameManager.Instance.CurrentMinigame = this;
+
+            OnStartEvent.AddListener(OnGameStart);
+            OnStartEvent.Register(NetworkObject);
+
+            OnFinishEvent.AddListener(OnGameFinish);
+            OnFinishEvent.Register(NetworkObject);
         }
 
         /// <summary>
@@ -70,45 +78,44 @@ namespace OMG.Minigames
                 }
             );
 
-            StartIntro();
+            StartCoroutine(this.DelayCoroutine(minigameData.IntroPostponeTime, () => {
+                cycle.PlayIntro();
+            }));
         }
 
         public virtual void Release() 
         {
         }
 
-        public virtual void StartIntro()
-        {
-            StartCoroutine(this.DelayCoroutine(minigameData.IntroPostponeTime, () => {
-                cycle.PlayIntro();
-            }));
+        public void StartGame()
+        {   
+            OnStartEvent?.Broadcast();
         }
 
-        public virtual void StartOutro()
+        protected virtual void OnGameStart(NoneParams ignore)
         {
-            StartCoroutine(this.DelayCoroutine(minigameData.OutroPostponeTime, () => {
-                cycle.PlayOutro();
-            }));
-        }
-
-        public virtual void StartGame()
-        { 
             InputManager.ChangeInputMap(InputMapType.Play);
             GameManager.Instance.CursorActive = false;
             minigamePanel.Init(this);
             minigamePanel.Display(true);
-            OnStartedEvent?.Invoke();
+
             IsPlaying = true;
         }
 
-        public virtual void FinishGame() 
+        public void FinishGame() 
+        {
+            OnFinishEvent?.Broadcast();
+        }
+
+        protected virtual void OnGameFinish(NoneParams ignore)
         {
             InputManager.ChangeInputMap(InputMapType.UI);
             GameManager.Instance.CursorActive = true;
-            Debug.Log("1");
-            OnFinishedEvent?.Invoke();
-            StartOutro();
             IsPlaying = false;
+            
+            StartCoroutine(this.DelayCoroutine(minigameData.OutroPostponeTime, () => {
+                cycle.PlayOutro();
+            }));
         }
 
         public override void OnNetworkDespawn()

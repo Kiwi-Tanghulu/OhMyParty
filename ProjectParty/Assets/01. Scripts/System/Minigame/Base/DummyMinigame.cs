@@ -1,4 +1,5 @@
 using OMG.Extensions;
+using OMG.NetworkEvents;
 using UnityEngine;
 
 namespace OMG.Minigames
@@ -7,17 +8,25 @@ namespace OMG.Minigames
     {
         [SerializeField] float dummyPlayTime = 3f;
 
-        public override void StartGame()
+        protected override void OnGameStart(NoneParams ignore)
         {
+            base.OnGameStart(ignore);
+
+            if(IsHost == false)
+                return;
+
             StartCoroutine(this.DelayCoroutine(dummyPlayTime, () => {
                 Debug.Log("Finish Dummy");
                 FinishGame();
             }));
         }
      
-        public override void FinishGame()
+        protected override void OnGameFinish(NoneParams ignore)
         {
-            MinigameManager.Instance.FinishMinigame();
+            if(IsHost == false)
+                MinigameManager.Instance.FinishMinigame();
+
+            base.OnGameFinish(ignore);
         }
     }
 }
