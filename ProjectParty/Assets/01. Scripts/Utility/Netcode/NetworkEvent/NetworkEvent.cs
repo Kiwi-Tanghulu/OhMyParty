@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,8 +9,17 @@ namespace OMG.NetworkEvents
     [System.Serializable]
     public class NetworkEvent : NetworkEvent<NoneParams>
     {
-        public NetworkEvent() : base() { }
-        public NetworkEvent(string key) : base(key) { }
+        public NetworkEvent() : base() 
+        {
+            AddListener(CallWrapper);
+        }
+
+        public NetworkEvent(string key) : base(key) 
+        {
+            AddListener(CallWrapper);
+        }
+
+        private UnityAction callWrapper;
 
         public void Alert(bool requireOwnership = true)
         {
@@ -20,6 +31,21 @@ namespace OMG.NetworkEvents
         {
             NoneParams eventParams = new NoneParams();
             Broadcast(eventParams, requireOwnership);
+        }
+
+        public void AddListener(UnityAction call)
+        {
+            callWrapper += call;
+        }
+
+        public void RemoveListener(UnityAction call)
+        {
+            callWrapper -= call;
+        }
+
+        private void CallWrapper(NoneParams ignore)
+        {
+            callWrapper?.Invoke();
         }
     }
 
