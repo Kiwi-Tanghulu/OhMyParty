@@ -9121,72 +9121,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameData: {fileID: 11400000, guid: 66536102b184767499aa7a86bcb20059, type: 2}
-  OnStartedEvent:
+  OnInitEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8103144108865575620}
-        m_TargetAssemblyTypeName: OMG.Audio.BGMPlayer, Assembly-CSharp
-        m_MethodName: StartBGM
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnFinishedEvent:
+      m_Calls: []
+  OnReleaseEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 295371961209531498}
-        m_TargetAssemblyTypeName: OMG.Minigames.MazeAdventure.TaggerSpawner, Assembly-CSharp
-        m_MethodName: StopSpawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6542811692836762078}
-        m_TargetAssemblyTypeName: OMG.Minigames.MazeAdventure.ItemSpawner, Assembly-CSharp
-        m_MethodName: StopSpawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 295371961209531498}
-        m_TargetAssemblyTypeName: OMG.Minigames.MazeAdventure.TaggerSpawner, Assembly-CSharp
-        m_MethodName: ClearTaggerList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6542811692836762078}
-        m_TargetAssemblyTypeName: OMG.Minigames.MazeAdventure.ItemSpawner, Assembly-CSharp
-        m_MethodName: ClearItemBoxList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  OnStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFinishEvent:
+    m_PersistentCalls:
+      m_Calls: []
   playerPrefab: {fileID: 5275389935828522059, guid: 2bb91597d19aee84aa9b5c4572d99686,
     type: 3}
   useLife: 0
@@ -9394,10 +9340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cycleText: {fileID: 1098981393455013273}
-  timelineOption:
-    PositiveOption: {fileID: 11400000, guid: 581a9b94aede28948bec006aa30d1255, type: 2}
-    NegativeOption: {fileID: 11400000, guid: 51aab00a0a921454a9002b1990da0877, type: 2}
+  cutscene: {fileID: 11400000, guid: 581a9b94aede28948bec006aa30d1255, type: 2}
+  onIntroFinishEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-3560100266816356186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42058,18 +42004,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d5c0337e854fc74a9287e5d63cbcc8e, type: 3}
---- !u!114 &1098981393455013273 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7952961237337472996}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1782148839875344033 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8567516609396574533, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,

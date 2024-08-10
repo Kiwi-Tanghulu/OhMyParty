@@ -4078,7 +4078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4279676373
+  GlobalObjectIdHash: 3209098120
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -4127,22 +4127,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameData: {fileID: 11400000, guid: e9843b6254e2f3f478b94ff75e842960, type: 2}
-  OnStartedEvent:
+  OnInitEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7340855080038998272}
-        m_TargetAssemblyTypeName: OMG.Audio.BGMPlayer, Assembly-CSharp
-        m_MethodName: StartBGM
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnFinishedEvent:
+      m_Calls: []
+  OnReleaseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFinishEvent:
     m_PersistentCalls:
       m_Calls: []
   playerPrefab: {fileID: 5545523369615666056, guid: ac7ad7c5ef51427418a42a1cb8d378ff,
@@ -4227,6 +4221,14 @@ PlayableDirector:
     value: {fileID: 24100000, guid: a6cec48dfdb18d04abdbe5ef5082f024, type: 2}
   - key: {fileID: -1839160179072457150, guid: a27594006c7c6cd4985050651ca83f84, type: 2}
     value: {fileID: 8869227240938925803}
+  - key: {fileID: 6425741569977372973, guid: a27594006c7c6cd4985050651ca83f84, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1708054070841931185, guid: a27594006c7c6cd4985050651ca83f84, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -283956157890680169, guid: a27594006c7c6cd4985050651ca83f84, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 4292850499764452729, guid: a27594006c7c6cd4985050651ca83f84, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 466398b2403c9544985ebd901bafdf41: {fileID: 5175480548856954545}
@@ -4300,10 +4302,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cycleText: {fileID: 3483487918812104313}
-  timelineOption:
-    PositiveOption: {fileID: 11400000, guid: a27594006c7c6cd4985050651ca83f84, type: 2}
-    NegativeOption: {fileID: 11400000, guid: 3314c7701d0149d4c9f104f61e4973fe, type: 2}
+  cutscene: {fileID: 11400000, guid: a27594006c7c6cd4985050651ca83f84, type: 2}
+  onIntroFinishEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5733095522093520338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15680,18 +15682,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3483487918812104313 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 5857230471284139012}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5879742271312207106

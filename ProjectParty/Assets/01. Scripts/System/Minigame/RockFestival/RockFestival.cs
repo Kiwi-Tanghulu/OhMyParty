@@ -11,9 +11,9 @@ namespace OMG.Minigames.RockFestival
         private RockSpawner spawner = null;
         private TimeAttackCycle timeAttackCycle = null;
 
-        public override void Init()
+        protected override void OnGameInit()
         {
-            base.Init();
+            base.OnGameInit();
 
             if(IsHost == false)
                 return;
@@ -30,9 +30,9 @@ namespace OMG.Minigames.RockFestival
             timeAttackCycle = cycle as TimeAttackCycle;
         }
 
-        public override void Release()
+        protected override void OnGameRelease()
         {
-            base.Release();
+            base.OnGameRelease();
 
             if(IsHost == false)
                 return;
@@ -40,9 +40,9 @@ namespace OMG.Minigames.RockFestival
             spawner.Release();
         }
 
-        protected override void OnGameStart(NoneParams ignore)
+        protected override void OnGameStart()
         {
-            base.OnGameStart(ignore);
+            base.OnGameStart();
 
             for(int i = 0; i < PlayerDatas.Count; ++i)
                 scoreAreas[i].SetActive(true, IsHost);
@@ -54,15 +54,15 @@ namespace OMG.Minigames.RockFestival
             timeAttackCycle.StartCycle();
         }
 
-        protected override void OnGameFinish(NoneParams ignore)
+        protected override void OnGameFinish()
         {
+            base.OnGameFinish();
+
             for (int i = 0; i < PlayerDatas.Count; ++i)
                 scoreAreas[i].SetActive(false, IsHost);
 
             if (IsHost)
                 spawner.SetActive(false);
-
-            base.OnGameFinish(ignore);
         }
     }
 }

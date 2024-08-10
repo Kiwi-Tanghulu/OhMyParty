@@ -1130,10 +1130,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameData: {fileID: 11400000, guid: 7d7747ec23756ec49bfdc54ffb12252d, type: 2}
-  OnStartedEvent:
+  OnInitEvent:
     m_PersistentCalls:
       m_Calls: []
-  OnFinishedEvent:
+  OnReleaseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFinishEvent:
     m_PersistentCalls:
       m_Calls: []
   playerPrefab: {fileID: -174575099839075741, guid: fd56be1b6ad466046835c039d1f507f3,
@@ -1273,10 +1279,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cycleText: {fileID: 5813769424493021902}
-  timelineOption:
-    PositiveOption: {fileID: 11400000, guid: 29e4da3d4e2390a47b35db5f9a9c5ea7, type: 2}
-    NegativeOption: {fileID: 11400000, guid: 29e4da3d4e2390a47b35db5f9a9c5ea7, type: 2}
+  cutscene: {fileID: 11400000, guid: 29e4da3d4e2390a47b35db5f9a9c5ea7, type: 2}
+  onIntroFinishEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-6697100591252080655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10441,18 +10447,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5813769424493021902 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3580482271221262515}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &6923737725794853261 stripped

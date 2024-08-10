@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using OMG.Attributes;
 using OMG.Extensions;
-using OMG.NetworkEvents;
 using OMG.Player;
 using Unity.Netcode;
 using UnityEngine;
@@ -45,9 +44,9 @@ namespace OMG.Minigames
             }
         }
 
-        protected override void OnGameStart(NoneParams ignore)
+        protected override void OnGameStart()
         {
-            base.OnGameStart(ignore);
+            base.OnGameStart();
             
             if(IsHost == false)
                 return;
@@ -59,9 +58,9 @@ namespace OMG.Minigames
                 SpawnPlayer(i);
         }
 
-        public override void Release()
+        protected override void OnGameRelease()
         {
-            base.Release();
+            base.OnGameRelease();
 
             if(IsHost == false)
                 return;
@@ -92,9 +91,6 @@ namespace OMG.Minigames
         {
             player.SpawnWithOwnership(clientID, true);
             player.TrySetParent(NetworkObject);
-            // NetworkTransform trm = player.GetComponent<NetworkTransform>();
-            // trm.Teleport(position, Quaternion.identity, trm.GetScale());
-            //player.GetComponent<CharacterMovement>().Teleport(position, Quaternion.identity);
             players.Add(player);
         }
     }

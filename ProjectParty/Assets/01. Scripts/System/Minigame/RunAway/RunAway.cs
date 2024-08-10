@@ -22,9 +22,9 @@ namespace OMG.Minigames.RunAway
 
         private RunAwayCycle runAwayCycle;
 
-        public override void Init()
+        protected override void OnGameInit()
         {
-            base.Init();
+            base.OnGameInit();
 
             runAwayCycle = cycle as RunAwayCycle;
 

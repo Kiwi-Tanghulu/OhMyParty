@@ -12,9 +12,9 @@ namespace OMG.Minigames
         //[SerializeField] private PlayerItemBox itemBoxPrefab;
         //[SerializeField] private Transform itemBoxSpawnPoints;
 
-        public override void Init()
+        protected override void OnGameInit()
         {
-            base.Init();
+            base.OnGameInit();
 
             raceCycle = cycle as RaceCycle;
         }

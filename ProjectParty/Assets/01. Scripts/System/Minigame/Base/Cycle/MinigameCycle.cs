@@ -4,29 +4,16 @@ using OMG.Lobbies;
 using OMG.UI;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace OMG.Minigames
 {
     public class MinigameCycle : NetworkBehaviour
     {
         protected Minigame minigame = null;
-        protected MinigameCutscene cutscene = null;
 
         public virtual void Init(Minigame minigame)
         {
             this.minigame = minigame;
-            cutscene = GetComponent<MinigameCutscene>();
-        }
-
-        public void PlayIntro()
-        {
-            cutscene.PlayCutsceneClientRpc(true);
-        }
-
-        public void PlayOutro()
-        {
-            cutscene.PlayCutsceneClientRpc(false);
         }
 
         public virtual void DisplayResult()

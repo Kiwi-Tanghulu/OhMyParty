@@ -8,9 +8,9 @@ namespace OMG.Minigames
     {
         [SerializeField] float dummyPlayTime = 3f;
 
-        protected override void OnGameStart(NoneParams ignore)
+        protected override void OnGameStart()
         {
-            base.OnGameStart(ignore);
+            base.OnGameStart();
 
             if(IsHost == false)
                 return;
@@ -21,12 +21,12 @@ namespace OMG.Minigames
             }));
         }
      
-        protected override void OnGameFinish(NoneParams ignore)
+        protected override void OnGameFinish()
         {
             if(IsHost == false)
                 MinigameManager.Instance.FinishMinigame();
 
-            base.OnGameFinish(ignore);
+            base.OnGameFinish();
         }
     }
 }

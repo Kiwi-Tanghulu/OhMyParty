@@ -1,11 +1,9 @@
 using OMG.Extensions;
 using OMG.Inputs;
-using OMG.NetworkEvents;
 using OMG.UI;
 using OMG.UI.Minigames;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Events;
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
 
 namespace OMG.Minigames
@@ -15,8 +13,10 @@ namespace OMG.Minigames
         [SerializeField] MinigameSO minigameData = null;
         public MinigameSO MinigameData => minigameData;
 
-        public NetworkEvent OnStartEvent = new NetworkEvent("MinigameStart");
-        public NetworkEvent OnFinishEvent = new NetworkEvent("MinigameFinish");
+        public NetworkEvent OnInitEvent = new NetworkEvent("Init");
+        public NetworkEvent OnReleaseEvent = new NetworkEvent("Release");
+        public NetworkEvent OnStartEvent = new NetworkEvent("Start");
+        public NetworkEvent OnFinishEvent = new NetworkEvent("Finish");
 
         protected NetworkList<PlayerData> playerDatas = null;
         public NetworkList<PlayerData> PlayerDatas => playerDatas;
@@ -30,6 +30,8 @@ namespace OMG.Minigames
         protected MinigameCycle cycle = null;
         public MinigameCycle Cycle => cycle;
 
+        private MinigameCutscene cutscene = null;
+
         public bool IsPlaying { get; private set; } = false;
 
         protected virtual void Awake()
@@ -39,6 +41,7 @@ namespace OMG.Minigames
 
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
+            cutscene = GetComponent<MinigameCutscene>();
 
             cycle.Init(this);
         }
@@ -48,10 +51,16 @@ namespace OMG.Minigames
             base.OnNetworkSpawn();
             MinigameManager.Instance.CurrentMinigame = this;
 
-            OnStartEvent.AddListener(OnGameStart);
+            OnInitEvent.AddListener(HandleGameInit);
+            OnInitEvent.Register(NetworkObject);
+
+            OnReleaseEvent.AddListener(HandleGameRelease);
+            OnReleaseEvent.Register(NetworkObject);
+
+            OnStartEvent.AddListener(HandleGameStart);
             OnStartEvent.Register(NetworkObject);
 
-            OnFinishEvent.AddListener(OnGameFinish);
+            OnFinishEvent.AddListener(HandleGameFinish);
             OnFinishEvent.Register(NetworkObject);
         }
 
@@ -64,7 +73,19 @@ namespace OMG.Minigames
                 playerDatas.Add(new PlayerData(playerIDs[i]));
         }
 
-        public virtual void Init()
+        #region Init
+        public void Init()
+        {
+            OnInitEvent?.Broadcast();
+        }
+
+        private void HandleGameInit()
+        {
+            OnGameInit();
+            cutscene.PlayCutscene();
+        }
+
+        protected virtual void OnGameInit()
         {
             cutscenePanel.Init(this);
 
@@ -77,22 +98,38 @@ namespace OMG.Minigames
                     InputManager.SetInputEnable(true);
                 }
             );
+        }
+        #endregion
 
-            StartCoroutine(this.DelayCoroutine(minigameData.IntroPostponeTime, () => {
-                cycle.PlayIntro();
-            }));
+        #region Release
+        public void Release() 
+        {
+            OnReleaseEvent?.Broadcast();
         }
 
-        public virtual void Release() 
+        private void HandleGameRelease()
+        {
+            OnGameRelease();
+            MinigameManager.Instance.ReleaseMinigame();
+        }
+
+        protected virtual void OnGameRelease()
         {
         }
+        #endregion
 
+        #region Start
         public void StartGame()
         {   
             OnStartEvent?.Broadcast();
         }
 
-        protected virtual void OnGameStart(NoneParams ignore)
+        private void HandleGameStart()
+        {
+            OnGameStart();
+        }
+
+        protected virtual void OnGameStart()
         {
             InputManager.ChangeInputMap(InputMapType.Play);
             GameManager.Instance.CursorActive = false;
@@ -101,22 +138,29 @@ namespace OMG.Minigames
 
             IsPlaying = true;
         }
+        #endregion
 
+        #region Finish
         public void FinishGame() 
         {
             OnFinishEvent?.Broadcast();
         }
 
-        protected virtual void OnGameFinish(NoneParams ignore)
+        private void HandleGameFinish()
+        {
+            OnGameFinish();
+            StartCoroutine(this.DelayCoroutine(minigameData.ResultPostponeTime, () => {
+                cycle.DisplayResult();
+            }));
+        }
+
+        protected virtual void OnGameFinish()
         {
             InputManager.ChangeInputMap(InputMapType.UI);
             GameManager.Instance.CursorActive = true;
             IsPlaying = false;
-            
-            StartCoroutine(this.DelayCoroutine(minigameData.OutroPostponeTime, () => {
-                cycle.PlayOutro();
-            }));
         }
+        #endregion
 
         public override void OnNetworkDespawn()
         {

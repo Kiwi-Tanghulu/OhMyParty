@@ -1,21 +1,23 @@
 using Cinemachine;
-using OMG.UI;
-using OMG.Utility;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
 namespace OMG.Minigames
 {
     [RequireComponent(typeof(PlayableDirector))]
-    [RequireComponent(typeof(SignalReceiver))]
     public class MinigameCutscene : NetworkBehaviour
     {
-        [SerializeField] GameCycleText cycleText = null;
-        [SerializeField] OptOption<TimelineAsset> timelineOption = null;
+        [SerializeField] TimelineAsset cutscene = null;
+
+        [Space(15f)]
+        [SerializeField] UnityEvent onIntroFinishEvent = null;
+
         protected PlayableDirector timelineHolder = null;
         protected Minigame minigame = null;
+        protected bool cutsceneOption = false;
 
         protected virtual void Awake()
         {
@@ -23,16 +25,16 @@ namespace OMG.Minigames
             minigame = GetComponent<Minigame>();
         }
 
-        [ClientRpc]
-        public void PlayCutsceneClientRpc(bool option)
+        public void PlayCutscene()
         {
-            timelineHolder.playableAsset = timelineOption.GetOption(option);
-            BindingTimeLineObject(timelineHolder, option);
+            timelineHolder.playableAsset = cutscene;
+            BindingTimeLineObject(timelineHolder);
 
             timelineHolder.Play();
+            timelineHolder.stopped += HandleTimelineStopped;
         }
 
-        protected virtual void BindingTimeLineObject(PlayableDirector timelineHolder, bool option)
+        protected virtual void BindingTimeLineObject(PlayableDirector timelineHolder)
         {
             foreach (PlayableBinding binding in timelineHolder.playableAsset.outputs)
             {
@@ -43,13 +45,18 @@ namespace OMG.Minigames
             }
         }
 
+        private void HandleTimelineStopped(PlayableDirector director)
+        {
+            director.stopped -= HandleTimelineStopped;
+            onIntroFinishEvent?.Invoke();
+        }
+
         public void SkipCutscene()
         {
             timelineHolder.time = timelineHolder.playableAsset.duration;
             timelineHolder.Evaluate();
             timelineHolder.Stop();
             timelineHolder.Pause();
-            cycleText.PlayRaedyGo();
         }
     }
 }

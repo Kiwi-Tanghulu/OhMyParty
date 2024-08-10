@@ -12,9 +12,9 @@ namespace OMG.Minigames.PunchClub
         private DeathmatchCycle deathmatchCycle = null;
         protected override bool ShufflePosition => true;
 
-        public override void Init()
+        protected override void OnGameInit()
         {
-            base.Init();
+            base.OnGameInit();
 
             hitableObjects.ForEach(i => i.Init(NetworkObject));
 
@@ -24,20 +24,20 @@ namespace OMG.Minigames.PunchClub
             deathmatchCycle = cycle as DeathmatchCycle;
         }
 
-        protected override void OnGameStart(NoneParams ignore)
+        protected override void OnGameStart()
         {
-            base.OnGameStart(ignore);
+            base.OnGameStart();
 
             if(IsHost)
                 deadZone?.SetActive(true);
         }
 
-        protected override void OnGameFinish(NoneParams ignore)
+        protected override void OnGameFinish()
         {
+            base.OnGameFinish();
+
             if(IsHost)
                 deadZone?.SetActive(false);
-
-            base.OnGameFinish(ignore);
         }
     }
 }

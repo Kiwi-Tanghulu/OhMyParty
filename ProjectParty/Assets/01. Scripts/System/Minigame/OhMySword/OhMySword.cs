@@ -20,9 +20,9 @@ namespace OMG.Minigames.OhMySword
             RenderSettings.skybox = skyboxMaterial;
         }
 
-        public override void Init()
+        protected override void OnGameInit()
         {
-            base.Init();
+            base.OnGameInit();
 
             if(IsHost == false)
                 return;
@@ -45,9 +45,9 @@ namespace OMG.Minigames.OhMySword
             ohMySwordCycle = cycle as OhMySwordCycle;
         }
 
-        protected override void OnGameStart(NoneParams ignore)
+        protected override void OnGameStart()
         {
-            base.OnGameStart(ignore);
+            base.OnGameStart();
 
             if(IsHost == false)
                 return;
@@ -55,9 +55,9 @@ namespace OMG.Minigames.OhMySword
             ohMySwordCycle.StartCycle();
         }
 
-        public override void Release()
+        protected override void OnGameRelease()
         {
-            base.Release();
+            base.OnGameRelease();
 
             if(IsHost == false)
                 return;

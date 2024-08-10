@@ -10,8 +10,6 @@ namespace OMG.Minigames
         private static MinigameManager instance = null;
         public static MinigameManager Instance => instance;
 
-        private NetworkEvent onMinigameInitEvent = new NetworkEvent("MinigameInit");
-        private NetworkEvent onMinigameReleaseEvent = new NetworkEvent("MinigameRelease");
         public Minigame CurrentMinigame = null;
 
         private bool minigamePaused = false;
@@ -35,17 +33,6 @@ namespace OMG.Minigames
             DontDestroyOnLoad(gameObject);
         }
 
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-
-            onMinigameInitEvent.AddListener(HandleMinigameInit);
-            onMinigameInitEvent.Register(NetworkObject);
-
-            onMinigameReleaseEvent.AddListener(HandleMinigameRelease);
-            onMinigameReleaseEvent.Register(NetworkObject);
-        }
-
         public void StartMinigame(MinigameSO minigameData, params ulong[] joinedPlayers)
         {
             Debug.Log("start game");
@@ -53,31 +40,21 @@ namespace OMG.Minigames
             CurrentMinigame = Instantiate(minigameData.MinigamePrefab);
             CurrentMinigame.NetworkObject.Spawn(true);
             CurrentMinigame.SetPlayerDatas(joinedPlayers);
-            onMinigameInitEvent?.Broadcast();
+            CurrentMinigame.Init();
         }
 
         public void FinishMinigame()
         {
             Debug.Log("finish game");
 
-            onMinigameReleaseEvent?.Broadcast();
-        }
-
-        private void HandleMinigameInit(NoneParams noneParams)
-        {
-            CurrentMinigame.Init();
-        }
-
-        private void HandleMinigameRelease(NoneParams noneParams)
-        {
             CurrentMinigame.Release();
+        }
 
-            if(IsHost)
-            {
-                CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
-                CurrentMinigame.NetworkObject.Despawn(true);
-                CurrentMinigame = null;
-            }
+        public void ReleaseMinigame()
+        {
+            CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
+            CurrentMinigame.NetworkObject.Despawn(true);
+            CurrentMinigame = null;
         }
     }
 }

@@ -21,9 +21,10 @@ namespace OMG.Minigames.MazeAdventure
         private ItemSpawner itemSpawner = null;
         [SerializeField] private MazeAdventureMapManager mapManager;
         public MazeAdventureMapManager MapManager => mapManager;
-        public override void Init()
+        
+        protected override void OnGameInit()
         {
-            base.Init();
+            base.OnGameInit();
 
             if(IsHost == false)
                 return;
@@ -42,9 +43,9 @@ namespace OMG.Minigames.MazeAdventure
             RenderSettings.skybox = mazeAdventureSkyBoxMaterial;
         }
 
-        protected override void OnGameStart(NoneParams ignore)
+        protected override void OnGameStart()
         {
-            base.OnGameStart(ignore);
+            base.OnGameStart();
 
             taggerSpawner.enabled = false;
             itemSpawner.enabled = false;

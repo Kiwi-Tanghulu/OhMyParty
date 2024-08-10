@@ -13,9 +13,9 @@ namespace OMG.Minigames.SafetyZone
             tiles = GetComponent<SafetyTiles>();
         }
 
-        public override void Init()
+        protected override void OnGameInit()
         {
-            base.Init();
+            base.OnGameInit();
 
             if(IsHost == false)
                 return;
@@ -24,9 +24,9 @@ namespace OMG.Minigames.SafetyZone
             tiles.Init();
         }
 
-        protected override void OnGameStart(NoneParams ignore)
+        protected override void OnGameStart()
         {
-            base.OnGameStart(ignore);
+            base.OnGameStart();
 
             if (IsHost == false)
                 return;
