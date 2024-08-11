@@ -76,6 +76,12 @@ namespace OMG.Minigames
         #region Init
         public void Init()
         {
+            if(IsHost == false)
+            {
+                Debug.LogError("Lifecycle methods should only be called by the host.");
+                return;
+            }
+                
             OnInitEvent?.Broadcast();
         }
 
@@ -104,6 +110,12 @@ namespace OMG.Minigames
         #region Release
         public void Release() 
         {
+            if (IsHost == false)
+            {
+                Debug.LogError("Lifecycle methods should only be called by the host.");
+                return;
+            }
+
             OnReleaseEvent?.Broadcast();
         }
 
@@ -120,7 +132,13 @@ namespace OMG.Minigames
 
         #region Start
         public void StartGame()
-        {   
+        {
+            if (IsHost == false)
+            {
+                Debug.LogError("Lifecycle methods should only be called by the host.");
+                return;
+            }
+
             OnStartEvent?.Broadcast();
         }
 
@@ -144,8 +162,14 @@ namespace OMG.Minigames
         #endregion
 
         #region Finish
-        public void FinishGame() 
+        public void FinishGame()
         {
+            if (IsHost == false)
+            {
+                Debug.LogError("Lifecycle methods should only be called by the host.");
+                return;
+            }
+
             OnFinishEvent?.Broadcast();
         }
 
