@@ -49,6 +49,9 @@ namespace OMG.Minigames
         {
             director.stopped -= HandleTimelineStopped;
             onIntroFinishEvent?.Invoke();
+
+            if(IsHost)
+                minigame.StartGame();
         }
 
         public void SkipCutscene()

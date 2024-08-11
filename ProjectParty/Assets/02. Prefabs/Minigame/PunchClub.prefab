@@ -5105,7 +5105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1418504798
+  GlobalObjectIdHash: 3327981872
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -5195,7 +5195,7 @@ PlayableDirector:
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: -211021496358871910, guid: 8f6a8d03590d940289f27efd6ae897b1, type: 2}
-    value: {fileID: 1779317191795838026}
+    value: {fileID: 0}
   - key: {fileID: -8971500124075912115, guid: de7fcd32f4dc04a88a4871b8fcd750aa, type: 2}
     value: {fileID: 7681951231625895735}
   - key: {fileID: 1355224416566979294, guid: 8f6a8d03590d940289f27efd6ae897b1, type: 2}
@@ -5250,23 +5250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Events:
     m_Signals:
-    - {fileID: 11400000, guid: 34b01f11f5b3f1343b989c4a867394a6, type: 2}
     - {fileID: 11400000, guid: 5b983e43b12afdf4ea39a4002854a026, type: 2}
     m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 890581862512994367}
-          m_TargetAssemblyTypeName: OMG.Minigames.MinigameCycle, Assembly-CSharp
-          m_MethodName: DisplayResult
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 423236456195571195}
@@ -6582,7 +6567,12 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'stickman:Neck'\n\tTransform 'stickman:Spine1'\n\tTransform
+    'stickman:Spine2'\n\tTransform 'stickman:RightUpLeg'\n\tTransform 'stickman:Spine'\n\tTransform
+    'stickman:LeftHand'\n\tTransform 'stickman:LeftUpLeg'\n\tTransform 'stickman:Head'\n\tTransform
+    'stickman:LeftArm'\n\tTransform 'stickman:RightHand'\n\tand more ..."
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -9438,7 +9428,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3254791739758512, guid: b30ebe2927fe14e4b8b44d63889849f7, type: 3}
       propertyPath: m_WarningMessage
-      value: 
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'stickman:Neck'\n\tTransform 'stickman:Spine1'\n\tTransform
+        'stickman:Spine2'\n\tTransform 'stickman:RightUpLeg'\n\tTransform 'stickman:Spine'\n\tTransform
+        'stickman:LeftHand'\n\tTransform 'stickman:LeftUpLeg'\n\tTransform 'stickman:Head'\n\tTransform
+        'stickman:LeftArm'\n\tTransform 'stickman:RightHand'\n\tand more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 383653842776259788, guid: b30ebe2927fe14e4b8b44d63889849f7,
         type: 3}
@@ -14934,18 +14929,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d5c0337e854fc74a9287e5d63cbcc8e, type: 3}
---- !u!114 &1779317191795838026 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8567516609396574533, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7950130397850567951}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &4608002763101047857 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5883499230986963262, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,

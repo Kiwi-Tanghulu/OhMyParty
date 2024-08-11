@@ -781,7 +781,6 @@ GameObject:
   - component: {fileID: 1306878885673214518}
   - component: {fileID: 6591676644726965609}
   - component: {fileID: 7030191793655762723}
-  - component: {fileID: 6517700558489344970}
   - component: {fileID: 7793464857356492603}
   - component: {fileID: 828290309280832393}
   - component: {fileID: 5229672663214220854}
@@ -830,7 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1494386159
+  GlobalObjectIdHash: 2603474441
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -925,11 +924,11 @@ PlayableDirector:
   - key: {fileID: -1797631719075211741, guid: d288a0f412349a84aac64a785ec913e7, type: 2}
     value: {fileID: 5226132355885133413}
   - key: {fileID: -1773391010614453792, guid: d288a0f412349a84aac64a785ec913e7, type: 2}
-    value: {fileID: 1666176201207236973}
+    value: {fileID: 0}
   - key: {fileID: 7947071811529695296, guid: ab42510612c807149a4462f65e38dd29, type: 2}
     value: {fileID: 5691738058372550064}
   - key: {fileID: -401632957903993002, guid: ab42510612c807149a4462f65e38dd29, type: 2}
-    value: {fileID: 6517700558489344970}
+    value: {fileID: 0}
   - key: {fileID: 5388137140706031905, guid: 3733c8fe09f24b84581e0076d2605c48, type: 2}
     value: {fileID: 0}
   - key: {fileID: -1414510694812541944, guid: cd0f5494b53de0943905a7a330062196, type: 2}
@@ -952,63 +951,6 @@ PlayableDirector:
     value: {fileID: 6215966310461747357}
   m_ExposedReferences:
     m_References: []
---- !u!114 &6517700558489344970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2819869098861211246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 34b01f11f5b3f1343b989c4a867394a6, type: 2}
-    - {fileID: 11400000, guid: 3bc5f8c3e92b18a41b6975a21f79a87a, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6591676644726965609}
-          m_TargetAssemblyTypeName: OMG.Minigames.MinigameCycle, Assembly-CSharp
-          m_MethodName: DisplayResult
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 167433566056996583}
-          m_TargetAssemblyTypeName: OMG.UI.MinigameCanvas, Assembly-CSharp
-          m_MethodName: ChangeRenderType
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 61830485736497905}
-          m_TargetAssemblyTypeName: OMG.Minigames.RockFestival.RockFestival, Assembly-CSharp
-          m_MethodName: StartGame
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!114 &7793464857356492603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8717,18 +8659,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1666176201207236973 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8567516609396574533, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7060127559425277992}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &3484941665502644502 stripped
