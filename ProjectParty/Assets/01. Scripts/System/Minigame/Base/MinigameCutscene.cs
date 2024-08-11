@@ -50,6 +50,7 @@ namespace OMG.Minigames
             director.stopped -= HandleTimelineStopped;
             onIntroFinishEvent?.Invoke();
 
+            // 나중에 모두 컷씬이 끝날 때까지 기다렸다가 시작하는 걸로 바꾸기
             if(IsHost)
                 minigame.StartGame();
         }
