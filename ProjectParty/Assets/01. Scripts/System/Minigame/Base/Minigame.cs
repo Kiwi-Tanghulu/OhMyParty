@@ -64,11 +64,14 @@ namespace OMG.Minigames
             OnFinishEvent.Register(NetworkObject);
         }
 
-        /// <summary>
-        /// Only Host Could Call this Method
-        /// </summary>  
         public virtual void SetPlayerDatas(params ulong[] playerIDs)
         {
+            if (IsHost == false)
+            {
+                Debug.LogError("Lifecycle methods should only be called by the host.");
+                return;
+            }
+
             for (int i = 0; i < playerIDs.Length; ++i)
                 playerDatas.Add(new PlayerData(playerIDs[i]));
         }
