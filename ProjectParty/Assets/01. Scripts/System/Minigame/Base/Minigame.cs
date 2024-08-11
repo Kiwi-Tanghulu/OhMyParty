@@ -133,6 +133,9 @@ namespace OMG.Minigames
         {
             InputManager.ChangeInputMap(InputMapType.Play);
             GameManager.Instance.CursorActive = false;
+
+            cutscenePanel.Display(false);
+
             minigamePanel.Init(this);
             minigamePanel.Display(true);
 
