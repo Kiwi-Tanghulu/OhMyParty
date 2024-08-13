@@ -1,6 +1,7 @@
 using DG.Tweening;
 using OMG.Minigames;
 using OMG.Utility;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -114,6 +115,49 @@ namespace OMG.UI
             ReadyEventOption = readyEventOption;
             GoEventOption = goEventOption;
             PlayFinish();
+        }
+
+
+        public class ReadyGoInstance
+        {
+            private Action readyPositiveCallback = null;
+            private Action readyNegativeCallback = null;
+            private Action goPositiveCallback = null;
+            private Action goNegativeCallback = null;
+
+            public ReadyGoInstance()
+            {
+
+            }
+
+            public void Play()
+            {
+                
+            }
+
+            public ReadyGoInstance AddReadyPositiveCallback(Action callback)
+            {
+                readyPositiveCallback += callback;
+                return this;
+            }
+
+            public ReadyGoInstance AddReadyNegativeCallback(Action callback)
+            {
+                readyNegativeCallback += callback;
+                return this;
+            }
+
+            public ReadyGoInstance AddGoPositiveCallback(Action callback)
+            {
+                goPositiveCallback += callback;
+                return this;
+            }
+
+            public ReadyGoInstance AddGoNegativeCallback(Action callback)
+            {
+                goNegativeCallback += callback;
+                return this;
+            }
         }
 
         public void PlayRaedyGo()
