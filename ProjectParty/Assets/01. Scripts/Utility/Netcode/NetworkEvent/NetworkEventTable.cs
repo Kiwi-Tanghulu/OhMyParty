@@ -22,6 +22,7 @@ namespace OMG.NetworkEvents
             RegisterParamsFactory<Vector3Params>();
             RegisterParamsFactory<TransformParams>();
             RegisterParamsFactory<AttackParams>();
+            RegisterParamsFactory<StateParams>();
         }
 
         public static void RegisterParamsFactory<T>() where T : NetworkEventParams, new() => paramsFactories.Add(typeof(T).ToString(), ParamsFactory<T>);

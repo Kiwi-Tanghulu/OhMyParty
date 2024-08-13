@@ -117,8 +117,8 @@ namespace OMG.Minigames.OhMySword
             if(IsHost == false)
                 return;
 
-            if(minigame.IsPlaying == false)
-                return;
+            // if(minigame.IsPlaying == false)
+            //     return;
 
             minigame.PlayerDatas.ChangeData(i => i.clientID == OwnerClientId, data => {
                 data.score = xp;

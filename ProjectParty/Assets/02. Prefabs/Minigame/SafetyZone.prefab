@@ -3408,6 +3408,7 @@ GameObject:
   - component: {fileID: 2517067444738299336}
   - component: {fileID: 149086246433576000}
   - component: {fileID: 2475357020856729168}
+  - component: {fileID: -1473416932867710810}
   m_Layer: 0
   m_Name: SafetyZone
   m_TagString: Untagged
@@ -3830,8 +3831,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameCycleTextUI: {fileID: 7722869860100226367}
   cutscene: {fileID: 11400000, guid: 2b320ed9d320f48498e05f173913bdb2, type: 2}
-  onIntroFinishEvent:
+  onCutsceneFinishEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &149086246433576000
@@ -3972,6 +3974,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 8dc5359aaadc1a24ca098e29e95e8269, type: 2}
+--- !u!114 &-1473416932867710810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872781912382508777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1886799971837245865
 GameObject:
   m_ObjectHideFlags: 0
@@ -15096,6 +15113,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 735178427699371842}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7722869860100226367 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 735178427699371842}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &794560943577123804
 PrefabInstance:
   m_ObjectHideFlags: 0

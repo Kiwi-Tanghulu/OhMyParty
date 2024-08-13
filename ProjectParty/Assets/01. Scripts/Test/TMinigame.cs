@@ -9,7 +9,7 @@ namespace OMG.Test
 
         public void StartMinigame()
         {
-            MinigameManager.Instance.StartMinigame(minigameData);
+            MinigameManager.Instance.StartMinigame(minigameData, new ulong[] { 0 });
         }
     }
 }

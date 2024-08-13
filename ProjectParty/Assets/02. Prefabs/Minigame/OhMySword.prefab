@@ -15943,6 +15943,7 @@ GameObject:
   - component: {fileID: -1754119358455881763}
   - component: {fileID: 8962362112364994438}
   - component: {fileID: 5063205494194054147}
+  - component: {fileID: -2373052073324560410}
   m_Layer: 0
   m_Name: OhMySword
   m_TagString: Untagged
@@ -16106,7 +16107,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: f62c3827e25321d4bbb79d5531eb414d, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -16235,22 +16236,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameCycleTextUI: {fileID: 2983638199299618531}
   cutscene: {fileID: 11400000, guid: f62c3827e25321d4bbb79d5531eb414d, type: 2}
-  onIntroFinishEvent:
+  onCutsceneFinishEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2983638199299618531}
-        m_TargetAssemblyTypeName: OMG.UI.GameCycleText, Assembly-CSharp
-        m_MethodName: PlayRaedyGo
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &-1754119358455881763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16478,6 +16468,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2373052073324560410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7737952931389382130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7745114121956867807
 GameObject:
   m_ObjectHideFlags: 0

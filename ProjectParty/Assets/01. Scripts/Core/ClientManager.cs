@@ -16,6 +16,7 @@ namespace OMG.Network
 
         public event Action OnDisconnectEvent = null;
         public Lobby? CurrentLobby = null;
+        public ulong ClientID => NetworkManager.Singleton.LocalClientId;
 
         public ClientManager()
         {

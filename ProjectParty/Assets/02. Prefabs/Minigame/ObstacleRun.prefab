@@ -4028,6 +4028,7 @@ GameObject:
   - component: {fileID: 5733095522093520338}
   - component: {fileID: 8448536739095837326}
   - component: {fileID: 5652035243941370576}
+  - component: {fileID: 5041662513898910959}
   m_Layer: 0
   m_Name: ObstacleRun
   m_TagString: Untagged
@@ -4275,8 +4276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameCycleTextUI: {fileID: 3483487918812104313}
   cutscene: {fileID: 11400000, guid: a27594006c7c6cd4985050651ca83f84, type: 2}
-  onIntroFinishEvent:
+  onCutsceneFinishEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &5733095522093520338
@@ -4506,6 +4508,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5041662513898910959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4994372751181896086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5264238407397490985
 GameObject:
   m_ObjectHideFlags: 0
@@ -15645,6 +15662,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5857230471284139012}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3483487918812104313 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5857230471284139012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5879742271312207106
 PrefabInstance:
   m_ObjectHideFlags: 0

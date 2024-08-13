@@ -1068,6 +1068,7 @@ GameObject:
   - component: {fileID: 5927369487226482722}
   - component: {fileID: -6400452075883761285}
   - component: {fileID: -6697100591252080655}
+  - component: {fileID: 2634869124277894499}
   m_Layer: 0
   m_Name: EatingLand
   m_TagString: Untagged
@@ -1177,7 +1178,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 29e4da3d4e2390a47b35db5f9a9c5ea7, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -1261,8 +1262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameCycleTextUI: {fileID: 5813769424493021902}
   cutscene: {fileID: 11400000, guid: 29e4da3d4e2390a47b35db5f9a9c5ea7, type: 2}
-  onIntroFinishEvent:
+  onCutsceneFinishEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &-6697100591252080655
@@ -1278,6 +1280,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 8dc5359aaadc1a24ca098e29e95e8269, type: 2}
+--- !u!114 &2634869124277894499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5345084573335857871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6064551832575828364
 GameObject:
   m_ObjectHideFlags: 0
@@ -10419,6 +10436,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d5c0337e854fc74a9287e5d63cbcc8e, type: 3}
+--- !u!114 &5813769424493021902 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3580482271221262515}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6923737725794853261 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5883499230986963262, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
