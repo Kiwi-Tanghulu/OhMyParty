@@ -17,9 +17,12 @@ namespace OMG.Minigames
 
         [Space(15f)]
         NetworkEvent<UlongParams> onPlayerGoalRpc = new NetworkEvent<UlongParams>("PlayerGoal");
-        [SerializeField] UnityEvent<Transform> OnPlayerGoalEvent;
+        public NetworkEvent<UlongParams> onPlayerGoalEndEvent = new NetworkEvent<UlongParams>("PlayerGoalEnd");
+        public UnityEvent<Transform> OnPlayerGoalEvent;
         private RacePlayerPanel playerPanel = null;
         private PlayableMinigame playableMinigame = null;
+
+        [SerializeField] private float goalDelay;
 
         protected int goalPlayerCount = 0;
         public int GoalPlayerCount => goalPlayerCount;
@@ -41,6 +44,7 @@ namespace OMG.Minigames
 
             onPlayerGoalRpc.AddListener(HandlePlayerGoal);
             onPlayerGoalRpc.Register(NetworkObject);
+            onPlayerGoalEndEvent.Register(NetworkObject);
         }
 
         public virtual void SetPlayerGoal(ulong clientID)
@@ -71,9 +75,10 @@ namespace OMG.Minigames
                     goalPlayerCount++;
                     Debug.Log($"Player Count : {minigame.PlayerDatas.Count} / Goal Player Count : {goalPlayerCount}");
 
-                    StartCoroutine(this.DelayCoroutine(2f, () =>
+                    StartCoroutine(this.DelayCoroutine(goalDelay, () =>
                     {
                         player.NetworkObject.Despawn(true);
+                        onPlayerGoalEndEvent?.Invoke(clientID);
                     }));
 
                     minigame.PlayerDatas[index] = data;

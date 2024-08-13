@@ -1,4 +1,5 @@
 using OMG.Minigames.RunAway;
+using OMG.NetworkEvents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace OMG.Minigames
     {
         private RaceCycle raceCycle;
 
+        [SerializeField] private float startSpectateDelay;
+
         //[SerializeField] private PlayerItemBox itemBoxPrefab;
         //[SerializeField] private Transform itemBoxSpawnPoints;
 
@@ -17,6 +20,8 @@ namespace OMG.Minigames
             base.OnGameInit();
 
             raceCycle = cycle as RaceCycle;
+
+            raceCycle.onPlayerGoalEndEvent.AddListener(HandlePlayerGoalEnd);
         }
 
         public override void OnNetworkSpawn()
@@ -29,6 +34,17 @@ namespace OMG.Minigames
             //    itemBox.NetworkObject.Spawn();
             //    itemBox.NetworkObject.TrySetParent(transform);
             //}
+        }
+
+        private void HandlePlayerGoalEnd(UlongParams clientID)
+        {
+            if(NetworkManager.LocalClientId == clientID.Value)
+            {
+                if(TryGetComponent<MinigameSpectate>(out MinigameSpectate spectate))
+                {
+                    spectate.StartSpectate();
+                }
+            }
         }
     }
 }
