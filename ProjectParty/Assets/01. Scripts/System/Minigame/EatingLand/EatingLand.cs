@@ -6,6 +6,9 @@ namespace OMG.Minigames.EatingLand
 {
     public class EatingLand : PlayableMinigame
     {
-
+        protected override void OnGameInit()
+        {
+            base.OnGameInit();
+        }
     }
 }

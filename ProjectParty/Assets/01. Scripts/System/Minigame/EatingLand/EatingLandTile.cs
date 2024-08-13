@@ -13,7 +13,7 @@ namespace OMG.Minigames.EatingLand
         private int currentIndex = -1;
 
         private EatingLandTileVisual eatingLandTileVisual;
-        public event Action<int, int> OnUpdateTileEvent;
+        public event Action<int, int, int> OnUpdateTileEvent;
 
         private void Awake()
         {
@@ -35,7 +35,7 @@ namespace OMG.Minigames.EatingLand
             {
                 return;
             }
-            OnUpdateTileEvent?.Invoke(tileID, nextIndex);
+            OnUpdateTileEvent?.Invoke(tileID, currentIndex ,nextIndex);
         }
 
         public void UpdateTile(int nextIndex)
@@ -48,7 +48,6 @@ namespace OMG.Minigames.EatingLand
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("감지감지");
                 OnPlayerEnter(other.GetComponent<EatingLandPlayerController>().PlayerIndex);
             }
         }
