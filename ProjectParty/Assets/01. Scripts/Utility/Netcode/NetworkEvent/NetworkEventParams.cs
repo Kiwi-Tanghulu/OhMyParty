@@ -224,4 +224,33 @@ namespace OMG.NetworkEvents
             writer.WriteValue(Normal);
         }
     }
+
+    public class StateParams : NetworkEventParams, IConvertible<StateParams>
+    {
+        protected override ushort Size => sizeof(int) + sizeof(ulong);
+
+        public int State = 0;
+        public ulong ClientID = 0;
+
+        public StateParams Convert() => this;
+
+        public StateParams() {}
+        public StateParams(int state, ulong clientID)
+        {
+            State = state;
+            ClientID = clientID;
+        }
+
+        protected override void Deserialize(FastBufferReader reader)
+        {
+            reader.ReadValue(out State);
+            reader.ReadValue(out ClientID);
+        }
+
+        protected override void Serialize(FastBufferWriter writer)
+        {
+            writer.WriteValue(State);
+            writer.WriteValue(ClientID);
+        }
+    }
 }

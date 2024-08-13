@@ -1,4 +1,5 @@
 using Cinemachine;
+using OMG.UI;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,10 +11,11 @@ namespace OMG.Minigames
     [RequireComponent(typeof(PlayableDirector))]
     public class MinigameCutscene : NetworkBehaviour
     {
+        [SerializeField] GameCycleText gameCycleTextUI = null;
         [SerializeField] TimelineAsset cutscene = null;
 
         [Space(15f)]
-        [SerializeField] UnityEvent onIntroFinishEvent = null;
+        [SerializeField] UnityEvent onCutsceneFinishEvent = null;
 
         protected PlayableDirector timelineHolder = null;
         protected Minigame minigame = null;
@@ -48,11 +50,14 @@ namespace OMG.Minigames
         private void HandleTimelineStopped(PlayableDirector director)
         {
             director.stopped -= HandleTimelineStopped;
-            onIntroFinishEvent?.Invoke();
 
-            // 나중에 모두 컷씬이 끝날 때까지 기다렸다가 시작하는 걸로 바꾸기
-            if(IsHost)
-                minigame.StartGame();
+            gameCycleTextUI.ReadyGo.AddGoNegativeCallback(() => {
+                onCutsceneFinishEvent?.Invoke();
+                minigame.State.ChangeMinigameState(MinigameState.StateType.CutsceneFinished);
+            });
+            
+            minigame.CutscenePanel.Display(false);
+            gameCycleTextUI.ReadyGo.Play();
         }
 
         public void SkipCutscene()

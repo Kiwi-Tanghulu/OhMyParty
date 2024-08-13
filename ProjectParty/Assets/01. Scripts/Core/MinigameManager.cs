@@ -33,14 +33,13 @@ namespace OMG.Minigames
             DontDestroyOnLoad(gameObject);
         }
 
-        public void StartMinigame(MinigameSO minigameData, params ulong[] joinedPlayers)
+        public void StartMinigame(MinigameSO minigameData, ulong[] joinedPlayers)
         {
             Debug.Log("start game");
 
             CurrentMinigame = Instantiate(minigameData.MinigamePrefab);
             CurrentMinigame.NetworkObject.Spawn(true);
             CurrentMinigame.SetPlayerDatas(joinedPlayers);
-            CurrentMinigame.Init();
         }
 
         public void FinishMinigame()

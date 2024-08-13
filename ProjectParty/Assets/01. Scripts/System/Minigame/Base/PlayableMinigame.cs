@@ -30,7 +30,7 @@ namespace OMG.Minigames
             players = new NetworkList<NetworkObjectReference>();
         }
 
-        public override void SetPlayerDatas(params ulong[] playerIDs)
+        public override void SetPlayerDatas(ulong[] playerIDs)
         {
             base.SetPlayerDatas(playerIDs);
             playerDictionary = new Dictionary<ulong, PlayerController>();
