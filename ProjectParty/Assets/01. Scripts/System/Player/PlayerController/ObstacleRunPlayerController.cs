@@ -1,6 +1,10 @@
+using OMG.FSM;
+using OMG.Player.FSM;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 namespace OMG.Player
 {
@@ -15,12 +19,15 @@ namespace OMG.Player
 
         public override void Respawn(Vector3 pos, Vector3 rot)
         {
-            Respawn();
+            GetCharacterComponent<CharacterFSM>().ChangeState(typeof(RecoveryState));
+            GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false, true);
+            GetCharacterComponent<PlayerMovement>().Teleport(pos, Quaternion.Euler(rot));
         }
 
-        private void Respawn()
-        {
-            base.Respawn(respawnPoint.position, respawnPoint.eulerAngles);
+        public void Respawn()
+        {   
+            GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false, true);
+            GetCharacterComponent<PlayerMovement>().Teleport(respawnPoint.position, respawnPoint.rotation);
         }
     }
 }
