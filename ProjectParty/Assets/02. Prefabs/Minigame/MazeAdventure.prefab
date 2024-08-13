@@ -681,7 +681,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602459083815236514}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0113617955, y: 0.9579512, z: -0.038305786, w: 0.28413582}
+  m_LocalRotation: {x: 0.017067619, y: 0.35575175, z: -0.006498097, w: 0.93440205}
   m_LocalPosition: {x: 0.65695655, y: 1.6504421, z: 6.404312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9048,6 +9048,7 @@ GameObject:
   - component: {fileID: 6542811692836762078}
   - component: {fileID: 4611675550806679816}
   - component: {fileID: -3560100266816356186}
+  - component: {fileID: -7704928381980357921}
   m_Layer: 0
   m_Name: MazeAdventure
   m_TagString: Untagged
@@ -9171,7 +9172,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 581a9b94aede28948bec006aa30d1255, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -9294,8 +9295,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameCycleTextUI: {fileID: 1098981393455013273}
   cutscene: {fileID: 11400000, guid: 581a9b94aede28948bec006aa30d1255, type: 2}
-  onIntroFinishEvent:
+  onCutsceneFinishEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &-3560100266816356186
@@ -9311,6 +9313,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 8dc5359aaadc1a24ca098e29e95e8269, type: 2}
+--- !u!114 &-7704928381980357921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004020425414398961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7011349736176456842
 GameObject:
   m_ObjectHideFlags: 0
@@ -10400,7 +10417,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7915224531920546394}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0030358532, y: 0.99233687, z: -0.02489964, w: -0.12098925}
+  m_LocalRotation: {x: 0.016921896, y: -0.7617367, z: 0.019911703, w: 0.64735955}
   m_LocalPosition: {x: 0.65695655, y: 1.6504421, z: 6.404312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41958,6 +41975,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d5c0337e854fc74a9287e5d63cbcc8e, type: 3}
+--- !u!114 &1098981393455013273 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7952961237337472996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4609710725197231834 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5883499230986963262, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,

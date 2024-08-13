@@ -5,6 +5,7 @@ using OMG.UI.Minigames;
 using Unity.Netcode;
 using UnityEngine;
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
+using StateType = OMG.Minigames.MinigameState.StateType;
 
 namespace OMG.Minigames
 {
@@ -30,9 +31,10 @@ namespace OMG.Minigames
         protected MinigameCycle cycle = null;
         public MinigameCycle Cycle => cycle;
 
-        private MinigameCutscene cutscene = null;
+        protected MinigameState state = null;
+        public MinigameState State => state;
 
-        public bool IsPlaying { get; private set; } = false;
+        private MinigameCutscene cutscene = null;
 
         protected virtual void Awake()
         {
@@ -42,6 +44,7 @@ namespace OMG.Minigames
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
             cutscene = GetComponent<MinigameCutscene>();
+            state = GetComponent<MinigameState>();
 
             cycle.Init(this);
         }
@@ -62,9 +65,14 @@ namespace OMG.Minigames
 
             OnFinishEvent.AddListener(HandleGameFinish);
             OnFinishEvent.Register(NetworkObject);
+
+            state.Init();
+            state.OnStateSyncedEvent += HandleStateSynced;
+            if(IsHost == false) // 호스트가 아니면 OnNetworkSpawned 에서 상태 변경
+                state.ChangeMinigameState(StateType.Spawned);
         }
 
-        public virtual void SetPlayerDatas(params ulong[] playerIDs)
+        public virtual void SetPlayerDatas(ulong[] playerIDs)
         {
             if (IsHost == false)
             {
@@ -74,6 +82,9 @@ namespace OMG.Minigames
 
             for (int i = 0; i < playerIDs.Length; ++i)
                 playerDatas.Add(new PlayerData(playerIDs[i]));
+
+            state.Init(playerIDs);
+            state.ChangeMinigameState(StateType.Spawned); // 호스트는 SetPlayerDatas에서 상태 변경
         }
 
         #region Init
@@ -92,6 +103,7 @@ namespace OMG.Minigames
         {
             OnGameInit();
             cutscene.PlayCutscene();
+            State.ChangeMinigameState(StateType.Initialized);
         }
 
         protected virtual void OnGameInit()
@@ -125,7 +137,7 @@ namespace OMG.Minigames
         private void HandleGameRelease()
         {
             OnGameRelease();
-            MinigameManager.Instance.ReleaseMinigame();
+            State.ChangeMinigameState(StateType.Released);
         }
 
         protected virtual void OnGameRelease()
@@ -148,6 +160,7 @@ namespace OMG.Minigames
         private void HandleGameStart()
         {
             OnGameStart();
+            State.ChangeMinigameState(StateType.Playing);
         }
 
         protected virtual void OnGameStart()
@@ -159,8 +172,6 @@ namespace OMG.Minigames
 
             minigamePanel.Init(this);
             minigamePanel.Display(true);
-
-            IsPlaying = true;
         }
         #endregion
 
@@ -179,6 +190,7 @@ namespace OMG.Minigames
         private void HandleGameFinish()
         {
             OnGameFinish();
+            state.ChangeMinigameState(StateType.Finished);
             StartCoroutine(this.DelayCoroutine(minigameData.ResultPostponeTime, () => {
                 cycle.DisplayResult();
             }));
@@ -188,13 +200,32 @@ namespace OMG.Minigames
         {
             InputManager.ChangeInputMap(InputMapType.UI);
             GameManager.Instance.CursorActive = true;
-            IsPlaying = false;
+        }
+        #endregion
+
+        #region HandleState
+        private void HandleStateSynced(StateType stateType)
+        {
+            switch(stateType)
+            {
+                case StateType.Spawned:
+                    Init();
+                    break;
+                case StateType.CutsceneFinished:
+                    StartGame();
+                    break;
+                case StateType.Released:
+                    MinigameManager.Instance.ReleaseMinigame();
+                    break;
+            }
         }
         #endregion
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
+
+            state.Release();
 
             Fade.Instance.FadeIn(
                 3f, 

@@ -5061,6 +5061,7 @@ GameObject:
   - component: {fileID: 7896654409348329978}
   - component: {fileID: 423236456195571195}
   - component: {fileID: 6255931118890861596}
+  - component: {fileID: -2143815681066842138}
   m_Layer: 0
   m_Name: PunchClub
   m_TagString: Untagged
@@ -5189,7 +5190,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 8f6a8d03590d940289f27efd6ae897b1, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -5278,8 +5279,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5797f5da384aadd42b1a6cfff3abdc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameCycleTextUI: {fileID: 1101777323113195378}
   cutscene: {fileID: 11400000, guid: 8f6a8d03590d940289f27efd6ae897b1, type: 2}
-  onIntroFinishEvent:
+  onCutsceneFinishEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &7896654409348329978
@@ -5455,6 +5457,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2143815681066842138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6719119153586902158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6960224129941661000
 GameObject:
   m_ObjectHideFlags: 0
@@ -6567,12 +6584,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'stickman:Neck'\n\tTransform 'stickman:Spine1'\n\tTransform
-    'stickman:Spine2'\n\tTransform 'stickman:RightUpLeg'\n\tTransform 'stickman:Spine'\n\tTransform
-    'stickman:LeftHand'\n\tTransform 'stickman:LeftUpLeg'\n\tTransform 'stickman:Head'\n\tTransform
-    'stickman:LeftArm'\n\tTransform 'stickman:RightHand'\n\tand more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -9428,12 +9440,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3254791739758512, guid: b30ebe2927fe14e4b8b44d63889849f7, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'stickman:Neck'\n\tTransform 'stickman:Spine1'\n\tTransform
-        'stickman:Spine2'\n\tTransform 'stickman:RightUpLeg'\n\tTransform 'stickman:Spine'\n\tTransform
-        'stickman:LeftHand'\n\tTransform 'stickman:LeftUpLeg'\n\tTransform 'stickman:Head'\n\tTransform
-        'stickman:LeftArm'\n\tTransform 'stickman:RightHand'\n\tand more ..."
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 383653842776259788, guid: b30ebe2927fe14e4b8b44d63889849f7,
         type: 3}
@@ -14929,6 +14936,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d5c0337e854fc74a9287e5d63cbcc8e, type: 3}
+--- !u!114 &1101777323113195378 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6998248414904656509, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7950130397850567951}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2bb3b2df60f7248a64cc9ab8dd87e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4608002763101047857 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5883499230986963262, guid: 6d5c0337e854fc74a9287e5d63cbcc8e,
