@@ -12,6 +12,74 @@ namespace OMG.UI
 {
     public class GameCycleText : MonoBehaviour
     {
+        public class ReadyGoText
+        {
+            private Sequence seq;
+
+            private Action readyPositiveCallback = null;
+            private Action readyNegativeCallback = null;
+            private Action goPositiveCallback = null;
+            private Action goNegativeCallback = null;
+
+            public ReadyGoText(TextMeshProUGUI text, string readyText, string goText, float readyTime,
+                Func<TextMeshProUGUI, Tween> createReadyTween, Func<TextMeshProUGUI, Tween> createGoTween)
+            {
+                seq = DOTween.Sequence()
+                    .SetAutoKill(false);
+
+                //ready 
+                seq.AppendCallback(() =>
+                {
+                    text.SetText(readyText);
+                    text.gameObject.SetActive(true);
+                    readyPositiveCallback?.Invoke();
+                });
+                seq.Append(createReadyTween?.Invoke(text).SetAutoKill(false));
+                seq.AppendCallback(() => readyNegativeCallback?.Invoke());
+
+                seq.AppendInterval(readyTime);
+
+                //go
+                seq.AppendCallback(() =>
+                {
+                    text.SetText(goText);
+                    goPositiveCallback?.Invoke();
+                });
+                seq.Append(createGoTween?.Invoke(text).SetAutoKill(false));
+                seq.AppendCallback(() => goNegativeCallback?.Invoke());
+                seq.AppendCallback(() => text.gameObject.SetActive(false));
+            }
+
+            public void Play()
+            {
+                seq.Restart();
+            }
+
+            public ReadyGoText AddReadyPositiveCallback(Action callback)
+            {
+                readyPositiveCallback += callback;
+                return this;
+            }
+
+            public ReadyGoText AddReadyNegativeCallback(Action callback)
+            {
+                readyNegativeCallback += callback;
+                return this;
+            }
+
+            public ReadyGoText AddGoPositiveCallback(Action callback)
+            {
+                goPositiveCallback += callback;
+                return this;
+            }
+
+            public ReadyGoText AddGoNegativeCallback(Action callback)
+            {
+                goNegativeCallback += callback;
+                return this;
+            }
+        }
+
         [SerializeField] private string readyText;
         [SerializeField] private string goText;
         [SerializeField] private string finishText;
@@ -33,11 +101,11 @@ namespace OMG.UI
 
         private TextMeshProUGUI text;
 
-        private Sequence readyGoSeq;
         private Sequence finishSeq;
 
-        public OptOption<UnityEvent> ReadyEventOption;
-        public OptOption<UnityEvent> GoEventOption;
+        private ReadyGoText readyGo;
+        public ReadyGoText ReadyGo => readyGo;
+
         public OptOption<UnityEvent> FinishEventOption;
 
         public UnityEvent OnFinish;
@@ -45,43 +113,31 @@ namespace OMG.UI
         private void Start()
         {
             Minigame minigame = MinigameManager.Instance.CurrentMinigame;
-            //minigame.OnFinishEvent.AddListener(Minigame_OnFinishGame);
+            minigame.OnFinishEvent.AddListener(Minigame_OnFinishGame);
 
             text = transform.Find("Text").GetComponent<TextMeshProUGUI>();
 
-            #region readyGo
-            readyGoSeq = DOTween.Sequence()
-                .SetAutoKill(false);
-
-            //ready 
-            readyGoSeq.AppendCallback(() =>
+            readyGo = new ReadyGoText(text, readyText, goText, readyTime, (t) =>
             {
-                text.SetText(readyText);
-                text.gameObject.SetActive(true);
-                ReadyEventOption[true]?.Invoke();
-            });
-            readyGoSeq.Append(text.transform.DOScale(Vector3.one * endReadyTextSize, textShowTime)
+                Sequence seq = DOTween.Sequence();
+
+                seq.Append(text.transform.DOScale(Vector3.one * endReadyTextSize, textShowTime)
                 .From(Vector3.one * startReadyTextSize));
-            readyGoSeq.Join(text.DOFade(1f, textShowTime)
-                .From(0f));
-            readyGoSeq.AppendCallback(() => ReadyEventOption[false]?.Invoke());
+                seq.Join(text.DOFade(1f, textShowTime)
+                    .From(0f));
 
-            readyGoSeq.AppendInterval(readyTime);
-
-            //go
-            readyGoSeq.AppendCallback(() => 
+                return seq;
+            }, (t) =>
             {
-                text.SetText(goText);
-                GoEventOption[true]?.Invoke();
-            });
-            readyGoSeq.Append(text.transform.DOScale(Vector3.one * endGoTextSize, textShowTime)
+                Sequence seq = DOTween.Sequence();
+
+                seq.Append(text.transform.DOScale(Vector3.one * endGoTextSize, textShowTime)
                 .From(Vector3.one * startGoTextSize));
-            readyGoSeq.Join(text.DOFade(1f, textShowTime)
-                .From(0f));
-            readyGoSeq.AppendCallback(() => GoEventOption[false]?.Invoke());
-            readyGoSeq.Append(text.DOFade(0f, textShowTime));
-            readyGoSeq.AppendCallback(() => text.gameObject.SetActive(false));
-            #endregion
+                seq.Join(text.DOFade(1f, textShowTime)
+                    .From(0f));
+
+                return seq;
+            });
 
             #region finish
             finishSeq = DOTween.Sequence()
@@ -110,59 +166,9 @@ namespace OMG.UI
             PlayFinish();
         }
 
-        private void Minigame_OnFinishGame(OptOption<UnityEvent> readyEventOption, OptOption<UnityEvent> goEventOption)
-        {
-            ReadyEventOption = readyEventOption;
-            GoEventOption = goEventOption;
-            PlayFinish();
-        }
-
-
-        public class ReadyGoInstance
-        {
-            private Action readyPositiveCallback = null;
-            private Action readyNegativeCallback = null;
-            private Action goPositiveCallback = null;
-            private Action goNegativeCallback = null;
-
-            public ReadyGoInstance()
-            {
-
-            }
-
-            public void Play()
-            {
-                
-            }
-
-            public ReadyGoInstance AddReadyPositiveCallback(Action callback)
-            {
-                readyPositiveCallback += callback;
-                return this;
-            }
-
-            public ReadyGoInstance AddReadyNegativeCallback(Action callback)
-            {
-                readyNegativeCallback += callback;
-                return this;
-            }
-
-            public ReadyGoInstance AddGoPositiveCallback(Action callback)
-            {
-                goPositiveCallback += callback;
-                return this;
-            }
-
-            public ReadyGoInstance AddGoNegativeCallback(Action callback)
-            {
-                goNegativeCallback += callback;
-                return this;
-            }
-        }
-
         public void PlayRaedyGo()
         {
-            readyGoSeq.Restart();
+            readyGo.Play();
         }
 
         public void PlayFinish()
