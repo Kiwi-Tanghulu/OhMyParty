@@ -1556,7 +1556,7 @@ namespace LightShaft.Scripts
 
                     foreach (VideoInfo info in videoInfos)
                     {
-                        Debug.Log("RES: " + info.Resolution + " | " + info.FormatCode + " | " + info.VideoType);
+                        //Debug.Log("RES: " + info.Resolution + " | " + info.FormatCode + " | " + info.VideoType);
 
                     }
 
