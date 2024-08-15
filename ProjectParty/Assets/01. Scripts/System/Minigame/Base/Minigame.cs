@@ -206,6 +206,7 @@ namespace OMG.Minigames
         #region HandleState
         private void HandleStateSynced(StateType stateType)
         {
+            Debug.Log(stateType);
             switch(stateType)
             {
                 case StateType.Spawned:
