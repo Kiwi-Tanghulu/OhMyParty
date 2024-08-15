@@ -54,6 +54,9 @@ namespace OMG.Minigames.MazeAdventure
 
         public void ClearItemBoxList()
         {
+            if (currentItemList == null)
+                return;
+
             for (int i = 0; i < currentItemList.Count; i++)
             {
                 if (currentItemList[i] == null) continue;
