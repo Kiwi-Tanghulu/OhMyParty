@@ -681,7 +681,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602459083815236514}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.017067619, y: 0.35575175, z: -0.0064980965, w: 0.93440205}
+  m_LocalRotation: {x: 0.017067619, y: 0.35575175, z: -0.006498098, w: 0.93440205}
   m_LocalPosition: {x: 0.65695655, y: 1.6504421, z: 6.404312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9153,7 +9153,19 @@ MonoBehaviour:
         m_CallState: 2
   OnStartEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8103144108865575620}
+        m_TargetAssemblyTypeName: OMG.Audio.BGMPlayer, Assembly-CSharp
+        m_MethodName: StartBGM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnFinishEvent:
     m_PersistentCalls:
       m_Calls:
@@ -10465,7 +10477,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7915224531920546394}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.016921896, y: -0.7617367, z: 0.0199117, w: 0.64735955}
+  m_LocalRotation: {x: 0.016921896, y: -0.7617367, z: 0.019911703, w: 0.64735955}
   m_LocalPosition: {x: 0.65695655, y: 1.6504421, z: 6.404312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
