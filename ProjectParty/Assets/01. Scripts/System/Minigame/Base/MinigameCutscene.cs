@@ -53,7 +53,7 @@ namespace OMG.Minigames
 
             gameCycleTextUI.ReadyGo.AddGoNegativeCallback(() => {
                 onCutsceneFinishEvent?.Invoke();
-                minigame.State.ChangeMinigameState(MinigameState.StateType.CutsceneFinished);
+                minigame.State.ChangeState(MinigameState.CutsceneFinished);
             });
             
             minigame.CutscenePanel.Display(false);

@@ -5061,7 +5061,6 @@ GameObject:
   - component: {fileID: 7896654409348329978}
   - component: {fileID: 423236456195571195}
   - component: {fileID: 6255931118890861596}
-  - component: {fileID: -2143815681066842138}
   m_Layer: 0
   m_Name: PunchClub
   m_TagString: Untagged
@@ -5139,6 +5138,13 @@ MonoBehaviour:
   OnFinishEvent:
     m_PersistentCalls:
       m_Calls: []
+  state:
+    OnStateSyncedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateChangedEvent:
+      m_PersistentCalls:
+        m_Calls: []
   playerPrefab: {fileID: 8356908241486895198, guid: 8a0e4c850dd90b34d8f51a3516f7650a,
     type: 3}
   useLife: 0
@@ -5457,21 +5463,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-2143815681066842138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6719119153586902158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStateChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &6960224129941661000
 GameObject:
   m_ObjectHideFlags: 0

@@ -4028,7 +4028,6 @@ GameObject:
   - component: {fileID: 5733095522093520338}
   - component: {fileID: 8448536739095837326}
   - component: {fileID: 5652035243941370576}
-  - component: {fileID: 5041662513898910959}
   m_Layer: 0
   m_Name: ObstacleRun
   m_TagString: Untagged
@@ -4140,6 +4139,13 @@ MonoBehaviour:
   OnFinishEvent:
     m_PersistentCalls:
       m_Calls: []
+  state:
+    OnStateSyncedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateChangedEvent:
+      m_PersistentCalls:
+        m_Calls: []
   playerPrefab: {fileID: 5545523369615666056, guid: ac7ad7c5ef51427418a42a1cb8d378ff,
     type: 3}
   useLife: 0
@@ -4508,21 +4514,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5041662513898910959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4994372751181896086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStateChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &5264238407397490985
 GameObject:
   m_ObjectHideFlags: 0
