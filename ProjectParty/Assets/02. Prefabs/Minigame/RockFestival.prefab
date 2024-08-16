@@ -785,7 +785,6 @@ GameObject:
   - component: {fileID: 828290309280832393}
   - component: {fileID: 5229672663214220854}
   - component: {fileID: 2678826602377584916}
-  - component: {fileID: 1866116519224527171}
   m_Layer: 0
   m_Name: RockFestival
   m_TagString: Untagged
@@ -863,6 +862,13 @@ MonoBehaviour:
   OnFinishEvent:
     m_PersistentCalls:
       m_Calls: []
+  state:
+    OnStateSyncedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateChangedEvent:
+      m_PersistentCalls:
+        m_Calls: []
   playerPrefab: {fileID: 8758277294223932725, guid: 9ec69d650369c7e4bab5934bb7e2f0e3,
     type: 3}
   useLife: 0
@@ -1030,21 +1036,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 8dc5359aaadc1a24ca098e29e95e8269, type: 2}
---- !u!114 &1866116519224527171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2819869098861211246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStateChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &3277477657576930336
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,11 +1,11 @@
 using OMG.Extensions;
 using OMG.Inputs;
+using OMG.NetworkStates;
 using OMG.UI;
 using OMG.UI.Minigames;
 using Unity.Netcode;
 using UnityEngine;
 using NetworkEvent = OMG.NetworkEvents.NetworkEvent;
-using StateType = OMG.Minigames.MinigameState.StateType;
 
 namespace OMG.Minigames
 {
@@ -31,8 +31,8 @@ namespace OMG.Minigames
         protected MinigameCycle cycle = null;
         public MinigameCycle Cycle => cycle;
 
-        protected MinigameState state = null;
-        public MinigameState State => state;
+        [SerializeField] protected NetworkState<MinigameState> state = null;
+        public NetworkState<MinigameState> State => state;
 
         private MinigameCutscene cutscene = null;
 
@@ -44,7 +44,7 @@ namespace OMG.Minigames
             playerDatas = new NetworkList<PlayerData>();
             cycle = GetComponent<MinigameCycle>();
             cutscene = GetComponent<MinigameCutscene>();
-            state = GetComponent<MinigameState>();
+            state = new NetworkState<MinigameState>();
 
             cycle.Init(this);
         }
@@ -66,10 +66,10 @@ namespace OMG.Minigames
             OnFinishEvent.AddListener(HandleGameFinish);
             OnFinishEvent.Register(NetworkObject);
 
-            state.Init();
-            state.OnStateSyncedEvent += HandleStateSynced;
+            State.OnStateSyncedEvent.AddListener(HandleStateSynced);
+            State.Init(NetworkObject);
             if(IsHost == false) // 호스트가 아니면 OnNetworkSpawned 에서 상태 변경
-                state.ChangeMinigameState(StateType.Spawned);
+                State.ChangeState(MinigameState.Spawned);
         }
 
         public virtual void SetPlayerDatas(ulong[] playerIDs)
@@ -83,8 +83,7 @@ namespace OMG.Minigames
             for (int i = 0; i < playerIDs.Length; ++i)
                 playerDatas.Add(new PlayerData(playerIDs[i]));
 
-            state.Init(playerIDs);
-            state.ChangeMinigameState(StateType.Spawned); // 호스트는 SetPlayerDatas에서 상태 변경
+            State.ChangeState(MinigameState.Spawned); // 호스트는 SetPlayerDatas에서 상태 변경
         }
 
         #region Init
@@ -103,7 +102,7 @@ namespace OMG.Minigames
         {
             OnGameInit();
             cutscene.PlayCutscene();
-            State.ChangeMinigameState(StateType.Initialized);
+            State.ChangeState(MinigameState.Initialized);
         }
 
         protected virtual void OnGameInit()
@@ -137,7 +136,7 @@ namespace OMG.Minigames
         private void HandleGameRelease()
         {
             OnGameRelease();
-            State.ChangeMinigameState(StateType.Released);
+            State.ChangeState(MinigameState.Released);
         }
 
         protected virtual void OnGameRelease()
@@ -160,7 +159,7 @@ namespace OMG.Minigames
         private void HandleGameStart()
         {
             OnGameStart();
-            State.ChangeMinigameState(StateType.Playing);
+            State.ChangeState(MinigameState.Playing);
         }
 
         protected virtual void OnGameStart()
@@ -190,7 +189,7 @@ namespace OMG.Minigames
         private void HandleGameFinish()
         {
             OnGameFinish();
-            state.ChangeMinigameState(StateType.Finished);
+            State.ChangeState(MinigameState.Finished);
             StartCoroutine(this.DelayCoroutine(minigameData.ResultPostponeTime, () => {
                 cycle.DisplayResult();
             }));
@@ -204,17 +203,19 @@ namespace OMG.Minigames
         #endregion
 
         #region HandleState
-        private void HandleStateSynced(StateType stateType)
+        private void HandleStateSynced(int stateIndex)
         {
-            switch(stateType)
+            MinigameState state = (MinigameState)stateIndex;
+
+            switch(state)
             {
-                case StateType.Spawned:
+                case MinigameState.Spawned:
                     Init();
                     break;
-                case StateType.CutsceneFinished:
+                case MinigameState.CutsceneFinished:
                     StartGame();
                     break;
-                case StateType.Released:
+                case MinigameState.Released:
                     MinigameManager.Instance.ReleaseMinigame();
                     break;
             }
@@ -225,7 +226,7 @@ namespace OMG.Minigames
         {
             base.OnNetworkDespawn();
 
-            state.Release();
+            State.Release();
 
             Fade.Instance.FadeIn(
                 3f, 

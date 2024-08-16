@@ -3408,7 +3408,6 @@ GameObject:
   - component: {fileID: 2517067444738299336}
   - component: {fileID: 149086246433576000}
   - component: {fileID: 2475357020856729168}
-  - component: {fileID: -1473416932867710810}
   m_Layer: 0
   m_Name: SafetyZone
   m_TagString: Untagged
@@ -3491,6 +3490,13 @@ MonoBehaviour:
   OnFinishEvent:
     m_PersistentCalls:
       m_Calls: []
+  state:
+    OnStateSyncedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateChangedEvent:
+      m_PersistentCalls:
+        m_Calls: []
   playerPrefab: {fileID: 1321673424732675069, guid: 00790a39fe1e4844cb9fbc757df263fa,
     type: 3}
   useLife: 0
@@ -3974,21 +3980,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 8dc5359aaadc1a24ca098e29e95e8269, type: 2}
---- !u!114 &-1473416932867710810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1872781912382508777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStateChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1886799971837245865
 GameObject:
   m_ObjectHideFlags: 0

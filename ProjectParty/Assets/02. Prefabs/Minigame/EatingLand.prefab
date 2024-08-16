@@ -1068,7 +1068,6 @@ GameObject:
   - component: {fileID: 5927369487226482722}
   - component: {fileID: -6400452075883761285}
   - component: {fileID: -6697100591252080655}
-  - component: {fileID: 2634869124277894499}
   m_Layer: 0
   m_Name: EatingLand
   m_TagString: Untagged
@@ -1143,6 +1142,13 @@ MonoBehaviour:
   OnFinishEvent:
     m_PersistentCalls:
       m_Calls: []
+  state:
+    OnStateSyncedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateChangedEvent:
+      m_PersistentCalls:
+        m_Calls: []
   playerPrefab: {fileID: -174575099839075741, guid: fd56be1b6ad466046835c039d1f507f3,
     type: 3}
   useLife: 0
@@ -1280,21 +1286,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 11400000, guid: 8dc5359aaadc1a24ca098e29e95e8269, type: 2}
---- !u!114 &2634869124277894499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5345084573335857871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5acae8a0641474d3381d4a57b59ad531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStateChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &6064551832575828364
 GameObject:
   m_ObjectHideFlags: 0
