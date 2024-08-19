@@ -6,7 +6,7 @@ namespace OMG.Player
     public class PlayerCamera : CharacterComponent
     {
         protected CinemachineVirtualCamera cam;
-        public CinemachineVirtualCamera Camera => cam;
+        public CinemachineVirtualCamera Cam => cam;
 
         [SerializeField] private bool nonParent;
         [SerializeField] private bool lookAt;

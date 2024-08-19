@@ -36,7 +36,7 @@ public class MinigameSpectate : MonoBehaviour
                     PlayerCamera cam = player.GetCharacterComponent<PlayerCamera>();
                     if(cam != null)
                     {
-                        cameras.Add(cam.Camera);
+                        cameras.Add(cam.Cam);
                     }
                 }
             }

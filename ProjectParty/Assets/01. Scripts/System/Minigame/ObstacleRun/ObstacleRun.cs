@@ -10,8 +10,6 @@ namespace OMG.Minigames
     {
         private RaceCycle raceCycle;
 
-        [SerializeField] private float startSpectateDelay;
-
         //[SerializeField] private PlayerItemBox itemBoxPrefab;
         //[SerializeField] private Transform itemBoxSpawnPoints;
 
@@ -38,13 +36,13 @@ namespace OMG.Minigames
 
         private void HandlePlayerGoalEnd(UlongParams clientID)
         {
-            if(NetworkManager.LocalClientId == clientID.Value)
-            {
-                if(TryGetComponent<MinigameSpectate>(out MinigameSpectate spectate))
-                {
-                    spectate.StartSpectate();
-                }
-            }
+            //if (NetworkManager.LocalClientId == clientID.Value)
+            //{
+            //    if (TryGetComponent<MinigameSpectate>(out MinigameSpectate spectate))
+            //    {
+            //        spectate.StartSpectate();
+            //    }
+            //}
         }
     }
 }

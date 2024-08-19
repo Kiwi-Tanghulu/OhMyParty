@@ -32,8 +32,13 @@ namespace OMG.Minigames.EatingLand
         {
             minigame.PlayerDatas.ChangeData((data) =>
             {
-                if(minigame.PlayerDatas.IndexOf(data) == nextIndex)
-            })
+                if (minigame.PlayerDatas.IndexOf(data) == nextIndex)
+                {
+
+                }
+
+                return false;
+            }, null);
             UpdateTileClientRPC(tileID, nextIndex);
         }
 

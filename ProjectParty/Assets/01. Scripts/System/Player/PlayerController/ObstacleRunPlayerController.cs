@@ -1,4 +1,5 @@
 using OMG.FSM;
+using OMG.Minigames;
 using OMG.Player.FSM;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +27,20 @@ namespace OMG.Player
         {   
             GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false, true);
             GetCharacterComponent<PlayerMovement>().Teleport(respawnPoint.position, respawnPoint.rotation);
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+
+            if(IsOwner)
+            {
+                MinigameSpectate spectate = MinigameManager.Instance.CurrentMinigame.GetComponent<MinigameSpectate>();
+                if (spectate == null)
+                    return;
+
+                spectate.StartSpectate();
+            }
         }
     }
 }
