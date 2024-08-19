@@ -41,6 +41,12 @@ public class MinigameSpectate : MonoBehaviour
                 }
             }
         }
+
+        if(cameras.Count > 0)
+        {
+            currentCamIndex = 0;
+            ChangeSpectateCamera(cameras[currentCamIndex]);
+        }
     }
 
     public void StartSpectateWithDelay(float delay)
@@ -55,6 +61,9 @@ public class MinigameSpectate : MonoBehaviour
 
     private void HandleOnScroll(int value)
     {
+        if (cameras.Count <= 0)
+            return;
+
         currentCamIndex = (currentCamIndex + value + cameras.Count) % cameras.Count;
 
         ChangeSpectateCamera(cameras[currentCamIndex]);
