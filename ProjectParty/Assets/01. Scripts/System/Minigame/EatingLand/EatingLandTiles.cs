@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -9,6 +10,7 @@ namespace OMG.Minigames.EatingLand
     public class EatingLandTiles : NetworkBehaviour
     {
         private EatingLandTile[] tiles;
+        private Minigame minigame = null;
         private void Awake()
         {
             tiles = transform.Find("Tiles").GetComponentsInChildren<EatingLandTile>();
@@ -20,9 +22,18 @@ namespace OMG.Minigames.EatingLand
             }
         }
 
-        [ServerRpc]
-        private void UpdateTileServerRPC(int tileID, int nextIndex)
+        public void Init()
         {
+            minigame = MinigameManager.Instance.CurrentMinigame;
+        }
+
+        [ServerRpc]
+        private void UpdateTileServerRPC(int tileID, int currentIndex ,int nextIndex)
+        {
+            minigame.PlayerDatas.ChangeData((data) =>
+            {
+                if(minigame.PlayerDatas.IndexOf(data) == nextIndex)
+            })
             UpdateTileClientRPC(tileID, nextIndex);
         }
 

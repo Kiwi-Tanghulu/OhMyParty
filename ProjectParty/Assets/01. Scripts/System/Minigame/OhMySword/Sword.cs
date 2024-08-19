@@ -90,7 +90,7 @@ namespace OMG.Minigames.OhMySword
             bladeCollider.size = size;
         }
 
-        private float GetColliderOffset(float length) => MathExtensions.ArithmeticSequence(length, 0.9f, 0.8f);
-        private float GetColliderSize(float length) => MathExtensions.ArithmeticSequence(length, 1.5f, 1.6f);
+        private float GetColliderOffset(float length) => MathExtensions.ArithmeticSequence(length, 0.8f, 0.8f);
+        private float GetColliderSize(float length) => MathExtensions.ArithmeticSequence(length, 1.75f, 1.75f);
     }
 }

@@ -14,6 +14,15 @@ namespace OMG.UI.Lobbies
         {
             InputManager.ChangeInputMap(active ? InputMapType.UI : InputMapType.Play);
             gameObject.SetActive(active);
+            if(active)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
         }
     }
 }
