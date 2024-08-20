@@ -14,6 +14,7 @@ namespace OMG.Inputs
         private static InputMapType prevInputMapType;
 
         private static bool enable = true;
+        public static bool Enable => enable;
 
         static InputManager()
         {
