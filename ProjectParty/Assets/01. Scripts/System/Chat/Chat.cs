@@ -59,7 +59,7 @@ public class Chat : NetworkBehaviour
         SendServerRpc(senderID, new FixedString64Bytes(message));
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void SendServerRpc(ulong senderID, FixedString64Bytes message)
     {
         SendClientRpc(senderID, message);
