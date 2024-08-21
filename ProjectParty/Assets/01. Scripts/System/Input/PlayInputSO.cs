@@ -17,6 +17,7 @@ namespace OMG.Inputs
         public Action<bool> OnJumpEvent;
         public Action OnEscapeEvent;
         public Action<int> OnScrollEvent;
+        public Action OnChatEvent;
 
         public bool MoveInputInversion = false;
 
@@ -97,6 +98,12 @@ namespace OMG.Inputs
             value = Mathf.Sign(value);
 
             OnScrollEvent?.Invoke((int)value);
+        }
+
+        public void OnChat(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                OnChatEvent?.Invoke();
         }
     }
 }

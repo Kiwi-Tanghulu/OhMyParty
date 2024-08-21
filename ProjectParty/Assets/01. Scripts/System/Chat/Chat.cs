@@ -10,23 +10,61 @@ using UnityEngine;
 
 public class Chat : NetworkBehaviour
 {
+    [SerializeField] private PlayInputSO playInput;
+    [SerializeField] private UIInputSO uiInput;
+
+    [Space]
     [SerializeField] private ChatUI chatUI;
 
     private bool isChatting;
     public bool IsChatting => isChatting;
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+
+        playInput.OnChatEvent += Chatting;
+        uiInput.OnChatEvent += Chatting;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+
+        playInput.OnChatEvent -= Chatting;
+        uiInput.OnChatEvent -= Chatting;
+    }
+
+    //private void Start()
+    //{
+    //    playInput.OnChatEvent += Chatting;
+    //    uiInput.OnChatEvent += Chatting;
+
+    //    InputManager.ChangeInputMap(InputMapType.Play);
+    //}
+
+    private void Chatting()
+    {
+        Debug.Log("chatting");
+        if (isChatting == false)
+            StartChat();
+        else
+            EndChat();
+    }
+
     private void StartChat()
     {
-        if (InputManager.Enable == false)
+        Debug.Log(UIManager.Instance.StackCount);
+        if (UIManager.Instance.StackCount > 0)
             return;
 
+        isChatting = true;
         chatUI.Show();
     }
 
     public void Send(ulong senderID, string message)
     {
-        SendServerRpc(senderID, new FixedString64Bytes(message));
-        isChatting = false;
+        chatUI.CreateChat("Test", message);
     }
 
     [ServerRpc]
@@ -46,11 +84,18 @@ public class Chat : NetworkBehaviour
             return;
 
         string senderName = data.Nickname;
-        chatUI.ShowChat(senderName, message.Value);
+        chatUI.CreateChat(senderName, message.Value);
     }
 
     private void EndChat()
     {
-        chatUI.Hide();
+        isChatting = false;
+        UIManager.Instance.HidePanel();
+
+        if (chatUI.Message == "")
+            return;
+
+        chatUI.OnlyShow();
+        Send(0, chatUI.Message);
     }
 }

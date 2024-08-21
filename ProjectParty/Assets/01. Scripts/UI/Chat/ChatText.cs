@@ -17,13 +17,13 @@ public class ChatText : MonoBehaviour
     {
         text.text = $"- [{senderName}] : {message}";
 
-        StartCoroutine(this.DelayCoroutine(enableTime, () =>
-        {
-            text.DOFade(0f, disableTime).
-            OnComplete(() =>
-            {
-                Destroy(gameObject);
-            });
-        }));
+        //StartCoroutine(this.DelayCoroutine(enableTime, () =>
+        //{
+        //    text.DOFade(0f, disableTime).
+        //    OnComplete(() =>
+        //    {
+        //        Destroy(gameObject);
+        //    });
+        //}));
     }
 }

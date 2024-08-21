@@ -238,13 +238,14 @@ GameObject:
   - component: {fileID: 240074450}
   - component: {fileID: 240074451}
   - component: {fileID: 240074452}
+  - component: {fileID: 240074453}
   m_Layer: 5
   m_Name: ChatUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &240074448
 RectTransform:
   m_ObjectHideFlags: 0
@@ -261,11 +262,11 @@ RectTransform:
   - {fileID: 1657053262}
   m_Father: {fileID: 428056412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 250}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 30, y: 200}
+  m_SizeDelta: {x: 488.595, y: 348.9964}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &240074450
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -310,7 +311,24 @@ MonoBehaviour:
   textPrefab: {fileID: 5947999908461260661, guid: 34a4d5ae456c4d04abc2bc7202a21664,
     type: 3}
   textContainer: {fileID: 120798063}
-  maxTextCount: 0
+  maxTextCount: 6
+  inputField: {fileID: 1458487313}
+  textSection: {fileID: 120798062}
+  inputSection: {fileID: 1657053261}
+  fadeDelay: 2
+  fadeTime: 2
+--- !u!225 &240074453
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240074447}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &291913209
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,8 +414,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -464,6 +482,7 @@ GameObject:
   - component: {fileID: 428056411}
   - component: {fileID: 428056410}
   - component: {fileID: 428056409}
+  - component: {fileID: 428056413}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -554,6 +573,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &428056413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428056408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3db30ab297fdb4e8b9acb45327d0a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initOnStart: 0
 --- !u!1001 &488701759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1421,8 +1453,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1732,7 +1764,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef1e42144e927564b9474c93a88eafec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatUI: {fileID: 0}
+  playInput: {fileID: 11400000, guid: 2bad7e2a336d0ff45a57c72358fa1002, type: 2}
+  uiInput: {fileID: 11400000, guid: 8dc5359aaadc1a24ca098e29e95e8269, type: 2}
+  chatUI: {fileID: 240074452}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

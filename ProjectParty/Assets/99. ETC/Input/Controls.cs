@@ -98,6 +98,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Chat"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f807145-19d9-449f-874d-6decc734d31c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7da78969-eff8-412e-88af-c51ac3136069"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Chat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -274,6 +294,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""838e4947-d6f7-4612-a60b-2f0613b2e860"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Chat"",
+                    ""type"": ""Button"",
+                    ""id"": ""92774e55-6c17-46f4-9b5a-6843263b4d7d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -318,6 +356,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea895ea3-080f-4c61-9706-083531afc54e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d32871d-dde2-4779-b841-bf7c064ea51a"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Chat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -446,12 +506,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Play_Jump = m_Play.FindAction("Jump", throwIfNotFound: true);
         m_Play_Escape = m_Play.FindAction("Escape", throwIfNotFound: true);
         m_Play_Scroll = m_Play.FindAction("Scroll", throwIfNotFound: true);
+        m_Play_Chat = m_Play.FindAction("Chat", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Space = m_UI.FindAction("Space", throwIfNotFound: true);
         m_UI_Interact = m_UI.FindAction("Interact", throwIfNotFound: true);
         m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
         m_UI_MousePosition = m_UI.FindAction("MousePosition", throwIfNotFound: true);
+        m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
+        m_UI_Chat = m_UI.FindAction("Chat", throwIfNotFound: true);
         // Interior
         m_Interior = asset.FindActionMap("Interior", throwIfNotFound: true);
         m_Interior_PlacePosition = m_Interior.FindAction("PlacePosition", throwIfNotFound: true);
@@ -527,6 +590,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Play_Jump;
     private readonly InputAction m_Play_Escape;
     private readonly InputAction m_Play_Scroll;
+    private readonly InputAction m_Play_Chat;
     public struct PlayActions
     {
         private @Controls m_Wrapper;
@@ -539,6 +603,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Play_Jump;
         public InputAction @Escape => m_Wrapper.m_Play_Escape;
         public InputAction @Scroll => m_Wrapper.m_Play_Scroll;
+        public InputAction @Chat => m_Wrapper.m_Play_Chat;
         public InputActionMap Get() { return m_Wrapper.m_Play; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -572,6 +637,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Scroll.started += instance.OnScroll;
             @Scroll.performed += instance.OnScroll;
             @Scroll.canceled += instance.OnScroll;
+            @Chat.started += instance.OnChat;
+            @Chat.performed += instance.OnChat;
+            @Chat.canceled += instance.OnChat;
         }
 
         private void UnregisterCallbacks(IPlayActions instance)
@@ -600,6 +668,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Scroll.started -= instance.OnScroll;
             @Scroll.performed -= instance.OnScroll;
             @Scroll.canceled -= instance.OnScroll;
+            @Chat.started -= instance.OnChat;
+            @Chat.performed -= instance.OnChat;
+            @Chat.canceled -= instance.OnChat;
         }
 
         public void RemoveCallbacks(IPlayActions instance)
@@ -625,6 +696,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Interact;
     private readonly InputAction m_UI_LeftClick;
     private readonly InputAction m_UI_MousePosition;
+    private readonly InputAction m_UI_Back;
+    private readonly InputAction m_UI_Chat;
     public struct UIActions
     {
         private @Controls m_Wrapper;
@@ -633,6 +706,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_UI_Interact;
         public InputAction @LeftClick => m_Wrapper.m_UI_LeftClick;
         public InputAction @MousePosition => m_Wrapper.m_UI_MousePosition;
+        public InputAction @Back => m_Wrapper.m_UI_Back;
+        public InputAction @Chat => m_Wrapper.m_UI_Chat;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -654,6 +729,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
+            @Back.started += instance.OnBack;
+            @Back.performed += instance.OnBack;
+            @Back.canceled += instance.OnBack;
+            @Chat.started += instance.OnChat;
+            @Chat.performed += instance.OnChat;
+            @Chat.canceled += instance.OnChat;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -670,6 +751,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
+            @Back.started -= instance.OnBack;
+            @Back.performed -= instance.OnBack;
+            @Back.canceled -= instance.OnBack;
+            @Chat.started -= instance.OnChat;
+            @Chat.performed -= instance.OnChat;
+            @Chat.canceled -= instance.OnChat;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -767,6 +854,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
+        void OnChat(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
@@ -774,6 +862,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
+        void OnChat(InputAction.CallbackContext context);
     }
     public interface IInteriorActions
     {

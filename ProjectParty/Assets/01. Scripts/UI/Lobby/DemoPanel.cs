@@ -3,21 +3,20 @@ using UnityEngine;
 
 namespace OMG.UI.Lobbies
 {
-    public class DemoPanel : MonoBehaviour
+    public class DemoPanel : UIPanel
     {
-        public void Start()
-        {
-            gameObject.SetActive(false);
-        }
-
         public void Display(bool active)
         {
-            InputManager.ChangeInputMap(active ? InputMapType.UI : InputMapType.Play);
-            gameObject.SetActive(active);
-            if(active)
-            {
-                Cursor.lockState = CursorLockMode.None;
-            }
+            if (active)
+                Show();
+            else
+                UIManager.Instance.HidePanel();
+            //InputManager.ChangeInputMap(active ? InputMapType.UI : InputMapType.Play);
+            //gameObject.SetActive(active);
+            //if(active)
+            //{
+            //    Cursor.lockState = CursorLockMode.None;
+            //}
         }
 
         public void Quit()
