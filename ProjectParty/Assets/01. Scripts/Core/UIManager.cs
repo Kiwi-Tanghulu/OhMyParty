@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
         if (panel == null)
             return;
 
+        Debug.Log("show panel");
         if (StackCount > 0)
         {
             panelStack.Peek().Hide();

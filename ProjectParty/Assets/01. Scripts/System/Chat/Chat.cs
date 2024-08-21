@@ -25,6 +25,9 @@ public class Chat : NetworkBehaviour
 
         playInput.OnChatEvent += Chatting;
         uiInput.OnChatEvent += Chatting;
+
+        chatUI.InputField.onSubmit.AddListener(OnSubmit);
+        chatUI.OnHide += () => isChatting = false;
     }
 
     public override void OnNetworkDespawn()
@@ -35,26 +38,14 @@ public class Chat : NetworkBehaviour
         uiInput.OnChatEvent -= Chatting;
     }
 
-    //private void Start()
-    //{
-    //    playInput.OnChatEvent += Chatting;
-    //    uiInput.OnChatEvent += Chatting;
-
-    //    InputManager.ChangeInputMap(InputMapType.Play);
-    //}
-
     private void Chatting()
     {
-        Debug.Log("chatting");
         if (isChatting == false)
             StartChat();
-        else
-            EndChat();
     }
 
     private void StartChat()
     {
-        Debug.Log(UIManager.Instance.StackCount);
         if (UIManager.Instance.StackCount > 0)
             return;
 
@@ -64,7 +55,8 @@ public class Chat : NetworkBehaviour
 
     public void Send(ulong senderID, string message)
     {
-        chatUI.CreateChat("Test", message);
+        //chatUI.CreateChat("Test", message);
+        SendServerRpc(senderID, new FixedString64Bytes(message));
     }
 
     [ServerRpc]
@@ -87,15 +79,18 @@ public class Chat : NetworkBehaviour
         chatUI.CreateChat(senderName, message.Value);
     }
 
-    private void EndChat()
+    private void OnSubmit(string message)
     {
+        if (IsChatting == false)
+            return;
+
         isChatting = false;
         UIManager.Instance.HidePanel();
 
-        if (chatUI.Message == "")
+        if (message == "")
             return;
 
         chatUI.OnlyShow();
-        Send(0, chatUI.Message);
+        Send(0, message);
     }
 }

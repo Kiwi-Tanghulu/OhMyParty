@@ -14,6 +14,7 @@ public class ChatUI : UIPanel
 
     [Space]
     [SerializeField] private TMP_InputField inputField;
+    public TMP_InputField InputField => inputField;
 
     [Space]
     [SerializeField] private GameObject textSection;
@@ -69,11 +70,20 @@ public class ChatUI : UIPanel
         textSection.SetActive(true);
         inputSection.SetActive(true);
 
+        inputField.interactable = true;
         inputField.ActivateInputField();
         inputField.text = "";
 
         fadeSeq.Pause();
         canvasGroup.DOFade(1f, 0f);   
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
+
+        inputField.interactable = false;
+        inputField.DeactivateInputField();
     }
 
     public override void OnlyShow()
@@ -93,6 +103,8 @@ public class ChatUI : UIPanel
         {
             Destroy(textContainer.GetChild(0).gameObject);
         }
+
+        OnlyShow();
     }
 
     private void Fade()

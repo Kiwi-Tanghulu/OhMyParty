@@ -9,7 +9,7 @@ namespace OMG.UI
     {
         private Dictionary<Type, UIPanel> panels;
 
-        private void Start()
+        protected override void Start()
         {
             Init();
         }
