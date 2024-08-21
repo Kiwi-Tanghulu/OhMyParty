@@ -91,6 +91,6 @@ public class Chat : NetworkBehaviour
             return;
 
         chatUI.OnlyShow();
-        Send(0, message);
+        Send(NetworkManager.LocalClientId, message);
     }
 }
