@@ -12,7 +12,6 @@ namespace OMG.Minigames.MazeAdventure
 {
     public class Tagger : CharacterController
     {
-        private CharacterFSM brain = null;
         private NavMeshAgent navMeshAgent = null;
         public DeathmatchCycle Cycle { get; private set; }
 

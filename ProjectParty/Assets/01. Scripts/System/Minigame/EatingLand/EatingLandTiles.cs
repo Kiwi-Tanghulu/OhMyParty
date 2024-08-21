@@ -28,19 +28,30 @@ namespace OMG.Minigames.EatingLand
         }
 
         [ServerRpc]
-        private void UpdateTileServerRPC(int tileID, int currentIndex ,int nextIndex)
+        private void UpdateTileServerRPC(int tileID, ulong currentOwnerId ,ulong nextOwnerId)
         {
-            minigame.PlayerDatas.ChangeData((data) =>
+            if(currentOwnerId != ulong.MaxValue)
             {
-                if(minigame.PlayerDatas.IndexOf(data) == nextIndex)
-            })
-            UpdateTileClientRPC(tileID, nextIndex);
+                minigame.PlayerDatas.ChangeData(i => i.clientID == currentOwnerId, data =>
+                {
+                    data.score = data.score - 1;
+                    return data;
+                });
+            }
+
+            minigame.PlayerDatas.ChangeData(i => i.clientID == nextOwnerId, data =>
+            {
+                data.score = data.score + 1;
+                return data;
+            });
+
+            UpdateTileClientRPC(tileID, nextOwnerId);
         }
 
         [ClientRpc]
-        private void UpdateTileClientRPC(int tileID, int nextIndex)
+        private void UpdateTileClientRPC(int tileID, ulong nextOwnerId)
         {
-            tiles[tileID].UpdateTile(nextIndex);
+            tiles[tileID].UpdateTile(nextOwnerId);
         }
     }
 }

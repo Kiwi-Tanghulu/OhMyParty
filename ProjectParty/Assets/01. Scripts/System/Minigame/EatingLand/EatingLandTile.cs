@@ -1,8 +1,7 @@
+using OMG.Extensions;
+using OMG.Lobbies;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 
 namespace OMG.Minigames.EatingLand
@@ -10,10 +9,10 @@ namespace OMG.Minigames.EatingLand
     public class EatingLandTile : MonoBehaviour
     {
         private int tileID;
-        private int currentIndex = -1;
+        private ulong currentOwnerId = ulong.MaxValue;
 
         private EatingLandTileVisual eatingLandTileVisual;
-        public event Action<int, int, int> OnUpdateTileEvent;
+        public event Action<int, ulong, ulong> OnUpdateTileEvent;
 
         private void Awake()
         {
@@ -22,33 +21,30 @@ namespace OMG.Minigames.EatingLand
         public void Init(int id)
         {
             tileID = id;
+            currentOwnerId = ulong.MaxValue;
         }
 
-        private void Start()
+        public void OnPlayerEnter(ulong nextOwnerId)
         {
-            currentIndex = -1;
-        }
-
-        public void OnPlayerEnter(int nextIndex)
-        {
-            if (currentIndex == nextIndex)
+            if (currentOwnerId == nextOwnerId)
             {
                 return;
             }
-            OnUpdateTileEvent?.Invoke(tileID, currentIndex ,nextIndex);
+            OnUpdateTileEvent?.Invoke(tileID, currentOwnerId , nextOwnerId);
         }
 
-        public void UpdateTile(int nextIndex)
+        public void UpdateTile(ulong nextOwnerId)
         {
+            int nextIndex = Lobby.Current.PlayerDatas.Find(out Lobbies.PlayerData data, data => data.ClientID == nextOwnerId);
             eatingLandTileVisual.ChangeVisual(nextIndex);
-            currentIndex = nextIndex;
+            currentOwnerId = nextOwnerId;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                OnPlayerEnter(other.GetComponent<EatingLandPlayerController>().PlayerIndex);
+                OnPlayerEnter(other.GetComponent<EatingLandPlayerController>().OwnerClientId);
             }
         }
     }
