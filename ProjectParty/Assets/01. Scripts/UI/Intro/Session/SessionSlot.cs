@@ -25,7 +25,7 @@ namespace OMG.UI.Sessions
 
         public void JoinLobby()
         {
-            ClientManager.Instance.JoinLobbyAsync(lobby);
+            GuestManager.Instance.StartGuest(lobby);
         }
     }
 }
