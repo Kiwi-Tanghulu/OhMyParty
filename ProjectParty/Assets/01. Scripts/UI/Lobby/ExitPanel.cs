@@ -5,24 +5,23 @@ using UnityEngine;
 
 namespace OMG.UI.Lobbies
 {
-    public class ExitPanel : MonoBehaviour
+    public class ExitPanel : UIPanel
     {
-        private void Start()
-        {
-            gameObject.SetActive(false);
-        }
-
         public void Display(bool active)
         {
-            if (gameObject.activeSelf == active)
-                return;
-
             if (active)
-                InputManager.ChangeInputMap(InputMapType.UI);
+                Show();
             else
-                InputManager.UndoChangeInputMap();
+                UIManager.Instance.HidePanel();
+            //if (gameObject.activeSelf == active)
+            //    return;
 
-            gameObject.SetActive(active);
+            //if (active)
+            //    InputManager.ChangeInputMap(InputMapType.UI);
+            //else
+            //    InputManager.UndoChangeInputMap();
+
+            //gameObject.SetActive(active);
         }
 
         public void Exit()

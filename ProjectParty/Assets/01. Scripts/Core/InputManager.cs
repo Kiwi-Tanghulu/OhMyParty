@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,10 +11,12 @@ namespace OMG.Inputs
         public static Controls controls { get; private set; }
         private static Dictionary<InputMapType, InputActionMap> inputMapDic;
         private static InputMapType currentInputMapType;
-        public static InputMapType CurrentInputMapType => currentInputMapType;
         private static InputMapType prevInputMapType;
+        public static InputMapType CurrentInputMapType => currentInputMapType;
+        public static InputMapType PrevInputMapType => prevInputMapType;
 
         private static bool enable = true;
+        public static bool Enable => enable;
 
         static InputManager()
         {
@@ -29,12 +32,16 @@ namespace OMG.Inputs
 
         public static void ChangeInputMap(InputMapType inputMapType)
         {
+            if (inputMapDic.ContainsKey(inputMapType) == false)
+                return;
+            if (inputMapDic[inputMapType] == null)
+                return;
+
             if (inputMapDic.ContainsKey(currentInputMapType))
                 inputMapDic[currentInputMapType]?.Disable();
             prevInputMapType = currentInputMapType;
             currentInputMapType = inputMapType;
-            if (inputMapDic.ContainsKey(currentInputMapType))
-                inputMapDic[currentInputMapType]?.Enable();
+            inputMapDic[currentInputMapType].Enable();
 
             SetInputEnable(enable);
 

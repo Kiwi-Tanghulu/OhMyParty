@@ -28,8 +28,6 @@ public class PlayerManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
-
         renderTargetPlayerDic = new Dictionary<ulong, RenderTargetPlayerVisual>();
     }
 

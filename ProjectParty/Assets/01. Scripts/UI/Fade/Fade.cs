@@ -56,13 +56,11 @@ namespace OMG.UI
         public void FadeIn(float delay = 0f, Action onStartEvent = null, Action onEndEvent = null)
         {
             StartCoroutine(Play(delay, true, onStartEvent, onEndEvent));
-            Debug.Log("in");
         }
 
         public void FadeOut(float delay = 0f, Action onStartEvent = null, Action onEndEvent = null)
         {
             StartCoroutine(Play(delay, false, onStartEvent, onEndEvent));
-            Debug.Log("out");
         }
 
         private IEnumerator Play(float delay, bool option, Action onStartEvent, Action onEndEvents)

@@ -1,19 +1,25 @@
 using OMG;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TJunsung : MonoBehaviour
 {
-    [SerializeField] private List<string> urls;
-    [SerializeField] private OMGVideoPlayer player;
-    
-    int cnt = 0;
-    private void Update()
+    public TMP_InputField input;
+
+    private void Start()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            player.Play(urls[cnt % urls.Count]);
-            cnt++;
-        }
+        input.onEndEdit.AddListener(End);
+        input.onSubmit.AddListener(submit);
+    }
+
+    void End(string message)
+    {
+        Debug.Log("end");
+    }
+
+    void submit(string message)
+    {
+        Debug.Log("submit");
     }
 }

@@ -85,7 +85,6 @@ namespace OMG.Player
 
                 if (zeroCount > startClampZeroCount && dampingClampCo == null)
                 {
-                    Debug.Log("start clamp");
                     dampingClampCo = StartCoroutine(DampingClampCo(clampedValue));
                 }
             }

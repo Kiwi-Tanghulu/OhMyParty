@@ -46,7 +46,6 @@ namespace OMG.UI
 
         public override void Show()
         {
-            Debug.Log(2222222);
             if (minigameSO == null)
                 return;
 
@@ -60,7 +59,6 @@ namespace OMG.UI
 
         public void SetMinigameSO(MinigameSO minigameSO)
         {
-            Debug.Log(minigameSO.Type);
             this.minigameSO = minigameSO;
         }
 

@@ -25,7 +25,7 @@ namespace OMG.UI
         private bool isInit;
         public bool IsInit => isInit;
 
-        private void Start()
+        protected virtual void Start()
         {
             if (initOnStart)
                 Init();
