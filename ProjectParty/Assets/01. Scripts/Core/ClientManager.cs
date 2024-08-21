@@ -76,20 +76,6 @@ namespace OMG.Network
             return await query.RequestAsync();
         }
 
-        public async void JoinLobbyAsync(Lobby lobby)
-        {
-            // 참가 요청에 대한 응답 받기
-            RoomEnter reqResult = await lobby.Join();
-            if(reqResult != RoomEnter.Success)
-            {
-                Debug.Log($"[Steamworks] Failed to Join lobby : {reqResult}");
-                return;
-            }
-
-            // 참가 되었다면 CurrentLobby 업데이트 해줌
-            CurrentLobby = lobby;
-        }
-
         #region Steamworks Callback
 
         private void HandleLobbyMemberJoined(Lobby lobby, Friend friend)
@@ -114,7 +100,7 @@ namespace OMG.Network
 
         private void HandleLobbyJoinRequested(Lobby lobby, SteamId id)
         {
-            JoinLobbyAsync(lobby);
+            GuestManager.Instance.StartGuest(lobby);
         }
 
         #endregion

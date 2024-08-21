@@ -17,13 +17,13 @@ namespace OMG.Network
         {
             this.transport = transport;
 
-            // 로비에 참가했을 때 발행되는 이벤트
-            SteamMatchmaking.OnLobbyEntered += HandleLobbyEntered;
+            // // 로비에 참가했을 때 발행되는 이벤트
+            // SteamMatchmaking.OnLobbyEntered += HandleLobbyEntered;
         }
 
         public void Release()
         {
-            SteamMatchmaking.OnLobbyEntered -= HandleLobbyEntered;
+            // SteamMatchmaking.OnLobbyEntered -= HandleLobbyEntered;
 
             if (NetworkManager.Singleton == null)
                 return;
@@ -31,10 +31,25 @@ namespace OMG.Network
             NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
         }
 
+        public async void StartGuest(Lobby lobby)
+        {
+            // 참가 요청에 대한 응답 받기
+            RoomEnter reqResult = await lobby.Join();
+            if(reqResult != RoomEnter.Success)
+            {
+                Debug.Log($"[Steamworks] Failed to Join lobby : {reqResult}");
+                return;
+            }
+
+            // 참가 되었다면 CurrentLobby 업데이트 해줌
+            ClientManager.Instance.CurrentLobby = lobby;
+            InitTransport(lobby.Owner.Id);
+        }
+
         /// <summary>
-        /// 게스트 시작
+        /// 트랜스포트 초기화
         /// </summary>
-        public void StartGuest(SteamId id)
+        private void InitTransport(SteamId id)
         {
             NetworkManager networkManager = NetworkManager.Singleton;
             networkManager.OnClientConnectedCallback += HandleClientConnected;
@@ -80,20 +95,6 @@ namespace OMG.Network
             Debug.Log(NetworkManager.Singleton.DisconnectReason);
         }
 
-        #endregion
-
-        #region Steamworks Callback
-        
-        private void HandleLobbyEntered(Lobby lobby)
-        {
-            // 로비에 참가했을 때 이미 클라이언트가 켜져있다면 문제가 생긴 상황
-            if(NetworkManager.Singleton.IsConnectedClient)
-                return;
-
-            // 정상적으로 로비에 참가했다면 넷코드 클라이언트 시작
-            StartGuest(ClientManager.Instance.CurrentLobby.Value.Owner.Id);
-        }
-
-        #endregion   
+        #endregion 
     }
 }
