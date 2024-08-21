@@ -77,6 +77,9 @@ public class Chat : NetworkBehaviour
 
         string senderName = data.Nickname;
         chatUI.CreateChat(senderName, message.Value);
+
+        if (IsChatting == false)
+            chatUI.OnlyShow();
     }
 
     private void OnSubmit(string message)

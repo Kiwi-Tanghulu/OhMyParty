@@ -103,8 +103,6 @@ public class ChatUI : UIPanel
         {
             Destroy(textContainer.GetChild(0).gameObject);
         }
-
-        OnlyShow();
     }
 
     private void Fade()
