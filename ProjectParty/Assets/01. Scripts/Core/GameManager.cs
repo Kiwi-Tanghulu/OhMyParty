@@ -3,6 +3,7 @@ using UnityEngine;
 using OMG.Network;
 using Unity.Netcode;
 using Steamworks;
+using System;
 
 namespace OMG
 {
@@ -33,11 +34,6 @@ namespace OMG
             DEFINE.GlobalAudioPlayer = GetComponent<AudioSource>();
         }
 
-        private void Start()
-        {
-            InitNetwork();
-        }
-
         private void OnApplicationQuit()
         {
             ClientManager.Instance?.Disconnect();
@@ -53,7 +49,7 @@ namespace OMG
             CameraManager.CreateSingleton(gameObject);
         }
 
-        private void InitNetwork()
+        public void InitNetwork()
         {
             ClientManager.Instance = new ClientManager();
             HostManager.Instance = new HostManager();

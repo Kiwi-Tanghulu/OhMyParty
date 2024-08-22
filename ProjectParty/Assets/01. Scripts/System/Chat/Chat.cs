@@ -38,6 +38,12 @@ public class Chat : NetworkBehaviour
         uiInput.OnChatEvent -= Chatting;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && IsChatting)
+            UIManager.Instance.HidePanel();
+    }
+
     private void Chatting()
     {
         if (isChatting == false)
@@ -59,7 +65,7 @@ public class Chat : NetworkBehaviour
         SendServerRpc(senderID, new FixedString64Bytes(message));
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void SendServerRpc(ulong senderID, FixedString64Bytes message)
     {
         SendClientRpc(senderID, message);
@@ -77,6 +83,9 @@ public class Chat : NetworkBehaviour
 
         string senderName = data.Nickname;
         chatUI.CreateChat(senderName, message.Value);
+
+        if (IsChatting == false)
+            chatUI.OnlyShow();
     }
 
     private void OnSubmit(string message)
@@ -91,6 +100,6 @@ public class Chat : NetworkBehaviour
             return;
 
         chatUI.OnlyShow();
-        Send(0, message);
+        Send(NetworkManager.LocalClientId, message);
     }
 }

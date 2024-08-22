@@ -1,5 +1,6 @@
 using DG.Tweening;
 using OMG.Extensions;
+using OMG.Inputs;
 using OMG.UI;
 using System.Linq;
 using TMPro;
@@ -75,7 +76,9 @@ public class ChatUI : UIPanel
         inputField.text = "";
 
         fadeSeq.Pause();
-        canvasGroup.DOFade(1f, 0f);   
+        canvasGroup.DOFade(1f, 0f);
+
+        InputManager.SetInputEnable(false);
     }
 
     public override void Hide()
@@ -84,6 +87,8 @@ public class ChatUI : UIPanel
 
         inputField.interactable = false;
         inputField.DeactivateInputField();
+
+        InputManager.SetInputEnable(true);
     }
 
     public override void OnlyShow()
@@ -103,8 +108,6 @@ public class ChatUI : UIPanel
         {
             Destroy(textContainer.GetChild(0).gameObject);
         }
-
-        OnlyShow();
     }
 
     private void Fade()

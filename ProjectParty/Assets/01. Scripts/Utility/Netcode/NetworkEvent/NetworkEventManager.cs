@@ -16,7 +16,6 @@ namespace OMG.NetworkEvents
             }
 
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         #region Alert
