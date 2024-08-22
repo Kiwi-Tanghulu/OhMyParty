@@ -7,12 +7,16 @@ namespace OMG.UI
 {
     public class CheckBox : MonoBehaviour
     {
+        [SerializeField] private GameObject checkImage;
+
         public UnityEvent OnCheckedEvent;
 
         public virtual void SetCheck(bool value)
         {
             if(value)
                 OnCheckedEvent?.Invoke();
+
+            checkImage.SetActive(value);
         }
     }
 }

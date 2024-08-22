@@ -33,6 +33,7 @@ namespace OMG.UI
             for(int i = 0; i < minigameListSO.Count; i++)
             {
                 MinigameSelectSlot slot = Instantiate(minigameSelectSlotPrefab, minigameSelectSlotContainer);
+                slot.Init();
                 slot.SetMinigameSO(minigameListSO[i]);
             }
         }

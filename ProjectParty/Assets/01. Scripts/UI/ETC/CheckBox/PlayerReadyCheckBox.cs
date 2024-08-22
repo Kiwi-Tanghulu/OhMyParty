@@ -9,7 +9,6 @@ namespace OMG.UI
 {
     public class PlayerReadyCheckBox : CheckBox
     {
-        [SerializeField] private GameObject fillImage;
         [SerializeField] private RawImage playerImage;
         [SerializeField] private PlayerNameTag nameTag;
 
@@ -21,13 +20,6 @@ namespace OMG.UI
         public void SetNameText(string name)
         {
             nameTag.SetNameTag(name);
-        }
-
-        public override void SetCheck(bool value)
-        {
-            base.SetCheck(value);
-
-            fillImage.SetActive(value);
         }
     }
 }
