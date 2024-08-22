@@ -38,6 +38,12 @@ public class Chat : NetworkBehaviour
         uiInput.OnChatEvent -= Chatting;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && IsChatting)
+            UIManager.Instance.HidePanel();
+    }
+
     private void Chatting()
     {
         if (isChatting == false)
