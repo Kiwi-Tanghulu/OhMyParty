@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using OMG.UI.Minigames;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,18 +10,26 @@ namespace OMG.Minigames.EatingLand
     public class EatingLandPlayerPanel : DeathmatchPlayerPanel
     {
         private Minigame minigame = null;
-        public void Init()
+        public override void Init(Minigame _minigame)
         {
-            minigame = MinigameManager.Instance.CurrentMinigame;
+            base.Init(_minigame);
+            minigame = _minigame;
             minigame.PlayerDatas.OnListChanged += SetScore;
         }
         public void SetScore(NetworkListEvent<PlayerData> playerData)
         {
-            for(int i = 0; i < 4; i++)
+            playerSlots.ForEach((i, index) =>
             {
-                EatingLandPlayerSlot panel = playerSlots[i] as EatingLandPlayerSlot;
-                //panel.SetScoreText(minigame.PlayerDatas);
-            }
+                bool actived = minigame.PlayerDatas.Count > index;
+
+                if (!actived)
+                    return;
+
+                EatingLandPlayerSlot eatingLandPlayerSlot = i as EatingLandPlayerSlot;
+                int playerIndex = minigame.PlayerDatas.Find(out PlayerData data, j => j.clientID == playerData.Value.clientID);
+                eatingLandPlayerSlot.SetScoreText(minigame.PlayerDatas[playerIndex].score);
+            });
         }
+            
     }
 }
