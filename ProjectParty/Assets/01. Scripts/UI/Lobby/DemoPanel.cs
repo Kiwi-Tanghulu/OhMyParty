@@ -5,6 +5,11 @@ namespace OMG.UI.Lobbies
 {
     public class DemoPanel : UIPanel
     {
+        protected override void Start()
+        {
+            
+        }
+
         public void Display(bool active)
         {
             if (active)

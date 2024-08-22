@@ -40,20 +40,21 @@ namespace Netcode.Transports.Facepunch
 
         #region MonoBehaviour Messages
 
-        private void Start()
+        public bool Init()
         {
             try
             {
                 SteamClient.Init(steamAppId, false);
+                StartCoroutine(InitSteamworks());
+
+                return true;
             }
             catch (Exception e)
             {
                 if (LogLevel <= LogLevel.Error)
                     Debug.LogError($"[{nameof(FacepunchTransport)}] - Caught an exeption during initialization of Steam client: {e}");
-            }
-            finally
-            {
-                StartCoroutine(InitSteamworks());
+                Debug.Log(1);
+                return false;
             }
         }
 

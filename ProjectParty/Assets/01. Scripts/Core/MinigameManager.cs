@@ -30,7 +30,6 @@ namespace OMG.Minigames
             }
 
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         public void StartMinigame(MinigameSO minigameData, ulong[] joinedPlayers)
