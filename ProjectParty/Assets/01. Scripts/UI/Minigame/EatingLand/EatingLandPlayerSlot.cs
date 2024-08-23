@@ -3,6 +3,7 @@ using OMG.UI.Minigames;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,15 +13,8 @@ namespace OMG.Minigames.EatingLand
     public class EatingLandPlayerSlot : DeathmatchPlayerSlot
     {
         [SerializeField] TMP_Text scoreText = null;
-        [SerializeField] bool stringFormat = false;
-        [ConditionalField("stringFormat", true)]
-        [SerializeField] string format = "#";
-
-        [Space(15f)]
-        [SerializeField] UnityEvent<int> OnScoreChangedEvent = null;
 
         private int score = 0;
-
         protected override void Awake()
         {
             base.Awake();
@@ -33,16 +27,9 @@ namespace OMG.Minigames.EatingLand
             score = 0;
         }
 
-        public void SetScore(int newScore)
+        public void SetScoreText(int score)
         {
-            int prevScore = score;
-            score = newScore;
-
-            string text = score.ToString(stringFormat ? format : "");
-            scoreText.text = text;
-
-            if (prevScore != score)
-                OnScoreChangedEvent?.Invoke(score - prevScore);
+            scoreText.text = score.ToString();
         }
     }
 

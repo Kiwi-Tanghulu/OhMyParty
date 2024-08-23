@@ -1048,7 +1048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultPanel: {fileID: 3937854674757527156}
-  playerPanel: {fileID: 0}
+  playerPanel: {fileID: 485138329933586467}
 --- !u!1 &5345084573335857871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,7 +1132,19 @@ MonoBehaviour:
   minigameData: {fileID: 11400000, guid: 7d7747ec23756ec49bfdc54ffb12252d, type: 2}
   OnInitEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5927369487226482722}
+        m_TargetAssemblyTypeName: OMG.Minigames.EatingLand.EatingLandTiles, Assembly-CSharp
+        m_MethodName: Init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnReleaseEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3371,11 +3383,6 @@ MonoBehaviour:
     type: 3}
   deadCheckContainer: {fileID: 5393584856650311227}
   scoreText: {fileID: 3673592700758497497}
-  stringFormat: 0
-  format: '#'
-  OnScoreChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &491807760200908971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3745,11 +3752,6 @@ MonoBehaviour:
     type: 3}
   deadCheckContainer: {fileID: 5461461149702408843}
   scoreText: {fileID: 3285989724991428260}
-  stringFormat: 0
-  format: '#'
-  OnScoreChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &608996756091335592
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16345,11 +16347,6 @@ MonoBehaviour:
     type: 3}
   deadCheckContainer: {fileID: 563154030852972634}
   scoreText: {fileID: 6741180465748272584}
-  stringFormat: 0
-  format: '#'
-  OnScoreChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!224 &7760507279161019292 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2338281872396095181, guid: 7509753ef0a254d42928cb157fa8201d,
@@ -18972,11 +18969,6 @@ MonoBehaviour:
     type: 3}
   deadCheckContainer: {fileID: 1629659739548248421}
   scoreText: {fileID: 2566356026631441952}
-  stringFormat: 0
-  format: '#'
-  OnScoreChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!224 &8863034852806263459 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2338281872396095181, guid: 7509753ef0a254d42928cb157fa8201d,
