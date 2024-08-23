@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Inputs;
-using OMG.Network;
 using OMG.Networks;
 using OMG.Player;
 using OMG.Skins;
-using Steamworks;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -54,10 +52,7 @@ namespace OMG.Lobbies
             InputManager.ChangeInputMap(InputMapType.Play);
 
             // 모든 처리가 끝난 후 로비씬을 들어오게 되기 때문에 스타트에서 해줘도 됨
-            if(SteamClient.IsValid)
-                PlayerJoinServerRpc(SteamClient.SteamId, characterSkinLib.CurrentIndex);
-            else
-                PlayerJoinServerRpc(0, characterSkinLib.CurrentIndex);
+            PlayerJoinServerRpc(ClientManager.Instance.Nickname, characterSkinLib.CurrentIndex);
         }
 
         public override void OnNetworkSpawn()
@@ -70,9 +65,9 @@ namespace OMG.Lobbies
         }
 
         [ServerRpc(RequireOwnership = false)]
-        private void PlayerJoinServerRpc(ulong steamID, int visualType, ServerRpcParams rpcParams = default)
+        private void PlayerJoinServerRpc(FixedString64Bytes nickname, int visualType, ServerRpcParams rpcParams = default)
         {
-            PlayerData playerData = new PlayerData(rpcParams.Receive.SenderClientId, steamID, visualType);
+            PlayerData playerData = new PlayerData(rpcParams.Receive.SenderClientId, nickname.ToString(), visualType);
             if(players.Contains(playerData))
                 return;
 

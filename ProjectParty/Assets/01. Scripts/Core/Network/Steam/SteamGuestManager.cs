@@ -3,7 +3,7 @@ using Netcode.Transports.Facepunch;
 using Steamworks;
 using Steamworks.Data;
 
-namespace OMG.Networks
+namespace OMG.Networks.Steam
 {
     public class SteamGuestManager : GuestManager
     {
@@ -43,6 +43,7 @@ namespace OMG.Networks
 
             FacepunchTransport transport = ClientManager.Instance.NetworkTransport as FacepunchTransport;
             transport.targetSteamId = (networkLobby as SteamLobby).Lobby.Owner.Id;
+
             return true;
         }
 

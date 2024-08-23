@@ -13,6 +13,9 @@ namespace OMG.Networks
         public NetworkTransport NetworkTransport = null;
         public ulong ClientID => NetworkManager.Singleton.LocalClientId;
 
+        private string nickname = "unknown";
+        public string Nickname => nickname;
+
         public event Action OnConnectedEvent = null;
         public event Action OnDisconnectedEvent = null;
 
@@ -20,6 +23,14 @@ namespace OMG.Networks
         {
             currentLobby = networkLobby;
             OnConnectedEvent?.Invoke();
+        }
+
+        public void SetNickname(string nickname)
+        {
+            if(string.IsNullOrEmpty(nickname))
+                return;
+
+            this.nickname = nickname;
         }
 
         public void Release()

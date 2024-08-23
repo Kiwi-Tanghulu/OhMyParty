@@ -1,10 +1,9 @@
-using System;
 using System.Threading.Tasks;
 using Steamworks;
 using Steamworks.Data;
 using UnityEngine;
 
-namespace OMG.Networks
+namespace OMG.Networks.Steam
 {
     public class SteamHostManager : HostManager
     {
@@ -15,7 +14,7 @@ namespace OMG.Networks
                 return null;
 
             lobby?.SetData("private", "false");
-            lobby?.SetData("owner", SteamClient.Name);
+            lobby?.SetData(DEFINE.OWNER_NAME_KEY, ClientManager.Instance.Nickname);
             
             INetworkLobby networkLobby = new SteamLobby(lobby.Value);
             return networkLobby;

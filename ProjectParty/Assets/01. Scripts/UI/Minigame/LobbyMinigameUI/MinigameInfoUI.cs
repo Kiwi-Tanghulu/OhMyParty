@@ -3,7 +3,6 @@ using OMG.Extensions;
 using OMG.Lobbies;
 using OMG.Minigames;
 using OMG.Player;
-using Steamworks;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;

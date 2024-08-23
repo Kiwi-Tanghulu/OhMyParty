@@ -1,6 +1,6 @@
 using System;
+using Unity.Collections;
 using Unity.Netcode;
-using Steamworks;
 
 namespace OMG.Lobbies
 {
@@ -9,30 +9,23 @@ namespace OMG.Lobbies
         public ulong ClientID;
         public bool IsReady;
         public int Score;
-        public ulong SteamID;
         public int VisualType;
 
-        public string Nickname {
-            get {
-                if(SteamClient.IsValid)
-                    return new Friend(SteamID).Name;
-                else
-                    return null;
-            }
-        }
+        private FixedString64Bytes nickname;
+        public string Nickname => nickname.ToString();
 
-        public PlayerData(ulong clientID, ulong steamID, int visualType)
+        public PlayerData(ulong clientID, FixedString64Bytes nickname, int visualType)
         {
             ClientID = clientID;
-            SteamID = steamID;
             IsReady = false;
             Score = 0;
             VisualType = visualType;
+            this.nickname = nickname;
         }
 
         public PlayerData(ulong clientID)
         {
-            this = new PlayerData(clientID, 0, 0);
+            this = new PlayerData(clientID, "unknown", 0);
         }
 
         public bool Equals(PlayerData other)
@@ -46,8 +39,8 @@ namespace OMG.Lobbies
             serializer.SerializeValue(ref ClientID);
             serializer.SerializeValue(ref IsReady);
             serializer.SerializeValue(ref Score);
-            serializer.SerializeValue(ref SteamID);
             serializer.SerializeValue(ref VisualType);
+            serializer.SerializeValue(ref nickname);
         }
     }
 }

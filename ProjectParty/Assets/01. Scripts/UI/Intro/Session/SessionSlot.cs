@@ -18,7 +18,7 @@ namespace OMG.UI.Sessions
         public void Init(INetworkLobby lobby)
         {
             this.lobby = lobby;
-            ownerText.Text = string.Format(OWNER_TEXT_FORMAT, lobby.GetData("owner"));
+            ownerText.Text = string.Format(OWNER_TEXT_FORMAT, lobby.GetData(DEFINE.OWNER_NAME_KEY));
             userText.Text = string.Format(USER_TEXT_FORMAT, lobby.MemberCount);
         }
 
