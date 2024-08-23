@@ -9,6 +9,8 @@ namespace OMG.Networks
         private Lobby lobby;
         public Lobby Lobby => lobby;
 
+        public int MemberCount => lobby.MemberCount;
+
         public SteamLobby(Lobby lobby)
         {
             this.lobby = lobby;
@@ -27,5 +29,9 @@ namespace OMG.Networks
 
         public void Open() => lobby.SetJoinable(true);
         public void Close() => lobby.SetJoinable(false);
+
+        public void SetData(string key, string value) => lobby.SetData(key, value);
+        public string GetData(string key) => lobby.GetData(key);
+            
     }
 }

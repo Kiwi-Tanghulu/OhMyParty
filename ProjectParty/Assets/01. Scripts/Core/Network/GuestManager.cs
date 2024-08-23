@@ -1,76 +1,93 @@
-using Netcode.Transports.Facepunch;
-using Steamworks;
-using Steamworks.Data;
+using System;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace OMG.Network
+namespace OMG.Networks
 {
-    public class GuestManager_
+    public abstract class GuestManager
     {
-        public static GuestManager_ Instance = null;
+        private static GuestManager instance = null;
+        public static GuestManager Instance => instance;
 
-        private FacepunchTransport transport = null;
+        public event Action<ulong> OnClientConnectedEvent = null;
+        public event Action<ulong> OnClientDisconnectEvent = null;
+
         public bool Alive { get; private set; } = false;
 
-        public GuestManager_(FacepunchTransport transport)
+        public void Init()
         {
-            this.transport = transport;
-
-            // // 로비에 참가했을 때 발행되는 이벤트
-            // SteamMatchmaking.OnLobbyEntered += HandleLobbyEntered;
+            instance = this;
         }
 
-        public void Release()
+        public async Task<INetworkLobby[]> GetLobbyListAsync()
         {
-            // SteamMatchmaking.OnLobbyEntered -= HandleLobbyEntered;
-
-            if (NetworkManager.Singleton == null)
-                return;
-            NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
-            NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
+            return null;
         }
 
-        public async void StartGuest(Lobby lobby)
+        #region Start Guest
+        public async void StartGuest(INetworkLobby networkLobby, Action onGuestStarted = null)
         {
-            // 참가 요청에 대한 응답 받기
-            RoomEnter reqResult = await lobby.Join();
-            if(reqResult != RoomEnter.Success)
+            bool response = OnBeginStartGuest();
+            if (response == false)
             {
-                Debug.Log($"[Steamworks] Failed to Join lobby : {reqResult}");
+                Debug.LogWarning("$[Network] Failed to Begining Start Guest");
                 return;
             }
 
-            // 참가 되었다면 CurrentLobby 업데이트 해줌
-            ClientManager_.Instance.CurrentLobby = lobby;
-            InitTransport(lobby.Owner.Id);
+            response = await networkLobby.Join();
+            if(response == false)
+            {
+                Debug.LogWarning("$[Network] Failed to Join Lobby");
+                return;
+            }
+
+            response = OnGuestStarted(networkLobby);
+            if(response == false)
+            {
+                Debug.LogWarning("$[Network] Failed to Start Guest");
+                return;
+            }
+
+            response = InitNetworkManager();
+            if(response == false)
+            {
+                Debug.LogWarning("$[Network] Failed to Init NetworkManager");
+                return;
+            }
+
+            ClientManager.Instance.Init(networkLobby);
+            Alive = true;
+
+            onGuestStarted?.Invoke();
+
+            Debug.Log("$[Network] Guest Started");
         }
 
-        /// <summary>
-        /// 트랜스포트 초기화
-        /// </summary>
-        private void InitTransport(SteamId id)
+        private bool InitNetworkManager()
         {
             NetworkManager networkManager = NetworkManager.Singleton;
             networkManager.OnClientConnectedCallback += HandleClientConnected;
             networkManager.OnClientDisconnectCallback += HandleClientDisconnect;
 
-            // 넷코드 클라이언트를 시작할 때 Facepunch 트랜스포트에 Steam ID 세팅
-            transport.targetSteamId = id;
-
-            if(networkManager.StartClient())
-            {
-                Debug.Log($"[Netcode] Guest Started");
-                Alive = true;
-            }
+            return networkManager.StartClient();
         }
 
-        /// <summary>
-        /// 게스트 종료
-        /// </summary>
-        public void Disconnect()
+        protected virtual bool OnBeginStartGuest() { return true; }
+        protected virtual bool OnGuestStarted(INetworkLobby networkLobby) { return true; }
+
+        #endregion
+
+        #region Close Guest
+
+        public virtual void Disconnect()
         {
-            ClientManager_.Instance.CurrentLobby?.Leave();
+            if(Alive == false || ClientManager.Instance.CurrentLobby == null)
+                return;
+
+            ClientManager.Instance.CurrentLobby?.Leave();
+            ClientManager.Instance.Release();
+
             Alive = false;
             
             if(NetworkManager.Singleton == null)
@@ -83,18 +100,23 @@ namespace OMG.Network
             Debug.Log("[Network] Guest Disconnected");
         }
 
-        #region Netcode Callback
+        #endregion
 
-        private void HandleClientConnected(ulong obj)
+        #region NetworkManager Callback
+
+        protected virtual void HandleClientConnected(ulong clientID)
         {
-            
+            OnClientConnectedEvent?.Invoke(clientID);
         }
 
-        private void HandleClientDisconnect(ulong obj)
+        protected virtual void HandleClientDisconnect(ulong clientID)
         {
-            Debug.Log(NetworkManager.Singleton.DisconnectReason);
+            if(NetworkManager.Singleton == null || NetworkManager.Singleton.IsHost == true)
+                return;
+
+            OnClientDisconnectEvent?.Invoke(clientID);
         }
 
-        #endregion 
+        #endregion
     }
 }

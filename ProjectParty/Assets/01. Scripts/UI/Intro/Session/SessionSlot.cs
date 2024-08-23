@@ -1,6 +1,5 @@
 using OMG.Network;
-using Steamworks;
-using Steamworks.Data;
+using OMG.Networks;
 using TinyGiantStudio.Text;
 using UnityEngine;
 
@@ -14,9 +13,9 @@ namespace OMG.UI.Sessions
         [SerializeField] Modular3DText ownerText = null;
         [SerializeField] Modular3DText userText = null;
 
-        private Lobby lobby;
+        private INetworkLobby lobby;
 
-        public void Init(Lobby lobby)
+        public void Init(INetworkLobby lobby)
         {
             this.lobby = lobby;
             ownerText.Text = string.Format(OWNER_TEXT_FORMAT, lobby.GetData("owner"));
@@ -25,7 +24,7 @@ namespace OMG.UI.Sessions
 
         public void JoinLobby()
         {
-            GuestManager_.Instance.StartGuest(lobby);
+            GuestManager.Instance.StartGuest(lobby);
         }
     }
 }

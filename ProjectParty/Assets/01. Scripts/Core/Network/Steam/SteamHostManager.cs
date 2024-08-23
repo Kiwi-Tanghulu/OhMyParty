@@ -29,7 +29,7 @@ namespace OMG.Networks
 
         protected override bool OnBeginStartHost()
         {
-            bool response = OnBeginStartHost();
+            bool response = base.OnBeginStartHost();
             if(response == false)
                 return false;
 

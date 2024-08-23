@@ -2,6 +2,7 @@ using UnityEngine;
 using OMG.Network;
 using Unity.Netcode;
 using System;
+using OMG.Networks;
 
 namespace OMG.Test
 {
@@ -9,7 +10,7 @@ namespace OMG.Test
     {
         public void StartHost(int maxMember)
         {
-            HostManager_.Instance.StartHost(maxMember);
+            HostManager.Instance.StartHost(maxMember);
         }
     }
 }
