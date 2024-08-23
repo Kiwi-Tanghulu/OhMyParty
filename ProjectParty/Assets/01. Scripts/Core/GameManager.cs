@@ -41,14 +41,13 @@ namespace OMG
 
         private void InitSingleton()
         {
+            ClientManager.Instance = new ClientManager();
             SceneManager.Instance = gameObject.AddComponent<SceneManager>();
             CameraManager.CreateSingleton(gameObject);
         }
 
         public void InitNetwork(HostManager hostManager, GuestManager guestManager)
-        {
-            ClientManager.Instance = new ClientManager();
-            
+        {            
             hostManager.Init();
             guestManager.Init();
 
