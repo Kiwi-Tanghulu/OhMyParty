@@ -20,10 +20,7 @@ namespace OMG.Networks
             instance = this;
         }
 
-        public async Task<INetworkLobby[]> GetLobbyListAsync()
-        {
-            return null;
-        }
+        public abstract Task<INetworkLobby[]> GetLobbyListAsync(int count = 5);
 
         #region Start Guest
         public async void StartGuest(INetworkLobby networkLobby, Action onGuestStarted = null)

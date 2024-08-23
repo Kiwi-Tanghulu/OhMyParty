@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Netcode.Transports.Facepunch;
 using Steamworks;
 using Steamworks.Data;
@@ -14,6 +15,24 @@ namespace OMG.Networks
         ~SteamGuestManager()
         {
             SteamFriends.OnGameLobbyJoinRequested -= HandleLobbyJoinRequested;
+        }
+
+        public override async Task<INetworkLobby[]> GetLobbyListAsync(int count = 5)
+        {
+            LobbyQuery query = SteamMatchmaking.LobbyList
+                .WithKeyValue("private", "false")
+                .WithSlotsAvailable(1)
+                .WithMaxResults(5);
+
+            Lobby[] lobbies = await query.RequestAsync();
+            if(lobbies == null)
+                return null;
+
+            INetworkLobby[] lobbyList = new INetworkLobby[lobbies.Length];
+            for(int i = 0; i < lobbies.Length; ++i)
+                lobbyList[i] = new SteamLobby(lobbies[i]);
+            
+            return lobbyList;
         }
 
         protected override bool OnGuestStarted(INetworkLobby networkLobby)
