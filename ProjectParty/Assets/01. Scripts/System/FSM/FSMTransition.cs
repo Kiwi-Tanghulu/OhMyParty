@@ -28,7 +28,7 @@ namespace OMG.FSM
             }
         }
 
-        public void CheckTrans()
+        public bool CheckTrans()
         {
             result = false;
 
@@ -40,9 +40,10 @@ namespace OMG.FSM
                     break;
             }
 
-
             if (result)
                 brain.ChangeState(nextState);
+
+            return result;
         }
 
         public virtual void ExitState()

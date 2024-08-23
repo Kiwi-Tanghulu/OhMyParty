@@ -38,14 +38,14 @@ namespace OMG.FSM
 
         public virtual void EnterState()
         {
-            for (int i = 0; i < transitions.Count; i++)
-            {
-                transitions[i].EnterState();
-            }
-
             for (int i = 0; i < actions.Count; i++)
             {
                 actions[i].EnterState();
+            }
+
+            for (int i = 0; i < transitions.Count; i++)
+            {
+                transitions[i].EnterState();
             }
 
             OnStateEnterEvent?.Invoke();
@@ -53,27 +53,28 @@ namespace OMG.FSM
 
         public virtual void UpdateState()
         {
-            for (int i = 0; i < transitions.Count; i++)
-            {
-                transitions[i].CheckTrans();
-            }
-
             for (int i = 0; i < actions.Count; i++)
             {
                 actions[i].UpdateState();
+            }
+
+            for (int i = 0; i < transitions.Count; i++)
+            {
+                if (transitions[i].CheckTrans())
+                    break;
             }
         }
 
         public virtual void ExitState()
         {
-            for (int i = 0; i < transitions.Count; i++)
-            {
-                transitions[i].ExitState();
-            }
-
             for (int i = 0; i < actions.Count; i++)
             {
                 actions[i].ExitState();
+            }
+
+            for (int i = 0; i < transitions.Count; i++)
+            {
+                transitions[i].ExitState();
             }
 
             OnStateExitEvent?.Invoke();
