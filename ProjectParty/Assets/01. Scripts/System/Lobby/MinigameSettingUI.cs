@@ -14,11 +14,18 @@ namespace OMG.UI
         [SerializeField] private Transform minigameSelectSlotContainer;
         [SerializeField] private CountText playCountText;
 
+        private int playCount;
+
         public override void Init()
         {
             base.Init();
 
             CreateSlot();
+
+            playCount = 3;
+            playCountText.SetCountValue(1, minigameListSO.Count);
+            playCountText.SetCount(playCount);
+            playCountText.Init();
         }
 
         public override void Hide()
@@ -36,6 +43,16 @@ namespace OMG.UI
                 slot.Init();
                 slot.SetMinigameSO(minigameListSO[i]);
             }
+        }
+
+        public void IncreasePlayCount()
+        {
+            playCountText.SetCount(++playCount);
+        }
+
+        public void DecreasePlayCount()
+        {
+            playCountText.SetCount(--playCount);
         }
     }
 }
