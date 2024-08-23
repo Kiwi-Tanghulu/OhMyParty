@@ -1,5 +1,4 @@
-using OMG.Network;
-using Steamworks.Data;
+using OMG.Networks;
 using UnityEngine;
 
 namespace OMG.UI.Sessions
@@ -26,11 +25,11 @@ namespace OMG.UI.Sessions
         {
             ClearSlots();
 
-            Lobby[] lobbies = await ClientManager.Instance.GetLobbyListAsync(owner);
+            INetworkLobby[] lobbies = await GuestManager.Instance.GetLobbyListAsync();
             if(lobbies == null)
                 return;
 
-            foreach(Lobby lobby in lobbies)
+            foreach(INetworkLobby lobby in lobbies)
                 CreateSlot(lobby);
         }
 
@@ -40,7 +39,7 @@ namespace OMG.UI.Sessions
                 Destroy(trm.gameObject);
         }
 
-        private void CreateSlot(Lobby lobby)
+        private void CreateSlot(INetworkLobby lobby)
         {
             SessionSlot slot = Instantiate(slotPrefab, container);
             slot.Init(lobby);

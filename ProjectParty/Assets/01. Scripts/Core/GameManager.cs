@@ -1,9 +1,5 @@
-using Netcode.Transports.Facepunch;
 using UnityEngine;
-using OMG.Network;
-using Unity.Netcode;
-using Steamworks;
-using System;
+using OMG.Networks;
 
 namespace OMG
 {
@@ -36,11 +32,11 @@ namespace OMG
 
         private void OnApplicationQuit()
         {
-            ClientManager.Instance?.Disconnect();
+            if(HostManager.Instance.Alive)
+                HostManager.Instance.Disconnect();
 
-            GuestManager.Instance?.Release();
-            HostManager.Instance?.Release();
-            ClientManager.Instance?.Release();
+            if(GuestManager.Instance.Alive)
+                GuestManager.Instance.Disconnect();
         }
 
         private void InitSingleton()
@@ -49,18 +45,19 @@ namespace OMG
             CameraManager.CreateSingleton(gameObject);
         }
 
-        public void InitNetwork()
+        public void InitNetwork(HostManager hostManager, GuestManager guestManager)
         {
             ClientManager.Instance = new ClientManager();
-            HostManager.Instance = new HostManager();
-            GuestManager.Instance = new GuestManager(NetworkManager.Singleton.GetComponent<FacepunchTransport>());
+            
+            hostManager.Init();
+            guestManager.Init();
 
-            ClientManager.Instance.OnDisconnectEvent += HandleDisconnect;
+            ClientManager.Instance.OnDisconnectedEvent += HandleDisconnect;
         }
 
         private void HandleDisconnect()
         {
-            SceneType scene = SteamClient.IsValid ? SceneType.IntroScene_Steam : SceneType.IntroScene;
+            SceneType scene = SceneType.IntroScene;
             SceneManager.Instance?.LoadScene(scene);
         }
     }

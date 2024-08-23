@@ -1,5 +1,6 @@
 using OMG.Inputs;
 using OMG.Network;
+using OMG.Networks;
 using OMG.UI.Lobbies;
 using UnityEngine;
 
@@ -39,9 +40,9 @@ namespace OMG.Lobbies
                 return;
 
             if(state == LobbyState.Community)
-                HostManager.Instance.OpenLobby();
+                ClientManager.Instance.CurrentLobby.Open();
             else
-                HostManager.Instance.CloseLobby();
+                ClientManager.Instance.CurrentLobby.Open();
         }
 
         private void HandleExitPanel(LobbyState state)

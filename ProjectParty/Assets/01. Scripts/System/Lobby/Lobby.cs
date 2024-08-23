@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Network;
+using OMG.Networks;
 using OMG.Player;
 using OMG.Skins;
 using Steamworks;
@@ -65,7 +66,7 @@ namespace OMG.Lobbies
             if(IsHost == false)
                 return;
 
-            HostManager.Instance.OnClientDisconnectedEvent += RemovePlayer;
+            HostManager.Instance.OnClientDisconnectEvent += RemovePlayer;
         }
 
         [ServerRpc(RequireOwnership = false)]

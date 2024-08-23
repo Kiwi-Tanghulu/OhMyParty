@@ -1,5 +1,5 @@
 using OMG.Inputs;
-using OMG.Network;
+using OMG.Networks;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -26,7 +26,10 @@ namespace OMG.UI.Lobbies
 
         public void Exit()
         {
-            ClientManager.Instance.Disconnect();
+            if(GuestManager.Instance.Alive)
+                GuestManager.Instance.Disconnect();
+            else if(HostManager.Instance.Alive)
+                HostManager.Instance.Disconnect();
         }
     }
 }

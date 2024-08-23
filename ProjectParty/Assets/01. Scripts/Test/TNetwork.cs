@@ -2,6 +2,7 @@ using UnityEngine;
 using OMG.Network;
 using Unity.Netcode;
 using System;
+using OMG.Networks;
 
 namespace OMG.Test
 {
