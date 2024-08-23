@@ -25,6 +25,7 @@ namespace OMG
                 case NetworkServiceType.Steam:
                     FacepunchTransport transport = networkManager.AddComponent<FacepunchTransport>();
                     networkManager.NetworkConfig.NetworkTransport = transport;
+                    ClientManager.Instance.NetworkTransport = transport;
                     response = transport.Init();
 
                     if(response == false)
