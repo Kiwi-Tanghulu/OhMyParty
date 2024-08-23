@@ -47,11 +47,16 @@ namespace OMG.UI
             currentCountTextContainer.anchoredPosition = Vector2.zero;
         }
 
-        public void SetCount(int value)
+        public void SetCount(int value, bool setText = false)
         {
             prevCount = currentCount;
             value = Mathf.Clamp(value, minCount, maxCount);
             currentCount = value;
+
+            if(setText)
+            {
+                currentCountText.text = $"{currentCount}/";
+            }
         }
 
         public void PlayAnim(float delay, Action onStart, Action onEnd)

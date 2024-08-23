@@ -11,6 +11,8 @@ public class MinigameSelectSlot : MinigameSlot, IPointerClickHandler, IPointerEn
 {
     [SerializeField] private CheckBox checkBox;
 
+    private bool isChecked = false;
+
     public override void Init()
     {
         base.Init();
@@ -18,18 +20,34 @@ public class MinigameSelectSlot : MinigameSlot, IPointerClickHandler, IPointerEn
         Unhover();
     }
 
+    public override void Hide()
+    {
+        base.Hide();
+
+        if(isChecked == false)
+            Unhover();
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        checkBox.SetCheck(true);
+        isChecked = !isChecked;
+        checkBox.SetCheck(isChecked);
+
+        if (isChecked)
+            Hover();
+        else
+            Unhover();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Hover();
+        if(isChecked == false)
+            Hover();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Unhover();
+        if(isChecked == false)
+            Unhover();
     }
 }

@@ -15,8 +15,6 @@ namespace OMG.UI
         {
             if(value)
                 OnCheckedEvent?.Invoke();
-
-            checkImage.SetActive(value);
         }
     }
 }

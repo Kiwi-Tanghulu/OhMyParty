@@ -23,9 +23,9 @@ namespace OMG.UI
             CreateSlot();
 
             playCount = 3;
+            playCountText.Init();
             playCountText.SetCountValue(1, minigameListSO.Count);
             playCountText.SetCount(playCount);
-            playCountText.Init();
         }
 
         public override void Hide()
@@ -47,12 +47,18 @@ namespace OMG.UI
 
         public void IncreasePlayCount()
         {
-            playCountText.SetCount(++playCount);
+            if (playCount == minigameListSO.Count)
+                return;
+
+            playCountText.SetCount(++playCount, true);
         }
 
         public void DecreasePlayCount()
         {
-            playCountText.SetCount(--playCount);
+            if (playCount == 1)
+                return;
+
+            playCountText.SetCount(--playCount, true);
         }
     }
 }
