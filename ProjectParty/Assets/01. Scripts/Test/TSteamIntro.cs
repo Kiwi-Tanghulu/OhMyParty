@@ -8,7 +8,7 @@ namespace OMG.Test
     {
         public void Lobby()
         {
-            HostManager.Instance.StartHost(4, () => {
+            HostManager_.Instance.StartHost(4, () => {
                 SceneManager.Instance.LoadScene(SceneType.LobbyScene);
             });
         }

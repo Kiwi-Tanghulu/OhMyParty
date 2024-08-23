@@ -65,7 +65,7 @@ namespace OMG.Lobbies
             if(IsHost == false)
                 return;
 
-            HostManager.Instance.OnClientDisconnectedEvent += RemovePlayer;
+            HostManager_.Instance.OnClientDisconnectedEvent += RemovePlayer;
         }
 
         [ServerRpc(RequireOwnership = false)]

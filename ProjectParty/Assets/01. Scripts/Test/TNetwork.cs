@@ -9,7 +9,7 @@ namespace OMG.Test
     {
         public void StartHost(int maxMember)
         {
-            HostManager.Instance.StartHost(maxMember);
+            HostManager_.Instance.StartHost(maxMember);
         }
     }
 }

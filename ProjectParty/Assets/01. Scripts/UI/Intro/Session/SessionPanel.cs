@@ -26,7 +26,7 @@ namespace OMG.UI.Sessions
         {
             ClearSlots();
 
-            Lobby[] lobbies = await ClientManager.Instance.GetLobbyListAsync(owner);
+            Lobby[] lobbies = await ClientManager_.Instance.GetLobbyListAsync(owner);
             if(lobbies == null)
                 return;
 

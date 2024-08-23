@@ -39,9 +39,9 @@ namespace OMG.Lobbies
                 return;
 
             if(state == LobbyState.Community)
-                HostManager.Instance.OpenLobby();
+                HostManager_.Instance.OpenLobby();
             else
-                HostManager.Instance.CloseLobby();
+                HostManager_.Instance.CloseLobby();
         }
 
         private void HandleExitPanel(LobbyState state)

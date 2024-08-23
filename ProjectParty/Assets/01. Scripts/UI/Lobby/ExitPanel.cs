@@ -26,7 +26,7 @@ namespace OMG.UI.Lobbies
 
         public void Exit()
         {
-            ClientManager.Instance.Disconnect();
+            ClientManager_.Instance.Disconnect();
         }
     }
 }
