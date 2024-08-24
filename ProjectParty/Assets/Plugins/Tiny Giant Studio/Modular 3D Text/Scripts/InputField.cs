@@ -120,7 +120,7 @@ namespace TinyGiantStudio.Text
 
         void ProcessNewChar(char c)
         {
-            if (c == '\b') // has backspace/delete been pressed?
+            if (c == '\b' || c == '\x7f') // has backspace/delete been pressed?
             {
                 if (Text.Length != 0)
                 {

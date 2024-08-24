@@ -1,4 +1,5 @@
 using Netcode.Transports.Facepunch;
+using OMG.Datas;
 using OMG.Networks;
 using OMG.Networks.Steam;
 using OMG.Networks.UGS;
@@ -14,18 +15,25 @@ namespace OMG
 {
     public class Bootstrap : MonoBehaviour
     {
+        [SerializeField] DataLoader dataLoader = null;
+
+        [Space(15f)]
         [SerializeField] NetworkManager networkManager = null;
         [SerializeField] NetworkServiceType networkServiceType = NetworkServiceType.None;
 
+        [Space(15f)]
         [SerializeField] GameObject LoginErrorUI;
 
         private async void Start()
         {
+            dataLoader.LoadData();
+
             HostManager hostManager = null;
             GuestManager guestManager = null;
             bool response = false;
+            string nickname = DataManager.UserData.SettingData.Nickname;
 
-            switch(networkServiceType)
+            switch (networkServiceType)
             {
                 case NetworkServiceType.Steam:
                 {
@@ -33,7 +41,9 @@ namespace OMG
                     if(response == false)
                         break;
 
-                    ClientManager.Instance.SetNickname(SteamClient.Name);
+                    if(string.IsNullOrEmpty(nickname))
+                        nickname = SteamClient.Name;
+
                     hostManager = new SteamHostManager();
                     guestManager = new SteamGuestManager();
                 }
@@ -48,7 +58,9 @@ namespace OMG
 
                     SetNetworkTransport<UnityTransport>();
 
-                    ClientManager.Instance.SetNickname("unknown");
+                    if(string.IsNullOrEmpty(nickname))
+                        nickname = "unknown";
+
                     hostManager = new UGSHostManager();
                     guestManager = new UGSGuestManager();
                     response = true;
@@ -58,6 +70,9 @@ namespace OMG
 
             if(response)
             {
+                DataManager.UserData.SettingData.Nickname = nickname;
+                ClientManager.Instance.SetNickname(nickname);
+                
                 GameManager.Instance.InitNetwork(hostManager, guestManager);
                 SceneManager.Instance.LoadScene(SceneType.IntroScene);
             }
