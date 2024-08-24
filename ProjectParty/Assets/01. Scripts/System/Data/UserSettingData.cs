@@ -6,6 +6,7 @@ namespace OMG.Datas
     public class UserSettingData 
     {
         public Dictionary<string, float> VolumeMap = null;
+        public string Nickname = "Player";
 
         public UserSettingData()
         {
@@ -14,6 +15,7 @@ namespace OMG.Datas
                 ["VFX"] = 0.5f,
                 ["BGM"] = 0.5f
             };
+            Nickname = null;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace OMG.UI.Settings
 {
     public class SettingPanel : MonoBehaviour
     {
-        [SerializeField] List<AudioSettingSlot> audioSlots = new List<AudioSettingSlot>();
+        [SerializeField] List<SettingSlot> settingSlots = new List<SettingSlot>();
 
         private void Start()
         {
@@ -16,7 +16,7 @@ namespace OMG.UI.Settings
         public void Display(bool active)
         {
             if(active)
-                audioSlots.ForEach(i => i.Init());
+                settingSlots.ForEach(i => i.Init());
 
             gameObject.SetActive(active);
         }
