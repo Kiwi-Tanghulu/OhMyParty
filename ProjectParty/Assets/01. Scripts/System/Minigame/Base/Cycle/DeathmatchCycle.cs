@@ -10,6 +10,9 @@ namespace OMG.Minigames
     public class DeathmatchCycle : MinigameCycle
     {
         [SerializeField] int[] scoreWeight = { 50, 100, 500, 1000 };
+        [SerializeField] float decisionThreshold = 0.25f;
+        private float lastDecisionTime = 0f;
+        private int lastScore = 0;
 
         [Space(15f)]
         [SerializeField] NetworkEvent<UlongParams> onPlayerDeadEvent = new NetworkEvent<UlongParams>("PlayerDead");
@@ -18,9 +21,6 @@ namespace OMG.Minigames
 
         private int deadPlayerCount = 0;
         public int DeadPlayerCount => deadPlayerCount;
-
-        private float lastDecisionTime = 0f;
-        private int lastScore = 0;
 
         public override void Init(Minigame minigame)
         {
@@ -104,7 +104,7 @@ namespace OMG.Minigames
 
         private int GetScore()
         {
-            if(Time.time - lastDecisionTime < 0.25f)
+            if(Time.time - lastDecisionTime < decisionThreshold)
                 return lastScore;
 
             lastDecisionTime = Time.time;
