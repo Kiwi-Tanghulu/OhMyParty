@@ -25,11 +25,12 @@ namespace OMG.Networks.UGS
             RelayServerData relayServer = new RelayServerData(room, "dtls");
             (ClientManager.Instance.NetworkTransport as UnityTransport).SetRelayServerData(relayServer);
 
-            CreateLobbyOptions lobbyOptions = new CreateLobbyOptions();
-            lobbyOptions.IsPrivate = false;
-            lobbyOptions.Data = new Dictionary<string, DataObject>() {
-                [DEFINE.JOIN_CODE_KEY] = new DataObject(DataObject.VisibilityOptions.Public, joinCode),
-                [DEFINE.OWNER_NAME_KEY] = new DataObject(DataObject.VisibilityOptions.Public, ClientManager.Instance.Nickname)
+            CreateLobbyOptions lobbyOptions = new CreateLobbyOptions() {
+                IsPrivate = false,
+                Data = new Dictionary<string, DataObject>() {
+                    [DEFINE.JOIN_CODE_KEY] = new DataObject(DataObject.VisibilityOptions.Public, joinCode),
+                    [DEFINE.OWNER_NAME_KEY] = new DataObject(DataObject.VisibilityOptions.Public, ClientManager.Instance.Nickname)
+                }
             };
 
             Lobby lobby = await Lobbies.Instance.CreateLobbyAsync(ClientManager.Instance.Nickname, maxMember, lobbyOptions);

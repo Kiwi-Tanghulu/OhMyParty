@@ -61,6 +61,8 @@ namespace OMG.Networks
             Debug.Log("$[Network] Guest Started");
         }
 
+        protected virtual bool OnBeginStartGuest() { return true; }
+        protected virtual bool OnGuestStarted(INetworkLobby networkLobby) { return true; }
         private bool InitNetworkManager()
         {
             NetworkManager networkManager = NetworkManager.Singleton;
@@ -70,8 +72,6 @@ namespace OMG.Networks
             return networkManager.StartClient();
         }
 
-        protected virtual bool OnBeginStartGuest() { return true; }
-        protected virtual bool OnGuestStarted(INetworkLobby networkLobby) { return true; }
 
         #endregion
 

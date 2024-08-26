@@ -60,6 +60,12 @@ namespace OMG.Networks
             Debug.Log("$[Network] Host Started");
         }
 
+        protected abstract Task<INetworkLobby> CreateLobby(int maxMember);
+
+        protected virtual bool OnBeginStartHost() { return true; }
+
+        protected virtual bool OnHostStarted(INetworkLobby networkLobby) { return true; }
+
         private bool InitNetworkManager()
         {
             NetworkManager networkManager = NetworkManager.Singleton;
@@ -69,10 +75,6 @@ namespace OMG.Networks
             
             return networkManager.StartHost();
         }
-
-        protected abstract Task<INetworkLobby> CreateLobby(int maxMember);
-        protected virtual bool OnBeginStartHost() { return true; }
-        protected virtual bool OnHostStarted(INetworkLobby networkLobby) { return true; }
 
         #endregion
 

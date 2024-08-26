@@ -23,10 +23,12 @@ namespace OMG.Minigames
      
         protected override void OnGameFinish()
         {
-            if(IsHost == false)
-                MinigameManager.Instance.FinishMinigame();
-
             base.OnGameFinish();
+
+            if(IsHost == false)
+                return;
+
+            Release();
         }
     }
 }

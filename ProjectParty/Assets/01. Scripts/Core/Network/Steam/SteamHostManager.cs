@@ -7,6 +7,16 @@ namespace OMG.Networks.Steam
 {
     public class SteamHostManager : HostManager
     {
+        protected override bool OnBeginStartHost()
+        {
+            bool response = base.OnBeginStartHost();
+            if(response == false)
+                return false;
+
+            SteamMatchmaking.OnLobbyCreated += HandleLobbyCreated;
+            return true;
+        }
+        
         protected override async Task<INetworkLobby> CreateLobby(int maxMember)
         {
             Lobby? lobby = await SteamMatchmaking.CreateLobbyAsync(maxMember);
@@ -24,16 +34,6 @@ namespace OMG.Networks.Steam
         {
             base.Disconnect();
             SteamMatchmaking.OnLobbyCreated -= HandleLobbyCreated;
-        }
-
-        protected override bool OnBeginStartHost()
-        {
-            bool response = base.OnBeginStartHost();
-            if(response == false)
-                return false;
-
-            SteamMatchmaking.OnLobbyCreated += HandleLobbyCreated;
-            return true;
         }
 
         private void HandleLobbyCreated(Result result, Lobby lobby)

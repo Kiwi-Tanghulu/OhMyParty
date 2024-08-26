@@ -49,7 +49,7 @@ namespace OMG.Minigames
                 }, () =>
                 {
                     if (IsHost)
-                        MinigameManager.Instance.FinishMinigame();
+                        minigame.Release();
                 });
             }));
         }

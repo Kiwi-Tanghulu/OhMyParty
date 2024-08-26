@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace OMG.NetworkEvents
 {
-    [System.Serializable]
+    [Serializable]
     public class NetworkEvent : NetworkEvent<NoneParams>
     {
         public NetworkEvent() : base() 
@@ -49,14 +48,14 @@ namespace OMG.NetworkEvents
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class NetworkEvent<T> : NetworkEvent<T, T> where T : NetworkEventParams, IConvertible<T>
     {
         public NetworkEvent() : base() { }
         public NetworkEvent(string key) : base(key) { }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class NetworkEvent<T, U> : UnityEvent<U>, INetworkEvent where T : NetworkEventParams, IConvertible<U>
     {
         private NetworkObject instance = null;

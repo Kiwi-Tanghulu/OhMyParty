@@ -6,9 +6,6 @@ namespace OMG.Lobbies
     {
         public Lobby Lobby { get; private set; } = null;
 
-        /// <summary>
-        /// Called at Lobby::Awake
-        /// </summary>
         public virtual void Init(Lobby lobby)
         {
             Lobby = lobby;

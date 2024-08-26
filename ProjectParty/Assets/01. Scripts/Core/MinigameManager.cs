@@ -41,13 +41,6 @@ namespace OMG.Minigames
             CurrentMinigame.SetPlayerDatas(joinedPlayers);
         }
 
-        public void FinishMinigame()
-        {
-            Debug.Log("finish game");
-
-            CurrentMinigame.Release();
-        }
-
         public void ReleaseMinigame()
         {
             CurrentMinigame.MinigameData.OnMinigameFinishedEvent?.Invoke(CurrentMinigame);
