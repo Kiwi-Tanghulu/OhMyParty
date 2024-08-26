@@ -29,18 +29,26 @@ namespace OMG.Lobbies
         public event Action OnMinigameStartedEvent = null;
         private MinigameSO currentMinigame = null;
 
-        private List<MinigameSO> notPlayedMinigameList;
-        public List<MinigameSO> NotPlayedMinigameList => notPlayedMinigameList;
+        private List<MinigameSO> playableMinigameList;
+        public List<MinigameSO> PlayableMinigameList => playableMinigameList;
+        private List<MinigameSO> playedMinigameList;
+
+        private NetworkVariable<bool> isStartCycle;
+        public NetworkVariable<bool> IsStartCycle => isStartCycle;
 
         public override void Init(Lobby lobby)
         {
             base.Init(lobby);
 
-            notPlayedMinigameList = new List<MinigameSO>();
+            playableMinigameList = new List<MinigameSO>();
             for (int i = 0; i < minigameList.Count; i++)
             {
-                notPlayedMinigameList.Add(minigameList.MinigameList[i]);
+                AddPlayAbleMinigame(minigameList.MinigameList[i]);
             }
+
+            playedMinigameList = new List<MinigameSO>();
+
+            isStartCycle = new NetworkVariable<bool>(false);
         }
 
         public void ClearMinigameCycle()
@@ -50,8 +58,32 @@ namespace OMG.Lobbies
 
         public void StartMinigameCycle()
         {
+            isStartCycle.Value = true;
+            isStartCycle.SetDirty(true);
+
+            SetMinigameCycleCountClientRpc(MinigameCycleCount);
+
             ClearMinigameCycle();
             BroadcastMinigameCycleStartedClientRpc();
+        }
+
+        [ClientRpc]
+        private void SetMinigameCycleCountClientRpc(int count)
+        {
+            MinigameCycleCount = count;
+        }
+
+        public void AddPlayAbleMinigame(MinigameSO minigameSO)
+        {
+            if (playableMinigameList.Contains(minigameSO))
+                return;
+
+            playableMinigameList.Add(minigameSO);
+        }
+
+        public void RemovePlayAbleMinigame(MinigameSO minigameSO)
+        {
+            playableMinigameList.Remove(minigameSO);
         }
 
         public void StartMinigameSelecting()
@@ -75,13 +107,6 @@ namespace OMG.Lobbies
             BroadcastMinigameSelectedClientRpc(minigameList.GetIndex(currentMinigame));
 
             currentMinigame.OnMinigameFinishedEvent += HandleMinigameFinished;
-
-            //int index = Random.Range(0, minigameList.Count);
-            //currentMinigame = minigameList[index];
-            //currentMinigame.OnMinigameFinishedEvent += HandleMinigameFinished;
-
-            ////StartCoroutine(MinigameRoulette());
-            //BroadcastMinigameSelectedClientRpc(index);
         }
 
         public void StartMinigame()
@@ -92,14 +117,10 @@ namespace OMG.Lobbies
             LightingManager.SetLightingSetting(currentMinigame.LightingSettingSO);
             BroadcastMinigameStartedClientRpc();
 
-            notPlayedMinigameList.Remove(currentMinigame);
-            if(notPlayedMinigameList.Count <= 0)
+            playedMinigameList.Add(currentMinigame);
+            if(playableMinigameList.Count == playableMinigameList.Count)
             {
-                notPlayedMinigameList = new List<MinigameSO>();
-                for (int i = 0; i < minigameList.Count; i++)
-                {
-                    notPlayedMinigameList.Add(minigameList.MinigameList[i]);
-                }
+                playedMinigameList.Clear();
             }
 
             Lobby.ChangeLobbyState(LobbyState.MinigamePlaying);

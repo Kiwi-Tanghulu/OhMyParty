@@ -13,8 +13,10 @@ namespace OMG.UI
 
         public virtual void SetCheck(bool value)
         {
-            if(value)
+            if (value)
                 OnCheckedEvent?.Invoke();
+
+            checkImage.SetActive(value);
         }
     }
 }

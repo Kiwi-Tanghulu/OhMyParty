@@ -241,7 +241,7 @@ namespace OMG.UI
             if (!Lobby.Current.IsServer)
                 return;
 
-            List<MinigameSO> randMinigameList = minigameComp.NotPlayedMinigameList.Shuffle();
+            List<MinigameSO> randMinigameList = minigameComp.PlayableMinigameList.Shuffle();
             int minigameCount = Mathf.Min(maxMinigameCount, randMinigameList.Count);
 
             //make slot

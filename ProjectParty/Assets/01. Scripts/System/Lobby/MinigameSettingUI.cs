@@ -1,3 +1,4 @@
+using OMG.Lobbies;
 using OMG.Minigames;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,16 +17,20 @@ namespace OMG.UI
 
         private int playCount;
 
+        private LobbyMinigameComponent minigameCompo;
+
         public override void Init()
         {
             base.Init();
 
-            CreateSlot();
-
-            playCount = 3;
+            playCount = minigameListSO.Count;
             playCountText.Init();
-            playCountText.SetCountValue(1, minigameListSO.Count);
+            playCountText.SetCountValue(5, minigameListSO.Count);
             playCountText.SetCount(playCount);
+
+            minigameCompo = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
+
+            CreateSlot();
         }
 
         public override void Hide()
@@ -40,8 +45,16 @@ namespace OMG.UI
             for(int i = 0; i < minigameListSO.Count; i++)
             {
                 MinigameSelectSlot slot = Instantiate(minigameSelectSlotPrefab, minigameSelectSlotContainer);
+                slot.OnSelectedEvent.AddListener((so, isChecked) =>
+                {
+                    if (isChecked)
+                        minigameCompo.AddPlayAbleMinigame(so);
+                    else
+                        minigameCompo.RemovePlayAbleMinigame(so);
+                });
                 slot.Init();
                 slot.SetMinigameSO(minigameListSO[i]);
+                slot.Select(true);
             }
         }
 
@@ -51,6 +64,7 @@ namespace OMG.UI
                 return;
 
             playCountText.SetCount(++playCount, true);
+            minigameCompo.MinigameCycleCount = playCount;
         }
 
         public void DecreasePlayCount()
@@ -59,6 +73,7 @@ namespace OMG.UI
                 return;
 
             playCountText.SetCount(--playCount, true);
+            minigameCompo.MinigameCycleCount = playCount;
         }
     }
 }

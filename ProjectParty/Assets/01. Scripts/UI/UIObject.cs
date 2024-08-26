@@ -33,6 +33,8 @@ namespace OMG.UI
 
         public virtual void Init()
         {
+            childUI = new();
+
             GetChildUI();
 
             for (int i = 0; i < childUI.Count; i++)
@@ -45,6 +47,9 @@ namespace OMG.UI
 
         public virtual void Show()
         {
+            if (IsInit == false)
+                Init();
+
             gameObject.SetActive(true);
 
             for (int i = 0; i < childUI.Count; i++)
@@ -65,8 +70,6 @@ namespace OMG.UI
 
         private void GetChildUI()
         {
-            childUI = new();
-
             foreach (Transform child in transform)
             {
                 if (child.TryGetComponent<UIObject>(out UIObject ui))

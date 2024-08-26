@@ -21,7 +21,6 @@ namespace OMG.UI
         [SerializeField] private Color unhoverColor;
 
         [Space]
-        public UnityEvent<MinigameSlot> OnSelectedEvent;
         public UnityEvent OnHoverEvent;
         public UnityEvent OnUnhoverEvent;
 

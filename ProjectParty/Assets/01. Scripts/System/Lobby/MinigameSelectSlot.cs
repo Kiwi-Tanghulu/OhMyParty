@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -11,7 +12,9 @@ public class MinigameSelectSlot : MinigameSlot, IPointerClickHandler, IPointerEn
 {
     [SerializeField] private CheckBox checkBox;
 
-    private bool isChecked = false;
+    private bool isSelected = false;
+
+    public UnityEvent<MinigameSO, bool> OnSelectedEvent;
 
     public override void Init()
     {
@@ -24,30 +27,38 @@ public class MinigameSelectSlot : MinigameSlot, IPointerClickHandler, IPointerEn
     {
         base.Hide();
 
-        if(isChecked == false)
+        if(isSelected == false)
             Unhover();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        isChecked = !isChecked;
-        checkBox.SetCheck(isChecked);
-
-        if (isChecked)
-            Hover();
-        else
-            Unhover();
+        Select(!isSelected);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(isChecked == false)
+        if(isSelected == false)
             Hover();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(isChecked == false)
+        if(isSelected == false)
             Unhover();
+    }
+
+    public void Select(bool isSelected)
+    {
+        this.isSelected = isSelected;
+
+        checkBox.SetCheck(this.isSelected);
+
+        if (this.isSelected)
+            Hover();
+        else
+            Unhover();
+
+        OnSelectedEvent?.Invoke(MinigameSO, this.isSelected);
     }
 }
