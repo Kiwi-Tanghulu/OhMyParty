@@ -8,7 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MinigameSelectSlot : MinigameSlot, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class MinigameSettingSlot : MinigameSlot, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private CheckBox checkBox;
 

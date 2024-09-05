@@ -11,7 +11,7 @@ namespace OMG.UI
         [SerializeField] private MinigameListSO minigameListSO;
 
         [Space]
-        [SerializeField] private MinigameSelectSlot minigameSelectSlotPrefab;
+        [SerializeField] private MinigameSettingSlot minigameSelectSlotPrefab;
         [SerializeField] private Transform minigameSelectSlotContainer;
         [SerializeField] private CountText playCountText;
 
@@ -25,8 +25,8 @@ namespace OMG.UI
 
             playCount = minigameListSO.Count;
             playCountText.Init();
-            playCountText.SetCountValue(5, minigameListSO.Count);
-            playCountText.SetCount(playCount);
+            playCountText.SetCountValue(1, minigameListSO.Count);
+            playCountText.SetCount(playCount, true);
 
             minigameCompo = Lobby.Current.GetLobbyComponent<LobbyMinigameComponent>();
 
@@ -44,7 +44,7 @@ namespace OMG.UI
         {
             for(int i = 0; i < minigameListSO.Count; i++)
             {
-                MinigameSelectSlot slot = Instantiate(minigameSelectSlotPrefab, minigameSelectSlotContainer);
+                MinigameSettingSlot slot = Instantiate(minigameSelectSlotPrefab, minigameSelectSlotContainer);
                 slot.OnSelectedEvent.AddListener((so, isChecked) =>
                 {
                     if (isChecked)
