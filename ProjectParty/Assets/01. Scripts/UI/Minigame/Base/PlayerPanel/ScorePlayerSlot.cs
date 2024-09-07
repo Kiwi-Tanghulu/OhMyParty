@@ -16,6 +16,7 @@ namespace OMG.UI.Minigames
         [SerializeField] UnityEvent<int> OnScoreChangedEvent = null;
 
         private int score = 0;
+        public int Score => score;
 
         protected override void Awake()
         {

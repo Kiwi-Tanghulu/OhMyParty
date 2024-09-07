@@ -7,6 +7,8 @@ namespace OMG.UI.Minigames
     public class PlayerPanel : MonoBehaviour
     {
         protected PlayerSlot[] playerSlots = null;
+
+        public PlayerSlot this[int index] => playerSlots[index];
         
         protected virtual void Awake()
         {
