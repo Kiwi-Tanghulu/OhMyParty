@@ -27,6 +27,9 @@ namespace OMG.Minigames.CookingClass
         {
             base.UpdateCompo();
 
+            if(Controller.IsOwner == false)
+                return;
+
             if(idleTimer > 0f)
             {
                 idleTimer -= Time.deltaTime;
