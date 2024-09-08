@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7198137735131252433}
   - component: {fileID: 1487395470477513621}
   - component: {fileID: 438865781303019463}
-  - component: {fileID: 8960229561982667676}
+  - component: {fileID: 7026667315312823223}
   m_Layer: 9
   m_Name: Tail
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8960229561982667676
+--- !u!114 &7026667315312823223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,15 +93,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2646239489250017250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 660345c7e3972d149bd85bbbaf5fca15, type: 3}
+  m_Script: {fileID: 11500000, guid: ac3a418e7ee414b68a7563e185d2be39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls:
-  - ColorPropertyName: _BaseColor
-    Renderers:
-    - {fileID: 438865781303019463}
-  index: 0
   initOnAwake: 0
+  rendererControls:
+  - drawers:
+    - {fileID: 438865781303019463}
+    colorPropertyName: _BaseColor
+  graphicControl:
+    drawers: []
+  index: 0
 --- !u!1 &9113099635099119425
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,7 +985,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   FeedbackPlayPoint: {fileID: 0}
-  tail: {fileID: 8960229561982667676}
+  tail: {fileID: 7026667315312823223}
   sword: {fileID: 707024077074953883}
   respawnDelay: 1
 --- !u!114 &498844775370473616
