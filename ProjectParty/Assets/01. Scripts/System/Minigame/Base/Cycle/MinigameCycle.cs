@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace OMG.Minigames
 {
-    public class MinigameCycle : NetworkBehaviour
+    public abstract class MinigameCycle : NetworkBehaviour
     {
         protected Minigame minigame = null;
 

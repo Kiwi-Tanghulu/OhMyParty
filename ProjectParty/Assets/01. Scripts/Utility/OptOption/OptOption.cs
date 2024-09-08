@@ -3,6 +3,13 @@ namespace OMG.Utility
     [System.Serializable]
     public class OptOption<T>
     {
+        public OptOption() { }
+        public OptOption(T positiveOption, T negativeOption)
+        {
+            PositiveOption = positiveOption;
+            NegativeOption = negativeOption;
+        }
+
         public T this[bool option] => GetOption(option);
 
         public T PositiveOption;
