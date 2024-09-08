@@ -1,5 +1,6 @@
 using OMG.Lobbies;
 using OMG.Player;
+using OMG.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class PlayerManager : MonoBehaviour
 
     [Space]
     [SerializeField] private List<Color> playerColorList;
+    [SerializeField] private OptOption<Color> teamColorOption;
 
     [Space]
     private Dictionary<ulong, RenderTargetPlayerVisual> renderTargetPlayerDic;
@@ -39,6 +41,11 @@ public class PlayerManager : MonoBehaviour
             return default;
         }
         return playerColorList[index];
+    }
+
+    public Color GetTeamColor(bool teamFlag)
+    {
+        return teamColorOption[teamFlag];
     }
 
     //create player render target
