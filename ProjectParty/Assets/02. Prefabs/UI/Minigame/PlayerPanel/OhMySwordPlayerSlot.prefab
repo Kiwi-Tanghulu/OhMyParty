@@ -306,7 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2338281872396095181}
   - component: {fileID: 5537465113199046927}
-  - component: {fileID: 6676530268337393795}
+  - component: {fileID: 1698482390544862277}
   m_Layer: 0
   m_Name: OhMySwordPlayerSlot
   m_TagString: Untagged
@@ -355,7 +355,7 @@ MonoBehaviour:
   OnScoreChangedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6676530268337393795
+--- !u!114 &1698482390544862277
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -364,15 +364,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7773260831256526262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1593b0970cb04ba428787ca2c0f82fd8, type: 3}
+  m_Script: {fileID: 11500000, guid: ac3a418e7ee414b68a7563e185d2be39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls:
-  - ColorPropertyName: _FaceColor
-    Graphics:
+  initOnAwake: 1
+  rendererControls: []
+  graphicControl:
+    drawers:
     - {fileID: 4016826571713040431}
   index: 0
-  initOnAwake: 1
 --- !u!1001 &781560425501484797
 PrefabInstance:
   m_ObjectHideFlags: 0

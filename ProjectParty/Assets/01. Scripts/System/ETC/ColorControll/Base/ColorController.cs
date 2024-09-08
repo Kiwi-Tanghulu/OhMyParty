@@ -8,8 +8,8 @@ namespace OMG.ColorControlling
         [SerializeField] bool initOnAwake = true;
 
         [Space(15f)]
-        [SerializeField] List<RendererControl> renderers = new List<RendererControl>();
-        [SerializeField] List<GraphicControl> graphics = new List<GraphicControl>(); 
+        [SerializeField] List<RendererControl> rendererControls = new List<RendererControl>();
+        [SerializeField] GraphicControl graphicControl = new GraphicControl();
 
         private void Awake()
         {
@@ -21,10 +21,9 @@ namespace OMG.ColorControlling
         {
             Color color = GetColor();
 
-            foreach (ColorControl control in renderers)
+            foreach (ColorControl control in rendererControls)
                 control.SetColor(color);
-            foreach (ColorControl control in graphics)
-                control.SetColor(color);
+            graphicControl.SetColor(color);
         }
 
         protected abstract Color GetColor();

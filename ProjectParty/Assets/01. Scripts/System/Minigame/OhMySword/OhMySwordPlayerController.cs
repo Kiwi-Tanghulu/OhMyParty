@@ -1,5 +1,5 @@
 using System.Collections;
-using OMG.ETC;
+using OMG.ColorControlling;
 using OMG.Extensions;
 using OMG.NetworkEvents;
 using OMG.Player;

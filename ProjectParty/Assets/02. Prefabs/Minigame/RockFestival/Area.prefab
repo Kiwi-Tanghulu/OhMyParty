@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2422261833033041801}
   - component: {fileID: -4019678788028290361}
-  - component: {fileID: 5108728710590053090}
+  - component: {fileID: 4097914325764372087}
   - component: {fileID: 5495956906349011314}
   m_Layer: 0
   m_Name: Area
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreSlot: {fileID: 0}
   updateDelay: 1
---- !u!114 &5108728710590053090
+--- !u!114 &4097914325764372087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,21 +62,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 3407222726453286790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 660345c7e3972d149bd85bbbaf5fca15, type: 3}
+  m_Script: {fileID: 11500000, guid: ac3a418e7ee414b68a7563e185d2be39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls:
-  - ColorPropertyName: _BaseColor
-    Renderers:
+  initOnAwake: 1
+  rendererControls:
+  - drawers:
     - {fileID: 1250428028439812276}
     - {fileID: 5864342483163503168}
     - {fileID: 6770811779872875469}
     - {fileID: 2332029368039492204}
-  - ColorPropertyName: _FaceColor
-    Renderers:
-    - {fileID: 8668453499448364857}
+    colorPropertyName: _BaseColor
+  graphicControl:
+    drawers:
+    - {fileID: 2311103813192244575}
   index: 0
-  initOnAwake: 1
 --- !u!65 &5495956906349011314
 BoxCollider:
   m_ObjectHideFlags: 0
