@@ -205,8 +205,10 @@ namespace OMG.Minigames
         #region HandleState
         private void HandleStateSynced(int stateIndex)
         {
-            MinigameState state = (MinigameState)stateIndex;
+            if(IsHost == false)
+                return;
 
+            MinigameState state = (MinigameState)stateIndex;
             switch(state)
             {
                 case MinigameState.Spawned:
