@@ -720,10 +720,10 @@ RectTransform:
   - {fileID: 7308006453775792469}
   m_Father: {fileID: 7374151844887500582}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2539280991392945468
 MonoBehaviour:
@@ -869,8 +869,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 490}
-  m_SizeDelta: {x: 1820, y: 200}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 225}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &375903926064965185
 GameObject:
@@ -16030,6 +16030,13 @@ MonoBehaviour:
   OnFinishEvent:
     m_PersistentCalls:
       m_Calls: []
+  state:
+    OnStateSyncedEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateChangedEvent:
+      m_PersistentCalls:
+        m_Calls: []
   playerPrefab: {fileID: 2371345496003228546, guid: e609525b6e26a854bbbc658edeb62bf7,
     type: 3}
   useLife: 0
@@ -37700,12 +37707,12 @@ PrefabInstance:
     - target: {fileID: 1401737540409624146, guid: a446f4e1d767ff6438335ff3c9e25188,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1820
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1401737540409624146, guid: a446f4e1d767ff6438335ff3c9e25188,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 980
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1401737540409624146, guid: a446f4e1d767ff6438335ff3c9e25188,
         type: 3}
@@ -39239,7 +39246,7 @@ PrefabInstance:
     - target: {fileID: 6676530268337393795, guid: 2248ccdb6ddb34906a1be7d73a348dd5,
         type: 3}
       propertyPath: index
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7773260831256526262, guid: 2248ccdb6ddb34906a1be7d73a348dd5,
         type: 3}
