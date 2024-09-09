@@ -27,6 +27,8 @@ namespace OMG.Minigames
         [SerializeField] OptOption<int> scoreOption = new OptOption<int>(0, 500);
 
         private OptOption<TeamData> teamTable = null;
+        public OptOption<TeamData> TeamTable => teamTable;
+
         private Dictionary<ulong, bool> teamInfo = null;
         public Dictionary<ulong, bool> TeamInfo => teamInfo;
 

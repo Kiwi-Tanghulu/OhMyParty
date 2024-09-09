@@ -282,4 +282,33 @@ namespace OMG.NetworkEvents
             writer.WriteValue(ClientID);
         }
     }
+
+    public class TeamScoreParams : NetworkEventParams, IConvertible<TeamScoreParams>
+    {
+        protected override ushort Size => sizeof(bool) + sizeof(int);
+
+        public bool TeamFlag = true;
+        public int Score = 0;
+
+        public TeamScoreParams Convert() => this;
+
+        public TeamScoreParams() {}
+        public TeamScoreParams(bool teamFlag, int score)
+        {
+            TeamFlag = teamFlag;
+            Score = score;
+        }
+
+        protected override void Deserialize(FastBufferReader reader)
+        {
+            reader.ReadValue(out TeamFlag);
+            reader.ReadValue(out Score);
+        }
+
+        protected override void Serialize(FastBufferWriter writer)
+        {
+            writer.WriteValue(TeamFlag);
+            writer.WriteValue(Score);
+        }
+    }
 }

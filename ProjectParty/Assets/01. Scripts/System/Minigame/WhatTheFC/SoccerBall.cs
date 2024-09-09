@@ -2,6 +2,7 @@ using OMG.NetworkEvents;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 namespace OMG.Minigames.WhatTheFC
 {
@@ -17,6 +18,12 @@ namespace OMG.Minigames.WhatTheFC
         private void Awake()
         {
             ballRigidbody = GetComponent<Rigidbody>();
+        }
+
+        public void ResetRigidbody()
+        {
+            ballRigidbody.angularVelocity = Vector3.zero;
+            ballRigidbody.velocity = Vector3.zero;
         }
 
         public override void OnNetworkSpawn()
