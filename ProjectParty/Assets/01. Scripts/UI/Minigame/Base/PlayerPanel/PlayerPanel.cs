@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using OMG.Extensions;
 using OMG.Minigames;
 using UnityEngine;
@@ -6,20 +7,26 @@ namespace OMG.UI.Minigames
 {
     public class PlayerPanel : MonoBehaviour
     {
-        protected PlayerSlot[] playerSlots = null;
+        protected List<PlayerSlot> playerSlots = null;
 
         public PlayerSlot this[int index] => playerSlots[index];
         
         protected virtual void Awake()
         {
-            playerSlots = transform.GetComponentsInChildren<PlayerSlot>();
+            playerSlots = new List<PlayerSlot>();
+            transform.GetComponentsInChildren<PlayerSlot>(playerSlots);
+
+            playerSlots.ForEach((i, index) => {
+                ulong clientID = MinigameManager.Instance.CurrentMinigame.PlayerDatas[index].clientID;
+                i.SetClientID(clientID);
+            });
         }
 
         public virtual void Init(Minigame minigame)
         {
             // 플레이어 이미지 삽입
             playerSlots.ForEach((i, index) => {
-                bool actived = MinigameManager.Instance.CurrentMinigame.PlayerDatas.Count > index;
+                bool actived = minigame.PlayerDatas.Count > index;
                 i.Display(actived);
 
                 if (!actived)

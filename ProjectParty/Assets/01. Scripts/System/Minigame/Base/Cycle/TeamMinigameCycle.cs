@@ -1,12 +1,16 @@
+using System;
 using System.Collections.Generic;
 using OMG.Extensions;
+using OMG.NetworkEvents;
 using OMG.Utility;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace OMG.Minigames
 {
     public abstract class TeamMinigameCycle : MinigameCycle
     {
+        [Serializable]
         public class TeamData
         {
             public List<ulong> members;
@@ -24,19 +28,33 @@ namespace OMG.Minigames
 
         private OptOption<TeamData> teamTable = null;
         private Dictionary<ulong, bool> teamInfo = null;
+        public Dictionary<ulong, bool> TeamInfo => teamInfo;
 
-        public override void Init(Minigame minigame)
+        private NetworkEvent<TeamParams> onTeamDecidedEvent = new NetworkEvent<TeamParams>("teamDecided");
+
+        public override void OnNetworkSpawn()
         {
-            base.Init(minigame);
+            base.OnNetworkSpawn();
 
-            teamTable = new OptOption<TeamData>(new TeamData(teamQuota[true]), new TeamData(teamQuota[false]));
+            onTeamDecidedEvent.AddListener(HandleTeamDecided);
+            onTeamDecidedEvent.Register(NetworkObject);
+
             teamInfo = new Dictionary<ulong, bool>(minigame.PlayerDatas.Count);
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+            onTeamDecidedEvent.Unregister();
         }
 
         public void DecideTeam()
         {
             if(IsHost == false)
                 return;
+
+            teamTable = new OptOption<TeamData>(new TeamData(teamQuota[true]), new TeamData(teamQuota[false]));
+            teamInfo.Clear();
 
             List<ulong> minigamePlayers = new List<ulong>(minigame.PlayerDatas.Count);
             int minigamePlayersCount = minigamePlayers.Count;
@@ -67,6 +85,7 @@ namespace OMG.Minigames
         private void SetTeam(bool teamFlag, ulong clientID)
         {
             teamInfo[clientID] = teamFlag;
+            onTeamDecidedEvent?.Broadcast(new TeamParams(teamFlag, clientID));
 
             int remainIndex = teamTable[teamFlag].members.IndexOf(clientID);
             if(remainIndex != -1)
@@ -121,6 +140,14 @@ namespace OMG.Minigames
                     });
                 });
             }
+        }
+
+        private void HandleTeamDecided(TeamParams teamParams)
+        {
+            if(teamInfo.ContainsKey(teamParams.ClientID))
+                teamInfo[teamParams.ClientID] = teamParams.TeamFlag;
+            else
+                teamInfo.Add(teamParams.ClientID,teamParams.TeamFlag);
         }
     }
 }
