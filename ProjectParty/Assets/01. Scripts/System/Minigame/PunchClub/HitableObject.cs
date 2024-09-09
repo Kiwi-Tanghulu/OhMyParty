@@ -19,7 +19,7 @@ namespace OMG.Minigames.PunchClub
 
         public void OnDamaged(float damage, Transform attacker, Vector3 point, HitEffectType effectType, Vector3 normal = default, Vector3 direction = default)
         {
-            onHitNetworkEvent?.Invoke(point);
+            onHitNetworkEvent?.Broadcast(point, false);
         }
 
         private void HandleHit(Vector3 hitPosition)
