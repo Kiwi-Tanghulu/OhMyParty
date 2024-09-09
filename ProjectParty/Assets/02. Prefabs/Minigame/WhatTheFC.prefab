@@ -3943,7 +3943,7 @@ GameObject:
   - component: {fileID: 5713656241437198985}
   - component: {fileID: 8354405007245438813}
   - component: {fileID: 5150955262506536973}
-  - component: {fileID: 5106071634562553752}
+  - component: {fileID: 1242861943034350768}
   - component: {fileID: 7030191793655762723}
   - component: {fileID: 7793464857356492603}
   - component: {fileID: 2678826602377584916}
@@ -3989,7 +3989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 327462724
+  GlobalObjectIdHash: 2570091785
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -4033,7 +4033,11 @@ MonoBehaviour:
     type: 3}
   useLife: 0
   lifeCount: 3
-  spawnPositions: []
+  spawnPositions:
+  - {fileID: 1570256567128899085}
+  - {fileID: 4391411723162726528}
+  - {fileID: 5025348007162922225}
+  - {fileID: 8930975122718976057}
 --- !u!114 &8354405007245438813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4082,7 +4086,7 @@ MonoBehaviour:
   OnTimerFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5106071634562553752
+--- !u!114 &1242861943034350768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4091,11 +4095,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2819869098861211246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f18abe4e7b784e4d9e6fdd895bcd577, type: 3}
+  m_Script: {fileID: 11500000, guid: be795f176d3814465b5f4b8839f73182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playTime: 60
-  scoreWeight: 3200000064000000f4010000e8030000
+  teamQuota:
+    PositiveOption: 2
+    NegativeOption: 2
+  scoreOption:
+    PositiveOption: 0
+    NegativeOption: 500
+  playTime: 30
 --- !u!320 &7030191793655762723
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -4105,7 +4114,7 @@ PlayableDirector:
   m_GameObject: {fileID: 2819869098861211246}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: d288a0f412349a84aac64a785ec913e7, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: de1b4db7450524bf6ac2e85e90cf7ae9, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -4133,6 +4142,8 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 4505933807650298693, guid: d288a0f412349a84aac64a785ec913e7, type: 2}
     value: {fileID: 1290301373200058765}
+  - key: {fileID: -6021923261176244643, guid: de1b4db7450524bf6ac2e85e90cf7ae9, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &7793464857356492603
@@ -4148,7 +4159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCycleTextUI: {fileID: 64274430735966805}
-  cutscene: {fileID: 11400000, guid: 39fb4b751ef6b497cad50e73d91a066c, type: 2}
+  cutscene: {fileID: 11400000, guid: de1b4db7450524bf6ac2e85e90cf7ae9, type: 2}
   onCutsceneFinishEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -5588,7 +5599,7 @@ Transform:
   m_GameObject: {fileID: 3963533352344380582}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: -4, y: 0.25, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7468,7 +7479,7 @@ Transform:
   m_GameObject: {fileID: 5418358725452187502}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: 4, y: 0.25, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9497,7 +9508,7 @@ Transform:
   m_GameObject: {fileID: 7195676976458359987}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: -4, y: 0.25, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11322,7 +11333,7 @@ Transform:
   m_GameObject: {fileID: 9182418843599199375}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: 4, y: 0.25, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

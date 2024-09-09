@@ -58,6 +58,15 @@ public static class NetworkListExtensions
         return -1;
     }
 
+    public static int IndexOf<T>(this NetworkList<T> source, Func<T, bool> predicator) where T : unmanaged, IEquatable<T>
+    {
+        for(int i = 0; i < source.Count; ++i)
+            if(predicator.Invoke(source[i]))
+                return i;
+
+        return -1;
+    }
+
     public static T PickRandom<T>(this NetworkList<T> source, Func<T, bool> condition = null) where T : unmanaged, IEquatable<T>
     {
         int randIndex = 0;

@@ -15,11 +15,6 @@ namespace OMG.UI.Minigames
         {
             playerSlots = new List<PlayerSlot>();
             transform.GetComponentsInChildren<PlayerSlot>(playerSlots);
-
-            playerSlots.ForEach((i, index) => {
-                ulong clientID = MinigameManager.Instance.CurrentMinigame.PlayerDatas[index].clientID;
-                i.SetClientID(clientID);
-            });
         }
 
         public virtual void Init(Minigame minigame)

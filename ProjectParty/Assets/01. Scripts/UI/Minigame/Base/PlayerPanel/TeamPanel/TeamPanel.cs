@@ -22,13 +22,14 @@ namespace OMG.UI.Minigames
 
             playerSlots = new List<PlayerSlot>(minigame.PlayerDatas.Count);
 
-            foreach(ulong key in cycle.TeamInfo.Keys)
+            foreach(ulong clientID in cycle.TeamInfo.Keys)
             {
-                PlayerSlot slot = teamSlots[cycle.TeamInfo[key]].AddTeamMember(key);
+                PlayerSlot slot = teamSlots[cycle.TeamInfo[clientID]].AddTeamMember(clientID);
+                RenderTexture playerRenderTexture = PlayerManager.Instance.GetPlayerRenderTargetVisual(clientID).RenderTexture;
+
+                slot.Init(playerRenderTexture);
                 playerSlots.Add(slot);
             }
-
-            base.Init(minigame);
         }
     }
 }

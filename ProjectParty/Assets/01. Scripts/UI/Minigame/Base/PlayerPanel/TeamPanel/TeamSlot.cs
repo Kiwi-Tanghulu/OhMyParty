@@ -17,7 +17,6 @@ namespace OMG.UI.Minigames
         public PlayerSlot AddTeamMember(ulong clientID)
         {
             PlayerSlot slot = Instantiate(playerSlotPrefab, container);
-            slot.SetClientID(clientID);
             slots.Add(slot);
 
             return slot;

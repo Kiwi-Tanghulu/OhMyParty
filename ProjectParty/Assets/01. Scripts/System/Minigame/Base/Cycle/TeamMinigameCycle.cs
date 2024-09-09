@@ -56,13 +56,10 @@ namespace OMG.Minigames
             teamTable = new OptOption<TeamData>(new TeamData(teamQuota[true]), new TeamData(teamQuota[false]));
             teamInfo.Clear();
 
-            List<ulong> minigamePlayers = new List<ulong>(minigame.PlayerDatas.Count);
-            int minigamePlayersCount = minigamePlayers.Count;
+            int minigamePlayersCount = minigame.PlayerDatas.Count;
+            List<ulong> minigamePlayers = new List<ulong>(minigamePlayersCount);
             for(int i = 0; i < minigamePlayersCount; ++i)
-            {
-                minigamePlayers[i] = minigame.PlayerDatas[i].clientID;
-                teamInfo.Add(minigamePlayers[i], true);
-            }
+                minigamePlayers.Add(minigame.PlayerDatas[i].clientID);
 
             minigamePlayers = minigamePlayers.Shuffle();
             bool teamFlag;
@@ -84,7 +81,6 @@ namespace OMG.Minigames
 
         private void SetTeam(bool teamFlag, ulong clientID)
         {
-            teamInfo[clientID] = teamFlag;
             onTeamDecidedEvent?.Broadcast(new TeamParams(teamFlag, clientID));
 
             int remainIndex = teamTable[teamFlag].members.IndexOf(clientID);
