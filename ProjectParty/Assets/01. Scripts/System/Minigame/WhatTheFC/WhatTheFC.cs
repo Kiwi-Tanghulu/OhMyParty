@@ -24,7 +24,7 @@ namespace OMG.Minigames.WhatTheFC
         [SerializeField] NetworkEvent<TeamScoreParams> onGoalEvent = new NetworkEvent<TeamScoreParams>("Goal"); 
         
         private SoccerBall ball = null;
-        private TeamMinigameCycle teamCycle = null;
+        private TeamTimeAttackCycle teamCycle = null;
 
         protected override void OnGameInit()
         {
@@ -33,7 +33,7 @@ namespace OMG.Minigames.WhatTheFC
             onGoalEvent.AddListener(HandleGoal);
             onGoalEvent.Register(NetworkObject);
 
-            teamCycle = cycle as TeamMinigameCycle;
+            teamCycle = cycle as TeamTimeAttackCycle;
             if(IsHost)
                 teamCycle.DecideTeam();
         }
@@ -57,6 +57,8 @@ namespace OMG.Minigames.WhatTheFC
                 ball.NetworkObject.Spawn();
 
                 goalPosts?.ForEach(i => i.Init(this));
+                
+                teamCycle?.StartCycle();
             }
 
             base.OnGameStart();
