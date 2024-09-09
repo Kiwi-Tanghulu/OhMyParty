@@ -13,6 +13,7 @@ namespace OMG.FSM
         [SerializeField] private FSMState defaultState;
         public FSMState DefaultState => defaultState;
         [SerializeField] private FSMState currentState;
+        public FSMState CurrentState => currentState;
 
         [Space(15f)]
         [SerializeField] List<FSMParamSO> fsmParams = null;

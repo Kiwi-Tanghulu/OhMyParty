@@ -11,6 +11,21 @@ namespace OMG.Player
     {
         private Transform respawnPoint;
 
+        private CharacterFSM fsm;
+        private PlayerVisual visual;
+        private PlayerMovement movement;
+
+        protected override bool Init()
+        {
+            bool result = base.Init();
+
+            fsm = GetCharacterComponent<CharacterFSM>();
+            visual = GetCharacterComponent<PlayerVisual>();
+            movement = GetCharacterComponent<PlayerMovement>();
+
+            return result;
+        }
+
         public void SetRespawnPoint(Transform point)
         {
             respawnPoint = point;
@@ -18,16 +33,18 @@ namespace OMG.Player
 
         public override void Respawn(Vector3 pos, Vector3 rot)
         {
-            GetCharacterComponent<CharacterFSM>().ChangeState(typeof(RecoveryState));
-            GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false, true);
-            GetCharacterComponent<PlayerMovement>().Teleport(pos, Quaternion.Euler(rot));
+            if (fsm.CurrentState.GetType() != typeof(StunState))
+                fsm.ChangeState(typeof(RecoveryState));
+            visual.Ragdoll.SetActive(false, true);
+            movement.Teleport(pos, Quaternion.Euler(rot));
         }
 
         public void Respawn()
         {
-            GetCharacterComponent<CharacterFSM>().ChangeState(typeof(RecoveryState));
-            GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false, true);
-            GetCharacterComponent<PlayerMovement>().Teleport(respawnPoint.position, respawnPoint.rotation);
+            if (fsm.CurrentState.GetType() != typeof(StunState))
+                fsm.ChangeState(typeof(RecoveryState));
+            visual.Ragdoll.SetActive(false, true);
+            movement.Teleport(respawnPoint.position, respawnPoint.rotation);
         }
 
         public override void OnNetworkDespawn()

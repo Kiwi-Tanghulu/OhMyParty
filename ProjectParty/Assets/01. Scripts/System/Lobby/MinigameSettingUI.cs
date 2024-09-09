@@ -50,7 +50,10 @@ namespace OMG.UI
                     if (isChecked)
                         minigameCompo.AddPlayAbleMinigame(so);
                     else
-                        minigameCompo.RemovePlayAbleMinigame(so);
+                    {
+                        if(minigameCompo.PlayableMinigameList.Count > 1)
+                            minigameCompo.RemovePlayAbleMinigame(so);
+                    }
                 });
                 slot.Init();
                 slot.SetMinigameSO(minigameListSO[i]);
