@@ -24,6 +24,7 @@ namespace OMG.UI
 
         private Sequence seq;
 
+        [Space]
         public UnityEvent OnPlayEvent;
         public UnityEvent OnShowEvent;
         public UnityEvent OnEndEvent;
