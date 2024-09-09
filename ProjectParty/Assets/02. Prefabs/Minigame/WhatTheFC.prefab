@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 5932973678575178323}
   - component: {fileID: 4147667449634270403}
   - component: {fileID: 1590489164704440364}
+  - component: {fileID: 5615819917019381538}
   m_Layer: 0
   m_Name: BlueGoalpostTop
   m_TagString: Untagged
@@ -251,6 +252,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5615819917019381538
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125181703107495812}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3257345032156069514, guid: aa6849691f513417789b87886e07a2ec, type: 3}
 --- !u!1 &139520853588282085
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +812,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7861408456070539119}
+  - component: {fileID: 1376420873232114627}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -806,8 +830,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000005960464, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4.790001, z: -0}
-  m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7204422417131597387}
   - {fileID: 4107670296482902527}
@@ -819,6 +843,27 @@ Transform:
   - {fileID: 7386860494760316106}
   m_Father: {fileID: 6110444300067683248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1376420873232114627
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461993928836532932}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 16.5, y: 1, z: 27}
+  m_Center: {x: 0, y: 3.5, z: 8.679819e-14}
 --- !u!1 &881064909987628999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,8 +1318,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000005960464, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1.5500002, z: -0}
-  m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1253510671296350767}
   - {fileID: 5060026656703841665}
@@ -1598,8 +1643,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000005960464, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4.790001, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6110444300067683248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1778,6 +1823,7 @@ GameObject:
   - component: {fileID: 4107670296482902527}
   - component: {fileID: 4868129290952309268}
   - component: {fileID: 131562816620603619}
+  - component: {fileID: 3781304292500048407}
   m_Layer: 0
   m_Name: YellowGoalpostBody
   m_TagString: Untagged
@@ -1850,6 +1896,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3781304292500048407
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462394797765379671}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6694979774515968379, guid: aa6849691f513417789b87886e07a2ec, type: 3}
 --- !u!1 &1471822638806709315
 GameObject:
   m_ObjectHideFlags: 0
@@ -2091,6 +2159,7 @@ GameObject:
   - component: {fileID: 7204422417131597387}
   - component: {fileID: 4822879058671703754}
   - component: {fileID: 5120173274598355947}
+  - component: {fileID: 6141723442737576853}
   m_Layer: 0
   m_Name: YellowBorder
   m_TagString: Untagged
@@ -2163,6 +2232,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6141723442737576853
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611039961848421930}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6295089129469390322, guid: aa6849691f513417789b87886e07a2ec, type: 3}
 --- !u!1 &1719940552174330208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,8 +2588,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000005960464, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4.790001, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6110444300067683248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3989,7 +4080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2570091785
+  GlobalObjectIdHash: 327462724
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -4035,8 +4126,8 @@ MonoBehaviour:
   lifeCount: 3
   spawnPositions:
   - {fileID: 1570256567128899085}
-  - {fileID: 4391411723162726528}
   - {fileID: 5025348007162922225}
+  - {fileID: 4391411723162726528}
   - {fileID: 8930975122718976057}
 --- !u!114 &8354405007245438813
 MonoBehaviour:
@@ -4949,6 +5040,7 @@ GameObject:
   - component: {fileID: 2533018866708695325}
   - component: {fileID: 151641114866880818}
   - component: {fileID: 8933308704529351340}
+  - component: {fileID: 1731985354417761828}
   m_Layer: 0
   m_Name: BlueBorder
   m_TagString: Untagged
@@ -5021,6 +5113,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1731985354417761828
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3532371730033846530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6442511952942986249, guid: aa6849691f513417789b87886e07a2ec, type: 3}
 --- !u!1 &3607869854073779950
 GameObject:
   m_ObjectHideFlags: 0
@@ -5169,7 +5283,7 @@ GameObject:
   - component: {fileID: 3611921523034288270}
   - component: {fileID: 8707913932150435613}
   m_Layer: 0
-  m_Name: Level10VisualsExtra_stands_wall_0
+  m_Name: StandWalls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5185,8 +5299,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000005960464, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4.790001, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6110444300067683248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5617,7 +5731,7 @@ GameObject:
   - component: {fileID: 2979510851077989143}
   - component: {fileID: 6988369568892930264}
   m_Layer: 0
-  m_Name: Level10VisualsExtra_stands_seating3_0
+  m_Name: StandSeats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5633,8 +5747,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000005960464, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4.790001, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6110444300067683248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9889,8 +10003,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000005960464, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4.790001, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6110444300067683248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10620,6 +10734,7 @@ GameObject:
   - component: {fileID: 4976610083216811884}
   - component: {fileID: 5374958627260591606}
   - component: {fileID: 746287504237209127}
+  - component: {fileID: 3292123116113473363}
   m_Layer: 0
   m_Name: BlueGoadlpostBody
   m_TagString: Untagged
@@ -10692,6 +10807,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3292123116113473363
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488026109638503628}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5903469705794238675, guid: aa6849691f513417789b87886e07a2ec, type: 3}
 --- !u!1 &8520114061159203731
 GameObject:
   m_ObjectHideFlags: 0
@@ -11070,6 +11207,7 @@ GameObject:
   - component: {fileID: 4830899946973098074}
   - component: {fileID: 3106338771234627900}
   - component: {fileID: 1623082809639776669}
+  - component: {fileID: 5609170139257397241}
   m_Layer: 0
   m_Name: YellowGoalpostTop
   m_TagString: Untagged
@@ -11142,6 +11280,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5609170139257397241
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9036561250405726071}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1029521181463713351, guid: aa6849691f513417789b87886e07a2ec, type: 3}
 --- !u!1 &9068700766981090735
 GameObject:
   m_ObjectHideFlags: 0
