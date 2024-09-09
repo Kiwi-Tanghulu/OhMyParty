@@ -129,12 +129,15 @@ namespace OMG.Minigames.WhatTheFC
         #region Restart
         private void Restart()
         {
-            goalPosts?.ForEach(i => i.Init(this));
-            
-            ball.ResetRigidbody();
-            ball.transform.position = ballPosition.position;
+            if(IsHost)
+            {
+                goalPosts?.ForEach(i => i.Init(this));
+                
+                ball.ResetRigidbody();
+                ball.transform.position = ballPosition.position;
 
-            onRestartEvent?.Broadcast();
+                onRestartEvent?.Broadcast();
+            }
         }
         
         private void HandleRestart()
