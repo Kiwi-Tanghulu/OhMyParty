@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cinemachine;
 using OMG.Extensions;
@@ -21,7 +22,14 @@ namespace OMG.Minigames.WhatTheFC
         [SerializeField] List<GoalPost> goalPosts = null;
 
         [Space(10f)]
+        [SerializeField] float goalPauseTime = 3f;
+        [SerializeField] float resetPauseTime = 1.5f;
+        [SerializeField] float restartPauseTime = 1.5f;
+
+        [Space(10f)]
         [SerializeField] NetworkEvent<TeamScoreParams> onGoalEvent = new NetworkEvent<TeamScoreParams>("Goal"); 
+        [SerializeField] NetworkEvent onResetEvent = new NetworkEvent("Reset");
+        [SerializeField] NetworkEvent onRestartEvent = new NetworkEvent("Restart");
         
         private SoccerBall ball = null;
         private TeamTimeAttackCycle teamCycle = null;
@@ -32,6 +40,11 @@ namespace OMG.Minigames.WhatTheFC
 
             onGoalEvent.AddListener(HandleGoal);
             onGoalEvent.Register(NetworkObject);
+
+            onResetEvent.Register(NetworkObject);
+
+            onRestartEvent.AddListener(HandleRestart);
+            onRestartEvent.Register(NetworkObject);
 
             teamCycle = cycle as TeamTimeAttackCycle;
             if(IsHost)
@@ -74,10 +87,15 @@ namespace OMG.Minigames.WhatTheFC
         {
             base.OnGameRelease();
 
+            onGoalEvent.Unregister();
+            onResetEvent.Unregister();
+            onRestartEvent.Unregister();
+
             if(IsHost)
                 ball.NetworkObject.Despawn();
         }
 
+        #region Goal
         public void OnGoal(bool teamFlag)
         {
             int score = teamCycle.TeamTable[teamFlag].score + 1;
@@ -87,27 +105,44 @@ namespace OMG.Minigames.WhatTheFC
 
         private void HandleGoal(TeamScoreParams teamScoreParams)
         {
-            Debug.Log("Goal");
             (MinigamePanel.PlayerPanel as ScoreTeamPanel).SetScore(teamScoreParams.TeamFlag, teamScoreParams.Score);
             InputManager.SetInputEnable(false);
             
             if(IsHost)
+            {
                 goalPosts?.ForEach(i => i.Release());
-
-            StartCoroutine(this.DelayCoroutine(1f, () => {
-                InputManager.SetInputEnable(true);
-                if(IsHost)
-                    Restart();
-            }));
+                StartCoroutine(this.DelayCoroutine(goalPauseTime, Reset));
+            }
         }
+        #endregion
 
-        private void Restart()
+        #region Reset
+        private void Reset()
         {
             playerDatas.ForEach(i => RespawnPlayer(i.clientID));
+            StartCoroutine(this.DelayCoroutine(resetPauseTime, Restart));
+
+            onResetEvent?.Broadcast();
+        }
+        #endregion
+
+        #region Restart
+        private void Restart()
+        {
             goalPosts?.ForEach(i => i.Init(this));
             
             ball.ResetRigidbody();
             ball.transform.position = ballPosition.position;
+
+            onRestartEvent?.Broadcast();
         }
+        
+        private void HandleRestart()
+        {
+            StartCoroutine(this.DelayCoroutine(restartPauseTime, () => {
+                InputManager.SetInputEnable(true);
+            }));
+        }
+        #endregion
     }
 }
