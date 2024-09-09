@@ -67,6 +67,11 @@ namespace OMG.Player
             switch(MoveType)
             {
                 case PlayerMoveType.TopDown:
+                    {
+                        Quaternion forward = Quaternion.Euler(0f, Camera.main.transform.eulerAngles.y, 0f);
+
+                        moveDir = forward * moveDir;
+                    }
                     break;
                 case PlayerMoveType.TPS:
                     {
