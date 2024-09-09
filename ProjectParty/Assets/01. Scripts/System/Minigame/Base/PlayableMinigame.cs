@@ -15,7 +15,7 @@ namespace OMG.Minigames
         [SerializeField] int lifeCount = 3;
         public int LifeCount => lifeCount;
 
-        [SerializeField] List<Transform> spawnPositions = null;
+        [SerializeField] protected List<Transform> spawnPositions = null;
         protected virtual bool ShufflePosition => false;
 
         private Dictionary<ulong, PlayerController> playerDictionary = null;
@@ -72,9 +72,14 @@ namespace OMG.Minigames
         }
 
         // it should called by host
-        public void RespawnPlayer(ulong clientID)
+        public void RespawnPlayer(ulong clientID, bool shuffle = true)
         {
-            Transform position = spawnPositions.PickRandom();
+            Transform position = null;
+            if(shuffle)
+                position = spawnPositions.PickRandom();
+            else
+                position = spawnPositions[PlayerDatas.IndexOf(i => i.clientID == clientID)];
+
             playerDictionary[clientID].RespawnFunction.Broadcast(position, false);
         }
 
