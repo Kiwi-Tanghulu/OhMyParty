@@ -13,7 +13,7 @@ namespace OMG.Minigames.WhatTheFC
 {
     public class WhatTheFC : PlayableMinigame
     {
-        [SerializeField] OptOption<CinemachineVirtualCamera> minigameVCamOption = null;
+        [SerializeField] Material skyboxMaterial = null;
         [SerializeField] OptOption<List<Transform>> teamPositions;
 
         [Space(10f)]
@@ -34,6 +34,12 @@ namespace OMG.Minigames.WhatTheFC
         private SoccerBall ball = null;
         private TeamTimeAttackCycle teamCycle = null;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            RenderSettings.skybox = skyboxMaterial;   
+        }
+
         protected override void OnGameInit()
         {
             base.OnGameInit();
@@ -53,9 +59,9 @@ namespace OMG.Minigames.WhatTheFC
 
         protected override void OnGameStart()
         {
-            bool teamFlag = teamCycle.TeamInfo[ClientManager.Instance.ClientID];
-            minigameVCamOption[teamFlag].Priority = DEFINE.FOCUSED_PRIORITY;
-            minigameVCamOption[!teamFlag].Priority = DEFINE.UNFOCUSED_PRIORITY;
+            // bool teamFlag = teamCycle.TeamInfo[ClientManager.Instance.ClientID];
+            // minigameVCamOption[teamFlag].Priority = DEFINE.FOCUSED_PRIORITY;
+            // minigameVCamOption[!teamFlag].Priority = DEFINE.UNFOCUSED_PRIORITY;
 
             if(IsHost)
             {
