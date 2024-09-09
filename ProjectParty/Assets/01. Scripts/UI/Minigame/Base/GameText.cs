@@ -49,8 +49,11 @@ namespace OMG.UI
             seq.AppendCallback(() => text.gameObject.SetActive(false));
 
             text.gameObject.SetActive(false);
+        }
 
-            Play();
+        public void SetText(string content)
+        {
+            text.text = content;
         }
 
         public void Play()
