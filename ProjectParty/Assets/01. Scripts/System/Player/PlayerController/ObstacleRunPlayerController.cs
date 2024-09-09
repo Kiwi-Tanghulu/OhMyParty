@@ -24,7 +24,8 @@ namespace OMG.Player
         }
 
         public void Respawn()
-        {   
+        {
+            GetCharacterComponent<CharacterFSM>().ChangeState(typeof(RecoveryState));
             GetCharacterComponent<PlayerVisual>().Ragdoll.SetActive(false, true);
             GetCharacterComponent<PlayerMovement>().Teleport(respawnPoint.position, respawnPoint.rotation);
         }
