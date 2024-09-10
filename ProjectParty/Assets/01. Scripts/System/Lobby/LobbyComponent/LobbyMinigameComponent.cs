@@ -50,6 +50,7 @@ namespace OMG.Lobbies
             }
 
             playedMinigameList = new List<MinigameSO>();
+            MinigameCycleCount = minigameList.Count;
 
             isStartCycle = new NetworkVariable<bool>(false);
         }
@@ -66,7 +67,7 @@ namespace OMG.Lobbies
 
             playableMinigameList = playMinigameList.ToList();
 
-            SetMinigameCycleCountClientRpc(playMinigameList.Count);
+            SetMinigameCycleCountClientRpc(MinigameCycleCount);
 
             ClearMinigameCycle();
             BroadcastMinigameCycleStartedClientRpc();
