@@ -17,6 +17,9 @@ namespace OMG.Minigames.WhatTheFC
 
         private void OnTriggerEnter(Collider other)
         {
+            if(active == false)
+                return;
+
             if(other.TryGetComponent<SoccerBall>(out SoccerBall ball) == false)
                 return;
 
