@@ -15,6 +15,7 @@ namespace OMG.Minigames.WhatTheFC
     {
         [SerializeField] Material skyboxMaterial = null;
         [SerializeField] OptOption<List<Transform>> teamPositions;
+        [SerializeField] OptOption<ParticleSystem> particleOptions;
 
         [Space(10f)]
         [SerializeField] SoccerBall ballPrefab = null;
@@ -113,6 +114,7 @@ namespace OMG.Minigames.WhatTheFC
         {
             (MinigamePanel.PlayerPanel as ScoreTeamPanel).SetScore(teamScoreParams.TeamFlag, teamScoreParams.Score);
             InputManager.SetInputEnable(false);
+            particleOptions[teamScoreParams.TeamFlag].Play();
             
             if(IsHost)
             {
