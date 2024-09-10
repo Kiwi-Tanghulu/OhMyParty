@@ -36,7 +36,7 @@ namespace OMG.UI
         public void SetPlayer(ulong playerID)
         {
             playerProfile.SetPlayerImage(PlayerManager.Instance.GetPlayerRenderTargetVisual(playerID).RenderTexture);
-            Lobby.Current.PlayerDatas.Find(out PlayerData data, (data) => data.ClientID == playerID);
+            OMG.Lobbies.Lobby.Current.PlayerDatas.Find(out PlayerData data, (data) => data.ClientID == playerID);
             playerProfile.SetNameText(data.Nickname);
         }
 
