@@ -12,7 +12,7 @@ namespace OMG.Minigames.CookingClass
         [SerializeField] float dispenseDelay = 2f;
 
         [Space(15f)]
-        private NetworkEvent<IntParams, int> OnDispenseEvent = new NetworkEvent<IntParams, int>("dispense"); 
+        [SerializeField] NetworkEvent<IntParams, int> OnDispenseEvent = new NetworkEvent<IntParams, int>("dispense"); 
 
         private Minigame minigame = null;
         private Dictionary<ulong, Coroutine> dispenseTable = null;
