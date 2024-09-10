@@ -51,7 +51,7 @@ namespace OMG.UI
                         minigameCompo.AddPlayAbleMinigame(so);
                     else
                     {
-                        if(minigameCompo.PlayableMinigameList.Count > 1)
+                        if(minigameCompo.PlayMinigameList.Count > 1)
                             minigameCompo.RemovePlayAbleMinigame(so);
                     }
                 });

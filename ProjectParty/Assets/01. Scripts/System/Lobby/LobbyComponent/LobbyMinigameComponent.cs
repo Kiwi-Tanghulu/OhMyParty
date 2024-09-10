@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using OMG.Extensions;
 using OMG.Inputs;
 using OMG.Minigames;
@@ -29,6 +30,8 @@ namespace OMG.Lobbies
         public event Action OnMinigameStartedEvent = null;
         private MinigameSO currentMinigame = null;
 
+        private List<MinigameSO> playMinigameList;
+        public List<MinigameSO> PlayMinigameList => playMinigameList;
         private List<MinigameSO> playableMinigameList;
         public List<MinigameSO> PlayableMinigameList => playableMinigameList;
         private List<MinigameSO> playedMinigameList;
@@ -40,7 +43,7 @@ namespace OMG.Lobbies
         {
             base.Init(lobby);
 
-            playableMinigameList = new List<MinigameSO>();
+            playMinigameList = new List<MinigameSO>();
             for (int i = 0; i < minigameList.Count; i++)
             {
                 AddPlayAbleMinigame(minigameList.MinigameList[i]);
@@ -61,7 +64,9 @@ namespace OMG.Lobbies
             isStartCycle.Value = true;
             isStartCycle.SetDirty(true);
 
-            SetMinigameCycleCountClientRpc(MinigameCycleCount);
+            playableMinigameList = playMinigameList.ToList();
+
+            SetMinigameCycleCountClientRpc(playMinigameList.Count);
 
             ClearMinigameCycle();
             BroadcastMinigameCycleStartedClientRpc();
@@ -75,15 +80,15 @@ namespace OMG.Lobbies
 
         public void AddPlayAbleMinigame(MinigameSO minigameSO)
         {
-            if (playableMinigameList.Contains(minigameSO))
+            if (playMinigameList.Contains(minigameSO))
                 return;
 
-            playableMinigameList.Add(minigameSO);
+            playMinigameList.Add(minigameSO);
         }
 
         public void RemovePlayAbleMinigame(MinigameSO minigameSO)
         {
-            playableMinigameList.Remove(minigameSO);
+            playMinigameList.Remove(minigameSO);
         }
 
         public void StartMinigameSelecting()
@@ -118,9 +123,10 @@ namespace OMG.Lobbies
             BroadcastMinigameStartedClientRpc();
 
             playedMinigameList.Add(currentMinigame);
-            if(playableMinigameList.Count == playableMinigameList.Count)
+            playableMinigameList.Remove(currentMinigame);
+            if(playableMinigameList.Count == 0)
             {
-                playedMinigameList.Clear();
+                playableMinigameList = playMinigameList.ToList();
             }
 
             Lobby.ChangeLobbyState(LobbyState.MinigamePlaying);

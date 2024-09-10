@@ -158,7 +158,7 @@ namespace OMG.Lobbies
         private void HandleMinigameSelecting()
         {
             InputManager.ChangeInputMap(InputMapType.UI);
-            Debug.Log("1");
+            
             InputManager.SetInputEnable(false);
 
             CameraManager.Instance.ChangeCamera(tvFocusCam, 2f, null, () =>
@@ -168,6 +168,7 @@ namespace OMG.Lobbies
                     spotTVUI.Init();
                     spotTVUI.SetRoundCountValue(minigameComponent.MinigameCycleCount);
                     spotTVUI.Show();
+                    Debug.Log("show tv ui");
                 }
                 spotTVUI.SetRoundCountText(minigameComponent.CurrentCycleCount + 1);
                 spotTVUI.PlayRoundTextChangeAnim(1f, null, () =>

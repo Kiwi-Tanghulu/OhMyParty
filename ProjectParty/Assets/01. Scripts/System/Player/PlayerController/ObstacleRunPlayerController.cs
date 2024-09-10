@@ -44,7 +44,7 @@ namespace OMG.Player
             if (fsm.CurrentState.GetType() != typeof(StunState))
                 fsm.ChangeState(typeof(RecoveryState));
             visual.Ragdoll.SetActive(false, true);
-            movement.Teleport(respawnPoint.position, respawnPoint.rotation);
+            movement.Teleport(respawnPoint.position + Vector3.up * 3f, respawnPoint.rotation);
         }
 
         public override void OnNetworkDespawn()
