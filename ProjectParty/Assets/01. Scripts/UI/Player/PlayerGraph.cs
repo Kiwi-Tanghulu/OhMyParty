@@ -1,6 +1,7 @@
 using OMG.Extensions;
 using OMG.Lobbies;
 using TMPro;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,8 @@ namespace OMG.UI
             SetPlayer(playerID);
             SetValue(value);
 
-            Color playerColor = PlayerManager.Instance.GetPlayerColor((int)OwenrID);
+            int index = OMG.Lobbies.Lobby.Current.PlayerDatas.IndexOf(i => i.ClientID == playerID);
+            Color playerColor = PlayerManager.Instance.GetPlayerColor(index);
             barRectTrm.GetComponent<Image>().color = playerColor;
             groundImage.color = playerColor;    
         }

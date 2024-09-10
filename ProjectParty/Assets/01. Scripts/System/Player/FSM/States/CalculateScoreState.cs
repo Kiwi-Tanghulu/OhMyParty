@@ -1,3 +1,4 @@
+using OMG.Extensions;
 using OMG.FSM;
 using OMG.Lobbies;
 using OMG.Player.FSM;
@@ -38,7 +39,8 @@ namespace OMG.Player
 
         private void LobbyCutSscene_OnEndFinish()
         {
-            scoreText.SetScore(Lobby.Current.PlayerDatas[(int)player.OwnerClientId].Score);
+            int index = Lobby.Current.PlayerDatas.IndexOf(i => i.ClientID == player.OwnerClientId);
+            scoreText.SetScore(Lobby.Current.PlayerDatas[index].Score);
             scoreText.Show();
         }
 

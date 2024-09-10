@@ -6,4 +6,7 @@ public enum MinigameType
     EatingLand,
     PunchClub,
     OhMySword,
+    ObstacleRun,
+    CookingClass,
+    WhatTheFC,
 }
