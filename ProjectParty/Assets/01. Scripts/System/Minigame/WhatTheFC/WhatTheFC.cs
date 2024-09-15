@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
-using Cinemachine;
 using OMG.Extensions;
 using OMG.Inputs;
 using OMG.NetworkEvents;
-using OMG.Networks;
 using OMG.UI.Minigames;
 using OMG.Utility;
 using UnityEngine;
@@ -86,7 +83,10 @@ namespace OMG.Minigames.WhatTheFC
 
         protected override void OnGameFinish()
         {
+            if(IsHost)
+                goalPosts?.ForEach(i => i.Release());
             InputManager.SetInputEnable(true);
+
             base.OnGameFinish();
         }
 
