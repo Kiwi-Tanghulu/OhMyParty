@@ -96,8 +96,8 @@ namespace OMG.Minigames.RockFestival
 
         private void UpdateScore()
         {
-            // if (minigame.IsPlaying == false)
-            //     return;
+            if (minigame.State != MinigameState.Playing)
+                return;
 
             if (prevPoint != pointBuffer)
             {

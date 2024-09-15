@@ -2,6 +2,7 @@ using System;
 using OMG.NetworkEvents;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 namespace OMG.NetworkStates
 {
@@ -116,5 +117,7 @@ namespace OMG.NetworkStates
 
         private TEnum ToEnum(int value) => (TEnum)Enum.ToObject(typeof(TEnum), value);
         private int ToInt(TEnum value) => Convert.ToInt32(value);
+
+        public static implicit operator TEnum(NetworkState<TEnum> left) => left.State;
     }
 }
