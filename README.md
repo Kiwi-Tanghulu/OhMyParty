@@ -1,5 +1,5 @@
-# OhMyParty
-OH MY PARTY
+# OH MY PARTY
+졸업 작품 프로젝트
 
 ## 팀원 소개
 |팀원|직군|작업 내용|
