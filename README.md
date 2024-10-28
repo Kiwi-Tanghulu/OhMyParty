@@ -1,5 +1,9 @@
 # OH MY PARTY
-![Alt text](./title.png)
+![Alt text](./title.png)   
+* 기간 : 2024.04 ~ 진행 중
+* 인원 : 5인 (프로그래밍 3명, 연출 1명, QA 1명)
+* 개발 툴, 언어 : Unity, C#
+* 플랫폼 : PC
 
 ## 팀원 소개
 |팀원|직군|작업 내용|
